@@ -52,7 +52,7 @@ private:
 	//this could also be a pointer to another object if you like
 	int m_value;
 
-	TreeNode* m_left = nullptr;
+	TreeNode *m_left = nullptr;
 	TreeNode *m_right = nullptr;
 
 
