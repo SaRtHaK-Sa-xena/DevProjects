@@ -190,16 +190,6 @@ void DoubleLinkedList::Erase(Iterator a_iterator)
 //===============DONE===================
 void DoubleLinkedList::Remove(int value)
 {
-	//Node* node = head;
-	//Node* temp = new Node(value);
-	////temp->m_data = value;
-	//while (node->next->m_data != temp->m_data)
-	//{
-	//	node = node->next;
-	//}
-	//node->next = temp->next;
-	//temp->next->prev = node->next;
-	//delete node;
 	Node* node = head;
 	while (node->m_data != value)
 	{
