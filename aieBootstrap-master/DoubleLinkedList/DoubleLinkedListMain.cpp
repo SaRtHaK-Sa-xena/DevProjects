@@ -14,28 +14,47 @@ int main()
 	DoubleLinkedList *doubleList = new DoubleLinkedList();
 
 
-	//Print
+	//=====PUSHFRONT========
 	doubleList->PushFront(23);
 	doubleList->PushFront(24);
 	doubleList->PushFront(25);
 	doubleList->PushFront(26);
+	//=====PUSHFRONT========
 
+	//=====PUSHBACK========
 	doubleList->PushBack(15);
 	doubleList->PushBack(15);
 	doubleList->PushBack(19);
+	//=====PUSHBACK========
 
+	//=====POPFRONT && POPBACK========
 	//doubleList->PopFront();
 	//doubleList->PopBack();
-	std::cout << "Printing Before Array: " << std::endl;
+	//=====POPFRONT && POPBACK========
+
+	//===========PRINT============
+	std::cout << "Printing Before List: " << std::endl;
 	doubleList->Print();
+	//===========PRINT=============
+
+
 	std::cin.get();
-	doubleList->Remove(24);
+	//==========COUNT===================
+	//std::cout << "COUNT : " << doubleList->Count() << std::endl;
+	//==========COUNT===================
+
+
 	//Node* temp = new Node();
 	//doubleList->InsertAfter(temp,2);
-	//doubleList->PushBack(25);
 
-	std::cout << "Printing After Array: " << std::endl;
+	//===========CLEAR=============
+	doubleList->Clear();
+	//===========CLEAR=============
+
+	//===========PRINT=============
+	std::cout << "Printing After List: " << std::endl;
 	doubleList->Print();
+	//===========PRINT=============
 
 }
 

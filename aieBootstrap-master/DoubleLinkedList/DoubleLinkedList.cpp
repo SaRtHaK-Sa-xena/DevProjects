@@ -13,25 +13,7 @@ DoubleLinkedList::~DoubleLinkedList()
 {
 }
 
-//=============DONE===========================
-void DoubleLinkedList::Print()
-{
-	Node *head = this->head;
-	int i = 1;
-	while (head)
-	{
-		std::cout << i << ": " << head->m_data << std::endl;
-		head = head->next;
-		i++;
-	}
-	
 
-	//node->prev = head;
-	//node->next = node;
-	//head->m_data = node->m_data;
-	//std::cout << head->m_data;
-}
-//=============DONE===========================
 
 
 
@@ -58,6 +40,26 @@ void DoubleLinkedList::Print()
 //	head = head->next;
 //	tail = node;
 //}
+
+//=============DONE===========================
+void DoubleLinkedList::Print()
+{
+	Node *head = this->head;
+	int i = 1;
+	while (head)
+	{
+		std::cout << i << ": " << head->m_data << std::endl;
+		head = head->next;
+		i++;
+	}
+	
+
+	//node->prev = head;
+	//node->next = node;
+	//head->m_data = node->m_data;
+	//std::cout << head->m_data;
+}
+//=============DONE===========================
 
 
 //=============DONE===================
@@ -111,6 +113,7 @@ void DoubleLinkedList::PushBack(int a_value)
 //======================DONE===============
 
 
+//=============FIX===================
 void DoubleLinkedList::InsertAfter(Node * prev_node, int a_value)
 {
 	//Node *node = nullptr;
@@ -126,35 +129,62 @@ void DoubleLinkedList::InsertAfter(Node * prev_node, int a_value)
 	Node2->prev = node;
 	node->m_data = a_value;
 }
+//=============FIX===================
 
+//=============WORK-ON==================
 DoubleLinkedList::Iterator DoubleLinkedList::Begin()
 {
 	return Iterator();
 }
+//=============WORK-ON==================
 
+
+//=============WORK-ON==================
 DoubleLinkedList::Iterator DoubleLinkedList::End()
 {
 	return Iterator();
 }
+//=============WORK-ON==================
 
+
+//=============WORK-ON==================
 Node * DoubleLinkedList::First()
 {
 	return nullptr;
 }
+//=============WORK-ON==================
 
+
+//=============WORK-ON==================
 Node * DoubleLinkedList::Last()
 {
 	return nullptr;
 }
+//=============WORK-ON==================
 
+
+//============DONE==============
 int DoubleLinkedList::Count()
 {
-	return 0;
+	int i = 0;
+	Node* node = head;
+	while (node->next != nullptr)
+	{
+		node = node->next;
+		i++;
+	}
+	i++;
+	return i;
 }
+//============DONE==============
 
+
+//=============WORK-ON==================
 void DoubleLinkedList::Erase(Iterator a_iterator)
 {
+
 }
+//=============WORK-ON==================
 
 
 //===============DONE===================
@@ -182,8 +212,6 @@ void DoubleLinkedList::Remove(int value)
 
 }
 //===============DONE===================
-
-
 
 
 //===============DONE===================
@@ -215,8 +243,6 @@ void DoubleLinkedList::PopBack()
 	}
 }
 //===============DONE===================
-
-
 
 
 //===============DONE===================
@@ -255,6 +281,14 @@ bool DoubleLinkedList::Empty()
 //===============DONE===================
 
 
+//===============DONE===================
 void DoubleLinkedList::Clear()
 {
+	head = nullptr;
+	tail = nullptr;
+	delete head;
+	delete tail;
+	std::cout << "List Cleared... " << std::endl;
+	
 }
+//===============DONE===================
