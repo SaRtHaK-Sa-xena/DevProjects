@@ -139,33 +139,31 @@ void BinaryTree::remove(int a_nValue)
 		if (parent == nullptr) 
 		{
 
-			//TRY FIXING THIS
-			if (!current->hasLeft() && !current->hasRight())
+			//======TRIED FIXING THIS============
+			if (!current->hasLeft() && !current->hasRight()) //has no children
 			{
 				m_pRoot = nullptr;
-				delete current;
+				delete current; //closes program since there is no root
 			}
-			else if (current->hasLeft() && current->hasRight())
+			else if (current->hasLeft() && current->hasRight())// has both children
 			{
 				TreeNode* temp = nullptr;
 				temp = current->getRight();
-				if (!temp->hasLeft())
+				if (!temp->hasLeft()) //if the right child doesn't hold a left child
 				{
 					parent = current->getRight();
 					parent->setLeft(current->getLeft());
 					m_pRoot = parent;
 					delete current;
 				}
-				else
+				else // if the right child holds a left child
 				{
 					parent = current->getRight();
-					//parent->setLeft(current->getLeft());
 					TreeNode* temp2 = nullptr;
-					//tempo = parent->getLeft();
 					temp2 = current->getRight();
-					while (temp2->hasLeft())
+					while (temp2->hasLeft())//iterate down right child's left child's left children |-if any-|
 					{
-						temp2 = temp2->getLeft();
+						temp2 = temp2->getLeft(); //iterating down
 					}
 					temp2->setLeft(current->getLeft());
 					m_pRoot = parent;
@@ -206,25 +204,27 @@ void BinaryTree::remove(int a_nValue)
 		//=========END DELETEING ROOT FUNCTION==============
 
 
+		//====================DELETE RIGHT SIDE OF PARENT======================
 		else if (parent->getRight() == current)
 		{
-			if (!current->hasRight() && !current->hasLeft())
+			if (!current->hasRight() && !current->hasLeft()) //has no children
 			{
 				parent->setRight(nullptr);
 				delete current;
 			}
-			else if (current->getLeft() == nullptr && current->getRight() != nullptr)
+			else if (current->getLeft() == nullptr && current->getRight() != nullptr) //has right child but no left
 			{
 				parent->setRight(current->getRight());
 				delete current;
 			}
-			else if (current->getRight() == nullptr && current->getLeft() != nullptr)
+			else if (current->getRight() == nullptr && current->getLeft() != nullptr)// has left child but no right
 			{
 				parent->setRight(current->getLeft());
 				delete current;
 			}
-			else if (current->getLeft() != nullptr && current->getRight() != nullptr)
+			else if (current->getLeft() != nullptr && current->getRight() != nullptr)//has both children
 			{
+				//IF current's right child doesn't hold a left child
 				if (current->getRight()->getLeft() == nullptr)
 				{
 					parent->setRight(current->getRight());
@@ -237,7 +237,7 @@ void BinaryTree::remove(int a_nValue)
 					temp->setLeft(current->getLeft());
 					delete current;
 				}
-				else
+				else //IF current's right child holds a left child
 				{
 					parent->setRight(current->getRight());
 					TreeNode* temp = nullptr;
@@ -252,24 +252,29 @@ void BinaryTree::remove(int a_nValue)
 				
 			}
 		}
+		//===============END  DELETE RIGHT SIDE OF PARENT======================
+
+
+
+		//====================DELETE LEFT SIDE OF PARENT======================
 		else if (parent->getLeft() == current)
 		{
-			if (current->getRight() == nullptr && current->getLeft() == nullptr)
+			if (current->getRight() == nullptr && current->getLeft() == nullptr) // has no children
 			{
 				parent->setLeft(nullptr);
 				delete current;
 			}
-			else if (current->getLeft() == nullptr && current->getRight() != nullptr)
+			else if (current->getLeft() == nullptr && current->getRight() != nullptr)// has right child but no left
 			{
 				parent->setLeft(current->getRight());
 				delete current;
 			}
-			else if (current->getLeft() != nullptr && current->getRight() == nullptr)
+			else if (current->getLeft() != nullptr && current->getRight() == nullptr)// has left child but no right
 			{
 				parent->setLeft(current->getLeft());
 				delete current;
 			}
-			else if (current->getRight() != nullptr && current->getLeft() != nullptr)
+			else if (current->getRight() != nullptr && current->getLeft() != nullptr)// has both children
 			{
 				parent->setLeft(current->getRight());
 				TreeNode* temp = nullptr;
@@ -281,112 +286,8 @@ void BinaryTree::remove(int a_nValue)
 				temp->setLeft(current->getLeft());
 			}
 		}
+		//================END DELETE LEFT SIDE OF PARENT======================
 	}
-
-	// ========DELETE =========================================
-		//if (parent->getRight() == current)
-		//{
-		//	if (current->getRight() == nullptr && current->getLeft() == nullptr)
-		//	{
-		//		parent->setRight(nullptr);
-		//		delete current;
-		//	}
-		//	if (current->hasRight() && current->getLeft() == nullptr)
-		//	{
-		//		//parent->setLeft(current->getLeft());
-
-		//		parent->setRight(current->getRight());
-		//		delete current;
-
-		//	}
-		//	else if(current->hasLeft() && current->getRight() == nullptr)
-		//	{
-		//		 //now right equals 3
-		//		parent->setRight(current->getRight());
-		//		TreeNode *temp = nullptr;
-		//		temp = parent->getRight();
-		//		temp->setLeft(current->getLeft());
-		//		delete current;
-
-		//		//============DELETE============
-		//		//TreeNode *Temp = nullptr;
-		//		//Temp = current->getLeft();
-		//		//if(Temp->getRight() != nullptr) //
-		//		//{
-		//		//	parent->setRight(current->getLeft());
-		//		//	Temp->setRight(current->getRight());
-		//		//	//Temp = Temp->getRight();
-		//		//}
-		//		//parent->setRight(current->getLeft());
-		//		////temp->setRight()
-		//		////current->getRight
-		//		//delete current;
-		//		//============DELETE============
-		//	}
-		//	else if(current->getLeft() != nullptr && current->getRight() != nullptr)
-		//	{
-
-		//		delete current;
-		//	}
-		//}
-		//else // if(parent->getLeft() == current)
-		//{
-		//	if (current->hasLeft() && current->getRight() == nullptr)
-		//	{
-		//		//Temp = current->getLeft();
-		//		
-		//		
-		//		//getLeft()//->getRight();
-
-		//		//THIS ONE========================================================
-		//		//if (current->getRight() != nullptr) //if right side exists
-		//		//{
-		//		//	TreeNode *temp = nullptr;
-		//		//	temp = current->getRight();
-		//		//	
-		//		//	parent->setLeft(current->getLeft());
-		//		//}
-		//		//================================================================
-		//		parent->setLeft(current->getLeft());
-		//		delete current;
-		//		//5 under 3
-		//		//SET
-		//		//Temp = Temp->getLeft(); 
-		//		//DELETE
-		//		
-		//	}
-		//	else if (current->hasRight() && current->getLeft() == nullptr)
-		//	{
-		//		parent->setLeft(current->getRight());
-		//		delete current;
-
-
-		//		//Try to Fix =======================================================
-		//		/*parent->setLeft(current->getRight());*/
-		//		//TreeNode *Temp = nullptr;
-		//		//Temp = current->getLeft();
-		//		//while (Temp->getRight() != nullptr)
-		//		//{
-		//		//	Temp = Temp->getRight(); //iterate until the right side is empty
-		//		//	//if ---> temp->getLeft != nullptr, set to 
-		//		//}
-		//		//Temp->setRight(current->getRight()); //now add to the right of that empty side
-		//		//delete current;
-		//		//CONTINUE THIS ========================================================
-
-		//	}
-		//	else if (current->hasLeft() && current->hasRight())
-		//	{
-
-		//	}
-		//	else
-		//	{
-		//		delete current;
-		//	}
-		//	
-		//}
-		// ========DELETE =========================================
-
 }
 
 
@@ -402,7 +303,7 @@ TreeNode * BinaryTree::find(int a_nValue)
 }
 //======DONE=========================================
 
-
+//======DONE=========================================
 void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode * selected)
 {
 	//if (selected == nullptr)
@@ -411,7 +312,7 @@ void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode * selected)
 	//}
 	draw(renderer, m_pRoot, 640, 680, 640, selected);
 }
-
+//======DONE=========================================
 
 //======DONE=========================================
 bool BinaryTree::findNode(int a_nSearchValue, TreeNode ** ppOutNode, TreeNode ** ppOutParent)
