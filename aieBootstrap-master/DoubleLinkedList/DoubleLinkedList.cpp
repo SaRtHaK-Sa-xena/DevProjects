@@ -85,7 +85,7 @@ void DoubleLinkedList::PushFront(int a_value)
 
 
 
-//======================SEEMS DONE===============
+//======================DONE===============
 void DoubleLinkedList::PushBack(int a_value)
 {
 	Node *node = new Node();
@@ -108,12 +108,13 @@ void DoubleLinkedList::PushBack(int a_value)
 		
 	}
 }
-//======================SEEMS DONE===============
+//======================DONE===============
 
 
 void DoubleLinkedList::InsertAfter(Node * prev_node, int a_value)
 {
-	Node *node = nullptr;
+	//Node *node = nullptr;
+	Node *node = new Node();
 	//node = prev_node;
 	/*node->next = prev_node;
 	prev_node->prev = node;*/
@@ -155,10 +156,37 @@ void DoubleLinkedList::Erase(Iterator a_iterator)
 {
 }
 
+
+//===============DONE===================
 void DoubleLinkedList::Remove(int value)
 {
-}
+	//Node* node = head;
+	//Node* temp = new Node(value);
+	////temp->m_data = value;
+	//while (node->next->m_data != temp->m_data)
+	//{
+	//	node = node->next;
+	//}
+	//node->next = temp->next;
+	//temp->next->prev = node->next;
+	//delete node;
+	Node* node = head;
+	while (node->m_data != value)
+	{
+		node = node->next;
+	}
+	Node* temp = nullptr;
+	temp = node->prev;
+	temp->next = node->next;
+	delete node;
 
+}
+//===============DONE===================
+
+
+
+
+//===============DONE===================
 void DoubleLinkedList::PopBack()
 {
 	if (head == nullptr)
@@ -186,7 +214,12 @@ void DoubleLinkedList::PopBack()
 
 	}
 }
+//===============DONE===================
 
+
+
+
+//===============DONE===================
 void DoubleLinkedList::PopFront()
 {
 	if (head == nullptr)
@@ -203,11 +236,24 @@ void DoubleLinkedList::PopFront()
 
 	}
 }
+//===============DONE===================
 
+
+//===============DONE===================
 bool DoubleLinkedList::Empty()
 {
-	return false;
+	if (head == nullptr)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	
 }
+//===============DONE===================
+
 
 void DoubleLinkedList::Clear()
 {
