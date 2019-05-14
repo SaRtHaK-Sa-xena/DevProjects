@@ -1,7 +1,11 @@
 #include "Simon___AssignmentApp.h"
+#include "Bar.h"
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
+
+
+aie::Font *g_systemFont = nullptr;
 
 Simon___AssignmentApp::Simon___AssignmentApp() {
 
@@ -14,10 +18,13 @@ Simon___AssignmentApp::~Simon___AssignmentApp() {
 bool Simon___AssignmentApp::startup() {
 	
 	m_2dRenderer = new aie::Renderer2D();
-
+	m_binaryTree = new Array();
+	/*Bar* m_bar;*/
+	m_bar = new Bar(600, 600, 200, 210);
+	m_bar2 = new Bar(600, 200, 200, 210);
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
-	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
+	g_systemFont = new aie::Font("../bin/font/consolas.ttf", 32);
 
 	return true;
 }
@@ -26,6 +33,7 @@ void Simon___AssignmentApp::shutdown() {
 
 	delete m_font;
 	delete m_2dRenderer;
+	delete m_bar, m_bar2;
 }
 
 void Simon___AssignmentApp::update(float deltaTime) {
@@ -36,9 +44,9 @@ void Simon___AssignmentApp::update(float deltaTime) {
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
-	else if(input->isKeyDown(aie::INPUT_KEY_R))
+	else if(input->isKeyDown(aie::INPUT_KEY_W))
 	{
-		//add R t
+		m_bar2->Draw(m_2dRenderer);
 	}
 }
 
@@ -51,9 +59,12 @@ void Simon___AssignmentApp::draw() {
 	m_2dRenderer->begin();
 
 	// draw your stuff here!
-	
+	m_bar->Draw(m_2dRenderer);
+	//m_binaryTree->draw(m_2dRenderer, m_selectedNode);
+
+
 	// output some text, uses the last used colour
-	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
+	//m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0);
 
 	// done drawing sprites
 	m_2dRenderer->end();
