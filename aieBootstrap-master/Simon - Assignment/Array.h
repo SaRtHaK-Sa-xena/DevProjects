@@ -30,5 +30,5 @@ public:
 
 	void draw(aie::Renderer2D *renderer, Node *pNode, int x, int y, int horizontalSpacing, Node *selected = nullptr);
 
-
+	//Bar *root;
 };

@@ -8,6 +8,7 @@ public:
 	~Bar();
 
 	void Draw(aie::Renderer2D * renderer);
+	void SetValue(float value);
 
 //The bar's position, width, and height
 float m_posX;
@@ -18,9 +19,7 @@ float m_height;
 float m_currentValue;
 float m_maxValue;
 
-float ratio = m_currentValue / m_maxValue;
-float full = m_width * ratio;
-float offsetX = m_posX - (m_width - full) * 0.5f;
+
 };
 
 

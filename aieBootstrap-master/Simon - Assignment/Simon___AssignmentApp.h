@@ -31,4 +31,6 @@ protected:
 	Node		    *m_selectedNode = nullptr;
 	Bar *m_bar;
 	Bar *m_bar2;
+
+	bool Todraw = false;
 };
