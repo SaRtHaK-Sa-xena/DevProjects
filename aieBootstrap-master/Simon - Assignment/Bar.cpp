@@ -27,7 +27,7 @@ void Bar::Draw(aie::Renderer2D* renderer)
 	renderer->drawBox(m_posX, m_posY, m_width, m_height);
 
 
-	renderer->setRenderColour(1, 1, 1, 1);
+	renderer->setRenderColour(3, 1, 3, 4);
 	renderer->drawBox(offsetX, m_posY, full, m_height);
 	renderer->setRenderColour(1, 2, 1, 1);
 }
@@ -37,4 +37,4 @@ void Bar::SetValue(float value)
 }
 	//renderer->setRenderColour(0, 1, 0, 1);
 	//renderer->drawBox(offsetX, m_posY, full, m_height);
-	//renderer->setRenderColour(1, 1, 1, 1);
+	//renderer->setRenderColour(1, 1, 1, 1);

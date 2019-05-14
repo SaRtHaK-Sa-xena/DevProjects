@@ -2,7 +2,6 @@
 
 #include "Application.h"
 #include "Renderer2D.h"
-#include "Square.h"
 
 class SIMON___GAMEApp : public aie::Application {
 public:
@@ -20,7 +19,4 @@ protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
-
-	Square*				m_square_Red;
-	bool ToDraw = false;
 };
