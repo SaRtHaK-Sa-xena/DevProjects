@@ -6,7 +6,7 @@ DoubleLinkedList::DoubleLinkedList()
 {
 	head = nullptr;
 	tail = nullptr;
-	m_size = 5;
+	m_size = 0;
 }
 
 DoubleLinkedList::~DoubleLinkedList()
@@ -113,7 +113,7 @@ void DoubleLinkedList::PushBack(int a_value)
 //======================DONE===============
 
 
-//=============FIX===================
+//=============DONE===================
 void DoubleLinkedList::InsertAfter(Node * prev_node, int a_value)
 {
 	//Node *node = nullptr;
@@ -129,38 +129,38 @@ void DoubleLinkedList::InsertAfter(Node * prev_node, int a_value)
 	Node2->prev = node;
 	node->m_data = a_value;
 }
-//=============FIX===================
+//=============DONE===================
 
-//=============WORK-ON==================
+//=============DONE==================
 DoubleLinkedList::Iterator DoubleLinkedList::Begin()
 {
-	return Iterator();
+	return head;
 }
-//=============WORK-ON==================
+//=============DONE==================
 
 
-//=============WORK-ON==================
+//=============DONE==================
 DoubleLinkedList::Iterator DoubleLinkedList::End()
 {
-	return Iterator();
+	return tail;
 }
-//=============WORK-ON==================
+//=============DONE==================
 
 
-//=============WORK-ON==================
+//============DONE==============
 Node * DoubleLinkedList::First()
 {
-	return nullptr;
+	return head;
 }
-//=============WORK-ON==================
+//============DONE==============
 
 
-//=============WORK-ON==================
+//============DONE==============
 Node * DoubleLinkedList::Last()
 {
-	return nullptr;
+	return tail;
 }
-//=============WORK-ON==================
+//============DONE==============
 
 
 //============DONE==============
@@ -179,12 +179,25 @@ int DoubleLinkedList::Count()
 //============DONE==============
 
 
-//=============WORK-ON==================
+//=============WDONE==================
 void DoubleLinkedList::Erase(Iterator a_iterator)
 {
-
+	int position;
+	int NumberToBeInserted;
+	std::cout << "What Position to Delete: " << std::endl;
+	std::cin >> position;
+	for (int i = 0; i < position - 1; i++)
+	{
+		a_iterator++;
+	}
+	Node *node = nullptr;
+	node = a_iterator.GetNode();
+	Node *newNode = nullptr;
+	newNode = node->prev;
+	newNode->next = node->next;
+	delete node;
 }
-//=============WORK-ON==================
+//=============DONE==================
 
 
 //===============DONE===================

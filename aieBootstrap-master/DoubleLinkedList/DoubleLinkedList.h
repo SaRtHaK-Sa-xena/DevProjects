@@ -85,7 +85,6 @@ public:
 
 	//Functions
 	void Print();
-	void Fill(int a_data);
 
 	void PushFront(int a_value); // Add a new value to the front of the list--DONE
 	void PushBack(int a_value); // Add a new value tot the end of the list--DONE
