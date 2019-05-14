@@ -1,8 +1,6 @@
-#include "Bar.h"
+#include "Square.h"
 
-
-
-Bar::Bar(float posX, float posY, float width, float height)
+Square::Square(float posX, float posY, float width, float height)
 {
 	m_posX = posX;
 	m_posY = posY;
@@ -11,12 +9,12 @@ Bar::Bar(float posX, float posY, float width, float height)
 	m_currentValue = 100;
 	m_maxValue = 100;
 }
-Bar::~Bar()
+
+Square::~Square()
 {
 }
 
-
-void Bar::Draw(aie::Renderer2D* renderer)
+void Square::Draw(aie::Renderer2D* renderer)
 {
 	float ratio = m_currentValue / m_maxValue;
 	float full = m_width * ratio;
@@ -31,10 +29,8 @@ void Bar::Draw(aie::Renderer2D* renderer)
 	renderer->drawBox(offsetX, m_posY, full, m_height);
 	renderer->setRenderColour(1, 2, 1, 1);
 }
-void Bar::SetValue(float value)
+
+void Square::SetValue(float value)
 {
 	m_currentValue = value;
 }
-	//renderer->setRenderColour(0, 1, 0, 1);
-	//renderer->drawBox(offsetX, m_posY, full, m_height);
-	//renderer->setRenderColour(1, 1, 1, 1);
