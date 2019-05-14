@@ -116,11 +116,7 @@ void DoubleLinkedList::PushBack(int a_value)
 //=============DONE===================
 void DoubleLinkedList::InsertAfter(Node * prev_node, int a_value)
 {
-	//Node *node = nullptr;
 	Node *node = new Node();
-	//node = prev_node;
-	/*node->next = prev_node;
-	prev_node->prev = node;*/
 	Node *Node2 = prev_node->next;
 
 	prev_node->next = node;
@@ -287,11 +283,18 @@ bool DoubleLinkedList::Empty()
 //===============DONE===================
 void DoubleLinkedList::Clear()
 {
-	head = nullptr;
-	tail = nullptr;
-	delete head;
-	delete tail;
-	std::cout << "List Cleared... " << std::endl;
+	if (!Empty())
+	{
+		head = nullptr;
+		tail = nullptr;
+		delete head;
+		delete tail;
+		std::cout << "List Cleared... " << std::endl;
+	}
+	else
+	{
+		std::cout << "List AlreadY Empty" << std::endl;
+	}
 	
 }
 //===============DONE===================
