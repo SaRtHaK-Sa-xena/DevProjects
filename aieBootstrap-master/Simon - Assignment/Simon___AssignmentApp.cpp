@@ -64,7 +64,11 @@ void Simon___AssignmentApp::draw() {
 
 	// draw your stuff here!
 	m_bar->Draw(m_2dRenderer);
-	m_bar2->Draw(m_2dRenderer);
+	if (Todraw == true)
+	{
+		m_bar2->Draw(m_2dRenderer);
+	}
+	
 
 	
 	//m_binaryTree->draw(m_2dRenderer, m_selectedNode);
