@@ -20,10 +20,14 @@ bool Simon___AssignmentApp::startup() {
 	m_2dRenderer = new aie::Renderer2D();
 	m_binaryTree = new Array();
 	/*Bar* m_bar;*/
-	m_bar = new Bar(600, 600, 200, 210);
+
+	m_bar = new Bar(600, 150, 200, 210); //bottom Square
+	m_bar2 = new Bar(600, 600, 200, 210); //top square
+	m_bar3 = new Bar(350, 350, 200, 210); //left square 
+	m_bar4 = new Bar(850, 350, 200, 210); //right square
 	
-	m_bar2 = new Bar(600, 200, 200, 210);
-	m_bar2->SetValue(75);
+	//m_bar2 = new Bar(600, 200, 200, 210);
+	m_bar2->SetValue(-1);
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	g_systemFont = new aie::Font("../bin/font/consolas.ttf", 32);
@@ -35,15 +39,14 @@ void Simon___AssignmentApp::shutdown() {
 
 	delete m_font;
 	delete m_2dRenderer;
-	delete m_bar, m_bar2;
+	delete m_bar;
+	delete m_bar2;
 }
 
 void Simon___AssignmentApp::update(float deltaTime) {
 
 	// input example
 	aie::Input* input = aie::Input::getInstance();
-
-	bool draw = false;
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
@@ -64,9 +67,13 @@ void Simon___AssignmentApp::draw() {
 
 	// draw your stuff here!
 	m_bar->Draw(m_2dRenderer);
+	m_bar2->Draw(m_2dRenderer);
+	m_bar3->Draw(m_2dRenderer);
+	m_bar4->Draw(m_2dRenderer);
 	if (Todraw == true)
 	{
-		m_bar2->Draw(m_2dRenderer);
+		/*m_bar = new Bar(600, 200, 200, 210);
+		m_bar->Draw(m_2dRenderer);*/
 	}
 	
 

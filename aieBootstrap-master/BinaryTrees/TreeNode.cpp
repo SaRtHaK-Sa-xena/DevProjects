@@ -10,13 +10,11 @@ TreeNode::TreeNode(int value)
 
 	m_left = nullptr;
 	m_right = nullptr;
-	//TreeNode *current = new TreeNode(value);
 
 }
 
 TreeNode::~TreeNode()
 {
-	//delete m_left;
 }
 
 void TreeNode::draw(aie::Renderer2D *renderer, int x, int y, bool selected)

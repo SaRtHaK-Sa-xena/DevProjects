@@ -9,6 +9,7 @@
 
 using namespace std;
 
+//Addition of a Char Array
 namespace HasFunction
 {
 	//implementation of a basic addition hash
@@ -24,9 +25,11 @@ namespace HasFunction
 	}
 }
 
+
+//Subtraction of a char array
 namespace HasFunction
 {
-	//implementation of a basic addition hash
+	//implementation of a basic subtraction hash
 	unsigned int secondHash(const char* data, unsigned int length)
 	{
 		unsigned int hash = 0;
@@ -40,52 +43,70 @@ namespace HasFunction
 	}
 }
 
+
+//Adding Two Char Arrays
 namespace HasFunction
 {
-	//implementation of a basic addition hash
-	unsigned int thirdHash(const char* data, unsigned int length)
+	//implementation of Adding two character array
+	unsigned int thirdHash(const char* data, const char* data2, unsigned int length)
 	{
 		unsigned int hash = 0;
+		unsigned int hash2 = 0;
 
+		unsigned int result;
 		for (unsigned int i = 0; i < length; ++i)
 		{
-			hash *= data[i];
+			hash = hash + data[i];
+			hash2 = hash2 + data2[i];
+			result = hash + hash2;
 		}
-		return hash;
+		return result;
 	}
 }
 
+
+//Multiplying Two Char Array
 namespace HasFunction
 {
-	//implementation of a basic addition hash
-	unsigned int fourthHash(const char* data, unsigned int length)
+	//implementation of a multiplication hash
+	unsigned int fourthHash(const char* data, const char* data2, unsigned int length)
 	{
 		unsigned int hash = 0;
+		unsigned int hash2 = 0;
+		int result;
 
 		for (unsigned int i = 0; i < length; ++i)
 		{
-			hash /= data[i];
+			hash = hash + data[i];
+			hash2 = hash2 + data2[i];
+			result = hash * hash2;
 		}
-		return hash;
+		return result;
 	}
 }
 
 int main()
 {
 	bool cont = true;
-	char choice = '0';
-	char t[25] = "TED";
+	//char choice = '0';
+	char t[4] = "TED";
+	char sample[4] = "JIM";
 	
-	//Works==============================
-	int a = HasFunction::badHash(t, 25);
+	//=============Adding Together A char Array=======
+	int a = HasFunction::badHash(t, 4);
 	cout << a << endl;
-	int s = HasFunction::secondHash(t, 25);
-	cout << s << endl;
-	//Works==============================
 
-	int m = HasFunction::thirdHash(t, 25);
+	//=============Subtracting Together A char Array=======
+	int s = HasFunction::secondHash(t, 4);
+	cout << s << endl;
+	
+	
+	//Adding Two char Arrays
+	int m = HasFunction::thirdHash(t, sample, 4);
 	cout << m << endl;
-	int d = HasFunction::fourthHash(t, 25);
+
+	//Multiplying Two Char Arrays
+	int d = HasFunction::fourthHash(t, sample, 25);
 	cout << d << endl;
 	
 

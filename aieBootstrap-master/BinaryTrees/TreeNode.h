@@ -23,7 +23,8 @@ public:
 	{
 		return m_value;
 	}
-
+	
+	//Gets With Node
 	TreeNode *getLeft()
 	{
 		return m_left;
@@ -33,6 +34,7 @@ public:
 		return m_right;
 	}
 
+	//Sets
 	void setData(int value)
 	{
 		m_value = value;
@@ -49,7 +51,6 @@ public:
 	void draw(aie::Renderer2D* renderer, int x, int y, bool selected = false);
 
 private:
-	//this could also be a pointer to another object if you like
 	int m_value;
 
 	TreeNode *m_left = nullptr;
