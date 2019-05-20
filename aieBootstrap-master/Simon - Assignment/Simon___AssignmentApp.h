@@ -22,6 +22,9 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
+	virtual void MoveDoneForRed(float deltaTime);
+	virtual void GamePhase(float deltaTime);
+
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;
@@ -29,10 +32,16 @@ protected:
 
 	Array	        *m_binaryTree;
 	Node		    *m_selectedNode = nullptr;
-	Bar *m_bar;
-	Bar *m_bar2;
-	Bar *m_bar3;
-	Bar *m_bar4;
+	Bar *RED;
+	Bar *BLUE;
+	Bar *GREEN;
+	Bar *YELLOW;
 
+	Bar *Colour;
+
+	Bar *colours[4] = { RED, BLUE, GREEN, YELLOW };
+	float timer = 5;
+
+	bool TimeEnd = false;
 	bool Todraw = false;
 };
