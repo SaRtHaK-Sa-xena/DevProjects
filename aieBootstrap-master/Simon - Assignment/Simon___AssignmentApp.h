@@ -22,17 +22,46 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
+	virtual bool CheckWon();
+	virtual void DisplayColours_sequence(string randomColour)
+	{
+		//Sequence Start Void Function
+		SimonTree->insert(randomColour);//Insert Node, which Holds a random String betweeen Red,Blue,Green and Yellow
+		if (randomColour == "RED")
+		{
+			Red->SetValue(-1);
+		}
+		else if (randomColour == "BLUE")
+		{
+			Blue->SetValue(-1);
+		}
+		else if (randomColour == "GREEN")
+		{
+			Green->SetValue(-1);
+		}
+		else if (randomColour == "YELLOW")
+		{
+			Yellow->SetValue(-1);
+		}						//Sequence Start Void Function
+	}
+
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
 
-	Array	        *m_binaryTree;
-	Node		    *m_selectedNode = nullptr;
-	Bar *m_bar;
-	Bar *m_bar2;
-	Bar *m_bar3;
-	Bar *m_bar4;
+	Array	        *SimonTree;
+	//Node		    *m_selectedNode = nullptr;
+	Bar *Red;
+	Bar *Blue;
+	Bar *Green;
+	Bar *Yellow;
+
+	Bar *selectedColour = nullptr;
+
+
+
+	float timer = 5;
 
 	bool Todraw = false;
 };

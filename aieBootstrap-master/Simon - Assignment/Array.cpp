@@ -29,20 +29,37 @@ bool Array::isEmpty() const
 
 void Array::insert(string a_nValue)
 {
+	/*int x;
+	int y;
+	int z;
+	if (a_nValue == "RED")
+	{
+		x = 600;
+		y = 150;
+		z = 200;
+	}
+	else if (a_nValue == "BLUE");
+	{
+		x = 600;
+		y = 150;
+		z = 200;
+	}*/
 	if (m_pRoot == nullptr)
 	{
-		m_pRoot = new Node(a_nValue);
+		m_pRoot = new Bar(0,0,0,210,a_nValue);
 	}
 	else
 	{
-		Node *current = nullptr;
+		Bar *current = nullptr;
 		current = m_pRoot;
 
+		//iterate towards the right until the right == null, then insert node there
 		while (current != nullptr)
 		{
 			if (current->getRight() == nullptr)
 			{
-				current->SetRight(new Node(a_nValue));
+				current->setRight(new Bar(0,0,0,0,a_nValue)); //has position 0, and string colour of something
+				//current->SetValue(-1);
 				break;
 			}
 			current = current->getRight();
@@ -50,27 +67,30 @@ void Array::insert(string a_nValue)
 	}
 }
 
-void Array::draw(aie::Renderer2D * renderer, Node * selected)
-{
-	draw(renderer, m_pRoot, 640, 680, 640, selected);
-}
+//void Array::draw(aie::Renderer2D * renderer, Bar * selected)
+//{
+//	draw(renderer, m_pRoot, 640, 680, 640, selected);
+//}
 
-void Array::draw(aie::Renderer2D * renderer, Node *pNode, int x, int y, int horizontalSpacing, Node * selected)
-{
-	horizontalSpacing /= 2;
 
-	if (pNode)
-	{
-		if (pNode->hasRight())
-		{
-			renderer->setRenderColour(1, 0, 0);
-			renderer->drawLine(x, y, x + horizontalSpacing, y - 80);
-			draw(renderer, pNode->getRight(), x + horizontalSpacing,
-				y - 80, horizontalSpacing, selected);
-		}
-		pNode->draw(renderer, x, y, (selected == pNode));
-	}
-}
+//==================Don't think Drawing is Need=============================
+//void Array::draw(aie::Renderer2D * renderer, Bar *pNode, int x, int y, int horizontalSpacing, Bar * selected)
+//{
+	//horizontalSpacing /= 2;
+	//if (pNode)
+	//{
+		//if (pNode->hasRight())
+		//{
+			//renderer->setRenderColour(1, 0, 0);
+			//renderer->drawLine(x, y, x + horizontalSpacing, y - 80);
+			//draw(renderer, pNode->getRight(), x + horizontalSpacing,
+				//y - 80, horizontalSpacing, selected);
+		//}
+		//pNode->Draw(renderer, x, y, (selected == pNode));
+	//}
+//}
+//==================Don't think Drawing is Need=============================
+
 
 //void Array::Insert(string Value)
 //{

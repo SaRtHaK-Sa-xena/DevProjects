@@ -1,27 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerWorkingDirectory>$(SolutionDir)bin\</LocalDebuggerWorkingDirectory>
-    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-  </PropertyGroup>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-=======
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
->>>>>>> 146727a667690eaa3bc6e240818c278ac0b33326
     <LocalDebuggerWorkingDirectory>$(SolutionDir)bin\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
-=======
->>>>>>> parent of 93fa961... End Of Day
-=======
->>>>>>> parent of 93fa961... End Of Day
-=======
->>>>>>> parent of 93fa961... End Of Day
-=======
->>>>>>> parent of 93fa961... End Of Day
 </Project>
