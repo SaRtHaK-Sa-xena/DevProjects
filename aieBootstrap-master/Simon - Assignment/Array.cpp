@@ -27,6 +27,49 @@ bool Array::isEmpty() const
 	}
 }
 
+Bar * Array::CheckifWon(string value, Array *firstList, Array *secondList)
+{
+	Bar *current = nullptr; //to Find
+	
+	if (firstList->m_pRoot->getData() == secondList->m_pRoot->getData())
+	{
+		return true;
+		current = firstList->m_pRoot;
+		current = current->getRight();
+		current->getData();
+		//continue
+
+	}
+
+
+	current = m_pRoot;
+	if (current->getData() == value)
+	{
+		return current;
+	}
+	else
+	{
+		while (current->getRight() != nullptr)
+		{
+			current = current->getRight();
+			if (current->getData() == value)
+			{
+				return current;
+			}
+		}
+	}
+}
+
+Bar*Array::ReturnValue(string value)
+{
+	Bar*current = nullptr;
+	current = m_pRoot;
+
+	for()
+}
+
+
+
 void Array::insert(string a_nValue)
 {
 	/*int x;

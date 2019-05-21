@@ -19,6 +19,7 @@ bool Simon___AssignmentApp::startup() {
 	
 	m_2dRenderer = new aie::Renderer2D();
 	SimonTree = new Array();
+	InputTree = new Array();
 	/*Bar* m_bar;*/
 	string red = "red";
 	string blue = "blue";
@@ -85,66 +86,121 @@ void Simon___AssignmentApp::update(float deltaTime) {
 	//=======================START SEQUENCE=========================
 	if (m_gameOver == false)
 	{
-		if (startGame == true)
+		//It will distribute Sequence
+		while(startGame == true)
 		{
+			timer = Total_timer;
 			timer = timer - deltaTime;
 
+			while (timer > 0)
+			{
+				//===========Seems to be working==============
+				DisplayColours_sequence(randomColour);//sequence Function
+				//=============Blinks Good!===============
+			}
+			startGame = false;
+		}
+		//end distribution
 
+		float gameTimer = Game_total_timer;
+		gameTimer = gameTimer - deltaTime;
+		while (gameTimer > 0)
+		{
+			Total_moves = moves;
 			while (moves != 0)
 			{
+				//=========================INPUT PHASE==========================
+				if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
+					quit();
+				else if (input->isKeyDown(aie::INPUT_KEY_W))
+				{
+					Blue->SetValue(-1);
+					moves--;
+					InputTree->insert(blue);
+				}
+				else if (input->isKeyDown(aie::INPUT_KEY_S))
+				{
+					Red->SetValue(-1);
+					moves--;
+					InputTree->insert(red);
 
+				}
+				else if (input->isKeyDown(aie::INPUT_KEY_A))
+				{
+					Green->SetValue(-1);
+					moves--;
+					InputTree->insert(green);
+
+				}
+				else if (input->isKeyDown(aie::INPUT_KEY_D))
+				{
+					Yellow->SetValue(-1);
+					moves--;
+					InputTree->insert(yellow);
+
+				}
+				//=========================INPUT PHASE==========================
+				//
+				//Each input places, inserts in a different Tree of that specified colour
+				//after each move moves--;
 			}
+			break;
+		
 		}
-		//===========Seems to be working==============
-		DisplayColours_sequence(randomColour);
-		//=============Blinks Good!===============
+		if (CheckWon() == true)
+		{
+			Total_timer++;
+			Total_moves++;
+			//Call Start Game Again, increment moves, and time
+		}
+		else
+		{
+			m_gameOver == true;
+		}
+			
+
+			//set start game to equal false;
+			
+			//start game_decision timer
+			//GameTotalTimer = 5;
+			//gameTimre = GameTotalTimer;
+			//gameTimer = gameTimer - deltaTime;
+			//while(gameTimer > 0)
+			//Call Movement Function
+			//if(gameTimer < 0)
+			//CheckIfWon() <-- If false
+			//return to mainMenu <---For now cout << you Lost < endl;
+			//if CheckIfWon == true
+			//Total_timer++;
+
+
+		
 
 
 
 
 		//Total_Timer = 5; == to number colours to display 1-4
 		//timer = Total_Timer; 
-		//countdown from 5 and display Colours;
+		//while counting down from 5 -> display Colours;
 		//Total_Timer++;
 		
 		//Input Phase Function
-		Total_moves = moves;
-		while (moves != 0)
-		{
-			//=========================INPUT PHASE==========================
-			if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
-				quit();
-			else if (input->isKeyDown(aie::INPUT_KEY_W))
-			{
-				Blue->SetValue(-1);
-			}
-			else if (input->isKeyDown(aie::INPUT_KEY_S))
-			{
-				Red->SetValue(-1);
-			}
-			else if (input->isKeyDown(aie::INPUT_KEY_A))
-			{
-				Green->SetValue(-1);
-			}
-			else if (input->isKeyDown(aie::INPUT_KEY_D))
-			{
-				Yellow->SetValue(-1);
-			}
-			//=========================INPUT PHASE==========================
-			//
-			//Each input places, inserts in a different Tree of that specified colour
-			//after each move moves--;
-		}
+
 		
 
 
 		//complete CheckWon Function
-		if (CheckWon() == true) //CheckWon compares Values with SimonTree->insert() and tree->insert() and returns true if entire list matches and false if not
-		{
-			Total_moves++;//since player advanced, moves will increment
+		//if (CheckWon() == true) //CheckWon compares Values with SimonTree->insert() and tree->insert() and returns true if entire list matches and false if not
+		//{
+			//Total_moves++;//since player advanced, moves will increment
 			//Start Void Function -- Calls Start Again, to Keep Incrementing
-		}
+		//}
 	}
+	else
+	{
+		cout << "You Lost" << endl;
+	}
+
 	//=======================START SEQUENCE=========================
 
 
@@ -187,8 +243,12 @@ void Simon___AssignmentApp::draw() {
 	m_2dRenderer->end();
 }
 
-bool Simon___AssignmentApp::CheckWon()
+bool Simon___AssignmentApp::CheckWon(Array *firstList, Array *secondList)
 {
+	Bar *current = nullptr;
+	Bar *parent = nullptr;
+
+	current = R
 	//if Won
 	return true;
 

@@ -22,7 +22,9 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
-	virtual bool CheckWon();
+	virtual bool CheckWon(Array *firstList, Array *secondList);
+
+
 	virtual void DisplayColours_sequence(string randomColour)
 	{
 		//Sequence Start Void Function
@@ -51,7 +53,10 @@ protected:
 	aie::Font*			m_font;
 
 	Array	        *SimonTree;
+	Array	        *InputTree;
+
 	//Node		    *m_selectedNode = nullptr;
+
 	Bar *Red;
 	Bar *Blue;
 	Bar *Green;
@@ -61,7 +66,9 @@ protected:
 
 
 
-	float timer = 5;
+	float Total_timer = 5;
+	float timer;
+	float Game_total_timer = 10;
 
 	bool Todraw = false;
 };

@@ -28,6 +28,9 @@ public:
 	bool isEmpty() const;
 	void insert(string value);
 
+	//void InputInsert(string value);
+	Bar *  CheckifWon(string value);
+
 	//void draw(aie::Renderer2D *renderer, Bar *pNode, int x, int y, int horizontalSpacing, Node *selected = nullptr);
 
 	//Bar *root;
