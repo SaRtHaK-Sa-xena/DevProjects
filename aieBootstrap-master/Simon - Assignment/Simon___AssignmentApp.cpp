@@ -248,7 +248,9 @@ bool Simon___AssignmentApp::CheckWon(Array *firstList, Array *secondList)
 	Bar *current = nullptr;
 	Bar *parent = nullptr;
 
-	current = R
+	firstList->
+
+	current = firstList
 	//if Won
 	return true;
 
