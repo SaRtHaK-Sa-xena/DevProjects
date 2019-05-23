@@ -3,6 +3,8 @@
 #include "Application.h"
 #include "Renderer2D.h"
 #include "Square.h"
+#include "SimonGameClass.h"
+
 
 class SIMON___GAMEApp : public aie::Application {
 public:
@@ -16,16 +18,27 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
-	virtual void GamePhase();
+	virtual void CheckWon(SimonGameClass* firstList, SimonGameClass* second List);
+
+	virtual void DisplayColours_sequence(string randomColour);
 
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
+
+
+	SimonGameClass* SimonTree;
+	SimonGameClass* InputTree;
+
 	Square*				Red;
 	Square*				Blue;
 	Square*				Green;
 	Square*				Yellow;
-	bool pressed = false;
-	Square colours[4] = { *Red, *Blue, *Green, *Yellow};
+
+
+	float Total_timer = 5;
+	float timer;
+	float Game_total_timer = 10;
+	//Square colours[4] = { *Red, *Blue, *Green, *Yellow};
 };

@@ -162,11 +162,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SimonGameClass.cpp" />
     <ClCompile Include="SIMON___GAMEApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Square.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SimonGameClass.h" />
     <ClInclude Include="SIMON___GAMEApp.h" />
     <ClInclude Include="Square.h" />
   </ItemGroup>

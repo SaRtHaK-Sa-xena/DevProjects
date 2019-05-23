@@ -2,7 +2,7 @@
 
 
 
-Square::Square(float posX, float posY, float width, float height)
+Square::Square(float posX, float posY, float width, float height, string colour)
 {
 	m_posX = posX;
 	m_posY = posY;
@@ -10,17 +10,20 @@ Square::Square(float posX, float posY, float width, float height)
 	m_height = height;
 	m_currentValue = 100;
 	m_maxValue = 100;
+	m_value = colour;
 }
+
+
 Square::~Square()
 {
 }
 /*renderer->setRenderColour(0.80, 1, 0, 1);*/ // <--- YELLOW
 
 
-void Square::SetArray()
-{
-
-}
+//void Square::SetArray()
+//{
+//	
+//}
 
 void Square::Draw(aie::Renderer2D* renderer)
 {
@@ -37,10 +40,33 @@ void Square::Draw(aie::Renderer2D* renderer)
 	renderer->drawBox(offsetX, m_posY, full, m_height);
 	renderer->setRenderColour(0, 0, 0, 1);
 }
+
+
 void Square::SetValue(float value)
 {
 	m_currentValue = value;
 }
+
+void Square::setRight(Square* current)
+{
+	m_right = current;
+}
+
+Square *Square::getRight()
+{
+	return m_right;
+}
+
+void Square::setData(string value)
+{
+	m_value = value;
+}
+
+string Square::getData()
+{
+	return m_value;
+}
+
 void Square::SetColourValue(float value, float value2, float value3, aie::Renderer2D *renderer)
 {
 	float ratio = m_currentValue / m_maxValue;
@@ -51,6 +77,10 @@ void Square::SetColourValue(float value, float value2, float value3, aie::Render
 	renderer->drawBox(offsetX, m_posY, full, m_height);
 	renderer->setRenderColour(1, 1, 1, 1);
 }
+
+
 //renderer->setRenderColour(0, 1, 0, 1);
 //renderer->drawBox(offsetX, m_posY, full, m_height);
 //renderer->setRenderColour(1, 1, 1, 1);
+
+
