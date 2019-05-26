@@ -147,16 +147,16 @@ void Simon___AssignmentApp::update(float deltaTime) {
 			break;
 		
 		}
-		if (CheckWon() == true)
-		{
-			Total_timer++;
-			Total_moves++;
-			//Call Start Game Again, increment moves, and time
-		}
-		else
-		{
-			m_gameOver == true;
-		}
+		//if (CheckWon() == true)
+		//{
+		//	Total_timer++;
+		//	Total_moves++;
+		//	//Call Start Game Again, increment moves, and time
+		//}
+		//else
+		//{
+		//	m_gameOver == true;
+		//}
 			
 
 			//set start game to equal false;
@@ -243,17 +243,17 @@ void Simon___AssignmentApp::draw() {
 	m_2dRenderer->end();
 }
 
-bool Simon___AssignmentApp::CheckWon(Array *firstList, Array *secondList)
-{
-	Bar *current = nullptr;
-	Bar *parent = nullptr;
-
-	firstList->
-
-	current = firstList
-	//if Won
-	return true;
-
-	//else Lost
-	//return false;
-}
+//bool Simon___AssignmentApp::CheckWon(Array *firstList, Array *secondList)
+//{
+//	Bar *current = nullptr;
+//	Bar *parent = nullptr;
+//
+//	firstList->
+//
+//	//current = firstList
+//	//if Won
+//	//return true;
+//
+//	//else Lost
+//	//return false;
+//}

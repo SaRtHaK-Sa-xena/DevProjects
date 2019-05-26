@@ -11,6 +11,7 @@ public:
 	//void Selector(aie::Renderer2D* renderer);
 	//void insert(int x, int y, int z);
 	void insert(string value);
+	Square * CheckIfWon(string value);
 
 
 private:
