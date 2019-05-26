@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "imgui_glfw3.h"
 
+
 namespace aie {
 
 Application::Application()
@@ -107,6 +108,7 @@ void Application::run(const char* title, int width, int height, bool fullscreen)
 			// clear imgui
 			ImGui_NewFrame();
 
+
 			update(float(deltaTime));
 
 			draw();
@@ -130,6 +132,8 @@ void Application::run(const char* title, int width, int height, bool fullscreen)
 bool Application::hasWindowClosed() {
 	return glfwWindowShouldClose(m_window) == GL_TRUE;
 }
+
+
 
 void Application::clearScreen() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);

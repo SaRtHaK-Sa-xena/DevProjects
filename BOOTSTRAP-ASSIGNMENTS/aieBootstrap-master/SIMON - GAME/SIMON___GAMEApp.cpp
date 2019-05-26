@@ -33,10 +33,7 @@ bool SIMON___GAMEApp::startup() {
 	Green = new Square(350, 350, 200, 210, green); //left square 
 	Yellow = new Square(850, 350, 200, 210, yellow); //right square
 	
-	Red->SetValue(100);
-	Green->SetValue(100);
-	Yellow->SetValue(100);
-	Blue->SetValue(100);
+	
 	
 	timer = Total_timer; //timer will equal Total Time = 5;
 	gameTimer = Game_total_timer;
@@ -84,15 +81,8 @@ void SIMON___GAMEApp::update(float deltaTime) {
 	aie::Input* input = aie::Input::getInstance();
 	// exit the application===================
 
-	//==============Get Random Colour===============================
-	string red = "RED";
-	string blue = "BLUE";
-	string green = "GREEN";
-	string yellow = "YELLOW";
-	string colourArray[4] = { red, blue, green, yellow };//into array
-	string randomColour = colourArray[rand() % 4];// random from array
-	//==============Get Random Colour==============================
 
+	
 
 
 	//Default Start
@@ -122,10 +112,46 @@ void SIMON___GAMEApp::update(float deltaTime) {
 	//	EndTime = true;
 	//}
 
+	if (input->isKeyDown(aie::INPUT_KEY_W)) //key 'pressed' hold calls
+	{
+		//==============Get Random Colour===============================
+		string red = "RED";
+		string blue = "BLUE";
+		string green = "GREEN";
+		string yellow = "YELLOW";
+		string colourArray[4] = { red, blue, green, yellow };//into array
+		string randomColour = colourArray[rand() % 4];// random from array
+		//==============Get Random Colour==============================
 
-	SimonTree->insert(randomColour);
+		SimonTree->insert(randomColour);
+		if (randomColour == "RED")
+		{
+			Red->SetValue(-1);
+		}
+		else if (randomColour == "BLUE")
+		{
+			Blue->SetValue(-1);
+		}
+		else if (randomColour == "GREEN")
+		{
+			Green->SetValue(-1);
+		}
+		else if (randomColour == "YELLOW")
+		{
+			Yellow->SetValue(-1);
+		}
+	}
 
+	if (timer < 0)
+	{
+		Red->SetValue(100);
+		Blue->SetValue(100);
+		Green->SetValue(100);
+		Yellow->SetValue(100);
+		//timer = 5;
+	}
 
+	
 		//=======================START SEQUENCE=========================
 	//if (m_gameOver == false)
 	//{
@@ -141,95 +167,95 @@ void SIMON___GAMEApp::update(float deltaTime) {
 			//start -> setColour -> timer will equal 4 -> calls draw function -> repeats
 
 			//if(col = red -> setvalue-1 -> 
-			if (timer < 5 && timer > 4)
-			{
-				//===================Conditions====================
-				if (randomColour == "RED")
-				{
-					Red->SetValue(-1);
-					//update(deltaTime);
+			//if (timer < 5 && timer > 4)
+			//{
+			//	//===================Conditions====================
+			//	if (randomColour == "RED")
+			//	{
+			//		Red->SetValue(-1);
+			//		//update(deltaTime);
 
-				}
-				else if (randomColour == "BLUE")
-				{
-					Blue->SetValue(-1);
-					//update(deltaTime);
+			//	}
+			//	else if (randomColour == "BLUE")
+			//	{
+			//		Blue->SetValue(-1);
+			//		//update(deltaTime);
 
-					/*secondTimer = secondTimer - deltaTime;
-					bool complete = false;
-					while (complete == false)
-					{
-						if (secondTimer < 0)
-						{
-							complete = true;
-							update(deltaTime);
-						}
-						else
-						{
-							complete = false;
-							update(deltaTime);
-						}
-					}*/
-				}
-				else if (randomColour == "GREEN")
-				{
-					Green->SetValue(-1);
-					//update(deltaTime);
+			//		/*secondTimer = secondTimer - deltaTime;
+			//		bool complete = false;
+			//		while (complete == false)
+			//		{
+			//			if (secondTimer < 0)
+			//			{
+			//				complete = true;
+			//				update(deltaTime);
+			//			}
+			//			else
+			//			{
+			//				complete = false;
+			//				update(deltaTime);
+			//			}
+			//		}*/
+			//	}
+			//	else if (randomColour == "GREEN")
+			//	{
+			//		Green->SetValue(-1);
+			//		//update(deltaTime);
 
-					/*secondTimer = secondTimer - deltaTime;
-					bool complete = false;
-					while (complete == false)
-					{
-						if (secondTimer < 0)
-						{
-							complete = true;
-							update(deltaTime);
-						}
-						else
-						{
-							complete = false;
-							update(deltaTime);
-						}
-					}*/
-				}
-				else if (randomColour == "YELLOW")
-				{
-					Yellow->SetValue(-1);
-					//update(deltaTime);
-					/*	secondTimer = secondTimer - deltaTime;
-						bool complete = false;
-						while (complete == false)
-						{
-							if (secondTimer < 0)
-							{
-								complete = true;
-								update(deltaTime);
-							}
-							else
-							{
-								complete = false;
-								update(deltaTime);
-							}
-						}*/
-				}
-				//===================Conditions====================
-			}
-			
-			else if(timer < 2)
-			{
-				Red->SetValue(100);
-				Blue->SetValue(100);
-				Green->SetValue(100);
-				Yellow->SetValue(100);
-				//Insert_Display(randomColour);
-				//timer = 10;
-				//draw();
+			//		/*secondTimer = secondTimer - deltaTime;
+			//		bool complete = false;
+			//		while (complete == false)
+			//		{
+			//			if (secondTimer < 0)
+			//			{
+			//				complete = true;
+			//				update(deltaTime);
+			//			}
+			//			else
+			//			{
+			//				complete = false;
+			//				update(deltaTime);
+			//			}
+			//		}*/
+			//	}
+			//	else if (randomColour == "YELLOW")
+			//	{
+			//		Yellow->SetValue(-1);
+			//		//update(deltaTime);
+			//		/*	secondTimer = secondTimer - deltaTime;
+			//			bool complete = false;
+			//			while (complete == false)
+			//			{
+			//				if (secondTimer < 0)
+			//				{
+			//					complete = true;
+			//					update(deltaTime);
+			//				}
+			//				else
+			//				{
+			//					complete = false;
+			//					update(deltaTime);
+			//				}
+			//			}*/
+			//	}
+			//	//===================Conditions====================
+			//}
+			//
+			//else if(timer < 2)
+			//{
+			//	Red->SetValue(100);
+			//	Blue->SetValue(100);
+			//	Green->SetValue(100);
+			//	Yellow->SetValue(100);
+			//	//Insert_Display(randomColour);
+			//	//timer = 10;
+			//	//draw();
 
-			}
-			else
-			{
-				cout << "End of IF" << endl;
-			}
+			//}
+			//else
+			//{
+			//	cout << "End of IF" << endl;
+			//}
 			
 					//Wait For 1 second then call Draw
 					/*if (randomColour == "RED")
