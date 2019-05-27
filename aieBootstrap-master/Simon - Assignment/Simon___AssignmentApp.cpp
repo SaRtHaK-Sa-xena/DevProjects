@@ -346,7 +346,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 
 
 
-	//=================================================WORKING ON================================================
+	
 
 	//if (timer > 0)
 	//{
@@ -393,7 +393,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 	//
 	//if(timer < 0)
 	
-	//=================================================WORKING ON================================================
+	
 
 	//=======================START SEQUENCE=========================
 	//if (m_gameOver == false)
