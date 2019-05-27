@@ -5,10 +5,10 @@
 using namespace std;
 
 
-Bar *Array::ReturnRoot()
-{
-	return m_pRoot;
-}
+//Bar *Array::ReturnRoot()
+//{
+//	return m_pRoot;
+//}
 
 Array::Array()
 {
@@ -40,7 +40,7 @@ Bar Array::CheckIfLost(Bar * Data, Bar * current, bool checkedTrue)
 	//return current;
 }
 
-<<<<<<< HEAD
+
 bool Array::isEmpty() const
 {
 	if (m_pRoot == nullptr)
@@ -88,7 +88,7 @@ bool Array::isEmpty() const
 //	}
 //}
 //
-=======
+
 //Bar * Array::CheckifWon(string value, Array *firstList, Array *secondList)
 //{
 //	Bar *current = nullptr; //to Find
@@ -122,7 +122,7 @@ bool Array::isEmpty() const
 //	}
 //}
 
->>>>>>> 1ea5ba7459df39e6732b7d5c105074a630204bbc
+
 //Bar*Array::ReturnValue(string value)
 //{
 //	Bar*current = nullptr;
@@ -177,7 +177,7 @@ void Array::insert(string a_nValue)
 	}
 }
 
-<<<<<<< HEAD
+
 void Array::CheckIfWon(Bar *Data, bool checkedTrue)
 {
 	//Bar *current = nullptr;
@@ -203,10 +203,10 @@ void Array::CheckIfWon(Bar *Data, bool checkedTrue)
 		}
 	}*/
 }
-=======
 
 
->>>>>>> 1ea5ba7459df39e6732b7d5c105074a630204bbc
+
+
 
 //void Array::draw(aie::Renderer2D * renderer, Bar * selected)
 //{

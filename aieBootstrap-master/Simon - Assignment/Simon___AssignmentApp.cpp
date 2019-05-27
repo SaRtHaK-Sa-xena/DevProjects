@@ -59,7 +59,7 @@ bool Simon___AssignmentApp::startup() {
 	Blue->SetValue(100);
 	Green->SetValue(100);
 	Yellow->SetValue(100);*/
-	current = SimonTree->ReturnRoot();
+	//current = SimonTree->ReturnRoot();
 
 
 	//Default Start
@@ -192,7 +192,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 			insert = true;
 			timer = 5;
 		}
-<<<<<<< HEAD
+
 	}
 	else
 	{
@@ -469,7 +469,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 	//	{
 	//		m_gameOver == true;
 	//	}
-=======
+
 		//if (CheckWon() == true)
 		//{
 		//	Total_timer++;
@@ -480,7 +480,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 		//{
 		//	m_gameOver == true;
 		//}
->>>>>>> 1ea5ba7459df39e6732b7d5c105074a630204bbc
+
 			
 
 			//set start game to equal false;
@@ -600,20 +600,19 @@ void Simon___AssignmentApp::draw() {
 	m_2dRenderer->end();
 }
 
-<<<<<<< HEAD
-void Simon___AssignmentApp::InputPhase()
-{
-	if (input->wasKeyPressed(aie::INPUT_KEY_W))
-	{
 
-	}
-}
+//void Simon___AssignmentApp::InputPhase()
+//{
+//	if (input->wasKeyPressed(aie::INPUT_KEY_W))
+//	{
+//
+//	}
+//}
 
 
 //----For Later-----
 
-=======
->>>>>>> 1ea5ba7459df39e6732b7d5c105074a630204bbc
+
 //bool Simon___AssignmentApp::CheckWon(Array *firstList, Array *secondList)
 //{
 //	Bar *current = nullptr;
@@ -621,21 +620,20 @@ void Simon___AssignmentApp::InputPhase()
 //
 //	firstList->
 //
-<<<<<<< HEAD
+
 //	current = firstList
 //	//if Won
 //	return true;
-=======
+
 //	//current = firstList
 //	//if Won
 //	//return true;
->>>>>>> 1ea5ba7459df39e6732b7d5c105074a630204bbc
+
 //
 //	//else Lost
 //	//return false;
 //}
-<<<<<<< HEAD
+
 
 //----For Later-----
-=======
->>>>>>> 1ea5ba7459df39e6732b7d5c105074a630204bbc
+

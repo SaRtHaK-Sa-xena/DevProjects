@@ -24,7 +24,7 @@ public:
 	//virtual bool CheckWon(Array *firstList, Array *secondList);
 
 
-	virtual void InputPhase();
+	//virtual void InputPhase();
 
 	virtual void DisplayColours_sequence(string randomColour)
 	{
