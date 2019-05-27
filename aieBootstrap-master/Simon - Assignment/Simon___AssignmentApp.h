@@ -3,7 +3,6 @@
 #include "Application.h"
 #include "Renderer2D.h"
 #include "Bar.h"
-#include "Node.h"
 #include "Array.h"
 #include <imgui.h>
 #include "Texture.h"
@@ -22,8 +21,10 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
-	virtual bool CheckWon(Array *firstList, Array *secondList);
+	//virtual bool CheckWon(Array *firstList, Array *secondList);
 
+
+	virtual void InputPhase();
 
 	virtual void DisplayColours_sequence(string randomColour)
 	{
@@ -47,10 +48,74 @@ public:
 		}						//Sequence Start Void Function
 	}
 
+	virtual void StartRound(float deltaTime)
+	{
+		for (difficulty; difficulty != 0; difficulty--)
+		{
+			//timer = timer - deltaTime;
+			cout << "Timer: " << timer << endl;
+			if (timer > 0)
+			{
+				randomColour = colours[rand() % 4];
+				SimonTree->insert(randomColour);
+				insert = false;
+			}
+
+			if (randomColour == "RED")
+			{
+				TodrawDarkRed = false;
+				draw();
+			}
+			else if (randomColour == "BLUE")
+			{
+				TodrawDarkBlue = false;
+				draw();
+			}
+			else if (randomColour == "GREEN")
+			{
+				TodrawDarkGreen = false;
+			}
+			else if (randomColour == "YELLOW")
+			{
+				TodrawDarkYellow = false;
+			}
+
+			if (timer > 0 && timer < 1)
+			{
+				TodrawDarkRed = true;
+				TodrawDarkRed = true;
+				TodrawDarkGreen = true;
+				TodrawDarkYellow = true;
+			}
+
+			else if (timer <= 0)
+			{
+				insert = true;
+				timer = 5;
+			}
+		}
+	}
+
+
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
+
+	//=============Textures==============
+	aie::Texture* m_BrightRedTexture;
+	aie::Texture* m_DarkRedTexture;
+
+	aie::Texture* m_BrightBlueTexture;
+	aie::Texture* m_DarkBlueTexture;
+
+	aie::Texture* m_BrightYellowTexture;
+	aie::Texture* m_DarkYellowTexture;
+
+	aie::Texture* m_BrightGreenTexture;
+	aie::Texture* m_DarkGreenTexture;
+	//=============Textures==============
+
 
 	Array	        *SimonTree;
 	Array	        *InputTree;
@@ -63,12 +128,30 @@ protected:
 	Bar *Yellow;
 
 	Bar *selectedColour = nullptr;
+	Bar *current = nullptr;
 
-
+	bool insert = true;
+	bool inputPhase = false;
 
 	float Total_timer = 5;
-	float timer;
+	float timer = Total_timer;
 	float Game_total_timer = 10;
 
-	bool Todraw = false;
+	bool TodrawDarkRed = true;
+	bool TodrawDarkBlue = true;
+	bool TodrawDarkGreen = true;
+	bool TodrawDarkYellow = true;
+
+
+	string red = "RED";
+	string blue = "BLUE";
+	string green = "GREEN";
+	string yellow = "YELLOW";
+	string colours[4] = { red,blue,green,yellow }; //from red,blue,green yellow
+	string randomColour;
+
+	int Total_difficulty = 3;
+	int difficulty = Total_difficulty;
+	bool checkedTrue = true;
+
 };
