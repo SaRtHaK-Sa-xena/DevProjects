@@ -21,7 +21,7 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
-	virtual bool Input(aie::Input *input)
+	virtual void Input(aie::Input *input)
 	{
 		if (input->wasKeyPressed(aie::INPUT_KEY_W))// Input True
 		{
@@ -210,9 +210,11 @@ protected:
 
 	//=====InputPhaseChecks=======
 	bool checkedTrue = true;
-	bool inputDone = false;
-	bool inputPhase = false;
+	bool inputDone;
+	bool inputPhase;
 	bool insert = true;
+	bool SequenceFinished;
+	bool valueInsertPhase = true;
 	//=====InputPhaseChecks=======
 
 

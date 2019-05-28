@@ -65,7 +65,9 @@ bool Simon___AssignmentApp::startup() {
 	//Current equals m_pRoot
 	//current = SimonTree->ReturnRoot();
 	Data = new Bar(0,0,0,0,"");
-
+	inputPhase = false;
+	inputDone = false;
+	SequenceFinished = false;
 	//Default Start
 	
 	//Default Colour
@@ -149,10 +151,10 @@ void Simon___AssignmentApp::update(float deltaTime) {
 	
 
 	//if (input->wasKeyPressed(aie::INPUT_KEY_W))
-	timer -= deltaTime * 2;
 //HERE
 	//StartRound(deltaTime);
 	//cout << "Timer: " << timer << endl;
+	timer -= deltaTime * 2;
 	if (difficulty > 0)
 	{
 		
@@ -191,7 +193,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 			TodrawDarkYellow = true;
 		}
 
-		else if (timer <=  0)
+		else if (timer <= 0)
 		{
 			difficulty--;
 			insert = true;
@@ -206,114 +208,247 @@ void Simon___AssignmentApp::update(float deltaTime) {
 		TodrawDarkGreen = true;
 		TodrawDarkYellow = true;
 		inputPhase = true;
+		//sequnce_finished = true;
 	}
 
-
-	if (inputPhase)//(inputPhase == true && checkedTrue == true)
+	if (inputPhase == true)
 	{
-
-		Game_total_timer -= deltaTime * 2;// Decrement
-		cout << "Game___Timer: " << Game_total_timer << endl;
-		if (Game_total_timer > 0)// True
+		if (input->wasKeyPressed(aie::INPUT_KEY_W))
 		{
-			//========================INPUT PHASE==================================================
-
-			if (input->wasKeyPressed(aie::INPUT_KEY_W))// Input True
-			{
-				TodrawDarkBlue = false; //False (BRIGHT BLUE)
-				Data->setData("BLUE"); // BLUE NOW IN DATA
-				//inputPhase = false; // InputPhase = false
-				inputDone = true;
-				//Game_total_timer = -1; // gameTimer = -1;
-			}
-			else if (input->wasKeyPressed(aie::INPUT_KEY_A))
-			{
-				TodrawDarkGreen = false;
-				Data->setData("GREEN");
-				//inputPhase = false;
-				inputDone = true;
-				//Game_total_timer = -1;
-			}
-			else if (input->wasKeyPressed(aie::INPUT_KEY_S))
-			{
-				TodrawDarkRed = false;
-				Data->setData("RED");
-				//inputPhase = false;
-				inputDone = true;
-				//Game_total_timer = -1;
-			}
-			else if (input->wasKeyPressed(aie::INPUT_KEY_D))
-			{
-				TodrawDarkYellow = false;
-				Data->setData("YELLOW");
-				//inputPhase = false;
-				inputDone = true;
-				//Game_total_timer = -1;
-			}
-			else if (input->wasKeyPressed(aie::INPUT_KEY_ESCAPE))
-			{
-				quit();
-			}
-
-			//========================INPUT PHASE==================================================
-			//Input(input);
-
-
-			if (inputDone == true)
-			{
-				if (inputPhase)
-				{
-					if (current->getData() == Data->getData())
-					{
-						current = current->getRight();
-						cout << "-------------CORRECT-----------" << endl;
-						cout << "-------------CORRECT-----------" << endl;
-						inputPhase = true;
-					}
-					else if(current->getData() != Data->getData())
-					{
-						inputPhase = false;
-						cout << "You lost" << endl;
-						m_gameOver = true;
-					}
-				}
-			}
-			//inputPhase = false;
+			TodrawDarkBlue = false;
+			Data->setData("BLUE");
+			inputDone = true;
 		}
-		else
+		else if (input->wasKeyPressed(aie::INPUT_KEY_A))
 		{
-			//Check if Correct
-			
+			TodrawDarkGreen = false;
+			Data->setData("GREEN");
+			inputDone = true;
 		}
-		//------Not Yet---------
-		//SimonTree->CheckIfLost(Data, current, checkedTrue);
-		//------Not Yet---------
+		else if (input->wasKeyPressed(aie::INPUT_KEY_S))
+		{
+			TodrawDarkRed = false;
+			Data->setData("RED");
+			inputDone = true;
+		}
+		else if (input->wasKeyPressed(aie::INPUT_KEY_D))
+		{
+			TodrawDarkYellow = false;
+			Data->setData("YELLOW");
+			inputDone = true;
+		}
+	}
 
-
-		/*current = current->getRight();
+	if (inputDone)
+	{
+		inputDone = false;
 		if (current->getData() == Data->getData())
 		{
-			checkedTrue = true;
+			if (current->getRight() != nullptr)
+			{
+				current = current->getRight();
+			}
+			else
+			{
+				difficulty++;
+				timer = 5;
+				//increment difficulty
+				//
+			}
 		}
-		else
-		{
-			checkedTrue = false;
-		}*/
-		//bool checkedTrue = false;
-		//if(checkedTrue == false)
-		//{
-		// if(randomColour == "RED")
 
+		else if (current->getData() != Data->getData())
+		{
+			cout << "Incorrect" << endl;
+			m_gameOver = true;
+		}
 		
-		//current = nullptr;
-		//iterator = m_pRoot;
-		//if (current->getdata == iterator)
-		//{
-		//	iterator = iteartor->getRight();
-		//}
-		////and then continue or not
-		//current->setData(SimonTree[0]);
+		/*else if (current->getRight() != nullptr)
+		{
+			current = current->getRight();
+		}*/
+		
 	}
+
+	//while (inputDone == false)
+		//while(valueInsertPhase)
+		//{
+		//	cout << "In While Loop" << endl;
+
+		//	if (input->wasKeyPressed(aie::INPUT_KEY_W))
+		//	{
+		//		TodrawDarkBlue = false;
+		//		Data->setData("BLUE");
+		//		cout << "Set Colour To Blue" << endl;
+		//		inputDone = true;
+
+		//	}
+		//	else if (input->wasKeyPressed(aie::INPUT_KEY_A))
+		//	{
+		//		TodrawDarkGreen = false;
+		//		Data->setData("GREEN");
+		//		cout << "Set Colour To Green" << endl;
+		//		inputDone = true;
+
+		//	}
+		//	else if (input->wasKeyPressed(aie::INPUT_KEY_S))
+		//	{
+		//		TodrawDarkRed = false;
+		//		Data->setData("RED");
+		//		cout << "Set Colour To Red" << endl;
+		//		inputDone = true;
+
+		//	}
+		//	else if (input->wasKeyPressed(aie::INPUT_KEY_D))
+		//	{
+		//		TodrawDarkYellow = false;
+		//		Data->setData("YELLOW");
+		//		cout << "Set Colour To Yellow" << endl;
+		//		inputDone = true;
+
+		//	}
+		//	//draw(); //Draw everything
+		//	if (inputDone) //put breakpoint here
+		//	{
+		//		if (current->getData() == Data->getData())
+		//		{
+		//			valueInsertPhase = true;
+		//			cout << "Correct Data Entered, And Set inputPhase to True" << endl;
+		//			if (current->getRight() == nullptr)
+		//			{
+		//				cout << "Right Of Current == nullptr" << endl;
+		//				difficulty++;
+		//			}
+		//			else
+		//			{
+		//				current = current->getRight();
+		//				cout << "Moved Current To The Right" << endl;
+
+		//			}
+		//		}
+		//		else if (current->getData() != Data->getData())
+		//		{
+		//			cout << "Data Was Not Equal To Sequential data" << endl;
+		//			valueInsertPhase = false;
+		//			cout << "InputPhase Set To False" << endl;
+		//		}
+		//	}
+		//	else
+		//	{
+		//		cout << "Nothing Inputted" << endl;
+		//		valueInsertPhase = true;
+		//		cout << "Setting InputPhase to FALSE" << endl;
+		//	}
+		//}
+	//}
+
+	//==================================CAPPING FOR NOW============================
+
+	//if (inputPhase)//(inputPhase == true && checkedTrue == true)
+	//{
+
+	//	Game_total_timer -= deltaTime * 2;// Decrement
+	//	cout << "Game___Timer: " << Game_total_timer << endl;
+	//	if (Game_total_timer > 0)// True
+	//	{
+	//		//========================INPUT PHASE==================================================
+
+	//		if (input->wasKeyPressed(aie::INPUT_KEY_W))// Input True
+	//		{
+	//			TodrawDarkBlue = false; //False (BRIGHT BLUE)
+	//			Data->setData("BLUE"); // BLUE NOW IN DATA
+	//			//inputPhase = false; // InputPhase = false
+	//			inputDone = true;
+	//			//Game_total_timer = -1; // gameTimer = -1;
+	//		}
+	//		else if (input->wasKeyPressed(aie::INPUT_KEY_A))
+	//		{
+	//			TodrawDarkGreen = false;
+	//			Data->setData("GREEN");
+	//			//inputPhase = false;
+	//			inputDone = true;
+	//			//Game_total_timer = -1;
+	//		}
+	//		else if (input->wasKeyPressed(aie::INPUT_KEY_S))
+	//		{
+	//			TodrawDarkRed = false;
+	//			Data->setData("RED");
+	//			//inputPhase = false;
+	//			inputDone = true;
+	//			//Game_total_timer = -1;
+	//		}
+	//		else if (input->wasKeyPressed(aie::INPUT_KEY_D))
+	//		{
+	//			TodrawDarkYellow = false;
+	//			Data->setData("YELLOW");
+	//			//inputPhase = false;
+	//			inputDone = true;
+	//			//Game_total_timer = -1;
+	//		}
+	//		else if (input->wasKeyPressed(aie::INPUT_KEY_ESCAPE))
+	//		{
+	//			quit();
+	//		}
+
+	//		//========================INPUT PHASE==================================================
+	//		//Input(input);
+
+
+	//		if (inputDone == true)
+	//		{
+	//			if (inputPhase)
+	//			{
+	//				if (current->getData() == Data->getData())
+	//				{
+	//					current = current->getRight();
+	//					cout << "-------------CORRECT-----------" << endl;
+	//					cout << "-------------CORRECT-----------" << endl;
+	//					inputPhase = true;
+	//				}
+	//				else if(current->getData() != Data->getData())
+	//				{
+	//					inputPhase = false;
+	//					cout << "You lost" << endl;
+	//					m_gameOver = true;
+	//				}
+	//			}
+	//		}
+	//		//inputPhase = false;
+	//	}
+	//	else
+	//	{
+	//		//Check if Correct
+	//		
+	//	}
+	//	//------Not Yet---------
+	//	//SimonTree->CheckIfLost(Data, current, checkedTrue);
+	//	//------Not Yet---------
+
+
+	//	/*current = current->getRight();
+	//	if (current->getData() == Data->getData())
+	//	{
+	//		checkedTrue = true;
+	//	}
+	//	else
+	//	{
+	//		checkedTrue = false;
+	//	}*/
+	//	//bool checkedTrue = false;
+	//	//if(checkedTrue == false)
+	//	//{
+	//	// if(randomColour == "RED")
+
+	//	
+	//	//current = nullptr;
+	//	//iterator = m_pRoot;
+	//	//if (current->getdata == iterator)
+	//	//{
+	//	//	iterator = iteartor->getRight();
+	//	//}
+	//	////and then continue or not
+	//	//current->setData(SimonTree[0]);
+	//}
 
 	//==================================CAPPING FOR NOW============================
 
