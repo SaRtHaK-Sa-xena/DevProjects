@@ -4,6 +4,9 @@
 #include "Renderer2D.h"
 #include "Square.h"
 #include "SimonGameClass.h"
+#include "Texture.h"
+#include "Font.h"
+#include "Input.h"
 
 
 class SIMON___GAMEApp : public aie::Application {
@@ -65,31 +68,83 @@ public:
 
 protected:
 
-	aie::Renderer2D*	m_2dRenderer;
-	aie::Font*			m_font;
+
+	aie::Renderer2D* m_2dRenderer;
+	aie::Font* m_font;
+
+	//=============Textures==============
+	aie::Texture* m_BrightRedTexture;
+	aie::Texture* m_DarkRedTexture;
+
+	aie::Texture* m_BrightBlueTexture;
+	aie::Texture* m_DarkBlueTexture;
+
+	aie::Texture* m_BrightYellowTexture;
+	aie::Texture* m_DarkYellowTexture;
+
+	aie::Texture* m_BrightGreenTexture;
+	aie::Texture* m_DarkGreenTexture;
+	//=============Textures==============
 
 
 	SimonGameClass* SimonTree;
-	SimonGameClass* InputTree;
 
-	Square*				Red;
-	Square*				Blue;
-	Square*				Green;
-	Square*				Yellow;
+	//Node		    *m_selectedNode = nullptr;
+
+	//====Colours=======
+	Square* Red;
+	Square* Blue;
+	Square* Green;
+	Square* Yellow;
+	//====Colours=======
 
 
+	//=====NODES (IN USE)=======
+	Square* current = nullptr;
+	Square* Data = nullptr;
+	//=====NODES (IN USE)=======
+
+
+	//=======TIMER===============
 	float Total_timer = 5;
-	float timer;
-	float secondTimer = 5;
-	float gameTimer;
+	float timer = Total_timer;
 	float Game_total_timer = 10;
-	int clockSpeed = 1;
-	bool EndTime;
+	//=======TIMER===============
 
+
+	//=====ToDrawQuery===========
+	bool TodrawDarkRed = true;
+	bool TodrawDarkBlue = true;
+	bool TodrawDarkGreen = true;
+	bool TodrawDarkYellow = true;
+	//=====ToDrawQuery===========
+
+
+	//=====STRING OF COLOURS=========================
+	string red = "RED";
+	string blue = "BLUE";
+	string green = "GREEN";
+	string yellow = "YELLOW";
+	string colours[4] = { red,blue,green,yellow }; //from red,blue,green yellow
 	string randomColour;
+	//=====STRING OF COLOURS=========================
 
+
+	//=====Difficulty/Rounds======
+	int Total_difficulty = 3;
+	int TempTotaldifficulty = Total_difficulty;
+	int difficulty = Total_difficulty;
+	//=====Difficulty/Rounds======
+
+
+	//=====InputPhaseChecks=======
+	bool checkedTrue = true;
+	bool inputDone;
+	bool inputPhase;
+	bool insert = true;
+	bool SequenceFinished;
+	bool valueInsertPhase = true;
+	bool SetCurrentToRoot = true;
+	//=====InputPhaseChecks=======
 	
-
-
-	//Square colours[4] = { *Red, *Blue, *Green, *Yellow};
 };

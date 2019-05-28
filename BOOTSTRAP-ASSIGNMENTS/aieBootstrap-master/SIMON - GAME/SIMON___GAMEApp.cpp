@@ -1,10 +1,11 @@
 #include "SIMON___GAMEApp.h"
+#include "Square.h"
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
-#include "Square.h"
+#include "SimonGameClass.h"
 
-
+aie::Font* g_systemFont = nullptr;
 
 SIMON___GAMEApp::SIMON___GAMEApp() {
 
@@ -17,42 +18,74 @@ SIMON___GAMEApp::~SIMON___GAMEApp() {
 bool SIMON___GAMEApp::startup() {
 	
 	m_2dRenderer = new aie::Renderer2D();
-
 	SimonTree = new SimonGameClass();
-	InputTree = new SimonGameClass();
+	//InputTree = new Array();
+	/*Bar* m_bar;*/
+
+
+	m_BrightRedTexture = new aie::Texture("./textures/Bright_Red.png");
+	m_DarkRedTexture = new aie::Texture("./textures/Dark_Red.png");
+
+	m_BrightYellowTexture = new aie::Texture("./textures/Bright_Yellow.png");
+	m_DarkYellowTexture = new aie::Texture("./textures/Dark_Yellow.png");
+
+	m_BrightBlueTexture = new aie::Texture("./textures/Bright_Blue.png");
+	m_DarkBlueTexture = new aie::Texture("./textures/Dark_Blue.png");
+
+	m_BrightGreenTexture = new aie::Texture("./textures/Bright_Green.png");
+	m_DarkGreenTexture = new aie::Texture("./textures/Dark_Green.png");
+
 
 	string red = "red";
 	string blue = "blue";
 	string green = "green";
 	string yellow = "yellow";
 
-	EndTime = false;
+
 
 	Red = new Square(600, 150, 200, 210, red); //bottom Square
-	Blue = new Square(600, 600, 200, 210, blue);//top square
-	Green = new Square(350, 350, 200, 210, green); //left square 
+	Blue = new Square(600, 600, 200, 210, blue); //top square
+	Green = new Square(350, 350, 200, 210, green); //left square
 	Yellow = new Square(850, 350, 200, 210, yellow); //right square
-	
-	
-	
-	timer = Total_timer; //timer will equal Total Time = 5;
-	gameTimer = Game_total_timer;
 
-	//SimonTree->insert(randomColour); //insert colour
+	//==================================================
+	m_2dRenderer->drawSprite(m_DarkRedTexture, Red->m_posX, Red->m_posY, Red->m_width, Red->m_height);
+	m_2dRenderer->drawSprite(m_DarkBlueTexture, Blue->m_posX, Blue->m_posY, Blue->m_width, Blue->m_height);
+	m_2dRenderer->drawSprite(m_DarkGreenTexture, Green->m_posX, Green->m_posY, Green->m_width, Green->m_height);
+	m_2dRenderer->drawSprite(m_DarkRedTexture, Yellow->m_posX, Yellow->m_posY, Yellow->m_width, Yellow->m_height);
+	//==================================================
 
-	//Red->SetColourValue(0.80, m_2dRenderer);
-	//pressed = false;
+	Data = new Square(0, 0, 0, 0, "");
+	inputPhase = false;
+	inputDone = false;
+	SequenceFinished = false;
+	//Default Start
+
+	//Default Colour
+
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
-	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
+	g_systemFont = new aie::Font("../bin/font/consolas.ttf", 32);
 
 	return true;
 }
 
 void SIMON___GAMEApp::shutdown() {
 
-	delete m_font;
+	delete g_systemFont;
 	delete m_2dRenderer;
+
+	delete m_BrightRedTexture;
+	delete m_BrightBlueTexture;
+	delete m_BrightGreenTexture;
+	delete m_BrightYellowTexture;
+
+	delete m_DarkRedTexture;
+	delete m_DarkBlueTexture;
+	delete m_DarkGreenTexture;
+	delete m_DarkYellowTexture;
+
+
 	delete Red;
 	delete Blue;
 	delete Green;
@@ -61,374 +94,191 @@ void SIMON___GAMEApp::shutdown() {
 }
 //Square colours[4];
 
-//void SIMON___GAMEApp::GamePhase()
-//{
-//	int Difficulty = 0;
-//	if (Difficulty == 0)
-//	{
-//		colours[0].SetValue(20);
-//		//void Press()
-//		//{
-//			//will press multiple
-//		//}
-//	}
-//}
 
 
 void SIMON___GAMEApp::update(float deltaTime) {
 
-	// ======================input example===============
+	// ==================input example===============
 	aie::Input* input = aie::Input::getInstance();
-	// exit the application===================
-
-
-	
-
+	// ===============exit the application===========
 
 	//Default Start
 	//==============Intitializing==================================
-	
-	//static int difficulty = 0;
-	//static int moves;
-	//static int Total_moves = 2;
-	//bool startGame = true;
+
+	static int moves;
+	static int Total_moves = 2;
+	bool startGame = false;
 	//==============Intitializing==================================
 
-	timer = timer - deltaTime; // timer will decrement
-
-
-	//Default Colour
-	//==============INITIALIZE COLOURS RESTING TEXTURE==============
-		//Red->SetValue(100);
-		//Green->SetValue(100);
-		//Yellow->SetValue(100);
-		//Blue->SetValue(100);
-	//==============INITIALIZE COLOURS RESTING TEXTURE==============
-
-
-	//if (EndTime == false)
-	//{
-	//	SimonTree->insert(randomColour);
-	//	EndTime = true;
-	//}
-
-	if (input->isKeyDown(aie::INPUT_KEY_W)) //key 'pressed' hold calls
+	timer -= deltaTime * 2;
+	if (difficulty > 0)
 	{
-		//==============Get Random Colour===============================
-		string red = "RED";
-		string blue = "BLUE";
-		string green = "GREEN";
-		string yellow = "YELLOW";
-		string colourArray[4] = { red, blue, green, yellow };//into array
-		string randomColour = colourArray[rand() % 4];// random from array
-		//==============Get Random Colour==============================
+		if (SequenceFinished)
+		{
+			cout << "Timer: " << timer << endl;
+			if (timer >= 1)
+			{
+				if (valueInsertPhase == true)
+				{
+					randomColour = colours[rand() % 4];
+					current = SimonTree->ReturnRoot();
+					SimonTree->insert(randomColour);
+					valueInsertPhase = false;
+					cout << "Value Inserted" << endl;
+				}
 
-		SimonTree->insert(randomColour);
-		if (randomColour == "RED")
-		{
-			Red->SetValue(-1);
+				if (current->getData() == "RED")
+				{
+					TodrawDarkRed = false;
+				}
+				else if (current->getData() == "BLUE")
+				{
+					TodrawDarkBlue = false;
+				}
+				else if (current->getData() == "GREEN")
+				{
+					TodrawDarkGreen = false;
+				}
+				else if (current->getData() == "YELLOW")
+				{
+					TodrawDarkYellow = false;
+				}
+
+			}
+
+			else if (timer > 0 && timer < 1)
+			{
+				TodrawDarkBlue = true;
+				TodrawDarkRed = true;
+				TodrawDarkGreen = true;
+				TodrawDarkYellow = true;
+			}
+			else if (timer < 0)
+			{
+				timer = 5;
+				TempTotaldifficulty--;
+				if (TempTotaldifficulty < 0)
+				{
+					difficulty--;
+					current = SimonTree->ReturnRoot();
+				}
+				else if (current->getRight() != nullptr)
+				{
+					current = current->getRight();
+				}
+			}
 		}
-		else if (randomColour == "BLUE")
+		else
 		{
-			Blue->SetValue(-1);
+			if (timer >= 1)
+			{
+				if (insert == true)
+				{
+					randomColour = colours[rand() % 4];
+					current = SimonTree->ReturnRoot();
+					SimonTree->insert(randomColour);
+					insert = false;
+				}
+				if (randomColour == "RED")
+				{
+					TodrawDarkRed = false;
+				}
+				else if (randomColour == "BLUE")
+				{
+					TodrawDarkBlue = false;
+				}
+				else if (randomColour == "GREEN")
+				{
+					TodrawDarkGreen = false;
+				}
+				else if (randomColour == "YELLOW")
+				{
+					TodrawDarkYellow = false;
+				}
+			}
+			else if (timer > 0 && timer < 1)
+			{
+				TodrawDarkRed = true;
+				TodrawDarkRed = true;
+				TodrawDarkGreen = true;
+				TodrawDarkYellow = true;
+			}
+
+			else if (timer <= 0)
+			{
+				difficulty--;
+				insert = true;
+				timer = 5;
+			}
 		}
-		else if (randomColour == "GREEN")
+	}
+	else
+	{
+		TodrawDarkRed = true;
+		TodrawDarkBlue = true;
+		TodrawDarkGreen = true;
+		TodrawDarkYellow = true;
+		inputPhase = true;
+		//sequnce_finished = true;
+	}
+
+	if (inputPhase == true)
+	{
+		if (input->wasKeyPressed(aie::INPUT_KEY_W))
 		{
-			Green->SetValue(-1);
+			TodrawDarkBlue = false;
+			Data->setData("BLUE");
+			inputDone = true;
 		}
-		else if (randomColour == "YELLOW")
+		else if (input->wasKeyPressed(aie::INPUT_KEY_A))
 		{
-			Yellow->SetValue(-1);
+			TodrawDarkGreen = false;
+			Data->setData("GREEN");
+			inputDone = true;
+		}
+		else if (input->wasKeyPressed(aie::INPUT_KEY_S))
+		{
+			TodrawDarkRed = false;
+			Data->setData("RED");
+			inputDone = true;
+		}
+		else if (input->wasKeyPressed(aie::INPUT_KEY_D))
+		{
+			TodrawDarkYellow = false;
+			Data->setData("YELLOW");
+			inputDone = true;
 		}
 	}
 
-	if (timer < 0)
+	if (inputDone)
 	{
-		Red->SetValue(100);
-		Blue->SetValue(100);
-		Green->SetValue(100);
-		Yellow->SetValue(100);
-		//timer = 5;
+		inputDone = false;
+		if (current->getData() == Data->getData())
+		{
+			if (current->getRight() != nullptr)
+			{
+				current = current->getRight();
+			}
+			else
+			{
+				difficulty++;
+				TempTotaldifficulty++;
+				timer = 5;
+				SequenceFinished = true;
+				//increment difficulty
+				//
+			}
+		}
+
+		else if (current->getData() != Data->getData())
+		{
+			cout << "Incorrect" << endl;
+			m_gameOver = true;
+		}
+
 	}
 
 	
-		//=======================START SEQUENCE=========================
-	//if (m_gameOver == false)
-	//{
-		//It will distribute Sequence
-		//while (startGame == true)
-		//{
-			//timer = timer - deltaTime;
-			//if (timer > 4.95) //&& timer < 5.00) // while timer greater than 0 == [true]->
-			//{
-				//===========Seems to be working==============
-				//DisplayColours_sequence(randomColour);//sequence Function (inputs into SimonTree) , then pause, then continue
-		
-			//start -> setColour -> timer will equal 4 -> calls draw function -> repeats
-
-			//if(col = red -> setvalue-1 -> 
-			//if (timer < 5 && timer > 4)
-			//{
-			//	//===================Conditions====================
-			//	if (randomColour == "RED")
-			//	{
-			//		Red->SetValue(-1);
-			//		//update(deltaTime);
-
-			//	}
-			//	else if (randomColour == "BLUE")
-			//	{
-			//		Blue->SetValue(-1);
-			//		//update(deltaTime);
-
-			//		/*secondTimer = secondTimer - deltaTime;
-			//		bool complete = false;
-			//		while (complete == false)
-			//		{
-			//			if (secondTimer < 0)
-			//			{
-			//				complete = true;
-			//				update(deltaTime);
-			//			}
-			//			else
-			//			{
-			//				complete = false;
-			//				update(deltaTime);
-			//			}
-			//		}*/
-			//	}
-			//	else if (randomColour == "GREEN")
-			//	{
-			//		Green->SetValue(-1);
-			//		//update(deltaTime);
-
-			//		/*secondTimer = secondTimer - deltaTime;
-			//		bool complete = false;
-			//		while (complete == false)
-			//		{
-			//			if (secondTimer < 0)
-			//			{
-			//				complete = true;
-			//				update(deltaTime);
-			//			}
-			//			else
-			//			{
-			//				complete = false;
-			//				update(deltaTime);
-			//			}
-			//		}*/
-			//	}
-			//	else if (randomColour == "YELLOW")
-			//	{
-			//		Yellow->SetValue(-1);
-			//		//update(deltaTime);
-			//		/*	secondTimer = secondTimer - deltaTime;
-			//			bool complete = false;
-			//			while (complete == false)
-			//			{
-			//				if (secondTimer < 0)
-			//				{
-			//					complete = true;
-			//					update(deltaTime);
-			//				}
-			//				else
-			//				{
-			//					complete = false;
-			//					update(deltaTime);
-			//				}
-			//			}*/
-			//	}
-			//	//===================Conditions====================
-			//}
-			//
-			//else if(timer < 2)
-			//{
-			//	Red->SetValue(100);
-			//	Blue->SetValue(100);
-			//	Green->SetValue(100);
-			//	Yellow->SetValue(100);
-			//	//Insert_Display(randomColour);
-			//	//timer = 10;
-			//	//draw();
-
-			//}
-			//else
-			//{
-			//	cout << "End of IF" << endl;
-			//}
-			
-					//Wait For 1 second then call Draw
-					/*if (randomColour == "RED")
-					{
-
-					}*/
-
-
-
-				//=======================FIRST ATTEMPT==================================									  
-				//EndTime = true;
-				//if (EndTime == true)
-				//{
-					//timer = 0;
-				//}
-				//Red->SetValue(-1);
-				//draw();
-													  //Drawing
-				//=============Blinks Good!===============
-				//=======================FIRST ATTEMPT==================================									  
-
-
-			//}
-			//else
-			//{
-				//startGame = false;
-			//}
-		//}
-		//draw();
-		//end distribution
-
-
-		//gameTimer = gameTimer - clockSpeed;
-		//while (gameTimer > 0)
-		//{
-
-
-		//=========================================Stopping For Now=========================== (is Input Function)
-
-		////=====================Stacking For Debug===========================================
-		//	//moves = Total_moves;
-		//	//while (moves != 0)
-		//	//{
-		//		//=========================INPUT PHASE==========================
-		//	/*if (timer < 2 && timer > 1)
-		//	{
-		//		if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
-		//			quit();
-		//		else if (input->isKeyDown(aie::INPUT_KEY_W))
-		//		{
-		//			Blue->SetValue(-1);
-		//			moves--;
-		//			InputTree->insert(blue);
-		//		}
-		//		else if (input->isKeyDown(aie::INPUT_KEY_S))
-		//		{
-		//			Red->SetValue(-1);
-		//			moves--;
-		//			InputTree->insert(red);
-
-		//		}
-		//		else if (input->isKeyDown(aie::INPUT_KEY_A))
-		//		{
-		//			Green->SetValue(-1);
-		//			moves--;
-		//			InputTree->insert(green);
-
-		//		}
-		//		else if (input->isKeyDown(aie::INPUT_KEY_D))
-		//		{
-		//			Yellow->SetValue(-1);
-		//			moves--;
-		//			InputTree->insert(yellow);
-
-		//		}
-		//	}*/
-		//		//=========================INPUT PHASE==========================
-		//		//
-		//		//Each input places, inserts in a different Tree of that specified colour
-		//		//after each move moves--;
-		//	//}
-		//
-		//	//break;
-		////=====================Stacking For Debug===========================================
-
-		//=========================================Stopping For Now===========================
-
-
-
-
-
-
-		//}
-		//if (CheckWon() == true)
-		//{
-		//	Total_timer++;
-		//	Total_moves++;
-		//	//Call Start Game Again, increment moves, and time
-		//}
-		//else
-		//{
-		//	m_gameOver == true;
-		//}
-
-
-			//set start game to equal false;
-
-			//start game_decision timer
-			//GameTotalTimer = 5;
-			//gameTimre = GameTotalTimer;
-			//gameTimer = gameTimer - deltaTime;
-			//while(gameTimer > 0)
-			//Call Movement Function
-			//if(gameTimer < 0)
-			//CheckIfWon() <-- If false
-			//return to mainMenu <---For now cout << you Lost < endl;
-			//if CheckIfWon == true
-			//Total_timer++;
-
-
-
-
-
-
-
-		//Total_Timer = 5; == to number colours to display 1-4
-		//timer = Total_Timer; 
-		//while counting down from 5 -> display Colours;
-		//Total_Timer++;
-
-		//Input Phase Function
-
-
-
-
-		//complete CheckWon Function
-		//if (CheckWon() == true) //CheckWon compares Values with SimonTree->insert() and tree->insert() and returns true if entire list matches and false if not
-		//{
-			//Total_moves++;//since player advanced, moves will increment
-			//Start Void Function -- Calls Start Again, to Keep Incrementing
-		//}
-	//}
-	//else
-	//{
-		//cout << "You Lost" << endl;
-	//}
-
-	//=======================START SEQUENCE=========================
-
-
-
-	//if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
-	//	quit();
-	//else if (input->isKeyDown(aie::INPUT_KEY_S))
-	//{
-	//	Red->SetValue(-1);
-	//	//Red->SetColourValue(0.80, m_2dRenderer);
-	//}
-	//else if (input->isKeyDown(aie::INPUT_KEY_W))
-	//{
-	//	//delete Red;
-	//	//Red = new Square(600, 150, 200, 210);//bottom Square
-	//	Blue->SetValue(-1);
-	//}
-	//else if (input->isKeyDown(aie::INPUT_KEY_A))
-	//{
-	//	Yellow->SetValue(-1);
-	//}
-	//else if (input->isKeyDown(aie::INPUT_KEY_D))
-	//{
-	//	Green->SetValue(-1);
-	//}
-
 }
 
 void SIMON___GAMEApp::draw() {
@@ -441,34 +291,47 @@ void SIMON___GAMEApp::draw() {
 
 	// draw your stuff here!
 
+	//=====================DEFAULT RED COLOURS RENDERERD IN========================================
+	if (TodrawDarkRed)
+	{
+		m_2dRenderer->drawSprite(m_DarkRedTexture, Red->m_posX, Red->m_posY, Red->m_width, Red->m_height);
+	}//=====================DEFAULT COLOURS RENDERERD IN========================================
 
-	//Red->Draw(m_2dRenderer);
-	//Red->SetColourValue(1, 0, 0, m_2dRenderer);
-	//Blue->Draw(m_2dRenderer);
-	//Blue->SetColourValue(0, 0, 1, m_2dRenderer);
-	//Green->Draw(m_2dRenderer);
-	//Green->SetColourValue(0, 1, 0, m_2dRenderer);
-	//Yellow->Draw(m_2dRenderer);
-	//Yellow->SetColourValue(0.80, 1, 0, m_2dRenderer);
+	else {
+		m_2dRenderer->drawSprite(m_BrightRedTexture, Red->m_posX, Red->m_posY, Red->m_width, Red->m_height);
+	}
 
-	//==========DEFAULT COLOURS===============
-	Red->Draw(m_2dRenderer, 1, 0, 0);
-	Blue->Draw(m_2dRenderer, 0, 0, 1);
-	Green->Draw(m_2dRenderer, 0, 1, 0);
-	Yellow->Draw(m_2dRenderer, 0.80, 1, 0);
-	//==========DEFAULT COLOURS===============
+	//=====================DEFAULT BLUE COLOURS RENDERERD IN========================================
+	if (TodrawDarkBlue) {
+		m_2dRenderer->drawSprite(m_DarkBlueTexture, Blue->m_posX, Blue->m_posY, Blue->m_width, Blue->m_height);
+	}//=====================DEFAULT COLOURS RENDERERD IN========================================
+
+	else {
+		m_2dRenderer->drawSprite(m_BrightBlueTexture, Blue->m_posX, Blue->m_posY, Blue->m_width, Blue->m_height);
+	}
+	//=====================DEFAULT GREEN COLOURS RENDERERD IN========================================
+	if (TodrawDarkGreen) {
+		m_2dRenderer->drawSprite(m_DarkGreenTexture, Green->m_posX, Green->m_posY, Green->m_width, Green->m_height);
+	}//=====================DEFAULT COLOURS RENDERERD IN========================================
+
+	else {
+		m_2dRenderer->drawSprite(m_BrightGreenTexture, Green->m_posX, Green->m_posY, Green->m_width, Green->m_height);
+	}
+	//=====================DEFAULT YELLOW COLOURS RENDERERD IN========================================
+	if (TodrawDarkYellow) {
+		m_2dRenderer->drawSprite(m_DarkYellowTexture, Yellow->m_posX, Yellow->m_posY, Yellow->m_width, Yellow->m_height);
+	}//=====================DEFAULT COLOURS RENDERERD IN========================================
+
+	else {
+		m_2dRenderer->drawSprite(m_BrightYellowTexture, Yellow->m_posX, Yellow->m_posY, Yellow->m_width, Yellow->m_height);
+	}
 
 
-	//if (pressed == true)
-	//{
-		//Red->SetValue(-1);
-		//delete Red;
-		//Red->SetValue(75);
-		//Red->Draw(m_2dRenderer);
-	//}
 	// output some text, uses the last used colour
-	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
+	m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0);
 
 	// done drawing sprites
 	m_2dRenderer->end();
 }
+
+

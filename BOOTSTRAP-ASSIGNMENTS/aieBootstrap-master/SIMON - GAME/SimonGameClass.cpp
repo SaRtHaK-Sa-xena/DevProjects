@@ -4,6 +4,14 @@
 
 using namespace std;
 
+
+Square* SimonGameClass::ReturnRoot()
+{
+	return root;
+}
+
+
+
 SimonGameClass::SimonGameClass()
 {
 	root = nullptr;
