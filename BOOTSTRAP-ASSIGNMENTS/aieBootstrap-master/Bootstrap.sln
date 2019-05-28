@@ -18,6 +18,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Assignment", "Assignment\Assignment.vcxproj", "{FFB58DD1-3109-49A3-9DBD-C7F899D92120}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SIMON - GAME", "SIMON - GAME\SIMON - GAME.vcxproj", "{DEA49362-B428-4215-8D64-4EA0B4FF0858}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AF59BB0B-E059-4773-83DC-728A949647DA} = {AF59BB0B-E059-4773-83DC-728A949647DA}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Binary Trees", "Binary Trees\Binary Trees.vcxproj", "{29F2A90F-6683-4591-B739-57D9D9EB5626}"
 EndProject
