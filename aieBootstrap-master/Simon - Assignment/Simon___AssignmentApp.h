@@ -21,6 +21,48 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
+	virtual bool Input(aie::Input *input)
+	{
+		if (input->wasKeyPressed(aie::INPUT_KEY_W))// Input True
+		{
+			TodrawDarkBlue = false; //False (BRIGHT BLUE)
+			Data->setData("BLUE"); // BLUE NOW IN DATA
+			//inputPhase = false; // InputPhase = false
+			inputDone = true;
+			//Game_total_timer = -1; // gameTimer = -1;
+		}
+		else if (input->wasKeyPressed(aie::INPUT_KEY_A))
+		{
+			TodrawDarkGreen = false;
+			Data->setData("GREEN");
+			//inputPhase = false;
+			inputDone = true;
+			//Game_total_timer = -1;
+
+		}
+		else if (input->wasKeyPressed(aie::INPUT_KEY_S))
+		{
+			TodrawDarkRed = false;
+			Data->setData("RED");
+			//inputPhase = false;
+			inputDone = true;
+			//Game_total_timer = -1;
+
+		}
+		else if (input->wasKeyPressed(aie::INPUT_KEY_D))
+		{
+			TodrawDarkYellow = false;
+			Data->setData("YELLOW");
+			//inputPhase = false;
+			inputDone = true;
+			//Game_total_timer = -1;
+
+		}
+		else if (input->wasKeyPressed(aie::INPUT_KEY_ESCAPE))
+		{
+			quit();
+		}
+	}
 	//virtual bool CheckWon(Array *firstList, Array *secondList);
 
 
@@ -118,40 +160,61 @@ protected:
 
 
 	Array	        *SimonTree;
-	Array	        *InputTree;
 
 	//Node		    *m_selectedNode = nullptr;
 
+	//====Colours=======
 	Bar *Red;
 	Bar *Blue;
 	Bar *Green;
 	Bar *Yellow;
+	//====Colours=======
 
-	Bar *selectedColour = nullptr;
+
+	//=====NODES (IN USE)=======
 	Bar *current = nullptr;
+	Bar* Data = nullptr;
+	//=====NODES (IN USE)=======
 
-	bool insert = true;
-	bool inputPhase = false;
 
+	//=======TIMER===============
 	float Total_timer = 5;
 	float timer = Total_timer;
 	float Game_total_timer = 10;
+	//=======TIMER===============
 
+
+	//=====ToDrawQuery===========
 	bool TodrawDarkRed = true;
 	bool TodrawDarkBlue = true;
 	bool TodrawDarkGreen = true;
 	bool TodrawDarkYellow = true;
+	//=====ToDrawQuery===========
 
 
+	//=====STRING OF COLOURS=========================
 	string red = "RED";
 	string blue = "BLUE";
 	string green = "GREEN";
 	string yellow = "YELLOW";
 	string colours[4] = { red,blue,green,yellow }; //from red,blue,green yellow
 	string randomColour;
+	//=====STRING OF COLOURS=========================
 
+
+	//=====Difficulty/Rounds======
 	int Total_difficulty = 3;
 	int difficulty = Total_difficulty;
+	//=====Difficulty/Rounds======
+
+
+	//=====InputPhaseChecks=======
 	bool checkedTrue = true;
+	bool inputDone = false;
+	bool inputPhase = false;
+	bool insert = true;
+	//=====InputPhaseChecks=======
+
+
 
 };

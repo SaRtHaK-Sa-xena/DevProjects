@@ -20,7 +20,7 @@ bool Simon___AssignmentApp::startup() {
 	
 	m_2dRenderer = new aie::Renderer2D();
 	SimonTree = new Array();
-	InputTree = new Array();
+	//InputTree = new Array();
 	/*Bar* m_bar;*/
 
 
@@ -55,12 +55,16 @@ bool Simon___AssignmentApp::startup() {
 	m_2dRenderer->drawSprite(m_DarkGreenTexture, Green->m_posX, Green->m_posY, Green->m_width, Green->m_height);
 	m_2dRenderer->drawSprite(m_DarkRedTexture, Yellow->m_posX, Yellow->m_posY, Yellow->m_width, Yellow->m_height);
 	//================
+
+
 	/*Red->SetValue(100);
 	Blue->SetValue(100);
 	Green->SetValue(100);
 	Yellow->SetValue(100);*/
-	//current = SimonTree->ReturnRoot();
 
+	//Current equals m_pRoot
+	//current = SimonTree->ReturnRoot();
+	Data = new Bar(0,0,0,0,"");
 
 	//Default Start
 	
@@ -148,7 +152,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 	timer -= deltaTime * 2;
 //HERE
 	//StartRound(deltaTime);
-	cout << "Timer: " << timer << endl;
+	//cout << "Timer: " << timer << endl;
 	if (difficulty > 0)
 	{
 		
@@ -157,6 +161,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 			if (insert == true)
 			{
 				randomColour = colours[rand() % 4];
+				current = SimonTree->ReturnRoot();
 				SimonTree->insert(randomColour);
 				insert = false;
 			}
@@ -204,42 +209,86 @@ void Simon___AssignmentApp::update(float deltaTime) {
 	}
 
 
-	if (inputPhase == true && checkedTrue == true)
+	if (inputPhase)//(inputPhase == true && checkedTrue == true)
 	{
-		Bar* Data = nullptr;
 
-		if (input->wasKeyPressed(aie::INPUT_KEY_W))
+		Game_total_timer -= deltaTime * 2;// Decrement
+		cout << "Game___Timer: " << Game_total_timer << endl;
+		if (Game_total_timer > 0)// True
 		{
-			TodrawDarkBlue = false;
-			Data->setData("BLUE");
-		}
-		else if (input->wasKeyPressed(aie::INPUT_KEY_A))
-		{
-			TodrawDarkGreen = false;
-			Data->setData("GREEN");
-		}
-		else if (input->wasKeyPressed(aie::INPUT_KEY_S))
-		{
-			TodrawDarkRed = false;
-			Data->setData("RED");
-		}
-		else if (input->wasKeyPressed(aie::INPUT_KEY_D))
-		{
-			TodrawDarkYellow = false;
-			Data->setData("YELLOW");
-		}
-		else if (input->wasKeyPressed(aie::INPUT_KEY_ESCAPE))
-		{
-			quit();
-		}
+			//========================INPUT PHASE==================================================
 
-		if (current->getData() == Data->getData())
-		{
+			if (input->wasKeyPressed(aie::INPUT_KEY_W))// Input True
+			{
+				TodrawDarkBlue = false; //False (BRIGHT BLUE)
+				Data->setData("BLUE"); // BLUE NOW IN DATA
+				//inputPhase = false; // InputPhase = false
+				inputDone = true;
+				//Game_total_timer = -1; // gameTimer = -1;
+			}
+			else if (input->wasKeyPressed(aie::INPUT_KEY_A))
+			{
+				TodrawDarkGreen = false;
+				Data->setData("GREEN");
+				//inputPhase = false;
+				inputDone = true;
+				//Game_total_timer = -1;
+			}
+			else if (input->wasKeyPressed(aie::INPUT_KEY_S))
+			{
+				TodrawDarkRed = false;
+				Data->setData("RED");
+				//inputPhase = false;
+				inputDone = true;
+				//Game_total_timer = -1;
+			}
+			else if (input->wasKeyPressed(aie::INPUT_KEY_D))
+			{
+				TodrawDarkYellow = false;
+				Data->setData("YELLOW");
+				//inputPhase = false;
+				inputDone = true;
+				//Game_total_timer = -1;
+			}
+			else if (input->wasKeyPressed(aie::INPUT_KEY_ESCAPE))
+			{
+				quit();
+			}
 
+			//========================INPUT PHASE==================================================
+			//Input(input);
+
+
+			if (inputDone == true)
+			{
+				if (inputPhase)
+				{
+					if (current->getData() == Data->getData())
+					{
+						current = current->getRight();
+						cout << "-------------CORRECT-----------" << endl;
+						cout << "-------------CORRECT-----------" << endl;
+						inputPhase = true;
+					}
+					else if(current->getData() != Data->getData())
+					{
+						inputPhase = false;
+						cout << "You lost" << endl;
+						m_gameOver = true;
+					}
+				}
+			}
+			//inputPhase = false;
 		}
+		else
+		{
+			//Check if Correct
+			
+		}
+		//------Not Yet---------
+		//SimonTree->CheckIfLost(Data, current, checkedTrue);
+		//------Not Yet---------
 
-		//Check if Correct
-		SimonTree->CheckIfLost(Data, current, checkedTrue);
 
 		/*current = current->getRight();
 		if (current->getData() == Data->getData())
@@ -265,10 +314,8 @@ void Simon___AssignmentApp::update(float deltaTime) {
 		////and then continue or not
 		//current->setData(SimonTree[0]);
 	}
-	else
-	{
-		cout << "FAILED!" << endl;
-	}
+
+	//==================================CAPPING FOR NOW============================
 
 	//========================WORKS================================
 
@@ -442,6 +489,9 @@ void Simon___AssignmentApp::update(float deltaTime) {
 	//				Green->SetValue(-1);
 	//				moves--;
 	//				InputTree->insert(green);
+
+
+
 
 	//			}
 	//			else if (input->isKeyDown(aie::INPUT_KEY_D))

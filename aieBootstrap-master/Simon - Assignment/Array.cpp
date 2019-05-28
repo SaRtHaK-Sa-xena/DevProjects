@@ -5,10 +5,10 @@
 using namespace std;
 
 
-//Bar *Array::ReturnRoot()
-//{
-//	return m_pRoot;
-//}
+Bar *Array::ReturnRoot()
+{
+	return m_pRoot;
+}
 
 Array::Array()
 {
@@ -156,7 +156,7 @@ void Array::insert(string a_nValue)
 
 	if (m_pRoot == nullptr)
 	{
-		m_pRoot = new Bar(0,0,0,210,a_nValue);
+		m_pRoot = new Bar(0,0,0,0,a_nValue);
 	}
 	else
 	{

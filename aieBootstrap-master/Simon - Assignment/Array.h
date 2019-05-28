@@ -20,7 +20,7 @@ public:
 	//void Insert(string Value);
 //============================================
 
-	Bar ReturnRoot();
+	Bar *ReturnRoot();
 
 	Array();
 	~Array();
