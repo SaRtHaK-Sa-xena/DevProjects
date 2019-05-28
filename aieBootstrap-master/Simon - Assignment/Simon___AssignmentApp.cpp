@@ -200,12 +200,13 @@ void Simon___AssignmentApp::update(float deltaTime) {
 			else if (timer < 0)
 			{
 				timer = 5;
-				Total_difficulty--;
-				if (Total_difficulty < 0)
+				TempTotaldifficulty--;
+				if (TempTotaldifficulty < 0)
 				{
 					difficulty--;
+					current = SimonTree->ReturnRoot();
 				}
-				if (current->getRight() != nullptr)
+				else if (current->getRight() != nullptr)
 				{
 					current = current->getRight();
 				}
@@ -385,7 +386,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 			else
 			{
 				difficulty++;
-				Total_difficulty++;
+				TempTotaldifficulty++;
 				timer = 5;
 				SequenceFinished = true;
 				//increment difficulty
