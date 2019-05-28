@@ -327,7 +327,7 @@ void SIMON___GAMEApp::draw() {
 	}
 
 
-	// output some text, uses the last used colour
+	// output some text, uses the last used color
 	m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0);
 
 	// done drawing sprites
