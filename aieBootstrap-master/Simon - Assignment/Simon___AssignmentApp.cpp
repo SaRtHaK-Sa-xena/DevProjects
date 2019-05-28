@@ -159,14 +159,17 @@ void Simon___AssignmentApp::update(float deltaTime) {
 	{
 		if (SequenceFinished)
 		{
-			if (timer <= 5)
+			cout << "Timer: " << timer << endl;
+			if (timer >= 1)
 			{
-				if (SetCurrentToRoot)
+				if (valueInsertPhase == true)
 				{
-					current = SimonTree->ReturnRoot();//set current to beginning
-					SetCurrentToRoot = false;
+					randomColour = colours[rand() % 4];
+					current = SimonTree->ReturnRoot();
+					SimonTree->insert(randomColour);
+					valueInsertPhase = false;
+					cout << "Value Inserted" << endl;
 				}
-
 
 				if (current->getData() == "RED")
 				{
@@ -184,47 +187,110 @@ void Simon___AssignmentApp::update(float deltaTime) {
 				{
 					TodrawDarkYellow = false;
 				}
-				if (current->getRight != nullptr)
-				{
-					current = current->getRight();
-				}
+				
 			}
 
-			else if (timer > 1 && timer < 3)
+			else if (timer > 0 && timer < 1)
 			{
-				if (valueInsertPhase)
-				{
-					randomColour = colours[rand() % 4];
-					SimonTree->insert(randomColour);
-					valueInsertPhase = false;
-				}
-
-				if (randomColour == "RED")
-				{
-					TodrawDarkRed = false;
-
-				}
-				else if (randomColour == "BLUE")
-				{
-					TodrawDarkBlue = false;
-				}
-				else if (randomColour == "GREEN")
-				{
-					TodrawDarkGreen = false;
-				}
-				else if (randomColour == "YELLOW")
-				{
-					TodrawDarkYellow = false;
-				}
-			}
-			else if (SequenceFinished == true && timer > 0 && timer < 1)
-			{
-				TodrawDarkRed = true;
+				TodrawDarkBlue = true;
 				TodrawDarkRed = true;
 				TodrawDarkGreen = true;
 				TodrawDarkYellow = true;
 			}
+			else if (timer < 0)
+			{
+				timer = 5;
+				Total_difficulty--;
+				if (Total_difficulty < 0)
+				{
+					difficulty--;
+				}
+				if (current->getRight() != nullptr)
+				{
+					current = current->getRight();
+				}
+			}
 		}
+		//if (SequenceFinished)
+		//{
+		//	//if(timer > 0)
+		//	//{
+		//	//	current = simonTree->ReturnRoot();
+		//	//	if(timer > 1)
+		//	//{
+		//	//	if(current->getData() == "RED")
+		//	//{
+		//	//}
+		//	if (timer <= 5)
+		//	{
+		//		if (SetCurrentToRoot)
+		//		{
+		//			current = SimonTree->ReturnRoot();//set current to beginning
+		//			SetCurrentToRoot = false;
+		//		}
+
+
+		//		if (current->getData() == "RED")
+		//		{
+		//			TodrawDarkRed = false;
+		//		}
+		//		else if (current->getData() == "BLUE")
+		//		{
+		//			TodrawDarkBlue = false;
+		//		}
+		//		else if (current->getData() == "GREEN")
+		//		{
+		//			TodrawDarkGreen = false;
+		//		}
+		//		else if (current->getData() == "YELLOW")
+		//		{
+		//			TodrawDarkYellow = false;
+		//		}
+		//		if (current->getRight() != nullptr)
+		//		{
+		//			current = current->getRight();
+		//		}
+		//	}
+
+		//	else if (timer > 1 && timer < 3)
+		//	{
+		//		if (valueInsertPhase)
+		//		{
+		//			randomColour = colours[rand() % 4];
+		//			SimonTree->insert(randomColour);
+		//			valueInsertPhase = false;
+		//		}
+
+		//		if (randomColour == "RED")
+		//		{
+		//			TodrawDarkRed = false;
+
+		//		}
+		//		else if (randomColour == "BLUE")
+		//		{
+		//			TodrawDarkBlue = false;
+		//		}
+		//		else if (randomColour == "GREEN")
+		//		{
+		//			TodrawDarkGreen = false;
+		//		}
+		//		else if (randomColour == "YELLOW")
+		//		{
+		//			TodrawDarkYellow = false;
+		//		}
+		//	}
+		//	else if (timer > 0 && timer < 1)
+		//	{
+		//		TodrawDarkRed = true;
+		//		TodrawDarkRed = true;
+		//		TodrawDarkGreen = true;
+		//		TodrawDarkYellow = true;
+		//	}
+		//	else if (timer <= 0)
+		//	{
+		//		difficulty--;
+		//	}
+		//}
 		else
 		{
 			if (timer >= 1)
@@ -267,7 +333,6 @@ void Simon___AssignmentApp::update(float deltaTime) {
 				insert = true;
 				timer = 5;
 			}
-
 		}
 	}
 	else
@@ -320,6 +385,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 			else
 			{
 				difficulty++;
+				Total_difficulty++;
 				timer = 5;
 				SequenceFinished = true;
 				//increment difficulty
