@@ -262,9 +262,11 @@ void SIMON___GAMEApp::update(float deltaTime) {
 			else
 			{
 				difficulty++;
-				TempTotaldifficulty++;
+				Total_difficulty++;
+				TempTotaldifficulty = Total_difficulty;
 				timer = 5;
 				SequenceFinished = true;
+				valueInsertPhase = true;
 				//increment difficulty
 				//
 			}
