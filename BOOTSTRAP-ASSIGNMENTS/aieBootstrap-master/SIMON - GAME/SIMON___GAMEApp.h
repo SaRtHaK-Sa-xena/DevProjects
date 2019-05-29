@@ -117,6 +117,8 @@ protected:
 	bool TodrawDarkBlue = true;
 	bool TodrawDarkGreen = true;
 	bool TodrawDarkYellow = true;
+	bool TodrawGamePhase = true;
+	bool TodrawInputPhase;
 	//=====ToDrawQuery===========
 
 
@@ -132,6 +134,7 @@ protected:
 
 	//=====Difficulty/Rounds======
 	int Total_difficulty = 3;
+	int Total_RESETdifficulty = 3;
 	int TempTotaldifficulty = Total_difficulty;
 	int difficulty = Total_difficulty;
 	//=====Difficulty/Rounds======
@@ -145,6 +148,7 @@ protected:
 	bool SequenceFinished;
 	bool valueInsertPhase = true;
 	bool SetCurrentToRoot = true;
+	bool AlreadyDisplayed = false;
 	//=====InputPhaseChecks=======
 	
 };

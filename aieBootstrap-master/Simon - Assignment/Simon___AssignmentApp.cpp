@@ -22,8 +22,7 @@ bool Simon___AssignmentApp::startup() {
 	SimonTree = new Array();
 
 	//=======================================================================
-	//m_BrightRedTexture = new aie::Texture("./textures/Bright_Red.png");
-	m_BrightRedTexture = new aie::Texture("./"
+	m_BrightRedTexture = new aie::Texture("./textures/Bright_Red.png");
 	m_DarkRedTexture = new aie::Texture("./textures/Dark_Red.png");
 
 	m_BrightYellowTexture = new aie::Texture("./textures/Bright_Yellow.png");

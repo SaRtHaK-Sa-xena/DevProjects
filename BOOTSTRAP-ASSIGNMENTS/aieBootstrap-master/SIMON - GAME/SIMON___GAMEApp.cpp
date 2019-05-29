@@ -91,6 +91,7 @@ void SIMON___GAMEApp::shutdown() {
 	delete Green;
 	delete Yellow;
 	delete SimonTree;
+	delete Data;
 }
 //Square colours[4];
 
@@ -105,9 +106,8 @@ void SIMON___GAMEApp::update(float deltaTime) {
 	//Default Start
 	//==============Intitializing==================================
 
-	static int moves;
-	static int Total_moves = 2;
-	bool startGame = false;
+	AlreadyDisplayed = false;
+	inputPhase = false;
 	//==============Intitializing==================================
 
 	timer -= deltaTime * 2;
@@ -115,9 +115,31 @@ void SIMON___GAMEApp::update(float deltaTime) {
 	{
 		if (SequenceFinished)
 		{
-			cout << "Timer: " << timer << endl;
-			if (timer >= 1)
+			TodrawGamePhase = true;
+			if (timer > 4 && timer < 5)
 			{
+				if (randomColour == "RED")
+				{
+					TodrawDarkRed = true;
+				}
+				else if (randomColour == "BLUE")
+				{
+					TodrawDarkBlue = true;
+				}
+				else if (randomColour == "GREEN")
+				{
+					TodrawDarkGreen = true;
+				}
+				else if (randomColour == "YELLOW")
+				{
+					TodrawDarkYellow = true;
+				}
+			}
+			else if (timer >= 1)
+			{
+
+				//=================Display Sequence Again===========================
+
 				if (valueInsertPhase == true)
 				{
 					randomColour = colours[rand() % 4];
@@ -127,6 +149,7 @@ void SIMON___GAMEApp::update(float deltaTime) {
 					cout << "Value Inserted" << endl;
 				}
 
+				//=============Display By Current======================
 				if (current->getData() == "RED")
 				{
 					TodrawDarkRed = false;
@@ -143,6 +166,7 @@ void SIMON___GAMEApp::update(float deltaTime) {
 				{
 					TodrawDarkYellow = false;
 				}
+				//=============Display By Current======================
 
 			}
 
@@ -157,19 +181,26 @@ void SIMON___GAMEApp::update(float deltaTime) {
 			{
 				timer = 5;
 				TempTotaldifficulty--;
-				if (TempTotaldifficulty < 0)
+				if (TempTotaldifficulty == 0)
 				{
 					difficulty--;
 					current = SimonTree->ReturnRoot();
+					cout << "-----------CORRECT!!--------" << endl;
+					cout << "GREAT!" << endl;
+					cout << "-------------CORRECT!!-----------" << endl;
 				}
 				else if (current->getRight() != nullptr)
 				{
 					current = current->getRight();
 				}
+
 			}
+
+			//=================Display Sequence Again===========================
 		}
 		else
 		{
+			TodrawGamePhase = true;
 			if (timer >= 1)
 			{
 				if (insert == true)
@@ -199,7 +230,7 @@ void SIMON___GAMEApp::update(float deltaTime) {
 			else if (timer > 0 && timer < 1)
 			{
 				TodrawDarkRed = true;
-				TodrawDarkRed = true;
+				TodrawDarkBlue = true;
 				TodrawDarkGreen = true;
 				TodrawDarkYellow = true;
 			}
@@ -224,6 +255,8 @@ void SIMON___GAMEApp::update(float deltaTime) {
 
 	if (inputPhase == true)
 	{
+		TodrawGamePhase = false;
+		TodrawInputPhase = true;
 		if (input->wasKeyPressed(aie::INPUT_KEY_W))
 		{
 			TodrawDarkBlue = false;
@@ -275,7 +308,22 @@ void SIMON___GAMEApp::update(float deltaTime) {
 		else if (current->getData() != Data->getData())
 		{
 			cout << "Incorrect" << endl;
-			m_gameOver = true;
+			
+			//---Set Values Back In-------
+			Total_difficulty = 3;
+			difficulty = 3;
+			timer = 5;
+			SequenceFinished = false;
+			insert = true;
+			//---Set Values Back In-------
+
+
+			shutdown();
+			startup();
+
+			cout << "----------RESTARTING------" << endl;
+			cout << endl;
+			cout << "----------RESTARTING------" << endl;
 		}
 
 	}
@@ -328,9 +376,25 @@ void SIMON___GAMEApp::draw() {
 		m_2dRenderer->drawSprite(m_BrightYellowTexture, Yellow->m_posX, Yellow->m_posY, Yellow->m_width, Yellow->m_height);
 	}
 
+	if (TodrawGamePhase)
+	{
+		m_2dRenderer->drawText(g_systemFont, "GAME PHASE", 500, 300);
+	}
+	else
+	{
+		//m_2dRenderer->drawSprite(m_InputPhaseTexture, InputPhase->m_posX, InputPhase->m_posY, InputPhase->m_width, InputPhase->m_height);
+		m_2dRenderer->drawText(g_systemFont, "INPUT PHASE", 500, 400);
+	}
+
+	//============KEYS FOR HELP==========================
+	m_2dRenderer->drawText(g_systemFont, "W", 590, 590);
+	m_2dRenderer->drawText(g_systemFont, "A", 350, 350);
+	m_2dRenderer->drawText(g_systemFont, "S", 590, 100);
+	m_2dRenderer->drawText(g_systemFont, "D", 850, 350);
+	//============KEYS FOR HELP==========================
 
 	// output some text, uses the last used color
-	m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0);
+	//m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0);
 
 	// done drawing sprites
 	m_2dRenderer->end();
