@@ -22,7 +22,8 @@ bool Simon___AssignmentApp::startup() {
 	SimonTree = new Array();
 
 	//=======================================================================
-	m_BrightRedTexture = new aie::Texture("./textures/Bright_Red.png");
+	//m_BrightRedTexture = new aie::Texture("./textures/Bright_Red.png");
+	m_BrightRedTexture = new aie::Texture("./"
 	m_DarkRedTexture = new aie::Texture("./textures/Dark_Red.png");
 
 	m_BrightYellowTexture = new aie::Texture("./textures/Bright_Yellow.png");
@@ -400,10 +401,14 @@ void Simon___AssignmentApp::draw() {
 		m_2dRenderer->drawText(g_systemFont, "INPUT PHASE", 500, 400);
 	}
 
+	//============KEYS FOR HELP==========================
 	m_2dRenderer->drawText(g_systemFont, "W", 590, 590);
 	m_2dRenderer->drawText(g_systemFont, "A", 350, 350);
 	m_2dRenderer->drawText(g_systemFont, "S", 590, 100);
 	m_2dRenderer->drawText(g_systemFont, "D", 850, 350);
+	//============KEYS FOR HELP==========================
+
+
 	// output some text, uses the last used colour
 	//m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0);
 	//m_2dRenderer->drawText(g_systemFont, "TESTING TEXT RESPONSE", 8, 8);
