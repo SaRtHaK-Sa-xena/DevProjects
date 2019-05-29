@@ -204,6 +204,7 @@ protected:
 
 	//=====Difficulty/Rounds======
 	int Total_difficulty = 3;
+	int Total_RESETdifficulty = 3;
 	int TempTotaldifficulty = Total_difficulty;
 	int difficulty = Total_difficulty;
 	//=====Difficulty/Rounds======

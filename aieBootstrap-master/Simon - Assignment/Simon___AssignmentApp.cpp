@@ -91,6 +91,7 @@ void Simon___AssignmentApp::shutdown() {
 	delete Green;
 	delete Yellow;
 	delete SimonTree;
+	delete Data;
 }
 
 
@@ -303,7 +304,22 @@ void Simon___AssignmentApp::update(float deltaTime) {
 		else if (current->getData() != Data->getData())
 		{
 			cout << "Incorrect" << endl;
-			m_gameOver = true;
+
+			//---Set Values Back In-------
+			Total_difficulty = 3;
+			difficulty = 3;
+			timer = 5;
+			SequenceFinished = false;
+			insert = true;
+			//---Set Values Back In-------
+
+
+			shutdown();
+			startup();
+
+			cout << "----------RESTARTING------" << endl;
+			cout << endl;
+			cout << "----------RESTARTING------" << endl;
 		}
 	}
 }
@@ -355,6 +371,7 @@ void Simon___AssignmentApp::draw() {
 	
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0);
+	//m_2dRenderer->drawText(g_systemFont, "TESTING TEXT RESPONSE", 8, 8);
 
 	// done drawing sprites
 	m_2dRenderer->end();

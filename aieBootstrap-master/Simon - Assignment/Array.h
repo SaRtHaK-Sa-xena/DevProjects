@@ -33,6 +33,19 @@ public:
 	void insert(string value);
 
 	void CheckIfWon(Bar *Data, bool checkedTrue);
+	void Remove()
+	{
+		Bar* Data = new Bar(0, 0, 0, 0, "");
+		Bar* current = nullptr;
+		current = ReturnRoot();
+		while (current->getRight() != nullptr)
+		{
+			current->setData(Data->getData());
+			current = current->getRight();
+		}
+		current->setData(Data->getData());
+		//current->setData(Data->getData());
+	}
 
 	//void InputInsert(string value);
 	//Bar *  CheckifWon(string value);
