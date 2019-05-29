@@ -109,15 +109,49 @@ void BinaryTree::remove(int a_nValue)
 				else // if the right child holds a left child
 				{
 					parent = current->getRight();
-					TreeNode* temp2 = nullptr;
-					temp2 = current->getRight();
-					while (temp2->hasLeft())//iterate down right child's left child's left children |-if any-|
+					while (parent->hasLeft())
 					{
-						temp2 = temp2->getLeft(); //iterating down
+						parent = parent->getLeft();
 					}
-					temp2->setLeft(current->getLeft());
+					parent->setRight(current->getRight());
+					parent->setLeft(current->getLeft());
 					m_pRoot = parent;
 					delete current;
+					//==================================
+				/*	while (temp->hasLeft())
+					{
+						temp = temp->getLeft();
+					}
+					parent = temp;
+					parent->setLeft(current->getLeft());
+					parent->setRight(current->getRight());
+					m_pRoot = parent;
+					delete current;*/
+					//=====================================
+					/*temp->setLeft(current->getLeft());
+					temp->setRight(current->getRight());
+					current->setLeft(nullptr);
+					current->setRight(nullptr);
+					m_pRoot = temp;
+					delete current;*/
+					//====================================
+					//parent = current->getRight();
+					//TreeNode* temp2 = nullptr;
+					//temp2 = current->getRight();
+					//while (temp2->hasLeft())//iterate down right child's left child's left children |-if any-|
+					//{
+					//	temp2 = temp2->getLeft(); //iterating down
+					//}
+					//m_pRoot->setData(temp2->getData());
+					////current->setRight(temp2);
+					////temp2->setRight(parent);
+					////temp2->setLeft(current->getLeft());
+					////m_pRoot = temp2;
+					//delete temp2;
+
+					////temp2->setLeft(current->getLeft());
+					////m_pRoot = parent;
+					////delete current;
 
 				}
 			}

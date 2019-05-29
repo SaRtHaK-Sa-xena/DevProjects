@@ -217,6 +217,7 @@ protected:
 	bool SequenceFinished;
 	bool valueInsertPhase = true;
 	bool SetCurrentToRoot = true;
+	bool AlreadyDisplayed = false;
 	//=====InputPhaseChecks=======
 
 
