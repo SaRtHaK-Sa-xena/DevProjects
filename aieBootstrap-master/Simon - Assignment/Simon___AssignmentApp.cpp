@@ -20,10 +20,8 @@ bool Simon___AssignmentApp::startup() {
 	
 	m_2dRenderer = new aie::Renderer2D();
 	SimonTree = new Array();
-	//InputTree = new Array();
-	/*Bar* m_bar;*/
 
-
+	//=======================================================================
 	m_BrightRedTexture = new aie::Texture("./textures/Bright_Red.png");
 	m_DarkRedTexture = new aie::Texture("./textures/Dark_Red.png");
 
@@ -35,6 +33,7 @@ bool Simon___AssignmentApp::startup() {
 
 	m_BrightGreenTexture = new aie::Texture("./textures/Bright_Green.png");
 	m_DarkGreenTexture = new aie::Texture("./textures/Dark_Green.png");
+	//=======================================================================
 
 
 	string red = "red";
@@ -49,21 +48,13 @@ bool Simon___AssignmentApp::startup() {
 	Green = new Bar(350, 350, 200, 210, green); //left square
 	Yellow = new Bar(850, 350, 200, 210, yellow); //right square
 	
-	//========
+	//===========================================================================================
 	m_2dRenderer->drawSprite(m_DarkRedTexture, Red->m_posX, Red->m_posY, Red->m_width, Red->m_height);
 	m_2dRenderer->drawSprite(m_DarkBlueTexture, Blue->m_posX, Blue->m_posY, Blue->m_width, Blue->m_height);
 	m_2dRenderer->drawSprite(m_DarkGreenTexture, Green->m_posX, Green->m_posY, Green->m_width, Green->m_height);
 	m_2dRenderer->drawSprite(m_DarkRedTexture, Yellow->m_posX, Yellow->m_posY, Yellow->m_width, Yellow->m_height);
-	//================
+	//==========================================================================================
 
-
-	/*Red->SetValue(100);
-	Blue->SetValue(100);
-	Green->SetValue(100);
-	Yellow->SetValue(100);*/
-
-	//Current equals m_pRoot
-	//current = SimonTree->ReturnRoot();
 	Data = new Bar(0,0,0,0,"");
 	inputPhase = false;
 	inputDone = false;
@@ -72,8 +63,6 @@ bool Simon___AssignmentApp::startup() {
 	
 	//Default Colour
 
-	//m_bar2 = new Bar(600, 200, 200, 210);
-	//m_bar2->SetValue(-1);
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	g_systemFont = new aie::Font("../bin/font/consolas.ttf", 32);
@@ -105,25 +94,6 @@ void Simon___AssignmentApp::shutdown() {
 }
 
 
-//void StartRound(int difficulty, int timer, int deltaTime, bool insert)
-//{
-//	for (difficulty; difficulty != 0; difficulty--)
-//	{
-//		timer = timer - deltaTime;
-//		if (timer > 0)
-//		{
-//			if (insert == true)
-//			{
-//				randomColour = colours[rand() % 4]; //random and output = red,blue,green or yellow
-//			}
-//		}
-//	}
-//}
-
-
-
-
-
 void Simon___AssignmentApp::update(float deltaTime) {
 
 	// ==================input example===============
@@ -132,36 +102,17 @@ void Simon___AssignmentApp::update(float deltaTime) {
 
 	//Default Start
 	//==============Intitializing==================================
-
-	static int moves;
-	static int Total_moves = 2;
-	bool startGame = false;
 	AlreadyDisplayed = false;
 	inputPhase = false;
 	//==============Intitializing==================================
 
 
-	//Default Colour
-	//==============INITIALIZE COLOURS RESTING TEXTURE==============
-	//Red->SetValue(100);
-	//Blue->SetValue(100);
-	//Green->SetValue(100);
-	//Yellow->SetValue(100);
-	//==============INITIALIZE COLOURS RESTING TEXTURE==============
-
-	//timer = timer - deltaTime;
-	
-
-	//if (input->wasKeyPressed(aie::INPUT_KEY_W))
-//HERE
-	//StartRound(deltaTime);
-	//cout << "Timer: " << timer << endl;
+	//StartRound
 	timer -= deltaTime * 2;
 	if (difficulty > 0)
 	{
 		if (SequenceFinished)
 		{
-			cout << "Timer: " << timer << endl;
 			if (timer > 4 && timer < 5)
 			{
 				if (randomColour == "RED")
@@ -297,7 +248,6 @@ void Simon___AssignmentApp::update(float deltaTime) {
 		TodrawDarkGreen = true;
 		TodrawDarkYellow = true;
 		inputPhase = true;
-		//sequnce_finished = true;
 	}
 
 	if (inputPhase == true)
@@ -346,27 +296,16 @@ void Simon___AssignmentApp::update(float deltaTime) {
 				timer = 5;
 				SequenceFinished = true;
 				valueInsertPhase = true;
-				//increment difficulty
-				//
+				
 			}
 		}
-		//Set Colours To Dark
 
 		else if (current->getData() != Data->getData())
 		{
 			cout << "Incorrect" << endl;
 			m_gameOver = true;
 		}
-		
-		
-		
 	}
-
-	//while (inputDone == false)
-	
-
-
-
 }
 
 void Simon___AssignmentApp::draw() {
@@ -379,13 +318,6 @@ void Simon___AssignmentApp::draw() {
 
 	// draw your stuff here!
 
-	//==========DEFAULT COLOURS===============
-	//Red->Draw(m_2dRenderer, 1,0,0);
-	//Blue->Draw(m_2dRenderer,0,0,1);
-	//Green->Draw(m_2dRenderer,0,1,0);
-	//Yellow->Draw(m_2dRenderer,0.80,1,0);
-	//==========DEFAULT COLOURS===============
-	
 	//=====================DEFAULT RED COLOURS RENDERERD IN========================================
 	if (TodrawDarkRed)
 	{
@@ -419,58 +351,12 @@ void Simon___AssignmentApp::draw() {
 
 	else {
 		m_2dRenderer->drawSprite(m_BrightYellowTexture, Yellow->m_posX, Yellow->m_posY, Yellow->m_width, Yellow->m_height);
-	}//if (Todraw == true)
-	//{
-	//	/*m_bar = new Bar(600, 200, 200, 210);
-	//	m_bar->Draw(m_2dRenderer);*/
-	//}
+	}
 	
-
-	
-	//m_binaryTree->draw(m_2dRenderer, m_selectedNode);
-
-
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0);
 
 	// done drawing sprites
 	m_2dRenderer->end();
 }
-
-
-//void Simon___AssignmentApp::InputPhase()
-//{
-//	if (input->wasKeyPressed(aie::INPUT_KEY_W))
-//	{
-//
-//	}
-//}
-
-
-//----For Later-----
-
-
-//bool Simon___AssignmentApp::CheckWon(Array *firstList, Array *secondList)
-//{
-//	Bar *current = nullptr;
-//	Bar *parent = nullptr;
-//
-//	firstList->
-//
-
-//	current = firstList
-//	//if Won
-//	return true;
-
-//	//current = firstList
-//	//if Won
-//	//return true;
-
-//
-//	//else Lost
-//	//return false;
-//}
-
-
-//----For Later-----
 
