@@ -63,80 +63,80 @@ public:
 			quit();
 		}
 	}
-	//virtual bool CheckWon(Array *firstList, Array *secondList);
 
 
-	//virtual void InputPhase();
 
-	virtual void DisplayColours_sequence(string randomColour)
-	{
-		//Sequence Start Void Function
-		SimonTree->insert(randomColour);//Insert Node, which Holds a random String betweeen Red,Blue,Green and Yellow
-		if (randomColour == "RED")
-		{
-			Red->SetValue(-1);
-		}
-		else if (randomColour == "BLUE")
-		{
-			Blue->SetValue(-1);
-		}
-		else if (randomColour == "GREEN")
-		{
-			Green->SetValue(-1);
-		}
-		else if (randomColour == "YELLOW")
-		{
-			Yellow->SetValue(-1);
-		}						//Sequence Start Void Function
-	}
 
-	virtual void StartRound(float deltaTime)
-	{
-		for (difficulty; difficulty != 0; difficulty--)
-		{
-			//timer = timer - deltaTime;
-			cout << "Timer: " << timer << endl;
-			if (timer > 0)
-			{
-				randomColour = colours[rand() % 4];
-				SimonTree->insert(randomColour);
-				insert = false;
-			}
 
-			if (randomColour == "RED")
-			{
-				TodrawDarkRed = false;
-				draw();
-			}
-			else if (randomColour == "BLUE")
-			{
-				TodrawDarkBlue = false;
-				draw();
-			}
-			else if (randomColour == "GREEN")
-			{
-				TodrawDarkGreen = false;
-			}
-			else if (randomColour == "YELLOW")
-			{
-				TodrawDarkYellow = false;
-			}
+	//virtual void DisplayColours_sequence(string randomColour)
+	//{
+	//	//Sequence Start Void Function
+	//	SimonTree->insert(randomColour);//Insert Node, which Holds a random String betweeen Red,Blue,Green and Yellow
+	//	if (randomColour == "RED")
+	//	{
+	//		Red->SetValue(-1);
+	//	}
+	//	else if (randomColour == "BLUE")
+	//	{
+	//		Blue->SetValue(-1);
+	//	}
+	//	else if (randomColour == "GREEN")
+	//	{
+	//		Green->SetValue(-1);
+	//	}
+	//	else if (randomColour == "YELLOW")
+	//	{
+	//		Yellow->SetValue(-1);
+	//	}						//Sequence Start Void Function
+	//}
 
-			if (timer > 0 && timer < 1)
-			{
-				TodrawDarkRed = true;
-				TodrawDarkRed = true;
-				TodrawDarkGreen = true;
-				TodrawDarkYellow = true;
-			}
+	//virtual void StartRound(float deltaTime)
+	//{
+	//	for (difficulty; difficulty != 0; difficulty--)
+	//	{
+	//		//timer = timer - deltaTime;
+	//		cout << "Timer: " << timer << endl;
+	//		if (timer > 0)
+	//		{
+	//			randomColour = colours[rand() % 4];
+	//			SimonTree->insert(randomColour);
+	//			insert = false;
+	//		}
 
-			else if (timer <= 0)
-			{
-				insert = true;
-				timer = 5;
-			}
-		}
-	}
+	//		if (randomColour == "RED")
+	//		{
+	//			TodrawDarkRed = false;
+	//			draw();
+	//		}
+	//		else if (randomColour == "BLUE")
+	//		{
+	//			TodrawDarkBlue = false;
+	//			draw();
+	//		}
+	//		else if (randomColour == "GREEN")
+	//		{
+	//			TodrawDarkGreen = false;
+	//		}
+	//		else if (randomColour == "YELLOW")
+	//		{
+	//			TodrawDarkYellow = false;
+	//		}
+
+	//		if (timer > 0 && timer < 1)
+	//		{
+	//			TodrawDarkRed = true;
+	//			TodrawDarkRed = true;
+	//			TodrawDarkGreen = true;
+	//			TodrawDarkYellow = true;
+	//		}
+
+	//		else if (timer <= 0)
+	//		{
+	//			insert = true;
+	//			timer = 5;
+	//		}
+	//	}
+	//}
 
 
 protected:
@@ -145,6 +145,9 @@ protected:
 	aie::Font*			m_font;
 
 	//=============Textures==============
+	aie::Texture* m_GamePhaseTexture;
+	aie::Texture* m_InputPhaseTexture;
+
 	aie::Texture* m_BrightRedTexture;
 	aie::Texture* m_DarkRedTexture;
 
@@ -171,6 +174,12 @@ protected:
 	//====Colours=======
 
 
+	//=====TEXT TEXTURE======
+	//Bar* GamePhase;
+	//Bar* InputPhase;
+	//=====TEXT TEXTURE======
+
+
 	//=====NODES (IN USE)=======
 	Bar *current = nullptr;
 	Bar* Data = nullptr;
@@ -189,6 +198,8 @@ protected:
 	bool TodrawDarkBlue = true;
 	bool TodrawDarkGreen = true;
 	bool TodrawDarkYellow = true;
+	bool TodrawGamePhase = true;
+	bool TodrawInputPhase;
 	//=====ToDrawQuery===========
 
 

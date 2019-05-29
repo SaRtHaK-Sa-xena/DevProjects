@@ -42,18 +42,33 @@ bool Simon___AssignmentApp::startup() {
 	string yellow = "yellow";
 
 
-
+	//============COLOURS==========================================
 	Red = new Bar(600, 150, 200, 210, red); //bottom Square
 	Blue = new Bar(600, 600, 200, 210, blue); //top square
 	Green = new Bar(350, 350, 200, 210, green); //left square
 	Yellow = new Bar(850, 350, 200, 210, yellow); //right square
-	
-	//===========================================================================================
+	//============COLOURS==========================================
+
+
+	//==============TEXT TEXTURE===================
+	//GamePhase = new Bar(600, 350, 300, 300, "");
+	//GamePhase = new Bar(150, 650, 300, 300, "");
+	//InputPhase = new Bar(150, 600, 210, 210, "");
+	//==============TEXT TEXTURE===================
+
+
+	//==============TEXT TEXTURE===================
+	//m_2dRenderer->drawSprite(m_GamePhaseTexture, GamePhase->m_posX, GamePhase->m_posY, GamePhase->m_width, GamePhase->m_height);
+	//m_2dRenderer->drawSprite(m_InputPhaseTexture, InputPhase->m_posX, InputPhase->m_posY, InputPhase->m_width, InputPhase->m_height);
+	//==============TEXT TEXTURE===================
+
+
+	//===============================COLOURS=========================================================
 	m_2dRenderer->drawSprite(m_DarkRedTexture, Red->m_posX, Red->m_posY, Red->m_width, Red->m_height);
 	m_2dRenderer->drawSprite(m_DarkBlueTexture, Blue->m_posX, Blue->m_posY, Blue->m_width, Blue->m_height);
 	m_2dRenderer->drawSprite(m_DarkGreenTexture, Green->m_posX, Green->m_posY, Green->m_width, Green->m_height);
 	m_2dRenderer->drawSprite(m_DarkRedTexture, Yellow->m_posX, Yellow->m_posY, Yellow->m_width, Yellow->m_height);
-	//==========================================================================================
+	//================================COLOURS=====================================================
 
 	Data = new Bar(0,0,0,0,"");
 	inputPhase = false;
@@ -85,13 +100,14 @@ void Simon___AssignmentApp::shutdown() {
 	delete m_DarkGreenTexture;
 	delete m_DarkYellowTexture;
 
-
 	delete Red;
 	delete Blue;
 	delete Green;
 	delete Yellow;
 	delete SimonTree;
 	delete Data;
+	//delete GamePhase;
+	//delete InputPhase;
 }
 
 
@@ -114,6 +130,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 	{
 		if (SequenceFinished)
 		{
+			TodrawGamePhase = true;
 			if (timer > 4 && timer < 5)
 			{
 				if (randomColour == "RED")
@@ -200,6 +217,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 		
 		else
 		{
+			TodrawGamePhase = true;
 			if (timer >= 1)
 			{
 				if (insert == true)
@@ -253,6 +271,8 @@ void Simon___AssignmentApp::update(float deltaTime) {
 
 	if (inputPhase == true)
 	{
+		TodrawGamePhase = false;
+		TodrawInputPhase = true;
 		if (input->wasKeyPressed(aie::INPUT_KEY_W))
 		{
 			TodrawDarkBlue = false;
@@ -291,6 +311,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 			}
 			else
 			{
+
 				difficulty++;
 				Total_difficulty++;
 				TempTotaldifficulty = Total_difficulty;
@@ -369,8 +390,22 @@ void Simon___AssignmentApp::draw() {
 		m_2dRenderer->drawSprite(m_BrightYellowTexture, Yellow->m_posX, Yellow->m_posY, Yellow->m_width, Yellow->m_height);
 	}
 	
+	if (TodrawGamePhase)
+	{
+		m_2dRenderer->drawText(g_systemFont, "GAME PHASE", 500, 300);
+	}
+	else
+	{
+		//m_2dRenderer->drawSprite(m_InputPhaseTexture, InputPhase->m_posX, InputPhase->m_posY, InputPhase->m_width, InputPhase->m_height);
+		m_2dRenderer->drawText(g_systemFont, "INPUT PHASE", 500, 400);
+	}
+
+	m_2dRenderer->drawText(g_systemFont, "W", 590, 590);
+	m_2dRenderer->drawText(g_systemFont, "A", 350, 350);
+	m_2dRenderer->drawText(g_systemFont, "S", 590, 100);
+	m_2dRenderer->drawText(g_systemFont, "D", 850, 350);
 	// output some text, uses the last used colour
-	m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0);
+	//m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0);
 	//m_2dRenderer->drawText(g_systemFont, "TESTING TEXT RESPONSE", 8, 8);
 
 	// done drawing sprites
