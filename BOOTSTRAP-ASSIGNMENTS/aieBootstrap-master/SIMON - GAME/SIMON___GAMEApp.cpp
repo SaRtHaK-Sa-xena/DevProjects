@@ -134,6 +134,8 @@ void SIMON___GAMEApp::update(float deltaTime) {
 				{
 					TodrawDarkYellow = true;
 				}
+
+				
 			}
 			else if (timer >= 1)
 			{
