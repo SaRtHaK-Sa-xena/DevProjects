@@ -133,7 +133,8 @@ int main()
 				cin.ignore(256, '\n');
 				cin >> n;
 			}
-			node2 = doubleList->First();
+			//====================Delete=========================
+			/*node2 = doubleList->First();
 			for (int i = 0; i < doubleList->Count(); i++)
 			{
 				if (node2->m_data == n)
@@ -145,7 +146,9 @@ int main()
 			for (int i = 0; i < j; i++)
 			{
 				doubleList->Remove(n);
-			}
+			}*/
+			//====================Delete=========================
+			doubleList->Remove(n);
 			std::cout << "Printing After List: " << std::endl;
 			doubleList->Print();
 			break;

@@ -286,29 +286,94 @@ void DoubleLinkedList::Erase(Iterator a_iterator)
 //===============REMOVE VALUE============
 void DoubleLinkedList::Remove(int value)
 {
-	if (!Empty())
-	{
-		Node* node = head;
 
+	//===================================TEST 2===============
+	Node* node = head;
+
+	while (node->m_data != value)
+	{
+		node = node->next;
+	}
+
+	Node* temp = node->prev;
+
+	node = node->next;
+	if (node->m_data != value)
+	{
+		temp->next = node;
+		temp = node;
 		while (node->m_data != value)
 		{
 			node = node->next;
 		}
-		Node* temp = nullptr;
-		temp = node->prev;
-		temp->next = node->next;
 
-		if(temp->next->m_data == value)
-		{
-			temp->next = node->next->next;
-			//temp = temp->next;
-		}
+		temp->next = node->next;
 		delete node;
 	}
 	else
 	{
-		std::cout << "List AlreadY Empty" << std::endl;
+		while (node->m_data != value)
+		{
+			node = node->next;
+		}
+
+		temp->next = node->next;
+		delete node;
 	}
+	
+	//===================================TEST 2===============
+
+
+	//========================TEST 1========================
+	//Node* node = head;
+
+	//while (node->m_data != value)
+	//{
+	//	node = node->next;
+	//}
+	////node = value
+	//Node* temp = node->prev;
+
+	//node = node->next;
+	//while (node->m_data != value)
+	//{
+	//	//temp->next = node;
+	//	node = node->next;
+	//	//temp = node;
+	//}
+	////Node* temp2 = node->next;
+	//temp->next = node->next;
+	//delete node;
+	//========================TEST 1========================
+
+
+
+	//=======================ORIGNAL=========================
+	//if (!Empty())
+	//{
+	//	Node* node = head;
+
+	//	while (node->m_data != value)
+	//	{
+	//		node = node->next;
+	//	}
+	//	Node* temp = nullptr;
+	//	temp = node->prev;
+	//	temp->next = node->next;
+
+	//	if(temp->next->m_data == value)
+	//	{
+	//		temp->next = node->next->next;
+	//		//temp = temp->next;
+	//	}
+	//	delete node;
+	//}
+	//else
+	//{
+	//	std::cout << "List AlreadY Empty" << std::endl;
+	//}
+	//=======================ORIGNAL=========================
+
 }
 	// ======================NEW ATTEMPT==
 	//if (!Empty())
