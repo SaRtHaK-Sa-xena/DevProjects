@@ -1,11 +1,17 @@
 // HASHING.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
+#include "Hash.h"
 
-#include <iostream>
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n"; 
+	int index;
+	hashClass hashObject;
+
+	index = hashObject.Hash("Paula");
+
+	cout << "Index = " << index << endl;
 }
 
 
