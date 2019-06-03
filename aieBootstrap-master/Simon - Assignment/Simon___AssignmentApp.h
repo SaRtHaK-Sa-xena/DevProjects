@@ -199,6 +199,7 @@ protected:
 	bool TodrawDarkGreen = true;
 	bool TodrawDarkYellow = true;
 	bool TodrawGamePhase = true;
+	bool TodrawGameOver = false;
 	bool TodrawInputPhase;
 	//=====ToDrawQuery===========
 

@@ -152,6 +152,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 			}
 			else if (timer >= 1)
 			{
+
 				//=================Display Sequence Again===========================
 				
 				if (valueInsertPhase == true)
@@ -217,10 +218,32 @@ void Simon___AssignmentApp::update(float deltaTime) {
 		
 		else
 		{
+			//=============Delays=========================
 			TodrawGamePhase = true;
-			if (timer >= 1)
+			if (timer > 4 && timer < 5)
 			{
-				if (insert == true)
+				if (randomColour == "RED")
+				{
+					TodrawDarkRed = true;
+				}
+				else if (randomColour == "BLUE")
+				{
+					TodrawDarkBlue = true;
+				}
+				else if (randomColour == "GREEN")
+				{
+					TodrawDarkGreen = true;
+				}
+				else if (randomColour == "YELLOW")
+				{
+					TodrawDarkYellow = true;
+				}
+			}
+			//=============Delays=========================
+			else if (timer >= 1)
+			{
+				TodrawGameOver = false;
+				if (insert == true) //Insert into list once
 				{
 					randomColour = colours[rand() % 4];
 					current = SimonTree->ReturnRoot();
@@ -244,7 +267,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 					TodrawDarkYellow = false;
 				}
 			}
-			else if (timer > 0 && timer < 1)
+			else if (timer > 0 && timer < 1) //setting it to dark, to make it appear triggered
 			{
 				TodrawDarkRed = true;
 				TodrawDarkBlue = true;
@@ -252,7 +275,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 				TodrawDarkYellow = true;
 			}
 
-			else if (timer <= 0)
+			else if (timer <= 0) //difficulty decrements, and continues by setting timer to 5 again
 			{
 				difficulty--;
 				insert = true;
@@ -269,6 +292,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 		inputPhase = true;
 	}
 
+	//=========================Input Phase======================================
 	if (inputPhase == true)
 	{
 		TodrawGamePhase = false;
@@ -276,34 +300,36 @@ void Simon___AssignmentApp::update(float deltaTime) {
 		if (input->wasKeyPressed(aie::INPUT_KEY_W))
 		{
 			TodrawDarkBlue = false;
-			Data->setData("BLUE");
+			Data->setData("BLUE"); //sets into a temporary node
 			inputDone = true;
 		}
 		else if (input->wasKeyPressed(aie::INPUT_KEY_A))
 		{
 			TodrawDarkGreen = false;
-			Data->setData("GREEN");
+			Data->setData("GREEN"); //sets into a temporary node
 			inputDone = true;
 		}
 		else if (input->wasKeyPressed(aie::INPUT_KEY_S))
 		{
 			TodrawDarkRed = false;
-			Data->setData("RED");
+			Data->setData("RED"); //sets into a temporary node
 			inputDone = true;
 		}
 		else if (input->wasKeyPressed(aie::INPUT_KEY_D))
 		{
 			TodrawDarkYellow = false;
-			Data->setData("YELLOW");
+			Data->setData("YELLOW"); //sets into a temporary node
 			inputDone = true;
 		}
 	}
+	//=========================Input Phase======================================
 
 
+	//=====================Executes if key has been pressed other wise continue with sequence============
 	if (inputDone)
 	{
 		inputDone = false;
-		if (current->getData() == Data->getData())
+		if (current->getData() == Data->getData()) //checks against the temporary node
 		{
 			if (current->getRight() != nullptr)
 			{
@@ -325,6 +351,7 @@ void Simon___AssignmentApp::update(float deltaTime) {
 		else if (current->getData() != Data->getData())
 		{
 			cout << "Incorrect" << endl;
+			TodrawGameOver = true;
 
 			//---Set Values Back In-------
 			Total_difficulty = 3;
@@ -343,6 +370,8 @@ void Simon___AssignmentApp::update(float deltaTime) {
 			cout << "----------RESTARTING------" << endl;
 		}
 	}
+	//=====================Executes if key has been pressed other wise continue with sequence============
+
 }
 
 void Simon___AssignmentApp::draw() {
@@ -400,6 +429,10 @@ void Simon___AssignmentApp::draw() {
 		m_2dRenderer->drawText(g_systemFont, "INPUT PHASE", 500, 400);
 	}
 
+	if (TodrawGameOver)
+	{
+		m_2dRenderer->drawText(g_systemFont, "WRONG", 500, 400);
+	}
 	//============KEYS FOR HELP==========================
 	m_2dRenderer->drawText(g_systemFont, "W", 590, 590);
 	m_2dRenderer->drawText(g_systemFont, "A", 350, 350);
