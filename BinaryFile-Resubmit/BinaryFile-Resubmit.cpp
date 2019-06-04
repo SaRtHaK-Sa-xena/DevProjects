@@ -136,14 +136,16 @@ void Write(int n)
 
 		//=============NAME==========
 		char fullName[20];//10
-		char firstName[10];//5
-		char secondName[10];//5
+		//char firstName[10];//5
+		//char secondName[10];//5
 		//=============NAME==========
 
 		//============TITLE==========
 		char Title[20];
 		char firstWord[10];
 		char secondWord[10];
+
+		string Example;
 		//============TITLE==========
 
 
@@ -173,10 +175,25 @@ void Write(int n)
 
 		//============NEXT EDIT============
 
-		//=============Get Name============
+		//=============Get Name==============[IT WORKS!!!]
 		cout << "Enter Your Full Name: " << endl;
-		cin >> firstName >> secondName;
+		cin.ignore(1, '\n');
+		cin.getline(fullName, 20);
+		//===========GET NAME================[IT WORKS!!!]
+
+		//cin >> firstName >> secondName;
 		//=============Get Name============
+		
+		//=========check if name valied===
+		//if (secondName[0] == '/')
+		//{
+			//cout << "Entered IF LOOP" << endl;
+			//for (int i = 0; i < 10; i++)
+			//{
+				//secondName[i] = '\0';
+			//}
+		//}
+
 
 		//=============Get Title==========
 		cout << "Enter Title Of Book" << endl;
@@ -185,9 +202,9 @@ void Write(int n)
 
 
 		//===========FULL NAME=============
-		strcpy_s(fullName, firstName);
-		strcat_s(fullName, " ");
-		strcat_s(fullName, secondName);
+		//strcpy_s(fullName, firstName);
+		//strcat_s(fullName, " ");
+		//strcat_s(fullName, secondName);
 		//===========FULL NAME=============
 
 		//===========FULL TITLE============
@@ -348,19 +365,19 @@ void Write_NAME(ofstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekp(24 + 4, ios::beg);
+		file.seekp(44 + 4, ios::beg); //added 24 //was 24
 	}
 	else if (n == 3)
 	{
-		file.seekp(24 * 2 + 4, ios::beg);
+		file.seekp(44 * 2 + 4, ios::beg);
 	}
 	else if (n == 4)
 	{
-		file.seekp(24 * 3 + 4, ios::beg);
+		file.seekp(44 * 3 + 4, ios::beg);
 	}
 	else if (n == 5)
 	{
-		file.seekp(24 * 4 + 4, ios::beg);
+		file.seekp(44 * 4 + 4, ios::beg);
 	}
 	////sets at beginning of NAME
 	//if (n == 1)
@@ -394,19 +411,19 @@ void Read_NAME(ifstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekg(24 + 4, ios::beg);
+		file.seekg(44 + 4, ios::beg); //was 24
 	}
 	else if (n == 3)
 	{
-		file.seekg(24 * 2 + 4, ios::beg);
+		file.seekg(44 * 2 + 4, ios::beg);
 	}
 	else if (n == 4)
 	{
-		file.seekg(24 * 3 + 4, ios::beg);
+		file.seekg(44 * 3 + 4, ios::beg);
 	}
 	else if (n == 5)
 	{
-		file.seekg(24 * 4 + 4, ios::beg);
+		file.seekg(44 * 4 + 4, ios::beg);
 	}
 	////sets at beginning of NAME
 	//if (n == 1)
@@ -446,18 +463,20 @@ void Overwrite_NAME(int n)
 
 		//===========INITIALIZE=============
 		char fullName[20];
-		char firstName[10];
-		char secondName[10];
+		//char firstName[10];
+		//char secondName[10];
 		//===========INITIALIZE=============
 
 
 		cout << "Enter Full Name: " << endl;
-		cin >> firstName >> secondName;
+		cin.ignore(1, '\n');
+		cin.getline(fullName, 20);
+		//cin >> firstName >> secondName;
 
 		//=====Writes Name
-		strcpy_s(fullName, firstName);
-		strcat_s(fullName, " ");
-		strcat_s(fullName, secondName);
+		//strcpy_s(fullName, firstName);
+		//strcat_s(fullName, " ");
+		//strcat_s(fullName, secondName);
 		//=====Writes Name
 
 		//======Overwrites========
