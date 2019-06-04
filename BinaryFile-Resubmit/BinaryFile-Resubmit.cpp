@@ -142,8 +142,8 @@ void Write(int n)
 
 		//============TITLE==========
 		char Title[20];
-		char firstWord[10];
-		char secondWord[10];
+		//char firstWord[10];
+		//char secondWord[10];
 
 		string Example;
 		//============TITLE==========
@@ -197,7 +197,9 @@ void Write(int n)
 
 		//=============Get Title==========
 		cout << "Enter Title Of Book" << endl;
-		cin >> firstWord >> secondWord;
+		cin.ignore(1, '\n');
+		cin.getline(Title, 20);
+		//cin >> firstWord >> secondWord;
 		//=============Get Title==========
 
 
@@ -208,9 +210,9 @@ void Write(int n)
 		//===========FULL NAME=============
 
 		//===========FULL TITLE============
-		strcpy_s(Title, firstWord);
-		strcat_s(Title, " ");
-		strcat_s(Title, secondWord);
+		//strcpy_s(Title, firstWord);
+		//strcat_s(Title, " ");
+		//strcat_s(Title, secondWord);
 		//===========FULL TITLE============
 
 		Data[n].setTitle(Title);
@@ -365,7 +367,7 @@ void Write_NAME(ofstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekp(44 + 4, ios::beg); //added 24 //was 24
+		file.seekp(44 + 4, ios::beg); //added 20 //was 24
 	}
 	else if (n == 3)
 	{
@@ -473,11 +475,13 @@ void Overwrite_NAME(int n)
 		cin.getline(fullName, 20);
 		//cin >> firstName >> secondName;
 
+
 		//=====Writes Name
 		//strcpy_s(fullName, firstName);
 		//strcat_s(fullName, " ");
 		//strcat_s(fullName, secondName);
 		//=====Writes Name
+
 
 		//======Overwrites========
 		Data[n].setFullName(fullName);
@@ -549,16 +553,18 @@ void search_integer()
 
 	//===========INITIALIZING==========
 	char SearchArray[20];
-	char firstComponent[10];
-	char secondComponent[10];
+	//char firstComponent[10];
+	//char secondComponent[10];
 	//===========INITIALIZING==========
 
 
 	//==============Enters Into Array To Search===========
-	cin >> firstComponent >> secondComponent;
-	strcpy_s(SearchArray, firstComponent);
-	strcat_s(SearchArray, " ");
-	strcat_s(SearchArray, secondComponent);
+	cin.ignore(1, '\n');
+	cin.getline(SearchArray, 20);
+	//cin >> firstComponent >> secondComponent;
+	//strcpy_s(SearchArray, firstComponent);
+	//strcat_s(SearchArray, " ");
+	//strcat_s(SearchArray, secondComponent);
 	//==============Enters Into Array To Search===========
 
 	for (int i = 0; i < 5; i++)
