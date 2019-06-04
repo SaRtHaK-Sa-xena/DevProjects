@@ -14,7 +14,8 @@ void Reset(int n)
 {
 	cin >> n;
 }
-//======================END RESET FUNCTION========================================
+//======================END RESET FUNCTION================================
+
 
 //===================Setting File Pointer(read and write) ================
 void setWritePos(ofstream &file, int n)
@@ -25,19 +26,19 @@ void setWritePos(ofstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekp(24, ios::beg);
+		file.seekp(44, ios::beg);//24
 	}
 	else if (n == 3)
 	{
-		file.seekp(24 * 2, ios::beg);
+		file.seekp(44 * 2, ios::beg);//24*2
 	}
 	else if (n == 4)
 	{
-		file.seekp(24 * 3, ios::beg);
+		file.seekp(44 * 3, ios::beg);
 	}
 	else if (n == 5)
 	{
-		file.seekp(24 * 4, ios::beg);
+		file.seekp(44 * 4, ios::beg);
 	}
 	/*if (n == 1)
 	{
@@ -68,19 +69,19 @@ void setReadPos(ifstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekg(24 * 1, ios::beg);
+		file.seekg(44 * 1, ios::beg);
 	}
 	else if (n == 3)
 	{
-		file.seekg(24 * 2, ios::beg);
+		file.seekg(44 * 2, ios::beg);
 	}
 	else if (n == 4)
 	{
-		file.seekg(24 * 3, ios::beg);
+		file.seekg(44 * 3, ios::beg);
 	}
 	else if (n == 5)
 	{
-		file.seekg(24 * 4, ios::beg);
+		file.seekg(44 * 4, ios::beg);
 	}
 	else
 	{
@@ -118,7 +119,9 @@ void setReadPos(ifstream &file, int n)
 	}*/
 }
 //=======================End FilePointer Function ========================
+
 Record Data[5]; //initialize class array
+
 
 //===========WRITE BIN. FILE FUNCTION ====================================[EDITTED]
 void Write(int n)
@@ -130,9 +133,20 @@ void Write(int n)
 		int ID = 0;// initialize
 
 		//===========NEXT EDIT=============
+
+		//=============NAME==========
 		char fullName[20];//10
 		char firstName[10];//5
 		char secondName[10];//5
+		//=============NAME==========
+
+		//============TITLE==========
+		char Title[20];
+		char firstWord[10];
+		char secondWord[10];
+		//============TITLE==========
+
+
 		//===========NEXT EDIT=============
 
 		//=====ORIGINAL==========
@@ -158,8 +172,16 @@ void Write(int n)
 		}
 
 		//============NEXT EDIT============
+
+		//=============Get Name============
 		cout << "Enter Your Full Name: " << endl;
 		cin >> firstName >> secondName;
+		//=============Get Name============
+
+		//=============Get Title==========
+		cout << "Enter Title Of Book" << endl;
+		cin >> firstWord >> secondWord;
+		//=============Get Title==========
 
 
 		//===========FULL NAME=============
@@ -168,7 +190,13 @@ void Write(int n)
 		strcat_s(fullName, secondName);
 		//===========FULL NAME=============
 
+		//===========FULL TITLE============
+		strcpy_s(Title, firstWord);
+		strcat_s(Title, " ");
+		strcat_s(Title, secondWord);
+		//===========FULL TITLE============
 
+		Data[n].setTitle(Title);
 		Data[n].setFullName(fullName);
 		//============NEXT EDIT============
 
@@ -197,6 +225,7 @@ void Write(int n)
 
 		//====================NEXT EDIT=========================
 		writeToFile.write((char*)&fullName, sizeof(char) * 20);//10
+		writeToFile.write((char*)&Title, sizeof(char) * 20);
 		//====================NEXT EDIT=========================
 
 		//====================EDITTED===========================
@@ -256,6 +285,9 @@ void Read(int n)
 		//==============NEXT EDIT==========================
 		char fullName[20];//10
 		Data[n].getFullName(fullName);
+
+		char Title[20];
+		Data[n].getTitle(Title);
 		//==============NEXT EDIT==========================
 
 
@@ -276,6 +308,11 @@ void Read(int n)
 		readToFile.read((char*)&fullName, sizeof(char) * 20);//10
 		cout << endl;
 		cout << "Full Name: " << fullName;
+
+
+		readToFile.read((char*)&Title, sizeof(char) * 20);
+		cout << endl;
+		cout << "Title: " << Title;
 		//=======================NEXT EDIT=====================
 
 
@@ -406,17 +443,45 @@ void Overwrite_NAME(int n)
 	if (fileToOverWrite.is_open())
 	{
 		setWritePos(fileToOverWrite, n); //set position in file at INDEX
-		char name[10]; //10
-		cout << "Enter Name: " << endl;
-		cin >> name;
-		Data[n].setName(name);
+
+		//===========INITIALIZE=============
+		char fullName[20];
+		char firstName[10];
+		char secondName[10];
+		//===========INITIALIZE=============
+
+
+		cout << "Enter Full Name: " << endl;
+		cin >> firstName >> secondName;
+
+		//=====Writes Name
+		strcpy_s(fullName, firstName);
+		strcat_s(fullName, " ");
+		strcat_s(fullName, secondName);
+		//=====Writes Name
+
+		//======Overwrites========
+		Data[n].setFullName(fullName);
 		Write_NAME(fileToOverWrite, n); //set before NAME
+		//======Overwrites========
+
+		fileToOverWrite.write((char*)&fullName, sizeof(char) * 20);
+
+		//===================ORIGINAL=======================
+		//char name[10]; //10
+		//cout << "Enter Name: " << endl;
+		//cin >> name;
+		//Data[n].setName(name);
+		//Write_NAME(fileToOverWrite, n); //set before NAME
+
 
 		//--------Used to check Position in file-----------
 		/*int w_pos = fileToOverWrite.tellp();
 		cout << "Location To Write Set To: " << w_pos << endl;*/
 
-		fileToOverWrite.write((char*)&name, sizeof(char) * 20); //writes name over that data //10
+		//fileToOverWrite.write((char*)&name, sizeof(char) * 20); //writes name over that data //10
+		//===================ORIGINAL=======================
+
 	}
 
 }
@@ -462,19 +527,49 @@ void search_integer()
 {
 	ifstream file;
 	file.open("BinaryFile.dat", ios::in | ios::binary);
-	char ToSearch[10]; //get temp array
-	cin >> ToSearch;
-	for (int i = 0; i < 5; i++) //loop throught the Data[i] <- positioon to find name
+
+	//===========INITIALIZING==========
+	char SearchArray[20];
+	char firstComponent[10];
+	char secondComponent[10];
+	//===========INITIALIZING==========
+
+
+	//==============Enters Into Array To Search===========
+	cin >> firstComponent >> secondComponent;
+	strcpy_s(SearchArray, firstComponent);
+	strcat_s(SearchArray, " ");
+	strcat_s(SearchArray, secondComponent);
+	//==============Enters Into Array To Search===========
+
+	for (int i = 0; i < 5; i++)
 	{
-		char name[10];
-		Data[i].getName(name); //store it
-		Read_NAME(file, i); //set pointer before NAME
-		file.read((char*)&name, sizeof(char) * 10); //read over name
-		if (!strcmp(ToSearch, name)) //compare strings( ToSearch and range_test)
+		char FullName[20];
+		Data[i].getFullName(FullName);
+		Read_NAME(file, i);
+		file.read((char*)&FullName, sizeof(char) * 20);
+		if (!strcmp(SearchArray, FullName))
 		{
-			cout << "Location Found at Index: " << i << endl; //print i, which is the index
+			cout << "Location Found at Index: " << i << endl;
 		}
 	}
+
+	//=========================ORIGINAL==================================================
+	//char ToSearch[10]; //get temp array
+	//cin >> ToSearch;
+	//for (int i = 0; i < 5; i++) //loop throught the Data[i] <- positioon to find name
+	//{
+	//	char name[10];
+	//	Data[i].getName(name); //store it
+	//	Read_NAME(file, i); //set pointer before NAME
+	//	file.read((char*)&name, sizeof(char) * 10); //read over name
+	//	if (!strcmp(ToSearch, name)) //compare strings( ToSearch and range_test)
+	//	{
+	//		cout << "Location Found at Index: " << i << endl; //print i, which is the index
+	//	}
+	//}
+	//=========================ORIGINAL==================================================
+
 }
 //================END SEARCH BY NAME FUNCTION==================================
 
@@ -485,7 +580,7 @@ int main()
 	char choice = '0';
 	int n = 0;
 	string response;
-	//------------------------------------------
+	//-----------------Initialization-----------
 	while (cont)
 	{
 		cout << "\t\t\t==========Choose==========" << endl;
