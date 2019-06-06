@@ -26,19 +26,19 @@ void setWritePos(ofstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekp(44, ios::beg);//24
+		file.seekp(65, ios::beg);//24 //was 44
 	}
 	else if (n == 3)
 	{
-		file.seekp(44 * 2, ios::beg);//24*2
+		file.seekp(65 * 2, ios::beg);//24*2
 	}
 	else if (n == 4)
 	{
-		file.seekp(44 * 3, ios::beg);
+		file.seekp(65 * 3, ios::beg);
 	}
 	else if (n == 5)
 	{
-		file.seekp(44 * 4, ios::beg);
+		file.seekp(65 * 4, ios::beg);
 	}
 	/*if (n == 1)
 	{
@@ -69,19 +69,19 @@ void setReadPos(ifstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekg(44 * 1, ios::beg);
+		file.seekg(65 * 1, ios::beg); //was 44
 	}
 	else if (n == 3)
 	{
-		file.seekg(44 * 2, ios::beg);
+		file.seekg(65 * 2, ios::beg);
 	}
 	else if (n == 4)
 	{
-		file.seekg(44 * 3, ios::beg);
+		file.seekg(65 * 3, ios::beg);
 	}
 	else if (n == 5)
 	{
-		file.seekg(44 * 4, ios::beg);
+		file.seekg(65 * 4, ios::beg);
 	}
 	else
 	{
@@ -145,9 +145,9 @@ void Write(int n)
 		//char firstWord[10];
 		//char secondWord[10];
 
-		string Example;
+		int Testing;
 		//============TITLE==========
-
+		char Date[21];
 
 		//===========NEXT EDIT=============
 
@@ -202,7 +202,9 @@ void Write(int n)
 		//cin >> firstWord >> secondWord;
 		//=============Get Title==========
 
-
+		cout << "Enter Date Borrowed: " << endl;
+		cin.ignore(1, '\n');
+		cin.getline(Date, 20);
 		//===========FULL NAME=============
 		//strcpy_s(fullName, firstName);
 		//strcat_s(fullName, " ");
@@ -214,7 +216,7 @@ void Write(int n)
 		//strcat_s(Title, " ");
 		//strcat_s(Title, secondWord);
 		//===========FULL TITLE============
-
+		Data[n].setDate(Date);
 		Data[n].setTitle(Title);
 		Data[n].setFullName(fullName);
 		//============NEXT EDIT============
@@ -245,6 +247,7 @@ void Write(int n)
 		//====================NEXT EDIT=========================
 		writeToFile.write((char*)&fullName, sizeof(char) * 20);//10
 		writeToFile.write((char*)&Title, sizeof(char) * 20);
+		writeToFile.write((char*)&Date, sizeof(char) * 21);
 		//====================NEXT EDIT=========================
 
 		//====================EDITTED===========================
@@ -307,6 +310,10 @@ void Read(int n)
 
 		char Title[20];
 		Data[n].getTitle(Title);
+
+		char Date[21];
+		Data[n].getDate(Date);
+
 		//==============NEXT EDIT==========================
 
 
@@ -332,6 +339,10 @@ void Read(int n)
 		readToFile.read((char*)&Title, sizeof(char) * 20);
 		cout << endl;
 		cout << "Title: " << Title;
+
+		readToFile.read((char*)&Date, sizeof(char) * 21);
+		cout << endl;
+		cout << "Date Entried: " << Date << endl;
 		//=======================NEXT EDIT=====================
 
 
@@ -367,7 +378,7 @@ void Write_NAME(ofstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekp(44 + 4, ios::beg); //added 20 //was 24
+		file.seekp(44 + 4, ios::beg); //added 20 //was 24 //was 44 + 4 -> 44 * 2 + 4
 	}
 	else if (n == 3)
 	{

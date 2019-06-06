@@ -8,6 +8,7 @@ private:
 	char User[20]; //10
 
 	char Title[20];
+	char Date[21];
 	//string fullName;
 
 public:
@@ -54,4 +55,13 @@ public:
 	}
 
 
+	void setDate(char dateSet[21])
+	{
+		strcpy_s(Date, dateSet);
+	}
+
+	void getDate(char copyDate[21])
+	{
+		strcpy_s(copyDate, 21, Date);
+	}
 };

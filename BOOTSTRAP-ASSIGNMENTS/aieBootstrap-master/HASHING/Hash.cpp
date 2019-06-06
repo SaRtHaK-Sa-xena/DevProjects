@@ -15,6 +15,15 @@ void hashClass::AddItem(string name, string drink)
 	{
 		item* Ptr = HashTable[index];
 		item* n = new item;
+		n->name = name;
+		n->favDrink = drink;
+		n->next = NULL;
+		while (Ptr->next != NULL)
+		{
+			Ptr = Ptr->next; //until last item in list
+		}
+		//now at last
+		Ptr->next = n; //last item linked to first
 	}
 }
 
@@ -31,6 +40,169 @@ hashClass::hashClass()
 }
 
 
+int hashClass::NumberOfItemsInIndex(int index)
+{
+	int count = 0;
+	//count until reaches NULL
+	if (HashTable[index]->name == "empty")
+	{
+		return count; //if at End Of list return Count
+	}
+	else
+	{
+		count++; //if not count increments and Ptr Moves Forward
+		item* Ptr = HashTable[index];
+		while (Ptr->next != NULL)
+		{
+			count++;
+			Ptr = Ptr->next;
+		}
+	}
+	return count; //
+}
+
+void hashClass::PrintTable()
+{
+	int number;
+	for (int i = 0; i < tableSize; i++)
+	{
+		number = NumberOfItemsInIndex(i); //number will equal no. of items in List
+		cout << "---------------------------\n";
+		cout << "index = " << i << endl;
+		cout << HashTable[i]->name << endl;
+		cout << HashTable[i]->favDrink << endl;
+		cout << "# of items = " << number << endl;
+		cout << "---------------------------\n";
+
+
+	}
+}
+
+
+
+void hashClass::PrintItemsInIndex(int index)
+{
+	item* Ptr = HashTable[index];
+
+	if (Ptr->name == "empty")
+	{
+		cout << "index = " << index << "is empty";
+	}
+	else
+	{
+		cout << "index " << index << " contains the following item\n";
+
+		while (Ptr != NULL)
+		{
+			cout << "-------------------\n";
+			cout << Ptr->name << endl;
+			cout << Ptr->favDrink << endl;
+			cout << "-------------------\n";
+
+			Ptr = Ptr->next;
+		}
+	}
+}
+
+
+void hashClass::FindDrink(string name)
+{
+	int index = Hash(name);
+	bool foundName = false;
+	string drink;
+
+	item* Ptr = HashTable[index];
+	while (Ptr != NULL)
+	{
+		if (Ptr->name == name)
+		{
+			foundName = true;
+			drink = Ptr->favDrink;
+		}
+		Ptr = Ptr->next;
+	}
+	if (foundName == true)
+	{
+		cout << "Favorite drink = " << drink << endl;
+	}
+	else
+	{
+		cout << name << "'s info wasn't found in the Hash table\n";
+	}
+}
+
+
+void hashClass::RemoveItem(string name)
+{
+	int index = Hash(name); //hashes name and makes that number equal index
+
+	item* delPtr;
+	item* P1;
+	item* P2;
+
+	//case 0 - bucket is empty
+	if (HashTable[index]->name == "empty" && HashTable[index]->favDrink == "empty")
+	{
+		cout << name << " was not found in the Hash Table\n";
+	}
+
+	
+	//case 1 - only 1 item contained in bucket and that item has matching name
+	else if (HashTable[index]->name == name && HashTable[index]->next == NULL)//only one item in index 
+	{
+		HashTable[index]->name = "empty"; //set to empty
+		HashTable[index]->favDrink = "empty"; //set to empty
+		cout << name << " was removed from the Hash Table\n";
+
+	}
+
+	//if additional items are contained in index
+	//case 2 - match is located in the first item in the bucket but there are more items in the bucket
+	else if (HashTable[index]->name == name)
+	{
+		delPtr = HashTable[index]; //pointer poiting to first item to delete in index
+		HashTable[index] = HashTable[index]->next; //points to the new first item
+		delete delPtr;
+
+		cout << name << " was removed from the Hash Table\n";
+	}
+
+
+	//case 3 - bucket contains items but first item is not a match
+	else
+	{
+		P1 = HashTable[index]->next; //pointing to second item
+		P2 = HashTable[index];//p2 trailing behind p1
+
+		while (P1 != NULL && P1->name != name) //as long as pointer pointing at value and name not equal to name
+		{
+			//move up one item
+			P2 = P1;
+			P1 = P1->next;
+		}
+		//case 3,1 - no match
+		if (P1 == NULL)
+		{
+			cout << name << " was not found in the Hash Table\n";
+		}
+		else
+		{
+			delPtr = P1; //to rremce
+			P1 = P1->next; //very next poiinter
+			P2->next = P1; //since the pointer previously pointed at P1 which is being deleted, P1 now points next, and P2 points to the new P1's next
+
+			delete delPtr;
+			cout << name << " was removed from the Hash Table\n";
+		}
+
+
+	}
+	//3.2 - math is found
+}
+
+
+
+
 int hashClass::Hash(string key)
 {
 	int hash = 0;
@@ -40,8 +212,7 @@ int hashClass::Hash(string key)
 
 	for (int i = 0; i < key.length(); i++)
 	{
-		hash = hash + (int)key[i];
-		cout << "hash = " << hash << endl;
+		hash = (hash + (int)key[i]) * 17;
 	}
 
 	index = hash % tableSize;
