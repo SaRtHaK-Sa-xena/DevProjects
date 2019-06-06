@@ -17,6 +17,9 @@ void Reset(int n)
 //======================END RESET FUNCTION================================
 
 
+
+
+
 //===================Setting File Pointer(read and write) ================
 void setWritePos(ofstream &file, int n)
 {
@@ -147,7 +150,7 @@ void Write(int n)
 
 		int Testing;
 		//============TITLE==========
-		char Date[21];
+		char Date[20];
 
 		//===========NEXT EDIT=============
 
@@ -197,13 +200,13 @@ void Write(int n)
 
 		//=============Get Title==========
 		cout << "Enter Title Of Book" << endl;
-		cin.ignore(1, '\n');
+		cin.ignore(0, '\n');
 		cin.getline(Title, 20);
 		//cin >> firstWord >> secondWord;
 		//=============Get Title==========
 
 		cout << "Enter Date Borrowed: " << endl;
-		cin.ignore(1, '\n');
+		cin.ignore(0, '\n');
 		cin.getline(Date, 20);
 		//===========FULL NAME=============
 		//strcpy_s(fullName, firstName);
@@ -217,8 +220,9 @@ void Write(int n)
 		//strcat_s(Title, secondWord);
 		//===========FULL TITLE============
 		Data[n].setDate(Date);
-		Data[n].setTitle(Title);
 		Data[n].setFullName(fullName);
+		Data[n].setTitle(Title);
+
 		//============NEXT EDIT============
 
 
@@ -334,7 +338,6 @@ void Read(int n)
 		readToFile.read((char*)&fullName, sizeof(char) * 20);//10
 		cout << endl;
 		cout << "Full Name: " << fullName;
-
 
 		readToFile.read((char*)&Title, sizeof(char) * 20);
 		cout << endl;

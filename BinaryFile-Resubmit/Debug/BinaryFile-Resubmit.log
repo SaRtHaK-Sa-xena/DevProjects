@@ -1,3 +1,4 @@
 ﻿  BinaryFile-Resubmit.cpp
-c:\users\sarthak\documents\github\testproject2d\binaryfile-resubmit\binaryfile-resubmit.cpp(292): warning C4101: 'Log': unreferenced local variable
+C:\Users\sarthak\Documents\GitHub\TestProject2D\BinaryFile-Resubmit\BinaryFile-Resubmit.cpp(151): warning C4101: 'Testing': unreferenced local variable
+C:\Users\sarthak\Documents\GitHub\TestProject2D\BinaryFile-Resubmit\BinaryFile-Resubmit.cpp(296): warning C4101: 'Log': unreferenced local variable
   BinaryFile-Resubmit.vcxproj -> C:\Users\sarthak\Documents\GitHub\TestProject2D\BinaryFile-Resubmit\Debug\BinaryFile-Resubmit.exe
