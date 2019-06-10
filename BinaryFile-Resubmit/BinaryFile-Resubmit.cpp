@@ -29,19 +29,19 @@ void setWritePos(ofstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekp(44, ios::beg);//24 //was 44
+		file.seekp(64, ios::beg);//24 //was 44
 	}
 	else if (n == 3)
 	{
-		file.seekp(44 * 2, ios::beg);//24*2
+		file.seekp(64 * 2, ios::beg);//24*2
 	}
 	else if (n == 4)
 	{
-		file.seekp(44 * 3, ios::beg);
+		file.seekp(64 * 3, ios::beg);
 	}
 	else if (n == 5)
 	{
-		file.seekp(44 * 4, ios::beg); //was 65
+		file.seekp(64 * 4, ios::beg); //was 65
 	}
 	/*if (n == 1)
 	{
@@ -72,19 +72,19 @@ void setReadPos(ifstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekg(44 * 1, ios::beg); //was 44
+		file.seekg(64 * 1, ios::beg); //was 44
 	}
 	else if (n == 3)
 	{
-		file.seekg(44 * 2, ios::beg);
+		file.seekg(64 * 2, ios::beg);
 	}
 	else if (n == 4)
 	{
-		file.seekg(44 * 3, ios::beg);
+		file.seekg(64 * 3, ios::beg);
 	}
 	else if (n == 5)
 	{
-		file.seekg(44 * 4, ios::beg);
+		file.seekg(64 * 4, ios::beg);
 	}
 	else
 	{
