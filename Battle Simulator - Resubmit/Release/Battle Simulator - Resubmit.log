@@ -1,0 +1,7 @@
+﻿  pch.cpp
+  Battle Simulator - Resubmit.cpp
+c:\users\sarthak\source\repos\battle simulator - resubmit\battle simulator - resubmit.cpp(19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating code
+  All 88 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Battle Simulator - Resubmit.vcxproj -> C:\Users\sarthak\source\repos\Battle Simulator - Resubmit\Release\Battle Simulator - Resubmit.exe
