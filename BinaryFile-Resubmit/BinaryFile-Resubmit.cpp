@@ -90,8 +90,8 @@ void setReadPos(ifstream &file, int n)
 	{
 		cout << "Error" << endl;
 		cout << "Max Limit: 5" << endl;
-		cout << "Enter another Index" << endl;
-		Reset(n);
+		cout << "Try Again later" << endl;
+		//Reset(n);
 	}
 	/*if (n == 1)
 	{
@@ -596,6 +596,78 @@ void Write_Title(ofstream& file, int n)
 	}
 }
 
+void Write_Author(ofstream &file, int n)
+{
+	if (n == 1)
+	{
+		file.seekp(104, ios::beg); //=======================104
+	}
+	else if (n == 2)
+	{
+		file.seekp(254 * 1 + 104, ios::beg);//24 //was 44 //was 64 //was 154
+	}
+	else if (n == 3)
+	{
+		file.seekp(254 * 2 + 104, ios::beg);//24*2
+	}
+	else if (n == 4)
+	{
+		file.seekp(254 * 3 + 104, ios::beg);
+	}
+	else if (n == 5)
+	{
+		file.seekp(254 * 4 + 104, ios::beg); //was 65
+	}
+}
+
+void Write_Status(ofstream &file, int n)
+{
+	if (n == 1)
+	{
+		file.seekp(154, ios::beg); //========================154
+	}
+	else if (n == 2)
+	{
+		file.seekp(254 * 1 + 154, ios::beg);//24 //was 44 //was 64 //was 154
+	}
+	else if (n == 3)
+	{
+		file.seekp(254 * 2 + 154, ios::beg);//24*2
+	}
+	else if (n == 4)
+	{
+		file.seekp(254 * 3 + 154, ios::beg);
+	}
+	else if (n == 5)
+	{
+		file.seekp(254 * 4 + 154, ios::beg); //was 65
+	}
+}
+
+void Write_Date(ofstream &file, int n)
+{
+	if (n == 1)
+	{
+		file.seekp(204, ios::beg);//============================204
+	}
+	else if (n == 2)
+	{
+		file.seekp(254 * 1 + 204, ios::beg);//24 //was 44 //was 64 //was 154
+	}
+	else if (n == 3)
+	{
+		file.seekp(254 * 2 + 204, ios::beg);//24*2
+	}
+	else if (n == 4)
+	{
+		file.seekp(254 * 3 + 204, ios::beg);
+	}
+	else if (n == 5)
+	{
+		file.seekp(254 * 4 + 204, ios::beg); //was 65
+	}
+}
+
 void OVERWRITE_Title(int n)
 {
 	ofstream fileToOverWrite;
@@ -631,17 +703,101 @@ void OVERWRITE_Title(int n)
 
 void OVERWRITE_Author(int n)
 {
+	ofstream fileToOverWrite;
+	fileToOverWrite.open("BinaryFile.dat", ios::in | ios::out | ios::binary);
+	if (fileToOverWrite.is_open())
+	{
+		setWritePos(fileToOverWrite, n); //set position in file at INDEX
 
+		//===========INITIALIZE=============
+		char fullAuthor[50];
+		//===========INITIALIZE=============
+
+
+		cout << "Enter Author: " << endl;
+		cin.ignore(1, '\n');
+		cin.getline(fullAuthor, 50);
+
+
+		//======Overwrites========
+		Data[n].setAuthor(fullAuthor);
+		Write_Author(fileToOverWrite, n); //set before NAME
+		//======Overwrites========
+
+		fileToOverWrite.write((char*)& fullAuthor, sizeof(char) * 50);
+
+
+		//--------Used to check Position in file-----------
+		/*int w_pos = fileToOverWrite.tellp();
+		cout << "Location To Write Set To: " << w_pos << endl;*/
+
+	}
 }
 
 void OVERWRITE_BookStatus(int n)
 {
+	ofstream fileToOverWrite;
+	fileToOverWrite.open("BinaryFile.dat", ios::in | ios::out | ios::binary);
+	if (fileToOverWrite.is_open())
+	{
+		setWritePos(fileToOverWrite, n); //set position in file at INDEX
 
+		//===========INITIALIZE=============
+		char fullStatus[50];
+		//===========INITIALIZE=============
+
+
+		cout << "Enter Status: " << endl;
+		cin.ignore(1, '\n');
+		cin.getline(fullStatus, 50);
+
+
+		//======Overwrites========
+		Data[n].setStatus(fullStatus);
+		Write_Status(fileToOverWrite, n); //set before NAME
+		//======Overwrites========
+
+		fileToOverWrite.write((char*)& fullStatus, sizeof(char) * 50);
+
+
+		//--------Used to check Position in file-----------
+		/*int w_pos = fileToOverWrite.tellp();
+		cout << "Location To Write Set To: " << w_pos << endl;*/
+
+	}
 }
 
 void OVERWRITE_Date(int n)
 {
+	ofstream fileToOverWrite;
+	fileToOverWrite.open("BinaryFile.dat", ios::in | ios::out | ios::binary);
+	if (fileToOverWrite.is_open())
+	{
+		setWritePos(fileToOverWrite, n); //set position in file at INDEX
 
+		//===========INITIALIZE=============
+		char fullDate[50];
+		//===========INITIALIZE=============
+
+
+		cout << "Enter Status: " << endl;
+		cin.ignore(1, '\n');
+		cin.getline(fullDate, 50);
+
+
+		//======Overwrites========
+		Data[n].setStatus(fullDate);
+		Write_Date(fileToOverWrite, n); //set before NAME
+		//======Overwrites========
+
+		fileToOverWrite.write((char*)& fullDate, sizeof(char) * 50);
+
+
+		//--------Used to check Position in file-----------
+		/*int w_pos = fileToOverWrite.tellp();
+		cout << "Location To Write Set To: " << w_pos << endl;*/
+
+	}
 }
 
 //=================SEARCH BY NAME FUNCTION=====================================
@@ -951,8 +1107,8 @@ int main()
 			cout << "Update Record No: ";
 			cin >> n;
 			//Either change Name or ID
-			cout << "Would you like to edit the ID or NAME?" << endl;
-			cout << "Enter ==================>(id) or (name)" << endl;
+			cout << "Would you like to edit?" << endl;
+			cout << "Enter ==================>(id)---(name)----(title)----(author)----(date)---" << endl;
 			cin >> response;
 			if (response == "name")
 			{
@@ -965,6 +1121,18 @@ int main()
 			else if (response == "title")
 			{
 				OVERWRITE_Title(n);
+			}
+			else if (response == "author")
+			{
+				OVERWRITE_Author(n);
+			}
+			else if (response == "status")
+			{
+				OVERWRITE_BookStatus(n);
+			}
+			else if (response == "date")
+			{
+				OVERWRITE_Date(n);
 			}
 			else
 			{
