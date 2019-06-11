@@ -141,7 +141,7 @@ Vector2::Vector2(float X, float Y)
 Vector2::operator float*() { return &m_x; }
 
 
-//==================OPERATOR PLUS======================
+//==================OPERATOR ======================
 Vector2 Vector2::operator+(const Vector2 & other)
 {
 	SetX(m_x + other.m_x);
@@ -178,7 +178,7 @@ Vector2 Vector2::operator=(Vector2 & other)
 	SetX(m_x = other.m_x);
 	SetY(m_y = other.m_y);
 }
-//==================OPERATOR PLUS======================
+//==================OPERATOR======================
 
 float Vector2::GetX()
 {
@@ -248,6 +248,8 @@ namespace MathFuncs
 }
 //============EXAMPLE===================
 
+
+//=======================================================MATRIX3======================================
 Matrix3::Matrix3()
 {
 	a_x = 1;
@@ -339,6 +341,7 @@ Vector3 Matrix3::operator*(const Vector3 &v)const
 
 const Matrix3 Matrix3::identity = Matrix3(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
+//=======================================================MATRIX3======================================
 
 
 

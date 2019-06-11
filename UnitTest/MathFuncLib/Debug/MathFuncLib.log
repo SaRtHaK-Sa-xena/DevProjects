@@ -1,0 +1,16 @@
+﻿  MathFuncLib.cpp
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(165): warning C4552: '*': result of expression not used
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(166): warning C4552: '*': result of expression not used
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(85): error C4716: 'Vector3::operator+': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(97): error C4716: 'Vector3::operator*': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(91): error C4716: 'Vector3::operator-': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(103): error C4716: 'Vector3::operator/=': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(109): error C4716: 'Vector3::operator=': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(149): error C4716: 'Vector2::operator+': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(154): error C4716: 'Vector2::operator-': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(159): error C4716: 'Vector2::operator/=': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(167): error C4716: 'Vector2::operator*': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(171): warning C4717: 'operator*': recursive on all control paths, function will cause runtime stack overflow
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(171): error C4716: 'operator*': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(175): error C4716: 'operator*': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(180): error C4716: 'Vector2::operator=': must return a value
