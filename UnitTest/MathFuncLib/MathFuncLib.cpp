@@ -5,6 +5,123 @@
 
 using namespace std;
 
+
+//===============================VECTOR 4=========================
+Vector4::Vector4()
+{
+	m_x = 0;
+	m_y = 0;
+	m_z = 0;
+	m_w = 0;
+
+	data[0] = m_x;
+	data[1] = m_y;
+	data[2] = m_z;
+	data[3] = m_w;
+
+}
+
+Vector4::Vector4(float X, float Y, float Z, float W)
+{
+	m_x = X;
+	m_y = Y;
+	m_z = Z;
+	m_w = W;
+}
+
+Vector4 operator * (float scalar, const Vector4 &vec4)
+{
+	vec4 * scalar;
+}
+
+float Vector4::operator[](int index) const
+{
+	return data[index];
+}
+
+float& Vector4::operator[](int index)
+{
+	return data[index];
+}
+
+Vector4::operator float* ()
+{
+	return data;
+}
+
+Vector4::operator const float*()
+{
+	return data;
+}
+
+Vector4 Vector4::operator+(const Vector4 &other) const
+{
+	return { m_x + other.m_x, m_y + other.m_y , m_z + other.m_z , m_w + other.m_w };
+}
+
+Vector4 Vector4::operator+=(const Vector4 & other)
+{
+	m_x += other.m_x;
+	m_y += other.m_y;
+	m_z += other.m_z;
+	m_w += other.m_w;
+	return *this;
+}
+
+Vector4& Vector4::operator -(const Vector4 &other)
+{
+	m_x -= other.m_x;
+	m_y -= other.m_y;
+	m_z -= other.m_z;
+	m_w -= other.m_w;
+	return *this;
+}
+
+Vector4 Vector4::operator * (float scalar) const
+{
+	return { m_x * scalar, m_y * scalar, m_z *scalar, m_w * scalar };
+}
+
+Vector4 Vector4::operator *(const Matrix4 &other)const
+{
+	m_x * other.m_x;
+	m_y * other.m_y;
+	m_z * other.m_z;
+	m_w * other.m_w;
+	return *this;
+}
+
+Vector4& Vector4::operator /(float scalar)
+{
+	m_x /= scalar;
+	m_y /= scalar;
+	m_z /= scalar;
+	m_w /= scalar;
+	return *this;
+}
+
+Vector4& Vector4::operator = (const Vector4 &other)
+{
+	m_x = other.m_x;
+	m_y = other.m_y;
+	m_z = other.m_z;
+	m_w = other.m_w;
+
+	return *this;
+}
+//===============================VECTOR 4=========================
+
+
+
+
+
+
+
+
+
+
+
+
 //=================Vector3 Initialization==========================
 Vector3::Vector3()
 {
@@ -265,7 +382,6 @@ Matrix3::Matrix3()
 	c_z = 1;
 
 	
-
 	data[0][0] = a_x;
 	data[0][1] = a_y;
 	data[0][2] = a_z;
@@ -277,6 +393,7 @@ Matrix3::Matrix3()
 	data[2][0] = c_x;
 	data[2][1] = c_y;
 	data[2][2] = c_z;
+
 }
 
 Matrix3::Matrix3(float aX, float bX, float cX, float aY, float bY, float cY, float aZ, float bZ, float cZ)
@@ -301,22 +418,42 @@ Matrix3::operator float*()
 	return &data[3][3];
 }
 
-float Matrix3::operator*(const Matrix3 & other)
+Matrix3 Matrix3::operator *(const Matrix3 &other)const
 {
+	// r = rows
+	// c = columns
+
 	Matrix3 result;
 
 	for (int r = 0; r < 3; r++)
 	{
 		for (int c = 0; c < 3; c++)
 		{
-			result.m[c][r] = m[0][r] * other.m[c][0] +
-				m[1][r] * other.m[c][1] +
-				m[2][r] * other.m[c][2];
+			result.data[c][r] = data[0][r] * other.data[c][0] +
+								data[1][r] * other.data[c][1] +
+								data[2][r] * other.data[c][2];
 		}
 	}
-
-	return 0.0f;
+	return result;
 }
+
+
+//float Matrix3::operator*(const Matrix3 & other)
+//{
+//	Matrix3 result;
+//
+//	for (int r = 0; r < 3; r++)
+//	{
+//		for (int c = 0; c < 3; c++)
+//		{
+//			result.m[c][r] = m[0][r] * other.m[c][0] +
+//				m[1][r] * other.m[c][1] +
+//				m[2][r] * other.m[c][2];
+//		}
+//	}
+//
+//	return 0.0f;
+//}
 
 Matrix3 Matrix3::transposed() const
 {
@@ -339,16 +476,251 @@ Vector3 Matrix3::operator*(const Vector3 &v)const
 	return result;
 }
 
-const Matrix3 Matrix3::identity = Matrix3(1, 0, 0, 0, 1, 0, 0, 0, 1);
+Matrix3 Matrix3::operator=(const Matrix3 &other)
+{
+	a_x = other.a_x; 
+	a_y = other.a_y; 
+	a_z = other.a_z; 
+
+	b_x = other.b_x; 
+	b_y = other.a_y; 
+	b_z = other.b_z; 
+	
+	c_x = other.c_x; 
+	c_y = other.c_y; 
+	c_z = other.c_z; 
+
+}
+
+Matrix3 Matrix3::operator=(Vector3 & other)
+{
+	a_x = other.m_x;
+	a_y = other.m_y;
+	a_z = other.m_z;
+}
+
+const Matrix3 Matrix3::identity = Matrix3
+	(1, 0, 0,
+	0, 1, 0,
+	0, 0, 1);
+
+
+
+//=======================rotation================
+void Matrix3::setScaled(float x, float y, float z)
+{
+	xAxis = { x,0,0 };
+	yAxis = { 0,y,0 };
+	zAxis = { 0,0,z };
+}
+
+void Matrix3::setScaled(const Vector3 &v)
+{
+	xAxis = { v.m_x,0,0 };
+	yAxis = { 0,v.m_y,0 };
+	zAxis = { 0,0,v.m_z };
+}
+
+void Matrix3::scale(const Vector3 &v)
+{
+	Matrix3 m;
+	m.setScaled(v.m_x, v.m_y, v.m_z);
+
+	*this = *this * m;
+}
+
+void Matrix3::setRotateX(float radians) { // leave X axis and elements unchanged
+	xAxis = { 1, 0, 0 };
+	yAxis = { 0, cosf(radians), sinf(radians) };
+	zAxis = { 0, -sinf(radians), cosf(radians) };
+}
+
+void Matrix3::setRotateY(float radians) { // leave X axis and elements unchanged
+	xAxis = { cosf(radians), 0, -sinf(radians) };
+	yAxis = { 0, 1, 0};
+	zAxis = { sinf(radians), 0, cosf(radians) };
+}
+
+void Matrix3::setRotateZ(float radians) { // leave X axis and elements unchanged
+	xAxis = { cosf(radians), -sinf(radians), 0};
+	yAxis = { sinf(radians), 1, cosf(radians) };
+	zAxis = { 0, 0, 1 };
+}
+
+void Matrix3::rotateX(float radians) 
+{ 
+	Matrix3 m;
+	m.setRotateX(radians);
+	*this = *this * m;
+}
+
+void Matrix3::setEuler(float pitch, float yaw, float roll) 
+{
+	Matrix3 x, y, z;
+	x.setRotateX(pitch);
+	y.setRotateY(yaw);
+	z.setRotateZ(roll);
+	// combine rotations in a specific order
+	*this = z * y * x;
+}
+
+//=======================rotation================
+
+
+
 
 //=======================================================MATRIX3======================================
+//
+//=====================================MATRIX 4========================================================
 
+Matrix4::Matrix4()
+{
+	a_x = 1;
+	a_y = 0;
+	a_z = 0;
+	a_w = 0;
 
+	b_x = 0;
+	b_y = 1;
+	b_z = 0;
+	b_w = 0;
 
+	c_x = 0;
+	c_y = 0;
+	c_z = 1;
+	c_w = 0;
+
+	d_x = 0;
+	d_y = 0;
+	d_z = 0;
+	d_w = 1;
+
+	data[0][0] = a_x;
+	data[0][1] = a_y;
+	data[0][2] = a_z;
+	data[0][3] = a_w;
+
+	data[1][0] = b_x;
+	data[1][1] = b_y;
+	data[1][2] = b_z;
+	data[1][3] = b_w;
+
+	data[2][0] = c_x;
+	data[2][1] = c_y;
+	data[2][2] = c_z;
+	data[2][3] = c_w;
+
+	data[3][0] = d_x;
+	data[3][1] = d_y;
+	data[3][2] = d_z;
+	data[3][3] = d_w;
+}
+
+Matrix4::Matrix4(float aX, float bX, float cX, float dX,
+	float aY, float bY, float cY, float dY,
+	float aZ, float bZ, float cZ, float dZ,
+	float aW, float bW, float cW, float dW)
+{
+	a_x = aX;
+	a_y = aY;
+	a_z = aZ;
+	a_w = aW;
+
+	b_x = bX;
+	b_y = bY;
+	b_z = bZ;
+	b_w = bW;
+
+	c_x = cX;
+	c_y = cY;
+	c_z = cZ;
+	c_w = cW;
+
+	d_x = dX;
+	d_y = dY;
+	d_z = dZ;
+	d_w = dW;
+}
+
+Matrix4 Matrix4::operator=(Matrix4 &other)
+{
+	a_x = other.a_x;
+	a_y = other.a_y;
+	a_z = other.a_z;
+	a_w = other.a_w;
+
+	b_x = other.b_x;
+	b_y = other.a_y;
+	b_z = other.b_z;
+	b_w = other.b_w;
+
+	c_x = other.c_x;
+	c_y = other.c_y;
+	c_z = other.c_z;
+	c_w = other.c_w;
+}
+
+Vector4 Matrix4::operator*(const Vector3 &v)const
+{
+	Vector4 result;
+
+	for (int r = 0; r < 4; r++)
+	{
+		result[r] = data[0][r] * v[0] + data[1][r] * v[1] + data[2][r] * v[2] + data[3][r] * v[3];
+	}
+
+	return result;
+}
+
+Matrix4 Matrix4::operator*(const Matrix4 &other) const
+{
+	Matrix4 result;
+
+	for (int r = 0; r < 4; r++)
+	{
+		for (int c = 0; c < 4; c++)
+		{
+			result.data[c][r] = data[0][r] * other.data[c][0] +
+				data[1][r] * other.data[c][1] +
+				data[2][r] * other.data[c][2] +
+				data[3][r] * other.data[c][3];
+		}
+	}
+	return result;
+}
+
+Matrix4 Matrix4::transposed()const
+{
+	Matrix4 result;
+	for (int r = 0; r < 4; r++)
+	{
+		for (int c = 0; c < 4; c++)
+		{
+			result.data[r][c] = data[c][r];
+		}
+	}
+	return result;
+}
+
+//IDENTITY
+const Matrix4 Matrix4::identity = Matrix4
+	(1, 0, 0, 0,
+	0, 1, 0, 0,
+	0, 0, 1, 0,
+	0, 0, 0, 1);
 
 Matrix4::operator float*()
 {
 	return &data[4][4];
 }
+
+void Matrix4::setScaled(float x, float y, float z)
+{
+	xAxis = { x,0,0,0 };
+	yAxis = { 0,y,0,0 };
+	zAxis = { 0,0,z,0 };
+	translation = { 0,0,0,1 };
+}
+//=====================================MATRIX 4========================================================
 
 

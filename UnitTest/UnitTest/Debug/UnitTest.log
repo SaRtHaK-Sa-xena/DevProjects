@@ -1,109 +1,39 @@
 ﻿  main.cpp
   unittest.cpp
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(125): error C2661: 'Vector4::Vector4': no overloaded function takes 4 arguments
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(126): error C2676: binary '+': 'Vector4' does not define this operator or a conversion to a type acceptable to the predefined operator
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(130): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(130): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(130): error C2672: 'TestFunc': no matching overloaded function found
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(130): error C2780: 'bool TestFunc(const char *,T &,float)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(107): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(130): error C2780: 'bool TestFunc(const char *,T &,T &)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(98): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(137): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(137): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(138): error C2679: binary '=': no operator found which takes a right-hand operand of type 'int' (or there is no acceptable conversion)
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(201): note: could be 'Vector4 &Vector4::operator =(Vector4 &&)'
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(201): note: or       'Vector4 &Vector4::operator =(const Vector4 &)'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(138): note: while trying to match the argument list '(Vector4, int)'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(142): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(142): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(142): error C2672: 'TestFunc': no matching overloaded function found
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(142): error C2780: 'bool TestFunc(const char *,T &,float)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(107): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(142): error C2780: 'bool TestFunc(const char *,T &,T &)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(98): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(149): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(149): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(150): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Vector4' (or there is no acceptable conversion)
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: could be 'Vector2 operator *(float,const Vector2 &)'
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(47): note: or       'Vector3 operator *(float,Vector3 &)'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(150): note: while trying to match the argument list '(Vector4, float)'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(154): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(154): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(154): error C2672: 'TestFunc': no matching overloaded function found
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(154): error C2780: 'bool TestFunc(const char *,T &,float)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(107): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(154): error C2780: 'bool TestFunc(const char *,T &,T &)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(98): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(161): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(161): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(162): error C2679: binary '*': no operator found which takes a right-hand operand of type 'Vector4' (or there is no acceptable conversion)
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: could be 'Vector2 operator *(float,const Vector2 &)'
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(47): note: or       'Vector3 operator *(float,Vector3 &)'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(162): note: while trying to match the argument list '(float, Vector4)'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(166): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(166): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(166): error C2672: 'TestFunc': no matching overloaded function found
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(166): error C2780: 'bool TestFunc(const char *,T &,float)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(107): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(166): error C2780: 'bool TestFunc(const char *,T &,T &)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(98): note: see declaration of 'TestFunc'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(170): error C2039: 'dot': is not a member of 'Vector2'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(51): note: see declaration of 'Vector2'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(172): error C2039: 'dot': is not a member of 'Vector3'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(6): note: see declaration of 'Vector3'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(173): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(173): note: No constructor could take the source type, or constructor overload resolution was ambiguous
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(174): error C2039: 'dot': is not a member of 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(189): note: see declaration of 'Vector4'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(211): note: see declaration of 'Vector4'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(182): error C2039: 'cross': is not a member of 'Vector3'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(6): note: see declaration of 'Vector3'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(183): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(183): note: No constructor could take the source type, or constructor overload resolution was ambiguous
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(184): error C2039: 'cross': is not a member of 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(189): note: see declaration of 'Vector4'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(187): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(187): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(187): error C2672: 'TestFunc': no matching overloaded function found
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(187): error C2780: 'bool TestFunc(const char *,T &,float)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(107): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(187): error C2780: 'bool TestFunc(const char *,T &,T &)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(98): note: see declaration of 'TestFunc'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(211): note: see declaration of 'Vector4'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(191): error C2039: 'magnitude': is not a member of 'Vector2'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(51): note: see declaration of 'Vector2'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(193): error C2039: 'magnitude': is not a member of 'Vector3'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(6): note: see declaration of 'Vector3'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(194): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(194): note: No constructor could take the source type, or constructor overload resolution was ambiguous
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(195): error C2039: 'magnitude': is not a member of 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(189): note: see declaration of 'Vector4'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(211): note: see declaration of 'Vector4'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(203): error C2039: 'normalise': is not a member of 'Vector2'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(51): note: see declaration of 'Vector2'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(205): error C2039: 'normalise': is not a member of 'Vector3'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(6): note: see declaration of 'Vector3'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(206): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(206): note: No constructor could take the source type, or constructor overload resolution was ambiguous
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(207): error C2039: 'normalise': is not a member of 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(189): note: see declaration of 'Vector4'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(211): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(211): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(211): error C2672: 'TestFunc': no matching overloaded function found
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(211): error C2780: 'bool TestFunc(const char *,T &,float)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(107): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(211): error C2780: 'bool TestFunc(const char *,T &,T &)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(98): note: see declaration of 'TestFunc'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(211): note: see declaration of 'Vector4'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(216): error C2039: 'setRotateX': is not a member of 'Matrix3'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(132): note: see declaration of 'Matrix3'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(217): error C2039: 'setRotateX': is not a member of 'Matrix4'
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(170): note: see declaration of 'Matrix4'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(175): note: see declaration of 'Matrix4'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(218): error C2039: 'setRotateY': is not a member of 'Matrix3'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(132): note: see declaration of 'Matrix3'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(219): error C2039: 'setRotateY': is not a member of 'Matrix4'
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(170): note: see declaration of 'Matrix4'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(175): note: see declaration of 'Matrix4'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(220): error C2039: 'setRotateZ': is not a member of 'Matrix3'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(132): note: see declaration of 'Matrix3'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(221): error C2039: 'setRotateZ': is not a member of 'Matrix4'
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(170): note: see declaration of 'Matrix4'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(175): note: see declaration of 'Matrix4'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(226): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Matrix4'
   c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(226): note: No constructor could take the source type, or constructor overload resolution was ambiguous
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(226): error C2672: 'TestFunc': no matching overloaded function found
@@ -125,36 +55,19 @@ c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(2
   c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(107): note: see declaration of 'TestFunc'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(228): error C2780: 'bool TestFunc(const char *,T &,T &)': expects 3 arguments - 2 provided
   c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(98): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(235): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(235): note: No constructor could take the source type, or constructor overload resolution was ambiguous
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(236): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: could be 'Vector2 operator *(float,const Vector2 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(242): note: could be 'Vector4 operator *(float,const Vector4 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: or       'Vector2 operator *(float,const Vector2 &)'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(47): note: or       'Vector3 operator *(float,Vector3 &)'
   c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(236): note: while trying to match the argument list '(Matrix4, Vector4)'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(237): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: could be 'Vector2 operator *(float,const Vector2 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(242): note: could be 'Vector4 operator *(float,const Vector4 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: or       'Vector2 operator *(float,const Vector2 &)'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(47): note: or       'Vector3 operator *(float,Vector3 &)'
   c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(237): note: while trying to match the argument list '(Matrix4, Vector4)'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(241): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(241): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(241): error C2672: 'TestFunc': no matching overloaded function found
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(241): error C2780: 'bool TestFunc(const char *,T &,float)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(107): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(241): error C2780: 'bool TestFunc(const char *,T &,T &)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(98): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(242): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(242): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(242): error C2672: 'TestFunc': no matching overloaded function found
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(242): error C2780: 'bool TestFunc(const char *,T &,float)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(107): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(242): error C2780: 'bool TestFunc(const char *,T &,T &)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(98): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(245): error C2679: binary '=': no operator found which takes a right-hand operand of type 'float' (or there is no acceptable conversion)
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(168): note: could be 'Matrix3 &Matrix3::operator =(Matrix3 &&)'
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(168): note: or       'Matrix3 &Matrix3::operator =(const Matrix3 &)'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(245): note: while trying to match the argument list '(Matrix3, float)'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(246): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: could be 'Vector2 operator *(float,const Vector2 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(242): note: could be 'Vector4 operator *(float,const Vector4 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: or       'Vector2 operator *(float,const Vector2 &)'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(47): note: or       'Vector3 operator *(float,Vector3 &)'
   c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(246): note: while trying to match the argument list '(Matrix4, Matrix4)'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(249): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Matrix4'
@@ -172,36 +85,44 @@ c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(2
   c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(257): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(258): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Matrix4'
   c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(261): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(262): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(262): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(262): error C2440: '=': cannot convert from 'Vector4' to 'float'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(262): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(263): error C2039: 'setRotateZ': is not a member of 'Matrix4'
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(170): note: see declaration of 'Matrix4'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(264): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(264): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(269): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(269): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(175): note: see declaration of 'Matrix4'
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(264): error C2440: '=': cannot convert from 'Vector4' to 'float'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(264): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(270): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: could be 'Vector2 operator *(float,const Vector2 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(242): note: could be 'Vector4 operator *(float,const Vector4 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: or       'Vector2 operator *(float,const Vector2 &)'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(47): note: or       'Vector3 operator *(float,Vector3 &)'
   c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(270): note: while trying to match the argument list '(Matrix4, Vector4)'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(271): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
-  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: could be 'Vector2 operator *(float,const Vector2 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(242): note: could be 'Vector4 operator *(float,const Vector4 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: or       'Vector2 operator *(float,const Vector2 &)'
   c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(47): note: or       'Vector3 operator *(float,Vector3 &)'
   c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(271): note: while trying to match the argument list '(Matrix4, Vector4)'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(275): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(275): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(275): error C2672: 'TestFunc': no matching overloaded function found
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(275): error C2780: 'bool TestFunc(const char *,T &,float)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(107): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(275): error C2780: 'bool TestFunc(const char *,T &,T &)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(98): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(276): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Vector4'
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(276): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(276): error C2672: 'TestFunc': no matching overloaded function found
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(276): error C2780: 'bool TestFunc(const char *,T &,float)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(107): note: see declaration of 'TestFunc'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(276): error C2780: 'bool TestFunc(const char *,T &,T &)': expects 3 arguments - 2 provided
-  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(98): note: see declaration of 'TestFunc'
 c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(282): error C2440: '=': cannot convert from 'Vector3' to 'float'
-c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(282): fatal error C1003: error count exceeds 100; stopping compilation
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(282): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(283): error C2039: 'setRotateZ': is not a member of 'Matrix3'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(132): note: see declaration of 'Matrix3'
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(284): error C2440: '=': cannot convert from 'Vector3' to 'float'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(284): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(285): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Matrix4'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(288): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(289): error C2440: '=': cannot convert from 'Vector4' to 'float'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(289): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(290): error C2039: 'setRotateZ': is not a member of 'Matrix4'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(175): note: see declaration of 'Matrix4'
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(291): error C2440: '=': cannot convert from 'Vector4' to 'float'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(291): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(297): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(242): note: could be 'Vector4 operator *(float,const Vector4 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: or       'Vector2 operator *(float,const Vector2 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(47): note: or       'Vector3 operator *(float,Vector3 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(297): note: while trying to match the argument list '(Matrix4, Vector4)'
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(298): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(242): note: could be 'Vector4 operator *(float,const Vector4 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: or       'Vector2 operator *(float,const Vector2 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(47): note: or       'Vector3 operator *(float,Vector3 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(298): note: while trying to match the argument list '(Matrix4, Vector4)'
   Generating Code...
