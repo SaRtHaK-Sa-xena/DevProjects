@@ -308,23 +308,23 @@ void Read_Status(ifstream& file, int n)
 {
 	if (n == 1)
 	{
-		file.seekg(104, ios::beg);
+		file.seekg(154, ios::beg); //154 was 204
 	}
 	else if (n == 2)
 	{
-		file.seekg(254 * 1 + 204, ios::beg);//24 //was 44 //was 64 //was 154 + 54
+		file.seekg(254 * 1 + 154, ios::beg);//24 //was 44 //was 64 //was 154 + 54
 	}
 	else if (n == 3)
 	{
-		file.seekg(254 * 2 + 204, ios::beg);//24*2
+		file.seekg(254 * 2 + 154, ios::beg);//24*2
 	}
 	else if (n == 4)
 	{
-		file.seekg(254 * 3 + 204, ios::beg);
+		file.seekg(254 * 3 + 154, ios::beg);
 	}
 	else if (n == 5)
 	{
-		file.seekg(254 * 4 + 204, ios::beg); //was 65
+		file.seekg(254 * 4 + 154, ios::beg); //was 65
 	}
 }
 //=================EDIT LATEST READ FUNCTION===========================
@@ -696,19 +696,45 @@ void search_integer()
 	}
 	else if (choice == "status")
 	{
-		cout << "(1)In Library----(2)Lost------(3)Damaged" << endl;
-		string StatusChoice;
+		// show books by Title
+		cout << "Enter Status To find: " << endl;
+		//==============Enters Into Array To Search===========
+		cin.ignore(1, '\n');
+		cin.getline(SearchingBookStatus, 50);
+
+		//==============Enters Into Array To Search===========
+		for (int i = 0; i < 5; i++)
+		{
+
+			char Status[50];
+			Data[i].getStatus(Status);
+			Read_Status(file, i);
+			file.read((char*)& Status, sizeof(char) * 50);
+			if (!strcmp(SearchingBookStatus, Status))
+			{
+				cout << "--------------------------------------" << endl;
+				cout << "Location Found at Index: " << i << endl;
+				Read(i);
+				cout << "--------------------------------------" << endl;
+			}
+		}
+
+
+
+		//=============================EDIT======================================
+		//cout << "(1)In Library----(2)Lost------(3)Damaged" << endl;
+		/*string StatusChoice;
 		string Temp;
 		string Temp2;
 		cin >> StatusChoice;
+
+
 
 		if (StatusChoice == "1")
 		{
 			Temp = "In Library";
 			Temp2 = "1";
 
-			cin.ignore(0, '\n');
-			cin.getline(SearchingBookStatus, 50);
 
 			for (int i = 0; i < 5; i++)
 			{
@@ -716,14 +742,14 @@ void search_integer()
 				Data[i].getStatus(Status);
 				Read_Status(file, i);
 				file.read((char*)& Status, sizeof(char) * 50);
-				if (!strcmp(SearchingBookStatus, Status))
+				if (!strcmp(Temp.c_str(), Status))
 				{
 					cout << "--------------------------------------" << endl;
 					cout << "Location Found at Index: " << i << endl;
 					Read(i);
 					cout << "--------------------------------------" << endl;
 				}
-				else if (!strcmp(SearchingBookStatus, Temp2.c_str()))
+				else if (!strcmp(Temp.c_str(), Status))
 				{
 					cout << "--------------------------------------" << endl;
 					cout << "Location Found at Index: " << i << endl;
@@ -792,7 +818,7 @@ void search_integer()
 					cout << "--------------------------------------" << endl;
 				}
 			}
-		}
+		}*/
 
 	}
 	else
