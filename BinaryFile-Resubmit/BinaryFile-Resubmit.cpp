@@ -214,6 +214,16 @@ void ReadTXT()
 }
 //===============End ReadText File function===============================
 
+//=================EDIT LATEST READ FUNCTION===========================
+void ReadFile(int n)
+{
+	
+}
+//=================EDIT LATEST READ FUNCTION===========================
+
+
+
+
 
 //==============READ BIN. FUNCTION =======================================[EDITTED]
 void Read(int n)

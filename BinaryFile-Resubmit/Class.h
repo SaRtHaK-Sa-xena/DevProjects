@@ -52,4 +52,7 @@ public:
 	{
 		strcpy_s(copyDate, 50, Date);
 	}
+
+
+
 };
