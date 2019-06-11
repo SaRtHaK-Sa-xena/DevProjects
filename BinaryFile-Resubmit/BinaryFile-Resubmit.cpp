@@ -572,6 +572,77 @@ void OVERWRITE_Integer(int n)
 }
 //=========================END UPDATE ID FUNCTION==============================
 
+void Write_Title(ofstream& file, int n)
+{
+	if (n == 1)
+	{
+		file.seekp(54, ios::beg);
+	}
+	else if (n == 2)
+	{
+		file.seekp(254 * 1 + 54, ios::beg);//24 //was 44 //was 64 //was 154
+	}
+	else if (n == 3)
+	{
+		file.seekp(254 * 2 + 54, ios::beg);//24*2
+	}
+	else if (n == 4)
+	{
+		file.seekp(254 * 3 + 54, ios::beg);
+	}
+	else if (n == 5)
+	{
+		file.seekp(254 * 4 + 54, ios::beg); //was 65
+	}
+}
+
+void OVERWRITE_Title(int n)
+{
+	ofstream fileToOverWrite;
+	fileToOverWrite.open("BinaryFile.dat", ios::in | ios::out | ios::binary);
+	if (fileToOverWrite.is_open())
+	{
+		setWritePos(fileToOverWrite, n); //set position in file at INDEX
+
+		//===========INITIALIZE=============
+		char fullTitle[50];
+		//===========INITIALIZE=============
+
+
+		cout << "Enter Title: " << endl;
+		cin.ignore(1, '\n');
+		cin.getline(fullTitle, 50);
+
+
+		//======Overwrites========
+		Data[n].setTitle(fullTitle);
+		Write_Title(fileToOverWrite, n); //set before NAME
+		//======Overwrites========
+
+		fileToOverWrite.write((char*)& fullTitle, sizeof(char) * 50);
+
+
+		//--------Used to check Position in file-----------
+		/*int w_pos = fileToOverWrite.tellp();
+		cout << "Location To Write Set To: " << w_pos << endl;*/
+
+	}
+}
+
+void OVERWRITE_Author(int n)
+{
+
+}
+
+void OVERWRITE_BookStatus(int n)
+{
+
+}
+
+void OVERWRITE_Date(int n)
+{
+
+}
 
 //=================SEARCH BY NAME FUNCTION=====================================
 void search_integer()
@@ -890,6 +961,10 @@ int main()
 			else if (response == "id")
 			{
 				OVERWRITE_Integer(n);
+			}
+			else if (response == "title")
+			{
+				OVERWRITE_Title(n);
 			}
 			else
 			{
