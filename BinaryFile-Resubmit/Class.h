@@ -1,5 +1,6 @@
 #pragma once
 using namespace std;
+#include <string>
 
 class Record
 {
@@ -8,6 +9,8 @@ private:
 	char User[50]; //10
 	char Title[50];
 	char Date[50];
+	char Author[50];
+	char BookStatus[50];
 
 public:
 	void setID(int n)
@@ -53,6 +56,25 @@ public:
 		strcpy_s(copyDate, 50, Date);
 	}
 
+	void setAuthor(string m_Author)
+	{
+		strcpy_s(Author, m_Author.c_str());
+	}
 
+	void getAuthor(char m_copyAuthor[50])
+	{
+		strcpy_s(m_copyAuthor, 50, Author);
+	}
+
+
+	void setStatus(string m_Status)
+	{
+		strcpy_s(BookStatus, m_Status.c_str());
+	}
+
+	void getStatus(char m_copyStatus[50])
+	{
+		strcpy_s(m_copyStatus, 50, BookStatus);
+	}
 
 };

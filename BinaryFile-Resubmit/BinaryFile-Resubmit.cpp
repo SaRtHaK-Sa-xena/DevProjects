@@ -29,19 +29,19 @@ void setWritePos(ofstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekp(154, ios::beg);//24 //was 44 //was 64
+		file.seekp(254, ios::beg);//24 //was 44 //was 64 //was 154
 	}
 	else if (n == 3)
 	{
-		file.seekp(154 * 2, ios::beg);//24*2
+		file.seekp(254 * 2, ios::beg);//24*2
 	}
 	else if (n == 4)
 	{
-		file.seekp(154 * 3, ios::beg);
+		file.seekp(254 * 3, ios::beg);
 	}
 	else if (n == 5)
 	{
-		file.seekp(154 * 4, ios::beg); //was 65
+		file.seekp(254 * 4, ios::beg); //was 65
 	}
 	/*if (n == 1)
 	{
@@ -72,19 +72,19 @@ void setReadPos(ifstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekg(154 * 1, ios::beg); //was 44 //was 64
+		file.seekg(254 * 1, ios::beg); //was 44 //was 64 //was 154
 	}
 	else if (n == 3)
 	{
-		file.seekg(154 * 2, ios::beg);
+		file.seekg(254 * 2, ios::beg);
 	}
 	else if (n == 4)
 	{
-		file.seekg(154 * 3, ios::beg);
+		file.seekg(254 * 3, ios::beg);
 	}
 	else if (n == 5)
 	{
-		file.seekg(154 * 4, ios::beg);
+		file.seekg(254 * 4, ios::beg);
 	}
 	else
 	{
@@ -139,6 +139,8 @@ void Write(int n)
 		char fullName[50];
 		char Title[50];
 		char Date[50];
+		char Author[50];
+		char BookStatus[50];
 		//=========INITIALZING==========
 
 		cout << "What ID: " << endl;
@@ -166,6 +168,18 @@ void Write(int n)
 		cin.getline(Title, 50);
 		//=============Get Title==========
 
+		//=============Get Author=========
+		cout << "Enter Author Of Book" << endl;
+		cin.ignore(0, '\n');
+		cin.getline(Author, 50);
+		//=============Get Author=========
+
+		//=========Get Book Status========
+		cout << "Enter Book Status " << "\n(1= In Library)--(2 = Lost)--(3 = Damaged)" << endl;
+		cin.ignore(0, '\n');
+		cin.getline(BookStatus, 50);
+		//=========Get Book Status========
+
 		//=============Get Date==========
 		cout << "Enter Date Borrowed: " << endl;
 		cin.ignore(0, '\n');
@@ -176,7 +190,8 @@ void Write(int n)
 		Data[n].setDate(Date);
 		Data[n].setFullName(fullName);
 		Data[n].setTitle(Title);
-
+		Data[n].setAuthor(Author);
+		Data[n].setStatus(BookStatus);
 
 		//------- Used to test the Pointer for writing------
 		//int w_pos = writeToFile.tellp();
@@ -184,10 +199,12 @@ void Write(int n)
 		//-------------------------------------------------
 
 		//Write ID and NAME
-		writeToFile.write((char*)&ID, sizeof(int));
-		writeToFile.write((char*)&fullName, sizeof(char) * 50);//10
-		writeToFile.write((char*)&Title, sizeof(char) * 50);
-		writeToFile.write((char*)&Date, sizeof(char) * 50);
+		writeToFile.write((char*)&ID, sizeof(int));// ID
+		writeToFile.write((char*)&fullName, sizeof(char) * 50);//10 // FULL NAME
+		writeToFile.write((char*)&Title, sizeof(char) * 50); // TITLE
+		writeToFile.write((char*)& Author, sizeof(char) * 50); // AUTHOR
+		writeToFile.write((char*)& BookStatus, sizeof(char) * 50); // BOOK STATUS
+		writeToFile.write((char*)&Date, sizeof(char) * 50); // DATE
 
 		Data[n].setID(ID);	//set, and continue
 	}
@@ -215,9 +232,100 @@ void ReadTXT()
 //===============End ReadText File function===============================
 
 //=================EDIT LATEST READ FUNCTION===========================
-void ReadFile(int n)
+void Read_ID(ifstream &file, int n)
 {
-	
+	if (n == 1)
+	{
+		file.seekg(0, ios::beg);
+	}
+	else if (n == 2)
+	{
+		file.seekg(254, ios::beg);//24 //was 44 //was 64 //was 154
+	}
+	else if (n == 3)
+	{
+		file.seekg(254 * 2, ios::beg);//24*2
+	}
+	else if (n == 4)
+	{
+		file.seekg(254 * 3, ios::beg);
+	}
+	else if (n == 5)
+	{
+		file.seekg(254 * 4, ios::beg); //was 65
+	}
+}
+
+void Read_Title(ifstream& file, int n)
+{
+	if (n == 1)
+	{
+		file.seekg(54, ios::beg);
+	}
+	else if (n == 2)
+	{
+		file.seekg(254*1 + 54, ios::beg);//24 //was 44 //was 64 //was 154
+	}
+	else if (n == 3)
+	{
+		file.seekg(254 * 2 + 54, ios::beg);//24*2
+	}
+	else if (n == 4)
+	{
+		file.seekg(254 * 3 + 54, ios::beg);
+	}
+	else if (n == 5)
+	{
+		file.seekg(254 * 4 + 54, ios::beg); //was 65
+	}
+}
+
+void Read_Author(ifstream& file, int n)
+{
+	if (n == 1)
+	{
+		file.seekg(104, ios::beg);
+	}
+	else if (n == 2)
+	{
+		file.seekg(254 * 1 + 104, ios::beg);//24 //was 44 //was 64 //was 154 + 54
+	}
+	else if (n == 3)
+	{
+		file.seekg(254 * 2 + 104, ios::beg);//24*2
+	}
+	else if (n == 4)
+	{
+		file.seekg(254 * 3 + 104, ios::beg);
+	}
+	else if (n == 5)
+	{
+		file.seekg(254 * 4 + 104, ios::beg); //was 65
+	}
+}
+
+void Read_Status(ifstream& file, int n)
+{
+	if (n == 1)
+	{
+		file.seekg(104, ios::beg);
+	}
+	else if (n == 2)
+	{
+		file.seekg(254 * 1 + 204, ios::beg);//24 //was 44 //was 64 //was 154 + 54
+	}
+	else if (n == 3)
+	{
+		file.seekg(254 * 2 + 204, ios::beg);//24*2
+	}
+	else if (n == 4)
+	{
+		file.seekg(254 * 3 + 204, ios::beg);
+	}
+	else if (n == 5)
+	{
+		file.seekg(254 * 4 + 204, ios::beg); //was 65
+	}
 }
 //=================EDIT LATEST READ FUNCTION===========================
 
@@ -247,10 +355,16 @@ void Read(int n)
 		char Title[50];
 		Data[n].getTitle(Title);
 
+
+		char Author[50];
+		Data[n].getAuthor(Author);
+
+		char BookStatus[50];
+		Data[n].getStatus(BookStatus);
+
 		char Date[50];
 		Data[n].getDate(Date);
 		//==========GET NAME, TITLE, DATE=============
-
 
 
 		//==================GET ID=============================
@@ -270,10 +384,20 @@ void Read(int n)
 		cout << endl;
 		cout << "Title: " << Title;
 
+		readToFile.read((char*)& Author, sizeof(char) * 50);
+		cout << endl;
+		cout << "Author: " << Author;
+
+		readToFile.read((char*)& BookStatus, sizeof(char) * 50);
+		cout << endl;
+		cout << "Book Status:" << BookStatus << endl;
+
 		readToFile.read((char*)&Date, sizeof(char) * 50);
 		cout << endl;
 		cout << "Date Entried: " << Date << endl;
 		
+		//Search by Unique ID, Name, Title, Author, Book Status, 
+
 	}
 	readToFile.close();
 }
@@ -291,19 +415,19 @@ void Write_NAME(ofstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekp(154 + 4, ios::beg); //added 20 //was 24 //was 44 + 4 -> 44 * 2 + 4 //was 44
+		file.seekp(254 + 4, ios::beg); //added 20 //was 24 //was 44 + 4 -> 44 * 2 + 4 //was 44 // was 154
 	}
 	else if (n == 3)
 	{
-		file.seekp(154 * 2 + 4, ios::beg);
+		file.seekp(254 * 2 + 4, ios::beg);
 	}
 	else if (n == 4)
 	{
-		file.seekp(154 * 3 + 4, ios::beg);
+		file.seekp(254 * 3 + 4, ios::beg);
 	}
 	else if (n == 5)
 	{
-		file.seekp(154 * 4 + 4, ios::beg);
+		file.seekp(254 * 4 + 4, ios::beg);
 	}
 	////sets at beginning of NAME
 	//if (n == 1)
@@ -337,19 +461,19 @@ void Read_NAME(ifstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekg(154 + 4, ios::beg); //was 24 //was 44
+		file.seekg(254 + 4, ios::beg); //was 24 //was 44 //was 154
 	}
 	else if (n == 3)
 	{
-		file.seekg(154 * 2 + 4, ios::beg);
+		file.seekg(254 * 2 + 4, ios::beg);
 	}
 	else if (n == 4)
 	{
-		file.seekg(154 * 3 + 4, ios::beg);
+		file.seekg(254 * 3 + 4, ios::beg);
 	}
 	else if (n == 5)
 	{
-		file.seekg(154 * 4 + 4, ios::beg);
+		file.seekg(254 * 4 + 4, ios::beg);
 	}
 	////sets at beginning of NAME
 	//if (n == 1)
@@ -457,24 +581,224 @@ void search_integer()
 
 	//===========INITIALIZING==========
 	char SearchArray[50];
+	char SearchTitleArray[50];
+	char SearchingAuthor[50];
+	char SearchingBookStatus[50];
+	int ID_no = 0;
+
 	//===========INITIALIZING==========
 
 
-	//==============Enters Into Array To Search===========
-	cin.ignore(1, '\n');
-	cin.getline(SearchArray, 50);
-	//==============Enters Into Array To Search===========
+	
 
-	for (int i = 0; i < 5; i++)
+	string choice;
+	cout << "Search By (name)---unique(id)------(author)----(title)-----Book(status)" << endl;
+	cin >> choice;
+
+
+	//=================================WORKS==================================
+	if (choice == "name")
 	{
-		char FullName[50];
-		Data[i].getFullName(FullName);
-		Read_NAME(file, i);
-		file.read((char*)&FullName, sizeof(char) * 50);
-		if (!strcmp(SearchArray, FullName))
+		cout << "Enter Name To find: " << endl;
+		//==============Enters Into Array To Search===========
+		cin.ignore(1, '\n');
+		cin.getline(SearchArray, 50);
+		//==============Enters Into Array To Search===========
+		for (int i = 0; i < 5; i++)
 		{
-			cout << "Location Found at Index: " << i << endl;
+
+			char FullName[50];
+			Data[i].getFullName(FullName);
+			Read_NAME(file, i);
+			file.read((char*)& FullName, sizeof(char) * 50);
+			if (!strcmp(SearchArray, FullName))
+			{
+				cout << "--------------------------------------" << endl;
+				cout << "Location Found at Index: " << i << endl;
+				Read(i);
+				cout << "--------------------------------------" << endl;
+			}
 		}
+	}
+	//=================================WORKS==================================
+
+	//=================================WORKS==================================
+	else if (choice == "id")
+	{
+		cout << "Which Id To Search For: " << endl;
+		cin >> ID_no;
+		for (int i = 0; i < 5; i++)
+		{
+			int Temp_ID = Data[i].getID(); //Get ID from Index 0 = 2
+			Read_ID(file, i); // Set to read from 0 so beginning
+			file.read((char*)& Temp_ID, sizeof(int)); //read 4 bytes
+			if (Temp_ID == ID_no) //if that (data[0]==2) == ID which is 4 
+			{
+				cout << "--------------------------------------" << endl;
+				cout << "Location Found at Index: " << i << endl;
+				Read(i);
+				cout << "--------------------------------------" << endl;
+			}
+		}
+	}
+	//=================================WORKS==================================
+
+	else if (choice == "author")
+	{
+		//show books by author
+		// show books by Title
+		cout << "Enter Author To find: " << endl;
+		//==============Enters Into Array To Search===========
+		cin.ignore(1, '\n');
+		cin.getline(SearchingAuthor, 50);
+		//==============Enters Into Array To Search===========
+		for (int i = 0; i < 5; i++)
+		{
+
+			char FullAuthor[50];
+			Data[i].getAuthor(FullAuthor);
+			Read_Author(file, i); //---------change this
+			file.read((char*)& FullAuthor, sizeof(char) * 50);
+			if (!strcmp(SearchingAuthor, FullAuthor))
+			{
+				cout << "--------------------------------------" << endl;
+				cout << "Location Found at Index: " << i << endl;
+				Read(i);
+				cout << "--------------------------------------" << endl;
+			}
+		}
+
+	}
+	else if (choice == "title")
+	{
+		// show books by Title
+		cout << "Enter Title To find: " << endl;
+		//==============Enters Into Array To Search===========
+		cin.ignore(1, '\n');
+		cin.getline(SearchTitleArray, 50);
+		//==============Enters Into Array To Search===========
+		for (int i = 0; i < 5; i++)
+		{
+
+			char FullTitle[50];
+			Data[i].getTitle(FullTitle);
+			Read_Title(file, i);
+			file.read((char*)& FullTitle, sizeof(char) * 50);
+			if (!strcmp(SearchTitleArray, FullTitle))
+			{
+				cout << "--------------------------------------" << endl;
+				cout << "Location Found at Index: " << i << endl;
+				Read(i);
+				cout << "--------------------------------------" << endl;
+			}
+		}
+
+	}
+	else if (choice == "status")
+	{
+		cout << "(1)In Library----(2)Lost------(3)Damaged" << endl;
+		string StatusChoice;
+		string Temp;
+		string Temp2;
+		cin >> StatusChoice;
+
+		if (StatusChoice == "1")
+		{
+			Temp = "In Library";
+			Temp2 = "1";
+
+			cin.ignore(0, '\n');
+			cin.getline(SearchingBookStatus, 50);
+
+			for (int i = 0; i < 5; i++)
+			{
+				char Status[50];
+				Data[i].getStatus(Status);
+				Read_Status(file, i);
+				file.read((char*)& Status, sizeof(char) * 50);
+				if (!strcmp(SearchingBookStatus, Status))
+				{
+					cout << "--------------------------------------" << endl;
+					cout << "Location Found at Index: " << i << endl;
+					Read(i);
+					cout << "--------------------------------------" << endl;
+				}
+				else if (!strcmp(SearchingBookStatus, Temp2.c_str()))
+				{
+					cout << "--------------------------------------" << endl;
+					cout << "Location Found at Index: " << i << endl;
+					Read(i);
+					cout << "--------------------------------------" << endl;
+				}
+			}
+
+		}
+		else if (StatusChoice == "2")
+		{
+			Temp = "Lost";
+			Temp2 = "2";
+
+			cin.ignore(0, '\n');
+			cin.getline(SearchingBookStatus, 50);
+
+			for (int i = 0; i < 5; i++)
+			{
+				char Status[50];
+				Data[i].getStatus(Status);
+				Read_Status(file, i);
+				file.read((char*)& Status, sizeof(char) * 50);
+				if (!strcmp(SearchingBookStatus, Status))
+				{
+					cout << "--------------------------------------" << endl;
+					cout << "Location Found at Index: " << i << endl;
+					Read(i);
+					cout << "--------------------------------------" << endl;
+				}
+				else if (!strcmp(SearchingBookStatus, Temp2.c_str()))
+				{
+					cout << "--------------------------------------" << endl;
+					cout << "Location Found at Index: " << i << endl;
+					Read(i);
+					cout << "--------------------------------------" << endl;
+				}
+			}
+		}
+		else if (StatusChoice == "3")
+		{
+			Temp = "Damaged";
+			Temp2 = "3";
+
+			cin.ignore(0, '\n');
+			cin.getline(SearchingBookStatus, 50);
+
+			for (int i = 0; i < 5; i++)
+			{
+				char Status[50];
+				Data[i].getStatus(Status);
+				Read_Status(file, i);
+				file.read((char*)& Status, sizeof(char) * 50);
+				if (!strcmp(SearchingBookStatus, Status))
+				{
+					cout << "--------------------------------------" << endl;
+					cout << "Location Found at Index: " << i << endl;
+					Read(i);
+					cout << "--------------------------------------" << endl;
+				}
+				else if (!strcmp(SearchingBookStatus, Temp2.c_str()))
+				{
+					cout << "--------------------------------------" << endl;
+					cout << "Location Found at Index: " << i << endl;
+					Read(i);
+					cout << "--------------------------------------" << endl;
+				}
+			}
+		}
+
+	}
+	else
+	{
+		cout << "Pick A Option Listed..." << endl;
+		search_integer();
 	}
 
 }
@@ -551,10 +875,9 @@ int main()
 		case's':
 			//searches record accordingly
 			cout << "\t\t\t Searching Index..." << endl;
-			cout << "Enter Name To find: " << endl;
 			search_integer();
 			cout << endl;
-			cout << "\t\t\t Searching by Name..." << endl;
+			cout << "\t\t\t Searching..." << endl;
 			break;
 		default:
 			cout << "Please Choose one of the Options listed" << endl;
