@@ -175,7 +175,7 @@ void Write(int n)
 		//=============Get Author=========
 
 		//=========Get Book Status========
-		cout << "Enter Book Status " << "\n(1= In Library)--(2 = Lost)--(3 = Damaged)" << endl;
+		cout << "Enter Book Status " << "\n(1 = In Library)--(2 = Lost)--(3 = Damaged)" << endl;
 		cin.ignore(0, '\n');
 		cin.getline(BookStatus, 50);
 		//=========Get Book Status========
@@ -1089,6 +1089,13 @@ int main()
 			cout << "\t\t\t reading..." << endl;
 			cout << "Which Index To Read: " << endl;
 			cin >> n; //takes index
+			if (n > 5)
+			{
+				cout << "Max Limit is 5" << endl;
+				n = 5;
+				cout << "Displaying Last Index Entry" << endl;
+				cout << "===========================" << endl;
+			}
 			Read(n);
 			break;
 		case'w':
@@ -1105,9 +1112,9 @@ int main()
 		case 'u':
 			//Updates record accordingly
 			cout << "\t\t\t Updating Record..." << endl;
-			cout << "\t\t\t Which Record To update?" << endl;
+			cout << "\t\t\t Which Record Index To update?" << endl;
 			search_integer();
-			cout << "Update Record No: ";
+			cout << "Update Record Index No: ";
 			cin >> n;
 
 			while (incorrectStatement == false)
