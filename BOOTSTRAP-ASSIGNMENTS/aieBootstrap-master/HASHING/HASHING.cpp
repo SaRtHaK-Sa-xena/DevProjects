@@ -7,25 +7,58 @@ using namespace std;
 int main()
 {
 	hashClass Hashy;
+	hashClass Hashuse;
 	string name = "";
+	string book = "";
+	bool cont = true;
+	char choice = '0';
+
+	while (cont)
+	{	
+		cout << "------(a)dd-------(r)emove-------(f)ind----(p)rint---(e)xit---" << endl;
+		cin >> choice;
+
+		switch (choice)
+		{
+		case'a':
+			cout << "\t\t\t adding..." << endl;
+			cout << "Enter Name: " << endl;
+			cin >> name;
+			cout << "Enter Favourite Book: " << endl;
+			cin >> book;
+			Hashuse.AddItem(name, book);
+			break;
+		case'r':
+			cout << "\t\t\t removing..." << endl;
+			cout << "Find Person: " << endl;
+			cin >> name;
+			Hashuse.RemoveItem(name);
+			break;
 
 
-	Hashy.AddItem("Paul", "Locha");
-	Hashy.AddItem("Kim", "Iced Mocha");
-	Hashy.AddItem("Emma", "Strawberry Smoothy");
-	Hashy.AddItem("Annie", "Hot Chocolate");
-	Hashy.AddItem("Sarah", "Passion Tea");
-	Hashy.AddItem("Pepper", "Caramel Mocha");
-	Hashy.AddItem("Mike", "Chai Tea");
-	Hashy.AddItem("Steve", "Apple Cider");
-	Hashy.AddItem("Bill", "Root Beer");
-	Hashy.AddItem("Marie", "Skinny Latte");
-	Hashy.AddItem("Susan", "Water");
-	Hashy.AddItem("Joe", "Green Tea");
+		case'f':
+			cout << "\t\t\t Finding..." << endl;
+			cout << "Enter name to search: " << endl;
+			cin >> name;
+			cout << "Finding By Name..." << endl;
+			Hashuse.FindBook(name);
+			break;
 
-	Hashy.PrintItemsInIndex(2);
 
-	while (name != "exit")
+		case'p':
+			cout << "\t\t\t Printing" << endl;
+			Hashuse.PrintTable();
+			break;
+
+		case'e':
+			return 0;
+		default:
+			cout << "Pick one of the options listed" << endl;
+		}
+	}
+
+	//===============
+	/*while (name != "exit")
 	{
 		cout << "Remove ";
 		cin >> name;
@@ -33,9 +66,9 @@ int main()
 		{
 			Hashy.RemoveItem(name);
 		}
-	}
-
-	Hashy.PrintItemsInIndex(2);
+	}*/
+	//================
+	//Hashy.PrintItemsInIndex(2);
 
 	//Hashy.PrintItemsInIndex(8);
 	//Hashy

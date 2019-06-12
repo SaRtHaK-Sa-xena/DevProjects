@@ -2,21 +2,21 @@
 using namespace std;
 
 
-void hashClass::AddItem(string name, string drink)
+void hashClass::AddItem(string name, string book)
 {
 	int index = Hash(name);
 
 	if (HashTable[index]->name == "empty")
 	{
 		HashTable[index]->name = name;
-		HashTable[index]->favDrink = drink;
+		HashTable[index]->favBookName = book;
 	}
 	else
 	{
 		item* Ptr = HashTable[index];
 		item* n = new item;
 		n->name = name;
-		n->favDrink = drink;
+		n->favBookName = book;
 		n->next = NULL;
 		while (Ptr->next != NULL)
 		{
@@ -34,7 +34,7 @@ hashClass::hashClass()
 	{
 		HashTable[i] = new item;
 		HashTable[i]->name = "empty";
-		HashTable[i]->favDrink = "empty";
+		HashTable[i]->favBookName = "empty";
 		HashTable[i]->next = NULL;
 	}
 }
@@ -70,7 +70,7 @@ void hashClass::PrintTable()
 		cout << "---------------------------\n";
 		cout << "index = " << i << endl;
 		cout << HashTable[i]->name << endl;
-		cout << HashTable[i]->favDrink << endl;
+		cout << HashTable[i]->favBookName << endl;
 		cout << "# of items = " << number << endl;
 		cout << "---------------------------\n";
 
@@ -96,7 +96,7 @@ void hashClass::PrintItemsInIndex(int index)
 		{
 			cout << "-------------------\n";
 			cout << Ptr->name << endl;
-			cout << Ptr->favDrink << endl;
+			cout << Ptr->favBookName << endl;
 			cout << "-------------------\n";
 
 			Ptr = Ptr->next;
@@ -105,7 +105,7 @@ void hashClass::PrintItemsInIndex(int index)
 }
 
 
-void hashClass::FindDrink(string name)
+void hashClass::FindBook(string name)
 {
 	int index = Hash(name);
 	bool foundName = false;
@@ -117,13 +117,13 @@ void hashClass::FindDrink(string name)
 		if (Ptr->name == name)
 		{
 			foundName = true;
-			drink = Ptr->favDrink;
+			drink = Ptr->favBookName;
 		}
 		Ptr = Ptr->next;
 	}
 	if (foundName == true)
 	{
-		cout << "Favorite drink = " << drink << endl;
+		cout << "Favorite Book = " << drink << endl;
 	}
 	else
 	{
@@ -141,7 +141,7 @@ void hashClass::RemoveItem(string name)
 	item* P2;
 
 	//case 0 - bucket is empty
-	if (HashTable[index]->name == "empty" && HashTable[index]->favDrink == "empty")
+	if (HashTable[index]->name == "empty" && HashTable[index]->favBookName == "empty")
 	{
 		cout << name << " was not found in the Hash Table\n";
 	}
@@ -151,7 +151,7 @@ void hashClass::RemoveItem(string name)
 	else if (HashTable[index]->name == name && HashTable[index]->next == NULL)//only one item in index 
 	{
 		HashTable[index]->name = "empty"; //set to empty
-		HashTable[index]->favDrink = "empty"; //set to empty
+		HashTable[index]->favBookName = "empty"; //set to empty
 		cout << name << " was removed from the Hash Table\n";
 
 	}

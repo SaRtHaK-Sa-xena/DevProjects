@@ -43,6 +43,11 @@ void setWritePos(ofstream &file, int n)
 	{
 		file.seekp(254 * 4, ios::beg); //was 65
 	}
+	else if (n == 5)
+	{
+		file.seekp(254 * 4, ios::beg); //was 65
+	}
+
 	/*if (n == 1)
 	{
 		file.seekp(0, ios::beg);
@@ -123,7 +128,7 @@ void setReadPos(ifstream &file, int n)
 }
 //=======================End FilePointer Function ========================
 
-Record Data[5]; //initialize class array
+Record Data[10]; //initialize class array
 
 
 //===========WRITE BIN. FILE FUNCTION ====================================[EDITTED]

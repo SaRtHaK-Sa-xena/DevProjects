@@ -9,12 +9,19 @@ class hashClass
 {
 public:
 	hashClass();
+
 	int Hash(string key);
-	void AddItem(string name, string drink);
+
+	void AddItem(string name, string book);
+
 	int NumberOfItemsInIndex(int index);
+
 	void PrintTable();
+
 	void PrintItemsInIndex(int index);
-	void FindDrink(string name);
+
+	void FindBook(string name);
+
 	void RemoveItem(string name);
 
 private:
@@ -23,7 +30,7 @@ private:
 	struct item
 	{
 		string name;
-		string favDrink;
+		string favBookName;
 		item* next;
 	};
 
