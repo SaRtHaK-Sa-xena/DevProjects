@@ -170,14 +170,12 @@
   <ItemGroup>
     <ClCompile Include="Array.cpp" />
     <ClCompile Include="Bar.cpp" />
-    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Simon___AssignmentApp.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h" />
     <ClInclude Include="Bar.h" />
-    <ClInclude Include="Node.h" />
     <ClInclude Include="Simon___AssignmentApp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
