@@ -88,7 +88,6 @@ void BinaryTree::remove(int a_nValue)
 		//=============DELETEING ROOT FUNCTION==============
 		if (parent == nullptr) 
 		{
-
 			//======TRIED FIXING THIS============
 			if (!current->hasLeft() && !current->hasRight()) //has no children
 			{

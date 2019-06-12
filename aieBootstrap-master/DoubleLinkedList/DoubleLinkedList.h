@@ -107,6 +107,9 @@ public:
 	void PopFront(); // Remove the first element in the list --DONE
 
 
+	void Sort();
+	void swap(Node *xp, Node*yp);
+
 	//Return a boolean, true if the list is empty, false otherwise
 	bool Empty(); // --DONE
 

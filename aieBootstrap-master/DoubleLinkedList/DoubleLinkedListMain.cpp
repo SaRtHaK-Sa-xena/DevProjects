@@ -37,6 +37,7 @@ int main()
 		std::cout << "|PUSHFRONT(A)--PUSHBACK(B)--INSERTAFTER(C)--BEGIN(D)--END(E)--FIRST(F)"
 			<< "\n\n|LAST(G)--COUNT(H)--ERASE(I)--REMOVE(J)--POPBACK(K)--POPFRONT(L)--CLEAR(M)" << std::endl;
 		
+		std::cout << "Sort Data? (Y)" << std::endl;
 		std::cin >> choice;
 		switch (choice)
 		{
@@ -172,6 +173,15 @@ int main()
 			doubleList->Clear();
 			std::cout << "Printing After List: " << std::endl;
 			doubleList->Print();
+			break;
+
+		case'y':
+			std::cout << "\t\t\t Sorting List..." << endl;
+			doubleList->Sort();
+			std::cout << "======================" << endl;
+			std::cout << "Printing List After: " << endl;
+			doubleList->Print();
+			cout << endl;
 			break;
 
 		case'p':
