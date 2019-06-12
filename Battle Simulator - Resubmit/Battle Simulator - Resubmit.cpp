@@ -106,7 +106,7 @@ void TeamBlue::B_SetHealth(int h) //set BlueTeam health
 int TeamBlue::B_GetAttack() //display attack, and return health - attack
 {
 	
-	cout << "Took Damage From Red  : " << attack << endl;
+	cout << "Took Damage From Red Army: " << attack << endl;
 	return health -= attack;
 }
 
