@@ -1,0 +1,7 @@
+﻿  pch.cpp
+  BinaryFile-Resubmit.cpp
+c:\users\s191509\documents\github\testproject2d\binaryfile-resubmit\binaryfile-resubmit.cpp(341): warning C4101: 'Log': unreferenced local variable
+  Generating code
+  All 222 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  BinaryFile-Resubmit.vcxproj -> C:\Users\s191509\Documents\GitHub\TestProject2D\BinaryFile-Resubmit\Release\BinaryFile-Resubmit.exe

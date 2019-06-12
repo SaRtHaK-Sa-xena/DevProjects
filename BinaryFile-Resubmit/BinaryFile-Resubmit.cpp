@@ -182,6 +182,7 @@ void Write(int n)
 
 		//=============Get Date==========
 		cout << "Enter Date Borrowed: " << endl;
+		cout << "(DD/MM/YY)" << endl;
 		cin.ignore(0, '\n');
 		cin.getline(Date, 50);
 		//=============Get Date==========
@@ -415,7 +416,7 @@ void Write_NAME(ofstream &file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekp(254 + 4, ios::beg); //added 20 //was 24 //was 44 + 4 -> 44 * 2 + 4 //was 44 // was 154
+		file.seekp(254 + 4, ios::beg); //For debugging Purposes--->//added 20 //was 24 //was 44 + 4 -> 44 * 2 + 4 //was 44 // was 154
 	}
 	else if (n == 3)
 	{
@@ -457,11 +458,11 @@ void Read_NAME(ifstream &file, int n)
 	if (n == 1)
 	{
 		file.seekg(4, ios::beg);
-		//file.seekg(4, ios::beg);
+		
 	}
 	else if (n == 2)
 	{
-		file.seekg(254 + 4, ios::beg); //was 24 //was 44 //was 154
+		file.seekg(254 + 4, ios::beg);//For debugging Purposes---> //was 24 //was 44 //was 154
 	}
 	else if (n == 3)
 	{
@@ -580,11 +581,11 @@ void Write_Title(ofstream& file, int n)
 	}
 	else if (n == 2)
 	{
-		file.seekp(254 * 1 + 54, ios::beg);//24 //was 44 //was 64 //was 154
+		file.seekp(254 * 1 + 54, ios::beg);//For debugging Purposes--->//24 //was 44 //was 64 //was 154
 	}
 	else if (n == 3)
 	{
-		file.seekp(254 * 2 + 54, ios::beg);//24*2
+		file.seekp(254 * 2 + 54, ios::beg);//For debugging Purposes--->//24*2
 	}
 	else if (n == 4)
 	{
@@ -592,7 +593,7 @@ void Write_Title(ofstream& file, int n)
 	}
 	else if (n == 5)
 	{
-		file.seekp(254 * 4 + 54, ios::beg); //was 65
+		file.seekp(254 * 4 + 54, ios::beg);//For debugging Purposes--->was 65
 	}
 }
 
@@ -600,15 +601,15 @@ void Write_Author(ofstream &file, int n)
 {
 	if (n == 1)
 	{
-		file.seekp(104, ios::beg); //=======================104
+		file.seekp(104, ios::beg); //For debugging Purposes--->104
 	}
 	else if (n == 2)
 	{
-		file.seekp(254 * 1 + 104, ios::beg);//24 //was 44 //was 64 //was 154
+		file.seekp(254 * 1 + 104, ios::beg);//For debugging Purposes--->//24 //was 44 //was 64 //was 154
 	}
 	else if (n == 3)
 	{
-		file.seekp(254 * 2 + 104, ios::beg);//24*2
+		file.seekp(254 * 2 + 104, ios::beg);//For debugging Purposes--->//24*2
 	}
 	else if (n == 4)
 	{
@@ -616,7 +617,7 @@ void Write_Author(ofstream &file, int n)
 	}
 	else if (n == 5)
 	{
-		file.seekp(254 * 4 + 104, ios::beg); //was 65
+		file.seekp(254 * 4 + 104, ios::beg); //For debugging Purposes--->//was 65
 	}
 }
 
@@ -624,15 +625,15 @@ void Write_Status(ofstream &file, int n)
 {
 	if (n == 1)
 	{
-		file.seekp(154, ios::beg); //========================154
+		file.seekp(154, ios::beg); //For debugging Purposes--->154
 	}
 	else if (n == 2)
 	{
-		file.seekp(254 * 1 + 154, ios::beg);//24 //was 44 //was 64 //was 154
+		file.seekp(254 * 1 + 154, ios::beg);//For debugging Purposes--->//24 //was 44 //was 64 //was 154
 	}
 	else if (n == 3)
 	{
-		file.seekp(254 * 2 + 154, ios::beg);//24*2
+		file.seekp(254 * 2 + 154, ios::beg);//For debugging Purposes--->24*2
 	}
 	else if (n == 4)
 	{
@@ -640,7 +641,7 @@ void Write_Status(ofstream &file, int n)
 	}
 	else if (n == 5)
 	{
-		file.seekp(254 * 4 + 154, ios::beg); //was 65
+		file.seekp(254 * 4 + 154, ios::beg); //For debugging Purposes--->was 65
 	}
 }
 
@@ -648,15 +649,15 @@ void Write_Date(ofstream &file, int n)
 {
 	if (n == 1)
 	{
-		file.seekp(204, ios::beg);//============================204
+		file.seekp(204, ios::beg);//For debugging Purposes--->204
 	}
 	else if (n == 2)
 	{
-		file.seekp(254 * 1 + 204, ios::beg);//24 //was 44 //was 64 //was 154
+		file.seekp(254 * 1 + 204, ios::beg);//For debugging Purposes--->24 //was 44 //was 64 //was 154
 	}
 	else if (n == 3)
 	{
-		file.seekp(254 * 2 + 204, ios::beg);//24*2
+		file.seekp(254 * 2 + 204, ios::beg);////For debugging Purposes--->24*2
 	}
 	else if (n == 4)
 	{
@@ -664,7 +665,7 @@ void Write_Date(ofstream &file, int n)
 	}
 	else if (n == 5)
 	{
-		file.seekp(254 * 4 + 204, ios::beg); //was 65
+		file.seekp(254 * 4 + 204, ios::beg); ////For debugging Purposes--->was 65
 	}
 }
 
@@ -823,7 +824,7 @@ void search_integer()
 	cin >> choice;
 
 
-	//=================================WORKS==================================
+	//=================================NAME==================================
 	if (choice == "name")
 	{
 		cout << "Enter Name To find: " << endl;
@@ -847,9 +848,9 @@ void search_integer()
 			}
 		}
 	}
-	//=================================WORKS==================================
+	//=================================NAME==================================
 
-	//=================================WORKS==================================
+	//=================================ID==================================
 	else if (choice == "id")
 	{
 		cout << "Which Id To Search For: " << endl;
@@ -868,7 +869,7 @@ void search_integer()
 			}
 		}
 	}
-	//=================================WORKS==================================
+	//=================================ID==================================
 
 	else if (choice == "author")
 	{
@@ -1061,6 +1062,7 @@ int main()
 {
 	//-----------------Initialization-------------
 	bool cont = true;
+	bool incorrectStatement = false;
 	char choice = '0';
 	int n = 0;
 	string response;
@@ -1104,41 +1106,78 @@ int main()
 			//Updates record accordingly
 			cout << "\t\t\t Updating Record..." << endl;
 			cout << "\t\t\t Which Record To update?" << endl;
+			search_integer();
 			cout << "Update Record No: ";
 			cin >> n;
-			//Either change Name or ID
-			cout << "Would you like to edit?" << endl;
-			cout << "Enter ==================>(id)---(name)----(title)----(author)----(date)---" << endl;
-			cin >> response;
-			if (response == "name")
+
+			while (incorrectStatement == false)
 			{
-				Overwrite_NAME(n);
-			}
-			else if (response == "id")
-			{
-				OVERWRITE_Integer(n);
-			}
-			else if (response == "title")
-			{
-				OVERWRITE_Title(n);
-			}
-			else if (response == "author")
-			{
-				OVERWRITE_Author(n);
-			}
-			else if (response == "status")
-			{
-				OVERWRITE_BookStatus(n);
-			}
-			else if (response == "date")
-			{
-				OVERWRITE_Date(n);
-			}
-			else
-			{
-				cout << "Entered something else" << endl;
-				cout << "-exiting command-" << endl;
-				break;
+				//Either change Name or ID
+				cout << "Would you like to edit?" << endl;
+				cout << "Enter ==================>(id)---(name)----(title)----(author)-----(status)-----(date)---" << endl;
+				cin >> response;
+
+				//=============NAME=================
+				if (response == "name")
+				{
+					Overwrite_NAME(n);
+					incorrectStatement = true;
+				}
+				//=============NAME=================
+
+				//=============ID=================
+				else if (response == "id")
+				{
+					OVERWRITE_Integer(n);
+					incorrectStatement = true;
+
+				}
+				//=============ID=================
+
+				//==============TITLE=================
+				else if (response == "title")
+				{
+					OVERWRITE_Title(n);
+					incorrectStatement = true;
+
+				}
+				//==============TITLE=================
+
+				//==============AUTHOR================
+				else if (response == "author")
+				{
+					OVERWRITE_Author(n);
+					incorrectStatement = true;
+
+				}
+				//==============AUTHOR================
+
+				//=============STATUS=================
+				else if (response == "status")
+				{
+					OVERWRITE_BookStatus(n);
+					incorrectStatement = true;
+
+				}
+				//=============STATUS=================
+
+				//=============DATE===================
+				else if (response == "date")
+				{
+					OVERWRITE_Date(n);
+					incorrectStatement = true;
+
+				}
+				//=============DATE===================
+
+				else
+				{
+					incorrectStatement = false;
+					cout << "Entered something else" << endl;
+					cout << "-exiting command-" << endl;
+					cout << "==============================" << endl;
+					//break;
+				}
 			}
 			break;
 		case's':
