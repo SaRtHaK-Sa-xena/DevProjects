@@ -32,6 +32,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathFuncsLib", "MathFuncsLi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyExecRefsLib", "MyExecRefsLib\MyExecRefsLib.vcxproj", "{8923CE47-0E8D-42F5-9872-887CEEC7851E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DynamicArray", "DynamicArray\DynamicArray.vcxproj", "{9726118F-E8EB-4D45-A3EF-8EBA88C77C6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -120,6 +122,14 @@ Global
 		{8923CE47-0E8D-42F5-9872-887CEEC7851E}.Release|x64.Build.0 = Release|x64
 		{8923CE47-0E8D-42F5-9872-887CEEC7851E}.Release|x86.ActiveCfg = Release|Win32
 		{8923CE47-0E8D-42F5-9872-887CEEC7851E}.Release|x86.Build.0 = Release|Win32
+		{9726118F-E8EB-4D45-A3EF-8EBA88C77C6A}.Debug|x64.ActiveCfg = Debug|x64
+		{9726118F-E8EB-4D45-A3EF-8EBA88C77C6A}.Debug|x64.Build.0 = Debug|x64
+		{9726118F-E8EB-4D45-A3EF-8EBA88C77C6A}.Debug|x86.ActiveCfg = Debug|Win32
+		{9726118F-E8EB-4D45-A3EF-8EBA88C77C6A}.Debug|x86.Build.0 = Debug|Win32
+		{9726118F-E8EB-4D45-A3EF-8EBA88C77C6A}.Release|x64.ActiveCfg = Release|x64
+		{9726118F-E8EB-4D45-A3EF-8EBA88C77C6A}.Release|x64.Build.0 = Release|x64
+		{9726118F-E8EB-4D45-A3EF-8EBA88C77C6A}.Release|x86.ActiveCfg = Release|Win32
+		{9726118F-E8EB-4D45-A3EF-8EBA88C77C6A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
