@@ -1,10 +1,15 @@
 #pragma once
+#include <iostream>
+
 
 class NodeClass
 {
 public:
+
+	NodeClass(int value);
+	~NodeClass();
 	//Changes Colour To White
-	void SetValue(float value);
+	//void SetValue(float value);
 	//changes Colour to White(-1 = White || 100 = Original)
 
 

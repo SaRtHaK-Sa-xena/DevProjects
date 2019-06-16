@@ -507,7 +507,40 @@ void DoubleLinkedList::Sort()
 		}
 	}*/
 
-	Node *node = head;
+	Node* node = head;
+	Node* nodeRight = node->next;
+	int temp;
+	int temp2;
+	bool reset = false;
+
+	while (node->next != nullptr)
+	{
+		if (reset)
+		{
+			node = head;
+			nodeRight = node->next;
+		}
+
+
+		if (node->m_data > nodeRight->m_data)
+		{
+			node->next = nodeRight->next;
+			node->prev = nodeRight;
+			reset = true;
+		}
+		else
+		{
+			node = node->next;
+			nodeRight = node->next;
+			reset = false;
+		}
+	}
+
+
+
+
+	//============================WORK ON THIS=============================
+	/*Node *node = head;
 	Node *temp = node->next;
 	Node *t2 = temp->next;
 	bool reset = true;
@@ -535,7 +568,8 @@ void DoubleLinkedList::Sort()
 			t2 = t2->next;
 			reset = false;
 		}
-	}
+	}*/
+	//============================WORK ON THIS=============================
 
 
 	//=================NEW VERSION==============================
