@@ -41,7 +41,11 @@ public:
 	Vector3 operator/= (float scalar);
 	Vector3 operator= (const Vector3 &other);
 
-
+	float dot(const Vector3 &other) const;
+	float magnitude()const;
+	void normalise();
+	Vector3 cross(const Vector3 &other)const;
+	
 };
 Vector3 operator* (float scalar, Vector3 &vec3);
 //===============VECTOR3==============
@@ -96,8 +100,9 @@ public:
 	void SetY(float y_value);
 	//===========SETTERS===============
 
-
-	
+	float dot(const Vector2 &other) const;
+	float magnitude()const;
+	void normalise();
 	//void Add(Vector2 *vector1, Vector2 *vector2);
 	void DisplayVectorCoordinates();
 
@@ -219,6 +224,7 @@ public:
 	Vector4 xAxis;
 	Vector4 yAxis;
 	Vector4 zAxis;
+	Vector4 wAxis;
 	Vector4 translation;
 
 
@@ -231,7 +237,8 @@ public:
 		float aW, float bW, float cW, float dW);
 
 	Matrix4 operator=(Matrix4 &other);
-	Vector4 operator *(const Vector3 &v)const;
+	Matrix4 operator=(Vector4 &other);
+	Vector4 operator *(const Vector4 &v)const;
 	Matrix4 operator *(const Matrix4 &other)const;
 
 	Matrix4 transposed() const;
@@ -240,8 +247,11 @@ public:
 	operator float*();
 
 	//==========rotation========================
-	void setScaled(float x, float y, float z);
-
+	void setScaled(float x, float y, float z, float w);
+	void setScaled(const Vector4 &v);
+	void setRotateX(float radians);
+	void setRotateY(float radians);
+	void setRotateZ(float radians);
 	void translate(float x, float y, float z)
 	{
 		translation += Vector4(x, y, z, 0);

@@ -104,14 +104,14 @@ Vector4 Vector4::operator * (float scalar) const
 	return { m_x * scalar, m_y * scalar, m_z *scalar, m_w * scalar };
 }
 
-Vector4 Vector4::operator *(const Matrix4 &other)const
-{
-	m_x * other.m_x;
-	m_y * other.m_y;
-	m_z * other.m_z;
-	m_w * other.m_w;
-	return *this;
-}
+//Vector4 Vector4::operator *(const Matrix4 &other)const
+//{
+//	m_x * other.m_x;
+//	m_y * other.m_y;
+//	m_z * other.m_z;
+//	m_w * other.m_w;
+//	return *this;
+//}
 
 Vector4& Vector4::operator /(float scalar)
 {
@@ -121,7 +121,6 @@ Vector4& Vector4::operator /(float scalar)
 	m_w /= scalar;
 	return *this;
 }
-
 Vector4& Vector4::operator = (const Vector4 &other)
 {
 	m_x = other.m_x;
@@ -238,6 +237,7 @@ Vector3::operator const float*() const
 
 
 
+
 //========================VECTOR 3==========================
 Vector3 Vector3::operator+(const Vector3 &other)
 {
@@ -265,9 +265,38 @@ Vector3 Vector3::operator /= (float scalar)
 }
 Vector3 Vector3::operator = (const Vector3& other) 
 {
-	SetX(m_x = other.m_x);
-	SetY(m_y = other.m_y);
-	SetZ(m_z = other.m_z);
+	//SetX(m_x = other.m_x);
+	//SetY(m_y = other.m_y);
+	//SetZ(m_z = other.m_z);
+	m_x = other.m_x;
+	m_y = other.m_y;
+	m_z = other.m_z;
+	return *this;
+}
+float Vector3::dot(const Vector3 & other) const
+{
+	return m_x * other.m_x + m_y * other.m_y + m_z * other.m_z;
+}
+
+float Vector3::magnitude() const
+{
+	return sqrt(m_x*m_x + m_y * m_y + m_z * m_z);
+}
+
+void Vector3::normalise()
+{
+	float mag = sqrt(m_x*m_x + m_y * m_y + m_z * m_z);
+	m_x /= mag;
+	m_y /= mag;
+	m_z /= mag;
+}
+
+
+Vector3 Vector3::cross(const Vector3 & other) const
+{
+	return{ m_y * other.m_z - m_z * other.m_y,
+			m_z * other.m_x - m_x * other.m_z,
+			0 };
 }
 
 
@@ -358,6 +387,23 @@ void Vector2::SetX(float x_value)
 void Vector2::SetY(float y_value)
 {
 	m_y = y_value;
+}
+
+float Vector2::dot(const Vector2 & other) const
+{
+	return m_x * other.m_x + m_y * other.m_y;
+}
+
+float Vector2::magnitude() const
+{
+	return sqrt(m_x*m_x + m_y * m_y);
+}
+
+void Vector2::normalise()
+{
+	float mag = sqrt(m_x*m_x + m_y * m_y);
+	m_x /= mag;
+	m_y /= mag;
 }
 
 
@@ -599,6 +645,20 @@ void Matrix3::rotateX(float radians)
 	*this = *this * m;
 }
 
+void Matrix3::setRotateY(float radians)
+{
+	Matrix3 m;
+	m.setRotateY(radians);
+	*this = *this *m;
+}
+
+void Matrix3::setRotateZ(float radians)
+{
+	Matrix3 m;
+	m.setRotateZ(radians);
+	*this = *this *m;
+}
+
 void Matrix3::setEuler(float pitch, float yaw, float roll) 
 {
 	Matrix3 x, y, z;
@@ -706,7 +766,15 @@ Matrix4 Matrix4::operator=(Matrix4 &other)
 	c_w = other.c_w;
 }
 
-Vector4 Matrix4::operator*(const Vector3 &v)const
+Matrix4 Matrix4::operator=(Vector4 & other)
+{
+	a_x = other.m_x;
+	a_y = other.m_y;
+	a_z = other.m_z;
+	a_w = other.m_w;
+}
+
+Vector4 Matrix4::operator*(const Vector4 &v)const
 {
 	Vector4 result;
 
@@ -760,16 +828,44 @@ Matrix4::operator float*()
 	return &data[4][4];
 }
 
-void Matrix4::setScaled(float x, float y, float z)
+void Matrix4::setScaled(float x, float y, float z, float w)
 {
-	xAxis = { x,0,0,0 };
-	yAxis = { 0,y,0,0 };
+	xAxis = { x,0,0,0};
+	yAxis = { 0,y,0,0};
 	zAxis = { 0,0,z,0 };
+	wAxis = { 0,0,0,w };
 	translation = { 0,0,0,1 };
 }
 
+void Matrix4::setScaled(const Vector4 & v)
+{
+	xAxis = { v.m_x,0,0,0 };
+	yAxis = { 0,v.m_y,0,0 };
+	zAxis = { 0,0,v.m_z,0 };
+	wAxis = { 0,0,0,v.m_w };
+}
 
-void translate(float x, float y, float z);
+void Matrix4::setRotateX(float radians)
+{
+	xAxis = { 1, 0, 0,0 };
+	yAxis = { 0, cosf(radians), sinf(radians),0 };
+	zAxis = { 0, -sinf(radians), cosf(radians),0 };
+}
+
+void Matrix4::setRotateY(float radians)
+{
+	xAxis = { cosf(radians), 0, -sinf(radians),0 };
+	yAxis = { 0, 1, 0,0 };
+	zAxis = { sinf(radians), 0, cosf(radians),0 };
+}
+
+void Matrix4::setRotateZ(float radians)
+{
+	xAxis = { cosf(radians), -sinf(radians), 0,0 };
+	yAxis = { sinf(radians), 1, cosf(radians),0 };
+	zAxis = { 0, 0, 1,0 };
+}
+
 //=====================================MATRIX 4========================================================
 
 
