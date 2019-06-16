@@ -488,9 +488,6 @@ void DoubleLinkedList::Sort()
 	//		if (arr[j] > arr[j + 1]) //if list position j greater than the position after it
 	//		{
 
-	//		}
-	//	}
-	//}
 
 
 	//=================NEW VERSION==============================
@@ -507,15 +504,50 @@ void DoubleLinkedList::Sort()
 		}
 	}*/
 
+	//===========================Test1========================
+	//Node* node = head;
+	//Node* nodeRight = node->next;
+	//Node* NodeBehind = node->prev;
+	//int temp;
+	//int temp2;
+	//bool reset = false;
+
+	//while (node->next != nullptr)
+	//{
+	//	if (reset)
+	//	{
+	//		node = head;
+	//		nodeRight = node->next;
+	//	}
+
+
+	//	if (node->m_data > nodeRight->m_data)
+	//	{
+	//		node->next = nodeRight->next;
+	//		node->prev = nodeRight;
+	//		reset = true;
+	//	}
+	//	else
+	//	{
+	//		node = node->next;
+	//		nodeRight = node->next;
+	//		reset = false;
+	//	}
+	//}
+	//===========================Test1========================
+
+	//==============Bubble Sort Used=============================
 	Node* node = head;
 	Node* nodeRight = node->next;
+
 	int temp;
 	int temp2;
-	bool reset = false;
+
+	bool swap = false;
 
 	while (node->next != nullptr)
 	{
-		if (reset)
+		if (swap)
 		{
 			node = head;
 			nodeRight = node->next;
@@ -524,19 +556,23 @@ void DoubleLinkedList::Sort()
 
 		if (node->m_data > nodeRight->m_data)
 		{
-			node->next = nodeRight->next;
-			node->prev = nodeRight;
-			reset = true;
+			temp = node->m_data;
+			temp2 = nodeRight->m_data;
+
+			//=========SWAP=============
+			node->m_data = temp2;
+			nodeRight->m_data = temp;
+			//=========SWAP=============
+			swap = true;
 		}
 		else
 		{
 			node = node->next;
 			nodeRight = node->next;
-			reset = false;
+			swap = false;
 		}
 	}
-
-
+	//==============Bubble Sort Used=============================
 
 
 	//============================WORK ON THIS=============================
