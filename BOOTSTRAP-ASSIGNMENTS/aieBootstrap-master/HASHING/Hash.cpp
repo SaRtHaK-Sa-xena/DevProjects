@@ -2,7 +2,7 @@
 using namespace std;
 
 
-void hashClass::AddItem(string name, string book)
+void hashClass::AddItem(string name, string book, int id)
 {
 	int index = Hash(name);
 
@@ -17,6 +17,7 @@ void hashClass::AddItem(string name, string book)
 		item* n = new item;
 		n->name = name;
 		n->favBookName = book;
+		n->itemCode = id;
 		n->next = NULL;
 		while (Ptr->next != NULL)
 		{
@@ -35,6 +36,7 @@ hashClass::hashClass()
 		HashTable[i] = new item;
 		HashTable[i]->name = "empty";
 		HashTable[i]->favBookName = "empty";
+		HashTable[i]->itemCode = 0;
 		HashTable[i]->next = NULL;
 	}
 }
@@ -71,6 +73,7 @@ void hashClass::PrintTable()
 		cout << "index = " << i << endl;
 		cout << HashTable[i]->name << endl;
 		cout << HashTable[i]->favBookName << endl;
+		cout << HashTable[i]->itemCode << endl;
 		cout << "# of items = " << number << endl;
 		cout << "---------------------------\n";
 

@@ -10,6 +10,7 @@ int main()
 	hashClass Hashuse;
 	string name = "";
 	string book = "";
+	int ID = 0;
 	bool cont = true;
 	char choice = '0';
 
@@ -26,7 +27,9 @@ int main()
 			cin >> name;
 			cout << "Enter Favourite Book: " << endl;
 			cin >> book;
-			Hashuse.AddItem(name, book);
+			cout << "Enter Unique id: " << endl;
+			cin >> ID;
+			Hashuse.AddItem(name, book, ID);
 			break;
 		case'r':
 			cout << "\t\t\t removing..." << endl;
