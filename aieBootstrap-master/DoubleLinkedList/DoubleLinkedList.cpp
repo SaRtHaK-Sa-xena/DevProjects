@@ -463,78 +463,9 @@ void DoubleLinkedList::PopFront()
 }
 //===============DONE===================
 
-void DoubleLinkedList::swap(Node *xp, Node*yp)
-{
-	Node *TEMP = nullptr;
-	xp = head;
-	yp = head;
-
-	TEMP->m_data = xp->m_data; //temp will equal xp's data
-	xp->m_data = yp->m_data; //xp data will equal yp's data
-	yp->m_data = TEMP->m_data; // yp's data will equal temp's data
-}
 //=================SORT=================
 void DoubleLinkedList::Sort()
 {
-	//n = size of array
-	//arr[] is the array being used so LIST = doubleList
-	//bool swapped;
-	//for (int i = 0; i < n - 1; i++) //n-1 so List Size - 1 from 10, it will be equal to 9
-	//{
-	//	swapped = false;
-	//	for (int j = 0; j < n - i - 1; j++) //n equal to 10, minus 0, minus 1, so 9
-	//	{
-	//		if(List[j])
-	//		if (arr[j] > arr[j + 1]) //if list position j greater than the position after it
-	//		{
-
-
-
-	//=================NEW VERSION==============================
-	/*Node *node = head;
-	Node *temp = node->next;
-	while (node->next != nullptr)
-	{
-		node = node->next;
-		if (node->m_data > node->next->m_data)
-		{
-			node->next = node->next->next;
-			Node *temp = node->next->next;
-			temp->prev = temp->prev->prev;
-		}
-	}*/
-
-	//===========================Test1========================
-	//Node* node = head;
-	//Node* nodeRight = node->next;
-	//Node* NodeBehind = node->prev;
-	//int temp;
-	//int temp2;
-	//bool reset = false;
-
-	//while (node->next != nullptr)
-	//{
-	//	if (reset)
-	//	{
-	//		node = head;
-	//		nodeRight = node->next;
-	//	}
-
-
-	//	if (node->m_data > nodeRight->m_data)
-	//	{
-	//		node->next = nodeRight->next;
-	//		node->prev = nodeRight;
-	//		reset = true;
-	//	}
-	//	else
-	//	{
-	//		node = node->next;
-	//		nodeRight = node->next;
-	//		reset = false;
-	//	}
-	//}
-	//===========================Test1========================
 
 	//==============Bubble Sort Used=============================
 	Node* node = head;
@@ -573,63 +504,6 @@ void DoubleLinkedList::Sort()
 		}
 	}
 	//==============Bubble Sort Used=============================
-
-
-	//============================WORK ON THIS=============================
-	/*Node *node = head;
-	Node *temp = node->next;
-	Node *t2 = temp->next;
-	bool reset = true;
-	while (node->next != nullptr)
-	{
-		if (reset == true)
-		{
-			node = head;
-			temp = node->next;
-			t2 = temp->next;
-		}
-		
-		if (node->m_data > temp->m_data)
-		{
-			node->next = t2;
-			t2->prev = node;
-			temp->next = node;
-			node->prev = temp;
-			reset = true;
-		}
-		else
-		{
-			node = node->next;
-			temp = temp->next;
-			t2 = t2->next;
-			reset = false;
-		}
-	}*/
-	//============================WORK ON THIS=============================
-
-
-	//=================NEW VERSION==============================
-	
-	//==========================================================
-	/*int i, j;
-	bool swapped;
-	for (int i = 0; i < n - 1; i++)
-	{
-		swapped = false;
-		for (int j = 0; j < n - i - 1; i++)
-		{
-			if (List[j] > List[j + 1])
-			{
-				swap(&List[j], &List[j + 1]);
-				swapped = true;
-			}
-		}
-
-		if (swapped == false)
-		{
-			break;
-		}
-	}*/
 }
 //=================SORT=================
 

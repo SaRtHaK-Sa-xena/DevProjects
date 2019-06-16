@@ -77,6 +77,28 @@ Vector4& Vector4::operator -(const Vector4 &other)
 	return *this;
 }
 
+Vector4 & Vector4::operator-=(const Vector4 * other)
+{
+	m_x -= other->m_x;
+	m_y -= other->m_y;
+	m_z -= other->m_z;
+	m_w -= other->m_w;
+
+	return *this;
+
+}
+
+Vector4 & Vector4::operator*=(float scalar)
+{
+	m_x *= scalar;
+	m_y *= scalar;
+	m_z *= scalar;
+	m_w *= scalar;
+
+	return *this;
+
+}
+
 Vector4 Vector4::operator * (float scalar) const
 {
 	return { m_x * scalar, m_y * scalar, m_z *scalar, m_w * scalar };
@@ -108,6 +130,29 @@ Vector4& Vector4::operator = (const Vector4 &other)
 	m_w = other.m_w;
 
 	return *this;
+}
+float Vector4::magnitude() const
+{
+	return sqrt(m_x*m_x + m_y * m_y + m_z * m_z + m_w * m_w);
+}
+void Vector4::normalise()
+{
+	float mag = sqrt(m_x*m_x + m_y * m_y + m_z * m_z + m_w * m_w);
+	m_x /= mag;
+	m_y /= mag;
+	m_z /= mag;
+	m_w /= mag;
+}
+float Vector4::dot(const Vector4 & other) const
+{
+	return m_x * other.m_x + m_y * other.m_y + m_z * other.m_z + m_w * other.m_w;
+}
+Vector4 Vector4::cross(const Vector4 & other) const
+{
+	return{m_y * other.m_z - m_z * other.m_y,
+			m_z * other.m_x - m_x * other.m_z,
+			m_x * other.m_y - m_y * other.m_x,
+			0};
 }
 //===============================VECTOR 4=========================
 
@@ -566,11 +611,12 @@ void Matrix3::setEuler(float pitch, float yaw, float roll)
 
 //=======================rotation================
 
-
-
-
 //=======================================================MATRIX3======================================
-//
+
+
+
+
+
 //=====================================MATRIX 4========================================================
 
 Matrix4::Matrix4()
@@ -721,6 +767,9 @@ void Matrix4::setScaled(float x, float y, float z)
 	zAxis = { 0,0,z,0 };
 	translation = { 0,0,0,1 };
 }
+
+
+void translate(float x, float y, float z);
 //=====================================MATRIX 4========================================================
 
 

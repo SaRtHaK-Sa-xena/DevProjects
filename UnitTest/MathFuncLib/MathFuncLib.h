@@ -279,6 +279,9 @@ public:
 	Vector4 &operator -(const Vector4 &other);
 	Vector4 &operator -=(const Vector4 *other);
 
+	Vector4 &operator *=(float scalar);
+
+
 	Vector4 operator * (float scalar) const;
 
 	Vector4 operator * (const Matrix4 &other) const;
@@ -286,5 +289,13 @@ public:
 	Vector4 &operator /(float scalar);
 
 	Vector4& operator = (const Vector4 &other);
+
+	//magnitude
+	float magnitude()const;
+	void normalise();
+	float dot(const Vector4 &other)const;
+
+	Vector4 cross(const Vector4 &other) const;
+
 };
 Vector4 operator * (float scalar, const Vector4 &vec4);
