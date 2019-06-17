@@ -10,6 +10,7 @@ void hashClass::AddItem(string name, string book, int id)
 	{
 		HashTable[index]->name = name;
 		HashTable[index]->favBookName = book;
+		HashTable[index]->itemCode = id;
 	}
 	else
 	{
@@ -73,7 +74,7 @@ void hashClass::PrintTable()
 		cout << "index = " << i << endl;
 		cout << HashTable[i]->name << endl;
 		cout << HashTable[i]->favBookName << endl;
-		cout << HashTable[i]->itemCode << endl;
+		cout << "Unique Identifier: " << HashTable[i]->itemCode << endl;
 		cout << "# of items = " << number << endl;
 		cout << "---------------------------\n";
 
@@ -100,6 +101,7 @@ void hashClass::PrintItemsInIndex(int index)
 			cout << "-------------------\n";
 			cout << Ptr->name << endl;
 			cout << Ptr->favBookName << endl;
+			cout << Ptr->itemCode << endl;
 			cout << "-------------------\n";
 
 			Ptr = Ptr->next;
@@ -112,7 +114,7 @@ void hashClass::FindBook(string name)
 {
 	int index = Hash(name);
 	bool foundName = false;
-	string drink;
+	string book;
 
 	item* Ptr = HashTable[index];
 	while (Ptr != NULL)
@@ -120,13 +122,40 @@ void hashClass::FindBook(string name)
 		if (Ptr->name == name)
 		{
 			foundName = true;
-			drink = Ptr->favBookName;
+			book = Ptr->favBookName;
 		}
 		Ptr = Ptr->next;
 	}
 	if (foundName == true)
 	{
-		cout << "Favorite Book = " << drink << endl;
+		cout << "Favorite Book = " << book << endl;
+	}
+	else
+	{
+		cout << name << "'s info wasn't found in the Hash table\n";
+	}
+}
+
+
+void hashClass::FindId(string name)
+{
+	int index = Hash(name);
+	bool found_id = false;
+	int id_no;
+
+	item* Ptr = HashTable[index];
+	while (Ptr != NULL)
+	{
+		if (Ptr->name == name)
+		{
+			found_id = true;
+			id_no = Ptr->itemCode;
+		}
+		Ptr = Ptr->next;
+	}
+	if (found_id == true)
+	{
+		cout << "Uniqude Id: " << id_no << endl;
 	}
 	else
 	{
@@ -155,6 +184,7 @@ void hashClass::RemoveItem(string name)
 	{
 		HashTable[index]->name = "empty"; //set to empty
 		HashTable[index]->favBookName = "empty"; //set to empty
+		HashTable[index]->itemCode = 0;
 		cout << name << " was removed from the Hash Table\n";
 
 	}

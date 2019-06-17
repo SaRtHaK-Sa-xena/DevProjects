@@ -13,6 +13,7 @@ int main()
 	int ID = 0;
 	bool cont = true;
 	char choice = '0';
+	string options;
 
 	while (cont)
 	{	
@@ -41,10 +42,29 @@ int main()
 
 		case'f':
 			cout << "\t\t\t Finding..." << endl;
-			cout << "Enter name to search: " << endl;
-			cin >> name;
-			cout << "Finding By Name..." << endl;
-			Hashuse.FindBook(name);
+			cout << "find (name) or (id)" << endl;
+			cin >> options;
+			if (options == "name")
+			{
+				cout << "Enter name to search: " << endl;
+				cin >> name;
+				cout << "Finding By Name..." << endl;
+				Hashuse.FindBook(name);
+				break;
+			}
+			else if (options == "id")
+			{
+				cout << "Enter name to search" << endl;
+				cin >> name;
+				cout << "Finding their unique id..." << endl;
+				Hashuse.FindId(name);
+				break;
+			}
+			else
+			{
+				cout << "\t\t\t Wrong input...\n \t\t\t try again later..." << endl;
+				break;
+			}
 			break;
 
 

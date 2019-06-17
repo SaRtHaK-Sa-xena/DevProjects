@@ -21,6 +21,7 @@ public:
 	void PrintItemsInIndex(int index); // displays in index
 
 	void FindBook(string name); // finds by book name
+	void FindId(string name); // finds by id
 
 	void RemoveItem(string name); // removes key, therefore removing the index's values
 
