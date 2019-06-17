@@ -10,6 +10,7 @@ void hashClass::AddItem(string name, string book, int id)
 	{
 		HashTable[index]->name = name;
 		HashTable[index]->favBookName = book;
+		HashTable[index]->itemCode = id;
 	}
 	else
 	{
@@ -73,7 +74,7 @@ void hashClass::PrintTable()
 		cout << "index = " << i << endl;
 		cout << HashTable[i]->name << endl;
 		cout << HashTable[i]->favBookName << endl;
-		cout << HashTable[i]->itemCode << endl;
+		cout << "Unique Identifer: " << HashTable[i]->itemCode << endl;
 		cout << "# of items = " << number << endl;
 		cout << "---------------------------\n";
 
@@ -100,6 +101,7 @@ void hashClass::PrintItemsInIndex(int index)
 			cout << "-------------------\n";
 			cout << Ptr->name << endl;
 			cout << Ptr->favBookName << endl;
+			cout << Ptr->itemCode << endl;
 			cout << "-------------------\n";
 
 			Ptr = Ptr->next;
@@ -126,13 +128,41 @@ void hashClass::FindBook(string name)
 	}
 	if (foundName == true)
 	{
-		cout << "Favorite Book = " << drink << endl;
+		cout << name << "'s Favorite Book = " << drink << endl;
 	}
 	else
 	{
 		cout << name << "'s info wasn't found in the Hash table\n";
 	}
 }
+
+void hashClass::FindID(string name)
+{
+	int index = Hash(name);
+	bool foundName = false;
+	int id_no;
+
+	item* Ptr = HashTable[index];
+	while (Ptr != NULL)
+	{
+		if (Ptr->name == name)
+		{
+			foundName = true;
+			id_no = Ptr->itemCode;
+		}
+		Ptr = Ptr->next;
+	}
+	if (foundName == true)
+	{
+		cout << name << "'s Unique Identifier = " << id_no << endl;
+	}
+	else
+	{
+		cout << name << "'s info wasn't found in the Hash table\n";
+	}
+}
+
+
 
 
 void hashClass::RemoveItem(string name)
@@ -143,24 +173,25 @@ void hashClass::RemoveItem(string name)
 	item* P1;
 	item* P2;
 
-	//case 0 - bucket is empty
+	//if bucket is empty
 	if (HashTable[index]->name == "empty" && HashTable[index]->favBookName == "empty")
 	{
 		cout << name << " was not found in the Hash Table\n";
 	}
 
 	
-	//case 1 - only 1 item contained in bucket and that item has matching name
+	//if only 1 item contained in bucket and that item has matching name
 	else if (HashTable[index]->name == name && HashTable[index]->next == NULL)//only one item in index 
 	{
 		HashTable[index]->name = "empty"; //set to empty
 		HashTable[index]->favBookName = "empty"; //set to empty
+		HashTable[index]->itemCode = 0;
 		cout << name << " was removed from the Hash Table\n";
 
 	}
 
 	//if additional items are contained in index
-	//case 2 - match is located in the first item in the bucket but there are more items in the bucket
+	//if match is located in the first item in the bucket but there are more items in the bucket
 	else if (HashTable[index]->name == name)
 	{
 		delPtr = HashTable[index]; //pointer poiting to first item to delete in index
@@ -171,7 +202,7 @@ void hashClass::RemoveItem(string name)
 	}
 
 
-	//case 3 - bucket contains items but first item is not a match
+	//if bucket contains items but first item is not a match
 	else
 	{
 		P1 = HashTable[index]->next; //pointing to second item
@@ -200,7 +231,7 @@ void hashClass::RemoveItem(string name)
 
 
 	}
-	//3.2 - math is found
+	
 }
 
 

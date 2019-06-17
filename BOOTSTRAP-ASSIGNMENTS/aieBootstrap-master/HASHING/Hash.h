@@ -20,7 +20,9 @@ public:
 
 	void PrintItemsInIndex(int index); // displays in index
 
-	void FindBook(string name); // finds by book name
+	void FindBook(string name); // finds by name--> displays book
+
+	void FindID(string name); // finds by name--> displays ID
 
 	void RemoveItem(string name); // removes key, therefore removing the index's values
 
