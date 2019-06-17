@@ -2,6 +2,8 @@
 
 #include "Application.h"
 #include "Renderer2D.h"
+#include <Windows.h>
+
 
 struct Entity {
 	float x = 0, y = 0;
@@ -24,11 +26,14 @@ public:
 	virtual void draw();
 
 protected:
-
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
 
 	// define a block of entities that should be shared
 	enum { ENTITY_COUNT = 10 };
+	//Entity m_entities[ENTITY_COUNT];
 	Entity m_entities[ENTITY_COUNT];
+	Entity *m_useEntity;
+	HANDLE fileHandle;
+	//Entity m_entity[ENTITY_COUNT];
 };

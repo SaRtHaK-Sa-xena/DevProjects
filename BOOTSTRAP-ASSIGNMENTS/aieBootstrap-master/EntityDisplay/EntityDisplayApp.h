@@ -3,6 +3,8 @@
 #include <vector>
 #include "Application.h"
 #include "Renderer2D.h"
+#include <Windows.h>
+
 
 struct Entity {
 	float x = 0, y = 0;
@@ -31,4 +33,6 @@ protected:
 
 	// an array of an unknown number of entities
 	std::vector<Entity> m_entities;
+	HANDLE fileHandle;
+	Entity* data;
 };
