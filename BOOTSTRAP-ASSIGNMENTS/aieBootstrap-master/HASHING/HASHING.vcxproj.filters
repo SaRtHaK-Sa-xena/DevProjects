@@ -15,15 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HASHING.cpp">
+    <ClCompile Include="Hash2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Hash.cpp">
+    <ClCompile Include="HASHING2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Hash.h">
+    <ClInclude Include="Hash2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

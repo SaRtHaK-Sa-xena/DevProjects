@@ -151,11 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Hash.cpp" />
-    <ClCompile Include="HASHING.cpp" />
+    <ClCompile Include="Hash2.cpp" />
+    <ClCompile Include="HASHING2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Hash.h" />
+    <ClInclude Include="Hash2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
