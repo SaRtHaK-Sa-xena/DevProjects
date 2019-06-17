@@ -48,6 +48,27 @@ void ArrayClass::display()
 	std::cout << "Last Entry Entered: " << current->getData() << std::endl;
 }
 
+void ArrayClass::search(int a_value)
+{
+	int i = 1;
+	NodeClass *current = returnRoot();
+	while (current->getRight() != nullptr)
+	{
+		if (current->getData() == a_value)
+		{
+			std::cout << "found in position " << i << ":" << std::endl;
+			std::cout << current->getData() << std::endl;
+			break;
+		}
+		else
+		{
+			i++;
+			current = current->getRight();
+		}
+	}
+}
+
+
 void ArrayClass::sort()
 {
 	/*NodeClass *begin = returnRoot();

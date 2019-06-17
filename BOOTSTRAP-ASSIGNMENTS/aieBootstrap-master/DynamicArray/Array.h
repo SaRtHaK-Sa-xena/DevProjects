@@ -15,4 +15,5 @@ public:
 	void insert(int value);
 	void display();	
 	void sort();
+	void search(int a_value);
 };

@@ -17,13 +17,14 @@ int main()
 	int i = 0;
 	int t1 = 555;
 	int t2 = 222;
+	int searchId;
 	NodeClass* current;
 	NodeClass* currentRight;
 	
 	while (cont)
 	{
 		cout << "What Do you want to Do? " << endl;
-		cout << "---(a)dd---(d)isplay---(s)ort---(e)xit---" << endl;
+		cout << "---(a)dd---(d)isplay---(s)ort--(f)ind--(e)xit---" << endl;
 		cin >> choice;
 		switch (choice)
 		{
@@ -81,7 +82,9 @@ int main()
 			t2 = currentRight->getData();*/
 
 			
-			
+			//Find Function
+
+			//End Find Function
 
 			//==============DISPLAY====================
 			current = DynamicTree->returnRoot();
@@ -96,6 +99,12 @@ int main()
 			i = 0;
 			//==============DISPLAY====================
 
+			break;
+		case'f':
+			cout << "\t\t\t searching..." << endl;
+			cout << "Enter Id To Look For: " << endl;
+			cin >> searchId;
+			DynamicTree->search(searchId);
 			break;
 		case'e':
 			cout << "Exiting..." << endl;
