@@ -32,7 +32,8 @@ protected:
 	aie::Font*			m_font;
 
 	// an array of an unknown number of entities
-	std::vector<Entity> m_entities;
+	std::vector<Entity> m_entities; //isn't storing a fixed amount so unreliable for reading
+
 	HANDLE fileHandle;
 	Entity* data;
 };

@@ -34,8 +34,9 @@ bool EntityEditorApp::startup() {
 
 
 	//map the memory from the shared block to a pointer we can manipulate
-	m_entities = (Entity*)MapViewOfFile(fileHandle, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(Entity) * ENTITY_COUNT);
+	m_entities = (Entity*)MapViewOfFile(fileHandle, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(Entity) * ENTITY_COUNT);//*entity count since it doesn't know the size to be mapped
 	
+	//Manual creation of each Entity
 	for (size_t i = 0; i < ENTITY_COUNT; ++i) {
 		m_entities[i] = Entity();
 	}
@@ -117,7 +118,6 @@ void EntityEditorApp::update(float deltaTime) {
 		if (entity.y < 0)
 			entity.y += getWindowHeight();
 	}
-	//write to the memory block
 	
 }
 
@@ -130,8 +130,9 @@ void EntityEditorApp::draw() {
 	m_2dRenderer->begin();
 
 	// draw entities
-	for (size_t i = 0; i < ENTITY_COUNT; ++i) { //m_entitities
-		Entity &entity = m_entities[i];
+	for (size_t i = 0; i < ENTITY_COUNT; ++i) //using size_t since it is better in general
+	{										  
+		Entity &entity = m_entities[i]; // making reference of entity =to m_entities[each position]. 
 		m_2dRenderer->setRenderColour(entity.r, entity.g, entity.b);
 		m_2dRenderer->drawBox(entity.x, entity.y, entity.size, entity.size, entity.rotation);
 	}
