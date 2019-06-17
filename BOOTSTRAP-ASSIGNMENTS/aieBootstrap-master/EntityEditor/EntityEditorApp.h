@@ -32,8 +32,8 @@ protected:
 	// define a block of entities that should be shared
 	enum { ENTITY_COUNT = 10 };
 	//Entity m_entities[ENTITY_COUNT];
-	Entity m_entities[ENTITY_COUNT];
+	Entity *m_entities;
 	Entity *m_useEntity;
-	HANDLE fileHandle;
+	HANDLE fileHandle, countHandle;
 	//Entity m_entity[ENTITY_COUNT];
 };

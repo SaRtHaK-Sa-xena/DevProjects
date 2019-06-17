@@ -20,9 +20,8 @@ bool EntityDisplayApp::startup() {
 	m_font = new aie::Font("./font/consolas.ttf", 32);
 
 	fileHandle = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, L"MySharedMemory");
-	data = (Entity*)MapViewOfFile(fileHandle, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(Entity));
-
-
+	data = (Entity*)MapViewOfFile(fileHandle, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(Entity) * 10);
+	
 	setBackgroundColour(1, 1, 1);
 
 	return true;
@@ -44,18 +43,20 @@ void EntityDisplayApp::update(float deltaTime) {
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
+	
+
 
 	//Used For Testing In Debug
 	//==================TESTING====================
 	// write out what is in the memory blocks
-	/*std::cout << "MyData = { ";
+	std::cout << "MyData = { ";
 	std::cout << data->b << ", ";
 	std::cout << data->g << ", ";
 	std::cout << data->r << ", ";
 	std::cout << data->rotation << ", ";
 	std::cout << data->size << ", ";
 	std::cout << data->speed << ", ";
-	std::cout << " };" << std::endl;*/
+	std::cout << " };" << std::endl;
 	//================TESTING========================
 }
 
@@ -68,7 +69,8 @@ void EntityDisplayApp::draw() {
 	m_2dRenderer->begin();
 
 	// draw entities
-	for (auto& entity : m_entities) {
+	for (size_t i = 0; i < 10; ++i) { //m_entitities
+		Entity &entity = data[i];
 		m_2dRenderer->setRenderColour(entity.r, entity.g, entity.b);
 		m_2dRenderer->drawBox(entity.x, entity.y, entity.size, entity.size, entity.rotation);
 	}

@@ -4,7 +4,7 @@
 #include "Font.h"
 #include "Input.h"
 #include <Windows.h>
-
+#include <conio.h>
 
 #include <iostream>
 
@@ -31,8 +31,23 @@ bool EntityEditorApp::startup() {
 		0, sizeof(Entity)*ENTITY_COUNT, // size of the memory block,
 		L"MySharedMemory");
 
-	//pointer
-	m_useEntity = (Entity*)MapViewOfFile(fileHandle, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(Entity));
+
+
+	//map the memory from the shared block to a pointer we can manipulate
+	m_entities = (Entity*)MapViewOfFile(fileHandle, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(Entity) * ENTITY_COUNT);
+	
+	for (size_t i = 0; i < ENTITY_COUNT; ++i) {
+		m_entities[i] = Entity();
+	}
+
+	/*if (m_useEntity == nullptr)
+	{
+		std::cout << "Could not map view of file: " << GetLastError() << std::endl;
+		CloseHandle(fileHandle);
+		return 1;
+	}*/
+
+	
 	
 	//==========Used For Testing In Debug==========
 	//==================TESTING====================
@@ -50,6 +65,7 @@ bool EntityEditorApp::startup() {
 
 	setBackgroundColour(1, 1, 1);
 
+
 	return true;
 }
 
@@ -57,7 +73,7 @@ void EntityEditorApp::shutdown() {
 
 	delete m_font;
 	delete m_2dRenderer;
-	UnmapViewOfFile(m_entities);
+	//UnmapViewOfFile(m_entities);
 	CloseHandle(fileHandle);
 }
 
@@ -86,7 +102,8 @@ void EntityEditorApp::update(float deltaTime) {
 	ImGui::EndGroup();
 
 	// move entities
-	for (auto& entity : m_entities) { //m_entities
+	for (size_t i = 0; i < ENTITY_COUNT; ++i) { //m_entities
+		Entity &entity = m_entities[i];
 		float s = sinf(entity.rotation) * entity.speed;
 		float c = cosf(entity.rotation) * entity.speed;
 		entity.x -= s * deltaTime;
@@ -100,6 +117,8 @@ void EntityEditorApp::update(float deltaTime) {
 		if (entity.y < 0)
 			entity.y += getWindowHeight();
 	}
+	//write to the memory block
+	
 }
 
 void EntityEditorApp::draw() {
@@ -111,7 +130,8 @@ void EntityEditorApp::draw() {
 	m_2dRenderer->begin();
 
 	// draw entities
-	for (auto& entity : m_entities) { //m_entitities
+	for (size_t i = 0; i < ENTITY_COUNT; ++i) { //m_entitities
+		Entity &entity = m_entities[i];
 		m_2dRenderer->setRenderColour(entity.r, entity.g, entity.b);
 		m_2dRenderer->drawBox(entity.x, entity.y, entity.size, entity.size, entity.rotation);
 	}
