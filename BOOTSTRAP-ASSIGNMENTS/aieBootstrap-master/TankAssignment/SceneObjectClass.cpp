@@ -15,12 +15,83 @@ SceneObject::~SceneObject()
 	}
 }
 
-void SceneObject::onUpdate(float deltaTime)
+void SceneObject::update(float deltaTime)
 {
+	onUpdate(deltaTime);
+
+	//update children
+	for (auto child : m_children) //iterate through child for how many children there are
+	{
+		child->update(deltaTime);
+	}
 }
 
-void SceneObject::OnDraw(aie::Renderer2D * renderer)
+void SceneObject::draw(aie::Renderer2D * renderer)
 {
+	//run onDraw behaviour
+	onDraw(renderer);
+
+	//draw children
+	for (auto child : m_children)
+	{
+		child->draw(renderer);
+	}
+
+}
+
+void SceneObject::updateTransform()
+{
+	if (m_parent != nullptr)
+	{
+		m_globalTransform = m_parent->m_globalTransform * m_localTransform;
+	}
+	else
+	{
+		m_globalTransform = m_localTransform;
+	}
+
+	//have all child objects global transform updated
+	//so loop through all children
+	for (auto child : m_children)
+	{
+		child->updateTransform();
+	}
+}
+
+void SceneObject::setPosition(float x, float y)
+{
+	m_localTransform[2] = { x,y,1 };
+	updateTransform();
+}
+
+void SceneObject::setRotate(float radians)
+{
+	m_localTransform.setRotateZ(radians);
+	updateTransform();
+}
+
+void SceneObject::setScale(float width, float height)
+{
+	m_localTransform.setScaled(width, height, 1);
+	updateTransform();
+}
+
+void SceneObject::translate(float x, float y)
+{
+	m_localTransform.translate(x, y);
+	updateTransform();
+}
+
+void SceneObject::rotate(float radians)
+{
+	m_localTransform.rotateZ(radians);
+	updateTransform();
+}
+
+void SceneObject::scale(float width, float height)
+{
+	m_localTransform.scale(width, height, 1);
+	updateTransform();
 }
 
 SceneObject * SceneObject::getParent() const
@@ -63,4 +134,17 @@ void SceneObject::removeChild(SceneObject * child)
 		//also unassign parent
 		child->m_parent = nullptr;
 	}
+}
+
+bool SpriteObject::load(const char * filename)
+{
+	delete m_texture;
+	m_texture = nullptr;
+	m_texture = new aie::Texture(filename);
+	return m_texture != nullptr;
+}
+
+void SpriteObject::onDraw(aie::Renderer2D * renderer)
+{
+	renderer->drawSpriteTransformed3x3(m_texture, (float*)&m_globalTransform);
 }

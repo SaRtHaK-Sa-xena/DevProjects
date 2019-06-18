@@ -2,7 +2,7 @@
 
 #include "Application.h"
 #include "Renderer2D.h"
-
+#include "SceneObjectClass.h"
 
 class TankAssignmentApp : public aie::Application {
 public:
@@ -20,4 +20,5 @@ protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
+	SpriteObject m_tank, m_turret;
 };
