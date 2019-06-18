@@ -136,6 +136,35 @@ void hashClass::FindBook(string name)
 	}
 }
 
+void hashClass::OverwriteBook(string name)
+{
+	int index = Hash(name);
+	bool foundName = false;
+	string book;
+	string newBook;
+
+	item* Ptr = HashTable[index];
+	while (Ptr != NULL)
+	{
+		if (Ptr->name == name)
+		{
+			foundName = true;
+			book = Ptr->favBookName;
+			cout << "Enter New Book Title: " << endl;
+			cin >> newBook;
+			book = newBook;
+		}
+		Ptr = Ptr->next;
+	}
+	if (foundName == true)
+	{
+		cout << "Favorite Book = " << book << endl;
+	}
+	else
+	{
+		cout << name << "'s info wasn't found in the Hash table\n";
+	}
+}
 
 void hashClass::FindID(string name)
 {

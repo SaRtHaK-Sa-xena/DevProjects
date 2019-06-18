@@ -21,7 +21,7 @@ int main()
 
 	while (cont)
 	{	
-		cout << "------(a)dd-------(r)emove-------(f)ind----(p)rint---(e)xit---" << endl;
+		cout << "------(a)dd-------(r)emove-------(f)ind---(u)pdate---(p)rint---(e)xit---" << endl;
 		cin >> choice;
 
 		switch (choice)
@@ -63,7 +63,7 @@ int main()
 			{
 				cout << "Enter name to search" << endl;
 				cin >> name;
-				cout << "Finding their unique id..." << endl;
+				cout << "Finding ID..." << endl;
 				cout << endl;
 				cout << "===========================" << endl;
 				Hashuse.FindID(name);
@@ -79,10 +79,17 @@ int main()
 
 
 		case'p':
-			cout << "\t\t\t Printing" << endl;
+			cout << "\t\t\t Printing..." << endl;
 			Hashuse.PrintTable();
 			break;
 
+		case'u':
+			cout << "\t\t\t Updating..." << endl;
+			cout << "Updating Book Name.." << endl;
+			cout << endl;
+			cout << "===========================" << endl;
+			Hashuse.OverwriteBook(name);
+			cout << "===========================" << endl;
 		case'e':
 			return 0;
 		default:

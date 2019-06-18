@@ -21,6 +21,7 @@ public:
 	void PrintItemsInIndex(int index); // displays in index
 
 	void FindBook(string name); // finds by name--> displays book
+	void OverwriteBook(string name); // finds by name--> edits book
 
 	void FindID(string name); // finds by name--> displays ID
 
@@ -28,7 +29,7 @@ public:
 	void RemoveItem(string name); // removes key, therefore removing the index's values
 
 private:
-	static const int tableSize = 4;
+	static const int tableSize = 10;
 
 	struct item
 	{
