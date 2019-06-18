@@ -1,31 +1,12 @@
 ﻿  MathFuncLib.cpp
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(219): error C3646: 'xAxis': unknown override specifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(219): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(220): error C3646: 'yAxis': unknown override specifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(220): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(221): error C3646: 'zAxis': unknown override specifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(221): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(222): error C3646: 'translation': unknown override specifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(222): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(234): error C2143: syntax error: missing ';' before '*'
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(234): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(247): error C2065: 'translation': undeclared identifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(247): error C3861: 'Vector4': identifier not found
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(87): error C2039: 'm_x': is not a member of 'Matrix4'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(191): note: see declaration of 'Matrix4'
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(88): error C2039: 'm_y': is not a member of 'Matrix4'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(191): note: see declaration of 'Matrix4'
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(89): error C2039: 'm_z': is not a member of 'Matrix4'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(191): note: see declaration of 'Matrix4'
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(90): error C2039: 'm_w': is not a member of 'Matrix4'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(191): note: see declaration of 'Matrix4'
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(282): warning C4552: '*': result of expression not used
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(283): warning C4552: '*': result of expression not used
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(664): error C2556: 'Vector4 Matrix4::operator *(const Vector3 &) const': overloaded function differs only by return type from 'int Matrix4::operator *(const Vector3 &) const'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(234): note: see declaration of 'Matrix4::operator *'
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(663): error C2371: 'Matrix4::operator *': redefinition; different basic types
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(234): note: see declaration of 'Matrix4::operator *'
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(719): error C2065: 'xAxis': undeclared identifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(720): error C2065: 'yAxis': undeclared identifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(721): error C2065: 'zAxis': undeclared identifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(722): error C2065: 'translation': undeclared identifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(387): warning C4552: '*': result of expression not used
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(388): warning C4552: '*': result of expression not used
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(389): error C4716: 'Vector2::operator*': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(393): warning C4717: 'operator*': recursive on all control paths, function will cause runtime stack overflow
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(397): error C4716: 'operator*': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(393): error C4716: 'operator*': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(402): error C4716: 'Vector2::operator=': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(625): error C4716: 'Matrix3::operator=': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(632): error C4716: 'Matrix3::operator=': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(818): error C4716: 'Matrix4::operator=': must return a value
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(826): error C4716: 'Matrix4::operator=': must return a value

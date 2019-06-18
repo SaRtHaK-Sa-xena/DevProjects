@@ -1,117 +1,115 @@
 ﻿  main.cpp
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(219): error C3646: 'xAxis': unknown override specifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(219): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(220): error C3646: 'yAxis': unknown override specifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(220): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(221): error C3646: 'zAxis': unknown override specifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(221): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(222): error C3646: 'translation': unknown override specifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(222): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(234): error C2143: syntax error: missing ';' before '*'
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(234): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(247): error C2065: 'translation': undeclared identifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(247): error C3861: 'Vector4': identifier not found
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(157): error C2059: syntax error: '/'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(157): error C2238: unexpected token(s) preceding ';'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(241): error C3646: 'axis': unknown override specifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(241): error C2143: syntax error: missing ',' before '['
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(241): error C2143: syntax error: missing ')' before ';'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(241): error C2238: unexpected token(s) preceding ';'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(243): error C3646: 'xAxis': unknown override specifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(243): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(244): error C3646: 'yAxis': unknown override specifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(244): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(245): error C3646: 'zAxis': unknown override specifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(245): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(246): error C3646: 'wAxis': unknown override specifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(246): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(247): error C3646: 'translation': unknown override specifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(247): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(257): error C2143: syntax error: missing ';' before '&'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(257): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(257): error C2238: unexpected token(s) preceding ';'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(258): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(258): error C2143: syntax error: missing ';' before '&'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(258): error C2238: unexpected token(s) preceding ';'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(261): error C2061: syntax error: identifier 'Vector4'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(261): error C2805: binary 'operator =' has too few parameters
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(262): error C2143: syntax error: missing ';' before '*'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(262): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(262): error C2143: syntax error: missing ',' before '&'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(272): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(272): error C2143: syntax error: missing ',' before '&'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(278): error C2065: 'translation': undeclared identifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(278): error C2064: term does not evaluate to a function taking 4 arguments
   unittest.cpp
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(219): error C3646: 'xAxis': unknown override specifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(219): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(220): error C3646: 'yAxis': unknown override specifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(220): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(221): error C3646: 'zAxis': unknown override specifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(221): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(222): error C3646: 'translation': unknown override specifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(222): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(234): error C2143: syntax error: missing ';' before '*'
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(234): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(247): error C2065: 'translation': undeclared identifier
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(247): error C3861: 'Vector4': identifier not found
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(170): error C2039: 'dot': is not a member of 'Vector2'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(51): note: see declaration of 'Vector2'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(172): error C2039: 'dot': is not a member of 'Vector3'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(6): note: see declaration of 'Vector3'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(174): error C2039: 'dot': is not a member of 'Vector4'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(255): note: see declaration of 'Vector4'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(182): error C2039: 'cross': is not a member of 'Vector3'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(6): note: see declaration of 'Vector3'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(184): error C2039: 'cross': is not a member of 'Vector4'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(255): note: see declaration of 'Vector4'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(191): error C2039: 'magnitude': is not a member of 'Vector2'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(51): note: see declaration of 'Vector2'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(193): error C2039: 'magnitude': is not a member of 'Vector3'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(6): note: see declaration of 'Vector3'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(195): error C2039: 'magnitude': is not a member of 'Vector4'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(255): note: see declaration of 'Vector4'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(203): error C2039: 'normalise': is not a member of 'Vector2'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(51): note: see declaration of 'Vector2'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(205): error C2039: 'normalise': is not a member of 'Vector3'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(6): note: see declaration of 'Vector3'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(207): error C2039: 'normalise': is not a member of 'Vector4'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(255): note: see declaration of 'Vector4'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(217): error C2039: 'setRotateX': is not a member of 'Matrix4'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(191): note: see declaration of 'Matrix4'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(219): error C2039: 'setRotateY': is not a member of 'Matrix4'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(191): note: see declaration of 'Matrix4'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(221): error C2039: 'setRotateZ': is not a member of 'Matrix4'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(191): note: see declaration of 'Matrix4'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(236): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(235): note: could be 'Matrix4 Matrix4::operator *(const Matrix4 &) const'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(234): note: or       'int Matrix4::operator *(const Vector3 &) const'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(290): note: or       'Vector4 operator *(float,const Vector4 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: or       'Vector2 operator *(float,const Vector2 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(46): note: or       'Vector3 operator *(float,Vector3 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(236): note: while trying to match the argument list '(Matrix4, Vector4)'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(237): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(235): note: could be 'Matrix4 Matrix4::operator *(const Matrix4 &) const'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(234): note: or       'int Matrix4::operator *(const Vector3 &) const'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(290): note: or       'Vector4 operator *(float,const Vector4 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: or       'Vector2 operator *(float,const Vector2 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(46): note: or       'Vector3 operator *(float,Vector3 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(237): note: while trying to match the argument list '(Matrix4, Vector4)'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(255): error C2440: '=': cannot convert from 'Vector3' to 'float'
-  c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(255): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(257): error C2440: '=': cannot convert from 'Vector3' to 'float'
-  c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(257): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(262): error C2440: '=': cannot convert from 'Vector4' to 'float'
-  c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(262): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(263): error C2039: 'setRotateZ': is not a member of 'Matrix4'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(191): note: see declaration of 'Matrix4'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(264): error C2440: '=': cannot convert from 'Vector4' to 'float'
-  c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(264): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(270): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(235): note: could be 'Matrix4 Matrix4::operator *(const Matrix4 &) const'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(234): note: or       'int Matrix4::operator *(const Vector3 &) const'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(290): note: or       'Vector4 operator *(float,const Vector4 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: or       'Vector2 operator *(float,const Vector2 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(46): note: or       'Vector3 operator *(float,Vector3 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(270): note: while trying to match the argument list '(Matrix4, Vector4)'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(271): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(235): note: could be 'Matrix4 Matrix4::operator *(const Matrix4 &) const'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(234): note: or       'int Matrix4::operator *(const Vector3 &) const'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(290): note: or       'Vector4 operator *(float,const Vector4 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: or       'Vector2 operator *(float,const Vector2 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(46): note: or       'Vector3 operator *(float,Vector3 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(271): note: while trying to match the argument list '(Matrix4, Vector4)'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(282): error C2440: '=': cannot convert from 'Vector3' to 'float'
-  c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(282): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(284): error C2440: '=': cannot convert from 'Vector3' to 'float'
-  c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(284): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(289): error C2440: '=': cannot convert from 'Vector4' to 'float'
-  c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(289): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(290): error C2039: 'setRotateZ': is not a member of 'Matrix4'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(191): note: see declaration of 'Matrix4'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(291): error C2440: '=': cannot convert from 'Vector4' to 'float'
-  c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(291): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(297): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(235): note: could be 'Matrix4 Matrix4::operator *(const Matrix4 &) const'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(234): note: or       'int Matrix4::operator *(const Vector3 &) const'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(290): note: or       'Vector4 operator *(float,const Vector4 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: or       'Vector2 operator *(float,const Vector2 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(46): note: or       'Vector3 operator *(float,Vector3 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(297): note: while trying to match the argument list '(Matrix4, Vector4)'
-c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(298): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(235): note: could be 'Matrix4 Matrix4::operator *(const Matrix4 &) const'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(234): note: or       'int Matrix4::operator *(const Vector3 &) const'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(290): note: or       'Vector4 operator *(float,const Vector4 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(108): note: or       'Vector2 operator *(float,const Vector2 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(46): note: or       'Vector3 operator *(float,Vector3 &)'
-  c:\users\sarthak\documents\github\testproject2d\unittest\unittest\unittest.cpp(298): note: while trying to match the argument list '(Matrix4, Vector4)'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(157): error C2059: syntax error: '/'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(157): error C2238: unexpected token(s) preceding ';'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(241): error C3646: 'axis': unknown override specifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(241): error C2143: syntax error: missing ',' before '['
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(241): error C2143: syntax error: missing ')' before ';'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(241): error C2238: unexpected token(s) preceding ';'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(243): error C3646: 'xAxis': unknown override specifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(243): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(244): error C3646: 'yAxis': unknown override specifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(244): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(245): error C3646: 'zAxis': unknown override specifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(245): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(246): error C3646: 'wAxis': unknown override specifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(246): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(247): error C3646: 'translation': unknown override specifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(247): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(257): error C2143: syntax error: missing ';' before '&'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(257): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(257): error C2238: unexpected token(s) preceding ';'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(258): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(258): error C2143: syntax error: missing ';' before '&'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(258): error C2238: unexpected token(s) preceding ';'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(261): error C2061: syntax error: identifier 'Vector4'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(261): error C2805: binary 'operator =' has too few parameters
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(262): error C2143: syntax error: missing ';' before '*'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(262): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(262): error C2143: syntax error: missing ',' before '&'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(272): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(272): error C2143: syntax error: missing ',' before '&'
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(278): error C2065: 'translation': undeclared identifier
+c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(278): error C2064: term does not evaluate to a function taking 4 arguments
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(236): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(263): note: could be 'Matrix4 Matrix4::operator *(const Matrix4 &) const'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(262): note: or       'int Matrix4::operator *(const int) const'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(332): note: or       'Vector4 operator *(float,const Vector4 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(113): note: or       'Vector2 operator *(float,const Vector2 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(50): note: or       'Vector3 operator *(float,Vector3 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(236): note: while trying to match the argument list '(Matrix4, Vector4)'
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(237): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(263): note: could be 'Matrix4 Matrix4::operator *(const Matrix4 &) const'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(262): note: or       'int Matrix4::operator *(const int) const'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(332): note: or       'Vector4 operator *(float,const Vector4 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(113): note: or       'Vector2 operator *(float,const Vector2 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(50): note: or       'Vector3 operator *(float,Vector3 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(237): note: while trying to match the argument list '(Matrix4, Vector4)'
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(262): error C2440: '=': cannot convert from 'Vector4' to 'float'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(262): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(264): error C2440: '=': cannot convert from 'Vector4' to 'float'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(264): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(270): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(263): note: could be 'Matrix4 Matrix4::operator *(const Matrix4 &) const'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(262): note: or       'int Matrix4::operator *(const int) const'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(332): note: or       'Vector4 operator *(float,const Vector4 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(113): note: or       'Vector2 operator *(float,const Vector2 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(50): note: or       'Vector3 operator *(float,Vector3 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(270): note: while trying to match the argument list '(Matrix4, Vector4)'
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(271): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(263): note: could be 'Matrix4 Matrix4::operator *(const Matrix4 &) const'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(262): note: or       'int Matrix4::operator *(const int) const'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(332): note: or       'Vector4 operator *(float,const Vector4 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(113): note: or       'Vector2 operator *(float,const Vector2 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(50): note: or       'Vector3 operator *(float,Vector3 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(271): note: while trying to match the argument list '(Matrix4, Vector4)'
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(289): error C2440: '=': cannot convert from 'Vector4' to 'float'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(289): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(291): error C2440: '=': cannot convert from 'Vector4' to 'float'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(291): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(297): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(263): note: could be 'Matrix4 Matrix4::operator *(const Matrix4 &) const'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(262): note: or       'int Matrix4::operator *(const int) const'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(332): note: or       'Vector4 operator *(float,const Vector4 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(113): note: or       'Vector2 operator *(float,const Vector2 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(50): note: or       'Vector3 operator *(float,Vector3 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(297): note: while trying to match the argument list '(Matrix4, Vector4)'
+c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(298): error C2678: binary '*': no operator found which takes a left-hand operand of type 'Matrix4' (or there is no acceptable conversion)
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(263): note: could be 'Matrix4 Matrix4::operator *(const Matrix4 &) const'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(262): note: or       'int Matrix4::operator *(const int) const'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(332): note: or       'Vector4 operator *(float,const Vector4 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(113): note: or       'Vector2 operator *(float,const Vector2 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.h(50): note: or       'Vector3 operator *(float,Vector3 &)'
+  c:\users\s191509\documents\github\testproject2d\unittest\unittest\unittest.cpp(298): note: while trying to match the argument list '(Matrix4, Vector4)'
   Generating Code...

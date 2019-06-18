@@ -31,7 +31,8 @@ Vector4::Vector4(float X, float Y, float Z, float W)
 
 Vector4 operator * (float scalar, const Vector4 &vec4)
 {
-	vec4 * scalar;
+	return	vec4 * scalar;
+	
 }
 
 float Vector4::operator[](int index) const
@@ -241,27 +242,43 @@ Vector3::operator const float*() const
 //========================VECTOR 3==========================
 Vector3 Vector3::operator+(const Vector3 &other)
 {
-	SetX(m_x + other.m_x);
-	SetY(m_y + other.m_y);
-	SetZ(m_z + other.m_z);
+	Vector3 result;
+
+	result.SetX(m_x + other.m_x);
+	result.SetY(m_y + other.m_y);
+	result.SetZ(m_z + other.m_z);
+
+	return result;
 }
 Vector3 Vector3::operator- (const Vector3 &other)
 {
-	SetX(m_x -= other.m_x);
-	SetY(m_y -= other.m_y);
-	SetZ(m_z -= other.m_z);
+	Vector3 result;
+
+	result.SetX(m_x -= other.m_x);
+	result.SetY(m_y -= other.m_y);
+	result.SetZ(m_z -= other.m_z);
+
+	return result;
 }
 Vector3 Vector3::operator * (float scalar)  
 {
-	SetX(m_x * scalar);
-	SetY(m_y * scalar);
-	SetZ(m_z * scalar);
+	Vector3 result;
+
+	result.SetX(m_x * scalar);
+	result.SetY(m_y * scalar);
+	result.SetZ(m_z * scalar);
+
+	return result;
 }
 Vector3 Vector3::operator /= (float scalar) 
 {
-	SetX(m_x /= scalar);
-	SetY(m_y /= scalar);
-	SetZ(m_z /= scalar);
+	Vector3 result;
+
+	result.SetX(m_x /= scalar);
+	result.SetY(m_y /= scalar);
+	result.SetZ(m_z /= scalar);
+
+	return result;
 }
 Vector3 Vector3::operator = (const Vector3& other) 
 {
@@ -335,26 +352,41 @@ Vector2::operator float*() { return &m_x; }
 //==================OPERATOR ======================
 Vector2 Vector2::operator+(const Vector2 & other)
 {
-	SetX(m_x + other.m_x);
-	SetY(m_y + other.m_y);
+	return { m_x + other.m_x, m_y + other.m_y };
+
+	/*Vector2 result;
+	result.SetX(m_x + other.m_x);
+	result.SetY(m_y + other.m_y);
+	return result;*/
 }
 Vector2 Vector2::operator-(const Vector2 & other)
 {
-	SetX(m_x -= other.m_x);
-	SetY(m_y -= other.m_y);
+	m_x -= other.m_x;
+	m_y -= other.m_y;
+	return *this;
+/*Vector2 result;
+	result.SetX(m_x -= other.m_x);
+	result.SetY(m_y -= other.m_y);
+	return result;*/
 }
 Vector2 Vector2::operator/= (float scalar)
 {
-	SetX(m_x /= scalar);
-	SetY(m_y /= scalar);
+	m_x /= scalar;
+	m_y /= scalar;
+	return *this;
+	/*Vector2 result;
+	result.SetX(m_x /= scalar);
+	result.SetY(m_y /= scalar);
+	return result;*/
 }
 Vector2 Vector2::operator*(float scalar)const
 {
 	//m_x = m_x * scalar;
 	//m_y = m_y * scalar;
-
-	m_x * scalar; //SetX()
-	m_y * scalar;
+	//SetX()
+	//m_x * scalar;
+	//m_y * scalar;
+	return{ m_x * scalar, m_y * scalar };
 }
 Vector3 operator*(float scalar, Vector3  &vec3)
 {
@@ -503,6 +535,16 @@ Matrix3::Matrix3(float aX, float bX, float cX, float aY, float bY, float cY, flo
 
 }
 
+Vector3 & Matrix3::operator[](int index)
+{
+	return axis[index];
+}
+
+const Vector3 & Matrix3::operator[](int index) const
+{
+	return axis[index];
+}
+
 
 Matrix3::operator float*()
 {
@@ -645,14 +687,14 @@ void Matrix3::rotateX(float radians)
 	*this = *this * m;
 }
 
-void Matrix3::setRotateY(float radians)
+void Matrix3::rotateY(float radians)
 {
 	Matrix3 m;
 	m.setRotateY(radians);
 	*this = *this *m;
 }
 
-void Matrix3::setRotateZ(float radians)
+void Matrix3::rotateZ(float radians)
 {
 	Matrix3 m;
 	m.setRotateZ(radians);
@@ -746,6 +788,16 @@ Matrix4::Matrix4(float aX, float bX, float cX, float dX,
 	d_y = dY;
 	d_z = dZ;
 	d_w = dW;
+}
+
+Vector4 & Matrix4::operator[](int index)
+{
+	return axis[index];
+}
+
+const Vector4 & Matrix4::operator[](int index) const
+{
+	return axis[index];
 }
 
 Matrix4 Matrix4::operator=(Matrix4 &other)

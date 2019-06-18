@@ -2,6 +2,84 @@
 #include <iostream>
 // MathFuncsLib.h
 
+//============VECTOR2=================
+class Vector2
+{
+public:
+
+	Vector2();
+	Vector2(float X, float Y);
+
+	float m_x, m_y;
+
+
+
+	float data[2];
+
+	float operator[](int index) const
+	{
+		return data[index];
+	}
+	float &operator[](int index)
+	{
+		return data[index];
+	}
+	operator float*();
+
+	//==========PLUS====================
+	Vector2 operator+(const Vector2 &other); //========WORKS
+	//==========PLUS====================
+
+	//==========MINUS EQUAL==============
+	Vector2 operator-(const Vector2 &other);
+	//==========MINUS EQUAL==============
+
+	//==========MULTIPLY=================
+	Vector2 operator*(float scalar) const;
+
+	//==========MULTIPLY=================
+
+	//=========DIVIDE EQUAL==============
+	Vector2 operator/=(float scalar);
+	//=========DIVIDE EQUAL==============
+
+	//=========EQUAL=====================
+	Vector2 operator=(Vector2 &other); //const before Vector2
+	//=========EQUAL=====================
+
+
+	//void operator/(float scalar);
+
+
+	//===========GETTERS===============
+	float GetX();
+	float GetY();
+	//===========GETTERS===============
+
+	//===========SETTERS===============
+	void SetX(float x_value);
+	void SetY(float y_value);
+	//===========SETTERS===============
+
+	float dot(const Vector2 &other) const;
+	float magnitude()const;
+	void normalise();
+	//void Add(Vector2 *vector1, Vector2 *vector2);
+	void DisplayVectorCoordinates();
+
+
+	//double PrintVector2Dx(float x);
+};
+Vector2 operator*(float scalar, const Vector2 &vec);
+//============VECTOR2=================
+
+
+
+
+
+
+
+
 //===============VECTOR3==============
 class Vector3
 {
@@ -51,66 +129,55 @@ Vector3 operator* (float scalar, Vector3 &vec3);
 //===============VECTOR3==============
 
 
-//============VECTOR2=================
-class Vector2
+class Vector4
 {
 public:
+	float m_x;
+	float m_y;
+	float m_z;
+	float m_w;
 
-	Vector2();
-	Vector2(float X, float Y);
+	float data[4];
 
-	float m_x, m_y;
+	Vector4();
+	Vector4(float X, float Y, float Z, float W);
 
-	float data[2];
+
+	float operator[](int index)const;
+	float &operator[](int index);
 
 	operator float*();
+	operator const float*();
 
-	//==========PLUS====================
-	Vector2 operator+(const Vector2 &other); //========WORKS
-	//==========PLUS====================
+	Vector4 operator +(const Vector4 &other) const;
 
-	//==========MINUS EQUAL==============
-	Vector2 operator-(const Vector2 &other);
-	//==========MINUS EQUAL==============
+	Vector4 operator +=(const Vector4 &other);
 
-	//==========MULTIPLY=================
-	Vector2 operator*(float scalar) const;
-	
-	//==========MULTIPLY=================
+	Vector4 &operator -(const Vector4 &other);
+	Vector4 &operator -=(const Vector4 *other);
 
-	//=========DIVIDE EQUAL==============
-	Vector2 operator/=(float scalar);
-	//=========DIVIDE EQUAL==============
-
-	//=========EQUAL=====================
-	Vector2 operator=(Vector2 &other); //const before Vector2
-	//=========EQUAL=====================
+	Vector4 &operator *=(float scalar);
 
 
-	//void operator/(float scalar);
+	Vector4 operator * (float scalar) const;
 
+	//Vector4 operator * (const Matrix4 &other) const;
 
-	//===========GETTERS===============
-	float GetX();
-	float GetY();
-	//===========GETTERS===============
+	Vector4 &operator /(float scalar);
 
-	//===========SETTERS===============
-	void SetX(float x_value);
-	void SetY(float y_value);
-	//===========SETTERS===============
+	Vector4& operator = (const Vector4 &other);
 
-	float dot(const Vector2 &other) const;
+	//magnitude
 	float magnitude()const;
 	void normalise();
-	//void Add(Vector2 *vector1, Vector2 *vector2);
-	void DisplayVectorCoordinates();
+	float dot(const Vector4 &other)const;
 
+	Vector4 cross(const Vector4 &other) const;
 
-	//double PrintVector2Dx(float x);
 };
-//============VECTOR2=================
-Vector2 operator*(float scalar, const Vector2 &vec);
+Vector4 operator * (float scalar, const Vector4 &vec4);
+
+
 
 //==============EXAMPLE=================
 namespace MathFuncs
@@ -152,17 +219,29 @@ public:
 	float b_z;
 	float c_z;
 
-	float data[3][3];
+	union {
+		struct {
+			Vector3 xAxis;
+			Vector3 yAxis;
+			Vector3 zAxis;
+		};
+		float data[3][3];
+		Vector3 axis[3];
+	};
+	//Vector3 xAxis;
+	//Vector3 yAxis;
+	//Vector3 zAxis;
+
+	
 
 
-	Vector3 xAxis;
-	Vector3 yAxis;
-	Vector3 zAxis;
 	//=============initialize values for Default Constructor=============
 
 	Matrix3();
 	Matrix3(float aX, float bX, float cX, float aY, float bY, float cY, float aZ, float bZ, float cZ); //3x3
 
+	Vector3& operator[](int index);
+	const Vector3& operator[](int index)const;
 
 	Matrix3 operator=(const Matrix3 &other);
 	Matrix3 operator=(Vector3 &other);
@@ -186,7 +265,11 @@ public:
 	void setRotateY(float radians);
 	void setRotateZ(float radians);
 
+
+
 	void rotateX(float radians);
+	void rotateY(float radians);
+	void rotateZ(float radians);
 
 	void setEuler(float pitch, float yaw, float roll);
 	//============rotation================
@@ -219,15 +302,28 @@ public:
 	float d_z;
 	float d_w;
 
-	float data[4][4];
+	union {
+		struct {
+			Vector4 xAxis;
+			Vector4 yAxis;
+			Vector4 zAxis;
+			union {
+				Vector4 wAxis;
+				Vector4 translation;
+			};
+			
+		};
+		float data[4][4];
+		Vector4 axis[4];
+	};
 
-	Vector4 xAxis;
+	
+
+	/*Vector4 xAxis;
 	Vector4 yAxis;
 	Vector4 zAxis;
 	Vector4 wAxis;
-	Vector4 translation;
-
-
+	Vector4 translation;*/
 
 
 	Matrix4();
@@ -235,6 +331,10 @@ public:
 		float aY, float bY, float cY, float dY, 
 		float aZ, float bZ, float cZ, float dZ,
 		float aW, float bW, float cW, float dW);
+
+	//Vector4 &operator[](int index);
+	Vector4 &operator[](int index);
+	const Vector4 &operator[](int index)const;
 
 	Matrix4 operator=(Matrix4 &other);
 	Matrix4 operator=(Vector4 &other);
@@ -262,50 +362,4 @@ public:
 
 
 
-class Vector4
-{
-public:
-	float m_x;
-	float m_y;
-	float m_z;
-	float m_w;
 
-	float data[4];
-
-	Vector4();
-	Vector4(float X, float Y, float Z, float W);
-	
-
-	float operator[](int index)const;
-	float &operator[](int index);
-
-	operator float*();
-	operator const float*();
-
-	Vector4 operator +(const Vector4 &other) const;
-
-	Vector4 operator +=(const Vector4 &other);
-
-	Vector4 &operator -(const Vector4 &other);
-	Vector4 &operator -=(const Vector4 *other);
-
-	Vector4 &operator *=(float scalar);
-
-
-	Vector4 operator * (float scalar) const;
-
-	Vector4 operator * (const Matrix4 &other) const;
-
-	Vector4 &operator /(float scalar);
-
-	Vector4& operator = (const Vector4 &other);
-
-	//magnitude
-	float magnitude()const;
-	void normalise();
-	float dot(const Vector4 &other)const;
-
-	Vector4 cross(const Vector4 &other) const;
-
-};
-Vector4 operator * (float scalar, const Vector4 &vec4);
