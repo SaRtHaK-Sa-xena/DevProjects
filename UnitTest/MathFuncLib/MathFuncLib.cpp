@@ -170,9 +170,9 @@ Vector4 Vector4::cross(const Vector4 & other) const
 //=================Vector3 Initialization==========================
 Vector3::Vector3()
 {
-	m_x = 1;
-	m_y = 1;
-	m_z = 1;
+	m_x = 0;
+	m_y = 0;
+	m_z = 0;
 
 	data[0] = m_x;
 	data[1] = m_y;
@@ -240,15 +240,16 @@ Vector3::operator const float*() const
 
 
 //========================VECTOR 3==========================
-Vector3 Vector3::operator+(const Vector3 &other)
+Vector3 Vector3::operator+(const Vector3 &other) const
 {
-	Vector3 result;
-
+	/*Vector3 result;
 	result.SetX(m_x + other.m_x);
 	result.SetY(m_y + other.m_y);
 	result.SetZ(m_z + other.m_z);
+	return result;*/
 
-	return result;
+	return{ m_x + other.m_x, m_y + other.m_y, m_z + other.m_z };
+
 }
 Vector3 Vector3::operator- (const Vector3 &other)
 {
@@ -313,7 +314,7 @@ Vector3 Vector3::cross(const Vector3 & other) const
 {
 	return{ m_y * other.m_z - m_z * other.m_y,
 			m_z * other.m_x - m_x * other.m_z,
-			0 };
+			m_x * other.m_y - m_y * other.m_x};
 }
 
 
@@ -390,16 +391,19 @@ Vector2 Vector2::operator*(float scalar)const
 }
 Vector3 operator*(float scalar, Vector3  &vec3)
 {
-	scalar * vec3;
+	return vec3 * scalar ;
 }
 Vector2 operator*(float scalar, const Vector2 & vec)
 {
-	vec * scalar;
+	return vec * scalar;
 }
 Vector2 Vector2::operator=(Vector2 & other)
 {
-	SetX(m_x = other.m_x);
-	SetY(m_y = other.m_y);
+	//SetX(m_x = other.m_x);
+	//SetY(m_y = other.m_y);
+	m_x = other.m_x;
+	m_y = other.m_y;
+	return *this;
 }
 //==================OPERATOR======================
 
@@ -519,7 +523,7 @@ Matrix3::Matrix3()
 
 }
 
-Matrix3::Matrix3(float aX, float bX, float cX, float aY, float bY, float cY, float aZ, float bZ, float cZ)
+Matrix3::Matrix3(float aX, float aY, float aZ, float bX, float bY, float bZ, float cX, float cY, float cZ)
 {
 	a_x = aX;
 	b_x = bX;
@@ -548,7 +552,7 @@ const Vector3 & Matrix3::operator[](int index) const
 
 Matrix3::operator float*()
 {
-	return &data[3][3];
+	return *data;
 }
 
 Matrix3 Matrix3::operator *(const Matrix3 &other)const
@@ -609,7 +613,7 @@ Vector3 Matrix3::operator*(const Vector3 &v)const
 	return result;
 }
 
-Matrix3 Matrix3::operator=(const Matrix3 &other)
+Matrix3 & Matrix3::operator=(const Matrix3 &other)
 {
 	a_x = other.a_x; 
 	a_y = other.a_y; 
@@ -623,13 +627,17 @@ Matrix3 Matrix3::operator=(const Matrix3 &other)
 	c_y = other.c_y; 
 	c_z = other.c_z; 
 
+	return *this;
+
 }
 
-Matrix3 Matrix3::operator=(Vector3 & other)
+Matrix3 & Matrix3::operator=(Vector3 & other)
 {
 	a_x = other.m_x;
 	a_y = other.m_y;
 	a_z = other.m_z;
+
+	return *this;
 }
 
 const Matrix3 Matrix3::identity = Matrix3
@@ -662,22 +670,30 @@ void Matrix3::scale(const Vector3 &v)
 	*this = *this * m;
 }
 
-void Matrix3::setRotateX(float radians) { // leave X axis and elements unchanged
+Matrix3 & Matrix3::setRotateX(float radians) { // leave X axis and elements unchanged
 	xAxis = { 1, 0, 0 };
 	yAxis = { 0, cosf(radians), sinf(radians) };
 	zAxis = { 0, -sinf(radians), cosf(radians) };
+
+	return *this;
+	//try Matrix instead of void
+	//return *this;
 }
 
-void Matrix3::setRotateY(float radians) { // leave X axis and elements unchanged
+Matrix3 & Matrix3::setRotateY(float radians) { // leave X axis and elements unchanged
 	xAxis = { cosf(radians), 0, -sinf(radians) };
 	yAxis = { 0, 1, 0};
 	zAxis = { sinf(radians), 0, cosf(radians) };
+	return *this;
 }
 
-void Matrix3::setRotateZ(float radians) { // leave X axis and elements unchanged
-	xAxis = { cosf(radians), -sinf(radians), 0};
-	yAxis = { sinf(radians), 1, cosf(radians) };
+Matrix3 &Matrix3::setRotateZ(float radians) { // leave X axis and elements unchanged
+
+	xAxis = { cosf(radians), sinf(radians), 0};
+	yAxis = { -sinf(radians), cosf(radians), 0 };
 	zAxis = { 0, 0, 1 };
+
+	return *this;
 }
 
 void Matrix3::rotateX(float radians) 
@@ -816,6 +832,13 @@ Matrix4 Matrix4::operator=(Matrix4 &other)
 	c_y = other.c_y;
 	c_z = other.c_z;
 	c_w = other.c_w;
+
+	d_x = other.d_x;
+	d_y = other.d_y;
+	d_z = other.d_z;
+	d_w = other.d_w;
+
+	return *this;
 }
 
 Matrix4 Matrix4::operator=(Vector4 & other)
@@ -824,6 +847,8 @@ Matrix4 Matrix4::operator=(Vector4 & other)
 	a_y = other.m_y;
 	a_z = other.m_z;
 	a_w = other.m_w;
+
+	return *this;
 }
 
 Vector4 Matrix4::operator*(const Vector4 &v)const

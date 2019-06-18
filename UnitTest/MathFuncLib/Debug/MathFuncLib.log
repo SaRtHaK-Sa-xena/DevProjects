@@ -1,12 +1,2 @@
 ﻿  MathFuncLib.cpp
-c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(387): warning C4552: '*': result of expression not used
-c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(388): warning C4552: '*': result of expression not used
-c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(389): error C4716: 'Vector2::operator*': must return a value
-c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(393): warning C4717: 'operator*': recursive on all control paths, function will cause runtime stack overflow
-c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(397): error C4716: 'operator*': must return a value
-c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(393): error C4716: 'operator*': must return a value
-c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(402): error C4716: 'Vector2::operator=': must return a value
-c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(625): error C4716: 'Matrix3::operator=': must return a value
-c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(632): error C4716: 'Matrix3::operator=': must return a value
-c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(818): error C4716: 'Matrix4::operator=': must return a value
-c:\users\s191509\documents\github\testproject2d\unittest\mathfunclib\mathfunclib.cpp(826): error C4716: 'Matrix4::operator=': must return a value
+  MathFuncLib.vcxproj -> C:\Users\s191509\Documents\GitHub\TestProject2D\UnitTest\Debug\MathFuncLib.lib
