@@ -329,7 +329,7 @@ public:
 	Vector3 operator*(const Vector3 &v)const;
 	//float operator*(const Matrix3 &other);
 
-	Matrix3 operator *(const Matrix3 &other)const;
+	Matrix3 operator*(const Matrix3 &other)const;
 
 	Matrix3 transposed() const;
 	static const Matrix3 identity;
@@ -360,29 +360,29 @@ class Matrix4
 {
 public:
 
-	float m[4][4];
-
-	float a_x;
-	float a_y;
-	float a_z;
-	float a_w;
-
-	float b_x;
-	float b_y;
-	float b_z;
-	float b_w;
-
-	float c_x;
-	float c_y;
-	float c_z;
-	float c_w;
-
-	float d_x;
-	float d_y;
-	float d_z;
-	float d_w;
-
 	union {
+		struct {
+			float a_x;
+			float a_y;
+			float a_z;
+			float a_w;
+
+			float b_x;
+			float b_y;
+			float b_z;
+			float b_w;
+
+			float c_x;
+			float c_y;
+			float c_z;
+			float c_w;
+
+			float d_x;
+			float d_y;
+			float d_z;
+			float d_w;
+		};
+		float data[4][4];
 		struct {
 			Vector4 xAxis;
 			Vector4 yAxis;
@@ -391,26 +391,55 @@ public:
 				Vector4 wAxis;
 				Vector4 translation;
 			};
-			
 		};
-		float data[4][4];
 		Vector4 axis[4];
 	};
 
-	
+	//previous union & struct
 
+	//float m[4][4];
+	//float a_x;
+	//float a_y;
+	//float a_z;
+	//float a_w;
+	//float b_x;
+	//float b_y;
+	//float b_z;
+	//float b_w;
+	//float c_x;
+	//float c_y;
+	//float c_z;
+	//float c_w;
+	//float d_x;
+	//float d_y;
+	//float d_z;
+	//float d_w;
+	//union {
+	//	struct {
+	//		Vector4 xAxis;
+	//		Vector4 yAxis;
+	//		Vector4 zAxis;
+	//		union {
+	//			Vector4 wAxis;
+	//			Vector4 translation;
+	//		};
+	//	};
+	//	float data[4][4];
+	//	Vector4 axis[4];
+	//};
 	/*Vector4 xAxis;
 	Vector4 yAxis;
 	Vector4 zAxis;
 	Vector4 wAxis;
 	Vector4 translation;*/
+	//previous union & struct
 
 
 	Matrix4();
-	Matrix4(float aX, float bX, float cX, float dX,
-		float aY, float bY, float cY, float dY, 
-		float aZ, float bZ, float cZ, float dZ,
-		float aW, float bW, float cW, float dW);
+	Matrix4(float aX, float aY, float aZ, float aW,
+		float bX, float bY, float bZ, float bW,
+		float cX, float cY, float cZ, float cW,
+		float dX, float dY, float dZ, float dW);
 
 	//Vector4 &operator[](int index);
 	Vector4 &operator[](int index);
@@ -429,9 +458,11 @@ public:
 	//==========rotation========================
 	void setScaled(float x, float y, float z, float w);
 	void setScaled(const Vector4 &v);
-	void setRotateX(float radians);
-	void setRotateY(float radians);
-	void setRotateZ(float radians);
+
+	Matrix4 &setRotateX(float radians);
+	Matrix4 &setRotateY(float radians);
+	Matrix4 &setRotateZ(float radians);
+
 	void translate(float x, float y, float z)
 	{
 		translation += Vector4(x, y, z, 0);

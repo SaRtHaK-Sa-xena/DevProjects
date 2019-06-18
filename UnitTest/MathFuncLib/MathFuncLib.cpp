@@ -555,16 +555,16 @@ Matrix3::operator float*()
 	return *data;
 }
 
-Matrix3 Matrix3::operator *(const Matrix3 &other)const
+Matrix3 Matrix3::operator*(const Matrix3 &other)const
 {
 	// r = rows
 	// c = columns
 
 	Matrix3 result;
 
-	for (int r = 0; r < 3; r++)
+	for (int r = 0; r < 3; ++r)
 	{
-		for (int c = 0; c < 3; c++)
+		for (int c = 0; c < 3; ++c)
 		{
 			result.data[c][r] = data[0][r] * other.data[c][0] +
 								data[1][r] * other.data[c][1] +
@@ -620,7 +620,7 @@ Matrix3 & Matrix3::operator=(const Matrix3 &other)
 	a_z = other.a_z; 
 
 	b_x = other.b_x; 
-	b_y = other.a_y; 
+	b_y = other.b_y; 
 	b_z = other.b_z; 
 	
 	c_x = other.c_x; 
@@ -780,10 +780,15 @@ Matrix4::Matrix4()
 	data[3][3] = d_w;
 }
 
-Matrix4::Matrix4(float aX, float bX, float cX, float dX,
-	float aY, float bY, float cY, float dY,
-	float aZ, float bZ, float cZ, float dZ,
-	float aW, float bW, float cW, float dW)
+//Matrix4::Matrix4(float aX, float bX, float cX, float dX,
+//	float aY, float bY, float cY, float dY,
+//	float aZ, float bZ, float cZ, float dZ,
+//	float aW, float bW, float cW, float dW)
+
+Matrix4::Matrix4(float aX, float aY, float aZ, float aW,
+	float bX, float bY, float bZ, float bW,
+	float cX, float cY, float cZ, float cW,
+	float dX, float dY, float dZ, float dW)
 {
 	a_x = aX;
 	a_y = aY;
@@ -824,7 +829,7 @@ Matrix4 Matrix4::operator=(Matrix4 &other)
 	a_w = other.a_w;
 
 	b_x = other.b_x;
-	b_y = other.a_y;
+	b_y = other.b_y;
 	b_z = other.b_z;
 	b_w = other.b_w;
 
@@ -902,7 +907,7 @@ const Matrix4 Matrix4::identity = Matrix4
 
 Matrix4::operator float*()
 {
-	return &data[4][4];
+	return *data;
 }
 
 void Matrix4::setScaled(float x, float y, float z, float w)
@@ -922,25 +927,35 @@ void Matrix4::setScaled(const Vector4 & v)
 	wAxis = { 0,0,0,v.m_w };
 }
 
-void Matrix4::setRotateX(float radians)
+Matrix4 & Matrix4::setRotateX(float radians)
 {
-	xAxis = { 1, 0, 0,0 };
-	yAxis = { 0, cosf(radians), sinf(radians),0 };
-	zAxis = { 0, -sinf(radians), cosf(radians),0 };
+	xAxis = { 1, 0, 0, 0 };
+	yAxis = { 0, cosf(radians), sinf(radians), 0 };
+	zAxis = { 0, -sinf(radians), cosf(radians), 0 };
+	wAxis = { 0, 0, 0, 1 };
+
+	return *this;
+
 }
 
-void Matrix4::setRotateY(float radians)
+Matrix4 & Matrix4::setRotateY(float radians)
 {
-	xAxis = { cosf(radians), 0, -sinf(radians),0 };
-	yAxis = { 0, 1, 0,0 };
-	zAxis = { sinf(radians), 0, cosf(radians),0 };
+	xAxis = { cosf(radians), 0, -sinf(radians), 0 };
+	yAxis = { 0, 1, 0, 0 };
+	zAxis = { sinf(radians), 0, cosf(radians), 0 };
+	wAxis = { 0, 0, 0, 1 };
+	return *this;
 }
 
-void Matrix4::setRotateZ(float radians)
+Matrix4 & Matrix4::setRotateZ(float radians)
 {
-	xAxis = { cosf(radians), -sinf(radians), 0,0 };
-	yAxis = { sinf(radians), 1, cosf(radians),0 };
-	zAxis = { 0, 0, 1,0 };
+	xAxis = { cosf(radians), sinf(radians), 0, 0 };
+	yAxis = { -sinf(radians), cosf(radians), 0, 0 };
+	zAxis = { 0, 0, 1, 0 };
+	wAxis = { 0, 0, 0, 1 };
+
+	return *this;
+
 }
 
 //=====================================MATRIX 4========================================================
