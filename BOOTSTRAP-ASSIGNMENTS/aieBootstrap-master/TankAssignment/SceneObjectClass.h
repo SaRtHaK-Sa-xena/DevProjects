@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <Renderer2D.h>
+#include "MathFuncLib.h"
 
 class SceneObject
 {
@@ -12,7 +13,7 @@ public:
 	void draw(aie::Renderer2D* renderer);
 
 	virtual void onUpdate(float deltaTime) {};
-	virtual void SceneObject::OnDraw(aie::Renderer2D* renderer) {};
+	virtual void OnDraw(aie::Renderer2D* renderer) {};
 
 	void updateTransform();
 
@@ -39,6 +40,9 @@ protected:
 
 	Matrix3 m_localTransform = Matrix3::identity;
 	Matrix3 m_globalTransform = Matrix3::identity;
+
+	const Matrix3& getLocalTransform()const { return m_localTransform; }
+	const Matrix3& getGlobalTransform()const { return m_globalTransform; }
 };
 
 

@@ -1,4 +1,5 @@
 #include "SceneObjectClass.h"
+#include <assert.h>
 
 SceneObject::~SceneObject()
 {
@@ -38,6 +39,7 @@ void SceneObject::draw(aie::Renderer2D * renderer)
 	}
 
 }
+
 
 void SceneObject::updateTransform()
 {

@@ -1,0 +1,5 @@
+﻿  stdafx.cpp
+  MathFuncLib.cpp
+c:\users\s191509\documents\github\testproject2d\maths library functions\aiebootstrap-master\mathfunclib\mathfunclib.h(135): error C2144: syntax error: 'float' should be preceded by ';'
+c:\users\s191509\documents\github\testproject2d\maths library functions\aiebootstrap-master\mathfunclib\mathfunclib.cpp(223): error C2512: 'Matrix3': no appropriate default constructor available
+  c:\users\s191509\documents\github\testproject2d\maths library functions\aiebootstrap-master\mathfunclib\mathfunclib.h(125): note: see declaration of 'Matrix3'
