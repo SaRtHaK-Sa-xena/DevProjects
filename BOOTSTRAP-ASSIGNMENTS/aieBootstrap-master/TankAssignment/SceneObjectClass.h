@@ -34,6 +34,9 @@ public:
 
 	//remove child---> sort of like binary tree remove function
 	void removeChild(SceneObject *child);
+
+	const Matrix3& getLocalTransform()const { return m_localTransform; }
+
 protected:
 	SceneObject * m_parent = nullptr; //starts null
 	std::vector<SceneObject*> m_children; //starts empty
@@ -41,7 +44,7 @@ protected:
 	Matrix3 m_localTransform = Matrix3::identity;
 	Matrix3 m_globalTransform = Matrix3::identity;
 
-	const Matrix3& getLocalTransform()const { return m_localTransform; }
+	
 	const Matrix3& getGlobalTransform()const { return m_globalTransform; }
 };
 
@@ -55,7 +58,7 @@ public:
 	virtual ~SpriteObject() { delete m_texture; }
 	
 	bool load(const char* filename);
-	virtual void onDraw(aie::Renderer2D* renderer);
+	virtual void OnDraw(aie::Renderer2D* renderer);
 
 protected:
 	aie::Texture* m_texture = nullptr;

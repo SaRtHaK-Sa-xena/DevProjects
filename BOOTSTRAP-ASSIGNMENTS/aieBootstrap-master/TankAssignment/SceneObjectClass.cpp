@@ -1,5 +1,6 @@
 #include "SceneObjectClass.h"
 #include <assert.h>
+#include <Texture.h>
 
 SceneObject::~SceneObject()
 {
@@ -27,10 +28,15 @@ void SceneObject::update(float deltaTime)
 	}
 }
 
+void SpriteObject::OnDraw(aie::Renderer2D * renderer)
+{
+	renderer->drawSpriteTransformed3x3(m_texture, (float*)&m_globalTransform);
+}
+
 void SceneObject::draw(aie::Renderer2D * renderer)
 {
 	//run onDraw behaviour
-	onDraw(renderer);
+	OnDraw(renderer);
 
 	//draw children
 	for (auto child : m_children)
@@ -146,7 +152,4 @@ bool SpriteObject::load(const char * filename)
 	return m_texture != nullptr;
 }
 
-void SpriteObject::onDraw(aie::Renderer2D * renderer)
-{
-	renderer->drawSpriteTransformed3x3(m_texture, (float*)&m_globalTransform);
-}
+

@@ -49,7 +49,7 @@ void TankAssignmentApp::update(float deltaTime) {
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
-	else if (input->isKeyDown(aie::INPUT_KEY_W))
+	/*else if (input->isKeyDown(aie::INPUT_KEY_W))
 		auto facing = m_tank.getLocalTransform()[1] * deltaTime * 100;
 	m_tank.translate(facing.x, facing.y);
 	else if (input->isKeyDown(aie::INPUT_KEY_S))
@@ -59,7 +59,7 @@ void TankAssignmentApp::update(float deltaTime) {
 	else if (input->isKeyDown(aie::INPUT_LEY_LEFT))
 		m_turret.rotate(deltaTime);
 	else if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
-		m_turret.rotate(-deltaTime);
+		m_turret.rotate(-deltaTime);*/
 
 }
 

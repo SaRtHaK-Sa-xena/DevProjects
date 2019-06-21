@@ -251,6 +251,13 @@ Vector3 Vector3::operator+(const Vector3 &other) const
 	return{ m_x + other.m_x, m_y + other.m_y, m_z + other.m_z };
 
 }
+Vector3 Vector3::operator+=(const Vector3 & other)
+{
+	m_x += other.m_x;
+	m_y += other.m_y;
+	m_z += other.m_z;
+	return *this;
+}
 Vector3 Vector3::operator- (const Vector3 &other)
 {
 	Vector3 result;
@@ -271,6 +278,13 @@ Vector3 Vector3::operator * (float scalar)
 
 	return result;
 }
+
+Vector3 operator * (float scalar, Vector3 &vec4)
+{
+	return	vec4 * scalar;
+
+}
+
 Vector3 Vector3::operator /= (float scalar) 
 {
 	Vector3 result;
@@ -389,10 +403,10 @@ Vector2 Vector2::operator*(float scalar)const
 	//m_y * scalar;
 	return{ m_x * scalar, m_y * scalar };
 }
-Vector3 operator*(float scalar, Vector3  &vec3)
-{
-	return vec3 * scalar ;
-}
+//Vector3 operator*(float scalar, Vector3  &vec3)
+//{
+//	return vec3 * scalar;
+//}
 Vector2 operator*(float scalar, const Vector2 & vec)
 {
 	return vec * scalar;
@@ -666,6 +680,14 @@ void Matrix3::scale(const Vector3 &v)
 {
 	Matrix3 m;
 	m.setScaled(v.m_x, v.m_y, v.m_z);
+
+	*this = *this * m;
+}
+
+void Matrix3::scale(float width, float height, int i)
+{
+	Matrix3 m;
+	m.setScaled(width, height, 1);
 
 	*this = *this * m;
 }

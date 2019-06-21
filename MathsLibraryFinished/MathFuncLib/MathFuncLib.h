@@ -137,6 +137,7 @@ public:
 	//=============================
 	Vector3 operator- (const Vector3 &other);
 	Vector3 operator+ (const Vector3 &other)const;
+	Vector3 operator +=(const Vector3 &other);
 	Vector3 operator* (float scalar);
 	Vector3 operator/= (float scalar);
 	Vector3 operator= (const Vector3 &other);
@@ -289,6 +290,7 @@ public:
 			Vector3 xAxis;
 			Vector3 yAxis;
 			Vector3 zAxis;
+			Vector3 translation;
 		};
 		
 		Vector3 axis[3];
@@ -340,6 +342,7 @@ public:
 	void setScaled(const Vector3 &v);
 
 	void scale(const Vector3 &v);
+	void scale(float width, float height, int i);
 
 	Matrix3 &setRotateX(float radians);
 	Matrix3 &setRotateY(float radians);
@@ -352,9 +355,17 @@ public:
 	void rotateZ(float radians);
 
 	void setEuler(float pitch, float yaw, float roll);
+
+	void translate(float x, float y)
+	{
+		translation += Vector3(x, y, 0);
+	}
 	//============rotation================
 
 };
+
+
+
 
 class Matrix4
 {
