@@ -268,6 +268,12 @@ Vector3 Vector3::operator- (const Vector3 &other)
 
 	return result;
 }
+
+//Vector3 operator* (const Vector3 &vec3, float scalar)
+//{
+//	return vec3 * scalar;
+//}
+
 Vector3 Vector3::operator * (float scalar)  
 {
 	Vector3 result;
@@ -279,9 +285,9 @@ Vector3 Vector3::operator * (float scalar)
 	return result;
 }
 
-Vector3 operator * (float scalar, Vector3 &vec4)
+Vector3 operator * (float scalar, Vector3 &vec3)
 {
-	return	vec4 * scalar;
+	return	vec3 * scalar;
 
 }
 

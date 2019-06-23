@@ -1,8 +1,8 @@
-#include "TankAssignmentApp.h"
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
-#include "SceneObjectClass.h"
+#include "TankAssignmentApp.h"
+
 
 TankAssignmentApp::TankAssignmentApp() {
 
@@ -49,6 +49,21 @@ void TankAssignmentApp::update(float deltaTime) {
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
+	else if (input->isKeyDown(aie::INPUT_KEY_W))
+	{
+		auto facing = m_tank.getLocalTransform()[1] * (deltaTime * 100);
+		m_tank.translate(facing.m_x, facing.m_y);//facing.x, facing.y)
+		std::cout << "works" << std::endl;
+	}
+	else if (input->isKeyDown(aie::INPUT_KEY_LEFT))
+	{
+		m_turret.rotate(deltaTime);
+	}
+	else if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
+	{
+		m_turret.rotate(-deltaTime);
+	}
+	//else if(input->isKeyDown())
 	/*else if (input->isKeyDown(aie::INPUT_KEY_W))
 		auto facing = m_tank.getLocalTransform()[1] * deltaTime * 100;
 	m_tank.translate(facing.x, facing.y);

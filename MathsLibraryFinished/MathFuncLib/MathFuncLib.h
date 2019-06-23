@@ -87,6 +87,7 @@ Vector2 operator*(float scalar, const Vector2 &vec);
 
 
 //===============VECTOR3==============
+
 class Vector3
 {
 public:
@@ -139,6 +140,16 @@ public:
 	Vector3 operator+ (const Vector3 &other)const;
 	Vector3 operator +=(const Vector3 &other);
 	Vector3 operator* (float scalar);
+	Vector3 operator*(float scalar)const
+	{
+		Vector3 result;
+
+		result.m_x * scalar;
+		result.m_y * scalar;
+		result.m_z * scalar;
+
+		return result;
+	}
 	Vector3 operator/= (float scalar);
 	Vector3 operator= (const Vector3 &other);
 
@@ -149,6 +160,12 @@ public:
 	
 };
 Vector3 operator* (float scalar, Vector3 &vec3);
+
+
+//Vector3 operator* (const Vector3 &vec3, float scalar)
+//{
+//	return vec3 * scalar;
+//}
 //===============VECTOR3==============
 
 
@@ -361,7 +378,7 @@ public:
 		translation += Vector3(x, y, 0);
 	}
 	//============rotation================
-
+	
 };
 
 

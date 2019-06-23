@@ -1,1 +1,3 @@
-﻿  MathFuncLib.vcxproj -> C:\Users\sarthak\Documents\GitHub\TestProject2D\BOOTSTRAP-ASSIGNMENTS\aieBootstrap-master\Debug\MathFuncLib.lib
+﻿  MathFuncLib.cpp
+c:\users\sarthak\documents\github\testproject2d\mathslibraryfinished\mathfunclib\mathfunclib.h(158): warning C4717: 'operator*': recursive on all control paths, function will cause runtime stack overflow
+  MathFuncLib.vcxproj -> C:\Users\sarthak\Documents\GitHub\TestProject2D\BOOTSTRAP-ASSIGNMENTS\aieBootstrap-master\Debug\MathFuncLib.lib
