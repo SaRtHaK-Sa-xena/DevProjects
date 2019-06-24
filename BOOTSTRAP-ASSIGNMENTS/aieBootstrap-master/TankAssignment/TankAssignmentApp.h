@@ -23,7 +23,9 @@ protected:
 	SpriteObject m_tank, m_turret, m_bullet, temp;
 	SpriteObject *new_bullet;
 
-	SceneObject *List = new SceneObject();
+	SceneObject *List;
+
+
 
 	Matrix3 bullet;
 
@@ -31,6 +33,7 @@ protected:
 	bool bulletFired;
 	bool bulletFiredAnimate = false;
 
+	float timer = 10;
 	float speed = 10;
 	//std::vector<SpriteObject*>new_bullet;
 

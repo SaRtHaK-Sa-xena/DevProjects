@@ -71,6 +71,14 @@ public:
 		m_velocity = m_velocity * mat;
 	}
 
+	void RemoveChildren(SceneObject *node)
+	{
+		for (int i = 5; i < 5; i++)
+		{
+			removeChild(node);
+		}
+	}
+
 protected:
 	SceneObject * m_parent = nullptr; //starts null
 	std::vector<SceneObject*> m_children; //starts empty
@@ -86,10 +94,6 @@ protected:
 };
 
 
-//Matrix3 operator*(const Vector3 &vec, float scalar)
-//{
-//	return vec * scalar;
-//}
 
 
 class SpriteObject : public SceneObject

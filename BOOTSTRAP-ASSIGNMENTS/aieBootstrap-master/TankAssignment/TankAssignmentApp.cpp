@@ -16,6 +16,8 @@ bool TankAssignmentApp::startup() {
 	
 	m_2dRenderer = new aie::Renderer2D();
 
+	List = new SceneObject();
+
 	//load sprites in
 	m_tank.load("../bin/textures/tank.png");
 	m_turret.load("../bin/textures/gunturret.png");
@@ -52,14 +54,30 @@ void TankAssignmentApp::update(float deltaTime) {
 
 	m_tank.update(deltaTime);
 	m_tank.updateTransform();
-	bulletFired = false;
 
-	//m_bullet.ApplyVel();
+
+	//=======UpdateInList=====
 	List->updateTransform();
-	//new_bullet->ApplyVel();
-	
+	//=======UpdateInList=====
+
+
+	//=======Apply Friction========
 	m_tank.ApplyFric();
 	m_turret.ApplyFric();
+	//=======Apply Friction========
+
+
+	timer = timer - deltaTime * 2;
+	
+	if (timer < 5)
+	{
+		timer = 10;
+		for (int i = 5; i < sizeof(List); i++)
+		{
+			List->removeChild(new_bullet);
+		}
+		//SpriteObject *List = new SpriteObject();
+	}
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -117,7 +135,7 @@ void TankAssignmentApp::update(float deltaTime) {
 	if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
 	{
 		Matrix3 velocity;
-		velocity.translation.m_y = 20;
+		velocity.translation.m_y = 2;
 
 		new_bullet = new SpriteObject();
 
