@@ -20,11 +20,18 @@ protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
-	SpriteObject m_tank, m_turret, m_bullet, temp, new_bullet;
+	SpriteObject m_tank, m_turret, m_bullet, temp;
+	SpriteObject *new_bullet;
+
+	SceneObject *List = new SceneObject();
+
+	Matrix3 bullet;
+
 	float Tracker;
-	bool bulletFired = false;
+	bool bulletFired;
 	bool bulletFiredAnimate = false;
 
-	std::vector<SpriteObject*>new_bullet;
+	float speed = 10;
+	//std::vector<SpriteObject*>new_bullet;
 
 };

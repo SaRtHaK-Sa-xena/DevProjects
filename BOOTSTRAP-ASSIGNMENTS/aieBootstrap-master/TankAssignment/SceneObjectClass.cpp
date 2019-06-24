@@ -49,6 +49,7 @@ void SceneObject::draw(aie::Renderer2D * renderer)
 
 void SceneObject::updateTransform()
 {
+	ApplyVel(); //def
 	if (m_parent != nullptr)
 	{
 		m_globalTransform = m_parent->m_globalTransform * m_localTransform;
@@ -63,6 +64,7 @@ void SceneObject::updateTransform()
 	for (auto child : m_children)
 	{
 		child->updateTransform();
+		child->ApplyVel(); //set accordingly
 	}
 }
 
