@@ -59,6 +59,7 @@ void TankAssignmentApp::update(float deltaTime) {
 	//new_bullet->ApplyVel();
 	
 	m_tank.ApplyFric();
+	m_turret.ApplyFric();
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -101,11 +102,17 @@ void TankAssignmentApp::update(float deltaTime) {
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_Q))
 	{
-		m_turret.rotate(deltaTime);
+		Matrix3 turret_rot;
+
+		turret_rot.setRotateZ(deltaTime);
+		m_turret.IncVel(turret_rot);
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_E))
 	{
-		m_turret.rotate(-deltaTime);
+		Matrix3 turret_rot;
+
+		turret_rot.setRotateZ(-deltaTime);
+		m_turret.IncVel(turret_rot);
 	}
 	if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
 	{
@@ -121,8 +128,16 @@ void TankAssignmentApp::update(float deltaTime) {
 		//tree->insert(new_bullet);
 
 		new_bullet->setRotate(atan2f(m_turret.DgetGlobalTransform()[0][1], m_turret.DgetGlobalTransform()[0][0]));
-		new_bullet->setPosition()
-		new_bullet->setPosition(m_turret.DgetGlobalTransform()[2][0], m_turret.DgetGlobalTransform()[2][1]); //position
+		
+		Matrix3 gunPoint;
+
+		gunPoint = m_turret.getLocalTransform();
+		gunPoint.translation.m_y += new_bullet->GetTexture()->getHeight(); //+ the height
+
+		gunPoint = m_turret.DgetGlobalTransform() * gunPoint;
+
+		//new_bullet->setPosition(m_turret.DgetGlobalTransform()[2][0], m_turret.DgetGlobalTransform()[2][1]); //position
+		new_bullet->setPosition(gunPoint[2][0], gunPoint[2][1]); //position
 
 		new_bullet->SetVel(velocity);
 
