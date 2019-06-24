@@ -50,10 +50,13 @@ protected:
 	const Matrix3& getGlobalTransform()const { return m_globalTransform; }
 };
 
+
 //Matrix3 operator*(const Vector3 &vec, float scalar)
 //{
 //	return vec * scalar;
 //}
+
+
 class SpriteObject : public SceneObject
 {
 public:

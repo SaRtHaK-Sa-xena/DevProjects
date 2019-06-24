@@ -140,15 +140,17 @@ public:
 	Vector3 operator+ (const Vector3 &other)const;
 	Vector3 operator +=(const Vector3 &other);
 	Vector3 operator* (float scalar);
-	Vector3 operator*(float scalar)const
+	Vector3 operator*(float scalar)const //this was added to fix the Vector3 const * float problem
 	{
-		Vector3 result;
+		/*Vector3 result;
 
 		result.m_x * scalar;
 		result.m_y * scalar;
 		result.m_z * scalar;
 
-		return result;
+		return result;*/
+		return{ m_x * scalar, m_y * scalar, m_z * scalar };
+
 	}
 	Vector3 operator/= (float scalar);
 	Vector3 operator= (const Vector3 &other);
@@ -306,8 +308,10 @@ public:
 		struct {
 			Vector3 xAxis;
 			Vector3 yAxis;
-			Vector3 zAxis;
-			Vector3 translation;
+			union {
+				Vector3 zAxis;
+				Vector3 translation;
+			};
 		};
 		
 		Vector3 axis[3];

@@ -72,6 +72,11 @@ void SceneObject::setPosition(float x, float y)
 	updateTransform();
 }
 
+//void SceneObject::getPosition(SpriteObject variable_tank)
+//{
+//
+//}
+
 void SceneObject::setRotate(float radians)
 {
 	m_localTransform.setRotateZ(radians);
