@@ -10,7 +10,6 @@ public:
 	Vector2();
 	Vector2(float X, float Y);
 
-	//float m_x, m_y;
 	union {
 		struct {
 			float m_x;
@@ -19,8 +18,6 @@ public:
 		float data[2];
 	};
 
-
-	//float data[2];
 
 	float operator[](int index) const
 	{
@@ -33,7 +30,7 @@ public:
 	operator float*();
 
 	//==========PLUS====================
-	Vector2 operator+(const Vector2 &other); //========WORKS
+	Vector2 operator+(const Vector2 &other);
 	//==========PLUS====================
 
 	//==========MINUS EQUAL==============
@@ -50,7 +47,7 @@ public:
 	//=========DIVIDE EQUAL==============
 
 	//=========EQUAL=====================
-	Vector2 operator=(Vector2 &other); //const before Vector2
+	Vector2 operator=(Vector2 &other); 
 	//=========EQUAL=====================
 
 
@@ -70,11 +67,9 @@ public:
 	float dot(const Vector2 &other) const;
 	float magnitude()const;
 	void normalise();
-	//void Add(Vector2 *vector1, Vector2 *vector2);
 	void DisplayVectorCoordinates();
 
 
-	//double PrintVector2Dx(float x);
 };
 Vector2 operator*(float scalar, const Vector2 &vec);
 //============VECTOR2=================
@@ -95,22 +90,25 @@ public:
 	Vector3();
 	Vector3(float X, float Y, float Z);
 
-	//float operator[](int index) const; //returns 
-	//float& operator[](int index);
-
-	//float VectorArray[3]; //To Be Used
-	//float m_x, m_y, m_z;
-	//float data[3];
-
+	//union {
+	//	struct {
+	//		float m_x;
+	//		float m_y;
+	//		float m_z;
+	//	};
+	//	float data[3];
+	//};
+	
 	union {
 		struct {
-			float m_x;
-			float m_y;
-			float m_z;
+			float m_x, m_y;
+			union {
+				float m_z, m_w;
+			};
 		};
 		float data[3];
 	};
-	
+
 	double PrintVectorx(float x);
 	void DisplayVector3Coordinates();
 
@@ -140,17 +138,9 @@ public:
 	Vector3 operator+ (const Vector3 &other)const;
 	Vector3 operator +=(const Vector3 &other);
 	Vector3 operator* (float scalar);
-	Vector3 operator*(float scalar)const //this was added to fix the Vector3 const * float problem
+	Vector3 operator*(float scalar)const 
 	{
-		/*Vector3 result;
-
-		result.m_x * scalar;
-		result.m_y * scalar;
-		result.m_z * scalar;
-
-		return result;*/
 		return{ m_x * scalar, m_y * scalar, m_z * scalar };
-
 	}
 	Vector3 operator/= (float scalar);
 	Vector3 operator= (const Vector3 &other);
@@ -162,12 +152,6 @@ public:
 	
 };
 Vector3 operator* (float scalar, Vector3 &vec3);
-
-
-//Vector3 operator* (const Vector3 &vec3, float scalar)
-//{
-//	return vec3 * scalar;
-//}
 //===============VECTOR3==============
 
 
@@ -186,14 +170,6 @@ Vector3 operator* (float scalar, Vector3 &vec3);
 class Vector4
 {
 public:
-	//float m_x;
-	//float m_y;
-	//float m_z;
-	//float m_w;
-
-	//float data[4];
-
-
 	union {
 		struct {
 			float m_x;
@@ -201,6 +177,7 @@ public:
 			float m_z;
 			float m_w;
 		};
+		float translation; //just added
 		float data[4];
 	};
 
@@ -225,19 +202,19 @@ public:
 
 	Vector4 operator * (float scalar) const;
 
-	//Vector4 operator * (const Matrix4 &other) const;
-
 	Vector4 &operator /(float scalar);
 
 	Vector4& operator = (const Vector4 &other);
 
-	//magnitude
 	float magnitude()const;
 	void normalise();
 	float dot(const Vector4 &other)const;
 
 	Vector4 cross(const Vector4 &other) const;
-
+	void translate(float x, float y, float z)
+	{
+		translation += Vector2(x, y, 0);
+	}
 };
 Vector4 operator * (float scalar, const Vector4 &vec4);
 
@@ -283,10 +260,6 @@ class Matrix3
 public:
 	//=============initialize values for Default Constructor=============
 
-	/*float a_y;
-	float b_y;
-	float c_y;*/
-
 	union {
 		struct {
 			
@@ -317,27 +290,6 @@ public:
 		Vector3 axis[3];
 
 	};
-
-	//Vector3 xAxis;
-	//Vector3 yAxis;
-	//Vector3 zAxis;
-		/*struct {
-			float a_x;
-			float a_y;
-			float a_z;
-		};
-		struct {
-			float b_x;
-			float b_y;
-			float b_z;
-		};
-		struct {
-			float c_x;
-			float c_y;
-			float c_z;
-		};*/
-
-
 	//=============initialize values for Default Constructor=============
 
 	Matrix3();
@@ -350,7 +302,6 @@ public:
 	Matrix3 &operator=(Vector3 &other);
 	operator float*();
 	Vector3 operator*(const Vector3 &v)const;
-	//float operator*(const Matrix3 &other);
 
 	Matrix3 operator*(const Matrix3 &other)const;
 
@@ -427,53 +378,12 @@ public:
 		Vector4 axis[4];
 	};
 
-	//previous union & struct
-
-	//float m[4][4];
-	//float a_x;
-	//float a_y;
-	//float a_z;
-	//float a_w;
-	//float b_x;
-	//float b_y;
-	//float b_z;
-	//float b_w;
-	//float c_x;
-	//float c_y;
-	//float c_z;
-	//float c_w;
-	//float d_x;
-	//float d_y;
-	//float d_z;
-	//float d_w;
-	//union {
-	//	struct {
-	//		Vector4 xAxis;
-	//		Vector4 yAxis;
-	//		Vector4 zAxis;
-	//		union {
-	//			Vector4 wAxis;
-	//			Vector4 translation;
-	//		};
-	//	};
-	//	float data[4][4];
-	//	Vector4 axis[4];
-	//};
-	/*Vector4 xAxis;
-	Vector4 yAxis;
-	Vector4 zAxis;
-	Vector4 wAxis;
-	Vector4 translation;*/
-	//previous union & struct
-
-
 	Matrix4();
 	Matrix4(float aX, float aY, float aZ, float aW,
 		float bX, float bY, float bZ, float bW,
 		float cX, float cY, float cZ, float cW,
 		float dX, float dY, float dZ, float dW);
 
-	//Vector4 &operator[](int index);
 	Vector4 &operator[](int index);
 	const Vector4 &operator[](int index)const;
 
@@ -494,6 +404,10 @@ public:
 	Matrix4 &setRotateX(float radians);
 	Matrix4 &setRotateY(float radians);
 	Matrix4 &setRotateZ(float radians);
+
+	void rotateX(float radians);
+	void rotateY(float radians);
+	void rotateZ(float radians);
 
 	void translate(float x, float y, float z)
 	{
