@@ -105,14 +105,6 @@ Vector4 Vector4::operator * (float scalar) const
 	return { m_x * scalar, m_y * scalar, m_z *scalar, m_w * scalar };
 }
 
-//Vector4 Vector4::operator *(const Matrix4 &other)const
-//{
-//	m_x * other.m_x;
-//	m_y * other.m_y;
-//	m_z * other.m_z;
-//	m_w * other.m_w;
-//	return *this;
-//}
 
 Vector4& Vector4::operator /(float scalar)
 {
@@ -242,14 +234,14 @@ Vector3::operator const float*() const
 //========================VECTOR 3==========================
 Vector3 Vector3::operator+(const Vector3 &other) const
 {
-	/*Vector3 result;
-	result.SetX(m_x + other.m_x);
-	result.SetY(m_y + other.m_y);
-	result.SetZ(m_z + other.m_z);
-	return result;*/
-
 	return{ m_x + other.m_x, m_y + other.m_y, m_z + other.m_z };
-
+}
+Vector3 Vector3::operator+=(const Vector3 & other)
+{
+	m_x += other.m_x;
+	m_y += other.m_y;
+	m_z += other.m_z;
+	return *this;
 }
 Vector3 Vector3::operator- (const Vector3 &other)
 {
@@ -261,6 +253,8 @@ Vector3 Vector3::operator- (const Vector3 &other)
 
 	return result;
 }
+
+
 Vector3 Vector3::operator * (float scalar)  
 {
 	Vector3 result;
@@ -271,6 +265,13 @@ Vector3 Vector3::operator * (float scalar)
 
 	return result;
 }
+
+Vector3 operator * (float scalar, Vector3 &vec3)
+{
+	return	vec3 * scalar;
+
+}
+
 Vector3 Vector3::operator /= (float scalar) 
 {
 	Vector3 result;
@@ -283,9 +284,6 @@ Vector3 Vector3::operator /= (float scalar)
 }
 Vector3 Vector3::operator = (const Vector3& other) 
 {
-	//SetX(m_x = other.m_x);
-	//SetY(m_y = other.m_y);
-	//SetZ(m_z = other.m_z);
 	m_x = other.m_x;
 	m_y = other.m_y;
 	m_z = other.m_z;
@@ -354,44 +352,22 @@ Vector2::operator float*() { return &m_x; }
 Vector2 Vector2::operator+(const Vector2 & other)
 {
 	return { m_x + other.m_x, m_y + other.m_y };
-
-	/*Vector2 result;
-	result.SetX(m_x + other.m_x);
-	result.SetY(m_y + other.m_y);
-	return result;*/
 }
 Vector2 Vector2::operator-(const Vector2 & other)
 {
 	m_x -= other.m_x;
 	m_y -= other.m_y;
 	return *this;
-/*Vector2 result;
-	result.SetX(m_x -= other.m_x);
-	result.SetY(m_y -= other.m_y);
-	return result;*/
 }
 Vector2 Vector2::operator/= (float scalar)
 {
 	m_x /= scalar;
 	m_y /= scalar;
 	return *this;
-	/*Vector2 result;
-	result.SetX(m_x /= scalar);
-	result.SetY(m_y /= scalar);
-	return result;*/
 }
 Vector2 Vector2::operator*(float scalar)const
 {
-	//m_x = m_x * scalar;
-	//m_y = m_y * scalar;
-	//SetX()
-	//m_x * scalar;
-	//m_y * scalar;
 	return{ m_x * scalar, m_y * scalar };
-}
-Vector3 operator*(float scalar, Vector3  &vec3)
-{
-	return vec3 * scalar ;
 }
 Vector2 operator*(float scalar, const Vector2 & vec)
 {
@@ -399,8 +375,6 @@ Vector2 operator*(float scalar, const Vector2 & vec)
 }
 Vector2 Vector2::operator=(Vector2 & other)
 {
-	//SetX(m_x = other.m_x);
-	//SetY(m_y = other.m_y);
 	m_x = other.m_x;
 	m_y = other.m_y;
 	return *this;
@@ -441,24 +415,6 @@ void Vector2::normalise()
 	m_x /= mag;
 	m_y /= mag;
 }
-
-
-
-//void Vector2::Add(Vector2 *vector1, Vector2 *vector2)
-//{
-//	//get X,Y (vector1)
-//	float x_vector1 = vector1->GetX();
-//	float y_vector1 = vector1->GetY();
-//	
-//	//get X,Y (vector2)
-//	float x_vector2 = vector2->GetX();
-//	float y_vector2 = vector2->GetY();
-//
-//	SetX(x_vector1 + x_vector2);
-//	SetY(y_vector1 + y_vector2);
-//
-//}
-
 
 void Vector2::DisplayVectorCoordinates()
 {
@@ -575,23 +531,6 @@ Matrix3 Matrix3::operator*(const Matrix3 &other)const
 }
 
 
-//float Matrix3::operator*(const Matrix3 & other)
-//{
-//	Matrix3 result;
-//
-//	for (int r = 0; r < 3; r++)
-//	{
-//		for (int c = 0; c < 3; c++)
-//		{
-//			result.m[c][r] = m[0][r] * other.m[c][0] +
-//				m[1][r] * other.m[c][1] +
-//				m[2][r] * other.m[c][2];
-//		}
-//	}
-//
-//	return 0.0f;
-//}
-
 Matrix3 Matrix3::transposed() const
 {
 	Matrix3 result; // flip row and column
@@ -670,24 +609,30 @@ void Matrix3::scale(const Vector3 &v)
 	*this = *this * m;
 }
 
+void Matrix3::scale(float width, float height, int i)
+{
+	Matrix3 m;
+	m.setScaled(width, height, 1);
+
+	*this = *this * m;
+}
+
 Matrix3 & Matrix3::setRotateX(float radians) { // leave X axis and elements unchanged
 	xAxis = { 1, 0, 0 };
 	yAxis = { 0, cosf(radians), sinf(radians) };
 	zAxis = { 0, -sinf(radians), cosf(radians) };
 
 	return *this;
-	//try Matrix instead of void
-	//return *this;
 }
 
-Matrix3 & Matrix3::setRotateY(float radians) { // leave X axis and elements unchanged
+Matrix3 & Matrix3::setRotateY(float radians) { 
 	xAxis = { cosf(radians), 0, -sinf(radians) };
 	yAxis = { 0, 1, 0};
 	zAxis = { sinf(radians), 0, cosf(radians) };
 	return *this;
 }
 
-Matrix3 &Matrix3::setRotateZ(float radians) { // leave X axis and elements unchanged
+Matrix3 &Matrix3::setRotateZ(float radians) { 
 
 	xAxis = { cosf(radians), sinf(radians), 0};
 	yAxis = { -sinf(radians), cosf(radians), 0 };
@@ -726,9 +671,7 @@ void Matrix3::setEuler(float pitch, float yaw, float roll)
 	// combine rotations in a specific order
 	*this = z * y * x;
 }
-
 //=======================rotation================
-
 //=======================================================MATRIX3======================================
 
 
