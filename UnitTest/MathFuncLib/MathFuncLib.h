@@ -90,15 +90,25 @@ public:
 	Vector3();
 	Vector3(float X, float Y, float Z);
 
+	//union {
+	//	struct {
+	//		float m_x;
+	//		float m_y;
+	//		float m_z;
+	//	};
+	//	float data[3];
+	//};
+	
 	union {
 		struct {
-			float m_x;
-			float m_y;
-			float m_z;
+			float m_x, m_y;
+			union {
+				float m_z, m_w;
+			};
 		};
 		float data[3];
 	};
-	
+
 	double PrintVectorx(float x);
 	void DisplayVector3Coordinates();
 
@@ -167,6 +177,7 @@ public:
 			float m_z;
 			float m_w;
 		};
+		float translation; //just added
 		float data[4];
 	};
 
@@ -200,7 +211,10 @@ public:
 	float dot(const Vector4 &other)const;
 
 	Vector4 cross(const Vector4 &other) const;
-
+	void translate(float x, float y, float z)
+	{
+		translation += Vector2(x, y, 0);
+	}
 };
 Vector4 operator * (float scalar, const Vector4 &vec4);
 
@@ -390,6 +404,10 @@ public:
 	Matrix4 &setRotateX(float radians);
 	Matrix4 &setRotateY(float radians);
 	Matrix4 &setRotateZ(float radians);
+
+	void rotateX(float radians);
+	void rotateY(float radians);
+	void rotateZ(float radians);
 
 	void translate(float x, float y, float z)
 	{

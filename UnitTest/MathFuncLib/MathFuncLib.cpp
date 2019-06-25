@@ -334,7 +334,6 @@ Vector2::Vector2()
 	m_y = 1;
 
 }
-
 Vector2::Vector2(float X, float Y)
 {
 	m_x = X;

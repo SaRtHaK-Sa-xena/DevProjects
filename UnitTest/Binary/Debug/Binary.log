@@ -1,0 +1,9 @@
+﻿  Binary.cpp
+c:\users\s191509\documents\github\testproject2d\unittest\binary\binary.cpp(19): warning C4309: 'initializing': truncation of constant value
+c:\users\s191509\documents\github\testproject2d\unittest\binary\binary.cpp(30): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\s191509\documents\github\testproject2d\unittest\binary\binary.cpp(35): warning C4101: 'weapon': unreferenced local variable
+c:\users\s191509\documents\github\testproject2d\unittest\binary\binary.cpp(39): warning C4101: 'bitNo': unreferenced local variable
+c:\users\s191509\documents\github\testproject2d\unittest\binary\binary.cpp(36): warning C4101: 'weapon2': unreferenced local variable
+c:\users\s191509\documents\github\testproject2d\unittest\binary\binary.cpp(40): warning C4101: 'Decimal': unreferenced local variable
+c:\users\s191509\documents\github\testproject2d\unittest\binary\binary.cpp(158): warning C4554: '<<': check operator precedence for possible error; use parentheses to clarify precedence
+  Binary.vcxproj -> C:\Users\s191509\Documents\GitHub\TestProject2D\UnitTest\Debug\Binary.exe
