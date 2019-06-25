@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Array.h"
-
+#include <string>
 
 ArrayClass::ArrayClass()
 {
@@ -45,25 +45,47 @@ void ArrayClass::display()
 		std::cout << "Data:" << i  << " " << current->getData() << std::endl;
 		current = current->getRight();
 	}
-	std::cout << "Last Entry Entered: " << current->getData() << std::endl;
+	i = i + 1;
+	std::cout << "Data:" << i << " " << current->getData() << std::endl;
 }
 
 void ArrayClass::search(int a_value)
 {
 	int i = 1;
 	NodeClass *current = returnRoot();
+	bool found = false;
+
+
 	while (current->getRight() != nullptr)
 	{
 		if (current->getData() == a_value)
 		{
 			std::cout << "found in position " << i << ":" << std::endl;
 			std::cout << current->getData() << std::endl;
-			break;
+			found = true;
+		}
+		i++;
+		current = current->getRight();
+	}
+	if (current->getData() == a_value)
+	{
+		std::cout << "found in position " << i << ":" << std::endl;
+		std::cout << current->getData() << std::endl;
+		found = true;
+	}
+	if (found == false)
+	{
+		std::cout << "The Number: " << "[" << a_value << "]" << " Does not exist in the list" << std::endl;
+		std::cout << "Would You Like To Add it to the list? " << "\t\t (y/n)" << std::endl;
+		std::string option;
+		std::cin >> option;
+		if (option == "y")
+		{
+			insert(a_value);
 		}
 		else
 		{
-			i++;
-			current = current->getRight();
+			display();
 		}
 	}
 }
