@@ -24,15 +24,9 @@ bool TankAssignmentApp::startup() {
 
 	//attach turret to top of tank
 	m_tank.addChild(&m_turret);
-	
-	//m_tank.getPosition(); //retrieves current tank position;
-
-	//m_bullet.setPosition = m_tank.getPosition();
 
 	//center the tank
 	m_tank.setPosition(getWindowWidth() / 2.f, getWindowHeight() / 2.f);	
-	//m_bullet.setPosition(getWindowWidth() / 2.f, getWindowHeight() / 2.f);	
-	//Tracker = m_tank.setPosition(getWindowHeight() / 2.f, getWindowHeight()/2.f);
 
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
@@ -68,7 +62,7 @@ void TankAssignmentApp::update(float deltaTime) {
 
 
 	timer = timer - deltaTime * 2;
-	
+	//Purpose: To Destroy the bullets, upon a timer
 	if (timer < 5)
 	{
 		timer = 10;
@@ -76,7 +70,6 @@ void TankAssignmentApp::update(float deltaTime) {
 		{
 			List->removeChild(new_bullet);
 		}
-		//SpriteObject *List = new SpriteObject();
 	}
 
 	// exit the application
@@ -88,8 +81,6 @@ void TankAssignmentApp::update(float deltaTime) {
 
 		tank_vel.translation.m_y = 20 * deltaTime;
 		m_tank.IncVel(tank_vel);
-		//auto facing = m_tank.getLocalTransform()[1] * deltaTime *300;
-		//m_tank.translate(facing.m_x, facing.m_y);//facing.x, facing.y)
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_A))
 	{

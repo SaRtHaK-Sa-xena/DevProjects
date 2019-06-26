@@ -1,6 +1,7 @@
 ﻿  main.cpp
-  unittest.cpp
   Generating code
-  All 100 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  1 of 100 functions ( 1.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   UnitTest.vcxproj -> C:\Users\s191509\Documents\GitHub\TestProject2D\UnitTest\Release\UnitTest.exe

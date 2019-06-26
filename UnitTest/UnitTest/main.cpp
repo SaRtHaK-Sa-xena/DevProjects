@@ -9,5 +9,7 @@ int main() {
 	}
 	std::cout << "All tests passed successfully." << std::endl;
 
+	std::cin.get(); //this doesn't change anything, just makes it viewable in release
+
 	return 0;
 }
