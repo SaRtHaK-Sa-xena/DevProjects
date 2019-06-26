@@ -25,16 +25,5 @@ protected:
 
 	SceneObject *List;
 
-
-
-	Matrix3 bullet;
-
-	float Tracker;
-	bool bulletFired;
-	bool bulletFiredAnimate = false;
-
 	float timer = 10;
-	float speed = 10;
-	//std::vector<SpriteObject*>new_bullet;
-
 };

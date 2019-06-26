@@ -40,21 +40,25 @@ public:
 		return m_localTransform;
 	}
 		
-	const Matrix3 & DgetGlobalTransform()const
+	//made the protected return globalTransform public
+	const Matrix3 & public_getGlobalTransform()const
 	{
 		return m_globalTransform;
 	}
 
+	//sets the velocity from IncVel function
 	void SetVel(Matrix3 &mat)
 	{
 		m_velocity = mat;
 	}
 
+	//========Apply's velocity to the transform, so it keeps the changes for each
 	void ApplyVel()
 	{
 		m_localTransform = m_localTransform * m_velocity;
 	}
 
+	//=========Add friction of 0.1, to the current velocity of the rotation======
 	void ApplyFric()
 	{
 		Matrix3 antirotation;
@@ -66,6 +70,7 @@ public:
 		m_velocity[2][1] =  m_velocity[2][1] * m_friction;
 	}
 
+	//=========Increases velocity upon time
 	void IncVel(Matrix3 &mat)
 	{
 		m_velocity = m_velocity * mat;

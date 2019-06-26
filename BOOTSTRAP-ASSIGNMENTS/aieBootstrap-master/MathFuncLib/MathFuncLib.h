@@ -90,15 +90,6 @@ public:
 	Vector3();
 	Vector3(float X, float Y, float Z);
 
-	//union {
-	//	struct {
-	//		float m_x;
-	//		float m_y;
-	//		float m_z;
-	//	};
-	//	float data[3];
-	//};
-	
 	union {
 		struct {
 			float m_x, m_y;
@@ -108,10 +99,6 @@ public:
 		};
 		float data[3];
 	};
-
-	double PrintVectorx(float x);
-	void DisplayVector3Coordinates();
-
 
 	float GetX();
 	float GetY();
@@ -133,7 +120,7 @@ public:
 	operator const float*()const;
 
 
-	//=============================
+	//=========operator function===============
 	Vector3 operator- (const Vector3 &other);
 	Vector3 operator+ (const Vector3 &other)const;
 	Vector3 operator +=(const Vector3 &other);

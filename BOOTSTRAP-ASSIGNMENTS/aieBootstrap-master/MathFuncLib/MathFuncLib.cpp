@@ -178,12 +178,6 @@ Vector3::Vector3(float X, float Y, float Z)
 	m_z = Z;
 }
 
-
-double Vector3::PrintVectorx(float x)
-{
-	return x;
-}
-
 //========GETTERS================
 float Vector3::GetX()
 {
@@ -212,13 +206,8 @@ void Vector3::SetZ(float z_value)
 {
 	m_z = z_value;
 }
-
 //=========SETTERS================
 
-void Vector3::DisplayVector3Coordinates()
-{
-	cout << "(" << GetX() << "," << "" << GetY() << "," << "" << GetZ() <<  ")" << endl;
-}
 
 //=================Vector3 Initialization==========================
 Vector3::operator float*() { return data; }

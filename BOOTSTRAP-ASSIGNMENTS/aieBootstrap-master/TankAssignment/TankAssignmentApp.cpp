@@ -39,6 +39,8 @@ void TankAssignmentApp::shutdown() {
 
 	delete m_font;
 	delete m_2dRenderer;
+	delete List;
+	delete new_bullet;
 }
 
 void TankAssignmentApp::update(float deltaTime) {
@@ -77,119 +79,69 @@ void TankAssignmentApp::update(float deltaTime) {
 		quit();
 	if (input->isKeyDown(aie::INPUT_KEY_W))
 	{
+
 		Matrix3 tank_vel;
 
-		tank_vel.translation.m_y = 20 * deltaTime;
-		m_tank.IncVel(tank_vel);
+		tank_vel.translation.m_y = 20 * deltaTime;//acceleration upwards = 20
+		m_tank.IncVel(tank_vel);//increases upon update
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_A))
 	{
 		Matrix3 tank_rot;
 
 		tank_rot.setRotateZ(deltaTime);
-		m_tank.IncVel(tank_rot);
+		m_tank.IncVel(tank_rot); //increases upon update
 
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_S))
 	{
 		Matrix3 tank_vel;
 
-		tank_vel.translation.m_y = -20 * deltaTime;
-		m_tank.IncVel(tank_vel);
-		//auto facing = m_tank.getLocalTransform()[1] * deltaTime * -300;
-		//m_tank.translate(facing.m_x, facing.m_y);//facing.x, facing.y)
+		tank_vel.translation.m_y = -20 * deltaTime;//acceleration downwards = 20(-20)
+		m_tank.IncVel(tank_vel);//increases upon update
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_D))
 	{
-
 		Matrix3 tank_rot;
 
 		tank_rot.setRotateZ(-deltaTime);
-		m_tank.IncVel(tank_rot);
-
-		//m_tank.rotate(-deltaTime);
+		m_tank.IncVel(tank_rot);//increases upon update
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_Q))
 	{
 		Matrix3 turret_rot;
 
 		turret_rot.setRotateZ(deltaTime);
-		m_turret.IncVel(turret_rot);
+		m_turret.IncVel(turret_rot);//increases upon update
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_E))
 	{
 		Matrix3 turret_rot;
 
 		turret_rot.setRotateZ(-deltaTime);
-		m_turret.IncVel(turret_rot);
+		m_turret.IncVel(turret_rot);//increases upon update
 	}
 	if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
 	{
 		Matrix3 velocity;
 		velocity.translation.m_y = 2;
 
-		new_bullet = new SpriteObject();
+		new_bullet = new SpriteObject(); //create new bullet
 
-		new_bullet->load("../bin/textures/m_bullet.png");
+		new_bullet->load("../bin/textures/m_bullet.png");//adds texture
 
-		//insert into tree
+		//insert into List
 		List->addChild(new_bullet);
-		//tree->insert(new_bullet);
-
-		new_bullet->setRotate(atan2f(m_turret.DgetGlobalTransform()[0][1], m_turret.DgetGlobalTransform()[0][0]));
+		new_bullet->setRotate(atan2f(m_turret.public_getGlobalTransform()[0][1], m_turret.public_getGlobalTransform()[0][0])); //set where it's pointing according to cannon
 		
 		Matrix3 gunPoint;
 
 		gunPoint = m_turret.getLocalTransform();
 		gunPoint.translation.m_y += new_bullet->GetTexture()->getHeight(); //+ the height
-
-		gunPoint = m_turret.DgetGlobalTransform() * gunPoint;
-
-		//new_bullet->setPosition(m_turret.DgetGlobalTransform()[2][0], m_turret.DgetGlobalTransform()[2][1]); //position
-		new_bullet->setPosition(gunPoint[2][0], gunPoint[2][1]); //position
-
-		new_bullet->SetVel(velocity);
-
-		//m_bullet.setRotate(atan2f(m_turret.DgetGlobalTransform()[0][1], m_turret.DgetGlobalTransform()[0][0])); //radian 
-		//m_bullet.setPosition(m_tank.DgetGlobalTransform()[2][0], m_tank.DgetGlobalTransform()[2][1]); //position
-		
-		//m_bullet.SetVel(velocity);
-		
-		
-		//new_bullet;//set transform matrix
-		//transform matrix includes
-		//location - 
-		//rotation -
-		//speed -
-
-		//SpriteObject *head = nullptr;
-
-		//bullet = m_turret.getLocalTransform();
-		////bullet speed = 10f;
-		//bullet.setRotateZ(2.02315561);
-		//
-		//bullet.c_x *= speed;
-		//bullet.c_y *= speed;
-		//bullet.c_z *= speed;
-		//m_bullet.setPosition(m_tank.getLocalTransform()[0][0], m_tank.getLocalTransform()[0][1]);
-
-
-
-
-		//head = localTransform;
-		//auto directionFacing = m_turret.getLocalTransform()[1] * deltaTime * 100;
-		//new_bullet.translate(directionFacing.m_x, directionFacing.m_y);
-		//auto facing = m_turret.getLocalTransform()[1] * deltaTime * 100; //moves with turret
-		//bulletFired = true;
-		//bulletFiredAnimate = true;
-		//if(bulletFiredAnimate)
-		//auto facing = m_turret.getLocalTransform()[1] * deltaTime * 100; //moving each frame upwards
-		//m_bullet.translate(facing.m_x, facing.m_y); //facing up
+		gunPoint = m_turret.public_getGlobalTransform() * gunPoint;
+		new_bullet->setPosition(gunPoint[2][0], gunPoint[2][1]); //position of bullet to be at gunpoint
+		new_bullet->SetVel(velocity); //sets velocity accordingly through each update
 	}
-	//auto facing = m_turret.getLocalTransform()[1] * deltaTime * 100;
-
-	//m_bullet.translate(facing.m_x, facing.m_y);
-
 }
 
 void TankAssignmentApp::draw() {
