@@ -54,11 +54,11 @@ int binToDec(const char* binaryString)
 {
 	int result = 0;
 
-	for (int i = 4; i > -1; i--) //starting iterator at the end of the array
+	for (int i = 7; i > -1; i--) //starting iterator at the end of the array
 	{
 		if (binaryString[i] == '1')
 		{
-			result = result | 1 << 4 /*maxSize*/ - i; //size puts it at the end of the array, then end - 1, so it always is furthest right
+			result = result | 1 << 7 /*maxSize*/ - i; //size puts it at the end of the array, then end - 1, so it always is furthest right
 			//result = result << 1 | 5 + binaryString[i];
 		}
 		//else--> number is 0, so it shouldn't get result to calculate it
