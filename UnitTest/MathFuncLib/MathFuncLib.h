@@ -211,10 +211,6 @@ public:
 	float dot(const Vector4 &other)const;
 
 	Vector4 cross(const Vector4 &other) const;
-	void translate(float x, float y, float z)
-	{
-		translation += Vector2(x, y, 0);
-	}
 };
 Vector4 operator * (float scalar, const Vector4 &vec4);
 

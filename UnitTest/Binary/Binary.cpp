@@ -9,6 +9,8 @@
 
 using namespace std;
 
+const char BinaryData = 11011;
+
 const char CHAINSAW = 0x01;
 const char PISTOL = 0x01 << 1;
 const char SHOTGUN = 0x01 << 2;
@@ -103,36 +105,40 @@ int main()
 				cin >> variable;
 				if (variable == "b")
 				{
-					cout << "Enter size of binary data" << endl;
-					cin >> temp;
+					//cout << "Enter size of binary data" << endl;
+					//cin >> temp;
 
-					cout << "Enter the binary of your choice" << endl;
-					for (int i = 0; i < temp; i++)
-					{
-						cin >> bitArray[i];
-					}
-					cout << "Converting..." << endl;
-					//convert function
-					//binary-->Decimal
-					//int total = 0;
+					//cout << "Enter the binary of your choice" << endl;
 					//for (int i = 0; i < temp; i++)
 					//{
-					//	int exponent = temp; //Starts at the amount of numbers
-					//	if (bitArray[i] == 1) //starts at array[0] and then if array[0] == 1 
-					//	{
-					//		total = total + 1 * 2 ^ exponent; //if 1 then 1 * 2 by the exponent of size at default
-					//	}
-					//	else
-					//	{
-					//		total = total + 0 * 2 ^ exponent; //if 0 then 0*2 by exponent of size
-					//	}
-					//	exponent--;
+						//cout << "Enter First Binary Number: " << i + 1 << endl;
+						//cin >> bitArray[i];
 					//}
-					cout << "Decimal" << endl;
-					cout << BinaryToDecimal(bitArray, temp);
-					cin.get();
+					cout << "Result: " << binToDec(&BinaryData);
+					//cout << "Converting..." << endl;
+					////convert function
+					////binary-->Decimal
+					//cout << "Decimal: " << endl;
+					//cout << BinaryToDecimal(bitArray, temp) << endl;
+					//cin.get();
 
+					//cout << "Finished Converting..." << endl;
+
+				}
+				else if (variable == "d")
+				{
+					//-----------------KEY-------------------------
+					// [1]--> temp = decimal number to be inputted
+					cout << "Enter the Decimal of your choice" << endl;
+					cin >> temp;
+					cout << "Converting..." << endl;
+					//convert function
+					//Decimal-->binary
 					cout << "Finished Converting..." << endl;
+
+					cin.get();
+					cout << "Binary: " << endl;
+					DecimalToBinary(temp);
 
 				}
 				break;
