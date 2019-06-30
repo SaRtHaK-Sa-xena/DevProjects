@@ -1,5 +1,9 @@
 #pragma once
-#include "MathFuncLib.h"
+#include "Vector2.h"
+#include "Vector3.h"
+#include "Vector4.h"
+#include "Matrix3.h"
+#include "Matrix4.h"
 
 // YOUR INCLUDES HERE
 //#include "Vector2.h" etc
