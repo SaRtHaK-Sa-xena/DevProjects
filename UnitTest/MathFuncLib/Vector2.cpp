@@ -22,8 +22,13 @@ Vector2::Vector2(float X, float Y)
 
 
 //allows Vector2 to convert to float
-Vector2::operator float*() { return &m_x; }
+Vector2::operator float*() { return data; }
+Vector2::operator const float*()
+{
+	return data;
+}
 //allows Vector2 to convert to float
+
 
 
 //==================OPERATOR(+)======================

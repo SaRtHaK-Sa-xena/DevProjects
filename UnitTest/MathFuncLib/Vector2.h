@@ -26,6 +26,8 @@ public:
 	}
 	operator float*();
 
+	operator const float*();
+
 	//==========PLUS====================
 	Vector2 operator+(const Vector2 &other);
 	//==========PLUS====================

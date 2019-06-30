@@ -2,6 +2,8 @@
 
 #include "Application.h"
 #include "Renderer2D.h"
+#include "BehaviourClass.h"
+#include "SeekBehaviourClass.h"
 
 class AgentApp : public aie::Application {
 public:
@@ -19,4 +21,12 @@ protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
+
+	//creates player; able to move through keyboard behaviour
+	Agent*				m_player;
+	KeyboardBehaviour*	m_keyboardBehaviour;
+
+	//creates enemy; unable to move, but uses seek to move
+	Agent*				m_enemy;
+	SeekBehaviour*		m_followBehaviour;
 };

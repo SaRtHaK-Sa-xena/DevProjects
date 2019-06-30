@@ -1,4 +1,8 @@
 #pragma once
+#include "AgentClass.h"
+#include <Input.h>
+#include <Vector2.h>
+
 class Behaviour
 {
 public:
