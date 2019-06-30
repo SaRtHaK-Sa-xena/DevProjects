@@ -1,7 +1,9 @@
+#include "stdafx.h"
 #include "Vector3.h"
 #include <iostream>
 using namespace std;
 
+//basic constructor
 Vector3::Vector3()
 {
 	m_x = 0;
@@ -13,6 +15,9 @@ Vector3::Vector3()
 	data[2] = m_z;
 
 }
+
+
+//setting constructor
 Vector3::Vector3(float X, float Y, float Z)
 {
 	m_x = X;
@@ -21,10 +26,6 @@ Vector3::Vector3(float X, float Y, float Z)
 }
 
 
-double Vector3::PrintVectorx(float x)
-{
-	return x;
-}
 
 //========GETTERS================
 float Vector3::GetX()
@@ -54,30 +55,38 @@ void Vector3::SetZ(float z_value)
 {
 	m_z = z_value;
 }
-
 //=========SETTERS================
 
-void Vector3::DisplayVector3Coordinates()
-{
-	cout << "(" << GetX() << "," << "" << GetY() << "," << "" << GetZ() << ")" << endl;
-}
+
 
 //=================Vector3 Initialization==========================
-Vector3::operator float*() { return data; }
 
+//allows Vector3 to work with float
+Vector3::operator float*() { return data; }
+//allows Vector3 to work with float
+
+
+//allows Vector3 const to work with float
 Vector3::operator const float*() const
 {
 	return data;
 }
+//allows Vector3 const to work with float
 
 
 
 
-//========================VECTOR 3==========================
+//==============VECTOR 3 OPERATORS======================
+
+//==================OPERATOR(+)======================
 Vector3 Vector3::operator+(const Vector3 &other) const
 {
 	return{ m_x + other.m_x, m_y + other.m_y, m_z + other.m_z };
 }
+//==================OPERATOR(+)======================
+
+
+//==================OPERATOR(+=)======================
 Vector3 Vector3::operator+=(const Vector3 & other)
 {
 	m_x += other.m_x;
@@ -85,6 +94,9 @@ Vector3 Vector3::operator+=(const Vector3 & other)
 	m_z += other.m_z;
 	return *this;
 }
+//==================OPERATOR(+=)======================
+
+//==================OPERATOR(-)======================
 Vector3 Vector3::operator- (const Vector3 &other)
 {
 	Vector3 result;
@@ -95,8 +107,10 @@ Vector3 Vector3::operator- (const Vector3 &other)
 
 	return result;
 }
+//==================OPERATOR(-)======================
 
 
+//==================OPERATOR(*)======================
 Vector3 Vector3::operator * (float scalar)
 {
 	Vector3 result;
@@ -107,13 +121,19 @@ Vector3 Vector3::operator * (float scalar)
 
 	return result;
 }
+//==================OPERATOR(*)======================
 
+
+//==================OPERATOR(*)======================
 Vector3 operator * (float scalar, Vector3 &vec3)
 {
+	//vector3 multiplied by float
 	return	vec3 * scalar;
-
 }
+//==================OPERATOR(*)======================
 
+
+//==================OPERATOR(/=)======================
 Vector3 Vector3::operator /= (float scalar)
 {
 	Vector3 result;
@@ -124,6 +144,10 @@ Vector3 Vector3::operator /= (float scalar)
 
 	return result;
 }
+//==================OPERATOR(/=)======================
+
+
+//==================OPERATOR(=)======================
 Vector3 Vector3::operator = (const Vector3& other)
 {
 	m_x = other.m_x;
@@ -131,16 +155,26 @@ Vector3 Vector3::operator = (const Vector3& other)
 	m_z = other.m_z;
 	return *this;
 }
+//==================OPERATOR(=)======================
+
+
+//==============DOT multiplication==============
 float Vector3::dot(const Vector3 & other) const
 {
 	return m_x * other.m_x + m_y * other.m_y + m_z * other.m_z;
 }
+//==============DOT multiplication==============
 
+
+//finds square root of the vector3 for magnitude
 float Vector3::magnitude() const
 {
 	return sqrt(m_x*m_x + m_y * m_y + m_z * m_z);
 }
+//finds square root of the vector2 for magnitude
 
+
+//decrease the vector3 by the scale increased through magnitude
 void Vector3::normalise()
 {
 	float mag = sqrt(m_x*m_x + m_y * m_y + m_z * m_z);
@@ -148,11 +182,14 @@ void Vector3::normalise()
 	m_y /= mag;
 	m_z /= mag;
 }
+//decrease the vector3 by the scale increased through magnitude
 
 
+//cross multiplication with vector3
 Vector3 Vector3::cross(const Vector3 & other) const
 {
 	return{ m_y * other.m_z - m_z * other.m_y,
 			m_z * other.m_x - m_x * other.m_z,
 			m_x * other.m_y - m_y * other.m_x };
 }
+//cross multiplication with vector3

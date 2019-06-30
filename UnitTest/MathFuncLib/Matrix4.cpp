@@ -1,8 +1,10 @@
+#include "stdafx.h"
 #include "Matrix4.h"
 #include <iostream>
 
 using namespace std;
 
+//basic constructor equals the identity matrix
 Matrix4::Matrix4()
 {
 	a_x = 1;
@@ -46,11 +48,7 @@ Matrix4::Matrix4()
 	data[3][3] = d_w;
 }
 
-//Matrix4::Matrix4(float aX, float bX, float cX, float dX,
-//	float aY, float bY, float cY, float dY,
-//	float aZ, float bZ, float cZ, float dZ,
-//	float aW, float bW, float cW, float dW)
-
+//setting constructor
 Matrix4::Matrix4(float aX, float aY, float aZ, float aW,
 	float bX, float bY, float bZ, float bW,
 	float cX, float cY, float cZ, float cW,
@@ -77,16 +75,30 @@ Matrix4::Matrix4(float aX, float aY, float aZ, float aW,
 	d_w = dW;
 }
 
+//allows vector4 to equal a matrix4
+//xAxis = Vector4
+//yAxis = Vector4
+//zAxis = Vector4
+//wAxis = Vector4
+//====Equaling a Matrix4
 Vector4 & Matrix4::operator[](int index)
 {
 	return axis[index];
 }
 
+//allows vector4 to equal a matrix4
+//xAxis = Vector4
+//yAxis = Vector4
+//zAxis = Vector4
+//wAxis = Vector4
+//====Equaling a Matrix4
 const Vector4 & Matrix4::operator[](int index) const
 {
 	return axis[index];
 }
 
+
+//==================OPERATOR(=)======================
 Matrix4 Matrix4::operator=(Matrix4 &other)
 {
 	a_x = other.a_x;
@@ -111,7 +123,9 @@ Matrix4 Matrix4::operator=(Matrix4 &other)
 
 	return *this;
 }
+//==================OPERATOR(=)======================
 
+//sets the matrix4's Axis to equal that vector4
 Matrix4 Matrix4::operator=(Vector4 & other)
 {
 	a_x = other.m_x;
@@ -121,7 +135,10 @@ Matrix4 Matrix4::operator=(Vector4 & other)
 
 	return *this;
 }
+//sets the matrix4's Axis to equal that vector4
 
+
+//==================OPERATOR(*)======================
 Vector4 Matrix4::operator*(const Vector4 &v)const
 {
 	Vector4 result;
@@ -133,7 +150,9 @@ Vector4 Matrix4::operator*(const Vector4 &v)const
 
 	return result;
 }
+//==================OPERATOR(*)======================
 
+//==================OPERATOR(*)======================
 Matrix4 Matrix4::operator*(const Matrix4 &other) const
 {
 	Matrix4 result;
@@ -150,7 +169,9 @@ Matrix4 Matrix4::operator*(const Matrix4 &other) const
 	}
 	return result;
 }
+//==================OPERATOR(*)======================
 
+//transposes the matrix4
 Matrix4 Matrix4::transposed()const
 {
 	Matrix4 result;
@@ -164,18 +185,21 @@ Matrix4 Matrix4::transposed()const
 	return result;
 }
 
-//IDENTITY
+//IDENTITY MATRIX making it the default
 const Matrix4 Matrix4::identity = Matrix4
 (1, 0, 0, 0,
 	0, 1, 0, 0,
 	0, 0, 1, 0,
 	0, 0, 0, 1);
 
+
+//converts to float
 Matrix4::operator float*()
 {
 	return *data;
 }
 
+//sets the values in the matrix4 to scale
 void Matrix4::setScaled(float x, float y, float z, float w)
 {
 	xAxis = { x,0,0,0 };
@@ -185,6 +209,7 @@ void Matrix4::setScaled(float x, float y, float z, float w)
 	translation = { 0,0,0,1 };
 }
 
+//sets the values of vector4 to matrix4
 void Matrix4::setScaled(const Vector4 & v)
 {
 	xAxis = { v.m_x,0,0,0 };
@@ -193,6 +218,8 @@ void Matrix4::setScaled(const Vector4 & v)
 	wAxis = { 0,0,0,v.m_w };
 }
 
+
+//rotates on x
 Matrix4 & Matrix4::setRotateX(float radians)
 {
 	xAxis = { 1, 0, 0, 0 };
@@ -204,6 +231,7 @@ Matrix4 & Matrix4::setRotateX(float radians)
 
 }
 
+//rotates on y
 Matrix4 & Matrix4::setRotateY(float radians)
 {
 	xAxis = { cosf(radians), 0, -sinf(radians), 0 };
@@ -213,6 +241,8 @@ Matrix4 & Matrix4::setRotateY(float radians)
 	return *this;
 }
 
+
+//rotates on z
 Matrix4 & Matrix4::setRotateZ(float radians)
 {
 	xAxis = { cosf(radians), sinf(radians), 0, 0 };

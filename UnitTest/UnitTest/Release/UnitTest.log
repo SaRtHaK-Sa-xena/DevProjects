@@ -1,10 +1,6 @@
-﻿  main.cpp
-  unittest.cpp
-  Generating code
-  32 of 100 functions (32.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+﻿  Generating code
+  84 of 100 functions (84.0%) were compiled, the rest were copied from previous compilation.
+    2 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-MathFuncLib.lib(MathFuncLib.obj) : warning LNK4099: PDB 'MathFuncLib.pdb' was not found with 'MathFuncLib.lib(MathFuncLib.obj)' or at 'C:\Users\sarthak\Documents\GitHub\TestProject2D\UnitTest\Release\MathFuncLib.pdb'; linking object as if no debug info
-MathFuncLib.lib(stdafx.obj) : warning LNK4099: PDB 'MathFuncLib.pdb' was not found with 'MathFuncLib.lib(stdafx.obj)' or at 'C:\Users\sarthak\Documents\GitHub\TestProject2D\UnitTest\Release\MathFuncLib.pdb'; linking object as if no debug info
   UnitTest.vcxproj -> C:\Users\sarthak\Documents\GitHub\TestProject2D\UnitTest\Release\UnitTest.exe

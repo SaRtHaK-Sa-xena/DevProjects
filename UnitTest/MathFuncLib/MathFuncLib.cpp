@@ -1,9 +1,7 @@
 
 #include "stdafx.h"
 #include "MathFuncLib.h"
-#include <stdexcept>
-#include "Vector3.h"
-#include "Vector4.h"
+
 
 using namespace std;
 

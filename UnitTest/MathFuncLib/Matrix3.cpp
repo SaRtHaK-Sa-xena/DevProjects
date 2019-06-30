@@ -1,8 +1,10 @@
+#include "stdafx.h"
 #include "Matrix3.h"
 #include <iostream>
 
 using namespace std;
 
+//basic constructor equals the identity matrix
 Matrix3::Matrix3()
 {
 	a_x = 1;
@@ -32,6 +34,8 @@ Matrix3::Matrix3()
 
 }
 
+
+//setting constructor
 Matrix3::Matrix3(float aX, float aY, float aZ, float bX, float bY, float bZ, float cX, float cY, float cZ)
 {
 	a_x = aX;
@@ -48,22 +52,30 @@ Matrix3::Matrix3(float aX, float aY, float aZ, float bX, float bY, float bZ, flo
 
 }
 
+//returns the corresponding vector3 index
 Vector3 & Matrix3::operator[](int index)
 {
 	return axis[index];
 }
+//returns the corresponding vector3 index
 
+
+//returns the const version of the vector3 index
 const Vector3 & Matrix3::operator[](int index) const
 {
 	return axis[index];
 }
+//returns the const version of the vector3 index
 
-
+//returns float of data
 Matrix3::operator float*()
 {
 	return *data;
 }
+//returns float of data
 
+
+//==================OPERATOR(*)======================
 Matrix3 Matrix3::operator*(const Matrix3 &other)const
 {
 	// r = rows
@@ -82,8 +94,10 @@ Matrix3 Matrix3::operator*(const Matrix3 &other)const
 	}
 	return result;
 }
+//==================OPERATOR(*)======================
 
 
+//transposes Matrix3
 Matrix3 Matrix3::transposed() const
 {
 	Matrix3 result; // flip row and column
@@ -93,6 +107,8 @@ Matrix3 Matrix3::transposed() const
 	return result;
 }
 
+
+//==================OPERATOR(*)======================
 Vector3 Matrix3::operator*(const Vector3 &v)const
 {
 	Vector3 result;
@@ -104,7 +120,10 @@ Vector3 Matrix3::operator*(const Vector3 &v)const
 
 	return result;
 }
+//==================OPERATOR(*)======================
 
+
+//==================OPERATOR(=)======================
 Matrix3 & Matrix3::operator=(const Matrix3 &other)
 {
 	a_x = other.a_x;
@@ -120,9 +139,11 @@ Matrix3 & Matrix3::operator=(const Matrix3 &other)
 	c_z = other.c_z;
 
 	return *this;
-
 }
+//==================OPERATOR(=)======================
 
+
+//==================OPERATOR(=)======================
 Matrix3 & Matrix3::operator=(Vector3 & other)
 {
 	a_x = other.m_x;
@@ -131,22 +152,27 @@ Matrix3 & Matrix3::operator=(Vector3 & other)
 
 	return *this;
 }
+//==================OPERATOR(=)======================
 
+//makes the default constructor, which is the identity matrix
 const Matrix3 Matrix3::identity = Matrix3
-(1, 0, 0,
+   (1, 0, 0,
 	0, 1, 0,
 	0, 0, 1);
 
+//makes the default constructor, which is the identity matrix
 
 
-//=======================rotation================
+//=================sets scale by changing matrix values==========
 void Matrix3::setScaled(float x, float y, float z)
 {
 	xAxis = { x,0,0 };
 	yAxis = { 0,y,0 };
 	zAxis = { 0,0,z };
 }
+//=================sets scale by changing matrix values==========
 
+//sets by using copied values of given vector3
 void Matrix3::setScaled(const Vector3 &v)
 {
 	xAxis = { v.m_x,0,0 };
@@ -154,6 +180,8 @@ void Matrix3::setScaled(const Vector3 &v)
 	zAxis = { 0,0,v.m_z };
 }
 
+
+//makes the matrix have values from vector3
 void Matrix3::scale(const Vector3 &v)
 {
 	Matrix3 m;
@@ -162,6 +190,8 @@ void Matrix3::scale(const Vector3 &v)
 	*this = *this * m;
 }
 
+
+//makes the matrix through values from given width, height, and i
 void Matrix3::scale(float width, float height, int i)
 {
 	Matrix3 m;
@@ -170,6 +200,8 @@ void Matrix3::scale(float width, float height, int i)
 	*this = *this * m;
 }
 
+
+//sets rotation for rotating on x axis
 Matrix3 & Matrix3::setRotateX(float radians) { // leave X axis and elements unchanged
 	xAxis = { 1, 0, 0 };
 	yAxis = { 0, cosf(radians), sinf(radians) };
@@ -178,6 +210,8 @@ Matrix3 & Matrix3::setRotateX(float radians) { // leave X axis and elements unch
 	return *this;
 }
 
+
+//sets rotation for rotating on y axis
 Matrix3 & Matrix3::setRotateY(float radians) {
 	xAxis = { cosf(radians), 0, -sinf(radians) };
 	yAxis = { 0, 1, 0 };
@@ -185,6 +219,8 @@ Matrix3 & Matrix3::setRotateY(float radians) {
 	return *this;
 }
 
+
+//sets rotation for rotating on z axis
 Matrix3 &Matrix3::setRotateZ(float radians) {
 
 	xAxis = { cosf(radians), sinf(radians), 0 };
@@ -194,6 +230,8 @@ Matrix3 &Matrix3::setRotateZ(float radians) {
 	return *this;
 }
 
+
+//cause rotation for x
 void Matrix3::rotateX(float radians)
 {
 	Matrix3 m;
@@ -201,6 +239,8 @@ void Matrix3::rotateX(float radians)
 	*this = *this * m;
 }
 
+
+//cause rotation for y
 void Matrix3::rotateY(float radians)
 {
 	Matrix3 m;
@@ -208,6 +248,8 @@ void Matrix3::rotateY(float radians)
 	*this = *this *m;
 }
 
+
+//cause rotation for z
 void Matrix3::rotateZ(float radians)
 {
 	Matrix3 m;
@@ -215,6 +257,8 @@ void Matrix3::rotateZ(float radians)
 	*this = *this *m;
 }
 
+
+//sets Euler
 void Matrix3::setEuler(float pitch, float yaw, float roll)
 {
 	Matrix3 x, y, z;

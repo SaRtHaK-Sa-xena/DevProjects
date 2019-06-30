@@ -1,12 +1,1 @@
-﻿  stdafx.cpp
-  MathFuncLib.cpp
-  Matrix3.cpp
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\matrix3.cpp(227): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?
-  Matrix4.cpp
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\matrix4.cpp(226): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?
-  Vector2.cpp
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\vector2.cpp(95): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?
-  Vector3.cpp
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\vector3.cpp(159): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?
-  Vector4.cpp
-c:\users\sarthak\documents\github\testproject2d\unittest\mathfunclib\vector4.cpp(145): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?
+﻿  MathFuncLib.vcxproj -> C:\Users\sarthak\Documents\GitHub\TestProject2D\UnitTest\Release\MathFuncLib.lib
