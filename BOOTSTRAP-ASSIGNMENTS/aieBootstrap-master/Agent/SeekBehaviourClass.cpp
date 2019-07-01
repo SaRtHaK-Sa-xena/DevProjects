@@ -5,7 +5,7 @@ Vector2 SeekBehaviour::Update(Agent * agent, float deltaTime)
 	//if target is null return a zero vector
 	if (m_target == nullptr)
 	{
-		return Vector2(0, 0);
+		return Vector2();
 	}
 	
 	else
@@ -14,13 +14,14 @@ Vector2 SeekBehaviour::Update(Agent * agent, float deltaTime)
 		agent->GetPosition();
 		agent->GetVelocity();
 
-		Vector2 m(0, 0); //maybe 
+		Vector2 m; //maybe 
 
 		//calculate the vector describing the direction to the target and normalize it
 		//direction
-		m.magnitude();
+		//m.magnitude();
+		
 		//normalized
-		m.normalise();
+		//m.normalise();
 
 
 		//Multiply the direction by the speed we want the agent to move
@@ -29,7 +30,7 @@ Vector2 SeekBehaviour::Update(Agent * agent, float deltaTime)
 
 		Vector2 example(m.m_x, m.m_y * 20);
 
-		Vector2 result = agent->GetPosition.m_y * 20;//just added
+		Vector2 result = agent->GetPosition()* 20;//just added
 
 		//Subtract the agent's current velocity from the result to get the force we need to apply
 		Vector2 force;

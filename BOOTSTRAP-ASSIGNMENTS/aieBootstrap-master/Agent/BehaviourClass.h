@@ -1,7 +1,9 @@
 #pragma once
-#include "AgentClass.h"
+//#include "AgentClass.h"
 #include <Input.h>
 #include <Vector2.h>
+
+class Agent;
 
 class Behaviour
 {
@@ -18,8 +20,8 @@ public:
 class KeyboardBehaviour : public Behaviour
 {
 public:
-	KeyboardBehaviour();
-	virtual ~KeyboardBehaviour();
+	KeyboardBehaviour() {};
+	virtual ~KeyboardBehaviour() {};
 
 	virtual Vector2 Update(Agent* agent, float deltaTime);
 };

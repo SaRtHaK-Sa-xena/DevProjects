@@ -1,5 +1,4 @@
-#include "BehaviourClass.h"
-
+#include "AgentClass.h"
 Vector2 KeyboardBehaviour::Update(Agent * agent, float deltaTime)
 {
 	aie::Input* input = aie::Input::getInstance();

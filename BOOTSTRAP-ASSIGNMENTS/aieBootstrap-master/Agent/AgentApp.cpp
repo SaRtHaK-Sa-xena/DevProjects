@@ -1,9 +1,6 @@
 #include "AgentApp.h"
 #include "Texture.h"
 #include "Font.h"
-#include "Input.h"
-#include "BehaviourClass.h"
-#include "AgentClass.h"
 
 
 AgentApp::AgentApp() {
@@ -23,7 +20,8 @@ bool AgentApp::startup() {
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 
 	m_player = new Agent();
-	m_player->SetPosition(Vector2(100.0f, 100.0f)); // set starting position
+	//m_player->SetPosition(Vector2(100.0f, 100.0f)); // set starting position
+	m_player->SetPosition(Vector2(100,100)); // set starting position
 
 	m_keyboardBehaviour = new KeyboardBehaviour();
 	//m_player->AddBehaviour(m_keyboardBehaviour); //adds behaviour of keyboard

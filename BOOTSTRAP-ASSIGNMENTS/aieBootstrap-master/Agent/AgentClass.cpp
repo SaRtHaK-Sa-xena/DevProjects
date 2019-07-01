@@ -3,14 +3,14 @@
 void Agent::Update(float deltaTime)
 {
 	//force equal to zero
-	Vector2 force(0,0);
+	Vector2 force;
 
 	//for each Behaviour in Behaviour list
 	//call the Behaviour's update Function adn add the returned value to force
 
 	//creates the agent,and behaviour being used(use)
 	//Behaviour *use;
-	Agent *useAgent;
+	Agent *useAgent = new Agent();
 	
 	//force = force + use->Update(useAgent,deltaTime); //returns the force depending on the key pressed
 	//so if w was pressed it'll make m_y = 500;, with the force of 500;
@@ -41,7 +41,7 @@ void Agent::Draw(aie::Renderer2D * renderer)
 	renderer->drawBox(m_Position.m_x, m_Position.m_y, 10, 10);
 }
 
-//void Agent::AddBehaviour(Behaviour * behaviour)
-//{
-//	
-//}
+void Agent::AddBehaviour(Behaviour * behaviour)
+{
+	m_BehaviourList.push_back(behaviour);
+}

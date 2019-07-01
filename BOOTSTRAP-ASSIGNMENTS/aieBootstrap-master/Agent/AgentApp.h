@@ -1,8 +1,6 @@
 #pragma once
 
 #include "Application.h"
-#include "Renderer2D.h"
-#include "BehaviourClass.h"
 #include "SeekBehaviourClass.h"
 
 class AgentApp : public aie::Application {

@@ -1,12 +1,12 @@
 #pragma once
-#include "BehaviourClass.h"
+#include "AgentClass.h"
 
 class SeekBehaviour : public Behaviour
 {
 public:
 	
-	SeekBehaviour();
-	virtual ~SeekBehaviour();
+	SeekBehaviour() {};
+	virtual ~SeekBehaviour() {};
 
 	virtual Vector2 Update(Agent* agent, float deltaTime);
 	void SetTarget(Agent *agent)
