@@ -22,7 +22,7 @@ public:
 	//}
 
 protected:
-	float speed = 20;
+	float speed = 2000; //sets the speed of enemy 
 };
 
 class KeyboardBehaviour : public Behaviour
@@ -31,5 +31,5 @@ public:
 	KeyboardBehaviour() {};
 	virtual ~KeyboardBehaviour() {};
 
-	virtual Vector2 Update(Agent* agent, float deltaTime);
+	virtual Vector2 Update(Agent* agent, float deltaTime); //calls movement for the enemy
 };

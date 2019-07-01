@@ -44,7 +44,7 @@ Vector2 SeekBehaviour::Update(Agent * agent, float deltaTime)
 		////example used to be in this
 
 		////return vector2();
-		Vector2 Direction(0, 0);
+		Vector2 Direction(0, 0); //creates a default vector2
 
 		//Vector2 Position = agent->GetPosition(); //agent's position
 
@@ -53,7 +53,7 @@ Vector2 SeekBehaviour::Update(Agent * agent, float deltaTime)
 		Direction = m_target->GetPosition() - agent->GetPosition(); //direction to target
 
 		Direction.normalise(); //normalize
-
+		
 		Direction = Direction * (speed * deltaTime);
 
 		//Direction = speed * deltaTime - Direction;

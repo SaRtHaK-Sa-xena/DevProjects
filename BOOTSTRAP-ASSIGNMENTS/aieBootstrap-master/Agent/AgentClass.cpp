@@ -27,7 +27,7 @@ void Agent::Update(float deltaTime)
 	for (auto behaviours : m_BehaviourList)
 	{
 		//returns the force depending on the key pressed
-		force = behaviours->Update(this, deltaTime);
+		force = force + behaviours->Update(this, deltaTime);
 	}
 
 	//add Force multiplied by deltaTime to Velocity
