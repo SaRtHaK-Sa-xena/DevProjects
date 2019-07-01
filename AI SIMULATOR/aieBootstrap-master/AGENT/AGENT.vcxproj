@@ -73,7 +73,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)temp\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)bootstrap;$(SolutionDir)dependencies/imgui;$(SolutionDir)dependencies/glm;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)bootstrap;$(SolutionDir)dependencies/imgui;$(SolutionDir)dependencies/glm;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)/MathFuncLib</IncludePath>
     <LibraryPath>$(SolutionDir)temp\bootstrap\$(Platform)\$(Configuration);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -163,10 +163,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AGENTApp.cpp" />
+    <ClCompile Include="AgentClass.cpp" />
+    <ClCompile Include="BehaviourClass.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AGENTApp.h" />
+    <ClInclude Include="AgentClass.h" />
+    <ClInclude Include="BehaviourClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

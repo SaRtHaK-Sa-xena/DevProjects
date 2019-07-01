@@ -169,12 +169,14 @@
     <ClCompile Include="BehaviourClass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SeekBehaviourClass.cpp" />
+    <ClCompile Include="WanderBehaviourClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AgentApp.h" />
     <ClInclude Include="AgentClass.h" />
     <ClInclude Include="BehaviourClass.h" />
     <ClInclude Include="SeekBehaviourClass.h" />
+    <ClInclude Include="WanderBehaviourClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MathFuncLib\MathFuncLib.vcxproj">

@@ -30,6 +30,9 @@
     <ClCompile Include="SeekBehaviourClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WanderBehaviourClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AgentApp.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SeekBehaviourClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WanderBehaviourClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
