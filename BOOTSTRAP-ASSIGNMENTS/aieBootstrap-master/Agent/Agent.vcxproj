@@ -176,6 +176,11 @@
     <ClInclude Include="BehaviourClass.h" />
     <ClInclude Include="SeekBehaviourClass.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MathFuncLib\MathFuncLib.vcxproj">
+      <Project>{5aa12584-9064-472a-a04e-cb2a911ef271}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

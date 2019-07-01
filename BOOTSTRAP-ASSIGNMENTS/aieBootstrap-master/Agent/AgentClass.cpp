@@ -3,7 +3,7 @@
 void Agent::Update(float deltaTime)
 {
 	//force equal to zero
-	Vector2 force;
+	Vector2 force(0, 0);
 
 	//for each Behaviour in Behaviour list
 	//call the Behaviour's update Function adn add the returned value to force
@@ -27,13 +27,13 @@ void Agent::Update(float deltaTime)
 	for (auto behaviours : m_BehaviourList)
 	{
 		//returns the force depending on the key pressed
-		force = force + behaviours->Update(useAgent, deltaTime);
+		force = behaviours->Update(useAgent, deltaTime);
 	}
 
 	//add Force multiplied by deltaTime to Velocity
-	m_Velocity = force * deltaTime;
+	m_Velocity = m_Velocity + force * deltaTime;
 	//add Velocity multiplied by deltaTime to Position
-	m_Position = m_Velocity * deltaTime;
+	m_Position = m_Position + m_Velocity;
 }
 
 void Agent::Draw(aie::Renderer2D * renderer)

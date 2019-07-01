@@ -15,6 +15,14 @@ public:
 
 	// pure virtual function for executing the behaviour
 	virtual Vector2 Update(Agent* agent, float deltaTime) = 0;
+
+	//void setSpeed(Vector2 value)
+	//{
+	//	speed = value;
+	//}
+
+protected:
+	float speed = 20;
 };
 
 class KeyboardBehaviour : public Behaviour

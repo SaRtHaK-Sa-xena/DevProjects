@@ -14,6 +14,11 @@ public:
 		m_target = agent;
 	}
 
+	void updateTarget(Agent* agent)
+	{
+		m_target = agent;
+	}
+
 private:
 	Agent *m_target;
 };

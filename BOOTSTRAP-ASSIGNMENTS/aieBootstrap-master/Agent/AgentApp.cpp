@@ -21,17 +21,17 @@ bool AgentApp::startup() {
 
 	m_player = new Agent();
 	//m_player->SetPosition(Vector2(100.0f, 100.0f)); // set starting position
-	m_player->SetPosition(Vector2(100,100)); // set starting position
+	m_player->SetPosition(Vector2(600,600)); // set starting position
 
 	m_keyboardBehaviour = new KeyboardBehaviour();
-	//m_player->AddBehaviour(m_keyboardBehaviour); //adds behaviour of keyboard
+	m_player->AddBehaviour(m_keyboardBehaviour); //adds behaviour of keyboard
 
 	m_enemy = new Agent();
 	m_enemy->SetPosition(Vector2(500.0f, 500.0f));// sets stating position for enemy
 
 	m_followBehaviour = new SeekBehaviour();
 	m_followBehaviour->SetTarget(m_player); //sets target to follow player
-	//m_enemy->AddBehaviour(m_followBehaviour);//allows the behaviour to be processed by enemy
+	m_enemy->AddBehaviour(m_followBehaviour);//allows the behaviour to be processed by enemy
 
 	return true;
 }
@@ -49,9 +49,9 @@ void AgentApp::update(float deltaTime) {
 
 	m_player->Update(deltaTime); //since player has keyboard behaviour there is no need for
 								 //an input function in update
-	
-	m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
 
+	m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
+	//m_followBehaviour->updateTarget(m_player);
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
