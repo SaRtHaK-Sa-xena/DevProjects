@@ -10,7 +10,7 @@ void Agent::Update(float deltaTime)
 
 	//creates the agent,and behaviour being used(use)
 	//Behaviour *use;
-	Agent *useAgent = new Agent();
+	//Agent *useAgent = new Agent();
 	
 	//force = force + use->Update(useAgent,deltaTime); //returns the force depending on the key pressed
 	//so if w was pressed it'll make m_y = 500;, with the force of 500;
@@ -27,7 +27,7 @@ void Agent::Update(float deltaTime)
 	for (auto behaviours : m_BehaviourList)
 	{
 		//returns the force depending on the key pressed
-		force = behaviours->Update(useAgent, deltaTime);
+		force = behaviours->Update(this, deltaTime);
 	}
 
 	//add Force multiplied by deltaTime to Velocity

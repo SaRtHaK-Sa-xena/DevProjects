@@ -42,9 +42,10 @@ Vector2 Vector2::operator+(const Vector2 & other)
 //==================OPERATOR(-)======================
 Vector2 Vector2::operator-(const Vector2 & other)
 {
-	m_x -= other.m_x;
+	/*m_x -= other.m_x;
 	m_y -= other.m_y;
-	return *this;
+	return *this;*/
+	return{ m_x - other.m_x, m_y - other.m_y };
 }
 //==================OPERATOR(-)======================
 

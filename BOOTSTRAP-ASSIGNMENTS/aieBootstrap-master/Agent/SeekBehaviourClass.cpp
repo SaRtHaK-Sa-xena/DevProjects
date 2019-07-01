@@ -3,13 +3,13 @@
 Vector2 SeekBehaviour::Update(Agent * agent, float deltaTime)
 {
 	//if target is null return a zero vector
-	if (m_target == nullptr)
-	{
-		return Vector2();
-	}
-	
-	else
-	{
+	//if (m_target == nullptr)
+	//{
+	//	return Vector2();
+	//}
+	//
+	//else
+	//{
 		////get position, and velocity
 		//agent->GetPosition();
 		//agent->GetVelocity();
@@ -46,24 +46,24 @@ Vector2 SeekBehaviour::Update(Agent * agent, float deltaTime)
 		////return vector2();
 		Vector2 Direction(0, 0);
 
-		Vector2 Position = agent->GetPosition(); //agent's position
+		//Vector2 Position = agent->GetPosition(); //agent's position
 
-		Vector2 TargetPosition = m_target->GetPosition(); //target's position
+		//Vector2 TargetPosition = m_target->GetPosition(); //target's position
 
-		Direction = TargetPosition - Position; //direction to target
+		Direction = m_target->GetPosition() - agent->GetPosition(); //direction to target
 
 		Direction.normalise(); //normalize
 
-		Direction = Direction * speed * deltaTime;
+		Direction = Direction * (speed * deltaTime);
 
 		//Direction = speed * deltaTime - Direction;
 
-		Direction = agent->GetVelocity() - Direction;
+		Direction = Direction - agent->GetVelocity();
 
 		//Direction = Direction - agent->GetVelocity(); //give it speed
 
 		//Vector2 force = agent->GetVelocity() - result;
 
 		return Direction;
-	}
+	
 }
