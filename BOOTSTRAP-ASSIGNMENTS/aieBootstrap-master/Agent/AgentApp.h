@@ -27,4 +27,7 @@ protected:
 	//creates enemy; unable to move, but uses seek to move
 	Agent*				m_enemy;
 	SeekBehaviour*		m_followBehaviour;
+
+	Agent*				m_wanderer;
+	WanderBehaviour*	m_wanderBehaviour;
 };
