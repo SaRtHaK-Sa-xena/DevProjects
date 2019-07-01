@@ -41,7 +41,7 @@ void Agent::Draw(aie::Renderer2D * renderer)
 	renderer->drawBox(m_Position.m_x, m_Position.m_y, 10, 10);
 }
 
-void Agent::AddBehaviour(Behaviour * behaviour)
-{
-	
-}
+//void Agent::AddBehaviour(Behaviour * behaviour)
+//{
+//	
+//}

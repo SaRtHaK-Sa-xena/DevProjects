@@ -26,14 +26,14 @@ bool AgentApp::startup() {
 	m_player->SetPosition(Vector2(100.0f, 100.0f)); // set starting position
 
 	m_keyboardBehaviour = new KeyboardBehaviour();
-	m_player->AddBehaviour(m_keyboardBehaviour); //adds behaviour of keyboard
+	//m_player->AddBehaviour(m_keyboardBehaviour); //adds behaviour of keyboard
 
 	m_enemy = new Agent();
 	m_enemy->SetPosition(Vector2(500.0f, 500.0f));// sets stating position for enemy
 
 	m_followBehaviour = new SeekBehaviour();
 	m_followBehaviour->SetTarget(m_player); //sets target to follow player
-	m_enemy->AddBehaviour(m_followBehaviour);//allows the behaviour to be processed by enemy
+	//m_enemy->AddBehaviour(m_followBehaviour);//allows the behaviour to be processed by enemy
 
 	return true;
 }

@@ -2,7 +2,6 @@
 #include <Renderer2D.h>
 #include "BehaviourClass.h"
 #include <Vector2.h>
-#include <iostream>
 #include <vector>
 
 class Agent
@@ -18,7 +17,7 @@ public:
 	virtual void Draw(aie::Renderer2D* renderer);
 
 	// Add a behaviour to the agent
-	void AddBehaviour(Behaviour* behaviour);
+	//void AddBehaviour(Behaviour* behaviour);
 
 	// Movement functions
 	void SetPosition(Vector2 position) { m_Position = position; } //would consist of (x,y)
