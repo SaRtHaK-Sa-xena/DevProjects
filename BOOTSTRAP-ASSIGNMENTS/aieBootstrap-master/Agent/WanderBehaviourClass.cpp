@@ -109,8 +109,12 @@ Vector2 WanderBehaviour::Update(Agent * agent, float deltaTime)
 	//return WanderForce;
 
 	//==================NEW ATTEMPT============================
-		Vector2 circleCenter(0, 0);
-
+		Vector2 circleCenter;
+		while (circleCenter.magnitude() == 0) //while mag 0
+		{
+			circleCenter.m_x = 2;//rand() % 10 + rand() % -5;
+			circleCenter.m_y = 2;//rand() % 10 + rand() % -5;
+		}
 		//just changed===================================
 		//if (agent->GetVelocity().magnitude() == 0) //if velocity equal to zero
 		//{
@@ -123,23 +127,34 @@ Vector2 WanderBehaviour::Update(Agent * agent, float deltaTime)
 		//circleCenter.normalise(); //direction
 		//circleCenter = circleCenter * distance; //defining circle center 5 spaces in
 		//just changed===================================
-
-
-		//displacement force
-		Vector2 dispalcement(0,0);
+		Vector2 dispalcement;
 		while (dispalcement.magnitude() == 0) //while mag 0
 		{
 			dispalcement.m_x = rand() % 10 + rand() % -5;
 			dispalcement.m_y = rand() % 10 + rand() % -5;
 		}
+		Vector2 temporary = agent->GetVelocity();
+		dispalcement = dispalcement * radius;// 
+		dispalcement = dispalcement + circleCenter;
+		dispalcement.normalise();
+		temporary.normalise();
+		dispalcement = dispalcement + temporary * distance;
+
+
+
+
+		//displacement force
+
 		//float magOfdispalcement = dispalcement.magnitude();
 
-		dispalcement.normalise(); //only direction
-		dispalcement = dispalcement * radius;// now represents a point on the radi of circle
+		//just changed
+		//dispalcement.normalise(); //only direction
+		//dispalcement = dispalcement * radius;// now represents a point on the radi of circle
 
-		//just added
-		agent->GetVelocity().normalise();
-		dispalcement = dispalcement + agent->GetVelocity() * distance;
+		////just added
+		//agent->GetVelocity().normalise();
+		//dispalcement = dispalcement + agent->GetVelocity() * distance;
+		//just changed
 
 
 

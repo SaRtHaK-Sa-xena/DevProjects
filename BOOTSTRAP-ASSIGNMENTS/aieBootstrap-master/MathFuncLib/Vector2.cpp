@@ -130,7 +130,7 @@ float Vector2::magnitude() const
 //decrease the vector2 by the scale increased through magnitude
 void Vector2::normalise()
 {
-	float mag = sqrt(m_x*m_x + m_y * m_y);
+	float mag = sqrt(m_x*m_x + m_y * m_y); //a^2 + b^2 = 2 + 2 = 4 so then this get's squared [PT]
 	m_x /= mag;
 	m_y /= mag;
 }
