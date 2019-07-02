@@ -2,15 +2,17 @@
 #include <Matrix3.h>
 #include <Vector3.h>
 #include <math.h>
+#include <iostream>
 
 Vector2 WanderBehaviour::Update(Agent * agent, float deltaTime)
 {
-	if (m_target == nullptr)
-	{
+	//if (m_target == nullptr)
+	//{
 
-	}
-	else
-	{
+	//}
+	//else
+	//{
+
 		//Matrix3 Circle(1, 13, 5, -1, 2, 2, 0, 3, -1, 1, 1, 1);
 
 		////Find Direction
@@ -55,7 +57,7 @@ Vector2 WanderBehaviour::Update(Agent * agent, float deltaTime)
 		//direction = direction * speed * deltaTime;
 		//direction = direction - agent->GetVelocity(); //this'll finally move it to the direction of agent
 		//return direction [the movement]
-	}
+
 	//return Vector2();
 
 
@@ -75,32 +77,69 @@ Vector2 WanderBehaviour::Update(Agent * agent, float deltaTime)
 	//return positionAheadOfTarget;
 
 
-	//=====================================================================================
+	//================FIRST ATTEMPT======================================================
 
 	//circle needs to point to the same velocity vector as the agent
-	Vector2 force(0, 0);
+	Vector2 force(0,0);
+	Vector2 displacement(0,-1);
+	float magDisplacement = displacement.magnitude();
+
+
+	displacement = displacement * radius; //scale by CIRCLE_RADIUS
+
+	displacement.m_x = cos(jitter) * magDisplacement;
+	displacement.m_y = sin(jitter) * magDisplacement;
+
+	jitter = rand() % 10 - 5; //* .5;
+	std::cout << jitter;
 
 	//points at
-	force = m_target->GetPosition() - agent->GetPosition();
+	force = (displacement - agent->GetVelocity());
 
 	//only has direction no force
 	force.normalise();
 
-	force = force * distance; //scale by
+	force = force * distance;
 
-	Vector2 displacement(0,-1);
-	displacement = displacement * radius; //scale by CIRCLE_RADIUS
+ //scale by
 
-	displacement.m_x = cos(jitter) * distance;
-	displacement.m_y = sin(jitter) * distance;
-	//V = pointA - pointB
-
-	jitter += rand() % 10 - 5 * .5;
 
 	Vector2 WanderForce(0, 0);
-	WanderForce = force + displacement;
+	WanderForce = force + displacement * deltaTime;
 	return WanderForce;
 
+	//==================NEW ATTEMPT============================
+		//Vector2 circleCenter(0, 0);
 
+		//circleCenter = agent->GetVelocity();
+
+		//circleCenter.normalise();
+
+		//circleCenter = circleCenter * distance;
+
+		////displacement force
+		//Vector2 dispalcement(0, -1);
+		//float magOfdispalcement = dispalcement.magnitude();
+		//dispalcement = dispalcement * radius;
+
+		////dispalcement.m_x = cos(jitter) * magOfdispalcement;
+		////dispalcement.m_y = sin(jitter) * magOfdispalcement;
+
+		////Vector2 pointsAt(0, 0);
+		////pointsAt = dispalcement - agent->GetVelocity();
+
+		////degree = (1 + rand() % 360) * PI / 180;
+		////dispalcement.m_x = cos(degree) * magOfdispalcement;
+		////dispalcement.m_y = sin(degree) * magOfdispalcement;
+
+
+		//degree = 1 + rand() % 360;
+		//std::cout << degree;
+
+		//Vector2 WANDERFORCE(0, 0);
+		//WANDERFORCE = circleCenter + dispalcement;
+
+		//return WANDERFORCE;
+	//}
 }
 

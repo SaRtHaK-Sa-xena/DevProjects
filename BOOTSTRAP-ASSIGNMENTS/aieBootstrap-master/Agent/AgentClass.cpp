@@ -2,6 +2,7 @@
 
 void Agent::Update(float deltaTime)
 {
+
 	//force equal to zero
 	Vector2 force(0, 0);
 

@@ -29,9 +29,6 @@ protected:
 	Agent*				m_enemy;
 	SeekBehaviour*		m_followBehaviour;
 
-	Agent*				m_wanderer;
+	Agent*				m_enemyWander;
 	WanderBehaviour*	m_wanderBehaviour;
-
-	Agent*				m_follow;
-	Vector2				POSITION_FOLLOW;
 };

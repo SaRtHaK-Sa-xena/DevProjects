@@ -1,6 +1,8 @@
 #include "AgentApp.h"
 #include "Texture.h"
 #include "Font.h"
+#include <chrono>
+
 
 AgentApp::AgentApp() {
 
@@ -12,8 +14,9 @@ AgentApp::~AgentApp() {
 
 bool AgentApp::startup() {
 	
-	m_2dRenderer = new aie::Renderer2D();
+	srand(time(NULL));
 
+	m_2dRenderer = new aie::Renderer2D();
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
@@ -31,17 +34,12 @@ bool AgentApp::startup() {
 	m_followBehaviour = new SeekBehaviour();
 	m_followBehaviour->SetTarget(m_player); //sets target to follow player
 	m_enemy->AddBehaviour(m_followBehaviour);//allows the behaviour to be processed by enemy
-
 	//=====================================================================
-	m_wanderer = new Agent();// the person who wanders
-	m_follow = new Agent();// the one followed by the person who wanders
-	m_wanderBehaviour = new WanderBehaviour();// the behaviour which makes them wander
+	m_enemyWander = new Agent();
+	m_enemyWander->SetPosition(Vector2(500, 500));
 
-	m_follow->SetPosition(Vector2(500, 500));
-
-	m_wanderBehaviour->setTarget(m_follow); //who to follow | m_follow will change position
-	m_wanderer->AddBehaviour(m_wanderBehaviour);// adds the follow behaviour
-	
+	m_wanderBehaviour = new WanderBehaviour();
+	m_enemyWander->AddBehaviour(m_wanderBehaviour);
 
 	return true;
 }
@@ -54,9 +52,6 @@ void AgentApp::shutdown() {
 
 void AgentApp::update(float deltaTime) {
 
-	Vector2 followpos(m_wanderer->GetPosition().m_x + (rand() % 10) - 5 , m_wanderer->GetPosition().m_y + (rand() % 10) - 5);
-	m_follow->SetPosition(followpos); //wanderer
-
 
 	// input example
 	aie::Input* input = aie::Input::getInstance();
@@ -65,13 +60,10 @@ void AgentApp::update(float deltaTime) {
 								 //an input function in update
 
 	m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
-	//m_followBehaviour->updateTarget(m_player);
+
+	m_enemyWander->Update(deltaTime);
+
 	// exit the application
-	m_wanderer->Update(deltaTime);
-
-	//m_follow->SetPosition(POSITION_FOLLOW);
-
-
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
 }
@@ -88,8 +80,8 @@ void AgentApp::draw() {
 	
 	m_player->Draw(m_2dRenderer);
 	m_enemy->Draw(m_2dRenderer);
-	m_wanderer->Draw(m_2dRenderer);
-	m_follow->Draw(m_2dRenderer);
+
+	m_enemyWander->Draw(m_2dRenderer);
 
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);

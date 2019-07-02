@@ -2,7 +2,7 @@
 #include <Renderer2D.h>
 #include "BehaviourClass.h"
 #include <vector>
-
+#include <time.h>
 
 class Agent
 {
