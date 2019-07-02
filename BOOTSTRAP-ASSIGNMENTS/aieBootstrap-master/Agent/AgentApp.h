@@ -2,6 +2,7 @@
 
 #include "Application.h"
 #include "SeekBehaviourClass.h"
+#include "WanderBehaviourClass.h"
 
 class AgentApp : public aie::Application {
 public:
@@ -30,4 +31,7 @@ protected:
 
 	Agent*				m_wanderer;
 	WanderBehaviour*	m_wanderBehaviour;
+
+	Agent*				m_follow;
+	Vector2				POSITION_FOLLOW;
 };
