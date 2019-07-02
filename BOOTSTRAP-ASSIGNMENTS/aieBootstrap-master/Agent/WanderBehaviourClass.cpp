@@ -77,69 +77,90 @@ Vector2 WanderBehaviour::Update(Agent * agent, float deltaTime)
 	//return positionAheadOfTarget;
 
 
-	//================FIRST ATTEMPT======================================================
+	//================FIRST ATTEMPT============SORT OF DONE==========================================
 
 	//circle needs to point to the same velocity vector as the agent
-	Vector2 force(0,0);
-	Vector2 displacement(0,-1);
-	float magDisplacement = displacement.magnitude();
+	//Vector2 force(0,0);
+	//Vector2 displacement(0,-1);
+	//float magDisplacement = displacement.magnitude();
 
 
-	displacement = displacement * radius; //scale by CIRCLE_RADIUS
+	//displacement = displacement * radius; //scale by CIRCLE_RADIUS
 
-	displacement.m_x = cos(jitter) * magDisplacement;
-	displacement.m_y = sin(jitter) * magDisplacement;
+	//displacement.m_x = cos(jitter) * (magDisplacement * deltaTime);
+	//displacement.m_y = sin(jitter) * (magDisplacement * deltaTime);
 
-	jitter = rand() % 10 - 5; //* .5;
-	std::cout << jitter;
+	//jitter = jitter + rand() % 10 + (rand() % -10); //* .5;
+	//std::cout << jitter;
 
-	//points at
-	force = (displacement - agent->GetVelocity());
+	////points at
+	//force = (displacement - agent->GetVelocity());
 
-	//only has direction no force
-	force.normalise();
+	////only has direction no force
+	//force.normalise();
 
-	force = force * distance;
+	//force = force * (distance / deltaTime);
 
- //scale by
+ ////scale by
 
 
-	Vector2 WanderForce(0, 0);
-	WanderForce = force + displacement * deltaTime;
-	return WanderForce;
+	//Vector2 WanderForce(0, 0);
+	//WanderForce = force + displacement * deltaTime;
+	//return WanderForce;
 
 	//==================NEW ATTEMPT============================
-		//Vector2 circleCenter(0, 0);
+		Vector2 circleCenter(0, 0);
 
-		//circleCenter = agent->GetVelocity();
+		//just changed===================================
+		//if (agent->GetVelocity().magnitude() == 0) //if velocity equal to zero
+		//{
+		//	circleCenter = agent->GetPosition(); //use position
+		//}
+		//else
+		//{
+		//	circleCenter = agent->GetVelocity(); //matches the agent's ms_2 looking
+		//}
+		//circleCenter.normalise(); //direction
+		//circleCenter = circleCenter * distance; //defining circle center 5 spaces in
+		//just changed===================================
 
-		//circleCenter.normalise();
 
-		//circleCenter = circleCenter * distance;
-
-		////displacement force
-		//Vector2 dispalcement(0, -1);
+		//displacement force
+		Vector2 dispalcement(0,0);
+		while (dispalcement.magnitude() == 0) //while mag 0
+		{
+			dispalcement.m_x = rand() % 10 + rand() % -5;
+			dispalcement.m_y = rand() % 10 + rand() % -5;
+		}
 		//float magOfdispalcement = dispalcement.magnitude();
-		//dispalcement = dispalcement * radius;
 
-		////dispalcement.m_x = cos(jitter) * magOfdispalcement;
-		////dispalcement.m_y = sin(jitter) * magOfdispalcement;
+		dispalcement.normalise(); //only direction
+		dispalcement = dispalcement * radius;// now represents a point on the radi of circle
 
-		////Vector2 pointsAt(0, 0);
-		////pointsAt = dispalcement - agent->GetVelocity();
-
-		////degree = (1 + rand() % 360) * PI / 180;
-		////dispalcement.m_x = cos(degree) * magOfdispalcement;
-		////dispalcement.m_y = sin(degree) * magOfdispalcement;
+		//just added
+		agent->GetVelocity().normalise();
+		dispalcement = dispalcement + agent->GetVelocity() * distance;
 
 
-		//degree = 1 + rand() % 360;
-		//std::cout << degree;
 
-		//Vector2 WANDERFORCE(0, 0);
-		//WANDERFORCE = circleCenter + dispalcement;
+		Vector2 WANDERFORCE(dispalcement);
+		WANDERFORCE.normalise();
+		WANDERFORCE = WANDERFORCE * deltaTime * speed;
+		WANDERFORCE = WANDERFORCE - agent->GetVelocity();
+		//WANDERFORCE = dispalcement + circleCenter;
+		//WANDERFORCE = dispalcement + circleCenter;
 
-		//return WANDERFORCE;
+		return WANDERFORCE;
 	//}
-}
+	
 
+	
+}		//dispalcement.m_x = cos(jitter) * magOfdispalcement;
+		//dispalcement.m_y = sin(jitter) * magOfdispalcement;
+
+		//Vector2 pointsAt(0, 0);
+		//pointsAt = dispalcement - agent->GetVelocity();
+
+		//degree = (1 + rand() % 360) * PI / 180;
+		//dispalcement.m_x = cos(degree) * magOfdispalcement;
+		//dispalcement.m_y = sin(degree) * magOfdispalcement;

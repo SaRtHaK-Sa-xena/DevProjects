@@ -36,7 +36,7 @@ bool AgentApp::startup() {
 	m_enemy->AddBehaviour(m_followBehaviour);//allows the behaviour to be processed by enemy
 	//=====================================================================
 	m_enemyWander = new Agent();
-	m_enemyWander->SetPosition(Vector2(500, 500));
+	m_enemyWander->SetPosition(Vector2(350, 350));
 
 	m_wanderBehaviour = new WanderBehaviour();
 	m_enemyWander->AddBehaviour(m_wanderBehaviour);

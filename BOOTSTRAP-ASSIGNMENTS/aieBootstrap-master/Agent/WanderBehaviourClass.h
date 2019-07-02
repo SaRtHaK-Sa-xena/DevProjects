@@ -18,7 +18,7 @@ public:
 
 private:
 	Agent *m_target;
-	float speed = 20, radius = 2, distance = 5;
+	float speed = 20, radius = 400, distance = 5;
 	float PI = 3.1415927;
 	float jitter = 0;
 	int degree = 0;
