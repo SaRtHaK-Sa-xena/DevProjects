@@ -39,7 +39,7 @@ void Agent::Update(float deltaTime)
 
 void Agent::Draw(aie::Renderer2D * renderer, aie::Texture * texture)
 {
-	renderer->drawSprite(texture, m_Position.m_x, m_Position.m_y, 100, 100);
+	renderer->drawSprite(texture, m_Position.m_x, m_Position.m_y, 50, 50);
 }
 
 void Agent::AddBehaviour(Behaviour * behaviour)
