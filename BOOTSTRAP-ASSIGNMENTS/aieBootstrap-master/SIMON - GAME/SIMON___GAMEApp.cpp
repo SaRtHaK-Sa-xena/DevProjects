@@ -21,7 +21,7 @@ bool SIMON___GAMEApp::startup() {
 	SimonTree = new SimonGameClass();
 	//InputTree = new Array();
 	/*Bar* m_bar;*/
-
+	//0.7 //0.9//0.1
 
 	m_BrightRedTexture = new aie::Texture("./textures/Bright_Red.png");
 	m_DarkRedTexture = new aie::Texture("./textures/Dark_Red.png");

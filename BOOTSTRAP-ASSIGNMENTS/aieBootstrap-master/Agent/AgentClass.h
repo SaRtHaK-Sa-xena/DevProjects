@@ -3,6 +3,7 @@
 #include "BehaviourClass.h"
 #include <vector>
 #include <time.h>
+#include <Texture.h>
 
 class Agent
 {
@@ -14,7 +15,7 @@ public:
 	virtual void Update(float deltaTime);
 
 	// Draw the agent
-	virtual void Draw(aie::Renderer2D* renderer);
+	virtual void Draw(aie::Renderer2D* renderer, aie::Texture * texture);
 
 	// Add a behaviour to the agent
 	void AddBehaviour(Behaviour* behaviour);
@@ -30,4 +31,5 @@ protected:
 	std::vector<Behaviour*> m_BehaviourList;
 	Vector2 m_Position;
 	Vector2 m_Velocity;
+	aie::Texture* m_texture = nullptr;
 };

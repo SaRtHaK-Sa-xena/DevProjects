@@ -31,4 +31,9 @@ protected:
 
 	Agent*				m_enemyWander;
 	WanderBehaviour*	m_wanderBehaviour;
+
+	aie::Texture*		m_playerTexture;
+
+	aie::Texture*		m_backgroundTexture;
+
 };
