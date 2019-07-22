@@ -106,6 +106,41 @@ void AgentApp::update(float deltaTime) {
 	//m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
 	m_collider->Update(deltaTime);
 	m_collider2->Update(deltaTime);
+
+
+	//another implementation of the collision system
+
+
+	//=============CHECKS COLLISION FOR OUTSIDE EDGE================
+	//checks for OuterEdge (LEFT SIDE)
+	if (m_player->GetPosition().m_x < 25)
+	{
+		m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+		m_player->SetPosition(Vector2(m_player->GetPosition().m_x + 25, m_player->GetPosition().m_y));
+	}
+	//checks for OuterEdge (RIGHT SIDE)
+	if (m_player->GetPosition().m_x > 1250)
+	{
+		m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+		m_player->SetPosition(Vector2(m_player->GetPosition().m_x - 25, m_player->GetPosition().m_y));
+	}
+	//checks for OuterEdge (TOP SIDE)
+	if (m_player->GetPosition().m_y > 700)
+	{
+		m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+		m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y - 25));
+	}
+	//checks for OuterEdge (BOTTOM SIDE)
+	if (m_player->GetPosition().m_y < 30)
+	{
+		m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+		m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y + 25));
+	}
+	//=============CHECKS COLLISION FOR OUTSIDE EDGE================
+
+
+
+
 	//m_enemyWander->Update(deltaTime);
 
 	/*if (m_player->GetPosition().m_x == m_collider->GetPosition().m_x && m_player->GetPosition().m_y == m_collider->GetPosition().m_y)
@@ -113,32 +148,36 @@ void AgentApp::update(float deltaTime) {
 		std::cout << "Collision Detected!" << std::endl;
 	}*/
 
-	float playerX = m_player->GetPosition().m_x;
-	float playerY = m_player->GetPosition().m_y;
+	//==================================== COLLISION SYSTEM Sort of Works=======================================
+	//float playerX = m_player->GetPosition().m_x;
+	//float playerY = m_player->GetPosition().m_y;
 
-	float colliderX = m_collider->GetPosition().m_x;
-	float colliderY = m_collider->GetPosition().m_y;
+	//float colliderX = m_collider->GetPosition().m_x;
+	//float colliderY = m_collider->GetPosition().m_y;
 
-	float differenceX = playerX - colliderX;
-	float differenceY = playerY - colliderY;
+	//float differenceX = playerX - colliderX;
+	//float differenceY = playerY - colliderY;
 
-	if (differenceX < 0.5 && differenceY < 0.5)
-	{
-		std::cout << "Collision Detected!" << std::endl;
-		m_player->SetVelocity(Vector2(-(m_player->GetVelocity().m_x), -(m_player->GetVelocity().m_y)));
-	}
+	//if (differenceX < 0.5 && differenceY < 0.5)
+	//{
+	//	std::cout << "Collision Detected!" << std::endl;
+	//	m_player->SetVelocity(Vector2(-(m_player->GetVelocity().m_x), -(m_player->GetVelocity().m_y)));
+	//}
 
-	float collider2X = m_collider2->GetPosition().m_x;
-	float collider2Y = m_collider2->GetPosition().m_y;
+	//float collider2X = m_collider2->GetPosition().m_x;
+	//float collider2Y = m_collider2->GetPosition().m_y;
 
-	float difference2X = playerX - collider2X;
-	float difference2Y = playerY - collider2Y;
+	//float difference2X = playerX - collider2X;
+	//float difference2Y = playerY - collider2Y;
 
-	if (difference2X < 0.5 && difference2Y < 0.5)
-	{
-		std::cout << "Collision Detected!" << std::endl;
-		m_player->SetVelocity(Vector2(-(m_player->GetVelocity().m_x), -(m_player->GetVelocity().m_y)));
-	}
+	//if (difference2X < 0.5 && difference2Y < 0.5)
+	//{
+	//	std::cout << "Collision Detected!" << std::endl;
+	//	m_player->SetVelocity(Vector2(-(m_player->GetVelocity().m_x), -(m_player->GetVelocity().m_y)));
+	//}
+
+	//==================================== COLLISION SYSTEM Sort of Works=======================================
+
 
 
 	//if(valueP1 > valueP2 && valueP1 - valueP2 < 10) ---> then collision detected
