@@ -47,7 +47,7 @@ bool AgentApp::startup() {
 	m_playerTexture = new aie::Texture("../bin/textures/ship.png");
 
 	m_collider = new Agent();
-	m_collider->SetPosition(Vector2(25, 700));
+	m_collider->SetPosition(Vector2(250, 550));
 
 	m_collider2 = new Agent();
 	m_collider2->SetPosition(Vector2(40, 700));
@@ -139,6 +139,15 @@ void AgentApp::update(float deltaTime) {
 	//=============CHECKS COLLISION FOR OUTSIDE EDGE================
 
 
+	//collider position is 250
+
+	//							LESS THAN		//NEED MIDDLE		GREATER THAN
+
+	//AGENT COLLISION DETECTER
+	if ((m_player->GetPosition().m_x < 285 && m_player->GetPosition().m_x > 245) && (m_player->GetPosition().m_y < 585 && m_player->GetPosition().m_y > 545))
+	{
+		m_player->SetVelocity(Vector2(0, 0));
+	}
 
 
 	//m_enemyWander->Update(deltaTime);

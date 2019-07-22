@@ -46,3 +46,4 @@ void Agent::AddBehaviour(Behaviour * behaviour)
 {
 	m_BehaviourList.push_back(behaviour);
 }
+
