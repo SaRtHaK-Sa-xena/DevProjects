@@ -47,7 +47,7 @@ bool AgentApp::startup() {
 	m_playerTexture = new aie::Texture("../bin/textures/ship.png");
 
 	m_collider = new Agent();
-	m_collider->SetPosition(Vector2(250, 550));
+	m_collider->SetPosition(Vector2(180, 550));
 
 	m_collider2 = new Agent();
 	m_collider2->SetPosition(Vector2(40, 700));
@@ -149,6 +149,7 @@ void AgentApp::update(float deltaTime) {
 		m_player->SetVelocity(Vector2(0, 0));
 	}
 
+	//if(m_player->GetPosition().m_x < )
 
 	//m_enemyWander->Update(deltaTime);
 
