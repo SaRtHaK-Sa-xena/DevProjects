@@ -19,7 +19,7 @@ public:
 	void setPosition(Vector2 position);//sets vector2 to position
 	Vector2 getPosition(); //returns position
 
-	void setVelocity(vector2 velocity); //sets vector2 to velocity
+	void setVelocity(Vector2 velocity); //sets vector2 to velocity
 	void getVelocity(); //returns velocity
 
 protected:
