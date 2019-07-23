@@ -3,6 +3,8 @@
 #include "Application.h"
 #include "SeekBehaviourClass.h"
 #include "WanderBehaviourClass.h"
+#include "ColliderWall.h"
+#include <vector>
 
 class AgentApp : public aie::Application {
 public:
@@ -40,4 +42,7 @@ protected:
 
 	Agent*				m_collider;
 	Agent*				m_collider2;
+
+	std::vector<Collider>walls;
+
 };

@@ -17,8 +17,8 @@ bool AgentApp::startup() {
 	
 	srand(time(NULL));
 
+	walls.resize(16);
 
-	
 	//Start Game
 
 	//Starts by pressing 'Space'
@@ -50,7 +50,7 @@ bool AgentApp::startup() {
 	m_collider->SetPosition(Vector2(180, 550));
 
 	m_collider2 = new Agent();
-	m_collider2->SetPosition(Vector2(40, 700));
+	m_collider2->SetPosition(Vector2(183, 110));
 
 	//setBackgroundColour(0.45, 1, 0.45);
 	//setBackgroundColour(0.7, 0.9, 0.1);
@@ -67,7 +67,6 @@ bool AgentApp::startup() {
 	m_player->AddBehaviour(m_keyboardBehaviour); //adds behaviour of keyboard
 
 
-
 	//m_enemy = new Agent();
 	//m_enemy->SetPosition(Vector2(500, 500));// sets stating position for enemy
 
@@ -82,6 +81,10 @@ bool AgentApp::startup() {
 	//m_enemyWander->AddBehaviour(m_wanderBehaviour);
 	//========================================Not being Used For Now==========================
 	
+	//Collider Sets
+	walls.push_back({ {182,615},{194,221}, rightSide });
+	walls.push_back({ {156,615},{160,221}, leftSide });
+	//divide velocity by 2
 	return true;
 }
 
@@ -138,16 +141,73 @@ void AgentApp::update(float deltaTime) {
 	}
 	//=============CHECKS COLLISION FOR OUTSIDE EDGE================
 
+	//keep Sake Below
+
+	//============================Keepsake
+	//for (int i = 0; i < walls.size(); i++)
+	//{
+	//	if (m_player->GetPosition().m_x < walls[i].BottomRightPosition.m_x)
+	//	{
+	//		m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+	//		m_player->SetPosition(Vector2(m_player->GetPosition().m_x - 10, m_player->GetPosition().m_y));
+	//	}
+
+	//	if(m_player->GetPosition().m_x > walls[i].TopLeftposition.m_x)
+	//	{
+
+	//	}
+
+	//	else if(m_player->GetPosition().m_y > walls[i].BottomRightPosition.m_y && m_player->GetPosition().m_y < walls[i].TopLeftposition.m_y)
+	//	{
+	//		
+	//		m_player->SetVelocity(Vector2(-(m_player->GetVelocity().m_x), -(m_player->GetVelocity().m_y)));
+	//		//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+	//		//m_player->SetPosition(Vector2(m_player->GetPosition().m_x - m_player->GetPosition().m_x, m_player->GetPosition().m_y));
+	//		std::cout << "Collision Detected!" << std::endl;
+	//	}
+	//}
+	//============================Keepsake
+
+	for (int i = 0; i < walls.size(); i++)
+	{
+		if ((m_player->GetPosition().m_x < walls[i].BottomRightPosition.m_x && m_player->GetPosition().m_x > walls[i].TopLeftposition.m_x)
+			&&(m_player->GetPosition().m_y > walls[i].BottomRightPosition.m_y && m_player->GetPosition().m_y < walls[i].TopLeftposition.m_y))
+		{
+			switch(walls[i].sideOfWall)
+			{
+			case rightSide:
+				m_player->SetPosition(Vector2(m_player->GetPosition().m_x + 25, m_player->GetPosition().m_y));
+				m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+				break;
+
+			case leftSide:
+				m_player->SetPosition(Vector2(m_player->GetPosition().m_x - 25, m_player->GetPosition().m_y));
+				m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+				break;
+
+			case topSide:
+				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y + 25));
+				m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+				break;
+
+			case bottomSide:
+				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y - 25));
+			}
+			
+		}
+	}
+
 
 	//collider position is 250
 
 	//							LESS THAN		//NEED MIDDLE		GREATER THAN
 
-	//AGENT COLLISION DETECTER
-	if ((m_player->GetPosition().m_x < 285 && m_player->GetPosition().m_x > 245) && (m_player->GetPosition().m_y < 585 && m_player->GetPosition().m_y > 545))
-	{
-		m_player->SetVelocity(Vector2(0, 0));
-	}
+	//====================================AGENT COLLISION DETECTER====================================
+	//if ((m_player->GetPosition().m_x < 190 && m_player->GetPosition().m_x > 170) && (m_player->GetPosition().m_y < 555 && m_player->GetPosition().m_y > 545))
+	//{
+	//	m_player->SetVelocity(Vector2(0, 0));
+	//}
+	//============================================================================================================
 
 	//if(m_player->GetPosition().m_x < )
 
