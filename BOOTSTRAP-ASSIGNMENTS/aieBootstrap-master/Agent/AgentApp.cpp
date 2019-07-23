@@ -91,10 +91,10 @@ bool AgentApp::startup() {
 	walls.push_back({ {182,627}, {297,625}, topSide }); //
 	walls.push_back({ {297,625},{300,563},leftSide }); 
 	walls.push_back({ {316,626},{320,575},rightSide });
-	walls.push_back({ {320,574},{629,574},topSide });
-	walls.push_back({ {302,561}, {609,562}, bottomSide });
+	walls.push_back({ {320,583},{629,574},topSide });
+	walls.push_back({ {302,568}, {609,560}, bottomSide });
 	walls.push_back({ {602,560}, {608,443}, leftSide });
-	walls.push_back({ {608, 442}, {629,442}, bottomSide });
+	walls.push_back({ {608, 452}, {629,448}, bottomSide });
 	walls.push_back({ {630, 573}, {634, 443}, rightSide });
 
 
@@ -131,16 +131,16 @@ bool AgentApp::startup() {
 	walls.push_back({ {750,599},{754,480},rightSide });
 	walls.push_back({ {754,602},{944,598},bottomSide });
 	walls.push_back({ {992,664},{996,603},rightSide });
-	walls.push_back({ {974,663},{995,665},topSide });
-	walls.push_back({ {732,480},{731,612},leftSide });
-	walls.push_back({ {731,610},{973,615},bottomSide });
-	walls.push_back({ {975,664},{975,615}, leftSide});
+	walls.push_back({ {974,665},{995,662},topSide });
+	walls.push_back({ {728,612},{731,480},leftSide });
+	walls.push_back({ {731,615},{973,610},topSide });
+	walls.push_back({ {971,664},{977,615}, leftSide});
 
 	//Bar 7
-	walls.push_back({ {846,546},{844,399}, leftSide });
-	walls.push_back({ {847,546}, {868,548}, topSide });
-	walls.push_back({ {868,548},{866,398}, rightSide });
-	walls.push_back({ {844,397},{865,398},bottomSide });
+	walls.push_back({ {844,546},{848,399}, leftSide });
+	walls.push_back({ {847,550}, {868,543}, topSide });
+	walls.push_back({ {862,548},{867,398}, rightSide });
+	walls.push_back({ {844,400},{865,397},bottomSide });
 
 	//Bar 8
 	walls.push_back({ {1071,560},{1092,560},topSide });
