@@ -107,9 +107,35 @@ bool AgentApp::startup() {
 	//divide velocity by 2
 
 	//Bar 3
-	walls.push_back({ {337,221},{514,219},topSide });
+	walls.push_back({ {337,221},{514,219},topSide }); //minus 720
 	walls.push_back({ {332,221},{332,231},leftSide });
+	walls.push_back({ {337,233}, {513,213}, bottomSide });
+	walls.push_back({ {513,219}, {514,232}, rightSide });
 
+	//Bar 4
+	walls.push_back({ {282,348}, {682,347}, topSide }); //minus 720
+	walls.push_back({ {280,348}, {280, 359}, leftSide });
+	walls.push_back({ {280,359}, {679,358}, bottomSide });
+	walls.push_back({ {679,358}, {683,347}, rightSide });
+
+	//Bar 5
+	walls.push_back({ {485,538}, {749,536}, topSide }); //minus 720
+	walls.push_back({ {485,538},{485,547}, leftSide });
+	walls.push_back({ {485,538}, {749,547}, bottomSide });
+	walls.push_back({ {751, 536}, {749,547}, rightSide });
+
+	//Bar 6
+	walls.push_back({ {732,240},{753,240},bottomSide }); //minus 720
+	walls.push_back({ {754,240},{754,121},rightSide });
+	walls.push_back({ {754,121},{944,118},bottomSide });
+	walls.push_back({ {994,117},{996,56},rightSide });
+	walls.push_back({ {974,57},{995,55},topSide });
+	walls.push_back({ {732,240},{731,108},leftSide });
+	walls.push_back({ {731,110},{973,105},bottomSide });
+	walls.push_back({ {975,56},{975,105}, leftSide});
+	walls.push_back({ {}, {996,55} })
+})
+})
 
 	return true;
 }
