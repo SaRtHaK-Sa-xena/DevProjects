@@ -87,55 +87,74 @@ bool AgentApp::startup() {
 	walls.push_back({ {182,615},{194,221}, rightSide });
 	walls.push_back({ {156,615},{160,221}, leftSide });
 	walls.push_back({ {156,516},{186,221}, bottomSide });
-	walls.push_back({ {156,620},{436,616}, topSide });
-	walls.push_back({ {182,627}, {297,625}, bottomSide });
+	walls.push_back({ {156,620},{436,616}, bottomSide }); //
+	walls.push_back({ {182,627}, {297,625}, topSide }); //
 	walls.push_back({ {297,625},{300,563},leftSide }); 
 	walls.push_back({ {316,626},{320,575},rightSide });
 	walls.push_back({ {320,574},{629,574},topSide });
 	walls.push_back({ {302,561}, {609,562}, bottomSide });
-	walls.push_back({ {607,560}, {608,443}, leftSide });
+	walls.push_back({ {602,560}, {608,443}, leftSide });
 	walls.push_back({ {608, 442}, {629,442}, bottomSide });
-	walls.push_back({ {632, 573}, {630, 443}, rightSide });
+	walls.push_back({ {630, 573}, {634, 443}, rightSide });
 
 
-	//Bar 2 + 3
-	walls.push_back({ {24,131},{375,128}, topSide });   //720 - 589
-	walls.push_back({ {22,117},{375,117}, bottomSide });
-	walls.push_back({ {375,128},{371,239},leftSide });
-	walls.push_back({ {398, 241},{394,114}, rightSide });
+	//Bar 2 
+	walls.push_back({ {24,131},{375,128}, topSide });
+	walls.push_back({ {22,120},{375,117}, bottomSide });
+	walls.push_back({ {365,239},{371,128},leftSide });
+	walls.push_back({ {394, 241},{398,114}, rightSide });
 	walls.push_back({ {371,240},{396,240},topSide });
+	//little edge needs to work as top
+
 	//divide velocity by 2
 
 	//Bar 3
-	walls.push_back({ {337,221},{514,219},topSide }); //minus 720
-	walls.push_back({ {332,221},{332,231},leftSide });
-	walls.push_back({ {337,233}, {513,213}, bottomSide });
-	walls.push_back({ {513,219}, {514,232}, rightSide });
+	walls.push_back({ {337,509},{514,499},topSide }); 
+	walls.push_back({ {332,499},{332,489},leftSide });
+	walls.push_back({ {337,507}, {513,487}, bottomSide });
+	walls.push_back({ {513,501}, {514,488}, rightSide });
 
 	//Bar 4
-	walls.push_back({ {282,348}, {682,347}, topSide }); //minus 720
-	walls.push_back({ {280,348}, {280, 359}, leftSide });
-	walls.push_back({ {280,359}, {679,358}, bottomSide });
-	walls.push_back({ {679,358}, {683,347}, rightSide });
+	walls.push_back({ {282,373}, {682,365}, topSide }); 
+	walls.push_back({ {278,349}, {280, 361}, leftSide });//280,349 --- 280,360
+	walls.push_back({ {280,365}, {679,361}, bottomSide });
+	walls.push_back({ {679,362}, {683,373}, rightSide });
 
 	//Bar 5
-	walls.push_back({ {485,538}, {749,536}, topSide }); //minus 720
-	walls.push_back({ {485,538},{485,547}, leftSide });
-	walls.push_back({ {485,538}, {749,547}, bottomSide });
-	walls.push_back({ {751, 536}, {749,547}, rightSide });
+	walls.push_back({ {485,185}, {749,182}, topSide });
+	walls.push_back({ {485,182},{485,173}, leftSide });
+	walls.push_back({ {485,182}, {749,173}, bottomSide });
+	walls.push_back({ {751, 184}, {749,173}, rightSide });
 
 	//Bar 6
-	walls.push_back({ {732,240},{753,240},bottomSide }); //minus 720
-	walls.push_back({ {754,240},{754,121},rightSide });
-	walls.push_back({ {754,121},{944,118},bottomSide });
-	walls.push_back({ {994,117},{996,56},rightSide });
-	walls.push_back({ {974,57},{995,55},topSide });
-	walls.push_back({ {732,240},{731,108},leftSide });
-	walls.push_back({ {731,110},{973,105},bottomSide });
-	walls.push_back({ {975,56},{975,105}, leftSide});
-	walls.push_back({ {}, {996,55} })
-})
-})
+	walls.push_back({ {732,485},{753,480},bottomSide }); 
+	walls.push_back({ {750,599},{754,480},rightSide });
+	walls.push_back({ {754,602},{944,598},bottomSide });
+	walls.push_back({ {992,664},{996,603},rightSide });
+	walls.push_back({ {974,663},{995,665},topSide });
+	walls.push_back({ {732,480},{731,612},leftSide });
+	walls.push_back({ {731,610},{973,615},bottomSide });
+	walls.push_back({ {975,664},{975,615}, leftSide});
+
+	//Bar 7
+	walls.push_back({ {846,546},{844,399}, leftSide });
+	walls.push_back({ {847,546}, {868,548}, topSide });
+	walls.push_back({ {868,548},{866,398}, rightSide });
+	walls.push_back({ {844,397},{865,398},bottomSide });
+
+	//Bar 8
+	walls.push_back({ {1071,560},{1092,560},topSide });
+	walls.push_back({ {1065,558}, {1071,205},leftSide });
+	walls.push_back({ {1070,205},{1091,204 }, bottomSide });
+	walls.push_back({ {1087,559},{1093,205}, rightSide });
+
+	//Bar 9
+	walls.push_back({ {862,284}, {884,285}, topSide });
+	walls.push_back({ {860,284}, {865,90}, leftSide });
+	walls.push_back({ {863,95},{1145,90},bottomSide });
+	walls.push_back({ {1143,100},{1145, 89}, rightSide });
+	walls.push_back({ {880,284},{884,101},rightSide });
+	walls.push_back({ {884,111}, {1142,100},topSide });
 
 	return true;
 }
@@ -341,7 +360,28 @@ void AgentApp::draw() {
 	m_collider2->Draw(m_2dRenderer, m_colliderTexture);
 	m_player->Draw(m_2dRenderer, m_playerTexture);
 
-	
+
+	//drawing Boxes rectangles
+
+	//for (int i = 0; i < walls.size(); i++)
+	//{
+	//	switch (walls[i].sideOfWall)
+	//	{
+	//	case rightSide:
+	//		m_2dRenderer->setRenderColour(1, 0, 0);
+	//		break;
+	//	case leftSide:
+	//		m_2dRenderer->setRenderColour(0, 1, 0);
+	//		break;
+	//	case topSide:
+	//		m_2dRenderer->setRenderColour(0, 0, 1);
+	//		break;
+	//	case bottomSide:
+	//		m_2dRenderer->setRenderColour(1, 1, 0);
+	//		break;
+	//	}
+	//	m_2dRenderer->drawBox((walls[i].TopLeftposition.m_x - walls[i].BottomRightPosition.m_x), walls[i].TopLeftposition.m_y - walls[i].BottomRightPosition.m_y, walls)
+	//}
 
 	//m_background->draw
 	
