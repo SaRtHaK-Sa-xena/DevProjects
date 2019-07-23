@@ -14,7 +14,7 @@ AgentApp::~AgentApp() {
 }
 
 bool AgentApp::startup() {
-	
+
 	srand(time(NULL));
 
 	walls.resize(16);
@@ -26,11 +26,11 @@ bool AgentApp::startup() {
 	//Game Load
 
 	//-->Map displayed
-	
+
 	//-->Player displayed
-	
+
 	//-->Enemy Displayed
-	
+
 	//-->Score Displayed
 
 	//Finish Loading Game
@@ -57,7 +57,7 @@ bool AgentApp::startup() {
 	m_player = new Agent();
 	//m_theBackground->load("../bin/textures/ship.png");
 	m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
-	
+
 	//m_player->SetPosition(Vector2(100.0f, 100.0f)); // set starting position
 
 	//========================================Not being Used For Now==========================
@@ -80,11 +80,37 @@ bool AgentApp::startup() {
 	//m_wanderBehaviour = new WanderBehaviour();
 	//m_enemyWander->AddBehaviour(m_wanderBehaviour);
 	//========================================Not being Used For Now==========================
-	
+
 	//Collider Sets
+
+	//Bar 1
 	walls.push_back({ {182,615},{194,221}, rightSide });
 	walls.push_back({ {156,615},{160,221}, leftSide });
+	walls.push_back({ {156,516},{186,221}, bottomSide });
+	walls.push_back({ {156,620},{436,616}, topSide });
+	walls.push_back({ {182,627}, {297,625}, bottomSide });
+	walls.push_back({ {297,625},{300,563},leftSide }); 
+	walls.push_back({ {316,626},{320,575},rightSide });
+	walls.push_back({ {320,574},{629,574},topSide });
+	walls.push_back({ {302,561}, {609,562}, bottomSide });
+	walls.push_back({ {607,560}, {608,443}, leftSide });
+	walls.push_back({ {608, 442}, {629,442}, bottomSide });
+	walls.push_back({ {632, 573}, {630, 443}, rightSide });
+
+
+	//Bar 2 + 3
+	walls.push_back({ {24,131},{375,128}, topSide });   //720 - 589
+	walls.push_back({ {22,117},{375,117}, bottomSide });
+	walls.push_back({ {375,128},{371,239},leftSide });
+	walls.push_back({ {398, 241},{394,114}, rightSide });
+	walls.push_back({ {371,240},{396,240},topSide });
 	//divide velocity by 2
+
+	//Bar 3
+	walls.push_back({ {337,221},{514,219},topSide });
+	walls.push_back({ {332,221},{332,231},leftSide });
+
+
 	return true;
 }
 
@@ -186,12 +212,14 @@ void AgentApp::update(float deltaTime) {
 				break;
 
 			case topSide:
-				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y + 25));
-				m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y +35));
+				m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x,0)); //only changes x not y
 				break;
 
 			case bottomSide:
+				m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes x not y
 				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y - 25));
+				break;
 			}
 			
 		}
