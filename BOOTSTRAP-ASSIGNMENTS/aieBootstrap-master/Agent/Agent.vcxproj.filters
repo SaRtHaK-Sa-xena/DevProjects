@@ -50,5 +50,8 @@
     <ClInclude Include="WanderBehaviourClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ColliderWall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

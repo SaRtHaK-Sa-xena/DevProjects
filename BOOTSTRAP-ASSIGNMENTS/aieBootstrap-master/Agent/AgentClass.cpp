@@ -37,12 +37,13 @@ void Agent::Update(float deltaTime)
 	m_Position = m_Position + m_Velocity;
 }
 
-void Agent::Draw(aie::Renderer2D * renderer)
+void Agent::Draw(aie::Renderer2D * renderer, aie::Texture * texture)
 {
-	renderer->drawBox(m_Position.m_x, m_Position.m_y, 10, 10);
+	renderer->drawSprite(texture, m_Position.m_x, m_Position.m_y, 50, 50);
 }
 
 void Agent::AddBehaviour(Behaviour * behaviour)
 {
 	m_BehaviourList.push_back(behaviour);
 }
+
