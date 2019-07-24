@@ -36,12 +36,12 @@ protected:
 
 	aie::Texture*		m_playerTexture;
 	
-	aie::Texture*		m_colliderTexture;
+	//aie::Texture*		m_colliderTexture;
 
 	aie::Texture*		m_backgroundTexture;
 
-	Agent*				m_collider;
-	Agent*				m_collider2;
+	//Agent*				m_collider;
+	//Agent*				m_collider2;
 
 	std::vector<Collider>walls;
 

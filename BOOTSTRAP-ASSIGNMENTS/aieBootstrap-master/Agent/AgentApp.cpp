@@ -42,15 +42,15 @@ bool AgentApp::startup() {
 
 	m_backgroundTexture = new aie::Texture("../bin/textures/Background.png");
 
-	m_colliderTexture = new aie::Texture("../bin/textures/Enemy.png");
+	//m_colliderTexture = new aie::Texture("../bin/textures/Enemy.png");
 
 	m_playerTexture = new aie::Texture("../bin/textures/ship.png");
 
-	m_collider = new Agent();
-	m_collider->SetPosition(Vector2(180, 550));
+	//m_collider = new Agent();
+	//m_collider->SetPosition(Vector2(180, 550));
 
-	m_collider2 = new Agent();
-	m_collider2->SetPosition(Vector2(183, 110));
+	//m_collider2 = new Agent();
+	//m_collider2->SetPosition(Vector2(183, 110));
 
 	//setBackgroundColour(0.45, 1, 0.45);
 	//setBackgroundColour(0.7, 0.9, 0.1);
@@ -82,11 +82,12 @@ bool AgentApp::startup() {
 	//m_enemyWander->AddBehaviour(m_wanderBehaviour);
 	//========================================Not being Used For Now==========================
 
-
+	
 	//Collider Walls Sets Configuration
 	//Notes While Coding-
 	//Keep top left position --> x LOWER than bottom right position --> x
 	//Keep top left position --> y GREATER than bottom right position --> y
+
 	//==========================Bar 1==========================
 	walls.push_back({ {182,615},{194,221}, rightSide });
 	walls.push_back({ {156,615},{160,221}, leftSide });
@@ -217,13 +218,8 @@ void AgentApp::update(float deltaTime) {
 	//							 //an input function in update
 
 	//m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
-	m_collider->Update(deltaTime);
-	m_collider2->Update(deltaTime);
-
 
 	//another implementation of the collision system
-
-
 	//=============CHECKS COLLISION FOR OUTSIDE EDGE================
 	//checks for OuterEdge (LEFT SIDE)
 	if (m_player->GetPosition().m_x < 25)
@@ -251,33 +247,6 @@ void AgentApp::update(float deltaTime) {
 	}
 	//=============CHECKS COLLISION FOR OUTSIDE EDGE================
 
-	//keep Sake Below
-
-	//============================Keepsake
-	//for (int i = 0; i < walls.size(); i++)
-	//{
-	//	if (m_player->GetPosition().m_x < walls[i].BottomRightPosition.m_x)
-	//	{
-	//		m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
-	//		m_player->SetPosition(Vector2(m_player->GetPosition().m_x - 10, m_player->GetPosition().m_y));
-	//	}
-
-	//	if(m_player->GetPosition().m_x > walls[i].TopLeftposition.m_x)
-	//	{
-
-	//	}
-
-	//	else if(m_player->GetPosition().m_y > walls[i].BottomRightPosition.m_y && m_player->GetPosition().m_y < walls[i].TopLeftposition.m_y)
-	//	{
-	//		
-	//		m_player->SetVelocity(Vector2(-(m_player->GetVelocity().m_x), -(m_player->GetVelocity().m_y)));
-	//		//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
-	//		//m_player->SetPosition(Vector2(m_player->GetPosition().m_x - m_player->GetPosition().m_x, m_player->GetPosition().m_y));
-	//		std::cout << "Collision Detected!" << std::endl;
-	//	}
-	//}
-	//============================Keepsake
-
 	for (int i = 0; i < walls.size(); i++)
 	{
 		if ((m_player->GetPosition().m_x < walls[i].BottomRightPosition.m_x && m_player->GetPosition().m_x > walls[i].TopLeftposition.m_x)
@@ -297,20 +266,17 @@ void AgentApp::update(float deltaTime) {
 
 			case topSide:
 				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y +15));
-				m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x,0)); //only changes x not y
+				m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x,0)); //only changes y not x
 				break;
 
 			case bottomSide:
-				m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes x not y
+				m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y - 15));
 				break;
 			}
 			
 		}
 	}
-
-
-	//collider position is 250
 
 	//							LESS THAN		//NEED MIDDLE		GREATER THAN
 
@@ -320,8 +286,6 @@ void AgentApp::update(float deltaTime) {
 	//	m_player->SetVelocity(Vector2(0, 0));
 	//}
 	//============================================================================================================
-
-	//if(m_player->GetPosition().m_x < )
 
 	//m_enemyWander->Update(deltaTime);
 
@@ -395,8 +359,6 @@ void AgentApp::draw() {
 	
 	m_2dRenderer->drawSprite(m_backgroundTexture, getWindowWidth()/2, getWindowHeight() / 2, getWindowWidth(), getWindowHeight());
 	
-	m_collider->Draw(m_2dRenderer, m_colliderTexture);
-	m_collider2->Draw(m_2dRenderer, m_colliderTexture);
 	m_player->Draw(m_2dRenderer, m_playerTexture);
 
 
@@ -421,12 +383,6 @@ void AgentApp::draw() {
 	//	}
 	//	m_2dRenderer->drawBox((walls[i].TopLeftposition.m_x - walls[i].BottomRightPosition.m_x), walls[i].TopLeftposition.m_y - walls[i].BottomRightPosition.m_y, walls)
 	//}
-
-	//m_background->draw
-	
-	//m_2dRenderer->drawSprite(m_background, 5, 5, 5, 5);
-
-	//m_background->draw
 
 	//Keyboard Movement (PLAYER)
 	//m_player->Draw(m_2dRenderer);
