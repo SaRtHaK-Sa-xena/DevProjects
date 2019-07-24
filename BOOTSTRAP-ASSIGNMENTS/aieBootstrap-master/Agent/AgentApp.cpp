@@ -374,6 +374,7 @@ void AgentApp::draw() {
 	//m_player->Draw(m_2dRenderer, m_playerTexture);
 	m_enemyWander->Draw(m_2dRenderer, m_enemyTexture);
 
+	m_2dRenderer->drawLine(m_enemyWander->GetPosition().m_x, m_enemyWander->GetPosition().m_y, m_enemyWander->GetVelocity().m_x * 1000 + m_enemyWander->GetPosition().m_x, m_enemyWander->GetVelocity().m_y * 1000 + m_enemyWander->GetPosition().m_y,5);
 	//drawing Boxes rectangles
 
 	//for (int i = 0; i < walls.size(); i++)

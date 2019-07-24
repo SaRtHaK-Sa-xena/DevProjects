@@ -26,9 +26,11 @@ public:
 
 private:
 	Agent *m_target;
-	float speed = 2, distance = 10;
+	float speed = 50, distance = 20;
 	float radius = rand() % 10 - 5;
 	int degree = 0;
+	float jitter;
+	float jitterHalf;
 
 	Vector2 targetToFollow;
 };

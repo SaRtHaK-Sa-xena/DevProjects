@@ -6,19 +6,25 @@
 
 Vector2 WanderBehaviour::Update(Agent * agent, float deltaTime)
 {
+
+
+
 	//targets position as random
-	float jitter = rand() % 10;
-	float jitterHalf = jitter / 2;
+	jitter = (rand() % 10) - 5;
+	float jitterDifference = rand() % 5;
+	jitterHalf = jitter / 2;
 
 	Vector2 displacement;
-	
-	displacement.m_x = jitter - 5;
-	displacement.m_y = jitter - 5;
+
+	displacement.m_x = jitter;
+	jitter = rand() % 10 - 5;
+	displacement.m_y = jitter;
 	while (displacement.magnitude() == 0)
 	{
 		jitter = rand() % 10 - 5;
-		displacement.m_x = jitter - 5;
-		displacement.m_y = jitter - 5;
+		displacement.m_x = jitter;
+		jitter = rand() % 10 - 5;
+		displacement.m_y = jitter;
 		std::cout << "still 0" << std::endl;
 	}
 	targetToFollow = targetToFollow + displacement;
@@ -27,17 +33,18 @@ Vector2 WanderBehaviour::Update(Agent * agent, float deltaTime)
 	//it is normalised so it only holds a direction not a position
 	targetToFollow.normalise();
 	targetToFollow = targetToFollow * radius;
-	agent->GetVelocity().normalise(); //finds the agents current direction
+	//agent->GetVelocity().normalise(); //finds the agents current direction
 	targetToFollow = targetToFollow + agent->GetVelocity() * distance; //and moves its crosshair to that direction
 
 
 	//Force To Finally push it in the direction of target
 	Vector2 wanderForceApplied;
+	wanderForceApplied = agent->GetVelocity() - targetToFollow;
 	wanderForceApplied.normalise();
 	wanderForceApplied = wanderForceApplied - agent->GetVelocity(); //minus the agent's current normalised velocity --> so direction
 	wanderForceApplied = wanderForceApplied * speed * deltaTime;
 	return wanderForceApplied;
-
+}
 
 	//if (m_target == nullptr)
 	//{
@@ -207,7 +214,7 @@ Vector2 WanderBehaviour::Update(Agent * agent, float deltaTime)
 	
 
 	
-}		//dispalcement.m_x = cos(jitter) * magOfdispalcement;
+//}		//dispalcement.m_x = cos(jitter) * magOfdispalcement;
 		//dispalcement.m_y = sin(jitter) * magOfdispalcement;
 
 		//Vector2 pointsAt(0, 0);
