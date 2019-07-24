@@ -8,19 +8,27 @@ class WanderBehaviour : public Behaviour
 {
 public:
 
-	WanderBehaviour() {};
+	WanderBehaviour() 
+	{
+		float halfOfRadius = radius * 0.5;
+		targetToFollow.m_x = radius - halfOfRadius;
+		targetToFollow.m_y = radius - halfOfRadius;
+		//since x and y have been set the force applied will push it straight away
+		//to remove that normalise the vector2
+		targetToFollow.normalise();
+
+		//pushes the targetToFollow away by radius
+		targetToFollow = targetToFollow * radius;
+	};
 	virtual ~WanderBehaviour() {};
 
 	virtual Vector2 Update(Agent* agent, float deltaTime);
-	void setTarget(Agent *agent)
-	{
-		m_target = agent;
-	}
 
 private:
 	Agent *m_target;
-	float speed = 2, radius = 40, distance = 50;
-	float PI = 3.1415927;
-	float jitter = 0;
+	float speed = 2, distance = 10;
+	float radius = rand() % 10 - 5;
 	int degree = 0;
+
+	Vector2 targetToFollow;
 };
