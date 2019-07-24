@@ -10,20 +10,20 @@ Vector2 WanderBehaviour::Update(Agent * agent, float deltaTime)
 
 
 	//targets position as random
-	jitter = (rand() % 10) - 5;
+	jitter = (rand() % 5) - 2.5;
 	float jitterDifference = rand() % 5;
 	jitterHalf = jitter / 2;
 
 	Vector2 displacement;
 
 	displacement.m_x = jitter;
-	jitter = rand() % 10 - 5;
+	jitter = rand() % 5 - 2.5;
 	displacement.m_y = jitter;
 	while (displacement.magnitude() == 0)
 	{
-		jitter = rand() % 10 - 5;
+		jitter = rand() % 5 - 2.5;
 		displacement.m_x = jitter;
-		jitter = rand() % 10 - 5;
+		jitter = rand() % 5 - 2.5;
 		displacement.m_y = jitter;
 		std::cout << "still 0" << std::endl;
 	}
