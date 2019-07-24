@@ -128,10 +128,11 @@ Vector2 WanderBehaviour::Update(Agent * agent, float deltaTime)
 		//circleCenter = circleCenter * distance; //defining circle center 5 spaces in
 		//just changed===================================
 		Vector2 dispalcement(0,0);
+
 		while (dispalcement.magnitude() == 0) //while mag 0
 		{
-			dispalcement.m_x = rand() % 10 + rand() % -5;
-			dispalcement.m_y = rand() % 10 + rand() % -5;
+			dispalcement.m_x = rand() % 10 / 2;
+			dispalcement.m_y = rand() % 10 /2;
 		}
 		Vector2 temporary = agent->GetVelocity();
 		dispalcement = dispalcement * radius;// 
@@ -160,7 +161,7 @@ Vector2 WanderBehaviour::Update(Agent * agent, float deltaTime)
 
 		Vector2 WANDERFORCE(dispalcement);
 		WANDERFORCE.normalise();
-		WANDERFORCE = WANDERFORCE * deltaTime * speed;
+		WANDERFORCE = WANDERFORCE * speed * deltaTime;
 		//WANDERFORCE = WANDERFORCE * speed;
 		WANDERFORCE = WANDERFORCE - agent->GetVelocity();
 		//WANDERFORCE = dispalcement + circleCenter;

@@ -1,6 +1,7 @@
 #pragma once
-#include "AgentClass.h"
 
+#include "WanderBehaviourClass.h"
+#include "AgentClass.h"
 
 
 class WanderBehaviour : public Behaviour
