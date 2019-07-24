@@ -6,11 +6,11 @@ Vector2 KeyboardBehaviour::Update(Agent * agent, float deltaTime)
 
 	if (input->isKeyDown(aie::INPUT_KEY_UP)) 
 		force.m_y = 20.0f;
-	if (input->isKeyDown(aie::INPUT_KEY_DOWN)) 
+	else if (input->isKeyDown(aie::INPUT_KEY_DOWN)) 
 		force.m_y = -20.0f;
-	if (input->isKeyDown(aie::INPUT_KEY_LEFT)) 
+	else if (input->isKeyDown(aie::INPUT_KEY_LEFT)) 
 		force.m_x = -20.0f;
-	if (input->isKeyDown(aie::INPUT_KEY_RIGHT)) 
+	else if (input->isKeyDown(aie::INPUT_KEY_RIGHT)) 
 		force.m_x = 20.0f;
 
 	return force;

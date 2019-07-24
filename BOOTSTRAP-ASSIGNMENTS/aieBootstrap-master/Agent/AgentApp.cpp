@@ -77,84 +77,123 @@ bool AgentApp::startup() {
 	//m_enemyWander = new Agent();
 	//m_enemyWander->SetPosition(Vector2(350, 350));
 
+
 	//m_wanderBehaviour = new WanderBehaviour();
 	//m_enemyWander->AddBehaviour(m_wanderBehaviour);
 	//========================================Not being Used For Now==========================
 
-	//Collider Sets
 
-	//Bar 1
+	//Collider Walls Sets Configuration
+	//Notes While Coding-
+	//Keep top left position --> x LOWER than bottom right position --> x
+	//Keep top left position --> y GREATER than bottom right position --> y
+	//==========================Bar 1==========================
 	walls.push_back({ {182,615},{194,221}, rightSide });
 	walls.push_back({ {156,615},{160,221}, leftSide });
 	walls.push_back({ {156,516},{186,221}, bottomSide });
-	walls.push_back({ {156,620},{436,616}, bottomSide }); //
-	walls.push_back({ {182,627}, {297,625}, topSide }); //
+	walls.push_back({ {156,620},{436,616}, bottomSide }); 
+	walls.push_back({ {182,627}, {297,625}, topSide }); 
 	walls.push_back({ {297,625},{300,563},leftSide }); 
 	walls.push_back({ {316,626},{320,575},rightSide });
-	walls.push_back({ {320,583},{629,574},topSide });
+	walls.push_back({ {320,583},{629,574},topSide }); 
 	walls.push_back({ {302,568}, {609,560}, bottomSide });
 	walls.push_back({ {602,560}, {608,443}, leftSide });
 	walls.push_back({ {608, 452}, {629,448}, bottomSide });
 	walls.push_back({ {630, 573}, {634, 443}, rightSide });
+	walls.push_back({ {319,642},{437,639}, topSide }); 
+	walls.push_back({ {432,639},{437,627}, rightSide }); 
+	//----> Diagram
+	//      _________
+	//	   |     |_______
+	//	   |	         |
+	//	   |             |
+	//	   |
+	//	   |
+	//==========================Bar 1==========================
 
-
-	//Bar 2 
+	//==========================Bar 2 ==========================
 	walls.push_back({ {24,131},{375,128}, topSide });
-	walls.push_back({ {22,120},{375,117}, bottomSide });
+	walls.push_back({ {22,120},{395,117}, bottomSide });
 	walls.push_back({ {365,239},{371,128},leftSide });
 	walls.push_back({ {394, 241},{398,114}, rightSide });
 	walls.push_back({ {371,240},{396,240},topSide });
-	//little edge needs to work as top
+	//----> Diagram	
+	//      ______|
+	//==========================Bar 2 ==========================
 
-	//divide velocity by 2
-
-	//Bar 3
+	//==========================Bar 3==========================
 	walls.push_back({ {337,509},{514,499},topSide }); 
-	walls.push_back({ {332,499},{332,489},leftSide });
+	walls.push_back({ {330,499},{332,489},leftSide });
 	walls.push_back({ {337,507}, {513,487}, bottomSide });
-	walls.push_back({ {513,501}, {514,488}, rightSide });
+	walls.push_back({ {511,501}, {514,488}, rightSide });
+	//----> Diagram
+	//      ___
+	//==========================Bar 3==========================
 
-	//Bar 4
+	//==========================Bar 4==========================
 	walls.push_back({ {282,373}, {682,365}, topSide }); 
-	walls.push_back({ {278,349}, {280, 361}, leftSide });//280,349 --- 280,360
+	walls.push_back({ {278,349}, {280, 361}, leftSide });
 	walls.push_back({ {280,365}, {679,361}, bottomSide });
 	walls.push_back({ {679,362}, {683,373}, rightSide });
+	//----> Diagram
+	//      __________
+	//==========================Bar 4==========================
 
-	//Bar 5
+	//==========================Bar 5==========================
 	walls.push_back({ {485,185}, {749,182}, topSide });
 	walls.push_back({ {485,182},{485,173}, leftSide });
 	walls.push_back({ {485,182}, {749,173}, bottomSide });
 	walls.push_back({ {751, 184}, {749,173}, rightSide });
+	//----> Diagram
+	//      _____
+	//==========================Bar 5==========================
 
-	//Bar 6
+	//==========================Bar 6==========================
 	walls.push_back({ {732,485},{753,480},bottomSide }); 
 	walls.push_back({ {750,599},{754,480},rightSide });
-	walls.push_back({ {754,602},{944,598},bottomSide });
+	walls.push_back({ {754,602},{994,598},bottomSide }); 
 	walls.push_back({ {992,664},{996,603},rightSide });
 	walls.push_back({ {974,665},{995,662},topSide });
 	walls.push_back({ {728,612},{731,480},leftSide });
 	walls.push_back({ {731,615},{973,610},topSide });
 	walls.push_back({ {971,664},{977,615}, leftSide});
+	//----> Diagram
+	//       ____| 
+	//		|
+	//==========================Bar 6==========================
 
-	//Bar 7
+	//==========================Bar 7==========================
 	walls.push_back({ {844,546},{848,399}, leftSide });
 	walls.push_back({ {847,550}, {868,543}, topSide });
 	walls.push_back({ {862,548},{867,398}, rightSide });
 	walls.push_back({ {844,400},{865,397},bottomSide });
+	//----> Diagram
+	//      | 
+	//		|
+	//==========================Bar 7==========================
 
-	//Bar 8
+	//==========================Bar 8==========================
 	walls.push_back({ {1071,560},{1092,560},topSide });
 	walls.push_back({ {1065,558}, {1071,205},leftSide });
 	walls.push_back({ {1070,205},{1091,204 }, bottomSide });
 	walls.push_back({ {1087,559},{1093,205}, rightSide });
+	//----> Diagram
+	//		|
+	//      | 
+	//		|
+	//==========================Bar 8==========================
 
-	//Bar 9
-	walls.push_back({ {862,284}, {884,285}, topSide });
+	//=======================Bar 9==========================
+	walls.push_back({ {862,287}, {884,284}, topSide });
 	walls.push_back({ {860,284}, {865,90}, leftSide });
 	walls.push_back({ {863,95},{1145,90},bottomSide });
 	walls.push_back({ {1143,100},{1145, 89}, rightSide });
 	walls.push_back({ {880,284},{884,101},rightSide });
 	walls.push_back({ {884,111}, {1142,100},topSide });
+	//----> Diagram
+	//      | 
+	//		|____
+	//=======================Bar 9==========================
 
 	return true;
 }
@@ -247,23 +286,23 @@ void AgentApp::update(float deltaTime) {
 			switch(walls[i].sideOfWall)
 			{
 			case rightSide:
-				m_player->SetPosition(Vector2(m_player->GetPosition().m_x + 25, m_player->GetPosition().m_y));
+				m_player->SetPosition(Vector2(m_player->GetPosition().m_x + 15, m_player->GetPosition().m_y));
 				m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 				break;
 
 			case leftSide:
-				m_player->SetPosition(Vector2(m_player->GetPosition().m_x - 25, m_player->GetPosition().m_y));
+				m_player->SetPosition(Vector2(m_player->GetPosition().m_x - 15, m_player->GetPosition().m_y));
 				m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 				break;
 
 			case topSide:
-				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y +35));
+				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y +15));
 				m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x,0)); //only changes x not y
 				break;
 
 			case bottomSide:
 				m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes x not y
-				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y - 25));
+				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y - 15));
 				break;
 			}
 			
