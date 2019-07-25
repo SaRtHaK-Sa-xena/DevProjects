@@ -44,8 +44,8 @@ bool AgentApp::startup() {
 
 	//m_colliderTexture = new aie::Texture("../bin/textures/Enemy.png");
 
-	//m_playerTexture = new aie::Texture("../bin/textures/ship.png");
-	m_enemyTexture = new aie::Texture("../bin/textures/EnemyNuclear.png");
+	m_playerTexture = new aie::Texture("../bin/textures/ship.png");
+	//m_enemyTexture = new aie::Texture("../bin/textures/EnemyNuclear.png");
 
 	//m_collider = new Agent();
 	//m_collider->SetPosition(Vector2(180, 550));
@@ -57,13 +57,13 @@ bool AgentApp::startup() {
 	//setBackgroundColour(0.7, 0.9, 0.1);
 	m_player = new Agent();
 	//m_theBackground->load("../bin/textures/ship.png");
-	//m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
+	m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
 
 	//m_player->SetPosition(Vector2(100.0f, 100.0f)); // set starting position
 
 	//========================================Not being Used For Now==========================
-	//m_keyboardBehaviour = new KeyboardBehaviour();
-	//m_player->AddBehaviour(m_keyboardBehaviour); //adds behaviour of keyboard
+	m_keyboardBehaviour = new KeyboardBehaviour();
+	m_player->AddBehaviour(m_keyboardBehaviour); //adds behaviour of keyboard
 
 
 	//m_enemy = new Agent();
@@ -73,12 +73,12 @@ bool AgentApp::startup() {
 	//m_followBehaviour->SetTarget(m_player); //sets target to follow player
 	//m_enemy->AddBehaviour(m_followBehaviour);//allows the behaviour to be processed by enemy
 	////=====================================================================
-	m_enemyWander = new Agent();
-	m_enemyWander->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
+	//m_enemyWander = new Agent();
+	//m_enemyWander->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
 
 
-	m_wanderBehaviour = new WanderBehaviour();
-	m_enemyWander->AddBehaviour(m_wanderBehaviour);
+	//m_wanderBehaviour = new WanderBehaviour();
+	//m_enemyWander->AddBehaviour(m_wanderBehaviour);
 	//========================================Not being Used For Now==========================
 
 	
@@ -214,12 +214,12 @@ void AgentApp::update(float deltaTime) {
 	aie::Input* input = aie::Input::getInstance();
 
 	//==============NOT BEING USED FOR NOW =====================================================
-	//m_player->Update(deltaTime); //since player has keyboard behaviour there is no need for
+	m_player->Update(deltaTime); //since player has keyboard behaviour there is no need for
 	//							 //an input function in update
 
 	//m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
 
-	m_enemyWander->Update(deltaTime);
+	//m_enemyWander->Update(deltaTime);
 
 
 	//another implementation of the collision system
@@ -371,10 +371,10 @@ void AgentApp::draw() {
 	
 	m_2dRenderer->drawSprite(m_backgroundTexture, getWindowWidth()/2, getWindowHeight() / 2, getWindowWidth(), getWindowHeight());
 	
-	//m_player->Draw(m_2dRenderer, m_playerTexture);
-	m_enemyWander->Draw(m_2dRenderer, m_enemyTexture);
+	m_player->Draw(m_2dRenderer, m_playerTexture);
+	//m_enemyWander->Draw(m_2dRenderer, m_enemyTexture);
 
-	m_2dRenderer->drawLine(m_enemyWander->GetPosition().m_x, m_enemyWander->GetPosition().m_y, m_enemyWander->GetVelocity().m_x * 1000 + m_enemyWander->GetPosition().m_x, m_enemyWander->GetVelocity().m_y * 1000 + m_enemyWander->GetPosition().m_y,5);
+	//m_2dRenderer->drawLine(m_enemyWander->GetPosition().m_x, m_enemyWander->GetPosition().m_y, m_enemyWander->GetVelocity().m_x * 1000 + m_enemyWander->GetPosition().m_x, m_enemyWander->GetVelocity().m_y * 1000 + m_enemyWander->GetPosition().m_y,5);
 	//drawing Boxes rectangles
 
 	//for (int i = 0; i < walls.size(); i++)
