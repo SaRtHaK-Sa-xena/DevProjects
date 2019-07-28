@@ -108,7 +108,6 @@ void Application::run(const char* title, int width, int height, bool fullscreen)
 			// clear imgui
 			ImGui_NewFrame();
 
-
 			update(float(deltaTime));
 
 			draw();
