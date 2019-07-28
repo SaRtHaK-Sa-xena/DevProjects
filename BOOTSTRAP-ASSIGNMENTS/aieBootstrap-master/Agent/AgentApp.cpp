@@ -57,21 +57,21 @@ bool AgentApp::startup() {
 	//setBackgroundColour(0.7, 0.9, 0.1);
 	m_player = new Agent();
 	//m_theBackground->load("../bin/textures/ship.png");
-	//m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
+	m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
 
 	//m_player->SetPosition(Vector2(100.0f, 100.0f)); // set starting position
 
 	//========================================Not being Used For Now==========================
-	//m_keyboardBehaviour = new KeyboardBehaviour();
-	//m_player->AddBehaviour(m_keyboardBehaviour); //adds behaviour of keyboard
+	m_keyboardBehaviour = new KeyboardBehaviour();
+	m_player->AddBehaviour(m_keyboardBehaviour); //adds behaviour of keyboard
 
 
-	//m_enemy = new Agent();
-	//m_enemy->SetPosition(Vector2(500, 500));// sets stating position for enemy
+	m_enemy = new Agent();
+	m_enemy->SetPosition(Vector2(500, 500));// sets stating position for enemy
 
-	//m_followBehaviour = new SeekBehaviour();
-	//m_followBehaviour->SetTarget(m_player); //sets target to follow player
-	//m_enemy->AddBehaviour(m_followBehaviour);//allows the behaviour to be processed by enemy
+	m_followBehaviour = new SeekBehaviour();
+	m_followBehaviour->SetTarget(m_player); //sets target to follow player
+	m_enemy->AddBehaviour(m_followBehaviour);//allows the behaviour to be processed by enemy
 	////=====================================================================
 	m_enemyWander = new Agent();
 	m_enemyWander->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
@@ -203,6 +203,7 @@ void AgentApp::shutdown() {
 	delete m_font;
 	delete m_2dRenderer;
 	delete m_enemyWander;
+	delete m_wanderBehaviour;
 }
 
 void AgentApp::update(float deltaTime) {
@@ -214,12 +215,12 @@ void AgentApp::update(float deltaTime) {
 	aie::Input* input = aie::Input::getInstance();
 
 	//==============NOT BEING USED FOR NOW =====================================================
-	//m_player->Update(deltaTime); //since player has keyboard behaviour there is no need for
+	m_player->Update(deltaTime); //since player has keyboard behaviour there is no need for
 	//							 //an input function in update
 
-	//m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
+	m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
 
-	m_enemyWander->Update(deltaTime);
+	//m_enemyWander->Update(deltaTime);
 
 
 	//another implementation of the collision system
@@ -250,6 +251,8 @@ void AgentApp::update(float deltaTime) {
 	}
 	//=============CHECKS COLLISION FOR OUTSIDE EDGE================
 
+
+	//Checks for collision for PLAYER
 	for (int i = 0; i < walls.size(); i++)
 	{
 		if ((m_player->GetPosition().m_x < walls[i].BottomRightPosition.m_x && m_player->GetPosition().m_x > walls[i].TopLeftposition.m_x)
@@ -281,7 +284,36 @@ void AgentApp::update(float deltaTime) {
 		}
 	}
 
+	for (int i = 0; i < walls.size(); i++)
+	{
+		if ((/*entity*/->GetPosition().m_x < walls[i].BottomRightPosition.m_x && m_player->GetPosition().m_x > walls[i].TopLeftposition.m_x)
+			&& (m_player->GetPosition().m_y > walls[i].BottomRightPosition.m_y && m_player->GetPosition().m_y < walls[i].TopLeftposition.m_y))
+		{
+			switch (walls[i].sideOfWall)
+			{
+			case rightSide:
+				m_player->SetPosition(Vector2(m_player->GetPosition().m_x + 15, m_player->GetPosition().m_y));
+				m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+				break;
 
+			case leftSide:
+				m_player->SetPosition(Vector2(m_player->GetPosition().m_x - 15, m_player->GetPosition().m_y));
+				m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+				break;
+
+			case topSide:
+				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y + 15));
+				m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+				break;
+
+			case bottomSide:
+				m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y - 15));
+				break;
+			}
+
+		}
+	}
 
 
 
