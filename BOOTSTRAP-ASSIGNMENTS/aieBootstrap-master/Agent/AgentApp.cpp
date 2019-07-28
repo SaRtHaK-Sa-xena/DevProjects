@@ -19,6 +19,9 @@ bool AgentApp::startup() {
 
 	walls.resize(16);
 
+
+
+
 	//Start Game
 
 	//Starts by pressing 'Space'
@@ -44,8 +47,8 @@ bool AgentApp::startup() {
 
 	//m_colliderTexture = new aie::Texture("../bin/textures/Enemy.png");
 
-	//m_playerTexture = new aie::Texture("../bin/textures/ship.png");
-	m_enemyTexture = new aie::Texture("../bin/textures/EnemyNuclear.png");
+	m_playerTexture = new aie::Texture("../bin/textures/ship.png");
+	//m_enemyTexture = new aie::Texture("../bin/textures/EnemyNuclear.png");
 
 	//m_collider = new Agent();
 	//m_collider->SetPosition(Vector2(180, 550));
@@ -63,7 +66,7 @@ bool AgentApp::startup() {
 
 	//========================================Not being Used For Now==========================
 	m_keyboardBehaviour = new KeyboardBehaviour();
-	m_player->AddBehaviour(m_keyboardBehaviour); //adds behaviour of keyboard
+	m_player->AddBehaviour(m_keyboardBehaviour); //adds behaviour of keyboar
 
 
 	m_enemy = new Agent();
@@ -73,15 +76,15 @@ bool AgentApp::startup() {
 	m_followBehaviour->SetTarget(m_player); //sets target to follow player
 	m_enemy->AddBehaviour(m_followBehaviour);//allows the behaviour to be processed by enemy
 	////=====================================================================
-	m_enemyWander = new Agent();
-	m_enemyWander->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
+	//m_enemyWander = new Agent();
+	//m_enemyWander->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
 
 
-	m_wanderBehaviour = new WanderBehaviour();
-	m_enemyWander->AddBehaviour(m_wanderBehaviour);
+	//m_wanderBehaviour = new WanderBehaviour();
+	//m_enemyWander->AddBehaviour(m_wanderBehaviour);
 	//========================================Not being Used For Now==========================
 
-	
+
 	//Collider Walls Sets Configuration
 	//Notes While Coding-
 	//Keep top left position --> x LOWER than bottom right position --> x
@@ -91,17 +94,17 @@ bool AgentApp::startup() {
 	walls.push_back({ {182,615},{194,221}, rightSide });
 	walls.push_back({ {156,615},{160,221}, leftSide });
 	walls.push_back({ {156,516},{186,221}, bottomSide });
-	walls.push_back({ {156,620},{436,616}, bottomSide }); 
-	walls.push_back({ {182,627}, {297,625}, topSide }); 
-	walls.push_back({ {297,625},{300,563},leftSide }); 
+	walls.push_back({ {156,620},{436,616}, bottomSide });
+	walls.push_back({ {182,627}, {297,625}, topSide });
+	walls.push_back({ {297,625},{300,563},leftSide });
 	walls.push_back({ {316,626},{320,575},rightSide });
-	walls.push_back({ {320,583},{629,574},topSide }); 
+	walls.push_back({ {320,583},{629,574},topSide });
 	walls.push_back({ {302,568}, {609,560}, bottomSide });
 	walls.push_back({ {602,560}, {608,443}, leftSide });
 	walls.push_back({ {608, 452}, {629,448}, bottomSide });
 	walls.push_back({ {630, 573}, {634, 443}, rightSide });
-	walls.push_back({ {319,642},{437,639}, topSide }); 
-	walls.push_back({ {432,639},{437,627}, rightSide }); 
+	walls.push_back({ {319,642},{437,639}, topSide });
+	walls.push_back({ {432,639},{437,627}, rightSide });
 	//----> Diagram
 	//      _________
 	//	   |     |_______
@@ -122,7 +125,7 @@ bool AgentApp::startup() {
 	//==========================Bar 2 ==========================
 
 	//==========================Bar 3==========================
-	walls.push_back({ {337,509},{514,499},topSide }); 
+	walls.push_back({ {337,509},{514,499},topSide });
 	walls.push_back({ {330,499},{332,489},leftSide });
 	walls.push_back({ {337,507}, {513,487}, bottomSide });
 	walls.push_back({ {511,501}, {514,488}, rightSide });
@@ -131,7 +134,7 @@ bool AgentApp::startup() {
 	//==========================Bar 3==========================
 
 	//==========================Bar 4==========================
-	walls.push_back({ {282,373}, {682,365}, topSide }); 
+	walls.push_back({ {282,373}, {682,365}, topSide });
 	walls.push_back({ {278,349}, {280, 361}, leftSide });
 	walls.push_back({ {280,365}, {679,361}, bottomSide });
 	walls.push_back({ {679,362}, {683,373}, rightSide });
@@ -149,14 +152,14 @@ bool AgentApp::startup() {
 	//==========================Bar 5==========================
 
 	//==========================Bar 6==========================
-	walls.push_back({ {732,485},{753,480},bottomSide }); 
+	walls.push_back({ {732,485},{753,480},bottomSide });
 	walls.push_back({ {750,599},{754,480},rightSide });
-	walls.push_back({ {754,602},{994,598},bottomSide }); 
+	walls.push_back({ {754,602},{994,598},bottomSide });
 	walls.push_back({ {992,664},{996,603},rightSide });
 	walls.push_back({ {974,665},{995,662},topSide });
 	walls.push_back({ {728,612},{731,480},leftSide });
 	walls.push_back({ {731,615},{973,610},topSide });
-	walls.push_back({ {971,664},{977,615}, leftSide});
+	walls.push_back({ {971,664},{977,615}, leftSide });
 	//----> Diagram
 	//       ____| 
 	//		|
@@ -195,6 +198,29 @@ bool AgentApp::startup() {
 	//		|____
 	//=======================Bar 9==========================
 
+
+	//=======================================
+
+	//aie::Input* input = aie::Input::getInstance();
+
+	//bool checkIfTrue = false;
+
+	//while (checkIfTrue == false)
+	//{
+	//	if (input->isKeyDown(aie::INPUT_KEY_SPACE))
+	//	{
+	//		std::cout << "Space Pressed" << std::endl;
+	//		checkIfTrue = true;
+	//	}
+	//	else
+	//	{
+	//		checkIfTrue = false;
+	//		std::cout << "Set To False" << std::endl;
+	//	}
+
+	//}
+	//std::cout << "Statement Moved past while Statement" << std::endl;
+	//return bool statement
 	return true;
 }
 
@@ -208,11 +234,11 @@ void AgentApp::shutdown() {
 
 void AgentApp::update(float deltaTime) {
 
-
-
+	
 
 	// input example
 	aie::Input* input = aie::Input::getInstance();
+
 
 	//==============NOT BEING USED FOR NOW =====================================================
 	m_player->Update(deltaTime); //since player has keyboard behaviour there is no need for
@@ -223,66 +249,77 @@ void AgentApp::update(float deltaTime) {
 	//m_enemyWander->Update(deltaTime);
 
 
-	//another implementation of the collision system
-	//=============CHECKS COLLISION FOR OUTSIDE EDGE================
-	//checks for OuterEdge (LEFT SIDE)
-	if (m_player->GetPosition().m_x < 25)
-	{
-		m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
-		m_player->SetPosition(Vector2(m_player->GetPosition().m_x + 25, m_player->GetPosition().m_y));
-	}
-	//checks for OuterEdge (RIGHT SIDE)
-	if (m_player->GetPosition().m_x > 1250)
-	{
-		m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
-		m_player->SetPosition(Vector2(m_player->GetPosition().m_x - 25, m_player->GetPosition().m_y));
-	}
-	//checks for OuterEdge (TOP SIDE)
-	if (m_player->GetPosition().m_y > 700)
-	{
-		m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
-		m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y - 25));
-	}
-	//checks for OuterEdge (BOTTOM SIDE)
-	if (m_player->GetPosition().m_y < 30)
-	{
-		m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
-		m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y + 25));
-	}
-	//=============CHECKS COLLISION FOR OUTSIDE EDGE================
+//if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
+//m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
 
 
-	//Checks for collision for PLAYER
-	for (int i = 0; i < walls.size(); i++)
+	//m_enemyWander->Update(deltaTime);
+
+
+
+
+
+//another implementation of the collision system
+//=============CHECKS COLLISION FOR OUTSIDE EDGE================
+//checks for OuterEdge (LEFT SIDE)
+if (m_player->GetPosition().m_x < 25)
+{
+	m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+	m_player->SetPosition(Vector2(m_player->GetPosition().m_x + 25, m_player->GetPosition().m_y));
+}
+//checks for OuterEdge (RIGHT SIDE)
+if (m_player->GetPosition().m_x > 1250)
+{
+	m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+	m_player->SetPosition(Vector2(m_player->GetPosition().m_x - 25, m_player->GetPosition().m_y));
+}
+//checks for OuterEdge (TOP SIDE)
+if (m_player->GetPosition().m_y > 700)
+{
+	m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+	m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y - 25));
+}
+//checks for OuterEdge (BOTTOM SIDE)
+if (m_player->GetPosition().m_y < 30)
+{
+	m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+	m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y + 25));
+}
+//=============CHECKS COLLISION FOR OUTSIDE EDGE================
+
+//Checks for collision for PLAYER
+for (int i = 0; i < walls.size(); i++)
+{
+	if ((m_player->GetPosition().m_x < walls[i].BottomRightPosition.m_x && m_player->GetPosition().m_x > walls[i].TopLeftposition.m_x)
+		&&(m_player->GetPosition().m_y > walls[i].BottomRightPosition.m_y && m_player->GetPosition().m_y < walls[i].TopLeftposition.m_y))
 	{
-		if ((m_player->GetPosition().m_x < walls[i].BottomRightPosition.m_x && m_player->GetPosition().m_x > walls[i].TopLeftposition.m_x)
-			&&(m_player->GetPosition().m_y > walls[i].BottomRightPosition.m_y && m_player->GetPosition().m_y < walls[i].TopLeftposition.m_y))
+		switch(walls[i].sideOfWall)
 		{
-			switch(walls[i].sideOfWall)
-			{
-			case rightSide:
-				m_player->SetPosition(Vector2(m_player->GetPosition().m_x + 15, m_player->GetPosition().m_y));
-				m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
-				break;
+		case rightSide:
+			m_player->SetPosition(Vector2(m_player->GetPosition().m_x + 15, m_player->GetPosition().m_y));
+			m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+			break;
 
-			case leftSide:
-				m_player->SetPosition(Vector2(m_player->GetPosition().m_x - 15, m_player->GetPosition().m_y));
-				m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
-				break;
+		case leftSide:
+			m_player->SetPosition(Vector2(m_player->GetPosition().m_x - 15, m_player->GetPosition().m_y));
+			m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+			break;
 
-			case topSide:
-				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y +15));
-				m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x,0)); //only changes y not x
-				break;
+		case topSide:
+			m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y +15));
+			m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x,0)); //only changes y not x
+			break;
 
-			case bottomSide:
-				m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
-				m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y - 15));
-				break;
-			}
-			
+		case bottomSide:
+			m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+			m_player->SetPosition(Vector2(m_player->GetPosition().m_x, m_player->GetPosition().m_y - 15));
+			break;
 		}
+		
 	}
+}
+//==============NOT BEING USED FOR NOW =====================================================
+
 
 	for (int i = 0; i < walls.size(); i++)
 	{
@@ -373,8 +410,7 @@ void AgentApp::update(float deltaTime) {
 	//if(valueP1 > valueP2 && valueP1 - valueP2 < 10) ---> then collision detected
 
 	// exit the application
-	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
-		quit();
+
 	//==============NOT BEING USED FOR NOW =====================================================
 
 	//Run Update for Each
@@ -403,10 +439,10 @@ void AgentApp::draw() {
 	
 	m_2dRenderer->drawSprite(m_backgroundTexture, getWindowWidth()/2, getWindowHeight() / 2, getWindowWidth(), getWindowHeight());
 	
-	//m_player->Draw(m_2dRenderer, m_playerTexture);
-	m_enemyWander->Draw(m_2dRenderer, m_enemyTexture);
+	m_player->Draw(m_2dRenderer, m_playerTexture);
+	//m_enemyWander->Draw(m_2dRenderer, m_enemyTexture);
 
-	m_2dRenderer->drawLine(m_enemyWander->GetPosition().m_x, m_enemyWander->GetPosition().m_y, m_enemyWander->GetVelocity().m_x * 1000 + m_enemyWander->GetPosition().m_x, m_enemyWander->GetVelocity().m_y * 1000 + m_enemyWander->GetPosition().m_y,5);
+	//m_2dRenderer->drawLine(m_enemyWander->GetPosition().m_x, m_enemyWander->GetPosition().m_y, m_enemyWander->GetVelocity().m_x * 1000 + m_enemyWander->GetPosition().m_x, m_enemyWander->GetVelocity().m_y * 1000 + m_enemyWander->GetPosition().m_y,5);
 	//drawing Boxes rectangles
 
 	//for (int i = 0; i < walls.size(); i++)
