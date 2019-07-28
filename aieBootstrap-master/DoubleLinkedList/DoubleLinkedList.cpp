@@ -140,7 +140,7 @@ void DoubleLinkedList::InsertAfter(Node * prev_node, int a_value)
 	}
 	else
 	{
-		std::cout << "List AlreadY Empty" << std::endl;
+		std::cout << "List Already Empty" << std::endl;
 	}
 }
 //=============DONE=========================
@@ -154,7 +154,7 @@ DoubleLinkedList::Iterator DoubleLinkedList::Begin()
 	}
 	else
 	{
-		std::cout << "List AlreadY Empty" << std::endl;
+		std::cout << "List Already Empty" << std::endl;
 	}
 }
 //=============DONE=========================
@@ -169,7 +169,7 @@ DoubleLinkedList::Iterator DoubleLinkedList::End()
 	}
 	else
 	{
-		std::cout << "List AlreadY Empty" << std::endl;
+		std::cout << "List Already Empty" << std::endl;
 	}
 	
 }
@@ -185,7 +185,7 @@ Node * DoubleLinkedList::First()
 	}
 	else
 	{
-		std::cout << "List AlreadY Empty" << std::endl;
+		std::cout << "List Already Empty" << std::endl;
 	}
 	
 }
@@ -201,7 +201,7 @@ Node * DoubleLinkedList::Last()
 	}
 	else
 	{
-		std::cout << "List AlreadY Empty" << std::endl;
+		std::cout << "List Already Empty" << std::endl;
 	}
 	
 }
@@ -225,7 +225,8 @@ int DoubleLinkedList::Count()
 	}
 	else
 	{
-		std::cout << "List AlreadY Empty" << std::endl;
+		std::cout << "List Already Empty" << std::endl;
+		return 0;
 	}
 
 }
@@ -241,14 +242,14 @@ void DoubleLinkedList::Erase(Iterator a_iterator)
 	if (!Empty())
 	{
 		std::string choice;
-		std::cout << "From First or Last (BEGIN)--(END)" << std::endl;
+		std::cout << "From First (BEGIN) or Last (END)" << std::endl;
 		std::cin >> choice;
 		if (choice == "BEGIN")
 		{
 			a_iterator = Begin();
 			int position;
 			int NumberToBeInserted;
-			std::cout << "What Position to Delete: " << std::endl;
+			std::cout << "What Position to Delete From The Top: " << std::endl;
 			std::cin >> position; //increment forward by...
 			for (int i = 0; i < position - 1; i++)
 			{
@@ -266,7 +267,7 @@ void DoubleLinkedList::Erase(Iterator a_iterator)
 			a_iterator = End();
 			int position;
 			int NumberToBeInserted;
-			std::cout << "What Position to Delete: " << std::endl;
+			std::cout << "What Position to Delete From The Bottom: " << std::endl;
 			std::cin >> position; //increment forward by...
 			for (int i = 0; i < position - 1; i++)
 			{
@@ -282,7 +283,7 @@ void DoubleLinkedList::Erase(Iterator a_iterator)
 	}
 	else
 	{
-		std::cout << "List AlreadY Empty" << std::endl;
+		std::cout << "List Already Empty" << std::endl;
 	}
 
 	
@@ -537,7 +538,7 @@ void DoubleLinkedList::Clear()
 	}
 	else
 	{
-		std::cout << "List AlreadY Empty" << std::endl;
+		std::cout << "List Already Empty" << std::endl;
 	}
 	
 }

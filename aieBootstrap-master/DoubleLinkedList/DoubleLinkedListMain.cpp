@@ -31,14 +31,18 @@ int main()
 
 	while (cont)
 	{
+		//display menu
 		cout << endl;
 		cout << endl;
 		std::cout << "Would You Like To: " << std::endl;
-		std::cout << "|PUSHFRONT(A)--PUSHBACK(B)--INSERTAFTER(C)--BEGIN(D)--END(E)--FIRST(F)"
-			<< "\n\n|LAST(G)--COUNT(H)--ERASE(I)--REMOVE(J)--POPBACK(K)--POPFRONT(L)--CLEAR(M)" << std::endl;
+		std::cout << "|PUSHFRONT(A)-			-PUSHBACK(B)" << "\n" << "INSERTAFTER(C)-			-BEGIN(D)" << "\n" << "END(E)-				-FIRST(F)"
+			<< "\n\n|LAST(G)-			-COUNT(H)" << "\n" << "--ERASE(I)-			-REMOVE(J)" << "\n" << "-POPBACK(K)-			-POPFRONT(L)" << "\n" << "-CLEAR(M)" << std::endl;
 		
+		std::cout << "=============================" << endl;
 		std::cout << "Sort Data? (Y)" << std::endl;
 		std::cin >> choice;
+
+		//input function
 		switch (choice)
 		{
 		case'a':
@@ -204,13 +208,13 @@ void InsertValue(DoubleLinkedList *list)
 	if (!list->Empty())
 	{
 		string input;
-		cout << "From What Position In The List (FIRST) or (LAST)" << endl;
+		cout << "Select starting point --> from (FIRST) or from (LAST)" << endl;
 		cin >> input;
 		if (input == "FIRST")
 		{
 			DoubleLinkedList::Iterator temp = list->First(); //sets to become an iterator, and sets position to FIRST
 			int size;
-			std::cout << "Enter" << "\n + : " << std::endl;
+			std::cout << "Enter" << "\n How many places down from the beginning : " << std::endl;
 			std::cin >> size;
 			while (cin.fail())
 			{
@@ -244,7 +248,7 @@ void InsertValue(DoubleLinkedList *list)
 			DoubleLinkedList::Iterator temp = list->Last();
 			int size;
 
-			cout << "Enter" << "\n - : " << endl;
+			cout << "Enter" << "\n How many places up from the end : " << endl;
 			cin >> size;
 
 			while (cin.fail())
