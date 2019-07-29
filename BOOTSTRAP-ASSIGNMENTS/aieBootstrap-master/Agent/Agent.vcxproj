@@ -176,6 +176,7 @@
     <ClInclude Include="AgentClass.h" />
     <ClInclude Include="BehaviourClass.h" />
     <ClInclude Include="ColliderWall.h" />
+    <ClInclude Include="ItemCollision.h" />
     <ClInclude Include="SeekBehaviourClass.h" />
     <ClInclude Include="WanderBehaviourClass.h" />
   </ItemGroup>

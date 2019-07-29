@@ -20,6 +20,9 @@ bool AgentApp::startup() {
 	walls.resize(16); //sets walls vector to 16
 	contact.resize(4); //sets contact vector to 4
 	collectibles.resize(10); //sets collectible vector to 10 
+	Items.resize(10); //sets 10 items
+
+
 
 	m_2dRenderer = new aie::Renderer2D();
 	// TODO: remember to change this when redistributing a build!
@@ -59,6 +62,67 @@ bool AgentApp::startup() {
 	m_collectibles1 = new Agent();
 	m_collectibles1->SetPosition(Vector2(427, 433));
 
+
+	//ITEM NO 1
+	Items.push_back({ {398,263},{398,312},leftSide, ItemNO1 });
+	Items.push_back({ {398,263},{454,262},topSide, ItemNO1 });
+	Items.push_back({ {454,263},{454,312},rightSide, ItemNO1 });
+	Items.push_back({ {398,312},{454,313},bottomSide, ItemNO1 });
+
+	//ITEM NO 2
+	Items.push_back({ {585,483},{585,503},leftSide, ItemNO2 });
+	Items.push_back({ {585,483},{651,453},topSide, ItemNO2 });
+	Items.push_back({ {641,453},{641,503},rightSide, ItemNO2 });
+	Items.push_back({ {587,502},{641,503},bottomSide, ItemNO2 });
+
+	//ITEM NO 3
+	Items.push_back({ {43,636},{43,685},leftSide, ItemNO3 });
+	Items.push_back({ {43,636},{97,636},topSide, ItemNO3 });
+	Items.push_back({ {98,636},{98,685},rightSide, ItemNO3 });
+	Items.push_back({ {42,684},{97,685},bottomSide, ItemNO3 });
+
+	//ITEM NO 4
+	Items.push_back({ {588,631},{588,680},leftSide, ItemNO4 });
+	Items.push_back({ {587,631},{643,630},topSide, ItemNO4 });
+	Items.push_back({ {643,630},{643,680},rightSide, ItemNO4 });
+	Items.push_back({ {588,680},{643,680},bottomSide, ItemNO4 });
+
+	//ITEM NO 5
+	Items.push_back({ {934,533},{934,583},leftSide, ItemNO5 });
+	Items.push_back({ {934,533},{989,532},topSide, ItemNO5 });
+	Items.push_back({ {988,533},{989,583},rightSide, ItemNO5 });
+	Items.push_back({ {934,683},{989,582},bottomSide, ItemNO5 });
+
+	//ITEM NO 6
+	Items.push_back({ {1173,634},{1172,685},leftSide, ItemNO6 });
+	Items.push_back({ {1173,634},{1226,634},topSide, ItemNO6 });
+	Items.push_back({ {1227,635},{1227,684},rightSide, ItemNO6 });
+	Items.push_back({ {1173,684},{1227,684},bottomSide, ItemNO6 });
+
+	//ITEM NO 7
+	Items.push_back({ {943,216},{943,265},leftSide, ItemNO7 });
+	Items.push_back({ {943,216},{998,216},topSide, ItemNO7 });
+	Items.push_back({ {998,216},{997,265},rightSide, ItemNO7 });
+	Items.push_back({ {942,266},{997,265},bottomSide, ItemNO7 });
+
+
+	//ITEM NO 8
+	Items.push_back({ {1138,46},{1138,94},leftSide, ItemNO8 });
+	Items.push_back({ {1138,46},{1192,45},topSide, ItemNO8 });
+	Items.push_back({ {1192,46},{1193,94},rightSide, ItemNO8 });
+	Items.push_back({ {1138,94},{1193,94},bottomSide, ItemNO8 });
+
+	//ITEM NO 9
+	Items.push_back({ {625,36},{625,85},leftSide, ItemNO9 });
+	Items.push_back({ {625,36},{680,35},topSide, ItemNO9 });
+	Items.push_back({ {679,35},{680,86},rightSide, ItemNO9 });
+	Items.push_back({ {625,85},{680,85},bottomSide, ItemNO9 });
+
+	//ITEM NO 10
+	Items.push_back({ {52,245},{52,295},leftSide, ItemNO10 });
+	Items.push_back({ {52,245},{107,246},topSide, ItemNO10 });
+	Items.push_back({ {107,246},{107,295},rightSide, ItemNO10 });
+	Items.push_back({ {52,295},{107,295},bottomSide, ItemNO10 });
 
 	//m_collectibles2 = new Agent();
 	//m_collectibles
@@ -252,6 +316,8 @@ void AgentApp::update(float deltaTime) {
 
 		m_collectibles->Update(deltaTime);
 
+
+		//Error Being Pulled Here
 		if (Score > 5) //if score greater than 5 make enemy seek
 		{
 			m_enemy->AddBehaviour(m_wanderBehaviour); //for now will be wandering

@@ -4,6 +4,7 @@
 #include "SeekBehaviourClass.h"
 #include "WanderBehaviourClass.h"
 #include "ColliderWall.h"
+#include "ItemCollision.h"
 #include <vector>
 
 class AgentApp : public aie::Application {
@@ -63,7 +64,9 @@ protected:
 	//Holds Collision with Item
 	std::vector<Collider>collectibles;
 
-	//std::vector<Agent*>collectibles;
+	//Holds Collision with Items In ItemCollision.h
+	std::vector<collectCollision>Items;
+
 
 	//Check to Start the Game
 	bool startGame = false;
