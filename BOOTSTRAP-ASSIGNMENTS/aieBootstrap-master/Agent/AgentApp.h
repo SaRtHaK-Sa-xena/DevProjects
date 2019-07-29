@@ -29,22 +29,25 @@ protected:
 
 	//creates enemy; unable to move, but uses seek to move
 	Agent*				m_enemy;
-	SeekBehaviour*		m_followBehaviour;
+	SeekBehaviour*		m_followBehaviour; //follow behaviour
 
-	Agent*				m_enemyWander;
-	WanderBehaviour*	m_wanderBehaviour;
+	WanderBehaviour*	m_wanderBehaviour; //wandering behaviour
 
-	aie::Texture*		m_playerTexture;
-	aie::Texture*		m_enemyTexture;
+	aie::Texture*		m_playerTexture; //player 
+	aie::Texture*		m_enemyTexture; //enemy
 
-	aie::Texture*		m_backgroundTexture;
-	aie::Texture*		m_mainMenuTexture;
+	aie::Texture*		m_backgroundTexture; //background
+	aie::Texture*		m_mainMenuTexture; //main menu
+	aie::Texture*		m_itemTexture; //collectibles
 
 	//Holds Collision with walls
 	std::vector<Collider>walls;
 
 	//Holds Collision with Enemy
 	std::vector<Collider>contact;
+
+	//Holds Collision with Item
+	std::vector<Collider>Collectibles;
 
 	//Check to Start the Game
 	bool startGame = false;
@@ -57,5 +60,8 @@ protected:
 
 	//Checks If Player and Enemy Created
 	bool createdEntity = true;
+
+	//Score Tally
+	int Score = 0;
 
 };

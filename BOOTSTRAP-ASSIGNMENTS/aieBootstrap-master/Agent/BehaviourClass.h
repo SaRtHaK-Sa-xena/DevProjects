@@ -9,17 +9,12 @@ class Behaviour
 {
 public:
 
-	// empty constructors and destructors fore base class
+	// empty constructors and destructors for base class
 	Behaviour() {};
 	virtual ~Behaviour() {};
 
 	// pure virtual function for executing the behaviour
 	virtual Vector2 Update(Agent* agent, float deltaTime) = 0;
-
-	//void setSpeed(Vector2 value)
-	//{
-	//	speed = value;
-	//}
 
 protected:
 	float speed = 200; //sets the speed of enemy 

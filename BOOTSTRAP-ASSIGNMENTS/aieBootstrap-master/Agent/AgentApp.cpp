@@ -34,6 +34,8 @@ bool AgentApp::startup() {
 
 	m_mainMenuTexture = new aie::Texture("../bin/textures/MainMenu.png");
 
+	m_itemTexture = new aie::Texture("../bin/textures/collectiblesItem.png");
+
 	//Create Player
 	m_player = new Agent();
 	//m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
@@ -172,6 +174,9 @@ bool AgentApp::startup() {
 	//		|____
 	//=======================Bar 9==========================
 
+	//ITEM NUMBER 1
+	collectibles.push_back({ {},{},leftSide });
+
 	contact.push_back({ {0,0},{0,0}, topSide});
 
 	return true;
@@ -221,6 +226,10 @@ void AgentApp::update(float deltaTime) {
 		createdEntity = true;
 	}
 
+	//Score Check
+
+
+
 	//Starts Game
 	if (startGame == true)
 	{
@@ -231,6 +240,11 @@ void AgentApp::update(float deltaTime) {
 										 //and direction it's pointing
 
 		m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
+
+		if (Score > 5) //if score greater than 5 make enemy seek
+		{
+			m_enemy->AddBehaviour(m_wanderBehaviour); //for now will be wandering
+		}
 
 
 		//Under Enemy Update
@@ -410,6 +424,38 @@ void AgentApp::update(float deltaTime) {
 			}
 		}
 
+		for (int i = 0; i < collectibles.size(); i++)
+		{
+			if ((m_player->GetPosition().m_x < collectibles[i].BottomRightPosition.m_x && m_player->GetPosition().m_x > collectibles[i].TopLeftposition.m_x)
+				&& (m_player->GetPosition().m_y > collectibles[i].BottomRightPosition.m_y && m_player->GetPosition().m_y < collectibles[i].TopLeftposition.m_y))
+				//This check is basically making sure the player is inside these parameters of topLeft (x,y) and bottomRight (x,y)
+			{
+				switch (collectibles[i].sideOfWall)
+				{
+				case rightSide:
+					m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+					std::cout << "Right Contact Enemy" << std::endl;
+					break;
+
+				case leftSide:
+					m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+					std::cout << "Left Contact Enemy" << std::endl;
+					break;
+
+				case topSide:
+					m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+					std::cout << "Top Contact Enemy" << std::endl;
+					break;
+
+				case bottomSide:
+					m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+					std::cout << "Bottom Contact Enemy" << std::endl;
+					break;
+				}
+
+			}
+		}
+
 		//Condition To end game --> runs Check to see score
 
 		//(while FALSE)
@@ -443,6 +489,8 @@ void AgentApp::draw() {
 	//Keyboard Movement (PLAYER)
 	m_player->Draw(m_2dRenderer, m_playerTexture);
 
+	
+
 	//Wander (ENEMY)
 	//m_enemyWander->Draw(m_2dRenderer, m_enemyTexture);
 	//m_2dRenderer->drawLine(m_enemyWander->GetPosition().m_x, m_enemyWander->GetPosition().m_y, m_enemyWander->GetVelocity().m_x * 1000 + m_enemyWander->GetPosition().m_x, m_enemyWander->GetVelocity().m_y * 1000 + m_enemyWander->GetPosition().m_y,5);
@@ -450,9 +498,13 @@ void AgentApp::draw() {
 	//Seek Player (ENEMY)
 	//m_enemy->Draw(m_2dRenderer,m_enemyTexture);
 
+	char Var[256];
+	sprintf(Var, "SCORE: %d", Score);
 
 	// output some text, uses the last used colour
-	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
+	m_2dRenderer->drawText(m_font, Var, 18, 685);
+
+	
 
 	// done drawing sprites
 	m_2dRenderer->end();
