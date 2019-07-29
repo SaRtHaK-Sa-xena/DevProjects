@@ -19,7 +19,7 @@ bool AgentApp::startup() {
 
 	walls.resize(16); //sets walls vector to 16
 	contact.resize(4); //sets contact vector to 4
-
+	collectibles.resize(10);
 
 	m_2dRenderer = new aie::Renderer2D();
 	// TODO: remember to change this when redistributing a build!
@@ -34,7 +34,7 @@ bool AgentApp::startup() {
 
 	m_mainMenuTexture = new aie::Texture("../bin/textures/MainMenu.png");
 
-	m_itemTexture = new aie::Texture("../bin/textures/collectiblesItem.png");
+	m_itemTexture = new aie::Texture("../bin/textures/collectableItem.png");
 
 	//Create Player
 	m_player = new Agent();
@@ -51,6 +51,14 @@ bool AgentApp::startup() {
 	m_followBehaviour = new SeekBehaviour();
 	m_followBehaviour->SetTarget(m_player); //sets target to follow player
 	m_enemy->AddBehaviour(m_followBehaviour);//allows the behaviour to be processed by enemy
+
+
+	m_collectibles = new Agent();
+	m_collectibles->SetPosition(Vector2(80, 453));
+
+	m_collectibles1 = new Agent();
+	m_collectibles->SetPosition(Vector2(427, 433));
+
 
 
 	//m_enemyWander = new Agent();
@@ -175,7 +183,7 @@ bool AgentApp::startup() {
 	//=======================Bar 9==========================
 
 	//ITEM NUMBER 1
-	collectibles.push_back({ {},{},leftSide });
+	//collectibles.push_back({ {},{},leftSide });
 
 	contact.push_back({ {0,0},{0,0}, topSide});
 
@@ -241,6 +249,8 @@ void AgentApp::update(float deltaTime) {
 
 		m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
 
+		m_collectibles->Update(deltaTime);
+
 		if (Score > 5) //if score greater than 5 make enemy seek
 		{
 			m_enemy->AddBehaviour(m_wanderBehaviour); //for now will be wandering
@@ -265,6 +275,42 @@ void AgentApp::update(float deltaTime) {
 		contact[3].BottomRightPosition = Vector2(m_enemy->GetPosition().m_x + 19, m_enemy->GetPosition().m_y - 20);
 		contact[3].sideOfWall = rightSide;
 		//End of collision check function
+
+		
+
+		//Tracks Collectible Position For Collision
+		collectibles[0].TopLeftposition = Vector2(m_collectibles->GetPosition().m_x - 15, m_collectibles->GetPosition().m_y + 25);
+		collectibles[0].BottomRightPosition = Vector2(m_collectibles->GetPosition().m_x + 10, m_collectibles->GetPosition().m_y + 20);
+		collectibles[0].sideOfWall = topSide;
+
+		collectibles[1].TopLeftposition = Vector2(m_collectibles->GetPosition().m_x - 15, m_collectibles->GetPosition().m_y + 20);
+		collectibles[1].BottomRightPosition = Vector2(m_collectibles->GetPosition().m_x - 10, m_collectibles->GetPosition().m_y - 20);
+		collectibles[1].sideOfWall = leftSide;
+
+		collectibles[2].TopLeftposition = Vector2(m_collectibles->GetPosition().m_x - 15, m_collectibles->GetPosition().m_y - 20);
+		collectibles[2].BottomRightPosition = Vector2(m_collectibles->GetPosition().m_x + 15, m_collectibles->GetPosition().m_y - 23);
+		collectibles[2].sideOfWall = bottomSide;
+
+		collectibles[3].TopLeftposition = Vector2(m_collectibles->GetPosition().m_x + 15, m_collectibles->GetPosition().m_y + 23);
+		collectibles[3].BottomRightPosition = Vector2(m_collectibles->GetPosition().m_x + 19, m_collectibles->GetPosition().m_y - 20);
+		collectibles[3].sideOfWall = rightSide;
+		//End of collision check function
+
+		collectibles[0].TopLeftposition = Vector2(m_collectibles1->GetPosition().m_x - 15, m_collectibles1->GetPosition().m_y + 25);
+		collectibles[0].BottomRightPosition = Vector2(m_collectibles1->GetPosition().m_x + 10, m_collectibles1->GetPosition().m_y + 20);
+		collectibles[0].sideOfWall = topSide;
+
+		collectibles[1].TopLeftposition = Vector2(m_collectibles1->GetPosition().m_x - 15, m_collectibles1->GetPosition().m_y + 20);
+		collectibles[1].BottomRightPosition = Vector2(m_collectibles1->GetPosition().m_x - 10, m_collectibles1->GetPosition().m_y - 20);
+		collectibles[1].sideOfWall = leftSide;
+
+		collectibles[2].TopLeftposition = Vector2(m_collectibles1->GetPosition().m_x - 15, m_collectibles1->GetPosition().m_y - 20);
+		collectibles[2].BottomRightPosition = Vector2(m_collectibles1->GetPosition().m_x + 15, m_collectibles1->GetPosition().m_y - 23);
+		collectibles[2].sideOfWall = bottomSide;
+
+		collectibles[3].TopLeftposition = Vector2(m_collectibles1->GetPosition().m_x + 15, m_collectibles1->GetPosition().m_y + 23);
+		collectibles[3].BottomRightPosition = Vector2(m_collectibles1->GetPosition().m_x + 19, m_collectibles1->GetPosition().m_y - 20);
+		collectibles[3].sideOfWall = rightSide;
 
 
 
@@ -434,22 +480,22 @@ void AgentApp::update(float deltaTime) {
 				{
 				case rightSide:
 					m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
-					std::cout << "Right Contact Enemy" << std::endl;
+					std::cout << "Right Contact Collectible" << std::endl;
 					break;
 
 				case leftSide:
 					m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
-					std::cout << "Left Contact Enemy" << std::endl;
+					std::cout << "Left Contact Collectible" << std::endl;
 					break;
 
 				case topSide:
 					m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
-					std::cout << "Top Contact Enemy" << std::endl;
+					std::cout << "Top Contact Collectible" << std::endl;
 					break;
 
 				case bottomSide:
 					m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
-					std::cout << "Bottom Contact Enemy" << std::endl;
+					std::cout << "Bottom Contact Collectible" << std::endl;
 					break;
 				}
 
@@ -489,6 +535,8 @@ void AgentApp::draw() {
 	//Keyboard Movement (PLAYER)
 	m_player->Draw(m_2dRenderer, m_playerTexture);
 
+	m_collectibles->Draw(m_2dRenderer, m_itemTexture);
+	m_collectibles1->Draw(m_2dRenderer, m_itemTexture);
 	
 
 	//Wander (ENEMY)

@@ -31,6 +31,19 @@ protected:
 	Agent*				m_enemy;
 	SeekBehaviour*		m_followBehaviour; //follow behaviour
 
+	Agent*				m_collectibles;
+	Agent*				m_collectibles1;
+	Agent*				m_collectibles2;
+	Agent*				m_collectibles3;
+	Agent*				m_collectibles4;
+	Agent*				m_collectibles5;
+	Agent*				m_collectibles6;
+	Agent*				m_collectibles7;
+	Agent*				m_collectibles8;
+	Agent*				m_collectibles9;
+	Agent*				m_collectibles10;
+
+
 	WanderBehaviour*	m_wanderBehaviour; //wandering behaviour
 
 	aie::Texture*		m_playerTexture; //player 
@@ -47,7 +60,9 @@ protected:
 	std::vector<Collider>contact;
 
 	//Holds Collision with Item
-	std::vector<Collider>Collectibles;
+	std::vector<Collider>collectibles;
+
+	//std::vector<Agent*>collectibles;
 
 	//Check to Start the Game
 	bool startGame = false;
