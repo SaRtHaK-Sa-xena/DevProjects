@@ -22,7 +22,7 @@ public:
 	//}
 
 protected:
-	float speed = 2000; //sets the speed of enemy 
+	float speed = 200; //sets the speed of enemy 
 };
 
 class KeyboardBehaviour : public Behaviour

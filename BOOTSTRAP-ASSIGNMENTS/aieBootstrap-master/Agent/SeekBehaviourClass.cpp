@@ -1,5 +1,7 @@
 #include "SeekBehaviourClass.h"
 
+const float speedOfSeeker = 5;
+
 Vector2 SeekBehaviour::Update(Agent * agent, float deltaTime)
 {
 	//if target is null return a zero vector
@@ -19,7 +21,7 @@ Vector2 SeekBehaviour::Update(Agent * agent, float deltaTime)
 		Direction.normalise(); //normalize
 
 		////Multiply the direction by the speed we want the agent to move
-		Direction = Direction * (speed * deltaTime);
+		Direction = Direction * speedOfSeeker;
 
 
 		//Subtract the agent's current velocity from the result to get the force we need to apply

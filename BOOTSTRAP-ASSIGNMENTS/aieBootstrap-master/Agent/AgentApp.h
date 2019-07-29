@@ -36,11 +36,23 @@ protected:
 
 	aie::Texture*		m_playerTexture;
 	aie::Texture*		m_enemyTexture;
-	//aie::Texture*		m_colliderTexture;
 
 	aie::Texture*		m_backgroundTexture;
+	aie::Texture*		m_mainMenuTexture;
 
-
+	//Holds Collision with walls
 	std::vector<Collider>walls;
+
+	//Holds Collision with Enemy
+	std::vector<Collider>contact;
+
+	//Check to Start the Game
+	bool startGame = false;
+
+	//To Draw MainMenu
+	bool drawMainMenu = true;
+
+	//Checks If Player and Enemy Created
+	bool createdEntity = false;
 
 };

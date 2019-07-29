@@ -1,9 +1,10 @@
 #pragma once
 #include <Vector2.h>
 
-enum wallSide 
+enum wallSide
 {
 	rightSide, leftSide, topSide, bottomSide
+
 };
 
 struct Collider
@@ -12,4 +13,5 @@ struct Collider
 	Vector2 BottomRightPosition; //(2,4)
 
 	wallSide sideOfWall;
+
 };
