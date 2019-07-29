@@ -52,7 +52,10 @@ protected:
 	//To Draw MainMenu
 	bool drawMainMenu = true;
 
+	//To Draw Enemy
+	bool drawEnemy = false;
+
 	//Checks If Player and Enemy Created
-	bool createdEntity = false;
+	bool createdEntity = true;
 
 };

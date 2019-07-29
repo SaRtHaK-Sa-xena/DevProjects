@@ -36,7 +36,7 @@ bool AgentApp::startup() {
 
 	//Create Player
 	m_player = new Agent();
-	m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
+	//m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
 
 	m_keyboardBehaviour = new KeyboardBehaviour();
 	m_player->AddBehaviour(m_keyboardBehaviour); //adds behaviour of keyboard
@@ -44,7 +44,7 @@ bool AgentApp::startup() {
 	
 	//Create enemy
 	m_enemy = new Agent();
-	m_enemy->SetPosition(Vector2(500, 500));// sets starting position for enemy
+	//m_enemy->SetPosition(Vector2(500, 500));// sets starting position for enemy
 
 	m_followBehaviour = new SeekBehaviour();
 	m_followBehaviour->SetTarget(m_player); //sets target to follow player
@@ -197,6 +197,23 @@ void AgentApp::update(float deltaTime) {
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 
+	//Condition to start the game
+	if (startGame == false)
+	{
+		std::cout << "Start Game Set To False" << std::endl;
+		if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
+		{
+			startGame = true; //start game
+			drawMainMenu = false; //don't draw Main Menu
+			createdEntity = false; //set position of player, and enemy
+		}
+		else
+		{
+			startGame = false;
+		}
+	}
+
+	//Checks If The Player And Enemy Should be Drawn
 	if (createdEntity == false)
 	{
 		m_enemy->SetPosition(Vector2(500, 500));// sets starting position for enemy
@@ -204,19 +221,7 @@ void AgentApp::update(float deltaTime) {
 		createdEntity = true;
 	}
 
-	if (startGame == false)
-	{
-		std::cout << "Start Game Set To False" << std::endl;
-		if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
-		{
-			startGame = true;
-			drawMainMenu = false;
-		}
-		else
-		{
-			startGame = false;
-		}
-	}
+	//Starts Game
 	if (startGame == true)
 	{
 		m_player->Update(deltaTime); //since player has keyboard behaviour there is no need for
@@ -433,7 +438,8 @@ void AgentApp::draw() {
 	//Draw Main Menu
 	if(drawMainMenu)
 		m_2dRenderer->drawSprite(m_mainMenuTexture, getWindowWidth() / 2, getWindowHeight() / 2, getWindowWidth(), getWindowHeight());
-	
+	//Seek Player (ENEMY)
+	m_enemy->Draw(m_2dRenderer, m_enemyTexture);
 	//Keyboard Movement (PLAYER)
 	m_player->Draw(m_2dRenderer, m_playerTexture);
 
@@ -442,7 +448,7 @@ void AgentApp::draw() {
 	//m_2dRenderer->drawLine(m_enemyWander->GetPosition().m_x, m_enemyWander->GetPosition().m_y, m_enemyWander->GetVelocity().m_x * 1000 + m_enemyWander->GetPosition().m_x, m_enemyWander->GetVelocity().m_y * 1000 + m_enemyWander->GetPosition().m_y,5);
 	
 	//Seek Player (ENEMY)
-	m_enemy->Draw(m_2dRenderer,m_enemyTexture);
+	//m_enemy->Draw(m_2dRenderer,m_enemyTexture);
 
 
 	// output some text, uses the last used colour
