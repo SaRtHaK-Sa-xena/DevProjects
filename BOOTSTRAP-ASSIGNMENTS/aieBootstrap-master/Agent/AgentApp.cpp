@@ -313,6 +313,8 @@ void AgentApp::update(float deltaTime) {
 
 
 
+
+
 	//=============CHECKS COLLISION FOR OUTSIDE EDGE================
 	//checks for OuterEdge (LEFT SIDE)
 		if (m_player->GetPosition().m_x < 25)

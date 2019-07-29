@@ -43,6 +43,7 @@ protected:
 	Agent*				m_collectibles9;
 	Agent*				m_collectibles10;
 
+	Agent* amountCollectibles[10];
 
 	WanderBehaviour*	m_wanderBehaviour; //wandering behaviour
 
