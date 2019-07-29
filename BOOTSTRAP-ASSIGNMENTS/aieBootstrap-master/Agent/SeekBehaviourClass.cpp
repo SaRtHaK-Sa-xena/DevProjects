@@ -1,6 +1,6 @@
 #include "SeekBehaviourClass.h"
 
-const float speedOfSeeker = 5;
+const float speedOfSeeker = 150;
 
 Vector2 SeekBehaviour::Update(Agent * agent, float deltaTime)
 {

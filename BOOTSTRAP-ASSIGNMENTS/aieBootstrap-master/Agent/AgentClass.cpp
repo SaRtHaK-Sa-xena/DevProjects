@@ -32,7 +32,7 @@ void Agent::Update(float deltaTime)
 	}
 
 	//add Force multiplied by deltaTime to Velocity
-	m_Velocity = m_Velocity + force * deltaTime;
+	m_Velocity = force * deltaTime;
 	//add Velocity multiplied by deltaTime to Position
 	m_Position = m_Position + m_Velocity;
 }
