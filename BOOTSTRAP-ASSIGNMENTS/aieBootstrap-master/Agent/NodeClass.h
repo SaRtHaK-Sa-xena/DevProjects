@@ -1,8 +1,7 @@
 #pragma once
-#include <Vector2.h>
-#include <vector>
+#include "BehaviourClass.h"
 
-class Edge;
+struct Edge;
 
 enum itemType
 {
@@ -18,19 +17,24 @@ struct Node
 		gScore = 1;
 		parent = nullptr;
 		ofType = clear;
+		
 	}
 
+	//manually set the nodes
 	Node(Vector2 specificPosition, itemType NAME, int m_gScore);
+
 
 	Vector2 position;
 	float gScore;
 	Node* parent;
 	itemType ofType;
 
-	//std::vector<Edge>connections;
+	std::vector<Edge*>connections;
 
+	std::vector<Node*>openList;
 
-	Node *newNode = new Node();
+	//SetArray
+
 	/*NODE-ENUM-BLACK (VECTOR2 Position) SCORE, NODE_ENUM-WHITE*/
 	/*NODE-ENUM-WHITE, NODE_ENUM-WHITE, NODE_ENUM-BLUE*/
 	/*NODE-ENUM-WHITE,*/
@@ -40,17 +44,17 @@ struct Node
 
 
 
-void CreateGridOfNodes(Node *node)
-{
-	int rows = 1280;
-	int columns = 720;
-
-	//writes nodes in grid
-	for (int i = 0; i < rows; i++)
-	{
-		for (int j = 0; j < columns; j++)
-		{
-			Node* newNode = new Node((Vector2(i * 10, j *10)), clear, 1);
-		}
-	}
-}
+//void CreateGridOfNodes(Node *node)
+//{
+//	int rows = 1280;
+//	int columns = 720;
+//
+//	//writes nodes in grid
+//	for (int i = 0; i < rows; i++)
+//	{
+//		for (int j = 0; j < columns; j++)
+//		{
+//			Node* newNode = new Node((Vector2(i * 10, j *10)), clear, 1);
+//		}
+//	}
+//}
