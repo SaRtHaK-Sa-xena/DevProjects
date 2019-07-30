@@ -168,6 +168,7 @@
     <ClCompile Include="AgentClass.cpp" />
     <ClCompile Include="BehaviourClass.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NodeClass.cpp" />
     <ClCompile Include="SeekBehaviourClass.cpp" />
     <ClCompile Include="WanderBehaviourClass.cpp" />
   </ItemGroup>
@@ -178,6 +179,7 @@
     <ClInclude Include="ColliderWall.h" />
     <ClInclude Include="EdgeClass.h" />
     <ClInclude Include="ItemCollision.h" />
+    <ClInclude Include="NodeClass.h" />
     <ClInclude Include="SeekBehaviourClass.h" />
     <ClInclude Include="WanderBehaviourClass.h" />
   </ItemGroup>

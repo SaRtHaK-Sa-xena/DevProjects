@@ -5,7 +5,6 @@
 #include "WanderBehaviourClass.h"
 #include "ColliderWall.h"
 #include "ItemCollision.h"
-#include "NodeClass.h"
 #include <vector>
 
 class AgentApp : public aie::Application {
@@ -83,5 +82,8 @@ protected:
 
 	//Score Tally
 	int Score = 0;
+
+	//For Debug Purposes
+	bool drawNodesOnScreen = false;
 
 };

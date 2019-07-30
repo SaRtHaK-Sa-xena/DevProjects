@@ -295,7 +295,7 @@ void AgentApp::update(float deltaTime) {
 	//Checks If The Player And Enemy Should be Drawn
 	if (createdEntity == false)
 	{
-		m_enemy->SetPosition(Vector2(500, 500));// sets starting position for enemy
+		m_enemy->SetPosition(Vector2(50000, 500));// sets starting position for enemy
 		m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
 		createdEntity = true;
 	}
@@ -628,7 +628,17 @@ void AgentApp::draw() {
 
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, Var, 18, 685);
-
+	
+	if (drawNodesOnScreen == false)
+	{
+		for (int i = 0; i < 1280; i++)
+		{
+			for (int j = 0; j < 720; j++)
+			{
+				m_2dRenderer->drawBox(i * 30, j * 30, 10, 10);
+			}
+		}
+	}
 	
 
 	// done drawing sprites
