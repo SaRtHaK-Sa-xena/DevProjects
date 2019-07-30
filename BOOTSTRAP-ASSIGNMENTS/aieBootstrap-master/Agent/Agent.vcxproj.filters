@@ -56,5 +56,8 @@
     <ClInclude Include="ItemCollision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EdgeClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

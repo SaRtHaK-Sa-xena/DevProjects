@@ -288,6 +288,7 @@ void AgentApp::update(float deltaTime) {
 		else
 		{
 			startGame = false;
+			drawMainMenu = true;
 		}
 	}
 
@@ -515,21 +516,25 @@ void AgentApp::update(float deltaTime) {
 				case rightSide:
 					m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 					std::cout << "Right Contact Enemy" << std::endl;
+					startGame = false;
 					break;
 
 				case leftSide:
 					m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 					std::cout << "Left Contact Enemy" << std::endl;
+					startGame = false;
 					break;
 
 				case topSide:
 					m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 					std::cout << "Top Contact Enemy" << std::endl;
+					startGame = false;
 					break;
 
 				case bottomSide:
 					m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 					std::cout << "Bottom Contact Enemy" << std::endl;
+					startGame = false;
 					break;
 				}
 

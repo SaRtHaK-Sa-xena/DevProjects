@@ -5,6 +5,7 @@
 #include "WanderBehaviourClass.h"
 #include "ColliderWall.h"
 #include "ItemCollision.h"
+#include "NodeClass.h"
 #include <vector>
 
 class AgentApp : public aie::Application {
