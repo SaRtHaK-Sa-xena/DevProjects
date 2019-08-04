@@ -680,10 +680,10 @@ void AgentApp::draw() {
 
 	
 	//=============Top Wall================
-	amount = 25;
+	amount = 43;
 	for (int i = 0; i < amount; i++)
 	{
-		m_2dRenderer->drawBox((30 * 42), (30 * i), 10, 10);
+		m_2dRenderer->drawBox((30 * i), (30 * 24), 10, 10);
 	}
 	//=============Top Wall================
 

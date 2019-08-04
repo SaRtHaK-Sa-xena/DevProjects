@@ -23,9 +23,20 @@ struct Node
 	//manually set the node's position, type, score
 	Node(Vector2 specificPosition, itemType NAME, int m_gScore);
 
+	//Holds Walls
+	std::vector<Node*>Walls;
 
-
-
+	Node(Vector2 specificPosition, itemType Name)
+	{
+		int incrementer = 30;
+		int amount = 4;
+		for (int x = 0; x < incrementer*x; x++)
+		{
+			//for(int)
+		}
+		position = specificPosition;
+		ofType = wall;
+	}
 
 	Vector2 position;
 	float gScore;
