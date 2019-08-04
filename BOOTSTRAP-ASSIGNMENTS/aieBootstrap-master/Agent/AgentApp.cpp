@@ -271,10 +271,19 @@ void AgentApp::shutdown() {
 void AgentApp::update(float deltaTime) {
 
 
-
+	
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 	
+	//Debug Purposes
+	if (input->wasKeyPressed(aie::INPUT_KEY_P))
+	{
+		drawNodesOnScreen = false;
+	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_L))
+	{
+		drawNodesOnScreen = true;
+	}
 	//Condition to start the game
 	if (startGame == false)
 	{
@@ -288,13 +297,14 @@ void AgentApp::update(float deltaTime) {
 		else
 		{
 			startGame = false;
+			drawMainMenu = true;
 		}
 	}
 
 	//Checks If The Player And Enemy Should be Drawn
 	if (createdEntity == false)
 	{
-		m_enemy->SetPosition(Vector2(500, 500));// sets starting position for enemy
+		m_enemy->SetPosition(Vector2(50000, 500));// sets starting position for enemy
 		m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
 		createdEntity = true;
 	}
@@ -376,6 +386,8 @@ void AgentApp::update(float deltaTime) {
 		collectibles[7].TopLeftposition = Vector2(m_collectibles1->GetPosition().m_x + 15, m_collectibles1->GetPosition().m_y + 23);
 		collectibles[7].BottomRightPosition = Vector2(m_collectibles1->GetPosition().m_x + 19, m_collectibles1->GetPosition().m_y - 20);
 		collectibles[7].sideOfWall = rightSide;
+
+
 
 
 
@@ -513,21 +525,25 @@ void AgentApp::update(float deltaTime) {
 				case rightSide:
 					m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 					std::cout << "Right Contact Enemy" << std::endl;
+					startGame = false;
 					break;
 
 				case leftSide:
 					m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 					std::cout << "Left Contact Enemy" << std::endl;
+					startGame = false;
 					break;
 
 				case topSide:
 					m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 					std::cout << "Top Contact Enemy" << std::endl;
+					startGame = false;
 					break;
 
 				case bottomSide:
 					m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 					std::cout << "Bottom Contact Enemy" << std::endl;
+					startGame = false;
 					break;
 				}
 
@@ -621,8 +637,20 @@ void AgentApp::draw() {
 
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, Var, 18, 685);
-
 	
+	if (drawNodesOnScreen == false)
+	{
+		for (int x = 0; x < 1280; x++)
+		{
+			for (int y = 0; y < 720; y++)
+			{
+				m_2dRenderer->drawBox(x * 30, y * 30, 10, 10);
+				Node* newNode = new Node((Vector2(x * 30, y * 30)), clear, 1);
+			}
+		}
+	}
+
+	m_2dRenderer->drawBox(30, 0, 10, 10);
 
 	// done drawing sprites
 	m_2dRenderer->end();

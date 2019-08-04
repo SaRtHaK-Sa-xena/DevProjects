@@ -5,6 +5,7 @@
 #include "WanderBehaviourClass.h"
 #include "ColliderWall.h"
 #include "ItemCollision.h"
+#include "NodeClass.h"
 #include <vector>
 
 class AgentApp : public aie::Application {
@@ -24,13 +25,13 @@ protected:
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
 
-	//creates player; able to move through keyboard behaviour
+	// reates player; able to move through keyboard behaviour
 	Agent*				m_player;
 	KeyboardBehaviour*	m_keyboardBehaviour;
 
-	//creates enemy; unable to move, but uses seek to move
+	// creates enemy; unable to move, but uses seek to move
 	Agent*				m_enemy;
-	SeekBehaviour*		m_followBehaviour; //follow behaviour
+	SeekBehaviour*		m_followBehaviour; // follow behaviour
 
 	Agent*				m_collectibles;
 	Agent*				m_collectibles1;
@@ -44,6 +45,7 @@ protected:
 	Agent*				m_collectibles9;
 	Agent*				m_collectibles10;
 
+	Agent* amountCollectibles[10];
 
 	WanderBehaviour*	m_wanderBehaviour; //wandering behaviour
 
@@ -54,32 +56,35 @@ protected:
 	aie::Texture*		m_mainMenuTexture; //main menu
 	aie::Texture*		m_itemTexture; //collectibles
 
-	//Holds Collision with walls
+	// Holds Collision with walls
 	std::vector<Collider>walls;
 
-	//Holds Collision with Enemy
+	// Holds Collision with Enemy
 	std::vector<Collider>contact;
 
-	//Holds Collision with Item
+	// Holds Collision with Item
 	std::vector<Collider>collectibles;
 
-	//Holds Collision with Items In ItemCollision.h
+	// Holds Collision with Items In ItemCollision.h
 	std::vector<collectCollision>Items;
 
 
-	//Check to Start the Game
+	// Check to Start the Game
 	bool startGame = false;
 
-	//To Draw MainMenu
+	// To Draw MainMenu
 	bool drawMainMenu = true;
 
-	//To Draw Enemy
+	// To Draw Enemy
 	bool drawEnemy = false;
 
-	//Checks If Player and Enemy Created
+	// Checks If Player and Enemy Created
 	bool createdEntity = true;
 
-	//Score Tally
+	// Score Tally
 	int Score = 0;
+
+	// For Debug Purposes
+	bool drawNodesOnScreen = true;
 
 };
