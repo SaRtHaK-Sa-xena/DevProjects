@@ -650,7 +650,241 @@ void AgentApp::draw() {
 		}
 	}
 
-	m_2dRenderer->drawBox(30, 0, 10, 10);
+
+
+	//Outside Edge Walls
+
+	//=============Left Wall================
+	int amount = 25;
+	for (int i = 0; i < amount; i++)
+	{
+		m_2dRenderer->drawBox(0, (30 * i), 10, 10);
+	}
+	//=============Left Wall================
+
+	//=============Bottom Wall================
+	amount = 44;
+	for (int i = 0; i < amount; i++)
+	{
+		m_2dRenderer->drawBox((30*i), (30 * 0), 10, 10);
+	}
+	//=============Bottom Wall================
+
+	//=============Right Wall================
+	amount = 25;
+	for (int i = 0; i < amount; i++)
+	{
+		m_2dRenderer->drawBox((30 * 42), (30 * i), 10, 10);
+	}
+	//=============Right Wall================
+
+	
+	//=============Top Wall================
+	amount = 25;
+	for (int i = 0; i < amount; i++)
+	{
+		m_2dRenderer->drawBox((30 * 42), (30 * i), 10, 10);
+	}
+	//=============Top Wall================
+
+
+
+	//=====================WALL OBJECT 0===============
+	// Horizontal Bar
+	m_2dRenderer->drawBox(30, (30*4), 10, 10);
+	m_2dRenderer->drawBox((30*2), (30*4), 10, 10);
+	m_2dRenderer->drawBox((30*3), (30*4), 10, 10);
+	m_2dRenderer->drawBox((30*4), (30*4), 10, 10);
+	m_2dRenderer->drawBox((30*5), (30*4), 10, 10);
+	m_2dRenderer->drawBox((30*6), (30*4), 10, 10);
+	m_2dRenderer->drawBox((30*7), (30*4), 10, 10);
+	m_2dRenderer->drawBox((30*8), (30*4), 10, 10);
+	m_2dRenderer->drawBox((30*9), (30*4), 10, 10);
+	m_2dRenderer->drawBox((30*10), (30*4), 10, 10);
+	m_2dRenderer->drawBox((30*11), (30*4), 10, 10);
+	m_2dRenderer->drawBox((30*12), (30*4), 10, 10);
+	m_2dRenderer->drawBox((30*13), (30*4), 10, 10);
+
+	// Vertical Bar
+	m_2dRenderer->drawBox((30*13), (30*5), 10, 10);
+	m_2dRenderer->drawBox((30*13), (30*6), 10, 10);
+	m_2dRenderer->drawBox((30*13), (30*7), 10, 10);
+	m_2dRenderer->drawBox((30*13), (30*8), 10, 10);
+	//=====================WALL OBJECT 0===============
+
+
+	// increase x to increase it to the right
+	// increase y to increase it to the top
+
+
+	//=====================WALL OBJECT 1===============
+	// Vertical Bar
+	m_2dRenderer->drawBox((30 * 6), (30 * 7), 10, 10);
+	m_2dRenderer->drawBox((30 * 6), (30 * 8), 10, 10);
+	m_2dRenderer->drawBox((30 * 6), (30 * 9), 10, 10);
+	m_2dRenderer->drawBox((30 * 6), (30 * 10), 10, 10);
+	m_2dRenderer->drawBox((30 * 6), (30 * 11), 10, 10);
+	m_2dRenderer->drawBox((30 * 6), (30 * 12), 10, 10);
+	m_2dRenderer->drawBox((30 * 6), (30 * 13), 10, 10);
+	m_2dRenderer->drawBox((30 * 6), (30 * 14), 10, 10);
+	m_2dRenderer->drawBox((30 * 6), (30 * 15), 10, 10);
+	m_2dRenderer->drawBox((30 * 6), (30 * 16), 10, 10);
+	m_2dRenderer->drawBox((30 * 6), (30 * 17), 10, 10);
+	m_2dRenderer->drawBox((30 * 6), (30 * 18), 10, 10);
+	m_2dRenderer->drawBox((30 * 6), (30 * 19), 10, 10);
+	m_2dRenderer->drawBox((30 * 6), (30 * 20), 10, 10);
+	m_2dRenderer->drawBox((30 * 6), (30 * 21), 10, 10);
+
+	// Horizontal Bar
+	m_2dRenderer->drawBox((30 * 7), (30 * 21), 10, 10);
+	m_2dRenderer->drawBox((30 * 8), (30 * 21), 10, 10);
+	m_2dRenderer->drawBox((30 * 9), (30 * 21), 10, 10);
+	m_2dRenderer->drawBox((30 * 10), (30 * 21), 10, 10);
+	m_2dRenderer->drawBox((30 * 11), (30 * 21), 10, 10);
+	m_2dRenderer->drawBox((30 * 12), (30 * 21), 10, 10);
+	m_2dRenderer->drawBox((30 * 13), (30 * 21), 10, 10);
+	m_2dRenderer->drawBox((30 * 14), (30 * 21), 10, 10);
+
+	// Vertical Bar
+	m_2dRenderer->drawBox((30 * 10), (30 * 20), 10, 10);
+	m_2dRenderer->drawBox((30 * 10), (30 * 19), 10, 10);
+
+	// Horizontal Bar
+	m_2dRenderer->drawBox((30 * 11), (30 * 19), 10, 10);
+	m_2dRenderer->drawBox((30 * 12), (30 * 19), 10, 10);
+	m_2dRenderer->drawBox((30 * 13), (30 * 19), 10, 10);
+	m_2dRenderer->drawBox((30 * 14), (30 * 19), 10, 10);
+	m_2dRenderer->drawBox((30 * 15), (30 * 19), 10, 10);
+	m_2dRenderer->drawBox((30 * 16), (30 * 19), 10, 10);
+	m_2dRenderer->drawBox((30 * 17), (30 * 19), 10, 10);
+	m_2dRenderer->drawBox((30 * 18), (30 * 19), 10, 10);
+	m_2dRenderer->drawBox((30 * 19), (30 * 19), 10, 10);
+	m_2dRenderer->drawBox((30 * 20), (30 * 19), 10, 10);
+	m_2dRenderer->drawBox((30 * 21), (30 * 19), 10, 10);
+
+	// Vertical Bar
+	m_2dRenderer->drawBox((30 * 21), (30 * 18), 10, 10);
+	m_2dRenderer->drawBox((30 * 21), (30 * 17), 10, 10);
+	m_2dRenderer->drawBox((30 * 21), (30 * 16), 10, 10);
+	m_2dRenderer->drawBox((30 * 21), (30 * 15), 10, 10);
+	//=====================WALL OBJECT 1===============
+
+
+	//=====================WALL OBJECT 2===============
+	m_2dRenderer->drawBox((30 * 11), (30 * 16), 10, 10);
+	m_2dRenderer->drawBox((30 * 12), (30 * 16), 10, 10);
+	m_2dRenderer->drawBox((30 * 13), (30 * 16), 10, 10);
+	m_2dRenderer->drawBox((30 * 14), (30 * 16), 10, 10);
+	m_2dRenderer->drawBox((30 * 15), (30 * 16), 10, 10);
+	m_2dRenderer->drawBox((30 * 16), (30 * 16), 10, 10);
+	m_2dRenderer->drawBox((30 * 17), (30 * 16), 10, 10);
+	//=====================WALL OBJECT 2===============
+
+
+	//=====================WALL OBJECT 3===============
+	m_2dRenderer->drawBox((30 * 10), (30 * 12), 10, 10);
+	m_2dRenderer->drawBox((30 * 11), (30 * 12), 10, 10);
+	m_2dRenderer->drawBox((30 * 12), (30 * 12), 10, 10);
+	m_2dRenderer->drawBox((30 * 13), (30 * 12), 10, 10);
+	m_2dRenderer->drawBox((30 * 14), (30 * 12), 10, 10);
+	m_2dRenderer->drawBox((30 * 15), (30 * 12), 10, 10);
+	m_2dRenderer->drawBox((30 * 16), (30 * 12), 10, 10);
+	m_2dRenderer->drawBox((30 * 17), (30 * 12), 10, 10);
+	m_2dRenderer->drawBox((30 * 18), (30 * 12), 10, 10);
+	m_2dRenderer->drawBox((30 * 19), (30 * 12), 10, 10);
+	m_2dRenderer->drawBox((30 * 20), (30 * 12), 10, 10);
+	m_2dRenderer->drawBox((30 * 21), (30 * 12), 10, 10);
+	m_2dRenderer->drawBox((30 * 22), (30 * 12), 10, 10);
+	//=====================WALL OBJECT 3===============
+
+
+	//=====================WALL OBJECT 4===============
+	m_2dRenderer->drawBox((30 * 16), (30 * 6), 10, 10);
+	m_2dRenderer->drawBox((30 * 17), (30 * 6), 10, 10);
+	m_2dRenderer->drawBox((30 * 18), (30 * 6), 10, 10);
+	m_2dRenderer->drawBox((30 * 19), (30 * 6), 10, 10);
+	m_2dRenderer->drawBox((30 * 20), (30 * 6), 10, 10);
+	m_2dRenderer->drawBox((30 * 21), (30 * 6), 10, 10);
+	m_2dRenderer->drawBox((30 * 22), (30 * 6), 10, 10);
+	m_2dRenderer->drawBox((30 * 23), (30 * 6), 10, 10);
+	m_2dRenderer->drawBox((30 * 24), (30 * 6), 10, 10);
+	m_2dRenderer->drawBox((30 * 25), (30 * 6), 10, 10);
+	//=====================WALL OBJECT 4===============
+
+
+	//=====================WALL OBJECT 5===============
+	// Vertical Bar
+	m_2dRenderer->drawBox((30 * 29), (30 * 9), 10, 10);
+	m_2dRenderer->drawBox((30 * 29), (30 * 8), 10, 10);
+	m_2dRenderer->drawBox((30 * 29), (30 * 7), 10, 10);
+	m_2dRenderer->drawBox((30 * 29), (30 * 6), 10, 10);
+	m_2dRenderer->drawBox((30 * 29), (30 * 5), 10, 10);
+	m_2dRenderer->drawBox((30 * 29), (30 * 4), 10, 10);
+	m_2dRenderer->drawBox((30 * 29), (30 * 3), 10, 10);
+
+	// Horizontal Bar
+	m_2dRenderer->drawBox((30 * 30), (30 * 3), 10, 10);
+	m_2dRenderer->drawBox((30 * 31), (30 * 3), 10, 10);
+	m_2dRenderer->drawBox((30 * 32), (30 * 3), 10, 10);
+	m_2dRenderer->drawBox((30 * 33), (30 * 3), 10, 10);
+	m_2dRenderer->drawBox((30 * 34), (30 * 3), 10, 10);
+	m_2dRenderer->drawBox((30 * 35), (30 * 3), 10, 10);
+	m_2dRenderer->drawBox((30 * 36), (30 * 3), 10, 10);
+	m_2dRenderer->drawBox((30 * 37), (30 * 3), 10, 10);
+	m_2dRenderer->drawBox((30 * 38), (30 * 3), 10, 10);
+	//=====================WALL OBJECT 5===============
+
+
+	//=====================WALL OBJECT 6===============
+	m_2dRenderer->drawBox((30 * 36), (30 * 7), 10, 10);
+	m_2dRenderer->drawBox((30 * 36), (30 * 8), 10, 10);
+	m_2dRenderer->drawBox((30 * 36), (30 * 9), 10, 10);
+	m_2dRenderer->drawBox((30 * 36), (30 * 10), 10, 10);
+	m_2dRenderer->drawBox((30 * 36), (30 * 11), 10, 10);
+	m_2dRenderer->drawBox((30 * 36), (30 * 12), 10, 10);
+	m_2dRenderer->drawBox((30 * 36), (30 * 13), 10, 10);
+	m_2dRenderer->drawBox((30 * 36), (30 * 14), 10, 10);
+	m_2dRenderer->drawBox((30 * 36), (30 * 15), 10, 10);
+	m_2dRenderer->drawBox((30 * 36), (30 * 16), 10, 10);
+	m_2dRenderer->drawBox((30 * 36), (30 * 17), 10, 10);
+	m_2dRenderer->drawBox((30 * 36), (30 * 18), 10, 10);
+	//=====================WALL OBJECT 6===============
+
+
+	//=====================WALL OBJECT 7===============
+	m_2dRenderer->drawBox((30 * 28), (30 * 18), 10, 10);
+	m_2dRenderer->drawBox((30 * 28), (30 * 17), 10, 10);
+	m_2dRenderer->drawBox((30 * 28), (30 * 16), 10, 10);
+	m_2dRenderer->drawBox((30 * 28), (30 * 15), 10, 10);
+	m_2dRenderer->drawBox((30 * 28), (30 * 14), 10, 10);
+	//=====================WALL OBJECT 7===============
+
+
+
+	//=====================WALL OBJECT 8===============
+	// Vertical Bar
+	m_2dRenderer->drawBox((30 * 25), (30 * 16), 10, 10);
+	m_2dRenderer->drawBox((30 * 25), (30 * 17), 10, 10);
+	m_2dRenderer->drawBox((30 * 25), (30 * 18), 10, 10);
+	m_2dRenderer->drawBox((30 * 25), (30 * 19), 10, 10);
+	m_2dRenderer->drawBox((30 * 25), (30 * 20), 10, 10);
+
+	// Horizontal Bar
+	m_2dRenderer->drawBox((30 * 26), (30 * 20), 10, 10);
+	m_2dRenderer->drawBox((30 * 27), (30 * 20), 10, 10);
+	m_2dRenderer->drawBox((30 * 28), (30 * 20), 10, 10);
+	m_2dRenderer->drawBox((30 * 29), (30 * 20), 10, 10);
+	m_2dRenderer->drawBox((30 * 30), (30 * 20), 10, 10);
+	m_2dRenderer->drawBox((30 * 31), (30 * 20), 10, 10);
+	m_2dRenderer->drawBox((30 * 32), (30 * 20), 10, 10);
+	m_2dRenderer->drawBox((30 * 33), (30 * 20), 10, 10);
+
+	// Vertical Bar
+	m_2dRenderer->drawBox((30 * 33), (30 * 21), 10, 10);
+	m_2dRenderer->drawBox((30 * 33), (30 * 22), 10, 10);
+	//=====================WALL OBJECT 8===============
+
+
 
 	// done drawing sprites
 	m_2dRenderer->end();

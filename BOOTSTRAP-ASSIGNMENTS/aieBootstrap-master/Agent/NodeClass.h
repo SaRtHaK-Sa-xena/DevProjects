@@ -13,15 +13,18 @@ struct Node
 
 	Node()
 	{
-		position = Vector2();
-		gScore = 1;
-		parent = nullptr;
-		ofType = clear;
+		position = Vector2(); //holds position
+		gScore = 1; //g score of 1
+		parent = nullptr; //no parent
+		ofType = clear; //type
 		
 	}
 
-	//manually set the nodes
+	//manually set the node's position, type, score
 	Node(Vector2 specificPosition, itemType NAME, int m_gScore);
+
+
+
 
 
 	Vector2 position;
@@ -29,9 +32,19 @@ struct Node
 	Node* parent;
 	itemType ofType;
 
+	//holds connections
 	std::vector<Edge*>connections;
 
+
+	//has the amount of openList
 	std::vector<Node*>openList;
+
+
+	// has the amount of closedList
+	std::vector<Node*>closedList;
+
+	// Vector with walls
+
 
 	//SetArray
 
