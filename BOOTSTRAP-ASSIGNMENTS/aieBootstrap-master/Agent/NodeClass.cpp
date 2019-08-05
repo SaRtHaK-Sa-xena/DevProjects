@@ -81,9 +81,15 @@ Node differentSeatch(Node *startNode, Node *endNode, Agent* finder)
 
 		//Questions-------
 		//| 1. Does the connections in Node.connnections need to be set manually like connection.pushback(Node2,Node3)
-		//| 2. 
 		//|
+		//| 2. Should it be like if(collector->getPosition().m_x - 30 equal to Node12, then do something)
 		//|
+		//| 3. If I make a for loop going through position checks with corresponding nodes on the map add it to openList
+		//|	   and add it to connections vector
+		//|
+		//| 4. Do I have to create a connection of each node like, Node2.connections = Node 4 (to the right by 30),
+		//|    Node 6 (above by 30), Node 1 (to the left by 30), Node 3 (below by 30). All in each Nodes.connection through
+		//|    push_back().
 		//|_______________
 	}
 

@@ -169,6 +169,7 @@
     <ClCompile Include="BehaviourClass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NodeClass.cpp" />
+    <ClCompile Include="PathfindingBehaviour.cpp" />
     <ClCompile Include="SeekBehaviourClass.cpp" />
     <ClCompile Include="WanderBehaviourClass.cpp" />
   </ItemGroup>
@@ -180,6 +181,7 @@
     <ClInclude Include="EdgeClass.h" />
     <ClInclude Include="ItemCollision.h" />
     <ClInclude Include="NodeClass.h" />
+    <ClInclude Include="PathfindingBehaviour.h" />
     <ClInclude Include="SeekBehaviourClass.h" />
     <ClInclude Include="WanderBehaviourClass.h" />
   </ItemGroup>
