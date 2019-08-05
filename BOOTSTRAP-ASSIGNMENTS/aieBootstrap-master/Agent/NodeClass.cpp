@@ -1,4 +1,5 @@
 #include "NodeClass.h"
+#include "AgentClass.h"
 #include <iostream>
 
 
@@ -36,7 +37,57 @@ void CreateGridOfNodes(Node *node, Node *FirstListOfNodes[1280][720])
 	
 }
 
-Node differentSeatch(Node *target, Node *);
+Node differentSeatch(Node *startNode, Node *endNode, Agent* finder)
+{
+	//startNode equal to finder's position
+	startNode->position = finder->GetPosition();
+	startNode->gScore = 1;
+	startNode->parent = nullptr;
+
+	if (startNode == nullptr || endNode == nullptr)
+	{
+		std::cout << "Error!!" << std::endl;
+	}
+
+	if (startNode == endNode)
+	{
+		return Node();
+	}
+
+	std::vector<Node*>openList;
+	std::vector<Node*>closedList;
+
+	openList.push_back(startNode);
+
+	while (openList.size() != 0)
+	{
+		//sorting by gScore
+		//Function To sort by gScore-----
+		//|
+		//|
+		//|
+		//|
+		//|______________________________
+
+		//if first item in openList != endNode
+		for (int i = 0; i < openList.size(); i++)
+		{
+			if (openList[i] == endNode)
+			{
+				//break out off while loop
+			}
+		}
+
+
+		//Questions-------
+		//| 1. Does the connections in Node.connnections need to be set manually like connection.pushback(Node2,Node3)
+		//| 2. 
+		//|
+		//|
+		//|_______________
+	}
+
+}
 
 //Node dijkstrasSearch(Node* startNode, Node* endNode)
 //{

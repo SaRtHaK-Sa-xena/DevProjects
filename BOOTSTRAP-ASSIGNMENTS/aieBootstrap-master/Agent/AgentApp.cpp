@@ -469,6 +469,7 @@ void AgentApp::update(float deltaTime) {
 	if (createdEntity == false)
 	{
 		m_enemy->SetPosition(Vector2(50000, 500));// sets starting position for enemy
+		m_enemyCollector->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
 		m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
 		createdEntity = true;
 	}
