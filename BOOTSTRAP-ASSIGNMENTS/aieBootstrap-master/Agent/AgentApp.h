@@ -33,6 +33,8 @@ protected:
 	Agent*				m_enemy;
 	SeekBehaviour*		m_followBehaviour; // follow behaviour
 
+	Agent*				m_enemyCollector;
+
 	Agent*				m_collectibles;
 	Agent*				m_collectibles1;
 	Agent*				m_collectibles2;
@@ -51,6 +53,7 @@ protected:
 
 	aie::Texture*		m_playerTexture; //player 
 	aie::Texture*		m_enemyTexture; //enemy
+	aie::Texture*		m_enemyCollectorTexture; //enemyCollector
 
 	aie::Texture*		m_backgroundTexture; //background
 	aie::Texture*		m_mainMenuTexture; //main menu
@@ -58,6 +61,9 @@ protected:
 
 	// Holds Collision with walls
 	std::vector<Collider>walls;
+
+	// Holds Nodes With Wall Points
+	std::vector<Node*>Wall;
 
 	// Holds Collision with Enemy
 	std::vector<Collider>contact;

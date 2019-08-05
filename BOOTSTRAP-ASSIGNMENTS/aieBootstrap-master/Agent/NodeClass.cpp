@@ -2,6 +2,8 @@
 #include <iostream>
 
 
+
+
 Node::Node(Vector2 specificPosition, itemType NAME, int m_gScore)
 {
 	position = specificPosition;
@@ -31,6 +33,7 @@ void CreateGridOfNodes(Node *node, Node *FirstListOfNodes[1280][720])
 			std::cout << "Position: " << "(" << FirstListOfNodes[x][y] << "," << ")";
 		}
 	}
+	
 }
 
 Node differentSeatch(Node *target, Node *);

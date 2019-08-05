@@ -1,6 +1,5 @@
 #pragma once
 #include "BehaviourClass.h"
-
 struct Edge;
 
 enum itemType
@@ -23,19 +22,36 @@ struct Node
 	//manually set the node's position, type, score
 	Node(Vector2 specificPosition, itemType NAME, int m_gScore);
 
-	//Holds Walls
-	std::vector<Node*>Walls;
-
+	// Sets the type to Walls
 	Node(Vector2 specificPosition, itemType Name)
 	{
-		int incrementer = 30;
-		int amount = 4;
-		for (int x = 0; x < incrementer*x; x++)
-		{
-			//for(int)
-		}
+
 		position = specificPosition;
 		ofType = wall;
+	}
+
+	void wallSetter()
+	{
+		//amount to be incremented by
+		int incrementer = 30;
+
+		//how many nodes
+		int amount = 4;
+		for (int i = 0; i < amount; i++)
+		{
+			for (int x = 0; x < 1280; x++)
+			{
+				for (int y = 0; y < 720; y++)
+				{
+					//node sets for position of walls, and gives type of wall
+					Node *setterNode = new Node((Vector2(14 * incrementer, y)), wall);
+				}
+			}
+			//for(int)
+		}
+
+
+
 	}
 
 	Vector2 position;

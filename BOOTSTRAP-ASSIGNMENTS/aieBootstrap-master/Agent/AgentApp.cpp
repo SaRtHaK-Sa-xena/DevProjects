@@ -35,6 +35,8 @@ bool AgentApp::startup() {
 
 	m_enemyTexture = new aie::Texture("../bin/textures/EnemyNuclear.png");
 
+	m_enemyCollectorTexture = new aie::Texture("../bin/textures/Car.png");
+
 	m_mainMenuTexture = new aie::Texture("../bin/textures/MainMenu.png");
 
 	m_itemTexture = new aie::Texture("../bin/textures/collectableItem.png");
@@ -54,6 +56,9 @@ bool AgentApp::startup() {
 	m_followBehaviour = new SeekBehaviour();
 	m_followBehaviour->SetTarget(m_player); //sets target to follow player
 	m_enemy->AddBehaviour(m_followBehaviour);//allows the behaviour to be processed by enemy
+
+
+	m_enemyCollector = new Agent();
 
 
 	m_collectibles = new Agent();
@@ -252,6 +257,165 @@ bool AgentApp::startup() {
 
 	contact.push_back({ {0,0},{0,0}, topSide});
 
+	//------------------------------------------------------
+	//					WALL NODES
+
+	//====================WALL 0=========================
+
+	// Horizontal Bar In Nodes
+	int amount = 13;
+	for (int i = 1; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * i), (30 * 4)), wall);
+		Wall.push_back(setterWall);
+	}
+
+	// Vertical Bar In Nodes
+	amount = 8;
+	for (int i = 5; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * 13), (30 * i)), wall);
+		Wall.push_back(setterWall);
+	}
+	//====================WALL 0=========================
+
+
+	//====================WALL 1=========================
+	// Vertical Bar In Nodes
+	amount = 21;
+	for (int i = 7; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * 6), (30 * i)), wall);
+		Wall.push_back(setterWall);
+	}
+	// Horizontal Bar In Nodes
+	amount = 14;
+	for (int i = 7; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * i), (30 * 21)), wall);
+		Wall.push_back(setterWall);
+	}
+
+	// Vertical Bar In Nodes
+	amount = 21;
+	for (int i = 19; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * 10), (30 * i)), wall);
+		Wall.push_back(setterWall);
+	}
+
+	// Horizontal Bar In Nodes
+	amount = 21;
+	for (int i = 11; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * i), (30 * 19)), wall);
+		Wall.push_back(setterWall);
+	}
+
+	// Vertical Bar In Nodes
+	amount = 19;
+	for (int i = 15; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * 21), (30 * i)), wall);
+		Wall.push_back(setterWall);
+	}
+	//=========================WALL 1===========================
+
+
+	//=========================WALL 2===========================
+	amount = 18;
+	for (int i = 11; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * i), (30 * 16)), wall);
+		Wall.push_back(setterWall);
+	}
+	//=========================WALL 2===========================
+
+	//=========================WALL 3===========================
+	amount = 23;
+	for (int i = 10; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * i), (30 * 12)), wall);
+		Wall.push_back(setterWall);
+	}
+	//=========================WALL 3===========================
+
+
+	//=========================WALL 4===========================
+	amount = 26;
+	for (int i = 16; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * i), (30 * 6)), wall);
+		Wall.push_back(setterWall);
+	}
+	//=========================WALL 4===========================
+
+
+	//=========================WALL 5===========================
+	// Vertical Bar In Node
+	amount = 10;
+	for (int i = 3; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * 29), (30 * i)), wall);
+		Wall.push_back(setterWall);
+	}
+
+	// Horizontal Bar In Node
+	amount = 39;
+	for (int i = 30; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * i), (30 * 3)), wall);
+		Wall.push_back(setterWall);
+	}
+	//=========================WALL 5===========================
+
+	//=========================WALL 6===========================
+	amount = 19;
+	for (int i = 7; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * i), (30 * 36)), wall);
+		Wall.push_back(setterWall);
+	}
+	//=========================WALL 6===========================
+
+
+	//=========================WALL 7===========================
+	amount = 19;
+	for (int i = 14; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * 28), (30 * i)), wall);
+		Wall.push_back(setterWall);
+	}
+	//=========================WALL 7===========================
+
+
+	//=========================WALL 8===========================
+	// Vertical Bar In Node
+	amount = 21;
+	for (int i = 16; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * 25), (30 * i)), wall);
+		Wall.push_back(setterWall);
+	}
+
+	// Horizontal Bar In Node
+	amount = 34;
+	for (int i = 26; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * i), (30 * 20)), wall);
+		Wall.push_back(setterWall);
+	}
+
+	// Vertical Bar In Node
+	amount = 23;
+	for (int i = 21; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * 33), (30 * i)), wall);
+		Wall.push_back(setterWall);
+	}
+	//=========================WALL 8===========================
+
+
 	return true;
 }
 
@@ -323,6 +487,8 @@ void AgentApp::update(float deltaTime) {
 										 //and direction it's pointing
 
 		m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
+
+		m_enemyCollector->Update(deltaTime);
 
 		m_collectibles->Update(deltaTime);
 
@@ -621,8 +787,8 @@ void AgentApp::draw() {
 	//Keyboard Movement (PLAYER)
 	m_player->Draw(m_2dRenderer, m_playerTexture);
 
-	m_collectibles->Draw(m_2dRenderer, m_itemTexture);
-	m_collectibles1->Draw(m_2dRenderer, m_itemTexture);
+	//Pathfinding Movement (ENEMY ITEM COLLECTOR)
+	m_enemyCollector->Draw(m_2dRenderer, m_enemyCollectorTexture);
 	
 
 	//Wander (ENEMY)
@@ -705,11 +871,15 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30*12), (30*4), 10, 10);
 	m_2dRenderer->drawBox((30*13), (30*4), 10, 10);
 
+	
+
 	// Vertical Bar
 	m_2dRenderer->drawBox((30*13), (30*5), 10, 10);
 	m_2dRenderer->drawBox((30*13), (30*6), 10, 10);
 	m_2dRenderer->drawBox((30*13), (30*7), 10, 10);
 	m_2dRenderer->drawBox((30*13), (30*8), 10, 10);
+
+	
 	//=====================WALL OBJECT 0===============
 
 
@@ -735,6 +905,8 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30 * 6), (30 * 20), 10, 10);
 	m_2dRenderer->drawBox((30 * 6), (30 * 21), 10, 10);
 
+	
+
 	// Horizontal Bar
 	m_2dRenderer->drawBox((30 * 7), (30 * 21), 10, 10);
 	m_2dRenderer->drawBox((30 * 8), (30 * 21), 10, 10);
@@ -745,9 +917,14 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30 * 13), (30 * 21), 10, 10);
 	m_2dRenderer->drawBox((30 * 14), (30 * 21), 10, 10);
 
+
+	
+
 	// Vertical Bar
 	m_2dRenderer->drawBox((30 * 10), (30 * 20), 10, 10);
 	m_2dRenderer->drawBox((30 * 10), (30 * 19), 10, 10);
+
+	
 
 	// Horizontal Bar
 	m_2dRenderer->drawBox((30 * 11), (30 * 19), 10, 10);
@@ -762,11 +939,18 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30 * 20), (30 * 19), 10, 10);
 	m_2dRenderer->drawBox((30 * 21), (30 * 19), 10, 10);
 
+
+	
+
 	// Vertical Bar
 	m_2dRenderer->drawBox((30 * 21), (30 * 18), 10, 10);
 	m_2dRenderer->drawBox((30 * 21), (30 * 17), 10, 10);
 	m_2dRenderer->drawBox((30 * 21), (30 * 16), 10, 10);
 	m_2dRenderer->drawBox((30 * 21), (30 * 15), 10, 10);
+
+
+	
+
 	//=====================WALL OBJECT 1===============
 
 
@@ -778,6 +962,10 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30 * 15), (30 * 16), 10, 10);
 	m_2dRenderer->drawBox((30 * 16), (30 * 16), 10, 10);
 	m_2dRenderer->drawBox((30 * 17), (30 * 16), 10, 10);
+
+
+	
+
 	//=====================WALL OBJECT 2===============
 
 
@@ -795,6 +983,9 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30 * 20), (30 * 12), 10, 10);
 	m_2dRenderer->drawBox((30 * 21), (30 * 12), 10, 10);
 	m_2dRenderer->drawBox((30 * 22), (30 * 12), 10, 10);
+
+	
+
 	//=====================WALL OBJECT 3===============
 
 
@@ -809,6 +1000,8 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30 * 23), (30 * 6), 10, 10);
 	m_2dRenderer->drawBox((30 * 24), (30 * 6), 10, 10);
 	m_2dRenderer->drawBox((30 * 25), (30 * 6), 10, 10);
+
+	
 	//=====================WALL OBJECT 4===============
 
 
@@ -822,6 +1015,10 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30 * 29), (30 * 4), 10, 10);
 	m_2dRenderer->drawBox((30 * 29), (30 * 3), 10, 10);
 
+
+	
+
+
 	// Horizontal Bar
 	m_2dRenderer->drawBox((30 * 30), (30 * 3), 10, 10);
 	m_2dRenderer->drawBox((30 * 31), (30 * 3), 10, 10);
@@ -832,6 +1029,10 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30 * 36), (30 * 3), 10, 10);
 	m_2dRenderer->drawBox((30 * 37), (30 * 3), 10, 10);
 	m_2dRenderer->drawBox((30 * 38), (30 * 3), 10, 10);
+
+
+	
+
 	//=====================WALL OBJECT 5===============
 
 
@@ -848,6 +1049,10 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30 * 36), (30 * 16), 10, 10);
 	m_2dRenderer->drawBox((30 * 36), (30 * 17), 10, 10);
 	m_2dRenderer->drawBox((30 * 36), (30 * 18), 10, 10);
+
+	
+
+
 	//=====================WALL OBJECT 6===============
 
 
@@ -857,6 +1062,8 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30 * 28), (30 * 16), 10, 10);
 	m_2dRenderer->drawBox((30 * 28), (30 * 15), 10, 10);
 	m_2dRenderer->drawBox((30 * 28), (30 * 14), 10, 10);
+
+	
 	//=====================WALL OBJECT 7===============
 
 
@@ -869,6 +1076,8 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30 * 25), (30 * 19), 10, 10);
 	m_2dRenderer->drawBox((30 * 25), (30 * 20), 10, 10);
 
+	
+
 	// Horizontal Bar
 	m_2dRenderer->drawBox((30 * 26), (30 * 20), 10, 10);
 	m_2dRenderer->drawBox((30 * 27), (30 * 20), 10, 10);
@@ -879,9 +1088,14 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30 * 32), (30 * 20), 10, 10);
 	m_2dRenderer->drawBox((30 * 33), (30 * 20), 10, 10);
 
+
+	
+
 	// Vertical Bar
 	m_2dRenderer->drawBox((30 * 33), (30 * 21), 10, 10);
 	m_2dRenderer->drawBox((30 * 33), (30 * 22), 10, 10);
+
+	
 	//=====================WALL OBJECT 8===============
 
 
