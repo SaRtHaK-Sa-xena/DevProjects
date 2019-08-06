@@ -59,8 +59,18 @@ bool AgentApp::startup() {
 
 
 	m_enemyCollector = new Agent();
+	//================ITEMS=================
+	//Item Nodes
 
+	//-----------------ITEM 1---------------
+	Node* itemNode = new Node(Vector2(30 * 16, 30 * 2), item);
+	ItemCollectibles.push_back(itemNode);
+	
+	temporary
 
+	m_findPathBehaviour->SetTarget() //takes in Path
+	m_enemyCollector->AddBehaviour(m_findPathBehaviour);
+	
 	m_collectibles = new Agent();
 	m_collectibles->SetPosition(Vector2(80, 453));
 
@@ -416,6 +426,9 @@ bool AgentApp::startup() {
 	//=========================WALL 8===========================
 
 
+	
+
+
 	return true;
 }
 
@@ -469,7 +482,7 @@ void AgentApp::update(float deltaTime) {
 	if (createdEntity == false)
 	{
 		m_enemy->SetPosition(Vector2(50000, 500));// sets starting position for enemy
-		m_enemyCollector->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
+		m_enemyCollector->SetPosition(Vector2(30*2, 30*2));
 		m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
 		createdEntity = true;
 	}
@@ -1095,9 +1108,11 @@ void AgentApp::draw() {
 	// Vertical Bar
 	m_2dRenderer->drawBox((30 * 33), (30 * 21), 10, 10);
 	m_2dRenderer->drawBox((30 * 33), (30 * 22), 10, 10);
-
-	
 	//=====================WALL OBJECT 8===============
+
+
+	//ITEM 1
+	m_2dRenderer->drawBox((30 * 16), (30 * 2), 10, 10);
 
 
 

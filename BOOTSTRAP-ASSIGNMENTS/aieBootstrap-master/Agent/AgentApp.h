@@ -5,6 +5,7 @@
 #include "WanderBehaviourClass.h"
 #include "ColliderWall.h"
 #include "ItemCollision.h"
+#include "PathfindingBehaviour.h"
 #include "NodeClass.h"
 #include <vector>
 
@@ -34,6 +35,9 @@ protected:
 	SeekBehaviour*		m_followBehaviour; // follow behaviour
 
 	Agent*				m_enemyCollector;
+	PathfindBehaviour*  m_findPathBehaviour;
+
+
 
 	Agent*				m_collectibles;
 	Agent*				m_collectibles1;
@@ -64,6 +68,12 @@ protected:
 
 	// Holds Nodes With Wall Points
 	std::vector<Node*>Wall;
+
+	// Holds Nodes With Item Points
+	std::vector<Node*>ItemCollectibles;
+
+	// Holds Temporary Data--------------------------------------------------------------------------------------
+	std::vector<Node*>temporary;
 
 	// Holds Collision with Enemy
 	std::vector<Collider>contact;

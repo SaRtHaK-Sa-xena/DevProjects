@@ -21,6 +21,7 @@ void Agent::Update(float deltaTime)
 	m_Position = m_Position + m_Velocity;
 }
 
+
 void Agent::Draw(aie::Renderer2D * renderer, aie::Texture * texture)
 {
 	renderer->drawSprite(texture, m_Position.m_x, m_Position.m_y, 50, 50);

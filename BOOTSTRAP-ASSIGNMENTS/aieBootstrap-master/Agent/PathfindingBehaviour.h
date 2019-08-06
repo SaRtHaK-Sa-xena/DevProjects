@@ -1,5 +1,6 @@
 #pragma once
 #include "AgentClass.h"
+#include "NodeClass.h"
 
 class PathfindBehaviour : public Behaviour
 {
@@ -8,13 +9,13 @@ public:
 	PathfindBehaviour() {};
 	virtual ~PathfindBehaviour() {};
 
-	virtual Vector2 Update(Agent* agent, float deltaTime);
+	Vector2 Update(Agent* agent, float deltaTime);
 
-	void SetTarget(Vector2 position)
+	void SetTarget(std::vector<Node*>Path)
 	{
-		m_target = position;
+		m_target = Path;
 	}
 
 private:
-	Vector2 m_target;
+	std::vector < Node*> m_target;
 };

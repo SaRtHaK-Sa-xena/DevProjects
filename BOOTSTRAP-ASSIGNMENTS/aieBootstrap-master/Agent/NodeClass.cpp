@@ -65,7 +65,7 @@ void CreateGridOfNodes(Node *node, Node *FirstListOfNodes[1280][720])
 	
 }
 
-Node dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder, std::vector<Node*>nodeWall)
+std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder, std::vector<Node*>nodeWall)
 {
 	//startNode equal to finder's position
 	startNode->position = finder->GetPosition();
@@ -83,7 +83,8 @@ Node dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder, std::vector<
 
 	if (startNode == endNode)
 	{
-		return Node();
+		std::vector<Node*>Default;
+		return Default;
 	}
 
 	std::vector<Node*>openList;
@@ -210,8 +211,14 @@ Node dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder, std::vector<
 	std::vector<Node*>Path;
 
 	//reverse the order and find the patter through the parent
+	while (currentNode != nullptr)
+	{
+		Path.push_back(currentNode);
+		currentNode = currentNode->parent;
+	}
 
-
+	//return correct Path
+	return Path;
 }
 
 //Node dijkstrasSearch(Node* startNode, Node* endNode)
