@@ -18,4 +18,5 @@ public:
 
 private:
 	std::vector < Node*> m_target;
+	int currentNode = 0;
 };

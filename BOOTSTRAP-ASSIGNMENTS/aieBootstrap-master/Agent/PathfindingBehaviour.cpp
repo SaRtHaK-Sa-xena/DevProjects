@@ -50,11 +50,10 @@ Vector2 PathfindBehaviour::Update(Agent * agent, float deltaTime)
 	int i = m_target.size();
 
 	//iterator
-	int j = 0;
-	while (j < m_target.size())
+	while (currentNode < m_target.size())
 	{
 		//if first position  not equal to anything
-		if (m_target[j]->position.m_x == 0, m_target[j]->position.m_y = 0)
+		if (m_target[currentNode]->position.m_x == 0, m_target[currentNode]->position.m_y = 0)
 		{
 			return Vector2();
 		}
@@ -65,7 +64,7 @@ Vector2 PathfindBehaviour::Update(Agent * agent, float deltaTime)
 			Vector2 Direction(0, 0); //creates a default vector2
 
 			//calculate the vector describing the direction to the target and normalize it
-			Direction = m_target[i]->position - agent->GetPosition(); //direction to target
+			Direction = m_target[currentNode]->position - agent->GetPosition(); //direction to target
 
 			Direction.normalise(); //normalize
 
