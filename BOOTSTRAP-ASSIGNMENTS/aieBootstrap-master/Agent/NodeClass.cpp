@@ -92,151 +92,125 @@ Node dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder, std::vector<
 	openList.push_back(startNode);
 
 	//while openlist has anything
-	while (openList.size() != 0)
+	bool foundNode = false;
+
+	while (openList.size() != 0 && foundNode )
 	{
 
 		for (int i = 0; i < openList.size(); i++)
 		{
-			Node *first = openList[0];
-			Node *second = openList[1];
-			if (openList[i]->gScore < openList[i + 1]->gScore)
-			{
-				if (first < second)
-				{
-					first = openList[0];
-				}
-				else
-				{
-					fi
-				}
-				//if less than second
-				//move it back to the beginning
-			}
-
-			for (int i = 0; i < openList.size(); i++)
-			{
-				Node* first = openList[i];
-				//this sorts it
-				if (first->gScore > openList[i + 1]->gScore)
-				{
-					Node* data = openList[i + 1];
-					openList[i + 1]->gScore = first->gScore;
-					first->gScore = data->gScore;
-					i = 0;
-				}
-			}
-
-
-		}
-
-
-		Node* first = openList.front();
-		//sort to have the lowest in the beginning
-		for (int i = 0; i < openList.size(); i++)
-		{
+			Node* first = openList[i];
+			//this sorts it
 			if (first->gScore > openList[i + 1]->gScore)
 			{
-				openList[i + 1] = first;
-				first = openList[i + 1];
+				Node* data = openList[i + 1];
+				openList[i + 1]->gScore = first->gScore;
+				first->gScore = data->gScore;
+				i = 0;
 			}
 		}
 
-
+		//current will equal first element in openList
 		Node* currentNode = openList.front();
-		
-
-
-		//sorting by gScore
-		//Function To sort by gScore-----
-		//|
-		//|
-		//|
-		//|
-		//|______________________________
 
 		//if first item in openList != endNode
-		for (int i = 0; i < openList.size(); i++)
+		if (currentNode == endNode)
 		{
-			if (openList[i] == endNode)
-			{
-				//break out off while loop
-			}
+			foundNode = true;
+			break;
 		}
 
 		//place startNode into closedList
-		closedList.push_back(startNode);
+		closedList.push_back(currentNode);
 
 		//delete startNode in openList
-		for (int i = 0; i < openList.size(); i++)
-		{
-			delete openList[i];
-		}
+		delete openList.front();
+
+
+		//to see if all conections have been set
+		bool firstC = false;
+		bool secondC = false;
+		bool thirdC = false;
+		bool fourthC = false;
+
 
 		for (int i = 0; i < nodeWall.size(); i++)
 		{
 			//check if leftNode wall
-			if (startNode->getTopNode() != nodeWall[i])
+			if (currentNode->getTopNode() != nodeWall[i] && firstC == false)
 			{
 				Node* next = new Node();
-				next = startNode->getTopNode();
+				next = currentNode->getTopNode();
+
+				//set parent
+				next->parent = currentNode;
+				//set score
+				next->gScore = next->gScore + currentNode->gScore;
+				//place in openList
 				openList.push_back(next);
 				
+				firstC = true;
 			}
-			if (startNode->getBottomNode() != nodeWall[i])
+			if (currentNode->getBottomNode() != nodeWall[i] && secondC == false)
 			{
 				Node* next = new Node();
-				next = startNode->getBottomNode();
+				next = currentNode->getBottomNode();
+
+				//set parent
+				next->parent = currentNode;
+				//set score
+				next->gScore = next->gScore + currentNode->gScore;
+				//place in openList
 				openList.push_back(next);
+
+				secondC = true;
 
 			}
-			if (startNode->getLeftNode() != nodeWall[i])
+			if (currentNode->getLeftNode() != nodeWall[i] && thirdC == false)
 			{
 				Node* next = new Node();
-				next = startNode->getLeftNode();
+				next = currentNode->getLeftNode();
+
+				//set parent
+				next->parent = currentNode;
+				//set score
+				next->gScore = next->gScore + currentNode->gScore;
+				//place in openList
 				openList.push_back(next);
+
+				thirdC = true;
 
 			}
-			if (startNode->getRightNode() != nodeWall[i])
+			if (currentNode->getRightNode() != nodeWall[i] && fourthC == false)
 			{
 				Node* next = new Node();
-				next = startNode->getRightNode();
+				next = currentNode->getRightNode();
+
+				//set parent
+				next->parent = currentNode;
+				//set score
+				next->gScore = next->gScore + currentNode->gScore;
+				//place in openList
 				openList.push_back(next);
 
+				fourthC = true;
 			}
 			
-			//openList contains all openings
-
-
-
-			nodeRight->position.m_x = startNode->position.m_x + 30;
-			startNode->connections.push_back(nodeRight);
-
-			startNode->connections.push_back(temporaryNode)
-
-			temporaryNode
-			if()
-
-			Node* newNode;
-			newNode->position = startNode->position;
+			//Reaching here means that all connections has been set
 		}
 
-		startNode->connections.push_back(
-
-
-
-		//Questions-------
-		//| 1. Does the connections in Node.connnections need to be set manually like connection.pushback(Node2,Node3)
-		//|
-		//| 2. Should it be like if(collector->getPosition().m_x - 30 equal to Node12, then do something)
-		//|
-		//| 3. If I make a for loop going through position checks with corresponding nodes on the map add it to openList
-		//|	   and add it to connections vector
-		//|
-		//| 4. Do I have to create a connection of each node like, Node2.connections = Node 4 (to the right by 30),
-		//|    Node 6 (above by 30), Node 1 (to the left by 30), Node 3 (below by 30). All in each Nodes.connection through
-		//|    push_back().
-		//|_______________
 	}
+
+	//Since we found the endNode
+
+	//get the endNode
+	Node* currentNode = endNode;
+
+	//create a Path of Vector
+	std::vector<Node*>Path;
+
+	//reverse the order and find the patter through the parent
+
 
 }
 
