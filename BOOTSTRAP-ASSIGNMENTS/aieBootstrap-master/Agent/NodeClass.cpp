@@ -12,6 +12,34 @@ Node::Node(Vector2 specificPosition, itemType NAME, int m_gScore)
 	gScore = m_gScore;
 }
 
+Node* Node::getTopNode()
+{
+	Node *topNode = this;
+	topNode->position.m_y = this->position.m_y + 30;
+	return topNode; //star
+}
+
+Node* Node::getBottomNode()
+{
+	Node *bottomNode = this;
+	bottomNode->position.m_y = this->position.m_y - 30;
+	return bottomNode; //star
+}
+
+Node* Node::getLeftNode()
+{
+	Node *leftNode = this;
+	leftNode->position.m_x = this->position.m_x - 30;
+	return leftNode; //star
+}
+
+Node* Node::getRightNode()
+{
+	Node *rightNode = this;
+	rightNode->position.m_x = this->position.m_x + 30;
+	return rightNode; //star
+}
+
 void CreateGridOfNodes(Node *node, Node *FirstListOfNodes[1280][720])
 {
 	int rows = 1280;
@@ -37,11 +65,15 @@ void CreateGridOfNodes(Node *node, Node *FirstListOfNodes[1280][720])
 	
 }
 
-Node differentSeatch(Node *startNode, Node *endNode, Agent* finder)
+Node dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder, std::vector<Node*>nodeWall)
 {
 	//startNode equal to finder's position
 	startNode->position = finder->GetPosition();
+	
+	//startNode will have gScore of 1
 	startNode->gScore = 1;
+
+	//will have no parent since it's the start
 	startNode->parent = nullptr;
 
 	if (startNode == nullptr || endNode == nullptr)
@@ -59,8 +91,61 @@ Node differentSeatch(Node *startNode, Node *endNode, Agent* finder)
 
 	openList.push_back(startNode);
 
+	//while openlist has anything
 	while (openList.size() != 0)
 	{
+
+		for (int i = 0; i < openList.size(); i++)
+		{
+			Node *first = openList[0];
+			Node *second = openList[1];
+			if (openList[i]->gScore < openList[i + 1]->gScore)
+			{
+				if (first < second)
+				{
+					first = openList[0];
+				}
+				else
+				{
+					fi
+				}
+				//if less than second
+				//move it back to the beginning
+			}
+
+			for (int i = 0; i < openList.size(); i++)
+			{
+				Node* first = openList[i];
+				//this sorts it
+				if (first->gScore > openList[i + 1]->gScore)
+				{
+					Node* data = openList[i + 1];
+					openList[i + 1]->gScore = first->gScore;
+					first->gScore = data->gScore;
+					i = 0;
+				}
+			}
+
+
+		}
+
+
+		Node* first = openList.front();
+		//sort to have the lowest in the beginning
+		for (int i = 0; i < openList.size(); i++)
+		{
+			if (first->gScore > openList[i + 1]->gScore)
+			{
+				openList[i + 1] = first;
+				first = openList[i + 1];
+			}
+		}
+
+
+		Node* currentNode = openList.front();
+		
+
+
 		//sorting by gScore
 		//Function To sort by gScore-----
 		//|
@@ -77,6 +162,66 @@ Node differentSeatch(Node *startNode, Node *endNode, Agent* finder)
 				//break out off while loop
 			}
 		}
+
+		//place startNode into closedList
+		closedList.push_back(startNode);
+
+		//delete startNode in openList
+		for (int i = 0; i < openList.size(); i++)
+		{
+			delete openList[i];
+		}
+
+		for (int i = 0; i < nodeWall.size(); i++)
+		{
+			//check if leftNode wall
+			if (startNode->getTopNode() != nodeWall[i])
+			{
+				Node* next = new Node();
+				next = startNode->getTopNode();
+				openList.push_back(next);
+				
+			}
+			if (startNode->getBottomNode() != nodeWall[i])
+			{
+				Node* next = new Node();
+				next = startNode->getBottomNode();
+				openList.push_back(next);
+
+			}
+			if (startNode->getLeftNode() != nodeWall[i])
+			{
+				Node* next = new Node();
+				next = startNode->getLeftNode();
+				openList.push_back(next);
+
+			}
+			if (startNode->getRightNode() != nodeWall[i])
+			{
+				Node* next = new Node();
+				next = startNode->getRightNode();
+				openList.push_back(next);
+
+			}
+			
+			//openList contains all openings
+
+
+
+			nodeRight->position.m_x = startNode->position.m_x + 30;
+			startNode->connections.push_back(nodeRight);
+
+			startNode->connections.push_back(temporaryNode)
+
+			temporaryNode
+			if()
+
+			Node* newNode;
+			newNode->position = startNode->position;
+		}
+
+		startNode->connections.push_back(
+
 
 
 		//Questions-------

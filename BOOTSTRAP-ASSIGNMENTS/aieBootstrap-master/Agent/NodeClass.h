@@ -30,6 +30,20 @@ struct Node
 		ofType = wall;
 	}
 
+
+	//returns topNode
+	Node* getTopNode();
+
+	//returns bottomNode
+	Node* getBottomNode();
+
+	//returns leftNode
+	Node* getLeftNode();
+
+	//returns rightNode
+	Node* getRightNode();
+
+
 	void wallSetter()
 	{
 		//amount to be incremented by
