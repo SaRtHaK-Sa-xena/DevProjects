@@ -34,24 +34,12 @@ protected:
 	Agent*				m_enemy;
 	SeekBehaviour*		m_followBehaviour; // follow behaviour
 
-	Agent*				m_enemyCollector;
-	PathfindBehaviour*  m_findPathBehaviour;
-
-
+	Agent*				m_enemyCollector;// uses Seek to follow the paths
+	PathfindBehaviour*  m_findPathBehaviour;// returns the shortest path
 
 	Agent*				m_collectibles;
 	Agent*				m_collectibles1;
-	Agent*				m_collectibles2;
-	Agent*				m_collectibles3;
-	Agent*				m_collectibles4;
-	Agent*				m_collectibles5;
-	Agent*				m_collectibles6;
-	Agent*				m_collectibles7;
-	Agent*				m_collectibles8;
-	Agent*				m_collectibles9;
-	Agent*				m_collectibles10;
 
-	Agent* amountCollectibles[10];
 
 	WanderBehaviour*	m_wanderBehaviour; //wandering behaviour
 
@@ -66,15 +54,6 @@ protected:
 	// Holds Collision with walls
 	std::vector<Collider>walls;
 
-	// Holds Nodes With Wall Points
-	std::vector<Node*>Wall;
-
-	// Holds Nodes With Item Points
-	std::vector<Node*>ItemCollectibles;
-
-	// Holds Temporary Data--------------------------------------------------------------------------------------
-	std::vector<Node*>temporary;
-
 	// Holds Collision with Enemy
 	std::vector<Collider>contact;
 
@@ -84,6 +63,29 @@ protected:
 	// Holds Collision with Items In ItemCollision.h
 	std::vector<collectCollision>Items;
 
+	//===================NODES====================
+	// Holds Nodes With Wall Points
+	std::vector<Node*>Wall;
+
+	// Holds Nodes With Item Points
+	std::vector<Node*>ItemCollectibles;
+
+	// Holds current path returned from Dijkstra
+	std::vector<Node*>currentPath;
+	//===================NODES====================
+
+	//iterator for items Vector in  ItemCollectibles
+	int currentItem = 0;
+
+	//iterator for node Vector in curentPath
+	int currentNode = 0;
+
+	//temporary Node
+	Node* temporaryNode = new Node();
+
+
+	//Checks if Path Found, then increment ItemCollectibles
+	bool pathFound = false;
 
 	// Check to Start the Game
 	bool startGame = false;

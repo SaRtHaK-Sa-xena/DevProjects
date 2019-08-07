@@ -59,17 +59,16 @@ bool AgentApp::startup() {
 
 
 	m_enemyCollector = new Agent();
+	m_findPathBehaviour = new PathfindBehaviour();
+	m_enemyCollector->AddBehaviour(m_findPathBehaviour);
 	//================ITEMS=================
 	//Item Nodes
 
 	//-----------------ITEM 1---------------
-	Node* itemNode = new Node(Vector2(30 * 16, 30 * 2), item);
+	Node* itemNode = new Node(Vector2(30 * 2, 30 * 16), item);
+	itemNode->parent = nullptr;
 	ItemCollectibles.push_back(itemNode);
 	
-	temporary
-
-	m_findPathBehaviour->SetTarget() //takes in Path
-	m_enemyCollector->AddBehaviour(m_findPathBehaviour);
 	
 	m_collectibles = new Agent();
 	m_collectibles->SetPosition(Vector2(80, 453));
@@ -502,7 +501,33 @@ void AgentApp::update(float deltaTime) {
 
 		m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
 
+		//false at start
+		if (pathFound == false)
+		{
+			currentPath = dijkstrasSeatch(temporaryNode, ItemCollectibles[currentItem], m_enemyCollector, Wall);
+			pathFound = true;
+		}
+
+		//Sets target to first Node in currentPathReturned
+		m_findPathBehaviour->SetTarget(currentPath[currentNode]); //takes in Path
+
+		//returns Force
 		m_enemyCollector->Update(deltaTime);
+
+		//current Iterator not at the end of List
+		if (currentNode < currentPath.size())
+		{
+			if (m_enemyCollector->GetPosition().m_x == currentPath[currentNode]->position.m_x && m_enemyCollector->GetPosition().m_y == currentPath[currentNode]->position.m_y)
+			{
+				currentNode++;
+			}
+		}
+		else
+		{
+			currentItem++;
+			currentNode = 0;
+			pathFound = false;
+		}
 
 		m_collectibles->Update(deltaTime);
 
@@ -1113,6 +1138,8 @@ void AgentApp::draw() {
 
 	//ITEM 1
 	m_2dRenderer->drawBox((30 * 16), (30 * 2), 10, 10);
+	m_2dRenderer->drawBox((30 * 2), (30 * 16), 10, 10);
+
 
 
 

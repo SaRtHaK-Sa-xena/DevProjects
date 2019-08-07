@@ -9,14 +9,13 @@ public:
 	PathfindBehaviour() {};
 	virtual ~PathfindBehaviour() {};
 
-	Vector2 Update(Agent* agent, float deltaTime);
+	virtual Vector2 Update(Agent* agent, float deltaTime);
 
-	void SetTarget(std::vector<Node*>Path)
+	void SetTarget(Node* targetToSeek)
 	{
-		m_target = Path;
+		m_target = targetToSeek;
 	}
 
 private:
-	std::vector < Node*> m_target;
-	int currentNode = 0;
+	Node* m_target;
 };

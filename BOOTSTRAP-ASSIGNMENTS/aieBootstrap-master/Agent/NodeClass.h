@@ -30,7 +30,6 @@ struct Node
 		ofType = wall;
 	}
 
-
 	//returns topNode
 	Node* getTopNode();
 
@@ -97,18 +96,5 @@ struct Node
 };
 
 
-
-//void CreateGridOfNodes(Node *node)
-//{
-//	int rows = 1280;
-//	int columns = 720;
-//
-//	//writes nodes in grid
-//	for (int i = 0; i < rows; i++)
-//	{
-//		for (int j = 0; j < columns; j++)
-//		{
-//			Node* newNode = new Node((Vector2(i * 10, j *10)), clear, 1);
-//		}
-//	}
-//}
+//retuns path to final Node
+std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder, std::vector<Node*>nodeWall);

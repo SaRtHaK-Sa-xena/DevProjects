@@ -14,28 +14,28 @@ Node::Node(Vector2 specificPosition, itemType NAME, int m_gScore)
 
 Node* Node::getTopNode()
 {
-	Node *topNode = this;
+	Node *topNode = new Node(*this);
 	topNode->position.m_y = this->position.m_y + 30;
 	return topNode; //star
 }
 
 Node* Node::getBottomNode()
 {
-	Node *bottomNode = this;
+	Node *bottomNode = new Node(*this);
 	bottomNode->position.m_y = this->position.m_y - 30;
 	return bottomNode; //star
 }
 
 Node* Node::getLeftNode()
 {
-	Node *leftNode = this;
+	Node *leftNode = new Node(*this);
 	leftNode->position.m_x = this->position.m_x - 30;
 	return leftNode; //star
 }
 
 Node* Node::getRightNode()
 {
-	Node *rightNode = this;
+	Node *rightNode = new Node(*this);
 	rightNode->position.m_x = this->position.m_x + 30;
 	return rightNode; //star
 }
@@ -95,10 +95,10 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 	//while openlist has anything
 	bool foundNode = false;
 
-	while (openList.size() != 0 && foundNode )
+	while (openList.size() != 0 && foundNode == false)
 	{
 
-		for (int i = 0; i < openList.size(); i++)
+		for (int i = 0; i < openList.size()-1; i++)
 		{
 			Node* first = openList[i];
 			//this sorts it
@@ -125,7 +125,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 		closedList.push_back(currentNode);
 
 		//delete startNode in openList
-		delete openList.front();
+		openList.erase(openList.begin(),openList.begin());
 
 
 		//to see if all conections have been set
@@ -137,7 +137,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 
 		for (int i = 0; i < nodeWall.size(); i++)
 		{
-			//check if leftNode wall
+			//check if topNode wall
 			if (currentNode->getTopNode() != nodeWall[i] && firstC == false)
 			{
 				Node* next = new Node();
@@ -205,7 +205,8 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 	//Since we found the endNode
 
 	//get the endNode
-	Node* currentNode = endNode;
+	Node* currentNode = new Node();
+	currentNode = endNode;
 
 	//create a Path of Vector
 	std::vector<Node*>Path;
