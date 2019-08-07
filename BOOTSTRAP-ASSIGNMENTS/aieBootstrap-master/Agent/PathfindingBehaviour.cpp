@@ -18,9 +18,10 @@ Vector2 PathfindBehaviour::Update(Agent * agent, float deltaTime)
 
 		//calculate the vector describing the direction to the target and normalize it
 		Direction = m_target->position - agent->GetPosition(); //direction to target
-
-		Direction.normalise(); //normalize
-
+		if (Direction.magnitude() > 0)
+		{
+			Direction.normalise(); //normalize
+		}
 		//Multiply the direction by the speed we want the agent to move
 		Direction = Direction * speedOfSeeker;
 

@@ -80,6 +80,9 @@ protected:
 	//iterator for node Vector in curentPath
 	int currentNode = 0;
 
+	//Timer For Path
+	float timer = 20;
+
 	//temporary Node
 	Node* temporaryNode = new Node();
 

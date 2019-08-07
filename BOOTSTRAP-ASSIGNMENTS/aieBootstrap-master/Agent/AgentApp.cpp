@@ -65,10 +65,15 @@ bool AgentApp::startup() {
 	//Item Nodes
 
 	//-----------------ITEM 1---------------
-	Node* itemNode = new Node(Vector2(30 * 22, 30 * 2), item);
+	Node* itemNode = new Node(Vector2(30 * 20, 30 * 8), item);
 	itemNode->parent = nullptr;
 	ItemCollectibles.push_back(itemNode);
 	
+	itemNode = new Node(Vector2(30 * 2, 30 * 2), item);
+	itemNode->parent = nullptr;
+	ItemCollectibles.push_back(itemNode);
+
+
 	
 	m_collectibles = new Agent();
 	m_collectibles->SetPosition(Vector2(80, 453));
@@ -461,7 +466,7 @@ bool AgentApp::startup() {
 
 
 	
-
+	
 
 	return true;
 }
@@ -510,13 +515,14 @@ void AgentApp::update(float deltaTime) {
 			startGame = false;
 			drawMainMenu = true;
 		}
+		
 	}
 
 	//Checks If The Player And Enemy Should be Drawn
 	if (createdEntity == false)
 	{
 		m_enemy->SetPosition(Vector2(50000, 500));// sets starting position for enemy
-		m_enemyCollector->SetPosition(Vector2(30*2, 30*2));
+		m_enemyCollector->SetPosition(Vector2(30 * 2, 30 * 2));
 		m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
 		createdEntity = true;
 	}
@@ -528,6 +534,7 @@ void AgentApp::update(float deltaTime) {
 	//Starts Game
 	if (startGame == true)
 	{
+
 		m_player->Update(deltaTime); //since player has keyboard behaviour there is no need for
 		//							 //an input function in update
 		
@@ -539,21 +546,23 @@ void AgentApp::update(float deltaTime) {
 		//false at start
 		if (pathFound == false)
 		{
-			currentPath = dijkstrasSeatch(temporaryNode, ItemCollectibles[currentItem], m_enemyCollector, Wall);
-			pathMade = true;
+			std::vector<Node*>tempPath = dijkstrasSeatch(temporaryNode, ItemCollectibles[currentItem], m_enemyCollector, Wall);
+			for (int i = tempPath.size()-1; i >= 0; i--)
+			{
+				currentPath.push_back(tempPath[i]);
+			}
 			pathFound = true;
 		}
-
-		//Sets target to first Node in currentPathReturned
-		m_findPathBehaviour->SetTarget(currentPath[currentNode]); //takes in Path
-
-		//returns Force
-		m_enemyCollector->Update(deltaTime);
+		
+		
 
 		//current Iterator not at the end of List
 		if (currentNode < currentPath.size())
 		{
-			if (m_enemyCollector->GetPosition().m_x == currentPath[currentNode]->position.m_x && m_enemyCollector->GetPosition().m_y == currentPath[currentNode]->position.m_y)
+			Vector2 difference;
+			difference = m_enemyCollector->GetPosition() - currentPath[currentNode]->position;
+
+			if (difference.magnitude() <= 2)
 			{
 				currentNode++;
 			}
@@ -565,6 +574,12 @@ void AgentApp::update(float deltaTime) {
 			pathFound = false;
 		}
 
+
+		//Sets target to first Node in currentPathReturned
+		m_findPathBehaviour->SetTarget(currentPath[currentNode]); //takes in Path
+
+		//returns Force
+		m_enemyCollector->Update(deltaTime);
 		m_collectibles->Update(deltaTime);
 
 
@@ -1174,7 +1189,7 @@ void AgentApp::draw() {
 
 	//ITEM 1
 	m_2dRenderer->drawBox((30 * 16), (30 * 2), 10, 10);
-	m_2dRenderer->drawBox((30 * 0), (30 * 24), 10, 10);
+	m_2dRenderer->drawBox((30 * 20), (30 * 8), 10, 10);
 
 
 
