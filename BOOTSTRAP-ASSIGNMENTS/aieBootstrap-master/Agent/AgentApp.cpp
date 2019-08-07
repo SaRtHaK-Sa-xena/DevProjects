@@ -576,10 +576,13 @@ void AgentApp::update(float deltaTime) {
 
 
 		//Sets target to first Node in currentPathReturned
-		m_findPathBehaviour->SetTarget(currentPath[currentNode]); //takes in Path
-
-		//returns Force
-		m_enemyCollector->Update(deltaTime);
+		if (pathFound)
+		{
+			m_findPathBehaviour->SetTarget(currentPath[currentNode]); //takes in Path
+			//returns Force
+			m_enemyCollector->Update(deltaTime);
+		}
+		
 		m_collectibles->Update(deltaTime);
 
 
