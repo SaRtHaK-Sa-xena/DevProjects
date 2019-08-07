@@ -7,6 +7,8 @@ enum itemType
 	item,wall,clear
 };
 
+
+
 struct Node
 {
 
@@ -16,7 +18,7 @@ struct Node
 		gScore = 1; //g score of 1
 		parent = nullptr; //no parent
 		ofType = clear; //type
-		
+		isChecked = false;
 	}
 
 	//manually set the node's position, type, score
@@ -28,6 +30,18 @@ struct Node
 
 		position = specificPosition;
 		ofType = wall;
+	}
+
+	bool CheckInList(std::vector<Node*>List, int &index);
+
+	bool operator==(Node &other)
+	{
+		return this->position.m_x == other.position.m_x && this->position.m_y == other.position.m_y;
+	}
+
+	bool operator!=(Node &other)
+	{
+		return !( this->position.m_x == other.position.m_x && this->position.m_y == other.position.m_y) ;
 	}
 
 	//returns topNode
@@ -71,6 +85,7 @@ struct Node
 	float gScore;
 	Node* parent;
 	itemType ofType;
+	bool isChecked;
 
 	//holds connections
 	std::vector<Edge*>connections;

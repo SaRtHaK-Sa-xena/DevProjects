@@ -12,6 +12,20 @@ Node::Node(Vector2 specificPosition, itemType NAME, int m_gScore)
 	gScore = m_gScore;
 }
 
+bool Node::CheckInList(std::vector<Node*> List, int &index)
+{
+	for (int i = 0; i < List.size(); i++)
+	{
+		if (List[i] == this)
+		{
+			index = i;
+			return true;
+		}
+	}
+
+	return false;
+}
+
 Node* Node::getTopNode()
 {
 	Node *topNode = new Node(*this);
@@ -115,7 +129,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 		Node* currentNode = openList.front();
 
 		//if first item in openList != endNode
-		if (currentNode == endNode)
+		if (currentNode->position.m_x == endNode->position.m_x && currentNode->position.m_y == endNode->position.m_y)
 		{
 			foundNode = true;
 			break;
@@ -125,7 +139,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 		closedList.push_back(currentNode);
 
 		//delete startNode in openList
-		openList.erase(openList.begin(),openList.begin());
+		openList.erase(openList.begin(),openList.begin()+1);
 
 
 		//to see if all conections have been set
@@ -134,67 +148,113 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 		bool thirdC = false;
 		bool fourthC = false;
 
+		//Reference
+		int foundIndex = 0;
 
 		for (int i = 0; i < nodeWall.size(); i++)
 		{
 			//check if topNode wall
-			if (currentNode->getTopNode() != nodeWall[i] && firstC == false)
+			if (currentNode->getTopNode() != nodeWall[i] && firstC == false && currentNode->CheckInList(closedList,foundIndex)==false)
 			{
-				Node* next = new Node();
+				Node* next = nullptr;
 				next = currentNode->getTopNode();
 
-				//set parent
-				next->parent = currentNode;
-				//set score
-				next->gScore = next->gScore + currentNode->gScore;
-				//place in openList
-				openList.push_back(next);
-				
-				firstC = true;
+				float gScore = currentNode->gScore + next->gScore;
+
+				if (next->CheckInList(openList, foundIndex) == false)
+				{
+					//set parent
+					next->parent = currentNode;
+					//set score
+					//next->gScore = next->gScore + currentNode->gScore;
+					next->gScore = gScore;
+					//place in openList
+					openList.push_back(next);
+
+					firstC = true;
+				}
+				else if (gScore < openList[foundIndex]->gScore)
+				{
+					openList[foundIndex]->gScore = gScore;
+					openList[foundIndex]->parent = currentNode;
+				}
 			}
-			if (currentNode->getBottomNode() != nodeWall[i] && secondC == false)
+			if (currentNode->getBottomNode() != nodeWall[i] && secondC == false && currentNode->CheckInList(closedList, foundIndex) == false)
 			{
-				Node* next = new Node();
+				Node* next = nullptr;
 				next = currentNode->getBottomNode();
 
-				//set parent
-				next->parent = currentNode;
-				//set score
-				next->gScore = next->gScore + currentNode->gScore;
-				//place in openList
-				openList.push_back(next);
+				float gScore = currentNode->gScore + next->gScore;
 
-				secondC = true;
+				if (next->CheckInList(openList, foundIndex) == false)
+				{
+					//set parent
+					next->parent = currentNode;
+					//set score
+					//next->gScore = next->gScore + currentNode->gScore;
+					next->gScore = gScore;
+					//place in openList
+					openList.push_back(next);
+
+					secondC = true;
+				}
+				else if (gScore < openList[foundIndex]->gScore)
+				{
+					openList[foundIndex]->gScore = gScore;
+					openList[foundIndex]->parent = currentNode;
+				}
 
 			}
-			if (currentNode->getLeftNode() != nodeWall[i] && thirdC == false)
+			if (currentNode->getLeftNode() != nodeWall[i] && thirdC == false && currentNode->CheckInList(closedList, foundIndex) == false)
 			{
-				Node* next = new Node();
+				Node* next = nullptr;
 				next = currentNode->getLeftNode();
 
-				//set parent
-				next->parent = currentNode;
-				//set score
-				next->gScore = next->gScore + currentNode->gScore;
-				//place in openList
-				openList.push_back(next);
+				float gScore = currentNode->gScore + next->gScore;
 
-				thirdC = true;
+				if (next->CheckInList(openList, foundIndex) == false)
+				{
+					//set parent
+					next->parent = currentNode;
+					//set score
+					//next->gScore = next->gScore + currentNode->gScore;
+					next->gScore = gScore;
+					//place in openList
+					openList.push_back(next);
+
+					thirdC = true;
+				}
+				else if (gScore < openList[foundIndex]->gScore)
+				{
+					openList[foundIndex]->gScore = gScore;
+					openList[foundIndex]->parent = currentNode;
+				}
 
 			}
-			if (currentNode->getRightNode() != nodeWall[i] && fourthC == false)
+			if (currentNode->getRightNode() != nodeWall[i] && fourthC == false && currentNode->CheckInList(closedList, foundIndex) == false)
 			{
-				Node* next = new Node();
+				Node* next = nullptr;
 				next = currentNode->getRightNode();
 
-				//set parent
-				next->parent = currentNode;
-				//set score
-				next->gScore = next->gScore + currentNode->gScore;
-				//place in openList
-				openList.push_back(next);
+				float gScore = currentNode->gScore + next->gScore;
 
-				fourthC = true;
+				if (next->CheckInList(openList, foundIndex) == false)
+				{
+					//set parent
+					next->parent = currentNode;
+					//set score
+					//next->gScore = next->gScore + currentNode->gScore;
+					next->gScore = gScore;
+					//place in openList
+					openList.push_back(next);
+
+					fourthC = true;
+				}
+				else if (gScore < openList[foundIndex]->gScore)
+				{
+					openList[foundIndex]->gScore = gScore;
+					openList[foundIndex]->parent = currentNode;
+				}
 			}
 			
 			//Reaching here means that all connections has been set
