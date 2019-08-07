@@ -16,7 +16,7 @@ bool Node::CheckInList(std::vector<Node*> List, int &index)
 {
 	for (int i = 0; i < List.size(); i++)
 	{
-		if (List[i] == this)
+		if (*List[i] == *this)
 		{
 			index = i;
 			return true;
@@ -131,6 +131,8 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 		//if first item in openList != endNode
 		if (currentNode->position.m_x == endNode->position.m_x && currentNode->position.m_y == endNode->position.m_y)
 		{
+			//sets the endNode to currentNode's parent, which makes the parents the same
+			endNode->parent = currentNode->parent;
 			foundNode = true;
 			break;
 		}
@@ -151,10 +153,12 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 		//Reference
 		int foundIndex = 0;
 
+		//if first,second,third,fourth == false
+		//{
 		for (int i = 0; i < nodeWall.size(); i++)
 		{
 			//check if topNode wall
-			if (currentNode->getTopNode() != nodeWall[i] && firstC == false && currentNode->CheckInList(closedList,foundIndex)==false)
+			if (firstC == false && currentNode->getTopNode()->CheckInList(nodeWall,foundIndex)==false && currentNode->getTopNode()->CheckInList(closedList,foundIndex)==false)
 			{
 				Node* next = nullptr;
 				next = currentNode->getTopNode();
@@ -179,7 +183,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 					openList[foundIndex]->parent = currentNode;
 				}
 			}
-			if (currentNode->getBottomNode() != nodeWall[i] && secondC == false && currentNode->CheckInList(closedList, foundIndex) == false)
+			if (currentNode->getBottomNode()->CheckInList(nodeWall, foundIndex) == false && secondC == false && currentNode->getBottomNode()->CheckInList(closedList, foundIndex) == false)
 			{
 				Node* next = nullptr;
 				next = currentNode->getBottomNode();
@@ -205,7 +209,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 				}
 
 			}
-			if (currentNode->getLeftNode() != nodeWall[i] && thirdC == false && currentNode->CheckInList(closedList, foundIndex) == false)
+			if (currentNode->getLeftNode()->CheckInList(nodeWall, foundIndex) == false && thirdC == false && currentNode->getLeftNode()->CheckInList(closedList, foundIndex) == false)
 			{
 				Node* next = nullptr;
 				next = currentNode->getLeftNode();
@@ -231,7 +235,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 				}
 
 			}
-			if (currentNode->getRightNode() != nodeWall[i] && fourthC == false && currentNode->CheckInList(closedList, foundIndex) == false)
+			if (currentNode->getRightNode()->CheckInList(nodeWall, foundIndex) == false && fourthC == false && currentNode->getRightNode()->CheckInList(closedList, foundIndex) == false)
 			{
 				Node* next = nullptr;
 				next = currentNode->getRightNode();
@@ -265,8 +269,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 	//Since we found the endNode
 
 	//get the endNode
-	Node* currentNode = new Node();
-	currentNode = endNode;
+	Node* currentNode = endNode;
 
 	//create a Path of Vector
 	std::vector<Node*>Path;
@@ -282,63 +285,3 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 	return Path;
 }
 
-//Node dijkstrasSearch(Node* startNode, Node* endNode)
-//{
-//	if (startNode == nullptr || endNode == nullptr)
-//	{
-//		std::cout << "Error:" << std::endl;
-//	}
-//
-//	if (startNode == endNode)
-//	{
-//		return Node();
-//	}
-//
-//	//Initialise the starting Node
-//	startNode->gScore = 0;
-//	startNode->parent = nullptr;
-//
-//	std::vector<Node*>openList;
-//	std::vector<Node*>closedList;
-//	
-//	openList.push_back(startNode);
-//
-//	while (openList.size() != 0)
-//	{
-//		//basic Sort -> that may not work
-//		for (int i = 0; i < openList.size(); i++)
-//		{
-//			if (openList[i]->gScore > openList[i + 1]->gScore)
-//			{
-//				openList[i] = openList[i + 1];
-//			}
-//		}
-//
-//		Node *currentNode = openList.front();
-//		
-//		if (currentNode == endNode)
-//		{
-//			break; /*Exit While Loop*/
-//		}
-//
-//		Node* newNode = currentNode;
-//
-//		delete currentNode;
-//
-//		closedList.push_back(newNode);
-//
-//		for (int i = 0; i < newNode->connections.size(); i++)
-//		{
-//			if (endNode != closedList[i])
-//			{
-//				std::vector<Edge*>collection;
-//				Node* differentNode = new Node();
-//				collection.push_back(differentNode);
-//
-//				gScore = newNode->gScore + 
-//			}
-//		}
-//
-//	}
-//
-//}

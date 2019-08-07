@@ -65,7 +65,7 @@ bool AgentApp::startup() {
 	//Item Nodes
 
 	//-----------------ITEM 1---------------
-	Node* itemNode = new Node(Vector2(30 * 2, 30 * 16), item);
+	Node* itemNode = new Node(Vector2(30 * 22, 30 * 2), item);
 	itemNode->parent = nullptr;
 	ItemCollectibles.push_back(itemNode);
 	
@@ -269,10 +269,45 @@ bool AgentApp::startup() {
 	//------------------------------------------------------
 	//					WALL NODES
 
+
+	//OUTER EDGE (LEFT)
+	int amount = 25;
+	for (int i = 0; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * 0), (30 * i)), wall);
+		Wall.push_back(setterWall);
+	}
+
+	//OUTER EDGE (TOP)
+	amount = 43;
+	for (int i = 0; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * i), (30 * 24)), wall);
+		Wall.push_back(setterWall);
+	}
+
+	//OUTER EDGE (RIGHT)
+	amount = 25;
+	for (int i = 0; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * 42), (30 * i)), wall);
+		Wall.push_back(setterWall);
+	}
+	
+	//OUTER EDGE (DOWN)
+	amount = 44;
+	for (int i = 0; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * i), (30 * 0)), wall);
+		Wall.push_back(setterWall);
+	}
+	
+
+
 	//====================WALL 0=========================
 
 	// Horizontal Bar In Nodes
-	int amount = 13;
+	amount = 13;
 	for (int i = 1; i < amount; i++)
 	{
 		Node *setterWall = new Node(Vector2((30 * i), (30 * 4)), wall);
@@ -505,6 +540,7 @@ void AgentApp::update(float deltaTime) {
 		if (pathFound == false)
 		{
 			currentPath = dijkstrasSeatch(temporaryNode, ItemCollectibles[currentItem], m_enemyCollector, Wall);
+			pathMade = true;
 			pathFound = true;
 		}
 
@@ -1138,7 +1174,7 @@ void AgentApp::draw() {
 
 	//ITEM 1
 	m_2dRenderer->drawBox((30 * 16), (30 * 2), 10, 10);
-	m_2dRenderer->drawBox((30 * 2), (30 * 16), 10, 10);
+	m_2dRenderer->drawBox((30 * 0), (30 * 24), 10, 10);
 
 
 

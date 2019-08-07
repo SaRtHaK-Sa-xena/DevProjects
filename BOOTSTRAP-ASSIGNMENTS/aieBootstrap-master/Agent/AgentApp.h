@@ -83,6 +83,9 @@ protected:
 	//temporary Node
 	Node* temporaryNode = new Node();
 
+	//Waits for path to be made
+	bool pathMade = false;
+
 
 	//Checks if Path Found, then increment ItemCollectibles
 	bool pathFound = false;
