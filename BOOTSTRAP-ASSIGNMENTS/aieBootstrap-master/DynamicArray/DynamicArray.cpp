@@ -24,7 +24,7 @@ int main()
 	while (cont)
 	{
 		cout << "What Do you want to Do? " << endl;
-		cout << "---(a)dd---(d)isplay---(s)ort--(f)ind--(e)xit---" << endl;
+		cout << "---(a)dd---(d)isplay---(s)ort---(f)ind---(c)popBack---(x)popFront---(e)xit---" << endl;
 		cin >> choice;
 		switch (choice)
 		{
@@ -44,6 +44,16 @@ int main()
 			DynamicTree->insert(value);
 			break;
 		case'd':
+			cout << "\t\t\t displaying..." << endl;
+			DynamicTree->display();
+			break;
+		case'c':
+			DynamicTree->clear();
+			cout << "\t\t\t displaying..." << endl;
+			DynamicTree->display();
+			break;
+		case'x':
+			DynamicTree->popFront();
 			cout << "\t\t\t displaying..." << endl;
 			DynamicTree->display();
 			break;

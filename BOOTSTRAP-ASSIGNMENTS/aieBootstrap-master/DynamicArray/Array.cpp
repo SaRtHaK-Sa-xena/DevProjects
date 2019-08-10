@@ -2,16 +2,21 @@
 #include "Array.h"
 #include <string>
 
+// constructor
 ArrayClass::ArrayClass()
 {
 	root = nullptr;
 }
 
+
+//helper function returning root
 NodeClass* ArrayClass::returnRoot()
 {
 	return root;
 }
 
+
+//adds new element in array
 void ArrayClass::insert(int value)
 {
 	if (root == nullptr)
@@ -35,9 +40,11 @@ void ArrayClass::insert(int value)
 	}
 }
 
+
+// displays the values of each element
 void ArrayClass::display()
 {
-	if (!Empty)
+	if (!Empty())
 	{
 		NodeClass* current = returnRoot();
 
@@ -66,9 +73,11 @@ void ArrayClass::display()
 	}
 }
 
+
+//finds value using value
 void ArrayClass::search(int a_value)
 {
-	if (!Empty)
+	if (!Empty())
 	{
 		int i = 1;
 		NodeClass *current = returnRoot();
@@ -116,9 +125,10 @@ void ArrayClass::search(int a_value)
 }
 
 
+//sorts elements by value held
 void ArrayClass::sort()
 {
-	if (!Empty)
+	if (!Empty())
 	{
 		int temp;
 		int temp2;
@@ -167,11 +177,12 @@ void ArrayClass::sort()
 	}
 }
 
+
 //removes last element in array
 void ArrayClass::popBack()
 {
 
-	if (!Empty)
+	if (!Empty())
 	{
 
 		NodeClass *current = returnRoot();
@@ -196,9 +207,11 @@ void ArrayClass::popBack()
 	}
 }
 
+
+//removes first element in array
 void ArrayClass::popFront()
 {
-	if (!Empty)
+	if (!Empty())
 	{
 
 		//current will = first item in array
@@ -217,6 +230,8 @@ void ArrayClass::popFront()
 	}
 }
 
+
+//checks if there is an element in the array
 bool ArrayClass::Empty()
 {
 	NodeClass* current = returnRoot();
@@ -231,5 +246,45 @@ bool ArrayClass::Empty()
 	else
 	{
 		return false;
+	}
+}
+
+
+void ArrayClass::clear()
+{
+	if (!Empty())
+	{
+
+		while (root->getRight() != nullptr)
+		{
+
+			NodeClass* current = returnRoot();
+
+			root = current->getRight();
+
+			delete current;
+		}
+
+		root = nullptr;
+
+		delete root;
+	}
+	else
+	{
+		std::cout << "No elements in array\n" << std::endl;
+		std::cout << "-------------------------------" << std::endl;
+	}
+}
+
+
+//manually set array size
+void ArrayClass::manualSetter()
+{
+	int amount = 0;
+	std::cout << "Enter size of array:" << std::endl;
+
+	for (int i = 0; i < amount; i++)
+	{
+		insert(0);
 	}
 }

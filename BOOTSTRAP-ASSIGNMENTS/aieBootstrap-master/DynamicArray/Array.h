@@ -33,6 +33,12 @@ public:
 	// removes first element in array
 	void popFront();
 
+	// Manually sets amount of elements in array
+	void manualSetter();
+
+	//clears all elements
+	void clear();
+
 	// checks if array empty
 	bool Empty();
 };
