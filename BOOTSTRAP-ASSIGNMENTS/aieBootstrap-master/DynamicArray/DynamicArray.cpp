@@ -45,17 +45,7 @@ int main()
 			break;
 		case'd':
 			cout << "\t\t\t displaying..." << endl;
-			current = DynamicTree->returnRoot();
-			while (current->getRight() != nullptr)
-			{
-				i++;
-				cout << "Data:" << i << " " << current->getData() << endl;
-				current = current->getRight();
-			}
-			i = i + 1;
-			cout << "Data:" << i << " " << current->getData() << endl;
-			i = 0;
-			//cout << "Node Data 1:" << current->getData() << endl;
+			DynamicTree->display();
 			break;
 		case's':
 			cout << "\t\t\t Sorting..." << endl;
@@ -92,7 +82,8 @@ int main()
 			break;
 		case'e':
 			cout << "Exiting..." << endl;
-			return 0;
+			DynamicTree->popFront();
+			//return 0;
 		default:
 			cout << "Enter One Of The Listed Options" << endl;
 			break;
