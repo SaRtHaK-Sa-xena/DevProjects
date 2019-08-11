@@ -101,6 +101,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 		return Default;
 	}
 
+	//create two lists
 	std::vector<Node*>openList;
 	std::vector<Node*>closedList;
 
