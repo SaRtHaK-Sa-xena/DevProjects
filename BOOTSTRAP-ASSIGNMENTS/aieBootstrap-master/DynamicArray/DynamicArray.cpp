@@ -11,6 +11,7 @@ using namespace std;
 int main()
 {
 	ArrayClass* DynamicTree = new ArrayClass();
+	ArrayClass * secondDynamicTree = new ArrayClass();
 	int value;
 	bool cont = true;
 	char choice = '0';
@@ -24,7 +25,7 @@ int main()
 	while (cont)
 	{
 		cout << "What Do you want to Do? " << endl;
-		cout << "---(a)dd---(d)isplay---(s)ort---(f)ind---(c)popBack---(x)popFront---(e)xit---" << endl;
+		cout << "---(a)dd---(d)isplay---(s)ort---(f)ind---(c)popBack---(x)popFront---(m)anual---(z)clear---(b)setIndex---(,)copyConstructor---(e)xit---" << endl;
 		cin >> choice;
 		switch (choice)
 		{
@@ -48,7 +49,7 @@ int main()
 			DynamicTree->display();
 			break;
 		case'c':
-			DynamicTree->clear();
+			DynamicTree->popBack();
 			cout << "\t\t\t displaying..." << endl;
 			DynamicTree->display();
 			break;
@@ -56,6 +57,27 @@ int main()
 			DynamicTree->popFront();
 			cout << "\t\t\t displaying..." << endl;
 			DynamicTree->display();
+			break;
+		case'z':
+			DynamicTree->clear();
+			cout << "\t\t\t displaying..." << endl;
+			DynamicTree->display();
+			break;
+		case'm':
+			DynamicTree->manualSetter();
+			cout << "\t\t\t displaying..." << endl;
+			DynamicTree->display();
+			break;
+		case'b':
+			DynamicTree->setOnIndex();
+			cout << "\t\t\t displaying..." << endl;
+			DynamicTree->display();
+			break;
+		case',':
+			DynamicTree->CopyContructor(secondDynamicTree);
+			cout << "\t\t\t displaying..." << endl;
+			std::cin.get();
+			secondDynamicTree->display();
 			break;
 		case's':
 			cout << "\t\t\t Sorting..." << endl;

@@ -41,4 +41,10 @@ public:
 
 	// checks if array empty
 	bool Empty();
+
+	// sets value on index
+	void setOnIndex();
+
+	void CopyContructor(ArrayClass* dynamicArray);
+
 };

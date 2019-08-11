@@ -249,24 +249,67 @@ bool ArrayClass::Empty()
 	}
 }
 
+void ArrayClass::setOnIndex()
+{
+	int index;
+	NodeClass* current = returnRoot();
+
+	std::cout << "Enter which index to input value on..." << std::endl;
+	std::cout << "Index: ";
+	std::cin >> index;
+
+	for (int i = 1; i < index; i++)
+	{
+		current = current->getRight();
+	}
+
+	int newAmount;
+
+	std::cout << "Enter Which value to enter in that index: " << std::endl;
+	std::cin >> newAmount;
+
+	current->setData(newAmount);
+
+}
+
+void ArrayClass::CopyContructor(ArrayClass * dynamicArray)
+{
+
+	NodeClass* current = returnRoot();
+	dynamicArray->root = current;
+	NodeClass* dynamicCurrent = root;
+
+	while (current->getRight() != nullptr)
+	{
+		current = current->getRight();
+		dynamicCurrent->setRight(current);
+		dynamicCurrent = dynamicCurrent->getRight();
+	}
+}
+
 
 void ArrayClass::clear()
 {
 	if (!Empty())
 	{
-
+		// while root points to an element
 		while (root->getRight() != nullptr)
 		{
-
+			//let current = root
 			NodeClass* current = returnRoot();
 
+			//root will move to second item
 			root = current->getRight();
 
+			//delete the previous root
 			delete current;
 		}
 
+		//after root is left
+		//root will be null
 		root = nullptr;
 
+		//then deleted
 		delete root;
 	}
 	else
@@ -283,8 +326,11 @@ void ArrayClass::manualSetter()
 	int amount = 0;
 	std::cout << "Enter size of array:" << std::endl;
 
+	std::cin >> amount;
+
 	for (int i = 0; i < amount; i++)
 	{
 		insert(0);
 	}
 }
+

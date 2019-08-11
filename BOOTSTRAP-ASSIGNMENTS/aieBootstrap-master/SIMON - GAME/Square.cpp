@@ -25,14 +25,8 @@ void Square::Draw(aie::Renderer2D* renderer, float value_R, float value_G, float
 	float full = m_width * ratio;
 	float offsetX = m_posX - (m_width - full) * 0.5f;
 
-	//Draw background (Square Behind)
-	//renderer->setRenderColour(1, 1, 1, 1); //Red, Green and Blue Mix To Make White
 	renderer->drawBox(m_posX, m_posY, m_width, m_height);
 
-	//Setting Colours (Square In Front)
-	/*renderer->setRenderColour(value_R, value_G, value_B, 1);
-	renderer->drawBox(offsetX, m_posY, full, m_height);
-	renderer->setRenderColour(1, 2, 1, 1);*/
 }
 
 

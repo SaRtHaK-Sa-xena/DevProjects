@@ -11,10 +11,8 @@ public:
 	SimonGameClass();
 	~SimonGameClass();
 
-	//void Selector(aie::Renderer2D* renderer);
-	//void insert(int x, int y, int z);
+	// used to insert colour
 	void insert(string value);
-	//Square * CheckIfWon(string value);
 
 
 private:

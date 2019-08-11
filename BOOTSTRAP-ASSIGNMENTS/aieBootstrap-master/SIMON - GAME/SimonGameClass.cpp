@@ -4,12 +4,11 @@
 
 using namespace std;
 
-
+//helper function used to retrieve root
 Square* SimonGameClass::ReturnRoot()
 {
 	return root;
 }
-
 
 
 SimonGameClass::SimonGameClass()
@@ -23,40 +22,10 @@ SimonGameClass::~SimonGameClass()
 }
 
 
-//void SimonGameClass::insert(int x, int y, int z)
-//{
-//	if (root == nullptr)
-//	{
-//		root = new Square(x,y,z,210);
-//	}
-//	else
-//	{
-//		Square* Array[4] = {};
-//		Square* current = nullptr;
-//		current = root;
-//
-//		current->setRight();
-//	}
-//}
-
-
+//used to insert colour
 void SimonGameClass::insert(string a_nValue)
 {
-	/*int x;
-	int y;
-	int z;
-	if (a_nValue == "RED")
-	{
-		x = 600;
-		y = 150;
-		z = 200;
-	}
-	else if (a_nValue == "BLUE");
-	{
-		x = 600;
-		y = 150;
-		z = 200;
-	}*/
+	
 
 
 	if (root == nullptr)
@@ -74,7 +43,6 @@ void SimonGameClass::insert(string a_nValue)
 			if (current->getRight() == nullptr)
 			{
 				current->setRight(new Square(0, 0, 0, 0, a_nValue)); //has position 0, and string colour of something
-				//current->SetValue(-1);
 				break;
 			}
 			current = current->getRight();

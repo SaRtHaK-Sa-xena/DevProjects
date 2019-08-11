@@ -19,9 +19,6 @@ bool SIMON___GAMEApp::startup() {
 	
 	m_2dRenderer = new aie::Renderer2D();
 	SimonTree = new SimonGameClass();
-	//InputTree = new Array();
-	/*Bar* m_bar;*/
-	//0.7 //0.9//0.1
 
 	m_BrightRedTexture = new aie::Texture("./textures/Bright_Red.png");
 	m_DarkRedTexture = new aie::Texture("./textures/Dark_Red.png");
@@ -93,7 +90,7 @@ void SIMON___GAMEApp::shutdown() {
 	delete SimonTree;
 	delete Data;
 }
-//Square colours[4];
+
 
 
 
@@ -252,7 +249,6 @@ void SIMON___GAMEApp::update(float deltaTime) {
 		TodrawDarkGreen = true;
 		TodrawDarkYellow = true;
 		inputPhase = true;
-		//sequnce_finished = true;
 	}
 
 	if (inputPhase == true)
@@ -296,14 +292,13 @@ void SIMON___GAMEApp::update(float deltaTime) {
 			}
 			else
 			{
+				//increment difficulty
 				difficulty++;
 				Total_difficulty++;
 				TempTotaldifficulty = Total_difficulty;
 				timer = 5;
 				SequenceFinished = true;
 				valueInsertPhase = true;
-				//increment difficulty
-				//
 			}
 		}
 
@@ -394,9 +389,6 @@ void SIMON___GAMEApp::draw() {
 	m_2dRenderer->drawText(g_systemFont, "S", 590, 100);
 	m_2dRenderer->drawText(g_systemFont, "D", 850, 350);
 	//============KEYS FOR HELP==========================
-
-	// output some text, uses the last used color
-	//m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0);
 
 	// done drawing sprites
 	m_2dRenderer->end();
