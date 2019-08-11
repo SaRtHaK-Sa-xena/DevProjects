@@ -9,7 +9,7 @@ int main()
 {
 	
 	hashClass Hashuse;
-	string name = "";
+	char name[50];
 	string book = "";
 	int ID = 0;
 	bool cont = true;
@@ -29,7 +29,8 @@ int main()
 		case'a':
 			cout << "\t\t\t adding..." << endl;
 			cout << "Enter Name: " << endl;
-			cin >> name;
+			cin.ignore(1);
+			cin.getline(name, 50);
 			cout << "Enter Favourite Book: " << endl;
 			cin >> book;
 			cout << "Enter Unique id: " << endl;

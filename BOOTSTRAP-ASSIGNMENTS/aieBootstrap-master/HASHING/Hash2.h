@@ -12,7 +12,7 @@ public:
 
 	int Hash(string key); //location to find
 
-	void AddItem(string name, string book, int ID); //items to be added
+	void AddItem(char name[50], string book, int ID); //items to be added
 
 	int NumberOfItemsInIndex(int index); // for displaying items
 

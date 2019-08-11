@@ -2,7 +2,7 @@
 using namespace std;
 
 
-void hashClass::AddItem(string name, string book, int id)
+void hashClass::AddItem(char name[50], string book, int id)
 {
 	int index = Hash(name);
 
