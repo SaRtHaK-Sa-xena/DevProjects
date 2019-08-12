@@ -23,10 +23,13 @@ struct Node
 	}
 
 	//pre-generates nodes
-	void CreateAllNodes();
+	void CreateAllNodes(std::vector<Node*>&listOfNodes);
 
 	//Wall setter Function
-	void setAllWalls(std::vector<Node*>listOfNodes, std::vector<Node*>listOfWalls);
+	void setAllWalls(std::vector<Node*>&listOfNodes, std::vector<Node*>listOfWalls);
+
+	//Set all connections
+	void setAllConnections(std::vector<Node*>listOfNodes, std::vector<Node*>wallNodes);
 
 	//list of all nodes
 	std::vector<Node*>NodesList;
@@ -40,11 +43,6 @@ struct Node
 		inOpenList = inOpen;
 		gScore = Score;
 	}
-		bool inOpenList;
-	bool inClosedList;
-	float gScore;
-	Node* parent;
-	itemType ofType;
 
 	//manually set the node's position, type, score
 	Node(Vector2 specificPosition, itemType NAME, int m_gScore);
@@ -70,16 +68,16 @@ struct Node
 	}
 
 	//returns topNode
-	Node* getTopNode();
+	Node* getTopNode(std::vector<Node*>listOfNodes);
 
 	//returns bottomNode
-	Node* getBottomNode();
+	Node* getBottomNode(std::vector<Node*>listOfNodes);
 
 	//returns leftNode
-	Node* getLeftNode();
+	Node* getLeftNode(std::vector<Node*>listOfNodes);
 
 	//returns rightNode
-	Node* getRightNode();
+	Node* getRightNode(std::vector<Node*>listOfNodes);
 
 
 	void wallSetter()
@@ -117,9 +115,11 @@ struct Node
 	bool inClosedList;
 	
 
-	//holds connections
-	std::vector<Edge*>connections;
-
+	//Used to be Edge*________________
+	//|
+	//|//holds connections 
+	/*|*/std::vector<Node*>connections;
+	//|_______________________________
 
 	//has the amount of openList
 	std::vector<Node*>openList;
@@ -142,5 +142,5 @@ struct Node
 
 
 
-//retuns path to final Node
-std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder, std::vector<Node*>nodeWall);
+//returns path to final Node
+std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder, std::vector<Node*>listOfNodes);

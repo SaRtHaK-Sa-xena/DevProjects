@@ -75,6 +75,7 @@ bool AgentApp::startup() {
 
 
 	
+	
 	m_collectibles = new Agent();
 	m_collectibles->SetPosition(Vector2(80, 453));
 
@@ -465,7 +466,16 @@ bool AgentApp::startup() {
 	//=========================WALL 8===========================
 
 
-	
+	//========================Create all Nodes====================
+	Node* create = new Node();
+	// holds all nodes
+	create->CreateAllNodes(nodesList);
+
+	//sets all walls
+	create->setAllWalls(nodesList, Wall);
+
+
+	//============================================================
 	
 
 	return true;
@@ -522,7 +532,7 @@ void AgentApp::update(float deltaTime) {
 	if (createdEntity == false)
 	{
 		m_enemy->SetPosition(Vector2(50000, 500));// sets starting position for enemy
-		m_enemyCollector->SetPosition(Vector2(120 * 1, 120 * 1));
+		m_enemyCollector->SetPosition(Vector2(60 * 1, 60 * 1));
 		m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
 		createdEntity = true;
 	}

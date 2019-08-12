@@ -5,10 +5,10 @@
 
 
 
-void Node::CreateAllNodes()
+void Node::CreateAllNodes(std::vector<Node*>&listOfNodes)
 {
-	int rows = 1280;
-	int columns = 720;
+	int rows = 44;
+	int columns = 25;
 	int spacesInBetween = 30;
 
 	for (int x = 0; x < rows; x++)
@@ -18,18 +18,113 @@ void Node::CreateAllNodes()
 			//pre-generate all nodes
 			Node* newNode = new Node(Vector2(x * spacesInBetween, y * spacesInBetween), clear, false, false, 1);
 			//store them in List of all nodes
-			NodesList.push_back(newNode);
+			listOfNodes.push_back(newNode);
 		}
 	}
 }
 
-void Node::setAllWalls(std::vector<Node*> listOfNodes, std::vector<Node*> listOfWalls)
+void Node::setAllWalls(std::vector<Node*> &listOfNodes, std::vector<Node*> listOfWalls)
 {
 	for (int i = 0; i < listOfWalls.size(); i++)
 	{
 		if (listOfWalls[i] == listOfNodes[i])
 		{
 			listOfNodes[i]->ofType = wall;
+		}
+	}
+}
+
+void Node::setAllConnections(std::vector<Node*>listOfNodes, std::vector<Node*>wallNodes)
+{
+	int x, y;
+	for (int i = 0; i < listOfNodes.size(); i++)
+	{
+		x = i;
+		y = i;
+
+		Node* one;
+		Node* two;
+		Node* three;
+		Node* four;
+
+		one->position = Vector2((x+i)*30, y*30);
+		two->position = Vector2((x-i)*30, y*30);
+		three->position = Vector2(x*30, (y+i)*30);
+		four->position = Vector2(x * 30, (y - i) * 30);	
+
+		bool checkOne = false;
+		bool checkTwo = false;
+		bool checkThree = false;
+		bool checkFour = false;
+
+		for (int i = 0; i < wallNodes.size(); i++)
+		{
+			if (checkOne == false && wallNodes[i]->position.m_x == one->position.m_x && wallNodes[i]->position.m_y == one->position.m_y)
+			{
+				one->ofType = wall;
+				checkOne = true;
+			}
+			if (checkTwo == false && wallNodes[i]->position.m_x == two->position.m_x && wallNodes[i]->position.m_y == two->position.m_y)
+			{
+				two->ofType = wall;
+				checkTwo = true;
+			}
+			if (checkThree == false && wallNodes[i]->position.m_x == three->position.m_x && wallNodes[i]->position.m_y == three->position.m_y)
+			{
+				three->ofType = wall;
+				checkThree = true;
+			}
+			if (checkFour == false && wallNodes[i]->position.m_x == four->position.m_x && wallNodes[i]->position.m_y == four->position.m_y)
+			{
+				four->ofType = wall;
+				checkFour = true;
+			}
+		}
+		//if statement if wall don;t push
+		//add it in later
+		
+		//boolean checks to add
+		bool addOne = true;
+		bool addTwo = true;
+		bool addThree = true;
+		bool addFour = true;
+
+		if (one->ofType == wall)
+		{
+			delete one;
+			addOne = false;
+		}
+		if (two->ofType == wall)
+		{
+			delete two;
+			addTwo = false;
+		}
+		if (three->ofType == wall)
+		{
+			delete three;
+			addThree = false;
+		}
+		if (four->ofType == wall)
+		{
+			delete four;
+			addFour = false;
+		}
+
+		if (addOne)
+		{
+			NodesList[i]->connections.push_back(one);
+		}
+		if (addTwo)
+		{
+			NodesList[i]->connections.push_back(two);
+		}
+		if (addThree)
+		{
+			NodesList[i]->connections.push_back(three);
+		}
+		if (addFour)
+		{
+			NodesList[i]->connections.push_back(four);
 		}
 	}
 }
@@ -57,7 +152,7 @@ bool Node::CheckInList(std::vector<Node*> List, int &index)
 	return false;
 }
 
-Node* Node::getTopNode()
+Node* Node::getTopNode(std::vector<Node*>wallNodes)
 {
 	//make newNode hold current
 	Node* newNode = new Node(*this);
@@ -65,37 +160,80 @@ Node* Node::getTopNode()
 	newNode->position.m_y = this->position.m_y + 30;
 
 	//for size of NodeList
-	for (int i = 0; i < NodesList.size(); i++)
+	for (int i = 0; i < wallNodes.size(); i++)
 	{
 		//if their positions match
-		if (newNode->position.m_x == NodesList[i]->position.m_x && newNode->position.m_y == NodesList[i]->position.m_y)
+		if (newNode->position.m_x == wallNodes[i]->position.m_x && newNode->position.m_y == wallNodes[i]->position.m_y)
 		{
 			//make that newNode equal to that node
-			newNode = NodesList[i];
+			newNode = wallNodes[i];
 			return newNode;
 		}
 	}
+	return newNode;
 }
 
-Node* Node::getBottomNode()
+Node* Node::getBottomNode(std::vector<Node*>wallNodes)
 {
-	Node *bottomNode = new Node(*this);
-	bottomNode->position.m_y = this->position.m_y - 30;
-	return bottomNode; //star
+	//make newNode hold current
+	Node* newNode = new Node(*this);
+	//plus its y value
+	newNode->position.m_y = this->position.m_y - 30;
+
+	//for size of NodeList
+	for (int i = 0; i < wallNodes.size(); i++)
+	{
+		//if their positions match
+		if (newNode->position.m_x == wallNodes[i]->position.m_x && newNode->position.m_y == wallNodes[i]->position.m_y)
+		{
+			//make that newNode equal to that node
+			newNode = wallNodes[i];
+			return newNode;
+		}
+	}
+	return newNode;
 }
 
-Node* Node::getLeftNode()
+Node* Node::getLeftNode(std::vector<Node*>wallNodes)
 {
-	Node *leftNode = new Node(*this);
-	leftNode->position.m_x = this->position.m_x - 30;
-	return leftNode; //star
+	//make newNode hold current
+	Node* newNode = new Node(*this);
+	//plus its y value
+	newNode->position.m_y = this->position.m_x - 30;
+
+	//for size of NodeList
+	for (int i = 0; i < wallNodes.size(); i++)
+	{
+		//if their positions match
+		if (newNode->position.m_x == wallNodes[i]->position.m_x && newNode->position.m_y == wallNodes[i]->position.m_y)
+		{
+			//make that newNode equal to that node
+			newNode = wallNodes[i];
+			return newNode;
+		}
+	}
+	return newNode;
 }
 
-Node* Node::getRightNode()
+Node* Node::getRightNode(std::vector<Node*>wallNodes)
 {
-	Node *rightNode = new Node(*this);
-	rightNode->position.m_x = this->position.m_x + 30;
-	return rightNode; //star
+	//make newNode hold current
+	Node* newNode = new Node(*this);
+	//plus its y value
+	newNode->position.m_y = this->position.m_x + 30;
+
+	//for size of NodeList
+	for (int i = 0; i < wallNodes.size(); i++)
+	{
+		//if their positions match
+		if (newNode->position.m_x == wallNodes[i]->position.m_x && newNode->position.m_y == wallNodes[i]->position.m_y)
+		{
+			//make that newNode equal to that node
+			newNode = wallNodes[i];
+			return newNode;
+		}
+	}
+	return newNode;
 }
 
 void CreateGridOfNodes(Node *node, Node *FirstListOfNodes[1280][720])
@@ -123,11 +261,12 @@ void CreateGridOfNodes(Node *node, Node *FirstListOfNodes[1280][720])
 	
 }
 
-std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder, std::vector<Node*>nodeWall)
+std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder, std::vector<Node*>listOfNodes)
 {
+
 	//startNode equal to finder's position
 	startNode->position = finder->GetPosition();
-	
+
 	//startNode will have gScore of 1
 	startNode->gScore = 1;
 
@@ -157,7 +296,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 	while (openList.size() != 0 && foundNode == false)
 	{
 
-		for (int i = 0; i < openList.size()-1; i++)
+		for (int i = 0; i < openList.size() - 1; i++)
 		{
 			Node* first = openList[i];
 			//this sorts it
@@ -186,11 +325,11 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 		closedList.push_back(currentNode);
 
 		//delete startNode in openList
-		openList.erase(openList.begin(),openList.begin()+1);
+		openList.erase(openList.begin(), openList.begin() + 1);
 
 
 		//to see if all conections have been set
-		
+
 
 		//Reference
 		int foundIndex = 0;
@@ -199,24 +338,50 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 		bool secondC = false;
 		bool thirdC = false;
 		bool fourthC = false;
-		//if first,second,third,fourth == false
-		//{
-		for (int i = 0; i < nodeWall.size(); i++)
-		{
-			Node* next = currentNode->getTopNode();
-			//check if topNode wall
-			if (firstC == false && next->CheckInList(nodeWall,foundIndex)==false && next->CheckInList(closedList,foundIndex)==false)
-			{
 
+		for (int i = 0; i < currentNode->connections.size(); i++)
+		{
+			if (currentNode->connections[i]->inClosedList == false)
+			{
+				float gScore = currentNode->gScore + currentNode->connections[i]->gScore;
+				
+				if (currentNode->connections[i]->inOpenList == false)
+				{
+					currentNode->connections[i]->parent = currentNode;
+					currentNode->connections[i]->gScore = gScore;
+					currentNode->connections[i]->inOpenList = true;
+					openList.push_back(currentNode->connections[i]);
+				}
+
+				//problem may occur here															<-------------MAYBE-------------->
+				else if (gScore < currentNode->connections[i]->gScore)
+				{
+					currentNode->connections[i]->gScore = gScore;
+					currentNode->connections[i]->parent = currentNode;
+				}
+			}
+		}
+		currentNode->inClosedList = true;
+
+
+
+
+			Node* next = currentNode->getTopNode(listOfNodes);
+			if (firstC == false && next->ofType != wall && next->inClosedList == false)
+			{
 				float gScore = currentNode->gScore + next->gScore;
 
-				if (next->CheckInList(openList, foundIndex) == false)
+				if (next->inOpenList == false)
 				{
 					//set parent
 					next->parent = currentNode;
 					//set score
 					//next->gScore = next->gScore + currentNode->gScore;
 					next->gScore = gScore;
+
+					//set checks
+					next->inOpenList = true;
+
 					//place in openList
 					openList.push_back(next);
 
@@ -228,13 +393,12 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 					openList[foundIndex]->parent = currentNode;
 				}
 			}
-			next = currentNode->getBottomNode();
-			if (secondC == false && next->CheckInList(nodeWall, foundIndex) == false && next->CheckInList(closedList, foundIndex) == false)
+			next = currentNode->getBottomNode(listOfNodes);
+			if (secondC == false && next->ofType != wall && next->inClosedList == false)
 			{
-
 				float gScore = currentNode->gScore + next->gScore;
 
-				if (next->CheckInList(openList, foundIndex) == false)
+				if (next->inOpenList == false)
 				{
 					//set parent
 					next->parent = currentNode;
@@ -251,15 +415,13 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 					openList[foundIndex]->gScore = gScore;
 					openList[foundIndex]->parent = currentNode;
 				}
-
 			}
-			next = currentNode->getLeftNode();
-			if (thirdC == false && next->CheckInList(nodeWall, foundIndex) == false && next->CheckInList(closedList, foundIndex) == false)
+			next = currentNode->getLeftNode(listOfNodes);
+			if (thirdC == false && next->ofType != wall && next->inClosedList == false)
 			{
-				
 				float gScore = currentNode->gScore + next->gScore;
 
-				if (next->CheckInList(openList, foundIndex) == false)
+				if (next->inOpenList == false)
 				{
 					//set parent
 					next->parent = currentNode;
@@ -276,15 +438,13 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 					openList[foundIndex]->gScore = gScore;
 					openList[foundIndex]->parent = currentNode;
 				}
-
 			}
-			next = currentNode->getRightNode();
-			if (fourthC == false && next->CheckInList(nodeWall, foundIndex) == false && next->CheckInList(closedList, foundIndex) == false)
+			next = currentNode->getRightNode(listOfNodes);
+			if (fourthC == false && next->ofType != wall && next->inClosedList == false)
 			{
-			
 				float gScore = currentNode->gScore + next->gScore;
 
-				if (next->CheckInList(openList, foundIndex) == false)
+				if (next->inOpenList == false)
 				{
 					//set parent
 					next->parent = currentNode;
@@ -302,15 +462,14 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 					openList[foundIndex]->parent = currentNode;
 				}
 			}
+
+			//after it has been checked
+			currentNode->inClosedList = true;
 			
-			//Reaching here means that all connections has been set
-		}
-
 	}
-
 	//Since we found the endNode
 
-	//get the endNode
+		//get the endNode
 	Node* currentNode = endNode;
 
 	//create a Path of Vector
@@ -326,4 +485,113 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 	//return correct Path
 	return Path;
 }
+		//	for (int i = 0; i < nodeWall.size(); i++)
+		//	{
+		//		Node* next = currentNode->getTopNode();
+		//		//check if topNode wall
+		//		if (firstC == false && next->CheckInList(nodeWall,foundIndex)==false && next->CheckInList(closedList,foundIndex)==false)
+		//		{
+
+		//			float gScore = currentNode->gScore + next->gScore;
+
+		//			if (next->CheckInList(openList, foundIndex) == false)
+		//			{
+		//				//set parent
+		//				next->parent = currentNode;
+		//				//set score
+		//				//next->gScore = next->gScore + currentNode->gScore;
+		//				next->gScore = gScore;
+		//				//place in openList
+		//				openList.push_back(next);
+
+		//				firstC = true;
+		//			}
+		//			else if (gScore < openList[foundIndex]->gScore)
+		//			{
+		//				openList[foundIndex]->gScore = gScore;
+		//				openList[foundIndex]->parent = currentNode;
+		//			}
+		//		}
+		//		next = currentNode->getBottomNode();
+		//		if (secondC == false && next->CheckInList(nodeWall, foundIndex) == false && next->CheckInList(closedList, foundIndex) == false)
+		//		{
+
+		//			float gScore = currentNode->gScore + next->gScore;
+
+		//			if (next->CheckInList(openList, foundIndex) == false)
+		//			{
+		//				//set parent
+		//				next->parent = currentNode;
+		//				//set score
+		//				//next->gScore = next->gScore + currentNode->gScore;
+		//				next->gScore = gScore;
+		//				//place in openList
+		//				openList.push_back(next);
+
+		//				secondC = true;
+		//			}
+		//			else if (gScore < openList[foundIndex]->gScore)
+		//			{
+		//				openList[foundIndex]->gScore = gScore;
+		//				openList[foundIndex]->parent = currentNode;
+		//			}
+
+		//		}
+		//		next = currentNode->getLeftNode();
+		//		if (thirdC == false && next->CheckInList(nodeWall, foundIndex) == false && next->CheckInList(closedList, foundIndex) == false)
+		//		{
+		//			
+		//			float gScore = currentNode->gScore + next->gScore;
+
+		//			if (next->CheckInList(openList, foundIndex) == false)
+		//			{
+		//				//set parent
+		//				next->parent = currentNode;
+		//				//set score
+		//				//next->gScore = next->gScore + currentNode->gScore;
+		//				next->gScore = gScore;
+		//				//place in openList
+		//				openList.push_back(next);
+
+		//				thirdC = true;
+		//			}
+		//			else if (gScore < openList[foundIndex]->gScore)
+		//			{
+		//				openList[foundIndex]->gScore = gScore;
+		//				openList[foundIndex]->parent = currentNode;
+		//			}
+
+		//		}
+		//		next = currentNode->getRightNode();
+		//		if (fourthC == false && next->CheckInList(nodeWall, foundIndex) == false && next->CheckInList(closedList, foundIndex) == false)
+		//		{
+		//		
+		//			float gScore = currentNode->gScore + next->gScore;
+
+		//			if (next->CheckInList(openList, foundIndex) == false)
+		//			{
+		//				//set parent
+		//				next->parent = currentNode;
+		//				//set score
+		//				//next->gScore = next->gScore + currentNode->gScore;
+		//				next->gScore = gScore;
+		//				//place in openList
+		//				openList.push_back(next);
+
+		//				fourthC = true;
+		//			}
+		//			else if (gScore < openList[foundIndex]->gScore)
+		//			{
+		//				openList[foundIndex]->gScore = gScore;
+		//				openList[foundIndex]->parent = currentNode;
+		//			}
+		//		}
+		//		
+		//		//Reaching here means that all connections has been set
+		//	}
+
+		//}
+
+		
+	
 

@@ -64,6 +64,9 @@ protected:
 	std::vector<collectCollision>Items;
 
 	//===================NODES====================
+	// Holds all nodes
+	std::vector<Node*>nodesList;
+
 	// Holds Nodes With Wall Points
 	std::vector<Node*>Wall;
 
