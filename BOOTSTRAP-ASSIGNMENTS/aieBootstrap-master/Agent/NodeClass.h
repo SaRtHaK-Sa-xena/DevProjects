@@ -18,8 +18,33 @@ struct Node
 		gScore = 1; //g score of 1
 		parent = nullptr; //no parent
 		ofType = clear; //type
-		isChecked = false;
+		inOpenList = false;
+		inClosedList = false;
 	}
+
+	//pre-generates nodes
+	void CreateAllNodes();
+
+	//Wall setter Function
+	void setAllWalls(std::vector<Node*>listOfNodes, std::vector<Node*>listOfWalls);
+
+	//list of all nodes
+	std::vector<Node*>NodesList;
+
+
+	Node(Vector2 setPosition, itemType setType, bool inClose, bool inOpen, float Score)
+	{
+		position = setPosition;
+		ofType = setType;
+		inClosedList = inClose;
+		inOpenList = inOpen;
+		gScore = Score;
+	}
+		bool inOpenList;
+	bool inClosedList;
+	float gScore;
+	Node* parent;
+	itemType ofType;
 
 	//manually set the node's position, type, score
 	Node(Vector2 specificPosition, itemType NAME, int m_gScore);
@@ -88,6 +113,8 @@ struct Node
 
 	//boolean variables
 	bool isChecked;
+	bool inOpenList;
+	bool inClosedList;
 	
 
 	//holds connections

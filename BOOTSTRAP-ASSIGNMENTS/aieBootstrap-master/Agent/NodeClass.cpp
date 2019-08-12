@@ -5,6 +5,37 @@
 
 
 
+void Node::CreateAllNodes()
+{
+	int rows = 1280;
+	int columns = 720;
+	int spacesInBetween = 30;
+
+	for (int x = 0; x < rows; x++)
+	{
+		for (int y = 0; y < columns; y++)
+		{
+			//pre-generate all nodes
+			Node* newNode = new Node(Vector2(x * spacesInBetween, y * spacesInBetween), clear, false, false, 1);
+			//store them in List of all nodes
+			NodesList.push_back(newNode);
+		}
+	}
+}
+
+void Node::setAllWalls(std::vector<Node*> listOfNodes, std::vector<Node*> listOfWalls)
+{
+	for (int i = 0; i < listOfWalls.size(); i++)
+	{
+		if (listOfWalls[i] == listOfNodes[i])
+		{
+			listOfNodes[i]->ofType = wall;
+		}
+	}
+}
+
+
+
 Node::Node(Vector2 specificPosition, itemType NAME, int m_gScore)
 {
 	position = specificPosition;
@@ -28,9 +59,22 @@ bool Node::CheckInList(std::vector<Node*> List, int &index)
 
 Node* Node::getTopNode()
 {
-	Node *topNode = new Node(*this);
-	topNode->position.m_y = this->position.m_y + 30;
-	return topNode; //star
+	//make newNode hold current
+	Node* newNode = new Node(*this);
+	//plus its y value
+	newNode->position.m_y = this->position.m_y + 30;
+
+	//for size of NodeList
+	for (int i = 0; i < NodesList.size(); i++)
+	{
+		//if their positions match
+		if (newNode->position.m_x == NodesList[i]->position.m_x && newNode->position.m_y == NodesList[i]->position.m_y)
+		{
+			//make that newNode equal to that node
+			newNode = NodesList[i];
+			return newNode;
+		}
+	}
 }
 
 Node* Node::getBottomNode()
