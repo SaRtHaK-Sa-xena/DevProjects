@@ -85,7 +85,10 @@ struct Node
 	float gScore;
 	Node* parent;
 	itemType ofType;
+
+	//boolean variables
 	bool isChecked;
+	
 
 	//holds connections
 	std::vector<Edge*>connections;
@@ -109,6 +112,7 @@ struct Node
 	/*NODE-ENUM-WHITE,*/
 	/*NODE-ENUM-BLACK,*/
 };
+
 
 
 //retuns path to final Node

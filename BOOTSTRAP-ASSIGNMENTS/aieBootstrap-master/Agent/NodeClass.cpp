@@ -146,23 +146,23 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 
 
 		//to see if all conections have been set
-		bool firstC = false;
-		bool secondC = false;
-		bool thirdC = false;
-		bool fourthC = false;
+		
 
 		//Reference
 		int foundIndex = 0;
 
+		bool firstC = false;
+		bool secondC = false;
+		bool thirdC = false;
+		bool fourthC = false;
 		//if first,second,third,fourth == false
 		//{
 		for (int i = 0; i < nodeWall.size(); i++)
 		{
+			Node* next = currentNode->getTopNode();
 			//check if topNode wall
-			if (firstC == false && currentNode->getTopNode()->CheckInList(nodeWall,foundIndex)==false && currentNode->getTopNode()->CheckInList(closedList,foundIndex)==false)
+			if (firstC == false && next->CheckInList(nodeWall,foundIndex)==false && next->CheckInList(closedList,foundIndex)==false)
 			{
-				Node* next = nullptr;
-				next = currentNode->getTopNode();
 
 				float gScore = currentNode->gScore + next->gScore;
 
@@ -184,10 +184,9 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 					openList[foundIndex]->parent = currentNode;
 				}
 			}
-			if (currentNode->getBottomNode()->CheckInList(nodeWall, foundIndex) == false && secondC == false && currentNode->getBottomNode()->CheckInList(closedList, foundIndex) == false)
+			next = currentNode->getBottomNode();
+			if (secondC == false && next->CheckInList(nodeWall, foundIndex) == false && next->CheckInList(closedList, foundIndex) == false)
 			{
-				Node* next = nullptr;
-				next = currentNode->getBottomNode();
 
 				float gScore = currentNode->gScore + next->gScore;
 
@@ -210,11 +209,10 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 				}
 
 			}
-			if (currentNode->getLeftNode()->CheckInList(nodeWall, foundIndex) == false && thirdC == false && currentNode->getLeftNode()->CheckInList(closedList, foundIndex) == false)
+			next = currentNode->getLeftNode();
+			if (thirdC == false && next->CheckInList(nodeWall, foundIndex) == false && next->CheckInList(closedList, foundIndex) == false)
 			{
-				Node* next = nullptr;
-				next = currentNode->getLeftNode();
-
+				
 				float gScore = currentNode->gScore + next->gScore;
 
 				if (next->CheckInList(openList, foundIndex) == false)
@@ -236,11 +234,10 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 				}
 
 			}
-			if (currentNode->getRightNode()->CheckInList(nodeWall, foundIndex) == false && fourthC == false && currentNode->getRightNode()->CheckInList(closedList, foundIndex) == false)
+			next = currentNode->getRightNode();
+			if (fourthC == false && next->CheckInList(nodeWall, foundIndex) == false && next->CheckInList(closedList, foundIndex) == false)
 			{
-				Node* next = nullptr;
-				next = currentNode->getRightNode();
-
+			
 				float gScore = currentNode->gScore + next->gScore;
 
 				if (next->CheckInList(openList, foundIndex) == false)

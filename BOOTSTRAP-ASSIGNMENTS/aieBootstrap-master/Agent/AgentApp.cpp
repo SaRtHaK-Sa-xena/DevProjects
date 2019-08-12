@@ -82,66 +82,66 @@ bool AgentApp::startup() {
 	m_collectibles1->SetPosition(Vector2(427, 433));
 
 
-	//ITEM NO 1
-	Items.push_back({ {398,263},{398,312},leftSide, ItemNO1 });
-	Items.push_back({ {398,263},{454,262},topSide, ItemNO1 });
-	Items.push_back({ {454,263},{454,312},rightSide, ItemNO1 });
-	Items.push_back({ {398,312},{454,313},bottomSide, ItemNO1 });
+	////ITEM NO 1
+	//Items.push_back({ {398,263},{398,312},leftSide, ItemNO1 });
+	//Items.push_back({ {398,263},{454,262},topSide, ItemNO1 });
+	//Items.push_back({ {454,263},{454,312},rightSide, ItemNO1 });
+	//Items.push_back({ {398,312},{454,313},bottomSide, ItemNO1 });
 
-	//ITEM NO 2
-	Items.push_back({ {585,483},{585,503},leftSide, ItemNO2 });
-	Items.push_back({ {585,483},{651,453},topSide, ItemNO2 });
-	Items.push_back({ {641,453},{641,503},rightSide, ItemNO2 });
-	Items.push_back({ {587,502},{641,503},bottomSide, ItemNO2 });
+	////ITEM NO 2
+	//Items.push_back({ {585,483},{585,503},leftSide, ItemNO2 });
+	//Items.push_back({ {585,483},{651,453},topSide, ItemNO2 });
+	//Items.push_back({ {641,453},{641,503},rightSide, ItemNO2 });
+	//Items.push_back({ {587,502},{641,503},bottomSide, ItemNO2 });
 
-	//ITEM NO 3
-	Items.push_back({ {43,636},{43,685},leftSide, ItemNO3 });
-	Items.push_back({ {43,636},{97,636},topSide, ItemNO3 });
-	Items.push_back({ {98,636},{98,685},rightSide, ItemNO3 });
-	Items.push_back({ {42,684},{97,685},bottomSide, ItemNO3 });
+	////ITEM NO 3
+	//Items.push_back({ {43,636},{43,685},leftSide, ItemNO3 });
+	//Items.push_back({ {43,636},{97,636},topSide, ItemNO3 });
+	//Items.push_back({ {98,636},{98,685},rightSide, ItemNO3 });
+	//Items.push_back({ {42,684},{97,685},bottomSide, ItemNO3 });
 
-	//ITEM NO 4
-	Items.push_back({ {588,631},{588,680},leftSide, ItemNO4 });
-	Items.push_back({ {587,631},{643,630},topSide, ItemNO4 });
-	Items.push_back({ {643,630},{643,680},rightSide, ItemNO4 });
-	Items.push_back({ {588,680},{643,680},bottomSide, ItemNO4 });
+	////ITEM NO 4
+	//Items.push_back({ {588,631},{588,680},leftSide, ItemNO4 });
+	//Items.push_back({ {587,631},{643,630},topSide, ItemNO4 });
+	//Items.push_back({ {643,630},{643,680},rightSide, ItemNO4 });
+	//Items.push_back({ {588,680},{643,680},bottomSide, ItemNO4 });
 
-	//ITEM NO 5
-	Items.push_back({ {934,533},{934,583},leftSide, ItemNO5 });
-	Items.push_back({ {934,533},{989,532},topSide, ItemNO5 });
-	Items.push_back({ {988,533},{989,583},rightSide, ItemNO5 });
-	Items.push_back({ {934,683},{989,582},bottomSide, ItemNO5 });
+	////ITEM NO 5
+	//Items.push_back({ {934,533},{934,583},leftSide, ItemNO5 });
+	//Items.push_back({ {934,533},{989,532},topSide, ItemNO5 });
+	//Items.push_back({ {988,533},{989,583},rightSide, ItemNO5 });
+	//Items.push_back({ {934,683},{989,582},bottomSide, ItemNO5 });
 
-	//ITEM NO 6
-	Items.push_back({ {1173,634},{1172,685},leftSide, ItemNO6 });
-	Items.push_back({ {1173,634},{1226,634},topSide, ItemNO6 });
-	Items.push_back({ {1227,635},{1227,684},rightSide, ItemNO6 });
-	Items.push_back({ {1173,684},{1227,684},bottomSide, ItemNO6 });
+	////ITEM NO 6
+	//Items.push_back({ {1173,634},{1172,685},leftSide, ItemNO6 });
+	//Items.push_back({ {1173,634},{1226,634},topSide, ItemNO6 });
+	//Items.push_back({ {1227,635},{1227,684},rightSide, ItemNO6 });
+	//Items.push_back({ {1173,684},{1227,684},bottomSide, ItemNO6 });
 
-	//ITEM NO 7
-	Items.push_back({ {943,216},{943,265},leftSide, ItemNO7 });
-	Items.push_back({ {943,216},{998,216},topSide, ItemNO7 });
-	Items.push_back({ {998,216},{997,265},rightSide, ItemNO7 });
-	Items.push_back({ {942,266},{997,265},bottomSide, ItemNO7 });
+	////ITEM NO 7
+	//Items.push_back({ {943,216},{943,265},leftSide, ItemNO7 });
+	//Items.push_back({ {943,216},{998,216},topSide, ItemNO7 });
+	//Items.push_back({ {998,216},{997,265},rightSide, ItemNO7 });
+	//Items.push_back({ {942,266},{997,265},bottomSide, ItemNO7 });
 
 
-	//ITEM NO 8
-	Items.push_back({ {1138,46},{1138,94},leftSide, ItemNO8 });
-	Items.push_back({ {1138,46},{1192,45},topSide, ItemNO8 });
-	Items.push_back({ {1192,46},{1193,94},rightSide, ItemNO8 });
-	Items.push_back({ {1138,94},{1193,94},bottomSide, ItemNO8 });
+	////ITEM NO 8
+	//Items.push_back({ {1138,46},{1138,94},leftSide, ItemNO8 });
+	//Items.push_back({ {1138,46},{1192,45},topSide, ItemNO8 });
+	//Items.push_back({ {1192,46},{1193,94},rightSide, ItemNO8 });
+	//Items.push_back({ {1138,94},{1193,94},bottomSide, ItemNO8 });
 
-	//ITEM NO 9
-	Items.push_back({ {625,36},{625,85},leftSide, ItemNO9 });
-	Items.push_back({ {625,36},{680,35},topSide, ItemNO9 });
-	Items.push_back({ {679,35},{680,86},rightSide, ItemNO9 });
-	Items.push_back({ {625,85},{680,85},bottomSide, ItemNO9 });
+	////ITEM NO 9
+	//Items.push_back({ {625,36},{625,85},leftSide, ItemNO9 });
+	//Items.push_back({ {625,36},{680,35},topSide, ItemNO9 });
+	//Items.push_back({ {679,35},{680,86},rightSide, ItemNO9 });
+	//Items.push_back({ {625,85},{680,85},bottomSide, ItemNO9 });
 
-	//ITEM NO 10
-	Items.push_back({ {52,245},{52,295},leftSide, ItemNO10 });
-	Items.push_back({ {52,245},{107,246},topSide, ItemNO10 });
-	Items.push_back({ {107,246},{107,295},rightSide, ItemNO10 });
-	Items.push_back({ {52,295},{107,295},bottomSide, ItemNO10 });
+	////ITEM NO 10
+	//Items.push_back({ {52,245},{52,295},leftSide, ItemNO10 });
+	//Items.push_back({ {52,245},{107,246},topSide, ItemNO10 });
+	//Items.push_back({ {107,246},{107,295},rightSide, ItemNO10 });
+	//Items.push_back({ {52,295},{107,295},bottomSide, ItemNO10 });
 
 	//m_collectibles2 = new Agent();
 	//m_collectibles
@@ -503,7 +503,7 @@ void AgentApp::update(float deltaTime) {
 	//Condition to start the game
 	if (startGame == false)
 	{
-		std::cout << "Start Game Set To False" << std::endl;
+		//std::cout << "Start Game Set To False" << std::endl;
 		if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
 		{
 			startGame = true; //start game
@@ -522,7 +522,7 @@ void AgentApp::update(float deltaTime) {
 	if (createdEntity == false)
 	{
 		m_enemy->SetPosition(Vector2(50000, 500));// sets starting position for enemy
-		m_enemyCollector->SetPosition(Vector2(30 * 2, 30 * 2));
+		m_enemyCollector->SetPosition(Vector2(120 * 1, 120 * 1));
 		m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
 		createdEntity = true;
 	}
@@ -583,7 +583,7 @@ void AgentApp::update(float deltaTime) {
 			m_enemyCollector->Update(deltaTime);
 		}
 		
-		m_collectibles->Update(deltaTime);
+		/*m_collectibles->Update(deltaTime);*/
 
 
 		//Error Being Pulled Here
@@ -615,7 +615,7 @@ void AgentApp::update(float deltaTime) {
 		
 
 		//Tracks Collectible Position For Collision
-		collectibles[0].TopLeftposition = Vector2(m_collectibles->GetPosition().m_x - 15, m_collectibles->GetPosition().m_y + 25);
+		/*collectibles[0].TopLeftposition = Vector2(m_collectibles->GetPosition().m_x - 15, m_collectibles->GetPosition().m_y + 25);
 		collectibles[0].BottomRightPosition = Vector2(m_collectibles->GetPosition().m_x + 10, m_collectibles->GetPosition().m_y + 20);
 		collectibles[0].sideOfWall = topSide;
 
@@ -629,11 +629,11 @@ void AgentApp::update(float deltaTime) {
 
 		collectibles[3].TopLeftposition = Vector2(m_collectibles->GetPosition().m_x + 15, m_collectibles->GetPosition().m_y + 23);
 		collectibles[3].BottomRightPosition = Vector2(m_collectibles->GetPosition().m_x + 19, m_collectibles->GetPosition().m_y - 20);
-		collectibles[3].sideOfWall = rightSide;
+		collectibles[3].sideOfWall = rightSide;*/
 		//End of collision check function
 
 		//Collectible Number 2
-		collectibles[4].TopLeftposition = Vector2(m_collectibles1->GetPosition().m_x - 15, m_collectibles1->GetPosition().m_y + 25);
+		/*collectibles[4].TopLeftposition = Vector2(m_collectibles1->GetPosition().m_x - 15, m_collectibles1->GetPosition().m_y + 25);
 		collectibles[4].BottomRightPosition = Vector2(m_collectibles1->GetPosition().m_x + 10, m_collectibles1->GetPosition().m_y + 20);
 		collectibles[4].sideOfWall = topSide;
 		collectibles[5].TopLeftposition = Vector2(m_collectibles1->GetPosition().m_x - 15, m_collectibles1->GetPosition().m_y + 20);
@@ -644,7 +644,7 @@ void AgentApp::update(float deltaTime) {
 		collectibles[6].sideOfWall = bottomSide;
 		collectibles[7].TopLeftposition = Vector2(m_collectibles1->GetPosition().m_x + 15, m_collectibles1->GetPosition().m_y + 23);
 		collectibles[7].BottomRightPosition = Vector2(m_collectibles1->GetPosition().m_x + 19, m_collectibles1->GetPosition().m_y - 20);
-		collectibles[7].sideOfWall = rightSide;
+		collectibles[7].sideOfWall = rightSide;*/
 
 
 
@@ -811,41 +811,41 @@ void AgentApp::update(float deltaTime) {
 
 
 		//Player Collision With Collectibles Tests
-		for (int i = 0; i < collectibles.size(); i++)
-		{
-			if ((m_player->GetPosition().m_x < collectibles[i].BottomRightPosition.m_x && m_player->GetPosition().m_x > collectibles[i].TopLeftposition.m_x)
-				&& (m_player->GetPosition().m_y > collectibles[i].BottomRightPosition.m_y && m_player->GetPosition().m_y < collectibles[i].TopLeftposition.m_y))
-				//This check is basically making sure the player is inside these parameters of topLeft (x,y) and bottomRight (x,y)
-			{
-				switch (collectibles[i].sideOfWall)
-				{
-				case rightSide:
-					//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
-					std::cout << "Right Contact Collectible" << std::endl;
-					Score++;
-					break;
+		//for (int i = 0; i < collectibles.size(); i++)
+		//{
+		//	if ((m_player->GetPosition().m_x < collectibles[i].BottomRightPosition.m_x && m_player->GetPosition().m_x > collectibles[i].TopLeftposition.m_x)
+		//		&& (m_player->GetPosition().m_y > collectibles[i].BottomRightPosition.m_y && m_player->GetPosition().m_y < collectibles[i].TopLeftposition.m_y))
+		//		//This check is basically making sure the player is inside these parameters of topLeft (x,y) and bottomRight (x,y)
+		//	{
+		//		switch (collectibles[i].sideOfWall)
+		//		{
+		//		case rightSide:
+		//			//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+		//			std::cout << "Right Contact Collectible" << std::endl;
+		//			Score++;
+		//			break;
 
-				case leftSide:
-					//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
-					std::cout << "Left Contact Collectible" << std::endl;
-					Score++;
-					break;
+		//		case leftSide:
+		//			//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+		//			std::cout << "Left Contact Collectible" << std::endl;
+		//			Score++;
+		//			break;
 
-				case topSide:
-					//m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
-					std::cout << "Top Contact Collectible" << std::endl;
-					Score++;
-					break;
+		//		case topSide:
+		//			//m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+		//			std::cout << "Top Contact Collectible" << std::endl;
+		//			Score++;
+		//			break;
 
-				case bottomSide:
-					//m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
-					std::cout << "Bottom Contact Collectible" << std::endl;
-					Score++;
-					break;
-				}
+		//		case bottomSide:
+		//			//m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+		//			std::cout << "Bottom Contact Collectible" << std::endl;
+		//			Score++;
+		//			break;
+		//		}
 
-			}
-		}
+		//	}
+		//}
 
 		//Condition To end game --> runs Check to see score
 
@@ -882,7 +882,7 @@ void AgentApp::draw() {
 
 	//Pathfinding Movement (ENEMY ITEM COLLECTOR)
 	m_enemyCollector->Draw(m_2dRenderer, m_enemyCollectorTexture);
-	
+
 
 	//Wander (ENEMY)
 	//m_enemyWander->Draw(m_2dRenderer, m_enemyTexture);
@@ -897,299 +897,6 @@ void AgentApp::draw() {
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, Var, 18, 685);
 	
-	if (drawNodesOnScreen == false)
-	{
-		for (int x = 0; x < 1280; x++)
-		{
-			for (int y = 0; y < 720; y++)
-			{
-				m_2dRenderer->drawBox(x * 30, y * 30, 10, 10);
-				Node* newNode = new Node((Vector2(x * 30, y * 30)), clear, 1);
-			}
-		}
-	}
-
-
-
-	//Outside Edge Walls
-
-	////=============Left Wall================
-	//int amount = 25;
-	//for (int i = 0; i < amount; i++)
-	//{
-	//	m_2dRenderer->drawBox(0, (30 * i), 10, 10);
-	//}
-	////=============Left Wall================
-
-	////=============Bottom Wall================
-	//amount = 44;
-	//for (int i = 0; i < amount; i++)
-	//{
-	//	m_2dRenderer->drawBox((30*i), (30 * 0), 10, 10);
-	//}
-	////=============Bottom Wall================
-
-	////=============Right Wall================
-	//amount = 25;
-	//for (int i = 0; i < amount; i++)
-	//{
-	//	m_2dRenderer->drawBox((30 * 42), (30 * i), 10, 10);
-	//}
-	////=============Right Wall================
-
-	//
-	////=============Top Wall================
-	//amount = 43;
-	//for (int i = 0; i < amount; i++)
-	//{
-	//	m_2dRenderer->drawBox((30 * i), (30 * 24), 10, 10);
-	//}
-	////=============Top Wall================
-
-
-
-	////=====================WALL OBJECT 0===============
-	//// Horizontal Bar
-	//m_2dRenderer->drawBox(30, (30*4), 10, 10);
-	//m_2dRenderer->drawBox((30*2), (30*4), 10, 10);
-	//m_2dRenderer->drawBox((30*3), (30*4), 10, 10);
-	//m_2dRenderer->drawBox((30*4), (30*4), 10, 10);
-	//m_2dRenderer->drawBox((30*5), (30*4), 10, 10);
-	//m_2dRenderer->drawBox((30*6), (30*4), 10, 10);
-	//m_2dRenderer->drawBox((30*7), (30*4), 10, 10);
-	//m_2dRenderer->drawBox((30*8), (30*4), 10, 10);
-	//m_2dRenderer->drawBox((30*9), (30*4), 10, 10);
-	//m_2dRenderer->drawBox((30*10), (30*4), 10, 10);
-	//m_2dRenderer->drawBox((30*11), (30*4), 10, 10);
-	//m_2dRenderer->drawBox((30*12), (30*4), 10, 10);
-	//m_2dRenderer->drawBox((30*13), (30*4), 10, 10);
-
-	//
-
-	//// Vertical Bar
-	//m_2dRenderer->drawBox((30*13), (30*5), 10, 10);
-	//m_2dRenderer->drawBox((30*13), (30*6), 10, 10);
-	//m_2dRenderer->drawBox((30*13), (30*7), 10, 10);
-	//m_2dRenderer->drawBox((30*13), (30*8), 10, 10);
-
-	//
-	////=====================WALL OBJECT 0===============
-
-
-	//// increase x to increase it to the right
-	//// increase y to increase it to the top
-
-
-	////=====================WALL OBJECT 1===============
-	//// Vertical Bar
-	//m_2dRenderer->drawBox((30 * 6), (30 * 7), 10, 10);
-	//m_2dRenderer->drawBox((30 * 6), (30 * 8), 10, 10);
-	//m_2dRenderer->drawBox((30 * 6), (30 * 9), 10, 10);
-	//m_2dRenderer->drawBox((30 * 6), (30 * 10), 10, 10);
-	//m_2dRenderer->drawBox((30 * 6), (30 * 11), 10, 10);
-	//m_2dRenderer->drawBox((30 * 6), (30 * 12), 10, 10);
-	//m_2dRenderer->drawBox((30 * 6), (30 * 13), 10, 10);
-	//m_2dRenderer->drawBox((30 * 6), (30 * 14), 10, 10);
-	//m_2dRenderer->drawBox((30 * 6), (30 * 15), 10, 10);
-	//m_2dRenderer->drawBox((30 * 6), (30 * 16), 10, 10);
-	//m_2dRenderer->drawBox((30 * 6), (30 * 17), 10, 10);
-	//m_2dRenderer->drawBox((30 * 6), (30 * 18), 10, 10);
-	//m_2dRenderer->drawBox((30 * 6), (30 * 19), 10, 10);
-	//m_2dRenderer->drawBox((30 * 6), (30 * 20), 10, 10);
-	//m_2dRenderer->drawBox((30 * 6), (30 * 21), 10, 10);
-
-	//
-
-	//// Horizontal Bar
-	//m_2dRenderer->drawBox((30 * 7), (30 * 21), 10, 10);
-	//m_2dRenderer->drawBox((30 * 8), (30 * 21), 10, 10);
-	//m_2dRenderer->drawBox((30 * 9), (30 * 21), 10, 10);
-	//m_2dRenderer->drawBox((30 * 10), (30 * 21), 10, 10);
-	//m_2dRenderer->drawBox((30 * 11), (30 * 21), 10, 10);
-	//m_2dRenderer->drawBox((30 * 12), (30 * 21), 10, 10);
-	//m_2dRenderer->drawBox((30 * 13), (30 * 21), 10, 10);
-	//m_2dRenderer->drawBox((30 * 14), (30 * 21), 10, 10);
-
-
-	//
-
-	//// Vertical Bar
-	//m_2dRenderer->drawBox((30 * 10), (30 * 20), 10, 10);
-	//m_2dRenderer->drawBox((30 * 10), (30 * 19), 10, 10);
-
-	//
-
-	//// Horizontal Bar
-	//m_2dRenderer->drawBox((30 * 11), (30 * 19), 10, 10);
-	//m_2dRenderer->drawBox((30 * 12), (30 * 19), 10, 10);
-	//m_2dRenderer->drawBox((30 * 13), (30 * 19), 10, 10);
-	//m_2dRenderer->drawBox((30 * 14), (30 * 19), 10, 10);
-	//m_2dRenderer->drawBox((30 * 15), (30 * 19), 10, 10);
-	//m_2dRenderer->drawBox((30 * 16), (30 * 19), 10, 10);
-	//m_2dRenderer->drawBox((30 * 17), (30 * 19), 10, 10);
-	//m_2dRenderer->drawBox((30 * 18), (30 * 19), 10, 10);
-	//m_2dRenderer->drawBox((30 * 19), (30 * 19), 10, 10);
-	//m_2dRenderer->drawBox((30 * 20), (30 * 19), 10, 10);
-	//m_2dRenderer->drawBox((30 * 21), (30 * 19), 10, 10);
-
-
-	//
-
-	//// Vertical Bar
-	//m_2dRenderer->drawBox((30 * 21), (30 * 18), 10, 10);
-	//m_2dRenderer->drawBox((30 * 21), (30 * 17), 10, 10);
-	//m_2dRenderer->drawBox((30 * 21), (30 * 16), 10, 10);
-	//m_2dRenderer->drawBox((30 * 21), (30 * 15), 10, 10);
-
-
-	//
-
-	////=====================WALL OBJECT 1===============
-
-
-	////=====================WALL OBJECT 2===============
-	//m_2dRenderer->drawBox((30 * 11), (30 * 16), 10, 10);
-	//m_2dRenderer->drawBox((30 * 12), (30 * 16), 10, 10);
-	//m_2dRenderer->drawBox((30 * 13), (30 * 16), 10, 10);
-	//m_2dRenderer->drawBox((30 * 14), (30 * 16), 10, 10);
-	//m_2dRenderer->drawBox((30 * 15), (30 * 16), 10, 10);
-	//m_2dRenderer->drawBox((30 * 16), (30 * 16), 10, 10);
-	//m_2dRenderer->drawBox((30 * 17), (30 * 16), 10, 10);
-
-
-	//
-
-	////=====================WALL OBJECT 2===============
-
-
-	////=====================WALL OBJECT 3===============
-	//m_2dRenderer->drawBox((30 * 10), (30 * 12), 10, 10);
-	//m_2dRenderer->drawBox((30 * 11), (30 * 12), 10, 10);
-	//m_2dRenderer->drawBox((30 * 12), (30 * 12), 10, 10);
-	//m_2dRenderer->drawBox((30 * 13), (30 * 12), 10, 10);
-	//m_2dRenderer->drawBox((30 * 14), (30 * 12), 10, 10);
-	//m_2dRenderer->drawBox((30 * 15), (30 * 12), 10, 10);
-	//m_2dRenderer->drawBox((30 * 16), (30 * 12), 10, 10);
-	//m_2dRenderer->drawBox((30 * 17), (30 * 12), 10, 10);
-	//m_2dRenderer->drawBox((30 * 18), (30 * 12), 10, 10);
-	//m_2dRenderer->drawBox((30 * 19), (30 * 12), 10, 10);
-	//m_2dRenderer->drawBox((30 * 20), (30 * 12), 10, 10);
-	//m_2dRenderer->drawBox((30 * 21), (30 * 12), 10, 10);
-	//m_2dRenderer->drawBox((30 * 22), (30 * 12), 10, 10);
-
-	//
-
-	////=====================WALL OBJECT 3===============
-
-
-	////=====================WALL OBJECT 4===============
-	//m_2dRenderer->drawBox((30 * 16), (30 * 6), 10, 10);
-	//m_2dRenderer->drawBox((30 * 17), (30 * 6), 10, 10);
-	//m_2dRenderer->drawBox((30 * 18), (30 * 6), 10, 10);
-	//m_2dRenderer->drawBox((30 * 19), (30 * 6), 10, 10);
-	//m_2dRenderer->drawBox((30 * 20), (30 * 6), 10, 10);
-	//m_2dRenderer->drawBox((30 * 21), (30 * 6), 10, 10);
-	//m_2dRenderer->drawBox((30 * 22), (30 * 6), 10, 10);
-	//m_2dRenderer->drawBox((30 * 23), (30 * 6), 10, 10);
-	//m_2dRenderer->drawBox((30 * 24), (30 * 6), 10, 10);
-	//m_2dRenderer->drawBox((30 * 25), (30 * 6), 10, 10);
-
-	//
-	////=====================WALL OBJECT 4===============
-
-
-	////=====================WALL OBJECT 5===============
-	//// Vertical Bar
-	//m_2dRenderer->drawBox((30 * 29), (30 * 9), 10, 10);
-	//m_2dRenderer->drawBox((30 * 29), (30 * 8), 10, 10);
-	//m_2dRenderer->drawBox((30 * 29), (30 * 7), 10, 10);
-	//m_2dRenderer->drawBox((30 * 29), (30 * 6), 10, 10);
-	//m_2dRenderer->drawBox((30 * 29), (30 * 5), 10, 10);
-	//m_2dRenderer->drawBox((30 * 29), (30 * 4), 10, 10);
-	//m_2dRenderer->drawBox((30 * 29), (30 * 3), 10, 10);
-
-
-	//
-
-
-	//// Horizontal Bar
-	//m_2dRenderer->drawBox((30 * 30), (30 * 3), 10, 10);
-	//m_2dRenderer->drawBox((30 * 31), (30 * 3), 10, 10);
-	//m_2dRenderer->drawBox((30 * 32), (30 * 3), 10, 10);
-	//m_2dRenderer->drawBox((30 * 33), (30 * 3), 10, 10);
-	//m_2dRenderer->drawBox((30 * 34), (30 * 3), 10, 10);
-	//m_2dRenderer->drawBox((30 * 35), (30 * 3), 10, 10);
-	//m_2dRenderer->drawBox((30 * 36), (30 * 3), 10, 10);
-	//m_2dRenderer->drawBox((30 * 37), (30 * 3), 10, 10);
-	//m_2dRenderer->drawBox((30 * 38), (30 * 3), 10, 10);
-
-
-	//
-
-	////=====================WALL OBJECT 5===============
-
-
-	////=====================WALL OBJECT 6===============
-	//m_2dRenderer->drawBox((30 * 36), (30 * 7), 10, 10);
-	//m_2dRenderer->drawBox((30 * 36), (30 * 8), 10, 10);
-	//m_2dRenderer->drawBox((30 * 36), (30 * 9), 10, 10);
-	//m_2dRenderer->drawBox((30 * 36), (30 * 10), 10, 10);
-	//m_2dRenderer->drawBox((30 * 36), (30 * 11), 10, 10);
-	//m_2dRenderer->drawBox((30 * 36), (30 * 12), 10, 10);
-	//m_2dRenderer->drawBox((30 * 36), (30 * 13), 10, 10);
-	//m_2dRenderer->drawBox((30 * 36), (30 * 14), 10, 10);
-	//m_2dRenderer->drawBox((30 * 36), (30 * 15), 10, 10);
-	//m_2dRenderer->drawBox((30 * 36), (30 * 16), 10, 10);
-	//m_2dRenderer->drawBox((30 * 36), (30 * 17), 10, 10);
-	//m_2dRenderer->drawBox((30 * 36), (30 * 18), 10, 10);
-
-	//
-
-
-	////=====================WALL OBJECT 6===============
-
-
-	////=====================WALL OBJECT 7===============
-	//m_2dRenderer->drawBox((30 * 28), (30 * 18), 10, 10);
-	//m_2dRenderer->drawBox((30 * 28), (30 * 17), 10, 10);
-	//m_2dRenderer->drawBox((30 * 28), (30 * 16), 10, 10);
-	//m_2dRenderer->drawBox((30 * 28), (30 * 15), 10, 10);
-	//m_2dRenderer->drawBox((30 * 28), (30 * 14), 10, 10);
-
-	//
-	////=====================WALL OBJECT 7===============
-
-
-
-	////=====================WALL OBJECT 8===============
-	//// Vertical Bar
-	//m_2dRenderer->drawBox((30 * 25), (30 * 16), 10, 10);
-	//m_2dRenderer->drawBox((30 * 25), (30 * 17), 10, 10);
-	//m_2dRenderer->drawBox((30 * 25), (30 * 18), 10, 10);
-	//m_2dRenderer->drawBox((30 * 25), (30 * 19), 10, 10);
-	//m_2dRenderer->drawBox((30 * 25), (30 * 20), 10, 10);
-
-	//
-
-	//// Horizontal Bar
-	//m_2dRenderer->drawBox((30 * 26), (30 * 20), 10, 10);
-	//m_2dRenderer->drawBox((30 * 27), (30 * 20), 10, 10);
-	//m_2dRenderer->drawBox((30 * 28), (30 * 20), 10, 10);
-	//m_2dRenderer->drawBox((30 * 29), (30 * 20), 10, 10);
-	//m_2dRenderer->drawBox((30 * 30), (30 * 20), 10, 10);
-	//m_2dRenderer->drawBox((30 * 31), (30 * 20), 10, 10);
-	//m_2dRenderer->drawBox((30 * 32), (30 * 20), 10, 10);
-	//m_2dRenderer->drawBox((30 * 33), (30 * 20), 10, 10);
-
-
-	//
-
-	//// Vertical Bar
-	//m_2dRenderer->drawBox((30 * 33), (30 * 21), 10, 10);
-	//m_2dRenderer->drawBox((30 * 33), (30 * 22), 10, 10);
-	//=====================WALL OBJECT 8===============
-
-
 	//ITEM 1
 	m_2dRenderer->drawBox((30 * 16), (30 * 2), 10, 10);
 	m_2dRenderer->drawBox((30 * 20), (30 * 8), 10, 10);
