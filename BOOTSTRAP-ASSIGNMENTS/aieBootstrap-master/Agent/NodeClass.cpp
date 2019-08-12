@@ -273,14 +273,11 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 	//will have no parent since it's the start
 	startNode->parent = nullptr;
 
-	Node* first = new Node();
-	Node* second = new Node();
-	Node* third = new Node();
-	Node* fourth = new Node();
-	first->position = Vector2(90, 60);
-	second->position = Vector2(30, 60);
-	third->position = Vector2(60, 30);
-	fourth->position = Vector2(60, 90);
+	Node* first = new Node((Vector2(90, 60)), clear, false,false,1);
+	Node* second = new Node((Vector2(30, 60)), clear, false, false, 1);
+	Node* third = new Node((Vector2(60, 30)), clear, false, false, 1);
+	Node* fourth = new Node((Vector2(60, 90)), clear, false, false, 1);
+
 
 	startNode->connections.push_back(first);
 	startNode->connections.push_back(second);
