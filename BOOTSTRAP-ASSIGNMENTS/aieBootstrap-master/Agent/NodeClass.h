@@ -29,7 +29,7 @@ struct Node
 	void setAllWalls(std::vector<Node*>&listOfNodes, std::vector<Node*>listOfWalls);
 
 	//Set all connections
-	void setAllConnections(std::vector<Node*>listOfNodes, std::vector<Node*>wallNodes);
+	void setAllConnections(std::vector<Node*>&listOfNodes, std::vector<Node*>wallNodes);
 
 	//list of all nodes
 	std::vector<Node*>NodesList;

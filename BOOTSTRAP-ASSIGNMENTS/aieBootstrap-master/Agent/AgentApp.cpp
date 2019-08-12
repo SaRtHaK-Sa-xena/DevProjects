@@ -472,7 +472,7 @@ bool AgentApp::startup() {
 	create->CreateAllNodes(nodesList);
 
 	//sets all walls
-	create->setAllWalls(nodesList, Wall);
+	create->setAllConnections(nodesList, Wall);
 
 
 	//============================================================

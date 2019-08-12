@@ -34,7 +34,7 @@ void Node::setAllWalls(std::vector<Node*> &listOfNodes, std::vector<Node*> listO
 	}
 }
 
-void Node::setAllConnections(std::vector<Node*>listOfNodes, std::vector<Node*>wallNodes)
+void Node::setAllConnections(std::vector<Node*>&listOfNodes, std::vector<Node*>wallNodes)
 {
 	int x, y;
 	for (int i = 0; i < listOfNodes.size(); i++)
@@ -42,15 +42,15 @@ void Node::setAllConnections(std::vector<Node*>listOfNodes, std::vector<Node*>wa
 		x = i;
 		y = i;
 
-		Node* one;
-		Node* two;
-		Node* three;
-		Node* four;
+		Node* one = new Node();
+		Node* two = new Node();
+		Node* three = new Node();
+		Node* four = new Node();
 
-		one->position = Vector2((x+i)*30, y*30);
-		two->position = Vector2((x-i)*30, y*30);
-		three->position = Vector2(x*30, (y+i)*30);
-		four->position = Vector2(x * 30, (y - i) * 30);	
+		one->position = Vector2((x+1)*30, y*30);
+		two->position = Vector2((x-1)*30, y*30);
+		three->position = Vector2(x*30, (y+1)*30);
+		four->position = Vector2(x * 30, (y - 1) * 30);	
 
 		bool checkOne = false;
 		bool checkTwo = false;
@@ -112,19 +112,19 @@ void Node::setAllConnections(std::vector<Node*>listOfNodes, std::vector<Node*>wa
 
 		if (addOne)
 		{
-			NodesList[i]->connections.push_back(one);
+			listOfNodes[i]->connections.push_back(one);
 		}
 		if (addTwo)
 		{
-			NodesList[i]->connections.push_back(two);
+			listOfNodes[i]->connections.push_back(two);
 		}
 		if (addThree)
 		{
-			NodesList[i]->connections.push_back(three);
+			listOfNodes[i]->connections.push_back(three);
 		}
 		if (addFour)
 		{
-			NodesList[i]->connections.push_back(four);
+			listOfNodes[i]->connections.push_back(four);
 		}
 	}
 }
@@ -366,105 +366,105 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 
 
 
-			Node* next = currentNode->getTopNode(listOfNodes);
-			if (firstC == false && next->ofType != wall && next->inClosedList == false)
-			{
-				float gScore = currentNode->gScore + next->gScore;
+			//Node* next = currentNode->getTopNode(listOfNodes);
+			//if (firstC == false && next->ofType != wall && next->inClosedList == false)
+			//{
+			//	float gScore = currentNode->gScore + next->gScore;
 
-				if (next->inOpenList == false)
-				{
-					//set parent
-					next->parent = currentNode;
-					//set score
-					//next->gScore = next->gScore + currentNode->gScore;
-					next->gScore = gScore;
+			//	if (next->inOpenList == false)
+			//	{
+			//		//set parent
+			//		next->parent = currentNode;
+			//		//set score
+			//		//next->gScore = next->gScore + currentNode->gScore;
+			//		next->gScore = gScore;
 
-					//set checks
-					next->inOpenList = true;
+			//		//set checks
+			//		next->inOpenList = true;
 
-					//place in openList
-					openList.push_back(next);
+			//		//place in openList
+			//		openList.push_back(next);
 
-					firstC = true;
-				}
-				else if (gScore < openList[foundIndex]->gScore)
-				{
-					openList[foundIndex]->gScore = gScore;
-					openList[foundIndex]->parent = currentNode;
-				}
-			}
-			next = currentNode->getBottomNode(listOfNodes);
-			if (secondC == false && next->ofType != wall && next->inClosedList == false)
-			{
-				float gScore = currentNode->gScore + next->gScore;
+			//		firstC = true;
+			//	}
+			//	else if (gScore < openList[foundIndex]->gScore)
+			//	{
+			//		openList[foundIndex]->gScore = gScore;
+			//		openList[foundIndex]->parent = currentNode;
+			//	}
+			//}
+			//next = currentNode->getBottomNode(listOfNodes);
+			//if (secondC == false && next->ofType != wall && next->inClosedList == false)
+			//{
+			//	float gScore = currentNode->gScore + next->gScore;
 
-				if (next->inOpenList == false)
-				{
-					//set parent
-					next->parent = currentNode;
-					//set score
-					//next->gScore = next->gScore + currentNode->gScore;
-					next->gScore = gScore;
-					//place in openList
-					openList.push_back(next);
+			//	if (next->inOpenList == false)
+			//	{
+			//		//set parent
+			//		next->parent = currentNode;
+			//		//set score
+			//		//next->gScore = next->gScore + currentNode->gScore;
+			//		next->gScore = gScore;
+			//		//place in openList
+			//		openList.push_back(next);
 
-					secondC = true;
-				}
-				else if (gScore < openList[foundIndex]->gScore)
-				{
-					openList[foundIndex]->gScore = gScore;
-					openList[foundIndex]->parent = currentNode;
-				}
-			}
-			next = currentNode->getLeftNode(listOfNodes);
-			if (thirdC == false && next->ofType != wall && next->inClosedList == false)
-			{
-				float gScore = currentNode->gScore + next->gScore;
+			//		secondC = true;
+			//	}
+			//	else if (gScore < openList[foundIndex]->gScore)
+			//	{
+			//		openList[foundIndex]->gScore = gScore;
+			//		openList[foundIndex]->parent = currentNode;
+			//	}
+			//}
+			//next = currentNode->getLeftNode(listOfNodes);
+			//if (thirdC == false && next->ofType != wall && next->inClosedList == false)
+			//{
+			//	float gScore = currentNode->gScore + next->gScore;
 
-				if (next->inOpenList == false)
-				{
-					//set parent
-					next->parent = currentNode;
-					//set score
-					//next->gScore = next->gScore + currentNode->gScore;
-					next->gScore = gScore;
-					//place in openList
-					openList.push_back(next);
+			//	if (next->inOpenList == false)
+			//	{
+			//		//set parent
+			//		next->parent = currentNode;
+			//		//set score
+			//		//next->gScore = next->gScore + currentNode->gScore;
+			//		next->gScore = gScore;
+			//		//place in openList
+			//		openList.push_back(next);
 
-					thirdC = true;
-				}
-				else if (gScore < openList[foundIndex]->gScore)
-				{
-					openList[foundIndex]->gScore = gScore;
-					openList[foundIndex]->parent = currentNode;
-				}
-			}
-			next = currentNode->getRightNode(listOfNodes);
-			if (fourthC == false && next->ofType != wall && next->inClosedList == false)
-			{
-				float gScore = currentNode->gScore + next->gScore;
+			//		thirdC = true;
+			//	}
+			//	else if (gScore < openList[foundIndex]->gScore)
+			//	{
+			//		openList[foundIndex]->gScore = gScore;
+			//		openList[foundIndex]->parent = currentNode;
+			//	}
+			//}
+			//next = currentNode->getRightNode(listOfNodes);
+			//if (fourthC == false && next->ofType != wall && next->inClosedList == false)
+			//{
+			//	float gScore = currentNode->gScore + next->gScore;
 
-				if (next->inOpenList == false)
-				{
-					//set parent
-					next->parent = currentNode;
-					//set score
-					//next->gScore = next->gScore + currentNode->gScore;
-					next->gScore = gScore;
-					//place in openList
-					openList.push_back(next);
+			//	if (next->inOpenList == false)
+			//	{
+			//		//set parent
+			//		next->parent = currentNode;
+			//		//set score
+			//		//next->gScore = next->gScore + currentNode->gScore;
+			//		next->gScore = gScore;
+			//		//place in openList
+			//		openList.push_back(next);
 
-					fourthC = true;
-				}
-				else if (gScore < openList[foundIndex]->gScore)
-				{
-					openList[foundIndex]->gScore = gScore;
-					openList[foundIndex]->parent = currentNode;
-				}
-			}
+			//		fourthC = true;
+			//	}
+			//	else if (gScore < openList[foundIndex]->gScore)
+			//	{
+			//		openList[foundIndex]->gScore = gScore;
+			//		openList[foundIndex]->parent = currentNode;
+			//	}
+			//}
 
-			//after it has been checked
-			currentNode->inClosedList = true;
+			////after it has been checked
+			//currentNode->inClosedList = true;
 			
 	}
 	//Since we found the endNode
