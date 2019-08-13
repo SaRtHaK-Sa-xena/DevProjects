@@ -595,16 +595,12 @@ void AgentApp::update(float deltaTime) {
 
 		m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
 
-		//false at start
-		if (pathFound == false)
+		
+		//each frame we get a path to endNode
+		std::vector<Node*>tempPath = dijkstrasSeatch(FindClosestNode(m_enemyCollector->GetPosition()), ItemCollectibles[currentItem], m_enemyCollector, nodesList);
+		for (int i = tempPath.size()-1; i >= 0; i--)
 		{
-			std::vector<Node*>tempPath = dijkstrasSeatch(FindClosestNode(m_enemyCollector->GetPosition()), ItemCollectibles[currentItem], m_enemyCollector, nodesList);
-			for (int i = tempPath.size()-1; i >= 0; i--)
-			{
-				currentPath.push_back(tempPath[i]);
-			}
-			pathFound = true;
-			
+			currentPath.push_back(tempPath[i]);
 		}
 		
 		
@@ -612,11 +608,13 @@ void AgentApp::update(float deltaTime) {
 		//current Iterator not at the end of List
 		if (currentNode < currentPath.size()-1)
 		{
+			//if collector at position of Node
 			Vector2 difference;
 			difference = m_enemyCollector->GetPosition() - currentPath[currentNode]->position;
 
 			if (difference.magnitude() <= 2)
-			{
+			{	
+				//increment Node
 				currentNode++;
 			}
 		}
