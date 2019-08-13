@@ -31,6 +31,24 @@ struct Node
 	//Set all connections
 	void setAllConnections(std::vector<Node*>&listOfNodes, std::vector<Node*>wallNodes);
 
+
+	void storeInNodesList()
+	{
+		int rows = 45;
+		int columns = 25;
+
+		for (int x = 0; x < rows; x++)
+		{
+			for (int y = 0; y < columns; y++)
+			{
+				Node* newNode = new Node((Vector2(x * 30, y * 30)), clear, false, false, 1);
+				NodesList.push_back(newNode);
+			}
+		}
+	}
+
+	
+
 	//list of all nodes
 	std::vector<Node*>NodesList;
 

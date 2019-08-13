@@ -37,20 +37,23 @@ void Node::setAllWalls(std::vector<Node*> &listOfNodes, std::vector<Node*> listO
 void Node::setAllConnections(std::vector<Node*>&listOfNodes, std::vector<Node*>wallNodes)
 {
 	int x, y;
-	for (int i = 0; i < listOfNodes.size(); i++)
+	for (int i = 1; i < listOfNodes.size(); i++)
 	{
-		x = i;
-		y = i;
 
+		//if (listOfNodes[i]->position.m_x < listOfNodes[i]->position.m_x + 30 && listOfNodes[i]->position.m_x <//< listOfNodes[i]->position.m_x + 31)
+		//{
+
+		//}
+		
 		Node* one = new Node();
 		Node* two = new Node();
 		Node* three = new Node();
 		Node* four = new Node();
 
-		one->position = Vector2((x+1)*30, y*30);
-		two->position = Vector2((x-1)*30, y*30);
-		three->position = Vector2(x*30, (y+1)*30);
-		four->position = Vector2(x * 30, (y - 1) * 30);	
+		one->position = Vector2((listOfNodes[i]->position.m_x+30), listOfNodes[i]->position.m_y);
+		two->position = Vector2((listOfNodes[i]->position.m_x - 30), listOfNodes[i]->position.m_y);
+		three->position = Vector2(listOfNodes[i]->position.m_x, (listOfNodes[i]->position.m_y + 30));
+		four->position = Vector2(listOfNodes[i]->position.m_x, (listOfNodes[i]->position.m_y-30));
 
 		bool checkOne = false;
 		bool checkTwo = false;
@@ -265,7 +268,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 {
 
 	//startNode equal to finder's position
-	startNode->position = finder->GetPosition();
+ 	startNode->position = finder->GetPosition();
 
 	//startNode will have gScore of 1
 	startNode->gScore = 1;
@@ -273,16 +276,16 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 	//will have no parent since it's the start
 	startNode->parent = nullptr;
 
-	Node* first = new Node((Vector2(90, 60)), clear, false,false,1);
+	/*Node* first = new Node((Vector2(90, 60)), clear, false,false,1);
 	Node* second = new Node((Vector2(30, 60)), clear, false, false, 1);
 	Node* third = new Node((Vector2(60, 30)), clear, false, false, 1);
-	Node* fourth = new Node((Vector2(60, 90)), clear, false, false, 1);
+	Node* fourth = new Node((Vector2(60, 90)), clear, false, false, 1);*/
 
 
-	startNode->connections.push_back(first);
+	/*startNode->connections.push_back(first);
 	startNode->connections.push_back(second);
 	startNode->connections.push_back(third);
-	startNode->connections.push_back(fourth);
+	startNode->connections.push_back(fourth);*/
 
 	if (startNode == nullptr || endNode == nullptr)
 	{
@@ -299,7 +302,13 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 	std::vector<Node*>openList;
 	std::vector<Node*>closedList;
 
+	//for debug purposes
+	//--checked Nodes--
+	//std::vector<Node*>checkedNodeList;
+
+
 	openList.push_back(startNode);
+	//checkedNodeList.push_back(startNode);
 
 	//while openlist has anything
 	bool foundNode = false;
@@ -322,6 +331,40 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 
 		//current will equal first element in openList
 		Node* currentNode = openList.front();
+
+		//----------[JUST ADDED] 10:18 AM 8/13/2019 find which node in listOfNodes then store its connection--
+
+		//for (int i = 0; i < listOfNodes.size(); i++)
+		//{
+		//	if (currentNode->position.m_x == listOfNodes[i]->position.m_x && currentNode->position.m_y == listOfNodes[i]->position.m_y)
+		//	{
+		//		currentNode->connections = listOfNodes[i]->connections;
+		//		//iterate through checkedNodeList
+		//		for (int iterate = 0; iterate < checkedNodeList.size(); iterate++)
+		//		{
+		//			//check if first element matches the connections all elements
+		//			for (int j = 0; j < currentNode->connections.size(); j++)
+		//			{
+		//				//
+		//				if (checkedNodeList[iterate] == currentNode->connections[j])
+		//				{
+		//					currentNode->connections[j] = checkedNodeList[iterate];
+		//				}
+		//			}
+		//			
+		//		}
+
+		//	}
+		//}
+
+		//need nodesList
+		//need currentNode
+		//need a way to search through nodes List
+		//need a way to add to currentNode.connections
+
+
+		//----------------------------------------------------------------------------------------------------
+
 
 		//if first item in openList != endNode
 		if (currentNode->position.m_x == endNode->position.m_x && currentNode->position.m_y == endNode->position.m_y)
@@ -362,6 +405,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 					currentNode->connections[i]->gScore = gScore;
 					currentNode->connections[i]->inOpenList = true;
 					openList.push_back(currentNode->connections[i]);
+					//checkedNodeList.push_back(currentNode->connections[i]);
 				}
 
 				//problem may occur here															<-------------MAYBE-------------->

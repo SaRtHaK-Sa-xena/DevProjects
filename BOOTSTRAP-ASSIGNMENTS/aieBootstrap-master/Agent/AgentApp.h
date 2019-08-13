@@ -21,6 +21,9 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
+	//Function to find the closest Node then compare it
+	Node* FindClosestNode(Vector2 Position);
+
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;

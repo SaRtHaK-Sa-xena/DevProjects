@@ -467,12 +467,27 @@ bool AgentApp::startup() {
 
 
 	//========================Create all Nodes====================
-	Node* create = new Node();
-	// holds all nodes
-	create->CreateAllNodes(nodesList);
+	nodesList.push_back (new Node(Vector2(30,30), clear, false, false, 1));
+	Node* secondNode = new Node(Vector2(90,30), clear, false, false, 1);
+	Node* thirdNode = new Node(Vector2(90,30), clear, false, false, 1);
+	Node* fourNode = new Node(Vector2(30,30), clear, false, false, 1);
+	Node* fifthtNode = new Node(Vector2(30,30), clear, false, false, 1);
+	Node* sixthtNode = new Node(Vector2(30,30), clear, false, false, 1);
+	Node* seventhNode = new Node(Vector2(30,30), clear, false, false, 1);
+	Node* eighthNode = new Node(Vector2(30,30), clear, false, false, 1);
+	Node* ninthNode = new Node(Vector2(30,30), clear, false, false, 1);
+	Node* tenthNode = new Node(Vector2(30,30), clear, false, false, 1);
+	Node* eleventhNode = new Node(Vector2(30,30), clear, false, false, 1);
 
-	//sets all walls
-	create->setAllConnections(nodesList, Wall);
+	//add these to 
+
+	//STOPPED FOR NOW
+
+	//// holds all nodes
+	//create->CreateAllNodes(nodesList);
+
+	////sets all walls
+	//create->setAllConnections(nodesList, Wall);
 
 
 	//============================================================
@@ -556,7 +571,7 @@ void AgentApp::update(float deltaTime) {
 		//false at start
 		if (pathFound == false)
 		{
-			std::vector<Node*>tempPath = dijkstrasSeatch(temporaryNode, ItemCollectibles[currentItem], m_enemyCollector, Wall);
+			std::vector<Node*>tempPath = dijkstrasSeatch(FindClosestNode(m_enemyCollector->GetPosition()), ItemCollectibles[currentItem], m_enemyCollector, nodesList);
 			for (int i = tempPath.size()-1; i >= 0; i--)
 			{
 				currentPath.push_back(tempPath[i]);
@@ -912,8 +927,61 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30 * 20), (30 * 8), 10, 10);
 
 
+	m_2dRenderer->drawBox((30 * 2), (30 * 2), 10, 10);
+	m_2dRenderer->drawBox((30 * 15), (30 * 2), 10, 10);
+	m_2dRenderer->drawBox((30 * 15), (30 * 8), 10, 10);
+	m_2dRenderer->drawBox((30 * 15), (30 * 10), 10, 10);
+	m_2dRenderer->drawBox((30 * 8), (30 * 10), 10, 10);
+	m_2dRenderer->drawBox((30 * 8), (30 * 5), 10, 10);
+	m_2dRenderer->drawBox((30 * 2), (30 * 5), 10, 10);
+	m_2dRenderer->drawBox((30 * 2), (30 * 22), 10, 10);
+	m_2dRenderer->drawBox((30 * 16), (30 * 22), 10, 10);
+	m_2dRenderer->drawBox((30 * 16), (30 * 20), 10, 10);
+	
+	//might be useless
+	m_2dRenderer->drawBox((30 * 12), (30 * 20), 10, 10);
+
+	m_2dRenderer->drawBox((30 * 23), (30 * 22), 10, 10);
+	m_2dRenderer->drawBox((30 * 23), (30 * 14), 10, 10);
+	m_2dRenderer->drawBox((30 * 27), (30 * 14), 10, 10);
+	m_2dRenderer->drawBox((30 * 19), (30 * 14), 10, 10);
+	m_2dRenderer->drawBox((30 * 19), (30 * 17), 10, 10);
+	m_2dRenderer->drawBox((30 * 14), (30 * 17), 10, 10);
+
+
+
+	m_2dRenderer->drawBox((30 * 27), (30 * 2), 10, 10);
+	m_2dRenderer->drawBox((30 * 27), (30 * 8), 10, 10);
+	m_2dRenderer->drawBox((30 * 27), (30 * 11), 10, 10);
+	m_2dRenderer->drawBox((30 * 21), (30 * 8), 10, 10);
+
+
+
+
 
 
 	// done drawing sprites
 	m_2dRenderer->end();
 }
+
+Node * AgentApp::FindClosestNode(Vector2 Position)
+{
+	Node* temp = nodesList[0];
+
+	for (int i = 0; i < nodesList.size(); i++)
+	{
+		//float distance = abs(Position.m_x - nodesList[i]->position.m_x) - abs(Position.m_y - nodesList[i]->position.m_y);
+		float distance = Vector2(Position.m_x - nodesList[i]->position.m_x, Position.m_y - nodesList[i]->position.m_y).magnitude();
+		if (distance < Vector2(Position.m_x - temp->position.m_x, Position.m_y - temp->position.m_y).magnitude())
+		{
+			temp = nodesList[i];
+		}
+	}
+
+	return temp;
+}
+//temp->position = nodesList[i]->position;
+//		if (Position == temp->position)
+//		{
+//
+//		}*/
