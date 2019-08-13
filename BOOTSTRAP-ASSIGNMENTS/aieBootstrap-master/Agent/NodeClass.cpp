@@ -45,6 +45,33 @@ void Node::setAllConnections(std::vector<Node*>&listOfNodes, std::vector<Node*>w
 
 		//}
 		
+		//iterate through List
+		for(int i = 0 ; i < listOfNodes.size(); i++)
+		{
+			for(int j = 0; j < listOfNodes.size(); j++)
+			{
+				if (listOfNodes[i]->position.m_x + 30 == listOfNodes[j]->position.m_x && listOfNodes[i]->position.m_y == listOfNodes[j]->position.m_y)
+				{
+					listOfNodes[i]->connections.push_back(listOfNodes[j]);
+				}
+				if (listOfNodes[i]->position.m_x - 30 == listOfNodes[j]->position.m_x && listOfNodes[i]->position.m_y == listOfNodes[j]->position.m_y)
+				{
+					listOfNodes[i]->connections.push_back(listOfNodes[j]);
+				}
+				if (listOfNodes[i]->position.m_x == listOfNodes[j]->position.m_x && listOfNodes[i]->position.m_y + 30 == listOfNodes[j]->position.m_y)
+				{
+					listOfNodes[i]->connections.push_back(listOfNodes[j]);
+				}
+				if (listOfNodes[i]->position.m_x == listOfNodes[j]->position.m_x && listOfNodes[i]->position.m_y - 30 == listOfNodes[j]->position.m_y)
+				{
+					listOfNodes[i]->connections.push_back(listOfNodes[j]);
+				}
+			}
+		}
+
+
+
+
 		Node* one = new Node();
 		Node* two = new Node();
 		Node* three = new Node();
@@ -392,6 +419,9 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 		bool secondC = false;
 		bool thirdC = false;
 		bool fourthC = false;
+
+
+		
 
 		for (int i = 0; i < currentNode->connections.size(); i++)
 		{

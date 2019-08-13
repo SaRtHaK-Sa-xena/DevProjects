@@ -467,27 +467,51 @@ bool AgentApp::startup() {
 
 
 	//========================Create all Nodes====================
-	nodesList.push_back (new Node(Vector2(30,30), clear, false, false, 1));
-	Node* secondNode = new Node(Vector2(90,30), clear, false, false, 1);
-	Node* thirdNode = new Node(Vector2(90,30), clear, false, false, 1);
-	Node* fourNode = new Node(Vector2(30,30), clear, false, false, 1);
-	Node* fifthtNode = new Node(Vector2(30,30), clear, false, false, 1);
-	Node* sixthtNode = new Node(Vector2(30,30), clear, false, false, 1);
-	Node* seventhNode = new Node(Vector2(30,30), clear, false, false, 1);
-	Node* eighthNode = new Node(Vector2(30,30), clear, false, false, 1);
-	Node* ninthNode = new Node(Vector2(30,30), clear, false, false, 1);
-	Node* tenthNode = new Node(Vector2(30,30), clear, false, false, 1);
-	Node* eleventhNode = new Node(Vector2(30,30), clear, false, false, 1);
+	/*nodesList.push_back (new Node(Vector2(30*2,30*2), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*15,30*2), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*15,30*8), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*8,30*10), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*8,30*10), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*2,30*5), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*2,30*22), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*16,30*16), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*16,30*20), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*12,30*20), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*23,30*22), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*23,30*14), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*27,30*14), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*19,30*14), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*19,30*17), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*14,30*17), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*8,30*17), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*8,30*14), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*27,30*2), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*27,30*8), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*27,30*11), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*27,30*8), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*40,30*2), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*40,30*5), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*32,30*5), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*32,30*11), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*32,30*19), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*27,30*19), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*40,30*19), clear, false, false, 1));
+	nodesList.push_back(new Node(Vector2(30*40,30*22), clear, false, false, 1));*/
 
+
+	//might be useless
+	
+	
 	//add these to 
 
 	//STOPPED FOR NOW
+	Node* create = new Node();
 
-	//// holds all nodes
-	//create->CreateAllNodes(nodesList);
+	// holds all nodes
+	create->CreateAllNodes(nodesList);
 
 	////sets all walls
-	//create->setAllConnections(nodesList, Wall);
+	create->setAllConnections(nodesList, Wall);
 
 
 	//============================================================
@@ -927,36 +951,37 @@ void AgentApp::draw() {
 	m_2dRenderer->drawBox((30 * 20), (30 * 8), 10, 10);
 
 
-	m_2dRenderer->drawBox((30 * 2), (30 * 2), 10, 10);
-	m_2dRenderer->drawBox((30 * 15), (30 * 2), 10, 10);
-	m_2dRenderer->drawBox((30 * 15), (30 * 8), 10, 10);
-	m_2dRenderer->drawBox((30 * 15), (30 * 10), 10, 10);
-	m_2dRenderer->drawBox((30 * 8), (30 * 10), 10, 10);
-	m_2dRenderer->drawBox((30 * 8), (30 * 5), 10, 10);
-	m_2dRenderer->drawBox((30 * 2), (30 * 5), 10, 10);
-	m_2dRenderer->drawBox((30 * 2), (30 * 22), 10, 10);
-	m_2dRenderer->drawBox((30 * 16), (30 * 22), 10, 10);
-	m_2dRenderer->drawBox((30 * 16), (30 * 20), 10, 10);
-	
-	//might be useless
-	m_2dRenderer->drawBox((30 * 12), (30 * 20), 10, 10);
 
-	m_2dRenderer->drawBox((30 * 23), (30 * 22), 10, 10);
-	m_2dRenderer->drawBox((30 * 23), (30 * 14), 10, 10);
-	m_2dRenderer->drawBox((30 * 27), (30 * 14), 10, 10);
-	m_2dRenderer->drawBox((30 * 19), (30 * 14), 10, 10);
-	m_2dRenderer->drawBox((30 * 19), (30 * 17), 10, 10);
-	m_2dRenderer->drawBox((30 * 14), (30 * 17), 10, 10);
-
-
-
-	m_2dRenderer->drawBox((30 * 27), (30 * 2), 10, 10);
-	m_2dRenderer->drawBox((30 * 27), (30 * 8), 10, 10);
-	m_2dRenderer->drawBox((30 * 27), (30 * 11), 10, 10);
-	m_2dRenderer->drawBox((30 * 21), (30 * 8), 10, 10);
-
-
-
+	// 31 Nodes
+	// 27 Nodes
+	//m_2dRenderer->drawBox((30 * 2), (30 * 2), 10, 10);//0
+	//m_2dRenderer->drawBox((30 * 15), (30 * 2), 10, 10);//1
+	//m_2dRenderer->drawBox((30 * 15), (30 * 8), 10, 10);//2
+	//m_2dRenderer->drawBox((30 * 8), (30 * 10), 10, 10);//3
+	//m_2dRenderer->drawBox((30 * 2), (30 * 5), 10, 10);//4
+	//m_2dRenderer->drawBox((30 * 2), (30 * 22), 10, 10);//5
+	//m_2dRenderer->drawBox((30 * 16), (30 * 16), 10, 10);//6
+	//m_2dRenderer->drawBox((30 * 16), (30 * 20), 10, 10);//7
+	//m_2dRenderer->drawBox((30 * 12), (30 * 20), 10, 10);//8
+	//m_2dRenderer->drawBox((30 * 23), (30 * 22), 10, 10);//9
+	//m_2dRenderer->drawBox((30 * 23), (30 * 14), 10, 10);//10
+	//m_2dRenderer->drawBox((30 * 27), (30 * 14), 10, 10);//11
+	//m_2dRenderer->drawBox((30 * 19), (30 * 14), 10, 10);//12
+	//m_2dRenderer->drawBox((30 * 19), (30 * 17), 10, 10);//13
+	//m_2dRenderer->drawBox((30 * 14), (30 * 17), 10, 10);//14
+	//m_2dRenderer->drawBox((30 * 8), (30 * 17), 10, 10);//15
+	//m_2dRenderer->drawBox((30 * 8), (30 * 14), 10, 10);//16
+	//m_2dRenderer->drawBox((30 * 27), (30 * 2), 10, 10);//17
+	//m_2dRenderer->drawBox((30 * 27), (30 * 8), 10, 10);//18
+	//m_2dRenderer->drawBox((30 * 27), (30 * 11), 10, 10);//19
+	//m_2dRenderer->drawBox((30 * 40), (30 * 2), 10, 10);//20
+	//m_2dRenderer->drawBox((30 * 40), (30 * 5), 10, 10);//21
+	//m_2dRenderer->drawBox((30 * 32), (30 * 5), 10, 10);//22
+	//m_2dRenderer->drawBox((30 * 32), (30 * 11), 10, 10);//23
+	//m_2dRenderer->drawBox((30 * 32), (30 * 19), 10, 10);//24
+	//m_2dRenderer->drawBox((30 * 27), (30 * 19), 10, 10);//25
+	//m_2dRenderer->drawBox((30 * 40), (30 * 19), 10, 10);//26
+	//m_2dRenderer->drawBox((30 * 40), (30 * 22), 10, 10);//27
 
 
 
