@@ -69,7 +69,7 @@ bool AgentApp::startup() {
 	itemNode->parent = nullptr;
 	ItemCollectibles.push_back(itemNode);
 	
-	itemNode = new Node(Vector2(30 * 2, 30 * 2), item);
+	itemNode = new Node(Vector2(30 * 15, 30 * 2), item);
 	itemNode->parent = nullptr;
 	ItemCollectibles.push_back(itemNode);
 
@@ -510,7 +510,10 @@ bool AgentApp::startup() {
 	// holds all nodes
 	create->CreateAllNodes(nodesList);
 
-	////sets all walls
+	//sets all walls
+	create->setAllWalls(nodesList,Wall);
+
+	//sets all connections
 	create->setAllConnections(nodesList, Wall);
 
 
@@ -601,12 +604,13 @@ void AgentApp::update(float deltaTime) {
 				currentPath.push_back(tempPath[i]);
 			}
 			pathFound = true;
+			
 		}
 		
 		
 
 		//current Iterator not at the end of List
-		if (currentNode < currentPath.size())
+		if (currentNode < currentPath.size()-1)
 		{
 			Vector2 difference;
 			difference = m_enemyCollector->GetPosition() - currentPath[currentNode]->position;
@@ -619,7 +623,9 @@ void AgentApp::update(float deltaTime) {
 		else
 		{
 			currentItem++;
+			std::cout << "Added..." << std::endl;
 			currentNode = 0;
+			currentPath.clear();
 			pathFound = false;
 		}
 

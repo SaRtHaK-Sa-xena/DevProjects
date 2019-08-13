@@ -11,9 +11,9 @@ void Node::CreateAllNodes(std::vector<Node*>&listOfNodes)
 	int columns = 25;
 	int spacesInBetween = 30;
 
-	for (int x = 0; x < rows; x++)
+	for (int x = 1; x < rows; x++)
 	{
-		for (int y = 0; y < columns; y++)
+		for (int y = 1; y < columns; y++)
 		{
 			//pre-generate all nodes
 			Node* newNode = new Node(Vector2(x * spacesInBetween, y * spacesInBetween), clear, false, false, 1);
@@ -27,137 +27,45 @@ void Node::setAllWalls(std::vector<Node*> &listOfNodes, std::vector<Node*> listO
 {
 	for (int i = 0; i < listOfWalls.size(); i++)
 	{
-		if (listOfWalls[i] == listOfNodes[i])
+		for (int j = 0; j < listOfNodes.size(); j++)
 		{
-			listOfNodes[i]->ofType = wall;
+			if (listOfWalls[i]->position.m_x == listOfNodes[j]->position.m_x && listOfWalls[i]->position.m_y == listOfNodes[j]->position.m_y)
+			{
+				listOfNodes[j]->ofType = wall;
+			}
 		}
 	}
 }
 
 void Node::setAllConnections(std::vector<Node*>&listOfNodes, std::vector<Node*>wallNodes)
 {
-	int x, y;
-	for (int i = 1; i < listOfNodes.size(); i++)
+	//iterate through List
+	for (int current = 0; current < listOfNodes.size(); current++)
 	{
-
-		//if (listOfNodes[i]->position.m_x < listOfNodes[i]->position.m_x + 30 && listOfNodes[i]->position.m_x <//< listOfNodes[i]->position.m_x + 31)
-		//{
-
-		//}
-		
-		//iterate through List
-		for(int i = 0 ; i < listOfNodes.size(); i++)
+		for (int connectionNode = 0; connectionNode < listOfNodes.size(); connectionNode++)
 		{
-			for(int j = 0; j < listOfNodes.size(); j++)
+			if (listOfNodes[current]->position.m_x + 30 == listOfNodes[connectionNode]->position.m_x && listOfNodes[current]->position.m_y == listOfNodes[connectionNode]->position.m_y)
 			{
-				if (listOfNodes[i]->position.m_x + 30 == listOfNodes[j]->position.m_x && listOfNodes[i]->position.m_y == listOfNodes[j]->position.m_y)
-				{
-					listOfNodes[i]->connections.push_back(listOfNodes[j]);
-				}
-				if (listOfNodes[i]->position.m_x - 30 == listOfNodes[j]->position.m_x && listOfNodes[i]->position.m_y == listOfNodes[j]->position.m_y)
-				{
-					listOfNodes[i]->connections.push_back(listOfNodes[j]);
-				}
-				if (listOfNodes[i]->position.m_x == listOfNodes[j]->position.m_x && listOfNodes[i]->position.m_y + 30 == listOfNodes[j]->position.m_y)
-				{
-					listOfNodes[i]->connections.push_back(listOfNodes[j]);
-				}
-				if (listOfNodes[i]->position.m_x == listOfNodes[j]->position.m_x && listOfNodes[i]->position.m_y - 30 == listOfNodes[j]->position.m_y)
-				{
-					listOfNodes[i]->connections.push_back(listOfNodes[j]);
-				}
+				listOfNodes[current]->connections.push_back(listOfNodes[connectionNode]);
 			}
-		}
-
-
-
-
-		Node* one = new Node();
-		Node* two = new Node();
-		Node* three = new Node();
-		Node* four = new Node();
-
-		one->position = Vector2((listOfNodes[i]->position.m_x+30), listOfNodes[i]->position.m_y);
-		two->position = Vector2((listOfNodes[i]->position.m_x - 30), listOfNodes[i]->position.m_y);
-		three->position = Vector2(listOfNodes[i]->position.m_x, (listOfNodes[i]->position.m_y + 30));
-		four->position = Vector2(listOfNodes[i]->position.m_x, (listOfNodes[i]->position.m_y-30));
-
-		bool checkOne = false;
-		bool checkTwo = false;
-		bool checkThree = false;
-		bool checkFour = false;
-
-		for (int i = 0; i < wallNodes.size(); i++)
-		{
-			if (checkOne == false && wallNodes[i]->position.m_x == one->position.m_x && wallNodes[i]->position.m_y == one->position.m_y)
+			if (listOfNodes[current]->position.m_x - 30 == listOfNodes[connectionNode]->position.m_x && listOfNodes[current]->position.m_y == listOfNodes[connectionNode]->position.m_y)
 			{
-				one->ofType = wall;
-				checkOne = true;
+				listOfNodes[current]->connections.push_back(listOfNodes[connectionNode]);
 			}
-			if (checkTwo == false && wallNodes[i]->position.m_x == two->position.m_x && wallNodes[i]->position.m_y == two->position.m_y)
+			if (listOfNodes[current]->position.m_x == listOfNodes[connectionNode]->position.m_x && listOfNodes[current]->position.m_y + 30 == listOfNodes[connectionNode]->position.m_y)
 			{
-				two->ofType = wall;
-				checkTwo = true;
+				listOfNodes[current]->connections.push_back(listOfNodes[connectionNode]);
 			}
-			if (checkThree == false && wallNodes[i]->position.m_x == three->position.m_x && wallNodes[i]->position.m_y == three->position.m_y)
+			if (listOfNodes[current]->position.m_x == listOfNodes[connectionNode]->position.m_x && listOfNodes[current]->position.m_y - 30 == listOfNodes[connectionNode]->position.m_y)
 			{
-				three->ofType = wall;
-				checkThree = true;
+				listOfNodes[current]->connections.push_back(listOfNodes[connectionNode]);
 			}
-			if (checkFour == false && wallNodes[i]->position.m_x == four->position.m_x && wallNodes[i]->position.m_y == four->position.m_y)
-			{
-				four->ofType = wall;
-				checkFour = true;
-			}
-		}
-		//if statement if wall don;t push
-		//add it in later
-		
-		//boolean checks to add
-		bool addOne = true;
-		bool addTwo = true;
-		bool addThree = true;
-		bool addFour = true;
-
-		if (one->ofType == wall)
-		{
-			delete one;
-			addOne = false;
-		}
-		if (two->ofType == wall)
-		{
-			delete two;
-			addTwo = false;
-		}
-		if (three->ofType == wall)
-		{
-			delete three;
-			addThree = false;
-		}
-		if (four->ofType == wall)
-		{
-			delete four;
-			addFour = false;
-		}
-
-		if (addOne)
-		{
-			listOfNodes[i]->connections.push_back(one);
-		}
-		if (addTwo)
-		{
-			listOfNodes[i]->connections.push_back(two);
-		}
-		if (addThree)
-		{
-			listOfNodes[i]->connections.push_back(three);
-		}
-		if (addFour)
-		{
-			listOfNodes[i]->connections.push_back(four);
 		}
 	}
 }
+
+
+	
 
 
 
@@ -295,24 +203,12 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 {
 
 	//startNode equal to finder's position
- 	startNode->position = finder->GetPosition();
 
 	//startNode will have gScore of 1
 	startNode->gScore = 1;
 
 	//will have no parent since it's the start
 	startNode->parent = nullptr;
-
-	/*Node* first = new Node((Vector2(90, 60)), clear, false,false,1);
-	Node* second = new Node((Vector2(30, 60)), clear, false, false, 1);
-	Node* third = new Node((Vector2(60, 30)), clear, false, false, 1);
-	Node* fourth = new Node((Vector2(60, 90)), clear, false, false, 1);*/
-
-
-	/*startNode->connections.push_back(first);
-	startNode->connections.push_back(second);
-	startNode->connections.push_back(third);
-	startNode->connections.push_back(fourth);*/
 
 	if (startNode == nullptr || endNode == nullptr)
 	{
@@ -329,13 +225,8 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 	std::vector<Node*>openList;
 	std::vector<Node*>closedList;
 
-	//for debug purposes
-	//--checked Nodes--
-	//std::vector<Node*>checkedNodeList;
-
 
 	openList.push_back(startNode);
-	//checkedNodeList.push_back(startNode);
 
 	//while openlist has anything
 	bool foundNode = false;
@@ -358,39 +249,6 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 
 		//current will equal first element in openList
 		Node* currentNode = openList.front();
-
-		//----------[JUST ADDED] 10:18 AM 8/13/2019 find which node in listOfNodes then store its connection--
-
-		//for (int i = 0; i < listOfNodes.size(); i++)
-		//{
-		//	if (currentNode->position.m_x == listOfNodes[i]->position.m_x && currentNode->position.m_y == listOfNodes[i]->position.m_y)
-		//	{
-		//		currentNode->connections = listOfNodes[i]->connections;
-		//		//iterate through checkedNodeList
-		//		for (int iterate = 0; iterate < checkedNodeList.size(); iterate++)
-		//		{
-		//			//check if first element matches the connections all elements
-		//			for (int j = 0; j < currentNode->connections.size(); j++)
-		//			{
-		//				//
-		//				if (checkedNodeList[iterate] == currentNode->connections[j])
-		//				{
-		//					currentNode->connections[j] = checkedNodeList[iterate];
-		//				}
-		//			}
-		//			
-		//		}
-
-		//	}
-		//}
-
-		//need nodesList
-		//need currentNode
-		//need a way to search through nodes List
-		//need a way to add to currentNode.connections
-
-
-		//----------------------------------------------------------------------------------------------------
 
 
 		//if first item in openList != endNode
@@ -425,24 +283,26 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 
 		for (int i = 0; i < currentNode->connections.size(); i++)
 		{
-			if (currentNode->connections[i]->inClosedList == false)
+			if (currentNode->connections[i]->ofType != wall)
 			{
-				float gScore = currentNode->gScore + currentNode->connections[i]->gScore;
-				
-				if (currentNode->connections[i]->inOpenList == false)
+				if (currentNode->connections[i]->inClosedList == false)
 				{
-					currentNode->connections[i]->parent = currentNode;
-					currentNode->connections[i]->gScore = gScore;
-					currentNode->connections[i]->inOpenList = true;
-					openList.push_back(currentNode->connections[i]);
-					//checkedNodeList.push_back(currentNode->connections[i]);
-				}
+					float gScore = currentNode->gScore + currentNode->connections[i]->gScore;
 
-				//problem may occur here															<-------------MAYBE-------------->
-				else if (gScore < currentNode->connections[i]->gScore)
-				{
-					currentNode->connections[i]->gScore = gScore;
-					currentNode->connections[i]->parent = currentNode;
+					if (currentNode->connections[i]->inOpenList == false)
+					{
+						currentNode->connections[i]->parent = currentNode;
+						currentNode->connections[i]->gScore = gScore;
+						currentNode->connections[i]->inOpenList = true;
+						openList.push_back(currentNode->connections[i]);
+					}
+
+					//problem may occur here															<-------------MAYBE-------------->
+					else if (gScore < currentNode->connections[i]->gScore)
+					{
+						currentNode->connections[i]->gScore = gScore;
+						currentNode->connections[i]->parent = currentNode;
+					}
 				}
 			}
 		}
