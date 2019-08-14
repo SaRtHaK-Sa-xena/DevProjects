@@ -25,7 +25,6 @@ public:
 	Node* FindClosestNode(Vector2 Position);
 
 protected:
-	bool setter = true;
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
@@ -117,5 +116,8 @@ protected:
 
 	// For Debug Purposes
 	bool drawNodesOnScreen = true;
+
+	//checks If endNode has changed
+	bool pathChanged = false;
 
 };

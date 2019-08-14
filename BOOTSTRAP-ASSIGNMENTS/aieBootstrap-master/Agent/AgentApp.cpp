@@ -595,13 +595,35 @@ void AgentApp::update(float deltaTime) {
 
 		m_enemy->Update(deltaTime);//calls update on enemy changing it's vector
 
+		//if the endNode is the same
+			//return path
+			//follow path
+			//check if at node
+
+		//check if endNode same
 		
-		//each frame we get a path to endNode
-		std::vector<Node*>tempPath = dijkstrasSeatch(FindClosestNode(m_enemyCollector->GetPosition()), ItemCollectibles[currentItem], m_enemyCollector, nodesList);
-		for (int i = tempPath.size()-1; i >= 0; i--)
+
+
+		if (pathChanged == false)
 		{
-			currentPath.push_back(tempPath[i]);
+
 		}
+
+
+
+
+		if (pathFound == false)
+		{
+			//each frame we get a path to endNode
+			std::vector<Node*>tempPath = dijkstrasSeatch(FindClosestNode(m_enemyCollector->GetPosition()), FindClosestNode(m_player->GetPosition()), m_enemyCollector, nodesList);
+			for (int i = tempPath.size() - 1; i >= 0; i--)
+			{
+				currentPath.push_back(tempPath[i]);
+			}
+			pathFound = true;
+		}
+		
+		
 		
 		
 
@@ -622,8 +644,8 @@ void AgentApp::update(float deltaTime) {
 		{
 			currentItem++;
 			std::cout << "Added..." << std::endl;
-			currentNode = 0;
 			currentPath.clear();
+			currentNode = 1;
 			pathFound = false;
 		}
 
@@ -632,6 +654,7 @@ void AgentApp::update(float deltaTime) {
 		if (pathFound)
 		{
 			m_findPathBehaviour->SetTarget(currentPath[currentNode]); //takes in Path
+			std::cout << "Targeting: " << "x: " << currentPath[currentNode]->position.m_x << "y: "<< currentPath[currentNode]->position.m_y << std::endl;
 			//returns Force
 			m_enemyCollector->Update(deltaTime);
 		}
@@ -999,11 +1022,14 @@ Node * AgentApp::FindClosestNode(Vector2 Position)
 
 	for (int i = 0; i < nodesList.size(); i++)
 	{
-		//float distance = abs(Position.m_x - nodesList[i]->position.m_x) - abs(Position.m_y - nodesList[i]->position.m_y);
-		float distance = Vector2(Position.m_x - nodesList[i]->position.m_x, Position.m_y - nodesList[i]->position.m_y).magnitude();
-		if (distance < Vector2(Position.m_x - temp->position.m_x, Position.m_y - temp->position.m_y).magnitude())
+		if (nodesList[i]->ofType != wall)
 		{
-			temp = nodesList[i];
+			//float distance = abs(Position.m_x - nodesList[i]->position.m_x) - abs(Position.m_y - nodesList[i]->position.m_y);
+			float distance = Vector2(Position.m_x - nodesList[i]->position.m_x, Position.m_y - nodesList[i]->position.m_y).magnitude();
+			if (distance < Vector2(Position.m_x - temp->position.m_x, Position.m_y - temp->position.m_y).magnitude())
+			{
+				temp = nodesList[i];
+			}
 		}
 	}
 

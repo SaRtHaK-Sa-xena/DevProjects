@@ -271,12 +271,12 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 
 
 		//Reference
-		int foundIndex = 0;
+		//int foundIndex = 0;
 
-		bool firstC = false;
-		bool secondC = false;
-		bool thirdC = false;
-		bool fourthC = false;
+		//bool firstC = false;
+		//bool secondC = false;
+		//bool thirdC = false;
+		//bool fourthC = false;
 
 
 		
@@ -297,7 +297,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 						openList.push_back(currentNode->connections[i]);
 					}
 
-					//problem may occur here															<-------------MAYBE-------------->
+																			
 					else if (gScore < currentNode->connections[i]->gScore)
 					{
 						currentNode->connections[i]->gScore = gScore;
@@ -429,6 +429,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 
 	//return correct Path
 	return Path;
+	std::cout << "Path returned..." << std::endl;
 }
 		//	for (int i = 0; i < nodeWall.size(); i++)
 		//	{
