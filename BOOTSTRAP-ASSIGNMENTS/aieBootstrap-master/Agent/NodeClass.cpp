@@ -266,21 +266,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 		//delete startNode in openList
 		openList.erase(openList.begin(), openList.begin() + 1);
 
-
-		//to see if all conections have been set
-
-
-		//Reference
-		//int foundIndex = 0;
-
-		//bool firstC = false;
-		//bool secondC = false;
-		//bool thirdC = false;
-		//bool fourthC = false;
-
-
-		
-
+		//tests for each connection
 		for (int i = 0; i < currentNode->connections.size(); i++)
 		{
 			if (currentNode->connections[i]->ofType != wall)
@@ -420,7 +406,7 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 	//create a Path of Vector
 	std::vector<Node*>Path;
 
-	//reverse the order and find the patter through the parent
+	//reverse the order and find the pattern through the parent
 	while (currentNode != nullptr)
 	{
 		Path.push_back(currentNode);

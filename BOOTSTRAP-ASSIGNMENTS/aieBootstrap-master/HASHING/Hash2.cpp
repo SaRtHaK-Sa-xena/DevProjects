@@ -2,11 +2,11 @@
 using namespace std;
 
 
-void hashClass::AddItem(char name[50], string book, int id)
+void hashClass::AddItem(char name[50], char book[50], int id)
 {
 	int index = Hash(name);
 
-	if (HashTable[index]->name == "empty")
+	if (HashTable[index]->name == "empty") //index was -6 and it crashed
 	{
 		HashTable[index]->name = name;
 		HashTable[index]->favBookName = book;
@@ -14,24 +14,28 @@ void hashClass::AddItem(char name[50], string book, int id)
 	}
 	else
 	{
-		item* Ptr = HashTable[index];
-		item* n = new item;
-		n->name = name;
-		n->favBookName = book;
-		n->itemCode = id;
-		n->next = NULL;
-		while (Ptr->next != NULL)
+		item* Ptr = HashTable[index]; // at beginning 
+		item* n = new item; //make n new item
+		n->name = name; //create n to store name
+		n->favBookName = book; //store book
+		n->itemCode = id; // store id
+		n->next = NULL; //then make the next null
+		while (Ptr->next != NULL) //then check while ptr->next not equal to null
 		{
-			Ptr = Ptr->next; //until last item in list
+			//iterate until last itme
+			Ptr = Ptr->next; 
 		}
 		//now at last
-		Ptr->next = n; //last item linked to first
+		//make the next item of Ptr->next = n
+		Ptr->next = n;
+		//Now the n is at the end of List
 	}
 }
 
 
 hashClass::hashClass()
 {
+	// creates an empty hash table
 	for (int i = 0; i < tableSize; i++)
 	{
 		HashTable[i] = new item;
@@ -41,6 +45,7 @@ hashClass::hashClass()
 		HashTable[i]->next = NULL;
 	}
 }
+
 
 
 int hashClass::NumberOfItemsInIndex(int index)
@@ -61,7 +66,7 @@ int hashClass::NumberOfItemsInIndex(int index)
 			Ptr = Ptr->next;
 		}
 	}
-	return count; //
+	return count; //the amount of items
 }
 
 void hashClass::PrintTable()
@@ -72,8 +77,8 @@ void hashClass::PrintTable()
 		number = NumberOfItemsInIndex(i); //number will equal no. of items in List
 		cout << "---------------------------\n";
 		cout << "index = " << i << endl;
-		cout << HashTable[i]->name << endl;
-		cout << HashTable[i]->favBookName << endl;
+		cout << "Name: " << HashTable[i]->name << endl;
+		cout << "Favourite Book Name: " << HashTable[i]->favBookName << endl;
 		cout << "Unique Identifier: " << HashTable[i]->itemCode << endl;
 		cout << "# of items = " << number << endl;
 		cout << "---------------------------\n";
@@ -86,16 +91,19 @@ void hashClass::PrintTable()
 
 void hashClass::PrintItemsInIndex(int index)
 {
-	item* Ptr = HashTable[index];
+	item* Ptr = HashTable[index]; //makes the Ptr set to hashtable[index]
 
+	//if that ptr is empty then return it is empty
 	if (Ptr->name == "empty")
 	{
 		cout << "index = " << index << "is empty";
 	}
 	else
 	{
+		//if not empty return that index
 		cout << "index " << index << " contains the following item\n";
 
+		// while that ptr is not null
 		while (Ptr != NULL)
 		{
 			cout << "-------------------\n";
@@ -106,12 +114,14 @@ void hashClass::PrintItemsInIndex(int index)
 
 			Ptr = Ptr->next;
 		}
+		//until all contents of that index have been printed
 	}
 }
 
 
 void hashClass::FindBook(string name)
 {
+	//int index = Hash(name)
 	int index = Hash(name);
 	bool foundName = false;
 	string book;
@@ -272,14 +282,14 @@ int hashClass::Hash(string key)
 	int hash = 0;
 	int index;
 
-	
+	const int amount = 50;
 
 	for (int i = 0; i < key.length(); i++)
 	{
-		hash = (hash + (int)key[i]) * 17;
+		hash = (hash + (int)key[i]) * amount; //17 is random value that might be causing the problem
 	}
 
-	index = hash % tableSize;
+	index = hash % tableSize; //index returned is the remainder between hash divided by table size
 
-	return index;
+	return index; //returned index
 }

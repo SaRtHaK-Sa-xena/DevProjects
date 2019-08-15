@@ -10,7 +10,7 @@ int main()
 	
 	hashClass Hashuse;
 	char name[50];
-	string book = "";
+	char book[50];
 	int ID = 0;
 	bool cont = true;
 	char choice = '0';
@@ -32,7 +32,8 @@ int main()
 			cin.ignore(1);
 			cin.getline(name, 50);
 			cout << "Enter Favourite Book: " << endl;
-			cin >> book;
+			cin.ignore(1);
+			cin.getline(book,50);
 			cout << "Enter Unique id: " << endl;
 			cin >> ID;
 			Hashuse.AddItem(name, book, ID);

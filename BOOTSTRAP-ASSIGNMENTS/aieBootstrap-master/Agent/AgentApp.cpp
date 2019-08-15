@@ -603,21 +603,13 @@ void AgentApp::update(float deltaTime) {
 		//check if endNode same
 		
 
-
-		if (pathChanged == false)
-		{
-
-		}
-
-
-
-
 		if (pathFound == false)
 		{
 			//each frame we get a path to endNode
 			std::vector<Node*>tempPath = dijkstrasSeatch(FindClosestNode(m_enemyCollector->GetPosition()), FindClosestNode(m_player->GetPosition()), m_enemyCollector, nodesList);
 			for (int i = tempPath.size() - 1; i >= 0; i--)
 			{
+				//stores it in current path
 				currentPath.push_back(tempPath[i]);
 			}
 			pathFound = true;
@@ -642,17 +634,17 @@ void AgentApp::update(float deltaTime) {
 		}
 		else
 		{
-			currentItem++;
-			std::cout << "Added..." << std::endl;
+			//clears existing current path
 			currentPath.clear();
-			currentNode = 1;
+			//sets iterator of current to 0 (beginning)
+			currentNode = 0;
 			pathFound = false;
 		}
 
-
-		//Sets target to first Node in currentPathReturned
+		//if path still found
 		if (pathFound)
 		{
+			//Sets target to first Node in currentPathReturned
 			m_findPathBehaviour->SetTarget(currentPath[currentNode]); //takes in Path
 			std::cout << "Targeting: " << "x: " << currentPath[currentNode]->position.m_x << "y: "<< currentPath[currentNode]->position.m_y << std::endl;
 			//returns Force
