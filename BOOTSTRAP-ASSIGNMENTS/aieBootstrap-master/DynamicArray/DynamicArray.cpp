@@ -22,6 +22,10 @@ int main()
 	NodeClass* current;
 	NodeClass* currentRight;
 	
+
+	std::cout << "What size will you like to give your dynamic array?" << std::endl;
+	DynamicTree->manualSetter();
+
 	while (cont)
 	{
 		cout << "What Do you want to Do? " << endl;
@@ -29,57 +33,46 @@ int main()
 		cin >> choice;
 		switch (choice)
 		{
-		case'a':
-			cout << "\t\t\t adding..." << endl;
-			cout << "Enter Value To Insert" << endl;
-			cin >> value;
-			while (cin.fail())
-			{
-				cout << "Error" << endl;
-				cin.clear();
-				cin.ignore(256, '\n');
-				cout << endl;
-				cout << "Enter a number please: " << endl;
-				cin >> value;
-			}
-			DynamicTree->insert(value);
-			break;
 		case'd':
+			//displays entire array
 			cout << "\t\t\t displaying..." << endl;
 			DynamicTree->display();
 			break;
 		case'c':
+			//removes last element
 			DynamicTree->popBack();
 			cout << "\t\t\t displaying..." << endl;
 			DynamicTree->display();
 			break;
 		case'x':
+			//removes front element
 			DynamicTree->popFront();
 			cout << "\t\t\t displaying..." << endl;
 			DynamicTree->display();
 			break;
 		case'z':
+			//clears entire array
 			DynamicTree->clear();
 			cout << "\t\t\t displaying..." << endl;
 			DynamicTree->display();
 			break;
-		case'm':
-			DynamicTree->manualSetter();
-			cout << "\t\t\t displaying..." << endl;
-			DynamicTree->display();
-			break;
 		case'b':
+			//sets values on index
 			DynamicTree->setOnIndex();
 			cout << "\t\t\t displaying..." << endl;
 			DynamicTree->display();
 			break;
 		case',':
+			//copies elements of array into second array
 			DynamicTree->CopyContructor(secondDynamicTree);
 			cout << "\t\t\t displaying..." << endl;
 			std::cin.get();
+			//displays it in second Dynamic Array
+			std::cout << "Displaying in New Array" << std::endl;
 			secondDynamicTree->display();
 			break;
 		case's':
+			//sorts the array
 			cout << "\t\t\t Sorting..." << endl;
 			DynamicTree->sort();
 			//==============DISPLAY====================
@@ -98,6 +91,7 @@ int main()
 
 			break;
 		case'f':
+			//displays searched id
 			cout << "\t\t\t searching..." << endl;
 			cout << "Enter Id To Look For: " << endl;
 			cin >> searchId;
@@ -113,10 +107,11 @@ int main()
 			DynamicTree->search(searchId);
 			break;
 		case'e':
+			//exits the application
 			cout << "Exiting..." << endl;
-			DynamicTree->popFront();
-			//return 0;
+			return 0;
 		default:
+			//default, activated due to improper input
 			cout << "Enter One Of The Listed Options" << endl;
 			break;
 		}

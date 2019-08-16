@@ -32,6 +32,7 @@ void ArrayClass::insert(int value)
 		{
 			if (current->getRight() == nullptr)
 			{
+				//adds another right to current
 				current->setRight(new NodeClass(value));
 				break;
 			}
@@ -55,6 +56,7 @@ void ArrayClass::display()
 		}
 		else
 		{
+			//displays entire array
 			int i = 0;
 			while (current->getRight() != nullptr)
 			{
@@ -62,7 +64,7 @@ void ArrayClass::display()
 				std::cout << "Data:" << i << " " << current->getData() << std::endl;
 				current = current->getRight();
 			}
-			i = i + 1;
+			i = i + 1; //iterate through array
 			std::cout << "Data:" << i << " " << current->getData() << std::endl;
 		}
 	}
@@ -83,18 +85,22 @@ void ArrayClass::search(int a_value)
 		NodeClass *current = returnRoot();
 		bool found = false;
 
-
+		//while not at end
 		while (current->getRight() != nullptr)
 		{
+			//if value equal to inputed value
 			if (current->getData() == a_value)
 			{
+				//return that index position with value
 				std::cout << "found in position " << i << ":" << std::endl;
 				std::cout << current->getData() << std::endl;
 				found = true;
 			}
+			//otherwise increment
 			i++;
 			current = current->getRight();
 		}
+		//finds if curren value equal to value
 		if (current->getData() == a_value)
 		{
 			std::cout << "found in position " << i << ":" << std::endl;
@@ -109,10 +115,13 @@ void ArrayClass::search(int a_value)
 			std::cin >> option;
 			if (option == "y")
 			{
+				//only case where list appends to add new value
+				std::cout << "Increased Size of Array to include value" << std::endl;
 				insert(a_value);
 			}
 			else
 			{
+				//otherwise just display the array
 				display();
 			}
 		}
@@ -136,22 +145,18 @@ void ArrayClass::sort()
 		NodeClass* current = root;
 		NodeClass* currentRight = current->getRight();
 		bool swap = false;
-		//NodeClass* current = root; // current = 1
-		//NodeClass* currentRight; // current = 2 // currentRight = current->getRight()
-		//int t2 = current->getData(); // t2 = 1
-		//int t1 = current->getRight()->getData(); // t1 = 2
-
-		//current->setData(t1); // 1 = 2
-		//currentRight = current->getRight(); // which is equal to 2
-		//currentRight->setData(t2); // t2 = 1 so 1
-
+		
+		//uses a bubbleSort
+		//while not at end
 		while (current->getRight() != nullptr)
 		{
+			//commit swap if swap needed
 			if (swap)
 			{
 				current = root;
 				currentRight = current->getRight();
 			}
+			//if value greater than next value
 			if (current->getData() > currentRight->getData())
 			{
 				temp = current->getData();
@@ -160,17 +165,19 @@ void ArrayClass::sort()
 
 				current->setData(temp2);
 				currentRight->setData(temp);
+				//commit swap
 				swap = true;
 			}
-			else
+			else //otherwise continue iterating through
 			{
 				current = current->getRight();
 				currentRight = current->getRight();
+				//don't commit swap
 				swap = false;
 			}
 		}
 	}
-	else
+	else //if no elements leave
 	{
 		std::cout << "No elements in array\n" << std::endl;
 		std::cout << "-------------------------------" << std::endl;
@@ -249,6 +256,7 @@ bool ArrayClass::Empty()
 	}
 }
 
+//Sets Values on selected index
 void ArrayClass::setOnIndex()
 {
 	int index;
@@ -258,6 +266,7 @@ void ArrayClass::setOnIndex()
 	std::cout << "Index: ";
 	std::cin >> index;
 
+	//sets index to chosen input
 	for (int i = 1; i < index; i++)
 	{
 		current = current->getRight();
@@ -268,10 +277,12 @@ void ArrayClass::setOnIndex()
 	std::cout << "Enter Which value to enter in that index: " << std::endl;
 	std::cin >> newAmount;
 
+	//sets that new amount on selected index
 	current->setData(newAmount);
 
 }
 
+//copies contents of array and transfers them onto the other array
 void ArrayClass::CopyContructor(ArrayClass * dynamicArray)
 {
 
@@ -279,15 +290,19 @@ void ArrayClass::CopyContructor(ArrayClass * dynamicArray)
 	dynamicArray->root = current;
 	NodeClass* dynamicCurrent = root;
 
+	//while not at end of list
 	while (current->getRight() != nullptr)
 	{
+		//iterate
 		current = current->getRight();
+		//set each element to corresponding element in other array
 		dynamicCurrent->setRight(current);
+		//iterate through other array
 		dynamicCurrent = dynamicCurrent->getRight();
 	}
 }
 
-
+//clears entire array
 void ArrayClass::clear()
 {
 	if (!Empty())
@@ -326,8 +341,10 @@ void ArrayClass::manualSetter()
 	int amount = 0;
 	std::cout << "Enter size of array:" << std::endl;
 
+	//appends to that many elements
 	std::cin >> amount;
-
+	
+	//sets default for all
 	for (int i = 0; i < amount; i++)
 	{
 		insert(0);
