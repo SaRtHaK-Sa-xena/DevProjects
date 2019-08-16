@@ -216,32 +216,40 @@ void InsertValue(DoubleLinkedList *list)
 			int size;
 			std::cout << "Enter" << "\n How many places down from the beginning : " << std::endl;
 			std::cin >> size;
-			while (cin.fail())
+			if (list->Count() > size)
 			{
-				cout << "Error" << endl;
-				cin.clear();
-				cout << "Enter a Number: " << endl;
-				cin.ignore(256, '\n');
-				cin >> size;
+				while (cin.fail())
+				{
+					cout << "Error" << endl;
+					cin.clear();
+					cout << "Enter a Number: " << endl;
+					cin.ignore(256, '\n');
+					cin >> size;
+				}
+				//Increments forward depending on temp = temp->next
+				for (int i = 0; i < size - 1; i++)
+				{
+					//temp = temp->next;
+					temp++;
+				}
+				int NumberToBeInserted;
+				std::cout << "What Number To Place In That Position: " << std::endl;
+				std::cin >> NumberToBeInserted;
+				while (cin.fail())
+				{
+					cout << "Error" << endl;
+					cin.clear();
+					cout << "Enter a Number: " << endl;
+					cin.ignore(256, '\n');
+					cin >> NumberToBeInserted;
+				}
+				list->InsertAfter(temp.GetNode(), NumberToBeInserted);
 			}
-			//Increments forward depending on temp = temp->next
-			for (int i = 0; i < size - 1; i++)
+			else
 			{
-				//temp = temp->next;
-				temp++;
+				std::cout << "Number entered exceeds list size..." << std::endl;
+				std::cout << "---------------------------------------------------" << std::endl;
 			}
-			int NumberToBeInserted;
-			std::cout << "What Number To Place In That Position: " << std::endl;
-			std::cin >> NumberToBeInserted;
-			while (cin.fail())
-			{
-				cout << "Error" << endl;
-				cin.clear();
-				cout << "Enter a Number: " << endl;
-				cin.ignore(256, '\n');
-				cin >> NumberToBeInserted;
-			}
-			list->InsertAfter(temp.GetNode(), NumberToBeInserted);
 		}
 		else if (input == "LAST")
 		{
@@ -251,33 +259,42 @@ void InsertValue(DoubleLinkedList *list)
 			cout << "Enter" << "\n How many places up from the end : " << endl;
 			cin >> size;
 
-			while (cin.fail())
+			if (list->Count() > size)
 			{
-				cout << "Error" << endl;
-				cin.clear();
-				cout << "Enter a Number: " << endl;
-				cin.ignore(256, '\n');
-				cin >> size;
-			}
 
-			int NumberToBeInserted;
-			//Increments forward depending on temp = temp->next
-			for (int i = 0; i < size; i++)
-			{
-				//temp = temp->next;
-				temp--;
+				while (cin.fail())
+				{
+					cout << "Error" << endl;
+					cin.clear();
+					cout << "Enter a Number: " << endl;
+					cin.ignore(256, '\n');
+					cin >> size;
+				}
+
+				int NumberToBeInserted;
+				//Increments forward depending on temp = temp->next
+				for (int i = 0; i < size; i++)
+				{
+					//temp = temp->next;
+					temp--;
+				}
+				std::cout << "What Number To Place In That Position: " << std::endl;
+				std::cin >> NumberToBeInserted;
+				while (cin.fail())
+				{
+					cout << "Error" << endl;
+					cin.clear();
+					cout << "Enter a Number: " << endl;
+					cin.ignore(256, '\n');
+					cin >> NumberToBeInserted;
+				}
+				list->InsertAfter(temp.GetNode(), NumberToBeInserted);
 			}
-			std::cout << "What Number To Place In That Position: " << std::endl;
-			std::cin >> NumberToBeInserted;
-			while (cin.fail())
+			else
 			{
-				cout << "Error" << endl;
-				cin.clear();
-				cout << "Enter a Number: " << endl;
-				cin.ignore(256, '\n');
-				cin >> NumberToBeInserted;
+				std::cout << "Number entered exceeds list size..." << std::endl;
+				std::cout << "---------------------------------------------------" << std::endl;
 			}
-			list->InsertAfter(temp.GetNode(), NumberToBeInserted);
 		}
 	}
 	else

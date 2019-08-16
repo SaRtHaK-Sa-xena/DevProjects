@@ -1,13 +1,19 @@
 #include "Hash2.h"
+#include <time.h>
 using namespace std;
 
 
 void hashClass::AddItem(char name[50], char book[50], int id)
 {
+	//for easier reference
+	char empty[10] = { 'e','m','p','t','y' };
+
 	int index = Hash(name);
 
-	if (HashTable[index]->name == "empty") //index was -6 and it crashed
+	//finds index then checks if it's empty
+	if (HashTable[index]->name == empty) 
 	{
+		//then sets its name, book, item code to user input
 		HashTable[index]->name = name;
 		HashTable[index]->favBookName = book;
 		HashTable[index]->itemCode = id;
@@ -129,6 +135,7 @@ void hashClass::FindBook(string name)
 	item* Ptr = HashTable[index];
 	while (Ptr != NULL)
 	{
+		//if name found display its' book
 		if (Ptr->name == name)
 		{
 			foundName = true;
@@ -148,12 +155,16 @@ void hashClass::FindBook(string name)
 
 void hashClass::OverwriteBook(string name)
 {
+
 	int index = Hash(name);
 	bool foundName = false;
 	string book;
-	string newBook;
+
+	//input gained for new book title
+	char newBook[50];
 
 	item* Ptr = HashTable[index];
+	//while not at end of list
 	while (Ptr != NULL)
 	{
 		if (Ptr->name == name)
@@ -161,14 +172,15 @@ void hashClass::OverwriteBook(string name)
 			foundName = true;
 			book = Ptr->favBookName;
 			cout << "Enter New Book Title: " << endl;
-			cin >> newBook;
-			book = newBook;
+			cin.ignore(1);
+			cin.getline(newBook,50);
+			HashTable[index]->favBookName = newBook;
 		}
 		Ptr = Ptr->next;
 	}
 	if (foundName == true)
 	{
-		cout << "Favorite Book = " << book << endl;
+		cout << "New Favorite Book = " << newBook << endl;
 	}
 	else
 	{
@@ -178,6 +190,7 @@ void hashClass::OverwriteBook(string name)
 
 void hashClass::FindID(string name)
 {
+	//sets Index to that hash element
 	int index = Hash(name);
 	bool foundName = false;
 	int id_no;
@@ -185,6 +198,7 @@ void hashClass::FindID(string name)
 	item* Ptr = HashTable[index];
 	while (Ptr != NULL)
 	{
+		//if name found displays its ID
 		if (Ptr->name == name)
 		{
 			foundName = true;
@@ -282,6 +296,10 @@ int hashClass::Hash(string key)
 	int hash = 0;
 	int index;
 
+	srand(time(NULL));
+
+	int randomAmount = 1 + rand() % 10;
+
 	const int amount = 50;
 
 	for (int i = 0; i < key.length(); i++)
@@ -290,6 +308,12 @@ int hashClass::Hash(string key)
 	}
 
 	index = hash % tableSize; //index returned is the remainder between hash divided by table size
+
+	//makes sure hash is not a negative number
+	while (index < 0)
+	{
+		index = randomAmount + index;
+	}
 
 	return index; //returned index
 }

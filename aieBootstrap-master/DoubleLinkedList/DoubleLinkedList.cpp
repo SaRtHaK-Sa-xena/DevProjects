@@ -129,23 +129,30 @@ void DoubleLinkedList::InsertAfter(Node * prev_node, int a_value)
 {
 	if (!Empty())
 	{
-		Node *node = new Node();
-		Node *Node2 = prev_node->next;
+		//if (a_value < Count())
+		//{
+			Node *node = new Node();
+			Node *Node2 = prev_node->next;
 
-		if (Node2 == nullptr)
-		{
-			prev_node->next = node;
-			node->prev = prev_node;
-			node->m_data = a_value;
-		}
-		else
-		{
-			prev_node->next = node;
-			node->prev = prev_node;
-			node->next = Node2;
-			Node2->prev = node;
-			node->m_data = a_value;
-		}
+			if (Node2 == nullptr)
+			{
+				prev_node->next = node;
+				node->prev = prev_node;
+				node->m_data = a_value;
+			}
+			else
+			{
+				prev_node->next = node;
+				node->prev = prev_node;
+				node->next = Node2;
+				Node2->prev = node;
+				node->m_data = a_value;
+			}
+		//}
+		//else
+		//{
+			//std::cout << "Number entered exceeds list size..." << std::endl;
+		//}
 	}
 	else
 	{

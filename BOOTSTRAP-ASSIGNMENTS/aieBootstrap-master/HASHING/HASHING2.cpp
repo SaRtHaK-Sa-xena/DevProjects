@@ -18,27 +18,27 @@ int main()
 
 
 
-
 	while (cont)
 	{	
-		cout << "------(a)dd-------(r)emove-------(f)ind---(u)pdate---(p)rint---(e)xit---" << endl;
+		cout << "---(a)dd---(r)emove---(f)ind---(u)pdate---(p)rint---(e)xit---" << endl;
 		cin >> choice;
 
 		switch (choice)
 		{
 		case'a':
+			//Adds a new ITEM to HASH TABLE
 			cout << "\t\t\t adding..." << endl;
 			cout << "Enter Name: " << endl;
 			cin.ignore(1);
 			cin.getline(name, 50);
 			cout << "Enter Favourite Book: " << endl;
-			cin.ignore(1);
 			cin.getline(book,50);
 			cout << "Enter Unique id: " << endl;
 			cin >> ID;
 			Hashuse.AddItem(name, book, ID);
 			break;
 		case'r':
+			//Removes the intended NAME and its CONTENTS
 			cout << "\t\t\t removing..." << endl;
 			cout << "Find Person: " << endl;
 			cin >> name;
@@ -47,12 +47,13 @@ int main()
 
 
 		case'f':
+			//Finds either ID or BOOK depending on name
 			cout << "\t\t\t Finding..." << endl;
 			cout << "find (book) or (id)" << endl;
 			cin >> options;
 			if (options == "book")
 			{
-				cout << "Enter name to search: " << endl;
+				cout << "Enter Person's name to search: " << endl;
 				cin >> name;
 				cout << "Finding Book Name..." << endl;
 				cout << endl;
@@ -63,7 +64,7 @@ int main()
 			}
 			else if (options == "id")
 			{
-				cout << "Enter name to search" << endl;
+				cout << "Enter Person's name to search" << endl;
 				cin >> name;
 				cout << "Finding ID..." << endl;
 				cout << endl;
@@ -81,17 +82,23 @@ int main()
 
 
 		case'p':
+			//Prints Table
 			cout << "\t\t\t Printing..." << endl;
 			Hashuse.PrintTable();
 			break;
 
 		case'u':
+			//Updates Book Title
 			cout << "\t\t\t Updating..." << endl;
 			cout << "Updating Book Name.." << endl;
 			cout << endl;
 			cout << "===========================" << endl;
+			cout << "Which Person's book would you like to update" << std::endl;
+			cout << "Enter Person's name to Update: " << endl;
+			cin >> name;
 			Hashuse.OverwriteBook(name);
 			cout << "===========================" << endl;
+			break;
 		case'e':
 			return 0;
 		default:

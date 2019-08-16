@@ -25,7 +25,7 @@ int main()
 	while (cont)
 	{
 		cout << "What Do you want to Do? " << endl;
-		cout << "---(a)dd---(d)isplay---(s)ort---(f)ind---(c)popBack---(x)popFront---(m)anual---(z)clear---(b)setIndex---(,)copyConstructor---(e)xit---" << endl;
+		cout << "(d)isplay---(s)ort---(f)ind---(c)popBack---(x)popFront---(m)anual---(z)clear---(b)setIndex---(,)copyConstructor---(e)xit---" << endl;
 		cin >> choice;
 		switch (choice)
 		{
