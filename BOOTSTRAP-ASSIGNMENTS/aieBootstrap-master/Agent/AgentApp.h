@@ -42,7 +42,13 @@ protected:
 
 	Agent*				m_collectibles;
 	Agent*				m_collectibles1;
+	Agent*				m_collectibles2;
+	Agent*				m_collectibles3;
+	Agent*				m_collectibles4;
+	Agent*				m_collectibles5;
+	Agent*				m_collectibles6;
 
+	std::vector<Agent*>Rings;
 
 	WanderBehaviour*	m_wanderBehaviour; //wandering behaviour
 
@@ -62,6 +68,12 @@ protected:
 
 	// Holds Collision with Item
 	std::vector<Collider>collectibles;
+	std::vector<Collider>collectibles1;
+	std::vector<Collider>collectibles2;
+	std::vector<Collider>collectibles3;
+	std::vector<Collider>collectibles4;
+
+
 
 	// Holds Collision with Items In ItemCollision.h
 	std::vector<collectCollision>Items;
@@ -119,5 +131,15 @@ protected:
 
 	//checks If endNode has changed
 	bool pathChanged = false;
+
+	//Change In Behavior
+	bool startPathfinding = false;
+
+	//Items To Draw
+	bool drawItem = true;
+	bool drawItem2 = true;
+	bool drawItem3 = true;
+	bool drawItem4 = true;
+	bool drawItem5 = true;
 
 };
