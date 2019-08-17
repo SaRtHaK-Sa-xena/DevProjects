@@ -971,39 +971,6 @@ void AgentApp::draw() {
 
 
 
-	// 31 Nodes
-	// 27 Nodes
-	//m_2dRenderer->drawBox((30 * 2), (30 * 2), 10, 10);//0
-	//m_2dRenderer->drawBox((30 * 15), (30 * 2), 10, 10);//1
-	//m_2dRenderer->drawBox((30 * 15), (30 * 8), 10, 10);//2
-	//m_2dRenderer->drawBox((30 * 8), (30 * 10), 10, 10);//3
-	//m_2dRenderer->drawBox((30 * 2), (30 * 5), 10, 10);//4
-	//m_2dRenderer->drawBox((30 * 2), (30 * 22), 10, 10);//5
-	//m_2dRenderer->drawBox((30 * 16), (30 * 16), 10, 10);//6
-	//m_2dRenderer->drawBox((30 * 16), (30 * 20), 10, 10);//7
-	//m_2dRenderer->drawBox((30 * 12), (30 * 20), 10, 10);//8
-	//m_2dRenderer->drawBox((30 * 23), (30 * 22), 10, 10);//9
-	//m_2dRenderer->drawBox((30 * 23), (30 * 14), 10, 10);//10
-	//m_2dRenderer->drawBox((30 * 27), (30 * 14), 10, 10);//11
-	//m_2dRenderer->drawBox((30 * 19), (30 * 14), 10, 10);//12
-	//m_2dRenderer->drawBox((30 * 19), (30 * 17), 10, 10);//13
-	//m_2dRenderer->drawBox((30 * 14), (30 * 17), 10, 10);//14
-	//m_2dRenderer->drawBox((30 * 8), (30 * 17), 10, 10);//15
-	//m_2dRenderer->drawBox((30 * 8), (30 * 14), 10, 10);//16
-	//m_2dRenderer->drawBox((30 * 27), (30 * 2), 10, 10);//17
-	//m_2dRenderer->drawBox((30 * 27), (30 * 8), 10, 10);//18
-	//m_2dRenderer->drawBox((30 * 27), (30 * 11), 10, 10);//19
-	//m_2dRenderer->drawBox((30 * 40), (30 * 2), 10, 10);//20
-	//m_2dRenderer->drawBox((30 * 40), (30 * 5), 10, 10);//21
-	//m_2dRenderer->drawBox((30 * 32), (30 * 5), 10, 10);//22
-	//m_2dRenderer->drawBox((30 * 32), (30 * 11), 10, 10);//23
-	//m_2dRenderer->drawBox((30 * 32), (30 * 19), 10, 10);//24
-	//m_2dRenderer->drawBox((30 * 27), (30 * 19), 10, 10);//25
-	//m_2dRenderer->drawBox((30 * 40), (30 * 19), 10, 10);//26
-	//m_2dRenderer->drawBox((30 * 40), (30 * 22), 10, 10);//27
-
-
-
 	// done drawing sprites
 	m_2dRenderer->end();
 }

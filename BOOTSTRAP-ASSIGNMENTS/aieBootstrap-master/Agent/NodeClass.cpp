@@ -414,8 +414,22 @@ std::vector<Node*> dijkstrasSeatch(Node *startNode, Node *endNode, Agent* finder
 	}
 
 	//return correct Path
-	return Path;
+
+	//resets the Nodes after it calculates the correct path
+	for (int i = 0; i < listOfNodes.size(); i++)
+	{
+		if (listOfNodes[i]->inOpenList == true)
+		{
+			listOfNodes[i]->inOpenList = false;
+		}
+		if (listOfNodes[i]->inClosedList == true)
+		{
+			listOfNodes[i]->inClosedList = false;
+		}
+	}
+
 	std::cout << "Path returned..." << std::endl;
+	return Path;
 }
 		//	for (int i = 0; i < nodeWall.size(); i++)
 		//	{
