@@ -51,8 +51,6 @@ protected:
 	Agent*				m_collectibles5;
 	Agent*				m_collectibles6;
 
-	std::vector<Agent*>Rings;
-
 
 	aie::Texture*		m_playerTexture; //player 
 	aie::Texture*		m_enemyTexture; //enemy
@@ -87,9 +85,6 @@ protected:
 	// Holds Nodes With Wall Points
 	std::vector<Node*>Wall;
 
-	// Holds Nodes With Item Points
-	std::vector<Node*>ItemCollectibles;
-
 	// Holds current path returned from Dijkstra
 	std::vector<Node*>currentPath;
 	//===================NODES====================
@@ -99,9 +94,6 @@ protected:
 
 	//iterator for node Vector in curentPath
 	int currentNode = 0;
-
-	//Timer For Path
-	float timer = 20;
 
 	//temporary Node
 	Node* temporaryNode = new Node();
@@ -138,13 +130,16 @@ protected:
 	bool startPathfinding = false;
 
 	//Items To Draw
-	bool drawItem = true;
-	bool drawItem2 = true;
-	bool drawItem3 = true;
-	bool drawItem4 = true;
-	bool drawItem5 = true;
+	bool drawItem = false;
+	bool drawItem2 = false;
+	bool drawItem3 = false;
+	bool drawItem4 = false;
+	bool drawItem5 = false;
 
-	// To Find Check
+	// To Find If Pathfinding Needs to be activated
 	bool check = false;
+
+	//Check For Collision
+	bool checkCollisionForEnemy = true;
 
 };

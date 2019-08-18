@@ -20,6 +20,9 @@ public:
 	// Add a behaviour to the agent
 	void AddBehaviour(Behaviour* behaviour);
 
+	// Remove a behaviour of an agent
+	void RemoveBehaviour();
+
 	// Movement functions
 	void SetPosition(Vector2 position) { m_Position = position; } //m_Position.m_y = position.m_y; } //would consist of (x,y)
 	Vector2 GetPosition() { return m_Position; }

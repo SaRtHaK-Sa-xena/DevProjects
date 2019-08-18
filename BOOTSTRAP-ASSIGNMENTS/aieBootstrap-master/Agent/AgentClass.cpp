@@ -32,3 +32,8 @@ void Agent::AddBehaviour(Behaviour * behaviour)
 	m_BehaviourList.push_back(behaviour);
 }
 
+void Agent::RemoveBehaviour()
+{
+	m_BehaviourList.pop_back();
+}
+

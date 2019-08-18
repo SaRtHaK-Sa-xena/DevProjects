@@ -24,7 +24,6 @@ bool AgentApp::startup() {
 	collectibles2.resize(5); //sets collectible vector to 10 
 	collectibles3.resize(5); //sets collectible vector to 10 
 	collectibles4.resize(5); //sets collectible vector to 10 
-	Items.resize(10); //sets 10 items
 
 
 
@@ -68,103 +67,29 @@ bool AgentApp::startup() {
 	//================ITEMS=================
 	//Item Nodes
 
+
+
+	
+	
 	//-----------------ITEM 1---------------
-	Node* itemNode = new Node(Vector2(30 * 20, 30 * 8), item); 
-	itemNode->parent = nullptr;
-	ItemCollectibles.push_back(itemNode);
-	
-	itemNode = new Node(Vector2(30 * 15, 30 * 2), item);
-	itemNode->parent = nullptr;
-	ItemCollectibles.push_back(itemNode);
-
-
-	
-	
 	m_collectibles = new Agent();
 	m_collectibles->SetPosition(Vector2(30*2, 30*2));
 
+	//-----------------ITEM 2---------------
 	m_collectibles1 = new Agent();
 	m_collectibles1->SetPosition(Vector2(30*40, 30*2));
 
+	//-----------------ITEM 3---------------
 	m_collectibles2 = new Agent();
 	m_collectibles2->SetPosition(Vector2(30*20, 30*8));
 
+	//-----------------ITEM 4---------------
 	m_collectibles3 = new Agent();
 	m_collectibles3->SetPosition(Vector2(30*22, 30*22));
 
+	//-----------------ITEM 5---------------
 	m_collectibles4 = new Agent();
 	m_collectibles4->SetPosition(Vector2(30*3, 30*15));
-
-
-	////ITEM NO 1
-	//Items.push_back({ {398,263},{398,312},leftSide, ItemNO1 });
-	//Items.push_back({ {398,263},{454,262},topSide, ItemNO1 });
-	//Items.push_back({ {454,263},{454,312},rightSide, ItemNO1 });
-	//Items.push_back({ {398,312},{454,313},bottomSide, ItemNO1 });
-
-	////ITEM NO 2
-	//Items.push_back({ {585,483},{585,503},leftSide, ItemNO2 });
-	//Items.push_back({ {585,483},{651,453},topSide, ItemNO2 });
-	//Items.push_back({ {641,453},{641,503},rightSide, ItemNO2 });
-	//Items.push_back({ {587,502},{641,503},bottomSide, ItemNO2 });
-
-	////ITEM NO 3
-	//Items.push_back({ {43,636},{43,685},leftSide, ItemNO3 });
-	//Items.push_back({ {43,636},{97,636},topSide, ItemNO3 });
-	//Items.push_back({ {98,636},{98,685},rightSide, ItemNO3 });
-	//Items.push_back({ {42,684},{97,685},bottomSide, ItemNO3 });
-
-	////ITEM NO 4
-	//Items.push_back({ {588,631},{588,680},leftSide, ItemNO4 });
-	//Items.push_back({ {587,631},{643,630},topSide, ItemNO4 });
-	//Items.push_back({ {643,630},{643,680},rightSide, ItemNO4 });
-	//Items.push_back({ {588,680},{643,680},bottomSide, ItemNO4 });
-
-	////ITEM NO 5
-	//Items.push_back({ {934,533},{934,583},leftSide, ItemNO5 });
-	//Items.push_back({ {934,533},{989,532},topSide, ItemNO5 });
-	//Items.push_back({ {988,533},{989,583},rightSide, ItemNO5 });
-	//Items.push_back({ {934,683},{989,582},bottomSide, ItemNO5 });
-
-	////ITEM NO 6
-	//Items.push_back({ {1173,634},{1172,685},leftSide, ItemNO6 });
-	//Items.push_back({ {1173,634},{1226,634},topSide, ItemNO6 });
-	//Items.push_back({ {1227,635},{1227,684},rightSide, ItemNO6 });
-	//Items.push_back({ {1173,684},{1227,684},bottomSide, ItemNO6 });
-
-	////ITEM NO 7
-	//Items.push_back({ {943,216},{943,265},leftSide, ItemNO7 });
-	//Items.push_back({ {943,216},{998,216},topSide, ItemNO7 });
-	//Items.push_back({ {998,216},{997,265},rightSide, ItemNO7 });
-	//Items.push_back({ {942,266},{997,265},bottomSide, ItemNO7 });
-
-
-	////ITEM NO 8
-	//Items.push_back({ {1138,46},{1138,94},leftSide, ItemNO8 });
-	//Items.push_back({ {1138,46},{1192,45},topSide, ItemNO8 });
-	//Items.push_back({ {1192,46},{1193,94},rightSide, ItemNO8 });
-	//Items.push_back({ {1138,94},{1193,94},bottomSide, ItemNO8 });
-
-	////ITEM NO 9
-	//Items.push_back({ {625,36},{625,85},leftSide, ItemNO9 });
-	//Items.push_back({ {625,36},{680,35},topSide, ItemNO9 });
-	//Items.push_back({ {679,35},{680,86},rightSide, ItemNO9 });
-	//Items.push_back({ {625,85},{680,85},bottomSide, ItemNO9 });
-
-	////ITEM NO 10
-	//Items.push_back({ {52,245},{52,295},leftSide, ItemNO10 });
-	//Items.push_back({ {52,245},{107,246},topSide, ItemNO10 });
-	//Items.push_back({ {107,246},{107,295},rightSide, ItemNO10 });
-	//Items.push_back({ {52,295},{107,295},bottomSide, ItemNO10 });
-
-	//m_collectibles2 = new Agent();
-	//m_collectibles
-	//m_enemyWander = new Agent();
-	//m_enemyWander->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
-
-
-	//m_enemyWander->AddBehaviour(m_wanderBehaviour);
-
 
 	//Collider Walls Sets Configuration
 	//Notes While Coding-
@@ -257,9 +182,9 @@ bool AgentApp::startup() {
 	//==========================Bar 7==========================
 
 	//==========================Bar 8==========================
-	walls.push_back({ {1071,560},{1092,560},topSide });
+	walls.push_back({ {1071,565},{1092,560},topSide });
 	walls.push_back({ {1065,558}, {1071,205},leftSide });
-	walls.push_back({ {1070,205},{1091,204 }, bottomSide });
+	walls.push_back({ {1070,210},{1091,204 }, bottomSide });
 	walls.push_back({ {1087,559},{1093,205}, rightSide });
 	//----> Diagram
 	//		|
@@ -477,6 +402,16 @@ bool AgentApp::startup() {
 	}
 	//=========================WALL 8===========================
 	
+
+	//=========================WALL 9===========================
+	amount = 20;
+	for (int i = 7; i < amount; i++)
+	{
+		Node *setterWall = new Node(Vector2((30 * 36), (30 * i)), wall);
+		Wall.push_back(setterWall);
+	}
+	//=========================WALL 9===========================
+
 	
 	//add these to 
 
@@ -627,6 +562,11 @@ void AgentApp::update(float deltaTime) {
 			startGame = true; //start game
 			drawMainMenu = false; //don't draw Main Menu
 			createdEntity = false; //set position of player, and enemy
+			drawItem = true;
+			drawItem2 = true;
+			drawItem3 = true;
+			drawItem4 = true;
+			drawItem5 = true;
 		}
 		else
 		{
@@ -640,7 +580,7 @@ void AgentApp::update(float deltaTime) {
 	if (createdEntity == false)
 	{
 		m_enemy->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));// sets starting position for enemy
-		m_player->SetPosition(Vector2((60*1),(60*1)));
+		m_player->SetPosition(Vector2((30*20),(30*2)));
 		createdEntity = true;
 	}
 
@@ -663,9 +603,11 @@ void AgentApp::update(float deltaTime) {
 		}
 		if (Score > 2 && check == false)
 		{
+			m_enemy->RemoveBehaviour();
 			m_enemy->AddBehaviour(m_findPathBehaviour);
 			startPathfinding = true;
 			check = true;
+			checkCollisionForEnemy = false;
 		}
 
 		if (startPathfinding == true)
@@ -807,8 +749,69 @@ void AgentApp::update(float deltaTime) {
 			}
 		}
 
+		if (checkCollisionForEnemy)
+		{
+			//Checks For Collision With Enemy
+			//checks for OuterEdge (LEFT SIDE)
+			if (m_enemy->GetPosition().m_x < 25)
+			{
+				m_enemy->SetVelocity(Vector2(0, m_enemy->GetVelocity().m_y)); //only changes x not y
+				m_enemy->SetPosition(Vector2(m_enemy->GetPosition().m_x + 25, m_enemy->GetPosition().m_y));
+			}
+			//checks for OuterEdge (RIGHT SIDE)
+			if (m_enemy->GetPosition().m_x > 1250)
+			{
+				m_enemy->SetVelocity(Vector2(0, m_enemy->GetVelocity().m_y)); //only changes x not y
+				m_enemy->SetPosition(Vector2(m_enemy->GetPosition().m_x - 25, m_enemy->GetPosition().m_y));
+			}
+			//checks for OuterEdge (TOP SIDE)
+			if (m_enemy->GetPosition().m_y > 700)
+			{
+				m_enemy->SetVelocity(Vector2(m_enemy->GetVelocity().m_x, 0)); //only changes y not x
+				m_enemy->SetPosition(Vector2(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y - 25));
+			}
+			//checks for OuterEdge (BOTTOM SIDE)
+			if (m_enemy->GetPosition().m_y < 30)
+			{
+				m_enemy->SetVelocity(Vector2(m_enemy->GetVelocity().m_x, 0)); //only changes y not x
+				m_enemy->SetPosition(Vector2(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y + 25));
+			}
+			//=============CHECKS COLLISION FOR OUTSIDE EDGE================
 
-		
+
+			//Checks for collision for ENEMY
+			for (int i = 0; i < walls.size(); i++)
+			{
+				if ((m_enemy->GetPosition().m_x < walls[i].BottomRightPosition.m_x && m_enemy->GetPosition().m_x > walls[i].TopLeftposition.m_x)
+					&& (m_enemy->GetPosition().m_y > walls[i].BottomRightPosition.m_y && m_enemy->GetPosition().m_y < walls[i].TopLeftposition.m_y))
+					//This check is basically making sure the player is inside these parameters of topLeft (x,y) and bottomRight (x,y)
+				{
+					switch (walls[i].sideOfWall)
+					{
+					case rightSide:
+						m_enemy->SetPosition(Vector2(m_enemy->GetPosition().m_x + 15, m_enemy->GetPosition().m_y));
+						m_enemy->SetVelocity(Vector2(0, m_enemy->GetVelocity().m_y)); //only changes x not y
+						break;
+
+					case leftSide:
+						m_enemy->SetPosition(Vector2(m_enemy->GetPosition().m_x - 15, m_enemy->GetPosition().m_y));
+						m_enemy->SetVelocity(Vector2(0, m_enemy->GetVelocity().m_y)); //only changes x not y
+						break;
+
+					case topSide:
+						m_enemy->SetPosition(Vector2(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y + 15));
+						m_enemy->SetVelocity(Vector2(m_enemy->GetVelocity().m_x, 0)); //only changes y not x
+						break;
+
+					case bottomSide:
+						m_enemy->SetVelocity(Vector2(m_enemy->GetVelocity().m_x, 0)); //only changes y not x
+						m_enemy->SetPosition(Vector2(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y - 15));
+						break;
+					}
+
+				}
+			}
+		}
 		
 
 		//Collision Test for Player Contact With Enemy
@@ -1099,7 +1102,8 @@ void AgentApp::draw() {
 	m_2dRenderer->begin();
 
 	// draw your stuff here!
-	
+
+
 	//Background Texture
 	m_2dRenderer->drawSprite(m_backgroundTexture, getWindowWidth()/2, getWindowHeight() / 2, getWindowWidth(), getWindowHeight());
 	
@@ -1124,6 +1128,20 @@ void AgentApp::draw() {
 	if(drawItem5)
 		m_collectibles4->Draw(m_2dRenderer, m_itemTexture);
 
+
+	m_2dRenderer->drawBox(30*36, 30*7, 10, 10);
+	m_2dRenderer->drawBox(30*36, 30*8, 10, 10);
+	m_2dRenderer->drawBox(30*36, 30*9, 10, 10);
+	m_2dRenderer->drawBox(30*36, 30*10, 10, 10);
+	m_2dRenderer->drawBox(30*36, 30*11, 10, 10);
+	m_2dRenderer->drawBox(30*36, 30*12, 10, 10);
+	m_2dRenderer->drawBox(30*36, 30*13, 10, 10);
+	m_2dRenderer->drawBox(30*36, 30*14, 10, 10);
+	m_2dRenderer->drawBox(30*36, 30*15, 10, 10);
+	m_2dRenderer->drawBox(30*36, 30*16, 10, 10);
+	m_2dRenderer->drawBox(30*36, 30*17, 10, 10);
+	m_2dRenderer->drawBox(30*36, 30*18, 10, 10);
+	m_2dRenderer->drawBox(30*36, 30*19, 10, 10);
 
 	//Wander (ENEMY)
 	//m_enemyWander->Draw(m_2dRenderer, m_enemyTexture);
