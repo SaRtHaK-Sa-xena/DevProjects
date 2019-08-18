@@ -25,8 +25,8 @@ public:
 	virtual Vector2 Update(Agent* agent, float deltaTime);
 
 private:
-	float speed = 100, distance = 20;
-	float radius = rand() % 10 - 5;
+	float speed = 100, distance = 20; //100 and 20
+	float radius = rand() % 10 - 5; //10 - 5
 	int degree = 0;
 	float jitter;
 	float jitterHalf;

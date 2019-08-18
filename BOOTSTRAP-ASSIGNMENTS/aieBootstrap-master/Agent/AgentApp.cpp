@@ -62,8 +62,9 @@ bool AgentApp::startup() {
 	m_enemy = new Agent();
 	m_enemyCollector = new Agent();
 	m_findPathBehaviour = new PathfindBehaviour();
+	m_wanderBehaviour = new WanderBehaviour();
 	m_enemyCollector->AddBehaviour(m_findPathBehaviour);
-	m_enemy->AddBehaviour(m_findPathBehaviour);
+	m_enemy->AddBehaviour(m_wanderBehaviour);
 	//================ITEMS=================
 	//Item Nodes
 
@@ -162,7 +163,6 @@ bool AgentApp::startup() {
 	//m_enemyWander->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
 
 
-	//m_wanderBehaviour = new WanderBehaviour();
 	//m_enemyWander->AddBehaviour(m_wanderBehaviour);
 
 
@@ -639,8 +639,8 @@ void AgentApp::update(float deltaTime) {
 	//Checks If The Player And Enemy Should be Drawn
 	if (createdEntity == false)
 	{
-		m_enemy->SetPosition(Vector2(60*1, 60*1));// sets starting position for enemy
-		m_player->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));
+		m_enemy->SetPosition(Vector2(getWindowWidth() / 2.f, getWindowHeight() / 2.f));// sets starting position for enemy
+		m_player->SetPosition(Vector2((60*1),(60*1)));
 		createdEntity = true;
 	}
 
@@ -657,7 +657,17 @@ void AgentApp::update(float deltaTime) {
 		
 		//m_enemyWander->Update(deltaTime); //calls update on wanderingEnemy changing it's force
 										 //and direction it's pointing
-		
+		if (Score <= 2)
+		{
+			m_enemy->Update(deltaTime);
+		}
+		if (Score > 2 && check == false)
+		{
+			m_enemy->AddBehaviour(m_findPathBehaviour);
+			startPathfinding = true;
+			check = true;
+		}
+
 		if (startPathfinding == true)
 		{
 			if (pathFound == false)
@@ -1117,7 +1127,7 @@ void AgentApp::draw() {
 
 	//Wander (ENEMY)
 	//m_enemyWander->Draw(m_2dRenderer, m_enemyTexture);
-	//m_2dRenderer->drawLine(m_enemyWander->GetPosition().m_x, m_enemyWander->GetPosition().m_y, m_enemyWander->GetVelocity().m_x * 1000 + m_enemyWander->GetPosition().m_x, m_enemyWander->GetVelocity().m_y * 1000 + m_enemyWander->GetPosition().m_y,5);
+	m_2dRenderer->drawLine(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y, m_enemy->GetVelocity().m_x * 1000 + m_enemy->GetPosition().m_x, m_enemy->GetVelocity().m_y * 1000 + m_enemy->GetPosition().m_y,5);
 	
 	//Seek Player (ENEMY)
 	//m_enemy->Draw(m_2dRenderer,m_enemyTexture);

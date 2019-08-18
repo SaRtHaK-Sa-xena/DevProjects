@@ -40,6 +40,9 @@ protected:
 	Agent*				m_enemyCollector;// uses Seek to follow the paths
 	PathfindBehaviour*  m_findPathBehaviour;// returns the shortest path
 
+	WanderBehaviour*	m_wanderBehaviour; //wandering behaviour
+
+
 	Agent*				m_collectibles;
 	Agent*				m_collectibles1;
 	Agent*				m_collectibles2;
@@ -50,7 +53,6 @@ protected:
 
 	std::vector<Agent*>Rings;
 
-	WanderBehaviour*	m_wanderBehaviour; //wandering behaviour
 
 	aie::Texture*		m_playerTexture; //player 
 	aie::Texture*		m_enemyTexture; //enemy
@@ -141,5 +143,8 @@ protected:
 	bool drawItem3 = true;
 	bool drawItem4 = true;
 	bool drawItem5 = true;
+
+	// To Find Check
+	bool check = false;
 
 };

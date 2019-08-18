@@ -8,22 +8,22 @@ Vector2 WanderBehaviour::Update(Agent * agent, float deltaTime)
 {
 
 
-
+	//Reworked everything increased by 5
 	//targets position as random
-	jitter = (rand() % 5) - 2.5;
-	float jitterDifference = rand() % 5;
+	jitter = (rand() % 15) - 10;
+	float jitterDifference = rand() % 15;
 	jitterHalf = jitter / 2;
 
 	Vector2 displacement;
 
 	displacement.m_x = jitter;
-	jitter = rand() % 5 - 2.5;
+	jitter = rand() % 15 - 10;
 	displacement.m_y = jitter;
 	while (displacement.magnitude() == 0)
 	{
-		jitter = rand() % 5 - 2.5;
+		jitter = rand() % 15 - 10;
 		displacement.m_x = jitter;
-		jitter = rand() % 5 - 2.5;
+		jitter = rand() % 15 - 10;
 		displacement.m_y = jitter;
 		std::cout << "still 0" << std::endl;
 	}
@@ -42,7 +42,7 @@ Vector2 WanderBehaviour::Update(Agent * agent, float deltaTime)
 	wanderForceApplied = agent->GetVelocity() - targetToFollow;
 	wanderForceApplied.normalise();
 	wanderForceApplied = wanderForceApplied - agent->GetVelocity(); //minus the agent's current normalised velocity --> so direction
-	wanderForceApplied = wanderForceApplied * speed * deltaTime;
+	wanderForceApplied = wanderForceApplied * speed * 0.3;
 	return wanderForceApplied;
 }
 
