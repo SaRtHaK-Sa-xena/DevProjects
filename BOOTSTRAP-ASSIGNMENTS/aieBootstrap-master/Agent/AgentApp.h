@@ -142,4 +142,8 @@ protected:
 	//Check For Collision
 	bool checkCollisionForEnemy = true;
 
+	//Check To Draw Player And Enemy
+	bool drawPlayerAndEnemy = false;
+
+
 };

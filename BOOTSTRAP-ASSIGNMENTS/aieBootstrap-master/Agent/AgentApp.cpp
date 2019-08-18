@@ -62,8 +62,8 @@ bool AgentApp::startup() {
 	m_enemyCollector = new Agent();
 	m_findPathBehaviour = new PathfindBehaviour();
 	m_wanderBehaviour = new WanderBehaviour();
-	m_enemyCollector->AddBehaviour(m_findPathBehaviour);
-	m_enemy->AddBehaviour(m_wanderBehaviour);
+	//m_enemyCollector->AddBehaviour(m_findPathBehaviour);
+	//m_enemy->AddBehaviour(m_wanderBehaviour);
 	//================ITEMS=================
 	//Item Nodes
 
@@ -71,25 +71,7 @@ bool AgentApp::startup() {
 
 	
 	
-	//-----------------ITEM 1---------------
-	m_collectibles = new Agent();
-	m_collectibles->SetPosition(Vector2(30*2, 30*2));
-
-	//-----------------ITEM 2---------------
-	m_collectibles1 = new Agent();
-	m_collectibles1->SetPosition(Vector2(30*40, 30*2));
-
-	//-----------------ITEM 3---------------
-	m_collectibles2 = new Agent();
-	m_collectibles2->SetPosition(Vector2(30*20, 30*8));
-
-	//-----------------ITEM 4---------------
-	m_collectibles3 = new Agent();
-	m_collectibles3->SetPosition(Vector2(30*22, 30*22));
-
-	//-----------------ITEM 5---------------
-	m_collectibles4 = new Agent();
-	m_collectibles4->SetPosition(Vector2(30*3, 30*15));
+	
 
 	//Collider Walls Sets Configuration
 	//Notes While Coding-
@@ -431,6 +413,25 @@ bool AgentApp::startup() {
 	//============================================================
 	
 
+	//-----------------ITEM 1---------------
+	m_collectibles = new Agent();
+	m_collectibles->SetPosition(Vector2(30 * 2, 30 * 2));
+
+	//-----------------ITEM 2---------------
+	m_collectibles1 = new Agent();
+	m_collectibles1->SetPosition(Vector2(30 * 40, 30 * 2));
+
+	//-----------------ITEM 3---------------
+	m_collectibles2 = new Agent();
+	m_collectibles2->SetPosition(Vector2(30 * 20, 30 * 8));
+
+	//-----------------ITEM 4---------------
+	m_collectibles3 = new Agent();
+	m_collectibles3->SetPosition(Vector2(30 * 22, 30 * 22));
+
+	//-----------------ITEM 5---------------
+	m_collectibles4 = new Agent();
+	m_collectibles4->SetPosition(Vector2(30 * 3, 30 * 15));
 	//Tracks Item For Collision //Reworked Increased by 5 //Reworked Increased by 10 //Reworked Increased by 15
 	collectibles[0].TopLeftposition = Vector2(m_collectibles->GetPosition().m_x - 30, m_collectibles->GetPosition().m_y + 40);
 	collectibles[0].BottomRightPosition = Vector2(m_collectibles->GetPosition().m_x + 25, m_collectibles->GetPosition().m_y + 35);
@@ -562,11 +563,16 @@ void AgentApp::update(float deltaTime) {
 			startGame = true; //start game
 			drawMainMenu = false; //don't draw Main Menu
 			createdEntity = false; //set position of player, and enemy
+			drawPlayerAndEnemy = true;
 			drawItem = true;
 			drawItem2 = true;
 			drawItem3 = true;
 			drawItem4 = true;
 			drawItem5 = true;
+			Score = 0;
+			deltaTime = 0;
+			m_enemy->AddBehaviour(m_wanderBehaviour);
+
 		}
 		else
 		{
@@ -591,7 +597,7 @@ void AgentApp::update(float deltaTime) {
 	//Starts Game
 	if (startGame == true)
 	{
-
+		
 		m_player->Update(deltaTime); //since player has keyboard behaviour there is no need for
 		//							 //an input function in update
 		
@@ -609,6 +615,8 @@ void AgentApp::update(float deltaTime) {
 			check = true;
 			checkCollisionForEnemy = false;
 		}
+
+		
 
 		if (startPathfinding == true)
 		{
@@ -655,13 +663,6 @@ void AgentApp::update(float deltaTime) {
 				//commenting it out for now
 				m_enemy->Update(deltaTime);
 			}
-		}
-
-
-		//Error Being Pulled Here
-		if (Score > 5) //if score greater than 5 make enemy seek
-		{
-			m_enemy->AddBehaviour(m_wanderBehaviour); //for now will be wandering
 		}
 
 
@@ -827,24 +828,28 @@ void AgentApp::update(float deltaTime) {
 					m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 					std::cout << "Right Contact Enemy" << std::endl;
 					startGame = false;
+					drawPlayerAndEnemy = false;
 					break;
 
 				case leftSide:
 					m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 					std::cout << "Left Contact Enemy" << std::endl;
 					startGame = false;
+					drawPlayerAndEnemy = false;
 					break;
 
 				case topSide:
 					m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 					std::cout << "Top Contact Enemy" << std::endl;
 					startGame = false;
+					drawPlayerAndEnemy = false;
 					break;
 
 				case bottomSide:
 					m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 					std::cout << "Bottom Contact Enemy" << std::endl;
 					startGame = false;
+					drawPlayerAndEnemy = false;
 					break;
 				}
 
@@ -866,7 +871,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 						std::cout << "Right Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles;
 						drawItem = false;
 						break;
 
@@ -874,7 +878,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 						std::cout << "Left Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles;
 						drawItem = false;
 						break;
 
@@ -882,7 +885,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 						std::cout << "Top Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles;
 						drawItem = false;
 						break;
 
@@ -890,7 +892,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 						std::cout << "Bottom Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles;
 						drawItem = false;
 						break;
 					}
@@ -919,7 +920,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 						std::cout << "Left Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles1;
 						drawItem2 = false;
 						break;
 
@@ -927,7 +927,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 						std::cout << "Top Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles1;
 						drawItem2 = false;
 						break;
 
@@ -935,7 +934,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 						std::cout << "Bottom Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles1;
 						drawItem2 = false;
 						break;
 					}
@@ -957,7 +955,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 						std::cout << "Right Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles2;
 						drawItem3 = false;
 						break;
 
@@ -965,7 +962,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 						std::cout << "Left Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles2;
 						drawItem3 = false;
 						break;
 
@@ -973,7 +969,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 						std::cout << "Top Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles2;
 						drawItem3 = false;
 						break;
 
@@ -981,7 +976,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 						std::cout << "Bottom Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles2;
 						drawItem3 = false;
 						break;
 					}
@@ -1003,7 +997,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 						std::cout << "Right Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles3;
 						drawItem4 = false;
 						break;
 
@@ -1011,7 +1004,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 						std::cout << "Left Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles3;
 						drawItem4 = false;
 						break;
 
@@ -1019,7 +1011,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 						std::cout << "Top Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles3;
 						drawItem4 = false;
 						break;
 
@@ -1027,7 +1018,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 						std::cout << "Bottom Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles3;
 						drawItem4 = false;
 						break;
 					}
@@ -1049,7 +1039,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 						std::cout << "Right Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles4;
 						drawItem5 = false;
 						break;
 
@@ -1057,7 +1046,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 						std::cout << "Left Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles4;
 						drawItem5 = false;
 						break;
 
@@ -1065,7 +1053,6 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 						std::cout << "Top Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles4;
 						drawItem5 = false;
 						break;
 
@@ -1073,13 +1060,20 @@ void AgentApp::update(float deltaTime) {
 						//m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 						std::cout << "Bottom Contact Collectible" << std::endl;
 						Score++;
-						delete m_collectibles4;
 						drawItem5 = false;
 						break;
 					}
 
 				}
 			}
+		}
+		if (Score == 5)
+		{
+			//draw You Win
+			startGame = false;
+			m_enemy->RemoveBehaviour();
+			check = false;
+			checkCollisionForEnemy = true;
 		}
 		//Condition To end game --> runs Check to see score
 
@@ -1110,13 +1104,13 @@ void AgentApp::draw() {
 	//Draw Main Menu
 	if(drawMainMenu)
 		m_2dRenderer->drawSprite(m_mainMenuTexture, getWindowWidth() / 2, getWindowHeight() / 2, getWindowWidth(), getWindowHeight());
-	//Seek Player (ENEMY)
-	m_enemy->Draw(m_2dRenderer, m_enemyTexture);
-	//Keyboard Movement (PLAYER)
-	m_player->Draw(m_2dRenderer, m_playerTexture);
+	
+	if(drawPlayerAndEnemy)
+		//Keyboard Movement (PLAYER)
+		m_player->Draw(m_2dRenderer, m_playerTexture);
+		//Seek Player (ENEMY)
+		m_enemy->Draw(m_2dRenderer, m_enemyTexture);
 
-	//Pathfinding Movement (ENEMY ITEM COLLECTOR)
-	m_enemyCollector->Draw(m_2dRenderer, m_enemyCollectorTexture);
 	if(drawItem)
 		m_collectibles->Draw(m_2dRenderer, m_itemTexture);
 	if(drawItem2)
@@ -1128,27 +1122,9 @@ void AgentApp::draw() {
 	if(drawItem5)
 		m_collectibles4->Draw(m_2dRenderer, m_itemTexture);
 
-
-	m_2dRenderer->drawBox(30*36, 30*7, 10, 10);
-	m_2dRenderer->drawBox(30*36, 30*8, 10, 10);
-	m_2dRenderer->drawBox(30*36, 30*9, 10, 10);
-	m_2dRenderer->drawBox(30*36, 30*10, 10, 10);
-	m_2dRenderer->drawBox(30*36, 30*11, 10, 10);
-	m_2dRenderer->drawBox(30*36, 30*12, 10, 10);
-	m_2dRenderer->drawBox(30*36, 30*13, 10, 10);
-	m_2dRenderer->drawBox(30*36, 30*14, 10, 10);
-	m_2dRenderer->drawBox(30*36, 30*15, 10, 10);
-	m_2dRenderer->drawBox(30*36, 30*16, 10, 10);
-	m_2dRenderer->drawBox(30*36, 30*17, 10, 10);
-	m_2dRenderer->drawBox(30*36, 30*18, 10, 10);
-	m_2dRenderer->drawBox(30*36, 30*19, 10, 10);
-
 	//Wander (ENEMY)
 	//m_enemyWander->Draw(m_2dRenderer, m_enemyTexture);
 	m_2dRenderer->drawLine(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y, m_enemy->GetVelocity().m_x * 1000 + m_enemy->GetPosition().m_x, m_enemy->GetVelocity().m_y * 1000 + m_enemy->GetPosition().m_y,5);
-	
-	//Seek Player (ENEMY)
-	//m_enemy->Draw(m_2dRenderer,m_enemyTexture);
 
 	char Var[256];
 	sprintf(Var, "SCORE: %d", Score);
@@ -1180,8 +1156,3 @@ Node * AgentApp::FindClosestNode(Vector2 Position)
 
 	return temp;
 }
-//temp->position = nodesList[i]->position;
-//		if (Position == temp->position)
-//		{
-//
-//		}*/
