@@ -35,6 +35,9 @@ bool AgentApp::startup() {
 	//sets Background Texture
 	m_backgroundTexture = new aie::Texture("../bin/textures/Background.png");
 
+	//Sets The Win Screen Texture
+	m_winTexture = new aie::Texture("../bin/textures/winScreen.png");
+
 	//sets Player Texture
 	m_playerTexture = new aie::Texture("../bin/textures/ship.png");
 
@@ -554,6 +557,10 @@ void AgentApp::update(float deltaTime) {
 	{
 		drawNodesOnScreen = true;
 	}
+
+	
+
+
 	//Condition to start the game
 	if (startGame == false)
 	{
@@ -564,6 +571,8 @@ void AgentApp::update(float deltaTime) {
 			drawMainMenu = false; //don't draw Main Menu
 			createdEntity = false; //set position of player, and enemy
 			drawPlayerAndEnemy = true;
+
+			//draw Items
 			drawItem = true;
 			drawItem2 = true;
 			drawItem3 = true;
@@ -572,7 +581,7 @@ void AgentApp::update(float deltaTime) {
 			Score = 0;
 			deltaTime = 0;
 			m_enemy->AddBehaviour(m_wanderBehaviour);
-
+			drawWinScreen = false;
 		}
 		else
 		{
@@ -611,6 +620,8 @@ void AgentApp::update(float deltaTime) {
 		{
 			m_enemy->RemoveBehaviour();
 			m_enemy->AddBehaviour(m_findPathBehaviour);
+			Vector2 default;
+			m_enemy->SetVelocity(default);
 			startPathfinding = true;
 			check = true;
 			checkCollisionForEnemy = false;
@@ -1074,16 +1085,8 @@ void AgentApp::update(float deltaTime) {
 			m_enemy->RemoveBehaviour();
 			check = false;
 			checkCollisionForEnemy = true;
+			drawWinScreen = true;
 		}
-		//Condition To end game --> runs Check to see score
-
-		//(while FALSE)
-		//-->Update Game
-		//-->Update Player
-		//-->Update Enemy
-
-		//(while TRYE)
-		//Stop game
 	}
 }
 
@@ -1111,6 +1114,7 @@ void AgentApp::draw() {
 		//Seek Player (ENEMY)
 		m_enemy->Draw(m_2dRenderer, m_enemyTexture);
 
+		//Checks If To Check Collision and draw items
 	if(drawItem)
 		m_collectibles->Draw(m_2dRenderer, m_itemTexture);
 	if(drawItem2)
@@ -1121,10 +1125,11 @@ void AgentApp::draw() {
 		m_collectibles3->Draw(m_2dRenderer, m_itemTexture);
 	if(drawItem5)
 		m_collectibles4->Draw(m_2dRenderer, m_itemTexture);
-
+	if(drawWinScreen)
+		m_2dRenderer->drawSprite(m_winTexture, getWindowWidth() / 2, getWindowHeight() / 2, getWindowWidth(), getWindowHeight());
 	//Wander (ENEMY)
 	//m_enemyWander->Draw(m_2dRenderer, m_enemyTexture);
-	m_2dRenderer->drawLine(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y, m_enemy->GetVelocity().m_x * 1000 + m_enemy->GetPosition().m_x, m_enemy->GetVelocity().m_y * 1000 + m_enemy->GetPosition().m_y,5);
+	//m_2dRenderer->drawLine(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y, m_enemy->GetVelocity().m_x * 1000 + m_enemy->GetPosition().m_x, m_enemy->GetVelocity().m_y * 1000 + m_enemy->GetPosition().m_y,5);
 
 	char Var[256];
 	sprintf(Var, "SCORE: %d", Score);

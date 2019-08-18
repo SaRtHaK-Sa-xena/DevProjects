@@ -59,6 +59,7 @@ protected:
 	aie::Texture*		m_backgroundTexture; //background
 	aie::Texture*		m_mainMenuTexture; //main menu
 	aie::Texture*		m_itemTexture; //collectibles
+	aie::Texture*		m_winTexture; //Win Screen
 
 	// Holds Collision with walls
 	std::vector<Collider>walls;
@@ -144,6 +145,10 @@ protected:
 
 	//Check To Draw Player And Enemy
 	bool drawPlayerAndEnemy = false;
+
+	//Check to draw win screen
+	bool drawWinScreen = false;
+
 
 
 };
