@@ -1,0 +1,14 @@
+C:\Users\s191509\source\repos\C Sharp Project\bin\Debug\C Sharp Project.exe.config
+C:\Users\s191509\source\repos\C Sharp Project\bin\Debug\C Sharp Project.exe
+C:\Users\s191509\source\repos\C Sharp Project\bin\Debug\C Sharp Project.pdb
+C:\Users\s191509\source\repos\C Sharp Project\obj\Debug\C Sharp Project.csprojAssemblyReference.cache
+C:\Users\s191509\source\repos\C Sharp Project\obj\Debug\C Sharp Project.csproj.CoreCompileInputs.cache
+C:\Users\s191509\source\repos\C Sharp Project\obj\Debug\C Sharp Project.exe
+C:\Users\s191509\source\repos\C Sharp Project\obj\Debug\C Sharp Project.pdb
+C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\bin\Debug\C Sharp Project.exe.config
+C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\bin\Debug\C Sharp Project.exe
+C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\bin\Debug\C Sharp Project.pdb
+C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\obj\Debug\C Sharp Project.csprojAssemblyReference.cache
+C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\obj\Debug\C Sharp Project.csproj.CoreCompileInputs.cache
+C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\obj\Debug\C Sharp Project.exe
+C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\obj\Debug\C Sharp Project.pdb

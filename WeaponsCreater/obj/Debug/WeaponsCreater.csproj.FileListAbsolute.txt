@@ -1,0 +1,7 @@
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreater\obj\Debug\WeaponsCreater.csprojAssemblyReference.cache
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreater\obj\Debug\WeaponsCreater.csproj.CoreCompileInputs.cache
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreater\bin\Debug\WeaponsCreater.exe.config
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreater\bin\Debug\WeaponsCreater.exe
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreater\bin\Debug\WeaponsCreater.pdb
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreater\obj\Debug\WeaponsCreater.exe
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreater\obj\Debug\WeaponsCreater.pdb
