@@ -1,0 +1,7 @@
+C:\Users\s191509\Documents\GitHub\TestProject2D\RPC Client\bin\Debug\RPC Client.exe.config
+C:\Users\s191509\Documents\GitHub\TestProject2D\RPC Client\bin\Debug\RPC Client.exe
+C:\Users\s191509\Documents\GitHub\TestProject2D\RPC Client\bin\Debug\RPC Client.pdb
+C:\Users\s191509\Documents\GitHub\TestProject2D\RPC Client\obj\Debug\RPC Client.csprojAssemblyReference.cache
+C:\Users\s191509\Documents\GitHub\TestProject2D\RPC Client\obj\Debug\RPC Client.csproj.CoreCompileInputs.cache
+C:\Users\s191509\Documents\GitHub\TestProject2D\RPC Client\obj\Debug\RPC Client.exe
+C:\Users\s191509\Documents\GitHub\TestProject2D\RPC Client\obj\Debug\RPC Client.pdb
