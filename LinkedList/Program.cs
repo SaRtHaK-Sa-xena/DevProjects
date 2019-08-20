@@ -14,36 +14,49 @@ namespace LinkedList
             //with switch statement
             LinkedList listToUse = new LinkedList();
             bool start = true;
+            int input = 0;
             while (start)
             {
-                Console.WriteLine("(1)Add---(2)Remove---(3)Sort---(4)Search---(5)Print");
+                Console.WriteLine("\n(q)PushFront---(w)PushBack---(e)Remove---(r)Sort---(t)Search---(p)Print");
                 string value = Console.ReadLine();
-                int choice = Convert.ToInt32(value);
+                //int choice = Convert.ToInt32(value);
+
+                char choice = Convert.ToChar(value);
+
                 switch (choice)
                 {
-                    case 1:
-                        Console.Write("\tAdd...");
-                        listToUse.PushFront(2);
-                        //add function
+                    case 'q':
+                        Console.Write("\tPushingFront...\n");
+                        Console.WriteLine("Enter Which Number: ");
+                        int.TryParse(Console.ReadLine(), out input);
+                        listToUse.PushFront(input);
+                        //pushFront function
                         break;
-                    case 2:
-                        Console.Write("\t Remove...");
+                    case 'w':
+                        Console.Write("\t PushingBack... \n");
+                        Console.WriteLine("Enter Which Number: ");
+                        int.TryParse(Console.ReadLine(), out input);
+                        listToUse.PushBack(input);
+                        //push back function
+                        break;
+                    case 'e':
+                        Console.Write("\t Remove...\n");
                         //remove function
                         break;
-                    case 3:
-                        Console.Write("\t Sort...");
+                    case 'r':
+                        Console.Write("\t Sort...\n");
                         //Sort function
                         break;
-                    case 4:
-                        Console.Write("\t Searching...");
+                    case 't':
+                        Console.Write("\t Searching...\n");
                         //Search function
                         break;
-                    case 5:
-                        Console.Write("\t Printing...");
+                    case 'p':
+                        Console.Write("\t Printing...\n");
                         listToUse.Print();
                         break;
                     default:
-                        Console.Write("Enter one of the given choices");
+                        Console.Write("\nEnter one of the given choices");
                         break;
                 }
             }
@@ -74,6 +87,46 @@ namespace LinkedList
 
         }
 
+        public void PushBack(int a_value)
+        {
+            Node node = new Node();
+            node.SetNodeData(a_value);
+
+            if (Empty())
+            {
+                //if nothing in list create head
+                node.SetRight(head);
+                head = node;
+            }
+            else
+            {
+                //tails right equals nodes
+                tail.SetRight(node);
+                //that node now equals tail
+                tail = node;
+            }
+        }
+
+
+        public void Remove(int a_value)
+        {
+            Node node = head;
+
+            while (node.GetRight() != null)
+            {
+                node = node.GetRight();
+            }
+
+            Node temp = head;
+
+            node = node.GetRight();
+            if(node.GetNodeData() != a_value)
+            {
+                temp.SetRight(node);
+                temp = node;
+            }
+
+        }
 
 
         public void Print()
@@ -87,7 +140,7 @@ namespace LinkedList
                 int i = 1;
                 while (head != null)
                 {
-                    Console.WriteLine(i + ": " + head.GetNodeData() + "\n"); //writes out list in console
+                    Console.WriteLine(i + ": " + head.GetNodeData()); //writes out list in console
                     head = head.GetRight(); //iterate towards next
                     i++;
                 }

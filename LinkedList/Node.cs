@@ -46,8 +46,8 @@ namespace LinkedList
             this.next = a_next;
         }
 
-        int m_data;
-        Node next; //= new Node();
+        private int m_data;
+        private Node next; //= new Node();
 
         //store value
         //store right and left
