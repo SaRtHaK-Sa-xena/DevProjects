@@ -27,28 +27,35 @@ namespace LinkedList
                 {
                     case 'q':
                         Console.Write("\tPushingFront...\n");
-                        Console.WriteLine("Enter Which Number: ");
+                        Console.WriteLine("Enter Which Number To PushFront: ");
                         int.TryParse(Console.ReadLine(), out input);
                         listToUse.PushFront(input);
                         //pushFront function
                         break;
                     case 'w':
                         Console.Write("\t PushingBack... \n");
-                        Console.WriteLine("Enter Which Number: ");
+                        Console.WriteLine("Enter Which Number To PushBack: ");
                         int.TryParse(Console.ReadLine(), out input);
                         listToUse.PushBack(input);
                         //push back function
                         break;
                     case 'e':
                         Console.Write("\t Remove...\n");
+                        Console.WriteLine("Enter Which Number To Delete: ");
+                        int.TryParse(Console.ReadLine(), out input);
+                        listToUse.Remove(input);
                         //remove function
                         break;
                     case 'r':
                         Console.Write("\t Sort...\n");
+                        listToUse.Sort();
                         //Sort function
                         break;
                     case 't':
                         Console.Write("\t Searching...\n");
+                        Console.WriteLine("Enter Which Number To Search: ");
+                        int.TryParse(Console.ReadLine(), out input);
+                        listToUse.Search(input);
                         //Search function
                         break;
                     case 'p':
@@ -110,24 +117,128 @@ namespace LinkedList
 
         public void Remove(int a_value)
         {
-            Node node = head;
+            //Node node = head;
 
-            while (node.GetRight() != null)
+            //while (node.GetRight() != null)
+            //{
+            //    node = node.GetRight();
+            //}
+
+            //Node temp = head;
+
+            //node = node.GetRight();
+            //if(node.GetNodeData() != a_value)
+            //{
+            //    temp.SetRight(node);
+            //    temp = node;
+            //}
+
+            //have a node at position
+            //have another node before node
+            Node node = new Node();
+            node = head;
+            Node temp = head;
+            int extend = 0;
+            while (node.GetNodeData() != a_value)
             {
                 node = node.GetRight();
+                extend++;
             }
 
-            Node temp = head;
+            for (int i = 1; i < extend; i++)
+            {
+                //iterate that many over
+                temp = temp.GetRight();
+            }
+
+            //temp is now behind NODE
+            //NODE infront at node.a_value
 
             node = node.GetRight();
-            if(node.GetNodeData() != a_value)
+
+            if (node.GetNodeData() != a_value)
             {
                 temp.SetRight(node);
                 temp = node;
-            }
+                while (node.GetNodeData() != a_value)
+                {
+                    node = node.GetRight();
+                }
 
+                temp.SetRight(node.GetRight());
+            }
+            else
+            {
+                while (node.GetNodeData() != a_value)
+                {
+                    node = node.GetRight();
+                }
+
+                temp.SetRight(node.GetRight());
+                node = null;
+            }
+            //extend = 1, 2
+            //HEAD      NODE
+            //node node node node node
         }
 
+        public void Sort()
+        {
+            Node node = head;
+            Node nodeRight = node.GetRight();
+
+            int temp1;
+            int temp2;
+
+            bool swap = false;
+
+            while (node.GetRight() != null)
+            {
+                if (swap)
+                {
+                    node = head;
+                    nodeRight = node.GetRight();
+                }
+
+                if (node.GetNodeData() > nodeRight.GetNodeData())
+                {
+                    temp1 = node.GetNodeData();
+                    temp2 = nodeRight.GetNodeData();
+
+                    //======SWAP=======
+                    node.SetNodeData(temp2);
+                    nodeRight.SetNodeData(temp1);
+                    //======SWAP=======
+                    swap = true;
+                }
+                else
+                {
+                    node = node.GetRight();
+                    nodeRight = node.GetRight();
+                    swap = false;
+                }
+            }
+        }
+        
+
+        public void Search(int a_value)
+        {
+            Node node = head;
+            int iterate = 0;
+            while(node.GetRight() != null)
+            {
+                iterate++;
+                if (node.GetNodeData() == a_value)
+                {
+                    Console.WriteLine(node.GetNodeData() + " Present at location " + iterate);
+                    break;
+                }
+                else
+                {
+                    node = node.GetRight();
+                }
+            }
+        }
 
         public void Print()
         {
