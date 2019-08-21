@@ -78,40 +78,74 @@ namespace LinkedList
         {
             Node node = new Node();
             node.SetNodeData(a_value);// = a_value;
+            
 
             if (head == null)
             {
                 head = node;
                 tail = node;
-                Console.WriteLine("Head Is Empty" + "\nStoring in Head" + "\n");
+                Console.WriteLine("Head is Empty" + "\nStoring in Head");
             }
             else
             {
-                //set next of node to head and set head ot previous node
-                node.SetRight(head); //= head;
+                node.SetRight(head);
+                head.SetLeft(node);
                 head = node;
+                //tail = node.GetRight();
             }
+            
+
+            //Node node = new Node();
+            //node.m_data = a_value;// = a_value;
+
+            //if (head == null)
+            //{
+            //    head = node;
+            //    tail = node;
+            //    Console.WriteLine("Head Is Empty" + "\nStoring in Head" + "\n");
+            //}
+            //else
+            //{
+            //    //set next of node to head and set head ot previous node
+            //    node.next = head; //= head;
+            //    head = node;
+            //}
 
         }
 
         public void PushBack(int a_value)
         {
+
             Node node = new Node();
-            node.SetNodeData(a_value);
+            node.SetNodeData(a_value);// = a_value;
 
             if (Empty())
             {
-                //if nothing in list create head
-                node.SetRight(head);
+                node.SetRight(head);// = head;
                 head = node;
             }
             else
             {
-                //tails right equals nodes
-                tail.SetRight(node);
-                //that node now equals tail
+                node.SetLeft(tail);// = tail;
+                tail.SetRight(node);// = node;
                 tail = node;
             }
+            //Node node = new Node();
+            //node.m_data = a_value;
+
+            //if (Empty())
+            //{
+            //    if nothing in list create head
+            //    node.next = head;
+            //    head = node;
+            //}
+            //else
+            //{
+            //    tails right equals nodes
+            //    tail.next = node;
+            //    that node now equals tail
+            //    tail = node;
+            //}
         }
 
 
@@ -135,47 +169,180 @@ namespace LinkedList
 
             //have a node at position
             //have another node before node
-            Node node = new Node();
-            node = head;
-            Node temp = head;
-            int extend = 0;
-            while (node.GetNodeData() != a_value)
-            {
-                node = node.GetRight();
-                extend++;
-            }
 
-            for (int i = 1; i < extend; i++)
+            //===========================================================
+            //Node node = new Node();
+            //node = head;
+            //Node temp = head;
+            //int extend = 0;
+            //while (node.m_data != a_value)
+            //{
+            //    node = node.next;
+            //    extend++;
+            //}
+
+            //for (int i = 1; i < extend; i++)
+            //{
+            //    //iterate that many over
+            //    temp = temp.next;
+            //}
+
+            ////temp is now behind NODE
+            ////NODE infront at node.a_value
+
+            //node = node.next;
+
+            //if (node.m_data != a_value)
+            //{
+            //    temp.next = node;
+            //    temp = node;
+            //    while (node.m_data != a_value)
+            //    {
+            //        node = node.next;
+            //    }
+
+            //    temp.next = node.next;
+            //}
+            //else
+            //{
+            //    while (node.m_data != a_value)
+            //    {
+            //        node = node.next;
+            //    }
+
+            //    temp.next = node.next;
+            //    node = null;
+            //}
+            //===========================================================
+            //===========================================================SECOND ATTEMPT===========================================================
+            //Node node = head;
+
+            //while (node.GetNodeData() != a_value)
+            //{
+            //    node = node.GetRight();
+            //}
+
+            //Node temp = node.GetLeft();
+
+            //node = node.GetRight();
+            //if (node.GetNodeData() != a_value)
+            //{
+            //    temp.SetRight(node);// = node;
+            //    temp = node;
+            //    while (node.GetNodeData() != a_value)
+            //    {
+            //        node = node.GetRight();
+            //    }
+
+            //    temp.SetRight(node.GetRight());// = node.next;
+            //    //node = null;
+            //}
+
+            //else
+            //{
+            //    while (node.GetNodeData() != a_value)
+            //    {
+            //        node = node.GetRight();
+            //    }
+            //    temp.SetRight(node.GetRight());// = node.next;
+            //    //node = null;
+            //}
+            //===========================================================SECOND ATTEMPT===========================================================
+
+            Node node = head;
+            bool atEnd = false;
+            bool reset = false;
+
+            while (node.GetRight() != null)
             {
-                //iterate that many over
+                if(node.GetNodeData() == a_value)
+                {
+                    //first out
+                    head = node.GetRight();
+                    node = node.GetRight();
+                }
+                while (node.GetNodeData() != a_value)
+                {
+                    if (node.GetRight() == null)//tail)
+                    {
+                        break;
+                    }
+                    //iterate ->
+                    node = node.GetRight();
+                    
+                    //if (node.GetRight() == tail)
+                    //{
+                    //    atEnd = true;
+                    //}
+                }
+
+                if(atEnd == true)
+                {
+                    break;
+                }
+
+
+                Node temp = node.GetLeft();
+                if(node == tail)
+                {
+                    //tail = temp;
+                    //node = null;
+
+                    tail = temp;
+                    
+
+                    break;
+                }
+                while (node.GetRight().GetNodeData() == a_value)
+                {
+                    //iterate ->
+                    node = node.GetRight();
+                    if (node.GetRight() == tail)
+                    {
+                        //set it to tail
+                        temp.SetRight(tail);
+                    }
+
+                }
+
+                temp.SetRight(node.GetRight());
                 temp = temp.GetRight();
-            }
-
-            //temp is now behind NODE
-            //NODE infront at node.a_value
-
-            node = node.GetRight();
-
-            if (node.GetNodeData() != a_value)
-            {
-                temp.SetRight(node);
-                temp = node;
-                while (node.GetNodeData() != a_value)
+                if(temp == tail)
                 {
-                    node = node.GetRight();
+                    //then tail changes
+                    if (temp.GetNodeData() == a_value)
+                    {
+                        //then tail changes
+                        tail = temp.GetLeft();
+                        break;
+                    }
+                    atEnd = true;
+                    tail = temp;
                 }
-
-                temp.SetRight(node.GetRight());
-            }
-            else
-            {
-                while (node.GetNodeData() != a_value)
+                while (atEnd == false && temp.GetRight().GetNodeData() != a_value)
                 {
-                    node = node.GetRight();
+                    //iterate ->
+                    temp = temp.GetRight();
+                    if (temp == tail)
+                    {
+                        atEnd = true;
+                        break;
+                    }
                 }
-
-                temp.SetRight(node.GetRight());
-                node = null;
+                if (atEnd == false)
+                {
+                    reset = true;
+                }
+                else
+                {
+                    break;
+                }
+                if (reset)
+                {
+                    node = head;
+                    temp = head;
+                    reset = false;
+                }
             }
             //extend = 1, 2
             //HEAD      NODE
@@ -184,6 +351,7 @@ namespace LinkedList
 
         public void Sort()
         {
+            ////================================================
             Node node = head;
             Node nodeRight = node.GetRight();
 
@@ -205,12 +373,14 @@ namespace LinkedList
                     temp1 = node.GetNodeData();
                     temp2 = nodeRight.GetNodeData();
 
-                    //======SWAP=======
-                    node.SetNodeData(temp2);
-                    nodeRight.SetNodeData(temp1);
-                    //======SWAP=======
+                    //========SWAP==============
+                    node.SetNodeData(temp2);// = temp2;
+                    nodeRight.SetNodeData(temp1);// = temp1;
+                    //========SWAP==============
+
                     swap = true;
                 }
+
                 else
                 {
                     node = node.GetRight();
@@ -218,6 +388,41 @@ namespace LinkedList
                     swap = false;
                 }
             }
+            //================================================
+            //Node node = head;
+            //Node nodeRight = node.next;
+
+            //int temp1;
+            //int temp2;
+
+            //bool swap = false;
+
+            //while (node.next != null)
+            //{
+            //    if (swap)
+            //    {
+            //        node = head;
+            //        nodeRight = node.next;
+            //    }
+
+            //    if (node.m_data > nodeRight.m_data)
+            //    {
+            //        temp1 = node.m_data;
+            //        temp2 = nodeRight.m_data;
+
+            //        //======SWAP=======
+            //        node.m_data = temp2;
+            //        nodeRight.m_data = temp1;
+            //        //======SWAP=======
+            //        swap = true;
+            //    }
+            //    else
+            //    {
+            //        node = node.next;
+            //        nodeRight = node.next;
+            //        swap = false;
+            //    }
+            //}
         }
         
 
@@ -228,9 +433,9 @@ namespace LinkedList
             while(node.GetRight() != null)
             {
                 iterate++;
-                if (node.GetNodeData() == a_value)
+                if (node.m_data == a_value)
                 {
-                    Console.WriteLine(node.GetNodeData() + " Present at location " + iterate);
+                    Console.WriteLine(node.m_data + " Present at location " + iterate);
                     break;
                 }
                 else
@@ -246,13 +451,11 @@ namespace LinkedList
             {
                 //. instead of * 
                 Node head = this.head;
-                
-                
                 int i = 1;
                 while (head != null)
                 {
-                    Console.WriteLine(i + ": " + head.GetNodeData()); //writes out list in console
-                    head = head.GetRight(); //iterate towards next
+                    Console.WriteLine(i + ": " + head.m_data); //writes out list in console
+                    head = head.next; //iterate towards next
                     i++;
                 }
             }
@@ -282,7 +485,7 @@ namespace LinkedList
         }
 
         private Node head, tail;
-        int m_size;
+        private int m_size;
     }
 
     //class Node

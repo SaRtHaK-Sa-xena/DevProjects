@@ -13,12 +13,15 @@ namespace LinkedList
         public Node()
         {
             next = null;
+            prev = null;
             m_data = 0;
         }
 
         public Node(int a_data)
         {
             m_data = a_data;
+            next = null;
+            prev = null;
         }
 
         //sets data
@@ -40,14 +43,25 @@ namespace LinkedList
             return this.next;
         }
 
+        public Node GetLeft()
+        {
+            return this.prev;
+        }
+
         //set next 
         public void SetRight(Node a_next)
         {
             this.next = a_next;
         }
 
-        private int m_data;
-        private Node next; //= new Node();
+        public void SetLeft(Node a_prev)
+        {
+            this.prev = a_prev;
+        }
+
+        public int m_data;
+        public Node next; //= new Node();
+        public Node prev;
 
         //store value
         //store right and left
