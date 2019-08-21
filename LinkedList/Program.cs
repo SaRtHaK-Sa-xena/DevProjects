@@ -17,7 +17,7 @@ namespace LinkedList
             int input = 0;
             while (start)
             {
-                Console.WriteLine("\n(q)PushFront---(w)PushBack---(e)Remove---(r)Sort---(t)Search---(p)Print");
+                Console.WriteLine("\n(q)PushFront---(w)PushBack---(e)Remove---(r)Sort---(t)Search---(a)PopFront---(s)PopBack---(d)Clear---(f)Count\n(g)InsertAfter--(p)Print");
                 string value = Console.ReadLine();
                 //int choice = Convert.ToInt32(value);
 
@@ -41,9 +41,16 @@ namespace LinkedList
                         break;
                     case 'e':
                         Console.Write("\t Remove...\n");
-                        Console.WriteLine("Enter Which Number To Delete: ");
-                        int.TryParse(Console.ReadLine(), out input);
-                        listToUse.Remove(input);
+                        if (listToUse.Count() > 0)
+                        {
+                            Console.WriteLine("Enter Which Number To Delete: ");
+                            int.TryParse(Console.ReadLine(), out input);
+                            listToUse.Remove(input);
+                        }
+                        else
+                        {
+                            Console.WriteLine("List is already Empty...");
+                        }
                         //remove function
                         break;
                     case 'r':
@@ -58,9 +65,37 @@ namespace LinkedList
                         listToUse.Search(input);
                         //Search function
                         break;
+                    case 'a':
+                        Console.Write("\t PoppingFront...\n");
+                        listToUse.PopFront();
+                        //PopFront function
+                        break;
+                    case 's':
+                        Console.Write("\t PoppingBack...\n");
+                        listToUse.PopBack();
+                        //PopBack function
+                        break;
+                    case 'd':
+                        Console.Write("\t Clearing...\n");
+                        listToUse.Clear();
+                        //Clear function
+                        break;
+                    case 'f':
+                        Console.Write("\t Counting...\n");
+                        Console.WriteLine("Count: " + listToUse.Count());
+                        //Clear function
+                        break;
+                    case 'g':
+                        Console.Write("\t Inserting After...\n");
+                        Console.WriteLine("Enter Which Number To InsertAfter: ");
+                        int.TryParse(Console.ReadLine(), out input);
+                        listToUse.Search(input);
+                        //InsertAfter function
+                        break;
                     case 'p':
                         Console.Write("\t Printing...\n");
                         listToUse.Print();
+                        //Print Function
                         break;
                     default:
                         Console.Write("\nEnter one of the given choices");
@@ -73,6 +108,226 @@ namespace LinkedList
 
     class LinkedList : Node
     {
+        class Iterator
+        {
+            //Iterator constructor
+            public Iterator(Node a_node)
+            {
+                m_node = a_node;
+            }
+
+            //operator ++
+            static public Iterator operator ++(Iterator Iter)
+            {
+                Iter.m_node = Iter.m_node.GetRight();
+                return Iter;
+            }
+
+            //operator -
+            static public Iterator operator -(Iterator Iter)
+            {
+                Iter.m_node = Iter.m_node.GetLeft();
+                return Iter;
+            }
+
+            //operator --
+            static public Iterator operator --(Iterator Iter)
+            {
+                Iter.m_node = Iter.m_node.GetLeft();
+                return Iter;
+            }
+
+            public Node GetNode()
+            {
+                return m_node;
+            }
+
+            Node m_node = null;
+        }
+
+    
+        public void UsingInsertAfter(LinkedList list)
+        {
+            if (!list.Empty())
+            {
+                string input;
+                Console.WriteLine("Select starting point --> from (first) or from (last)");
+                input = Console.ReadLine();
+
+                if (input == "first")
+                {
+                    LinkedList.Iterator temp = new LinkedList.Iterator(list.First());// = list.First();
+                    int size;
+                    Console.WriteLine("Enter" + "\n How many places down from the beginning :");
+                    int.TryParse(Console.ReadLine(), out size);
+                    if (list.Count() > size)
+                    {
+                        for (int i = 0; i < size - 1; i++)
+                        {
+                            temp++;
+                        }
+                        int numberToEnter;
+                        Console.WriteLine("What Number to place in that position: ");
+                        int.TryParse(Console.ReadLine(), out numberToEnter);
+                        list.InsertAfter(temp.GetNode(), numberToEnter);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Number entered exceeds list size....");
+                        Console.WriteLine("____________________________________");
+                    }
+                    
+                }
+                if (input == "last")
+                {
+                    LinkedList.Iterator temp = new LinkedList.Iterator(list.First());
+                    int size;
+                    Console.WriteLine("Enter" + "\n How many places up from the end: ");
+                    int.TryParse(Console.ReadLine(), out size);
+
+                    if (list.Count() > size)
+                    {
+
+                    }
+                }
+            }
+        }
+
+
+        public void InsertAfter(Node prev_Node, int a_value)
+        {
+            if (!Empty())
+            {
+                Node node = new Node();
+                //next of previous node
+                Node nodeAfterPrevNode = prev_Node.GetRight();
+
+                if (nodeAfterPrevNode == null)
+                {
+                    prev_Node.SetRight(node);
+                    node.SetLeft(prev_Node);
+                    node.SetNodeData(a_value);
+                }
+                else
+                {
+                    prev_Node.SetRight(node);
+                    node.SetLeft(prev_Node);
+                    node.SetRight(nodeAfterPrevNode);
+                    node.SetNodeData(a_value);
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("List is already Empty...");
+            }
+        }
+
+        public Node First()
+        {
+            if (!Empty())
+            {
+                return head;
+            }
+            else
+            {
+                Console.WriteLine("List is already Empty...");
+                Node Null = null;
+                return Null;
+            }
+        }
+
+        public Node Last()
+        {
+            if (!Empty())
+            {
+                return tail;
+            }
+            else
+            {
+                Console.WriteLine("List is already Empty");
+                Node Null = null;
+                return Null;
+            }
+        }
+
+        public int Count()
+        {
+            if (!Empty())
+            {
+                int i = 0;
+                //set node to head
+                Node node = head;
+                while (node.GetRight() != null)
+                {
+                    //iterate ->
+                    node = node.GetRight();
+                    i++;
+                }
+                i++;
+                //return count
+                return i;
+            }
+            else
+            {
+                Console.WriteLine("List is already Empty...");
+                return 0;
+            }
+        }
+
+        public void Clear()
+        {
+            if (!Empty())
+            {
+                head = null;
+                tail = null;
+
+                Console.WriteLine("List cleared");
+            }
+            else;
+            {
+                Console.WriteLine("List is already Empty...");
+            }
+                
+        }
+
+        public void PopBack()
+        {
+            if (head == null)
+            {
+                Console.WriteLine("List Is Empty...");
+                return;
+            }
+            else
+            {
+                Node nullValue = null;
+                Node node = tail;
+                node.GetLeft().SetRight(nullValue);
+                tail = tail.GetLeft();
+                node = nullValue;
+            }
+        }
+
+
+        public void PopFront()
+        {
+            if (head == null)
+            {
+                Console.WriteLine("List is empty");
+                return;
+            }
+            else
+            {
+                Node nullValue = null;
+                Node node = new Node();
+                //head equal to next
+                head = head.GetRight();
+                //node equal to head's prev
+                node = head.GetLeft();
+                node = nullValue;
+            }
+        }
+
 
         public void PushFront(int a_value)
         {
@@ -248,18 +503,20 @@ namespace LinkedList
             //    //node = null;
             //}
             //===========================================================SECOND ATTEMPT===========================================================
-
+           
             Node node = head;
             bool atEnd = false;
             bool reset = false;
+            //helper
+            Node nullValue = null;
 
             while (node.GetRight() != null)
             {
-                if(node.GetNodeData() == a_value)
+                if (node.GetNodeData() == a_value)
                 {
                     //first out
                     head = node.GetRight();
-                    node = node.GetRight();
+                    head.SetLeft(nullValue);
                 }
                 while (node.GetNodeData() != a_value)
                 {
@@ -269,27 +526,27 @@ namespace LinkedList
                     }
                     //iterate ->
                     node = node.GetRight();
-                    
+
                     //if (node.GetRight() == tail)
                     //{
                     //    atEnd = true;
                     //}
                 }
 
-                if(atEnd == true)
+                if (atEnd == true)
                 {
                     break;
                 }
 
 
                 Node temp = node.GetLeft();
-                if(node == tail)
+                if (node == tail)
                 {
                     //tail = temp;
                     //node = null;
 
                     tail = temp;
-                    
+                    temp.SetRight(nullValue);
 
                     break;
                 }
@@ -307,7 +564,7 @@ namespace LinkedList
 
                 temp.SetRight(node.GetRight());
                 temp = temp.GetRight();
-                if(temp == tail)
+                if (temp == tail)
                 {
                     //then tail changes
                     if (temp.GetNodeData() == a_value)
@@ -347,6 +604,7 @@ namespace LinkedList
             //extend = 1, 2
             //HEAD      NODE
             //node node node node node
+            
         }
 
         public void Sort()
@@ -433,9 +691,9 @@ namespace LinkedList
             while(node.GetRight() != null)
             {
                 iterate++;
-                if (node.m_data == a_value)
+                if (node.GetNodeData() == a_value)
                 {
-                    Console.WriteLine(node.m_data + " Present at location " + iterate);
+                    Console.WriteLine(node.GetNodeData() + " Present at location " + iterate);
                     break;
                 }
                 else
