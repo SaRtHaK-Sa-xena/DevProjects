@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedList", "..\LinkedList
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFA Tool", "..\WFA Tool\WFA Tool.csproj", "{F730D3C5-D58D-4C99-9BCF-473AC66DC6F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeaponsCreator", "..\WeaponsCreator\WeaponsCreator.csproj", "{D07700E1-BBC5-42D2-B193-41198BED8E47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeaponsCreaterTool", "WeaponsCreaterTool\WeaponsCreaterTool.csproj", "{32A5FA3B-33CD-4E97-8B6F-39F783559C70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{F730D3C5-D58D-4C99-9BCF-473AC66DC6F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F730D3C5-D58D-4C99-9BCF-473AC66DC6F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F730D3C5-D58D-4C99-9BCF-473AC66DC6F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D07700E1-BBC5-42D2-B193-41198BED8E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D07700E1-BBC5-42D2-B193-41198BED8E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D07700E1-BBC5-42D2-B193-41198BED8E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D07700E1-BBC5-42D2-B193-41198BED8E47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32A5FA3B-33CD-4E97-8B6F-39F783559C70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A5FA3B-33CD-4E97-8B6F-39F783559C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A5FA3B-33CD-4E97-8B6F-39F783559C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A5FA3B-33CD-4E97-8B6F-39F783559C70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

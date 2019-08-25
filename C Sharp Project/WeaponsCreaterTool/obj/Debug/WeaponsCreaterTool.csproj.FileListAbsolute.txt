@@ -1,0 +1,10 @@
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\bin\Debug\WeaponsCreaterTool.exe.config
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\bin\Debug\WeaponsCreaterTool.exe
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\bin\Debug\WeaponsCreaterTool.pdb
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.csprojAssemblyReference.cache
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.Form1.resources
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.Properties.Resources.resources
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.csproj.GenerateResource.cache
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.csproj.CoreCompileInputs.cache
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.exe
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.pdb
