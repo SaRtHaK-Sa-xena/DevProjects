@@ -7,21 +7,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Imaging;
 
 namespace WeaponsCreaterTool
 {
+    public class TPanel : Panel
+    {
+        public TPanel()
+        {
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.UserPaint, true);
+        }
+    }
+
+
+
+
     public partial class Form1 : Form
     {
         public Point current = new Point();
         public Point old = new Point();
         public Pen p = new Pen(Color.Black, 5);
+        public Pen eraser = new Pen(Color.White, 5);
         public Graphics g;
+        Bitmap surface;
+        Graphics graph;
+        public int Width;
+        public string s = "Picture";
+        public int i = 1;
 
         public Form1()
         {
             InitializeComponent();
             g = panel1.CreateGraphics();
             p.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
+            eraser.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
+            surface = new Bitmap(panel1.Width, panel1.Height);
+            graph = Graphics.FromImage(surface);
+            panel1.BackgroundImage = surface;
+            panel1.BackgroundImageLayout = ImageLayout.None;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -34,33 +59,46 @@ namespace WeaponsCreaterTool
             old = e.Location;
             if (radioButton1.Checked)
             {
-                p.Width = 1;
+                Width = 1;
             }
-            else if(radioButton2.Checked)
+            else if (radioButton2.Checked)
             {
-                p.Width = 5;
+                Width = 5;
             }
-            else if(radioButton3.Checked)
+            else if (radioButton3.Checked)
             {
-                p.Width = 10;
+                Width = 10;
             }
-            else if(radioButton4.Checked)
+            else if (radioButton4.Checked)
             {
-                p.Width = 15;
+                Width = 15;
             }
-            else if(radioButton5.Checked)
+            else if (radioButton5.Checked)
             {
-                p.Width = 30;
+                Width = 30;
             }
+            p.Width = Width;
+            eraser.Width = Width;
         }
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Left)
+            //if Left Click draw with Black Pen
+            if (e.Button == MouseButtons.Left)
             {
                 current = e.Location;
-                g.DrawLine(p, old, current);
+                //uses p which equals black
+                graph.DrawLine(p, old, current);
                 old = current;
+                panel1.Invalidate();
+            }
+            if(e.Button == MouseButtons.Right)
+            {
+                current = e.Location;
+                //now uses white as eraser
+                graph.DrawLine(eraser,old, current);
+                old = current;
+                panel1.Invalidate();
             }
         }
 
@@ -71,6 +109,13 @@ namespace WeaponsCreaterTool
             {
                 p.Color = cd.Color;
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            surface.Save(s, ImageFormat.Png);
+            s += i;
+            i++;
         }
     }
 }
