@@ -19,3 +19,4 @@ C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTo
 C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.exe
 C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.pdb
 C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.Form2.resources
+C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.Form3.resources

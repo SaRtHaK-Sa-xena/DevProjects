@@ -120,8 +120,7 @@ namespace WeaponsCreaterTool
         private void CreateWeapon_Click(object sender, EventArgs e)
         {
             //Go To Next Form, which will be adding attributes
-            Form2 newMDIChild = new Form2();
-            newMDIChild.MdiParent = this;
+            Form3 newMDIChild = new Form3();
             newMDIChild.Show();
         }
 
