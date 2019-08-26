@@ -32,16 +32,17 @@ namespace WeaponsCreaterTool
         public Form1()
         {
             InitializeComponent();
-            g = pictureBox2.CreateGraphics();
+            g = DrawArea.CreateGraphics();
             p.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
             eraser.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
-            surface = new Bitmap(pictureBox2.Width, pictureBox2.Height);
+            surface = new Bitmap(DrawArea.Width, DrawArea.Height);
             graph = Graphics.FromImage(surface);
-            pictureBox2.BackgroundImage = surface;
-            pictureBox2.BackgroundImageLayout = ImageLayout.None;
+            DrawArea.Image = surface;
+            //pictureBox2.BackgroundImageLayout = ImageLayout.None;
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.UserPaint, true);
+            pictureBox1.AllowDrop = true;//==============================================================================================================================================================
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -121,7 +122,6 @@ namespace WeaponsCreaterTool
         private void CreateWeapon_Click(object sender, EventArgs e)
         {
             //Go To Next Form, which will be adding attributes
-
         }
 
         private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
@@ -132,7 +132,7 @@ namespace WeaponsCreaterTool
                 //uses p which equals black
                 graph.DrawLine(p, old, current);
                 old = current;
-                pictureBox2.Invalidate();
+                DrawArea.Invalidate();
             }
             if (e.Button == MouseButtons.Right)
             {
@@ -140,7 +140,7 @@ namespace WeaponsCreaterTool
                 //now uses white as eraser
                 graph.DrawLine(eraser, old, current);
                 old = current;
-                pictureBox2.Invalidate();
+                DrawArea.Invalidate();
             }
         }
 
@@ -169,6 +169,40 @@ namespace WeaponsCreaterTool
             }
             p.Width = Width;
             eraser.Width = Width;
+        }
+
+        //Reference PictureBox Image
+        private void pictureBox1_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void pictureBox1_DragDrop(object sender, DragEventArgs e)
+        {
+            foreach(string pic in (string[])e.Data.GetData(DataFormats.FileDrop))
+            {
+                Image img = Image.FromFile(pic);
+                pictureBox1.Image = img;
+                DrawArea.BackgroundImage = img;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Image img = null;
+            pictureBox1.Image = null;
+            DrawArea.BackgroundImage = img;
+        }
+
+        private void button2_MouseHover(object sender, EventArgs e)
+        {
+            button2.BackColor = Color.Green;
+            
+        }
+
+        private void button2_MouseLeave(object sender, EventArgs e)
+        {
+            button2.BackColor = Color.LightGray;
         }
     }
     public class TPanel : Panel

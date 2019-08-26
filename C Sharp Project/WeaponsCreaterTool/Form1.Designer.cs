@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
@@ -40,15 +39,17 @@
             this.CreateWeaponButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.DrawArea = new System.Windows.Forms.PictureBox();
+            this.Reference = new System.Windows.Forms.Label();
+            this.referenceButton = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DrawArea)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(423, 74);
+            this.button1.Location = new System.Drawing.Point(476, 84);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(104, 79);
@@ -59,13 +60,14 @@
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.radioButton5);
             this.panel2.Controls.Add(this.radioButton4);
             this.panel2.Controls.Add(this.radioButton3);
             this.panel2.Controls.Add(this.radioButton2);
             this.panel2.Controls.Add(this.radioButton1);
-            this.panel2.Location = new System.Drawing.Point(427, 211);
+            this.panel2.Location = new System.Drawing.Point(476, 200);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(104, 131);
@@ -134,7 +136,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(427, 396);
+            this.button2.Location = new System.Drawing.Point(476, 370);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 73);
@@ -142,12 +144,14 @@
             this.button2.Text = "Save";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.MouseLeave += new System.EventHandler(this.button2_MouseLeave);
+            this.button2.MouseHover += new System.EventHandler(this.button2_MouseHover);
             // 
             // CreateWeaponButton
             // 
             this.CreateWeaponButton.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.CreateWeaponButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CreateWeaponButton.Location = new System.Drawing.Point(69, 12);
+            this.CreateWeaponButton.Location = new System.Drawing.Point(113, 12);
             this.CreateWeaponButton.Name = "CreateWeaponButton";
             this.CreateWeaponButton.Size = new System.Drawing.Size(378, 57);
             this.CreateWeaponButton.TabIndex = 4;
@@ -158,7 +162,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(460, 196);
+            this.label1.Location = new System.Drawing.Point(509, 185);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 13);
             this.label1.TabIndex = 5;
@@ -167,29 +171,54 @@
             // pictureBox1
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(451, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 471);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(74, 57);
+            this.pictureBox1.Size = new System.Drawing.Size(104, 57);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Tag = "";
+            this.pictureBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.pictureBox1_DragDrop);
+            this.pictureBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.pictureBox1_DragEnter);
             // 
-            // pictureBox2
+            // DrawArea
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(69, 86);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(349, 383);
-            this.pictureBox2.TabIndex = 7;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseDown);
-            this.pictureBox2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseMove);
+            this.DrawArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DrawArea.InitialImage = null;
+            this.DrawArea.Location = new System.Drawing.Point(12, 84);
+            this.DrawArea.Name = "DrawArea";
+            this.DrawArea.Size = new System.Drawing.Size(455, 359);
+            this.DrawArea.TabIndex = 7;
+            this.DrawArea.TabStop = false;
+            this.DrawArea.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseDown);
+            this.DrawArea.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseMove);
+            // 
+            // Reference
+            // 
+            this.Reference.AutoSize = true;
+            this.Reference.Location = new System.Drawing.Point(34, 496);
+            this.Reference.Name = "Reference";
+            this.Reference.Size = new System.Drawing.Size(57, 13);
+            this.Reference.TabIndex = 8;
+            this.Reference.Text = "Reference";
+            // 
+            // referenceButton
+            // 
+            this.referenceButton.Location = new System.Drawing.Point(12, 449);
+            this.referenceButton.Name = "referenceButton";
+            this.referenceButton.Size = new System.Drawing.Size(104, 23);
+            this.referenceButton.TabIndex = 9;
+            this.referenceButton.Text = "CLEAR";
+            this.referenceButton.UseVisualStyleBackColor = true;
+            this.referenceButton.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(537, 479);
-            this.Controls.Add(this.pictureBox2);
+            this.ClientSize = new System.Drawing.Size(601, 539);
+            this.Controls.Add(this.referenceButton);
+            this.Controls.Add(this.Reference);
+            this.Controls.Add(this.DrawArea);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CreateWeaponButton);
@@ -203,7 +232,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DrawArea)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -221,7 +250,9 @@
         private System.Windows.Forms.Button CreateWeaponButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox DrawArea;
+        private System.Windows.Forms.Label Reference;
+        private System.Windows.Forms.Button referenceButton;
     }
 }
 
