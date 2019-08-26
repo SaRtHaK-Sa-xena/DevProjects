@@ -16,5 +16,12 @@ namespace WeaponsCreaterTool
         {
             InitializeComponent();
         }
+
+        private void AddAttributesButton_Click(object sender, EventArgs e)
+        {
+            DisplayWeaponNameScreen newForm = new DisplayWeaponNameScreen();
+            /*turns of current active form 3*/ Form3.ActiveForm.Close();
+            newForm.Show();
+        }
     }
 }

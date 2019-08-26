@@ -206,8 +206,6 @@ namespace WeaponsCreaterTool
             //if mouse not on save button
             button2.BackColor = Color.LightGray;
         }
-
-       
     }
     public class TPanel : Panel
     {
