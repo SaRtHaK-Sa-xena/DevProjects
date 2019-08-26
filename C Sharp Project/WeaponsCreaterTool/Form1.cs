@@ -28,6 +28,7 @@ namespace WeaponsCreaterTool
         public int Width;
         public string s = "Picture";
         public int i = 1;
+        public bool drawButtonRed = true;
 
         public Form1()
         {
@@ -42,12 +43,26 @@ namespace WeaponsCreaterTool
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.UserPaint, true);
-            pictureBox1.AllowDrop = true;//==============================================================================================================================================================
+            pictureBox1.AllowDrop = true;
+            ChangeColour();
+        }
+
+        //Changes Colour to display if user saved image
+        public void ChangeColour()
+        {
+            if (drawButtonRed == true)
+            {
+                CreateWeaponButton.BackColor = Color.Red;
+            }
+            else
+            {
+                CreateWeaponButton.BackColor = Color.LightGreen;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
@@ -77,26 +92,6 @@ namespace WeaponsCreaterTool
             eraser.Width = Width;
         }
 
-        //private void panel1_MouseMove(object sender, MouseEventArgs e)
-        //{
-        //    //if Left Click draw with Black Pen
-        //    if (e.Button == MouseButtons.Left)
-        //    {
-        //        current = e.Location;
-        //        //uses p which equals black
-        //        graph.DrawLine(p, old, current);
-        //        old = current;
-        //        panel1.Invalidate();
-        //    }
-        //    if (e.Button == MouseButtons.Right)
-        //    {
-        //        current = e.Location;
-        //        //now uses white as eraser
-        //        graph.DrawLine(eraser, old, current);
-        //        old = current;
-        //        panel1.Invalidate();
-        //    }
-        //}
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -109,9 +104,12 @@ namespace WeaponsCreaterTool
 
         private void button2_Click(object sender, EventArgs e)
         {
+            drawButtonRed = false;
+            //Saving Image
             surface.Save(s, ImageFormat.Png);
             s += i;
             i++;
+            ChangeColour();
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
@@ -122,6 +120,9 @@ namespace WeaponsCreaterTool
         private void CreateWeapon_Click(object sender, EventArgs e)
         {
             //Go To Next Form, which will be adding attributes
+            Form2 newMDIChild = new Form2();
+            newMDIChild.MdiParent = this;
+            newMDIChild.Show();
         }
 
         private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
@@ -189,6 +190,7 @@ namespace WeaponsCreaterTool
 
         private void button3_Click(object sender, EventArgs e)
         {
+            //Clear Button
             Image img = null;
             pictureBox1.Image = null;
             DrawArea.BackgroundImage = img;
@@ -196,14 +198,17 @@ namespace WeaponsCreaterTool
 
         private void button2_MouseHover(object sender, EventArgs e)
         {
+            //If mouse on save button
             button2.BackColor = Color.Green;
-            
         }
 
         private void button2_MouseLeave(object sender, EventArgs e)
         {
+            //if mouse not on save button
             button2.BackColor = Color.LightGray;
         }
+
+       
     }
     public class TPanel : Panel
     {
