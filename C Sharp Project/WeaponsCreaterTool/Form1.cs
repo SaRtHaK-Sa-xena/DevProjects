@@ -11,15 +11,7 @@ using System.Drawing.Imaging;
 
 namespace WeaponsCreaterTool
 {
-    public class TPanel : Panel
-    {
-        public TPanel()
-        {
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            this.SetStyle(ControlStyles.UserPaint, true);
-        }
-    }
+
 
 
 
@@ -92,11 +84,11 @@ namespace WeaponsCreaterTool
                 old = current;
                 panel1.Invalidate();
             }
-            if(e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
                 current = e.Location;
                 //now uses white as eraser
-                graph.DrawLine(eraser,old, current);
+                graph.DrawLine(eraser, old, current);
                 old = current;
                 panel1.Invalidate();
             }
@@ -105,7 +97,7 @@ namespace WeaponsCreaterTool
         private void button1_Click(object sender, EventArgs e)
         {
             ColorDialog cd = new ColorDialog();
-            if(cd.ShowDialog() == DialogResult.OK)
+            if (cd.ShowDialog() == DialogResult.OK)
             {
                 p.Color = cd.Color;
             }
@@ -117,5 +109,32 @@ namespace WeaponsCreaterTool
             s += i;
             i++;
         }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void CreateWeapon_Click(object sender, EventArgs e)
+        {
+            //Go To Next Form, which will be adding attributes
+
+        }
+    }
+    public class TPanel : Panel
+    {
+        public TPanel()
+        {
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.UserPaint, true);
+        }
+
+        //private void InitializeComponent()
+        //{
+        //    this.SuspendLayout();
+        //    this.ResumeLayout(false);
+
+        //}
     }
 }

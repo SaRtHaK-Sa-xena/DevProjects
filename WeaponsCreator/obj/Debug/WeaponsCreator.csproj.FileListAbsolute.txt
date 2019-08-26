@@ -9,3 +9,14 @@ C:\Users\sarthak\Documents\GitHub\TestProject2D\WeaponsCreator\bin\Debug\Weapons
 C:\Users\sarthak\Documents\GitHub\TestProject2D\WeaponsCreator\bin\Debug\WeaponsCreator.pdb
 C:\Users\sarthak\Documents\GitHub\TestProject2D\WeaponsCreator\obj\Debug\WeaponsCreator.exe
 C:\Users\sarthak\Documents\GitHub\TestProject2D\WeaponsCreator\obj\Debug\WeaponsCreator.pdb
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreator\bin\Debug\WeaponsCreator.exe.config
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreator\bin\Debug\WeaponsCreator.exe
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreator\bin\Debug\WeaponsCreator.pdb
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreator\obj\Debug\WeaponsCreator.csprojAssemblyReference.cache
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreator\obj\Debug\WeaponsCreator.MDIParent1.resources
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreator\obj\Debug\WeaponsCreator.Properties.Resources.resources
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreator\obj\Debug\WeaponsCreator.SpriteSheetForm.resources
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreator\obj\Debug\WeaponsCreator.csproj.GenerateResource.cache
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreator\obj\Debug\WeaponsCreator.csproj.CoreCompileInputs.cache
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreator\obj\Debug\WeaponsCreator.exe
+C:\Users\s191509\Documents\GitHub\TestProject2D\WeaponsCreator\obj\Debug\WeaponsCreator.pdb

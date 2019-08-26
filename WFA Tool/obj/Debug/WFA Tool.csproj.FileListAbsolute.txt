@@ -8,3 +8,14 @@ C:\Users\sarthak\Documents\GitHub\TestProject2D\WFA Tool\obj\Debug\WFA Tool.cspr
 C:\Users\sarthak\Documents\GitHub\TestProject2D\WFA Tool\obj\Debug\WFA Tool.csproj.CoreCompileInputs.cache
 C:\Users\sarthak\Documents\GitHub\TestProject2D\WFA Tool\obj\Debug\WFA Tool.exe
 C:\Users\sarthak\Documents\GitHub\TestProject2D\WFA Tool\obj\Debug\WFA Tool.pdb
+C:\Users\s191509\Documents\GitHub\TestProject2D\WFA Tool\bin\Debug\WFA Tool.exe.config
+C:\Users\s191509\Documents\GitHub\TestProject2D\WFA Tool\bin\Debug\WFA Tool.exe
+C:\Users\s191509\Documents\GitHub\TestProject2D\WFA Tool\bin\Debug\WFA Tool.pdb
+C:\Users\s191509\Documents\GitHub\TestProject2D\WFA Tool\obj\Debug\WFA Tool.csprojAssemblyReference.cache
+C:\Users\s191509\Documents\GitHub\TestProject2D\WFA Tool\obj\Debug\WFA_Tool.Form1.resources
+C:\Users\s191509\Documents\GitHub\TestProject2D\WFA Tool\obj\Debug\WFA_Tool.MDIForm.resources
+C:\Users\s191509\Documents\GitHub\TestProject2D\WFA Tool\obj\Debug\WFA_Tool.Properties.Resources.resources
+C:\Users\s191509\Documents\GitHub\TestProject2D\WFA Tool\obj\Debug\WFA Tool.csproj.GenerateResource.cache
+C:\Users\s191509\Documents\GitHub\TestProject2D\WFA Tool\obj\Debug\WFA Tool.csproj.CoreCompileInputs.cache
+C:\Users\s191509\Documents\GitHub\TestProject2D\WFA Tool\obj\Debug\WFA Tool.exe
+C:\Users\s191509\Documents\GitHub\TestProject2D\WFA Tool\obj\Debug\WFA Tool.pdb

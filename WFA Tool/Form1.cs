@@ -56,8 +56,11 @@ namespace WFA_Tool
                 {
                     myStream.Close();
                 }
+                else
+                {
+                    myStream.Close();
+                }
             }
-
         }
     }
 }
