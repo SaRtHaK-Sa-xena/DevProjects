@@ -15,23 +15,32 @@ namespace WeaponsCreaterTool
 
         //Weapons Class items are filled with
         //variable of name
-        public string weaponName { get; set; }
 
-        //variable of attributes
-        public int attributes { get; set; }
+        private string weaponName;
 
-        //custom made weaponImage
-        public Image weaponImage { get; set; }
-
-        public WeaponsClass returnClass
+        public string returnWeaponName
         {
             get
             {
-                WeaponsClass temp = new WeaponsClass();
-                return temp;
+                return weaponName;
             }
 
+            set
+            {
+                weaponName = value;
+            }
         }
+
+        //variable of attributes
+        private int attributes;
+        public int returnAttributes { get { return attributes; } set { attributes = value;}}
+
+        //custom made weaponImage
+        //public Image weaponImage { get; set; }
+
+        //instead of storing image
+        //store image path
+        public string imagePath = "../../bin/debug";
 
 
     }

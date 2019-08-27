@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Drawing.Imaging;
 
 namespace WFA_Tool
 {
@@ -18,6 +19,57 @@ namespace WFA_Tool
         public Form1()
         {
             InitializeComponent();
+            this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
+
+            //create new bitmap
+            Bitmap bmp = new Bitmap(200, 200);
+
+            using (Graphics g = Graphics.FromImage(bmp)) g.Clear(Color.Red);
+
+            //Write to string - which then could be written to xml
+            string picString = "";
+
+            using (MemoryStream m = new MemoryStream())
+            {
+                bmp.Save(m, ImageFormat.Png);
+                picString = Convert.ToBase64String(m.ToArray());
+                m.Close();
+            }
+
+            //dispose of bitmap
+            bmp.Dispose();
+
+            //read back the string to Bitmap
+            byte[] bytes = Convert.FromBase64String(picString);
+
+            Bitmap bmp2 = null;
+            using (MemoryStream m = new MemoryStream(bytes))
+            {
+                //Constructor needd if to close and dispose of memory stream
+
+                //create temporary bitmap of memory stream
+                Bitmap bmptemp = new Bitmap(m);
+
+                //make bmp2 equal to the bmptemp
+                bmp2 = new Bitmap(bmptemp);
+
+                //dispose previous temp
+                bmptemp.Dispose();
+                //dispose memory stream
+                m.Close();
+            }
+
+            //make backgrournd image of form equal to new bitmap
+            pictureBox3.Image = bmp2;
+        }
+
+        void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.BackgroundImage != null)
+            {
+                this.BackgroundImage.Dispose();
+            }
+              
         }
 
         private void Form1_Load(object sender, EventArgs e)

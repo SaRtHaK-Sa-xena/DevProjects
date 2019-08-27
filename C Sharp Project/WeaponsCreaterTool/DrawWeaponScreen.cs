@@ -107,22 +107,21 @@ namespace WeaponsCreaterTool
         private void button2_Click(object sender, EventArgs e)
         {
             drawButtonRed = false;
-            //Saving Image
 
             //XML serialize to serialize just img
-            WeaponsClass returnsTheClass = new WeaponsClass();
-            returnsTheClass.weaponImage = surface;
+            //WeaponsClass returnsTheClass = new WeaponsClass();
+            //returnsTheClass.weaponImage = surface;
 
-            XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
-            TextWriter writer = new StreamWriter("Single_Image_Weapon.xml");
+            //XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
+            //TextWriter writer = new StreamWriter("Single_Image_Weapon.xml");
 
-            WeaponsClass temporaryObj = new WeaponsClass();
-            serializer.Serialize(writer, temporaryObj);
-            writer.Close();
+            //WeaponsClass temporaryObj = new WeaponsClass();
+            //serializer.Serialize(writer, temporaryObj);
+            //writer.Close();
 
-            //surface.Save(s, ImageFormat.Png);
-            //s += i;
-            //i++;
+            //Saving Image
+
+            surface.Save(CreateImageName.Text, ImageFormat.Png);
             ChangeColour();
         }
 
@@ -131,10 +130,12 @@ namespace WeaponsCreaterTool
 
         }
 
+        //Transitions To Next Form
         private void CreateWeapon_Click(object sender, EventArgs e)
         {
             //Go To Next Form, which will be adding attributes
             AddAttributesScreen newMDIChild = new AddAttributesScreen();
+
             newMDIChild.Show();
         }
 
