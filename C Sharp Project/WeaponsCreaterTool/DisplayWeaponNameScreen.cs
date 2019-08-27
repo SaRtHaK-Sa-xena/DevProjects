@@ -19,7 +19,7 @@ namespace WeaponsCreaterTool
 
         private void AddWeaponButton_Click(object sender, EventArgs e)
         {
-            Form1 previousForm = new Form1();
+            DrawWeaponScreen previousForm = new DrawWeaponScreen();
             DisplayWeaponNameScreen.ActiveForm.Close();
             previousForm.Show();
         }

@@ -1,6 +1,6 @@
 ﻿namespace WeaponsCreaterTool
 {
-    partial class Form3
+    partial class AddAttributesScreen
     {
         /// <summary>
         /// Required designer variable.
@@ -39,9 +39,10 @@
             // Attack10Button
             // 
             this.Attack10Button.AutoSize = true;
-            this.Attack10Button.Location = new System.Drawing.Point(3, 3);
+            this.Attack10Button.Location = new System.Drawing.Point(2, 2);
+            this.Attack10Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Attack10Button.Name = "Attack10Button";
-            this.Attack10Button.Size = new System.Drawing.Size(100, 21);
+            this.Attack10Button.Size = new System.Drawing.Size(80, 17);
             this.Attack10Button.TabIndex = 0;
             this.Attack10Button.TabStop = true;
             this.Attack10Button.Text = "Attack = 10";
@@ -50,9 +51,10 @@
             // Attack20Button
             // 
             this.Attack20Button.AutoSize = true;
-            this.Attack20Button.Location = new System.Drawing.Point(3, 87);
+            this.Attack20Button.Location = new System.Drawing.Point(2, 39);
+            this.Attack20Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Attack20Button.Name = "Attack20Button";
-            this.Attack20Button.Size = new System.Drawing.Size(100, 21);
+            this.Attack20Button.Size = new System.Drawing.Size(80, 17);
             this.Attack20Button.TabIndex = 1;
             this.Attack20Button.TabStop = true;
             this.Attack20Button.Text = "Attack = 20";
@@ -61,9 +63,10 @@
             // Attack30Button
             // 
             this.Attack30Button.AutoSize = true;
-            this.Attack30Button.Location = new System.Drawing.Point(3, 44);
+            this.Attack30Button.Location = new System.Drawing.Point(2, 74);
+            this.Attack30Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Attack30Button.Name = "Attack30Button";
-            this.Attack30Button.Size = new System.Drawing.Size(100, 21);
+            this.Attack30Button.Size = new System.Drawing.Size(80, 17);
             this.Attack30Button.TabIndex = 2;
             this.Attack30Button.TabStop = true;
             this.Attack30Button.Text = "Attack = 30";
@@ -71,9 +74,10 @@
             // 
             // AddAttributesButton
             // 
-            this.AddAttributesButton.Location = new System.Drawing.Point(101, 37);
+            this.AddAttributesButton.Location = new System.Drawing.Point(76, 30);
+            this.AddAttributesButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AddAttributesButton.Name = "AddAttributesButton";
-            this.AddAttributesButton.Size = new System.Drawing.Size(203, 81);
+            this.AddAttributesButton.Size = new System.Drawing.Size(152, 66);
             this.AddAttributesButton.TabIndex = 3;
             this.AddAttributesButton.Text = "Add Attributes";
             this.AddAttributesButton.UseVisualStyleBackColor = true;
@@ -85,20 +89,20 @@
             this.panel1.Controls.Add(this.Attack30Button);
             this.panel1.Controls.Add(this.Attack20Button);
             this.panel1.Controls.Add(this.Attack10Button);
-            this.panel1.Location = new System.Drawing.Point(147, 166);
+            this.panel1.Location = new System.Drawing.Point(110, 135);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(106, 117);
+            this.panel1.Size = new System.Drawing.Size(80, 95);
             this.panel1.TabIndex = 4;
             // 
-            // Form3
+            // AddAttributesScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(432, 438);
+            this.ClientSize = new System.Drawing.Size(324, 356);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.AddAttributesButton);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "Form3";
+            this.Name = "AddAttributesScreen";
             this.Text = "Adding an attribute";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

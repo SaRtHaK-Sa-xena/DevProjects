@@ -10,18 +10,18 @@ using System.Windows.Forms;
 
 namespace WeaponsCreaterTool
 {
-    public partial class Form3 : Form
+    public partial class MainScreen : Form
     {
-        public Form3()
+        public MainScreen()
         {
             InitializeComponent();
         }
 
-        private void AddAttributesButton_Click(object sender, EventArgs e)
+        private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DisplayWeaponNameScreen newForm = new DisplayWeaponNameScreen();
-            /*turns of current active form 3*/ Form3.ActiveForm.Close();
-            newForm.Show();
+            DrawWeaponScreen newMDIChild = new DrawWeaponScreen();
+            newMDIChild.Show();
+            WindowState = FormWindowState.Minimized;
         }
     }
 }

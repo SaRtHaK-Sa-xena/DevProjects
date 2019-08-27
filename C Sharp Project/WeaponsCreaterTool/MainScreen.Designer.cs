@@ -1,6 +1,6 @@
 ﻿namespace WeaponsCreaterTool
 {
-    partial class Form2
+    partial class MainScreen
     {
         /// <summary>
         /// Required designer variable.

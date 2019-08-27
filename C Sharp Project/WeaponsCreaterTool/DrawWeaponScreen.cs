@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace WeaponsCreaterTool
 {
@@ -16,21 +18,21 @@ namespace WeaponsCreaterTool
 
 
 
-    public partial class Form1 : Form
+    public partial class DrawWeaponScreen : Form
     {
         public Point current = new Point();
         public Point old = new Point();
         public Pen p = new Pen(Color.Black, 5);
         public Pen eraser = new Pen(Color.White, 5);
         public Graphics g;
-        Bitmap surface;
+        public Bitmap surface;
         Graphics graph;
         public int Width;
         public string s = "Picture";
         public int i = 1;
         public bool drawButtonRed = true;
 
-        public Form1()
+        public DrawWeaponScreen()
         {
             InitializeComponent();
             g = DrawArea.CreateGraphics();
@@ -106,9 +108,21 @@ namespace WeaponsCreaterTool
         {
             drawButtonRed = false;
             //Saving Image
-            surface.Save(s, ImageFormat.Png);
-            s += i;
-            i++;
+
+            //XML serialize to serialize just img
+            WeaponsClass returnsTheClass = new WeaponsClass();
+            returnsTheClass.weaponImage = surface;
+
+            XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
+            TextWriter writer = new StreamWriter("Single_Image_Weapon.xml");
+
+            WeaponsClass temporaryObj = new WeaponsClass();
+            serializer.Serialize(writer, temporaryObj);
+            writer.Close();
+
+            //surface.Save(s, ImageFormat.Png);
+            //s += i;
+            //i++;
             ChangeColour();
         }
 
@@ -120,7 +134,7 @@ namespace WeaponsCreaterTool
         private void CreateWeapon_Click(object sender, EventArgs e)
         {
             //Go To Next Form, which will be adding attributes
-            Form3 newMDIChild = new Form3();
+            AddAttributesScreen newMDIChild = new AddAttributesScreen();
             newMDIChild.Show();
         }
 
