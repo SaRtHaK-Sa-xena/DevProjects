@@ -23,7 +23,7 @@ namespace WeaponsCreaterTool
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DrawWeaponScreen newMDIChild = new DrawWeaponScreen();
+            WeaponGenerator newMDIChild = new WeaponGenerator();
             newMDIChild.MdiParent = this;
             newMDIChild.Show();
             //WindowState = FormWindowState.Minimized;

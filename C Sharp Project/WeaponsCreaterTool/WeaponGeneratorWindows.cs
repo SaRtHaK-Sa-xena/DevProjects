@@ -135,10 +135,8 @@ namespace WeaponsCreaterTool
         //Transitions To Next Form
         private void CreateWeapon_Click(object sender, EventArgs e)
         {
-            //Go To Next Form, which will be adding attributes
-            AddAttributesScreen newMDIChild = new AddAttributesScreen();
+            //make boolean statement Check Number 1 equal to true
 
-            newMDIChild.Show();
         }
 
         private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
