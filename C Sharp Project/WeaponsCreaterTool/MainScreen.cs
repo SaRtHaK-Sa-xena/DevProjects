@@ -12,10 +12,7 @@ namespace WeaponsCreaterTool
 {
     public partial class MainScreen : Form
     {
-        //public Form Form()
-        //{
-
-        //}
+       
 
         public MainScreen()
         {
@@ -27,8 +24,9 @@ namespace WeaponsCreaterTool
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DrawWeaponScreen newMDIChild = new DrawWeaponScreen();
+            newMDIChild.MdiParent = this;
             newMDIChild.Show();
-            WindowState = FormWindowState.Minimized;
+            //WindowState = FormWindowState.Minimized;
         }
     }
 }
