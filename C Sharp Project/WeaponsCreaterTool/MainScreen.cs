@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace WeaponsCreaterTool
 {
@@ -34,12 +36,24 @@ namespace WeaponsCreaterTool
         private void LoadWeaponButton_Click(object sender, EventArgs e)
         {
             //Open FileStream
-            ImageListStreamer streamToOpen = File.Open("output.xml", FileMode.Open);
+            Stream streamToOpen = File.Open("Testing2.xml", FileMode.Open);
             XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
 
             WeaponsClass testObj2 = null;
-            testObj2 = (WeaponsClass)serializer.Deserialize(stream2);
-            stream2.Close();
+            testObj2 = (WeaponsClass)serializer.Deserialize(streamToOpen);
+            streamToOpen.Close();
+
+            WeaponsClass TemporaryClass = new WeaponsClass();
+
+            //TemporaryClass = testObj2
+
+            //Set Text Boxes To Loaded TestObj2
+            LoadedWeaponTEXT.Text = testObj2.returnWeaponName;
+            LoadedAttributeTEXT.Text = testObj2.returnAttributes.ToString();
+
+            //Load Png
+            LoadedImage.Image = Image.FromFile(testObj2.imagePath);
+
         }
     }
 }

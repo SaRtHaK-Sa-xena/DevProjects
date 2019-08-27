@@ -40,7 +40,16 @@ namespace WeaponsCreaterTool
 
         //instead of storing image
         //store image path, the path will always be the same
-        public string imagePath = "../../bin/debug";
+        public string imagePath = "../../bin/debug/";
+
+
+        //public string returnImagePath //"../../bin/debug/";
+        //{
+        //    get { return imagePath; }
+        //    set { imagePath = value; }
+        //}
+
+
 
 
     }
