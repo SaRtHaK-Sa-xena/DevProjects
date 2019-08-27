@@ -12,13 +12,13 @@ namespace WeaponsCreaterTool
 {
     public partial class MainScreen : Form
     {
-       
+
+        
 
         public MainScreen()
         {
             InitializeComponent();
             //Create a new weapon
-            WeaponsClass weaponToBeCreated = new WeaponsClass();
         }
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -26,6 +26,8 @@ namespace WeaponsCreaterTool
             WeaponGenerator newMDIChild = new WeaponGenerator();
             newMDIChild.MdiParent = this;
             newMDIChild.Show();
+            WeaponsClass CreateWeapon = new WeaponsClass();
+            newMDIChild.NewWeapon = CreateWeapon;
             //WindowState = FormWindowState.Minimized;
         }
     }

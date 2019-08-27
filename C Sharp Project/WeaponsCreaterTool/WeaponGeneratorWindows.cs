@@ -14,11 +14,7 @@ using System.IO;
 namespace WeaponsCreaterTool
 {
 
-
-
-
-
-    public partial class DrawWeaponScreen : Form
+    public partial class WeaponGenerator : Form
     {
         public Point current = new Point();
         public Point old = new Point();
@@ -31,10 +27,11 @@ namespace WeaponsCreaterTool
         public string s = "Picture";
         public int i = 1;
         public bool drawButtonRed = true;
+        public bool allDataFilled = false;
 
-        
+        public WeaponsClass NewWeapon;
 
-        public DrawWeaponScreen()
+        public WeaponGenerator()
         {
             InitializeComponent();
             g = DrawArea.CreateGraphics();
@@ -49,7 +46,9 @@ namespace WeaponsCreaterTool
             this.SetStyle(ControlStyles.UserPaint, true);
             pictureBox1.AllowDrop = true;
             ChangeColour();
+            
         }
+
 
         //Changes Colour to display if user saved image
         public void ChangeColour()
@@ -69,32 +68,7 @@ namespace WeaponsCreaterTool
             
         }
 
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
-        {
-            old = e.Location;
-            if (radioButton1.Checked)
-            {
-                Width = 1;
-            }
-            else if (radioButton2.Checked)
-            {
-                Width = 5;
-            }
-            else if (radioButton3.Checked)
-            {
-                Width = 10;
-            }
-            else if (radioButton4.Checked)
-            {
-                Width = 15;
-            }
-            else if (radioButton5.Checked)
-            {
-                Width = 30;
-            }
-            p.Width = Width;
-            eraser.Width = Width;
-        }
+       
 
 
         private void button1_Click(object sender, EventArgs e)
@@ -108,37 +82,27 @@ namespace WeaponsCreaterTool
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //indicates interaction with user
             drawButtonRed = false;
 
-            //XML serialize to serialize just img
-            //WeaponsClass returnsTheClass = new WeaponsClass();
-            //returnsTheClass.weaponImage = surface;
-
-            //XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
-            //TextWriter writer = new StreamWriter("Single_Image_Weapon.xml");
-
-            //WeaponsClass temporaryObj = new WeaponsClass();
-            //serializer.Serialize(writer, temporaryObj);
-            //writer.Close();
+            //Add to end
+            finalWeaponImage.Image = surface;
 
             //Saving Image
-
             surface.Save(CreateImageName.Text, ImageFormat.Png);
             ChangeColour();
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        
 
         //Transitions To Next Form
         private void CreateWeapon_Click(object sender, EventArgs e)
         {
-            //make boolean statement Check Number 1 equal to true
-
+            //Sets boolean statement to true
         }
 
+
+        //To constantly keep drawing over pictureBox to Save
         private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -159,6 +123,7 @@ namespace WeaponsCreaterTool
             }
         }
 
+        //Sets manually the WIDTH of pen
         private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
         {
             old = e.Location;
@@ -192,6 +157,7 @@ namespace WeaponsCreaterTool
             e.Effect = DragDropEffects.Copy;
         }
 
+        //Picture Box Drag and Drop
         private void pictureBox1_DragDrop(object sender, DragEventArgs e)
         {
             foreach(string pic in (string[])e.Data.GetData(DataFormats.FileDrop))
@@ -202,6 +168,7 @@ namespace WeaponsCreaterTool
             }
         }
 
+        //===============CLEAR BUTTON CLEARS THE REFERENCE IMAGE====================
         private void button3_Click(object sender, EventArgs e)
         {
             //Clear Button
@@ -209,7 +176,9 @@ namespace WeaponsCreaterTool
             pictureBox1.Image = null;
             DrawArea.BackgroundImage = img;
         }
+        //===============CLEAR BUTTON CLEARS THE REFERENCE IMAGE====================
 
+        
         private void button2_MouseHover(object sender, EventArgs e)
         {
             //If mouse on save button
@@ -221,6 +190,73 @@ namespace WeaponsCreaterTool
             //if mouse not on save button
             button2.BackColor = Color.LightGray;
         }
+
+        //Sets the attributes of the newly generated weapon
+        private void AttributeBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (radioButton8.Checked)
+            {
+                NewWeapon.returnAttributes = 10;
+                AddAttributesButton.BackColor = Color.Green;
+            }
+            else if (radioButton7.Checked)
+            {
+                NewWeapon.returnAttributes = 20;
+                AddAttributesButton.BackColor = Color.Green;
+            }
+            else if (radioButton6.Checked)
+            {
+                NewWeapon.returnAttributes = 30;
+                AddAttributesButton.BackColor = Color.Green;
+            }
+
+        }
+
+
+        //sets the attributes of the newly generated weapon onto final screen
+        private void AddAttributesButton_Click_1(object sender, EventArgs e)
+        {
+            //default is 10
+            int AttributeSetter = 10;
+
+            if (radioButton8.Checked)
+            {
+                NewWeapon.returnAttributes = 10;
+                AddAttributesButton.BackColor = Color.Green;
+                AttributeSetter = 10;
+            }
+            else if (radioButton7.Checked)
+            {
+                NewWeapon.returnAttributes = 20;
+                AddAttributesButton.BackColor = Color.Green;
+                AttributeSetter = 20;
+            }
+            else if (radioButton6.Checked)
+            {
+                NewWeapon.returnAttributes = 30;
+                AddAttributesButton.BackColor = Color.Green;
+                AttributeSetter = 30;
+            }
+            finalAttributes.Text = AttributeSetter.ToString();
+        }
+
+        private void panel2_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void SaveLoadoutButton_Click(object sender, EventArgs e)
+        {
+            string fileName = finalWeaponNameTextBox.Text;
+            NewWeapon.imagePath = NewWeapon.imagePath + CreateImageName.Text;
+            NewWeapon.imagePath = Path.Combine(NewWeapon.imagePath, CreateImageName.Text);
+            //XML serialize to serialize just img
+            XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
+            TextWriter writer = new StreamWriter(fileName + ".xml");
+
+            serializer.Serialize(writer, NewWeapon);
+            writer.Close();
+        }
     }
     public class TPanel : Panel
     {
@@ -231,11 +267,15 @@ namespace WeaponsCreaterTool
             this.SetStyle(ControlStyles.UserPaint, true);
         }
 
-        //private void InitializeComponent()
-        //{
-        //    this.SuspendLayout();
-        //    this.ResumeLayout(false);
+        //_____________________________________________
+        //|Used to debug------------------------------
+        //|private void InitializeComponent()
+        //|{
+        //|    this.SuspendLayout();
+        //|    this.ResumeLayout(false);
 
-        //}
+        //|}
+        //|Used to debug------------------------------
+
     }
 }

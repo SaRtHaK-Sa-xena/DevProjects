@@ -21,6 +21,6 @@ C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTo
 C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.Form2.resources
 C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.Form3.resources
 C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.DisplayWeaponNameScreen.resources
-C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.DrawWeaponScreen.resources
 C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.MainScreen.resources
 C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.AddAttributesScreen.resources
+C:\Users\s191509\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Debug\WeaponsCreaterTool.WeaponGenerator.resources

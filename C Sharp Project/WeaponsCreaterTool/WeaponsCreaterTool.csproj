@@ -52,11 +52,11 @@
     <Compile Include="DisplayWeaponNameScreen.Designer.cs">
       <DependentUpon>DisplayWeaponNameScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="DrawWeaponScreen.cs">
+    <Compile Include="WeaponGeneratorWindows.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DrawWeaponScreen.Designer.cs">
-      <DependentUpon>DrawWeaponScreen.cs</DependentUpon>
+    <Compile Include="WeaponGeneratorWindows.Designer.cs">
+      <DependentUpon>WeaponGeneratorWindows.cs</DependentUpon>
     </Compile>
     <Compile Include="MainScreen.cs">
       <SubType>Form</SubType>
@@ -76,8 +76,8 @@
     <EmbeddedResource Include="DisplayWeaponNameScreen.resx">
       <DependentUpon>DisplayWeaponNameScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DrawWeaponScreen.resx">
-      <DependentUpon>DrawWeaponScreen.cs</DependentUpon>
+    <EmbeddedResource Include="WeaponGeneratorWindows.resx">
+      <DependentUpon>WeaponGeneratorWindows.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainScreen.resx">
       <DependentUpon>MainScreen.cs</DependentUpon>
