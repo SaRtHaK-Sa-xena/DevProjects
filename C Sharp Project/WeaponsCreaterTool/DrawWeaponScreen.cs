@@ -32,6 +32,8 @@ namespace WeaponsCreaterTool
         public int i = 1;
         public bool drawButtonRed = true;
 
+        
+
         public DrawWeaponScreen()
         {
             InitializeComponent();

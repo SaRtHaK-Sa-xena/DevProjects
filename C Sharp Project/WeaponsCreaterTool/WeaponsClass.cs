@@ -10,7 +10,7 @@ namespace WeaponsCreaterTool
     public class WeaponsClass
     {
         //Creates a list of weapons from weapons class items
-        List<WeaponsClass> listOfWeapons; //= new List<WeaponsClass>();
+        List<WeaponsClass> listOfWeapons = new List<WeaponsClass>();
 
 
         //Weapons Class items are filled with
@@ -39,7 +39,7 @@ namespace WeaponsCreaterTool
         //public Image weaponImage { get; set; }
 
         //instead of storing image
-        //store image path
+        //store image path, the path will always be the same
         public string imagePath = "../../bin/debug";
 
 

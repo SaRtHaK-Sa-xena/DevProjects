@@ -12,9 +12,16 @@ namespace WeaponsCreaterTool
 {
     public partial class MainScreen : Form
     {
+        //public Form Form()
+        //{
+
+        //}
+
         public MainScreen()
         {
             InitializeComponent();
+            //Create a new weapon
+            WeaponsClass weaponToBeCreated = new WeaponsClass();
         }
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
