@@ -247,9 +247,10 @@ namespace WeaponsCreaterTool
 
         private void SaveLoadoutButton_Click(object sender, EventArgs e)
         {
+            //Saves the Entire LoadOut
             string fileName = finalWeaponNameTextBox.Text;
-            NewWeapon.imagePath = NewWeapon.imagePath + CreateImageName.Text;
-            NewWeapon.imagePath = Path.Combine(NewWeapon.imagePath, CreateImageName.Text);
+            //ewWeapon.imagePath = NewWeapon.imagePath + CreateImageName.Text;
+            NewWeapon.imagePath = Path.Combine(NewWeapon.imagePath, CreateImageName.Text + ".png");
             //XML serialize to serialize just img
             XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
             TextWriter writer = new StreamWriter(fileName + ".xml");

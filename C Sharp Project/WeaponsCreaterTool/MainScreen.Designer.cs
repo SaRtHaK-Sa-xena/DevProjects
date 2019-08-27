@@ -39,11 +39,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.LoadedImage = new System.Windows.Forms.PictureBox();
+            this.LoadedAttributeTEXT = new System.Windows.Forms.TextBox();
+            this.LoadedWeaponTEXT = new System.Windows.Forms.TextBox();
+            this.LoadWeaponButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadedImage)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -149,31 +150,42 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "Loaded Image";
             // 
-            // pictureBox1
+            // LoadedImage
             // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(18, 360);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(216, 141);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 11;
-            this.pictureBox1.TabStop = false;
+            this.LoadedImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LoadedImage.Location = new System.Drawing.Point(18, 360);
+            this.LoadedImage.Name = "LoadedImage";
+            this.LoadedImage.Size = new System.Drawing.Size(216, 141);
+            this.LoadedImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.LoadedImage.TabIndex = 11;
+            this.LoadedImage.TabStop = false;
             // 
-            // textBox2
+            // LoadedAttributeTEXT
             // 
-            this.textBox2.Location = new System.Drawing.Point(239, 318);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(120, 36);
-            this.textBox2.TabIndex = 13;
+            this.LoadedAttributeTEXT.Location = new System.Drawing.Point(239, 318);
+            this.LoadedAttributeTEXT.Multiline = true;
+            this.LoadedAttributeTEXT.Name = "LoadedAttributeTEXT";
+            this.LoadedAttributeTEXT.Size = new System.Drawing.Size(120, 36);
+            this.LoadedAttributeTEXT.TabIndex = 13;
             // 
-            // textBox1
+            // LoadedWeaponTEXT
             // 
-            this.textBox1.Location = new System.Drawing.Point(240, 275);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(120, 36);
-            this.textBox1.TabIndex = 14;
+            this.LoadedWeaponTEXT.Location = new System.Drawing.Point(240, 275);
+            this.LoadedWeaponTEXT.Multiline = true;
+            this.LoadedWeaponTEXT.Name = "LoadedWeaponTEXT";
+            this.LoadedWeaponTEXT.Size = new System.Drawing.Size(120, 36);
+            this.LoadedWeaponTEXT.TabIndex = 14;
+            // 
+            // LoadWeaponButton
+            // 
+            this.LoadWeaponButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadWeaponButton.Location = new System.Drawing.Point(12, 532);
+            this.LoadWeaponButton.Name = "LoadWeaponButton";
+            this.LoadWeaponButton.Size = new System.Drawing.Size(238, 67);
+            this.LoadWeaponButton.TabIndex = 15;
+            this.LoadWeaponButton.Text = "Load Weapon";
+            this.LoadWeaponButton.UseVisualStyleBackColor = true;
+            this.LoadWeaponButton.Click += new System.EventHandler(this.LoadWeaponButton_Click);
             // 
             // MainScreen
             // 
@@ -181,9 +193,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(976, 611);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.LoadWeaponButton);
+            this.Controls.Add(this.LoadedWeaponTEXT);
+            this.Controls.Add(this.LoadedAttributeTEXT);
+            this.Controls.Add(this.LoadedImage);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -199,7 +212,7 @@
             this.Text = "Form2";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadedImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,8 +231,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.PictureBox LoadedImage;
+        private System.Windows.Forms.TextBox LoadedAttributeTEXT;
+        private System.Windows.Forms.TextBox LoadedWeaponTEXT;
+        private System.Windows.Forms.Button LoadWeaponButton;
     }
 }
