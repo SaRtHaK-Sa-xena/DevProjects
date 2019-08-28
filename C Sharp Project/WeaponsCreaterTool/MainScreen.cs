@@ -12,15 +12,39 @@ using System.IO;
 
 namespace WeaponsCreaterTool
 {
+
     public partial class MainScreen : Form
     {
-
-        
 
         public MainScreen()
         {
             InitializeComponent();
-            //Create a new weapon
+
+            //Create a new weapon list
+            List<WeaponsClass> listOfWeapons = new List<WeaponsClass>();
+            AddTolist();
+        }
+
+        public void AddTolist()
+        {
+            //files will equal the file of current directory, that has .xml as filter
+            var files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.xml");
+            foreach (var file in files)
+            {
+                //now replacement holds strings
+                string replacement = files.ToString();
+
+                //now we have states what to remove from string
+                string toRemove = "C:\\Users\\sarthak\\Documents\\GitHub\\TestProject2D\\C Sharp Project\\WeaponsCreaterTool\\bin\\Debug\\";
+
+                string NewString = string.Empty;
+                int i = replacement.IndexOf(toRemove);
+                if (i >= 0)
+                {
+                    //removes per letter till length of 'toRemove' string
+                    NewString = replacement.Remove(i, toRemove.Length);
+                }
+            }
         }
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -35,8 +59,9 @@ namespace WeaponsCreaterTool
 
         private void LoadWeaponButton_Click(object sender, EventArgs e)
         {
+
             //Open FileStream
-            Stream streamToOpen = File.Open("Testing2.xml", FileMode.Open);
+            Stream streamToOpen = File.Open(/*The .xml file name:*/ /*testObj2.returnWeaponName + */"TestNumberTwoXML.xml", FileMode.Open);
             XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
 
             WeaponsClass testObj2 = null;
@@ -53,6 +78,7 @@ namespace WeaponsCreaterTool
 
             //Load Png
             LoadedImage.Image = Image.FromFile(testObj2.imagePath);
+            //LoadedImage.Image = Image.FromFile("../bin/debug/TestNumberIMG");
 
         }
     }

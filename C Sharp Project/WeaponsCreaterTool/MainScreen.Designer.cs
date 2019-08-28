@@ -49,11 +49,13 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(976, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1284, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -62,25 +64,27 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newFileToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newFileToolStripMenuItem
             // 
             this.newFileToolStripMenuItem.Name = "newFileToolStripMenuItem";
-            this.newFileToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.newFileToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
             this.newFileToolStripMenuItem.Text = "Create New Weapon";
             this.newFileToolStripMenuItem.Click += new System.EventHandler(this.newFileToolStripMenuItem_Click);
             // 
             // MainListOfWeapons
             // 
             this.MainListOfWeapons.FormattingEnabled = true;
+            this.MainListOfWeapons.ItemHeight = 16;
             this.MainListOfWeapons.Items.AddRange(new object[] {
             "Weapon Sample 1",
             "Weapon Sample 2"});
-            this.MainListOfWeapons.Location = new System.Drawing.Point(12, 89);
+            this.MainListOfWeapons.Location = new System.Drawing.Point(16, 110);
+            this.MainListOfWeapons.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MainListOfWeapons.Name = "MainListOfWeapons";
-            this.MainListOfWeapons.Size = new System.Drawing.Size(310, 43);
+            this.MainListOfWeapons.Size = new System.Drawing.Size(412, 52);
             this.MainListOfWeapons.TabIndex = 3;
             // 
             // WeaponsToSearchBox
@@ -88,27 +92,31 @@
             this.WeaponsToSearchBox.BackColor = System.Drawing.Color.Gold;
             this.WeaponsToSearchBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.WeaponsToSearchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WeaponsToSearchBox.Location = new System.Drawing.Point(12, 53);
+            this.WeaponsToSearchBox.Location = new System.Drawing.Point(16, 65);
+            this.WeaponsToSearchBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.WeaponsToSearchBox.Name = "WeaponsToSearchBox";
-            this.WeaponsToSearchBox.Size = new System.Drawing.Size(309, 30);
+            this.WeaponsToSearchBox.Size = new System.Drawing.Size(411, 36);
             this.WeaponsToSearchBox.TabIndex = 4;
             this.WeaponsToSearchBox.Text = "WEAPONS";
             // 
             // MainListBoxOfWeapons
             // 
             this.MainListBoxOfWeapons.FormattingEnabled = true;
-            this.MainListBoxOfWeapons.Location = new System.Drawing.Point(13, 139);
+            this.MainListBoxOfWeapons.ItemHeight = 16;
+            this.MainListBoxOfWeapons.Location = new System.Drawing.Point(17, 171);
+            this.MainListBoxOfWeapons.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MainListBoxOfWeapons.Name = "MainListBoxOfWeapons";
-            this.MainListBoxOfWeapons.Size = new System.Drawing.Size(309, 95);
+            this.MainListBoxOfWeapons.Size = new System.Drawing.Size(411, 116);
             this.MainListBoxOfWeapons.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 275);
+            this.label1.Location = new System.Drawing.Point(17, 338);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(215, 25);
+            this.label1.Size = new System.Drawing.Size(273, 29);
             this.label1.TabIndex = 6;
             this.label1.Text = "Loaded Weapon Name";
             // 
@@ -116,9 +124,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(13, 320);
+            this.label2.Location = new System.Drawing.Point(17, 394);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(165, 25);
+            this.label2.Size = new System.Drawing.Size(211, 29);
             this.label2.TabIndex = 7;
             this.label2.Text = "Loaded Attributes";
             // 
@@ -126,62 +135,69 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(184, 320);
+            this.label3.Location = new System.Drawing.Point(245, 394);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(0, 25);
+            this.label3.Size = new System.Drawing.Size(0, 29);
             this.label3.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(234, 275);
+            this.label4.Location = new System.Drawing.Point(312, 338);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(0, 25);
+            this.label4.Size = new System.Drawing.Size(0, 29);
             this.label4.TabIndex = 9;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(47, 504);
+            this.label5.Location = new System.Drawing.Point(63, 620);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(137, 25);
+            this.label5.Size = new System.Drawing.Size(174, 29);
             this.label5.TabIndex = 10;
             this.label5.Text = "Loaded Image";
             // 
             // LoadedImage
             // 
             this.LoadedImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LoadedImage.Location = new System.Drawing.Point(18, 360);
+            this.LoadedImage.Location = new System.Drawing.Point(24, 443);
+            this.LoadedImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.LoadedImage.Name = "LoadedImage";
-            this.LoadedImage.Size = new System.Drawing.Size(216, 141);
+            this.LoadedImage.Size = new System.Drawing.Size(287, 173);
             this.LoadedImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.LoadedImage.TabIndex = 11;
             this.LoadedImage.TabStop = false;
             // 
             // LoadedAttributeTEXT
             // 
-            this.LoadedAttributeTEXT.Location = new System.Drawing.Point(239, 318);
+            this.LoadedAttributeTEXT.Location = new System.Drawing.Point(319, 391);
+            this.LoadedAttributeTEXT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.LoadedAttributeTEXT.Multiline = true;
             this.LoadedAttributeTEXT.Name = "LoadedAttributeTEXT";
-            this.LoadedAttributeTEXT.Size = new System.Drawing.Size(120, 36);
+            this.LoadedAttributeTEXT.Size = new System.Drawing.Size(159, 43);
             this.LoadedAttributeTEXT.TabIndex = 13;
             // 
             // LoadedWeaponTEXT
             // 
-            this.LoadedWeaponTEXT.Location = new System.Drawing.Point(240, 275);
+            this.LoadedWeaponTEXT.Location = new System.Drawing.Point(320, 338);
+            this.LoadedWeaponTEXT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.LoadedWeaponTEXT.Multiline = true;
             this.LoadedWeaponTEXT.Name = "LoadedWeaponTEXT";
-            this.LoadedWeaponTEXT.Size = new System.Drawing.Size(120, 36);
+            this.LoadedWeaponTEXT.Size = new System.Drawing.Size(159, 43);
             this.LoadedWeaponTEXT.TabIndex = 14;
             // 
             // LoadWeaponButton
             // 
             this.LoadWeaponButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadWeaponButton.Location = new System.Drawing.Point(12, 532);
+            this.LoadWeaponButton.Location = new System.Drawing.Point(16, 655);
+            this.LoadWeaponButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.LoadWeaponButton.Name = "LoadWeaponButton";
-            this.LoadWeaponButton.Size = new System.Drawing.Size(238, 67);
+            this.LoadWeaponButton.Size = new System.Drawing.Size(317, 82);
             this.LoadWeaponButton.TabIndex = 15;
             this.LoadWeaponButton.Text = "Load Weapon";
             this.LoadWeaponButton.UseVisualStyleBackColor = true;
@@ -189,10 +205,10 @@
             // 
             // MainScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(976, 611);
+            this.ClientSize = new System.Drawing.Size(1284, 752);
             this.Controls.Add(this.LoadWeaponButton);
             this.Controls.Add(this.LoadedWeaponTEXT);
             this.Controls.Add(this.LoadedAttributeTEXT);
@@ -208,6 +224,7 @@
             this.Controls.Add(this.MainListOfWeapons);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainScreen";
             this.Text = "Form2";
             this.menuStrip1.ResumeLayout(false);

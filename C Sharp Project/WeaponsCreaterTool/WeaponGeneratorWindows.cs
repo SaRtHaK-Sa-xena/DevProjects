@@ -254,7 +254,7 @@ namespace WeaponsCreaterTool
 
             //Used to be here. Just Changed
             //NewWeapon.imagePath = Path.Combine(NewWeapon.imagePath, CreateImageName.Text + ".png");
-            NewWeapon.imagePath = Path.Combine(NewWeapon.imagePath, CreateImageName.Text + ".png");
+            NewWeapon.imagePath = Path.Combine(NewWeapon.imagePath, CreateImageName.Text);// + ".png");
             //XML serialize to serialize just img
             XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
             TextWriter writer = new StreamWriter(fileName + ".xml");
