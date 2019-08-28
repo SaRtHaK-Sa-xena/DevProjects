@@ -32,17 +32,18 @@ namespace WeaponsCreaterTool
             foreach (var file in files)
             {
                 //now replacement holds strings
-                string replacement = files.ToString();
+                string replacement = file.ToString();
 
                 //now we have states what to remove from string
-                string toRemove = "C:\\Users\\sarthak\\Documents\\GitHub\\TestProject2D\\C Sharp Project\\WeaponsCreaterTool\\bin\\Debug\\";
+                //string toRemove = "C:\\Users\\sarthak\\Documents\\GitHub\\TestProject2D\\C Sharp Project\\WeaponsCreaterTool\\bin\\Debug\\";
+                string toRemove = "Debug\\";
 
                 string NewString = string.Empty;
                 int i = replacement.IndexOf(toRemove);
                 if (i >= 0)
                 {
                     //removes per letter till length of 'toRemove' string
-                    NewString = replacement.Remove(i, toRemove.Length);
+                    NewString = replacement.Remove(i, -toRemove.Length);
                 }
             }
         }
