@@ -25,6 +25,11 @@ namespace WeaponsCreaterTool
             AddTolist();
         }
 
+        //public string ReturnFirst(string currentString)
+        //{
+        //    string first = currentString.Substring(0,)
+        //}
+
         public void AddTolist()
         {
             //files will equal the file of current directory, that has .xml as filter
@@ -37,13 +42,15 @@ namespace WeaponsCreaterTool
                 //now we have states what to remove from string
                 //string toRemove = "C:\\Users\\sarthak\\Documents\\GitHub\\TestProject2D\\C Sharp Project\\WeaponsCreaterTool\\bin\\Debug\\";
                 string toRemove = "Debug\\";
+                string firstLetter = replacement.Substring(0,1);
 
                 string NewString = string.Empty;
-                int i = replacement.IndexOf(toRemove);
+                int i = replacement.IndexOf(toRemove) + 6;
+                int firstIndex = replacement.IndexOf(firstLetter);
                 if (i >= 0)
                 {
                     //removes per letter till length of 'toRemove' string
-                    NewString = replacement.Remove(i, -toRemove.Length);
+                    NewString = replacement.Remove(firstIndex, i);
                 }
             }
         }
