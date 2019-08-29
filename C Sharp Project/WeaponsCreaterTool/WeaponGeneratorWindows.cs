@@ -317,6 +317,10 @@ namespace WeaponsCreaterTool
                 //Then on click close form
 
             }
+            if(firstCheck == false)
+            {
+                MessageBox.Show("No Name Given To Weapon");
+            }
             if (secondCheck == false)
             {
                 MessageBox.Show("Image Not Saved");
@@ -329,6 +333,23 @@ namespace WeaponsCreaterTool
             {
                 MessageBox.Show("Loadout Not Saved");
             }
+        }
+
+        private void FinalAddWeaponButton_MouseHover(object sender, EventArgs e)
+        {
+            if (firstCheck == false || secondCheck == false || thirdCheck == false || fourthCheck == false)
+            {
+                FinalAddWeaponButton.BackColor = Color.Red;
+            }
+            else
+            {
+                FinalAddWeaponButton.BackColor = Color.Green;
+            }
+        }
+
+        private void FinalAddWeaponButton_MouseLeave(object sender, EventArgs e)
+        {
+            FinalAddWeaponButton.BackColor = Color.Gray;
         }
     }
     public class TPanel : Panel

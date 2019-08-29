@@ -25,52 +25,6 @@ namespace WeaponsCreaterTool
             AddTolist();
         }
 
-        //public string ReturnFirst(string currentString)
-        //{
-        //    string first = currentString.Substring(0,)
-        //}
-
-
-        public void SortByAlphabeticalOrder(ref List<string> ofList)
-        {
-            //Create Checklist
-            string ID = "a";
-            string IDb = "b";
-            string IDc = "c";
-            string IDd = "d";
-            string IDe = "e";
-            string IDf = "f";
-            string IDg = "g";
-            string IDh = "h";
-            string IDi = "i";
-            string IDj = "j";
-            string IDk = "k";
-            string IDl = "l";
-            string IDm = "m";
-            string IDn = "n";
-            string IDo = "o";
-            string IDp = "p";
-            string IDq = "q";
-            string IDr = "r";
-            string IDs = "s";
-            string IDt = "t";
-            string IDu = "u";
-            string IDv = "v";
-            string IDw = "w";
-            string IDx = "x";
-            string IDy = "y";
-            string IDz = "z";
-            //Create Checklist
-
-            //should return first item
-            ofList.First<string>().Substring(0, 1);
-
-            //for(int i = 0; i < )
-
-            //if()
-
-        }
-
         public void AddTolist()
         {
             // Create an instance of the ListBox
@@ -143,7 +97,6 @@ namespace WeaponsCreaterTool
                 listBox1.Items.Add("Weapon: " + Weapons[i]);
             }
             // Allow the ListBox to repaint and display the new items.
-            listBox1.EndUpdate();
         }
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -167,7 +120,7 @@ namespace WeaponsCreaterTool
             //Try to load weapon
             try
             {
-                Stream streamToOpen = File.Open(/*The .xml file name:*/ /*testObj2.returnWeaponName + */WeaponsToSearchBox.Text + ".xml", FileMode.Open);
+                Stream streamToOpen = File.Open(/*The .xml file name:*/WeaponsToSearchBox.Text + ".xml", FileMode.Open);
 
                 XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
 

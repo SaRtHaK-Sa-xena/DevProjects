@@ -181,7 +181,7 @@
             this.CreateWeaponButton.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.CreateWeaponButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreateWeaponButton.Location = new System.Drawing.Point(137, 4);
-            this.CreateWeaponButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CreateWeaponButton.Margin = new System.Windows.Forms.Padding(4);
             this.CreateWeaponButton.Name = "CreateWeaponButton";
             this.CreateWeaponButton.Size = new System.Drawing.Size(504, 70);
             this.CreateWeaponButton.TabIndex = 4;
@@ -205,7 +205,7 @@
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(11, 554);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(138, 70);
             this.pictureBox1.TabIndex = 6;
@@ -222,7 +222,7 @@
             this.DrawArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DrawArea.InitialImage = null;
             this.DrawArea.Location = new System.Drawing.Point(15, 76);
-            this.DrawArea.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DrawArea.Margin = new System.Windows.Forms.Padding(4);
             this.DrawArea.Name = "DrawArea";
             this.DrawArea.Size = new System.Drawing.Size(606, 441);
             this.DrawArea.TabIndex = 7;
@@ -243,7 +243,7 @@
             // referenceButton
             // 
             this.referenceButton.Location = new System.Drawing.Point(11, 526);
-            this.referenceButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.referenceButton.Margin = new System.Windows.Forms.Padding(4);
             this.referenceButton.Name = "referenceButton";
             this.referenceButton.Size = new System.Drawing.Size(139, 28);
             this.referenceButton.TabIndex = 9;
@@ -255,7 +255,7 @@
             // CreateImageName
             // 
             this.CreateImageName.Location = new System.Drawing.Point(628, 410);
-            this.CreateImageName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CreateImageName.Margin = new System.Windows.Forms.Padding(4);
             this.CreateImageName.Name = "CreateImageName";
             this.CreateImageName.Size = new System.Drawing.Size(132, 23);
             this.CreateImageName.TabIndex = 10;
@@ -310,6 +310,8 @@
             this.toolTip1.SetToolTip(this.FinalAddWeaponButton, "Adds Weapon To Main Menu List");
             this.FinalAddWeaponButton.UseVisualStyleBackColor = true;
             this.FinalAddWeaponButton.Click += new System.EventHandler(this.FinalAddWeaponButton_Click);
+            this.FinalAddWeaponButton.MouseLeave += new System.EventHandler(this.FinalAddWeaponButton_MouseLeave);
+            this.FinalAddWeaponButton.MouseHover += new System.EventHandler(this.FinalAddWeaponButton_MouseHover);
             // 
             // finalAttributes
             // 
@@ -331,7 +333,7 @@
             this.DrawWeapon.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DrawWeapon.HotTrack = true;
             this.DrawWeapon.Location = new System.Drawing.Point(0, 0);
-            this.DrawWeapon.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DrawWeapon.Margin = new System.Windows.Forms.Padding(4);
             this.DrawWeapon.Name = "DrawWeapon";
             this.DrawWeapon.SelectedIndex = 0;
             this.DrawWeapon.Size = new System.Drawing.Size(801, 663);
@@ -351,9 +353,9 @@
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage1.Size = new System.Drawing.Size(793, 634);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Draw Weapon";
@@ -367,9 +369,9 @@
             this.tabPage2.Controls.Add(this.radioButton8);
             this.tabPage2.Controls.Add(this.AttributeBox);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage2.Size = new System.Drawing.Size(793, 634);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Add Attributes";
@@ -427,7 +429,7 @@
             // 
             this.AttributeBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.AttributeBox.Location = new System.Drawing.Point(269, 266);
-            this.AttributeBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AttributeBox.Margin = new System.Windows.Forms.Padding(4);
             this.AttributeBox.Name = "AttributeBox";
             this.AttributeBox.Size = new System.Drawing.Size(203, 126);
             this.AttributeBox.TabIndex = 4;
@@ -445,9 +447,9 @@
             this.tabPage3.Controls.Add(this.finalAttributes);
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage3.Size = new System.Drawing.Size(793, 634);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Display Name";
