@@ -273,10 +273,10 @@ namespace WeaponsCreaterTool
         {
             //Saves the Entire LoadOut
             string fileName = finalWeaponNameTextBox.Text;
-            NewWeapon.returnWeaponName = finalWeaponNameTextBox.Text;
+            NewWeapon.returnName = finalWeaponNameTextBox.Text;
 
             //Check to enable finalAddWeapon Button
-            if (NewWeapon.returnWeaponName == null)
+            if (NewWeapon.returnName == null)
             {
                 firstCheck = false;
             }

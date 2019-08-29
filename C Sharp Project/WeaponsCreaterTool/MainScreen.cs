@@ -133,7 +133,7 @@ namespace WeaponsCreaterTool
                 //TemporaryClass = testObj2
 
                 //Set Text Boxes To Loaded TestObj2
-                LoadedWeaponTEXT.Text = testObj2.returnWeaponName;
+                LoadedWeaponTEXT.Text = testObj2.returnName;
                 LoadedAttributeTEXT.Text = testObj2.returnAttributes.ToString();
 
                 //Load Png

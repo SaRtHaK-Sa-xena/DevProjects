@@ -9,19 +9,21 @@ namespace WeaponsCreaterTool
 {
     public class BaseItemsClass
     {
-        private string weaponName;
+        private string itemName;
 
-        public string returnWeaponName
+        public virtual string returnName
         {
             get
             {
-                return weaponName;
+                return itemName;
             }
             set
             {
-                weaponName = value;
+                itemName = value;
             }
         }
+
+        public string imagePath = "../../bin/Debug/";
     }
 
 
@@ -31,13 +33,16 @@ namespace WeaponsCreaterTool
         //Creates a list of weapons from weapons class items
         List<WeaponsClass> listOfWeapons = new List<WeaponsClass>();
 
+        //default Constructor //--Example of Inheritance
+        public WeaponsClass() : base() { }
+
 
         //Weapons Class items are filled with
         //variable of name
-
         private string weaponName;
 
-        public string returnWeaponName
+        //Example Of Polymorphism
+        public override string returnName
         {
             get
             {
@@ -59,8 +64,6 @@ namespace WeaponsCreaterTool
 
         //instead of storing image
         //store image path, the path will always be the same
-        public string imagePath = "../../bin/Debug/";
-
 
         //public string returnImagePath //"../../bin/debug/";
         //{
