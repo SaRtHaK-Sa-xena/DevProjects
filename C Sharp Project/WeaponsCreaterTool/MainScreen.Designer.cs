@@ -31,9 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MainListOfWeapons = new System.Windows.Forms.ListBox();
             this.WeaponsToSearchBox = new System.Windows.Forms.TextBox();
-            this.MainListBoxOfWeapons = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -74,40 +72,17 @@
             this.newFileToolStripMenuItem.Text = "Create New Weapon";
             this.newFileToolStripMenuItem.Click += new System.EventHandler(this.newFileToolStripMenuItem_Click);
             // 
-            // MainListOfWeapons
-            // 
-            this.MainListOfWeapons.FormattingEnabled = true;
-            this.MainListOfWeapons.ItemHeight = 16;
-            this.MainListOfWeapons.Items.AddRange(new object[] {
-            "Weapon Sample 1",
-            "Weapon Sample 2"});
-            this.MainListOfWeapons.Location = new System.Drawing.Point(16, 110);
-            this.MainListOfWeapons.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.MainListOfWeapons.Name = "MainListOfWeapons";
-            this.MainListOfWeapons.Size = new System.Drawing.Size(412, 52);
-            this.MainListOfWeapons.TabIndex = 3;
-            // 
             // WeaponsToSearchBox
             // 
             this.WeaponsToSearchBox.BackColor = System.Drawing.Color.Gold;
             this.WeaponsToSearchBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.WeaponsToSearchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WeaponsToSearchBox.Location = new System.Drawing.Point(16, 65);
-            this.WeaponsToSearchBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.WeaponsToSearchBox.Margin = new System.Windows.Forms.Padding(4);
             this.WeaponsToSearchBox.Name = "WeaponsToSearchBox";
             this.WeaponsToSearchBox.Size = new System.Drawing.Size(411, 36);
             this.WeaponsToSearchBox.TabIndex = 4;
             this.WeaponsToSearchBox.Text = "WEAPONS";
-            // 
-            // MainListBoxOfWeapons
-            // 
-            this.MainListBoxOfWeapons.FormattingEnabled = true;
-            this.MainListBoxOfWeapons.ItemHeight = 16;
-            this.MainListBoxOfWeapons.Location = new System.Drawing.Point(17, 171);
-            this.MainListBoxOfWeapons.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.MainListBoxOfWeapons.Name = "MainListBoxOfWeapons";
-            this.MainListBoxOfWeapons.Size = new System.Drawing.Size(411, 116);
-            this.MainListBoxOfWeapons.TabIndex = 5;
             // 
             // label1
             // 
@@ -166,7 +141,7 @@
             // 
             this.LoadedImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LoadedImage.Location = new System.Drawing.Point(24, 443);
-            this.LoadedImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.LoadedImage.Margin = new System.Windows.Forms.Padding(4);
             this.LoadedImage.Name = "LoadedImage";
             this.LoadedImage.Size = new System.Drawing.Size(287, 173);
             this.LoadedImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -176,7 +151,7 @@
             // LoadedAttributeTEXT
             // 
             this.LoadedAttributeTEXT.Location = new System.Drawing.Point(319, 391);
-            this.LoadedAttributeTEXT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.LoadedAttributeTEXT.Margin = new System.Windows.Forms.Padding(4);
             this.LoadedAttributeTEXT.Multiline = true;
             this.LoadedAttributeTEXT.Name = "LoadedAttributeTEXT";
             this.LoadedAttributeTEXT.Size = new System.Drawing.Size(159, 43);
@@ -185,7 +160,7 @@
             // LoadedWeaponTEXT
             // 
             this.LoadedWeaponTEXT.Location = new System.Drawing.Point(320, 338);
-            this.LoadedWeaponTEXT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.LoadedWeaponTEXT.Margin = new System.Windows.Forms.Padding(4);
             this.LoadedWeaponTEXT.Multiline = true;
             this.LoadedWeaponTEXT.Name = "LoadedWeaponTEXT";
             this.LoadedWeaponTEXT.Size = new System.Drawing.Size(159, 43);
@@ -195,7 +170,7 @@
             // 
             this.LoadWeaponButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoadWeaponButton.Location = new System.Drawing.Point(16, 655);
-            this.LoadWeaponButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.LoadWeaponButton.Margin = new System.Windows.Forms.Padding(4);
             this.LoadWeaponButton.Name = "LoadWeaponButton";
             this.LoadWeaponButton.Size = new System.Drawing.Size(317, 82);
             this.LoadWeaponButton.TabIndex = 15;
@@ -219,12 +194,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.MainListBoxOfWeapons);
             this.Controls.Add(this.WeaponsToSearchBox);
-            this.Controls.Add(this.MainListOfWeapons);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainScreen";
             this.Text = "Form2";
             this.menuStrip1.ResumeLayout(false);
@@ -240,9 +213,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newFileToolStripMenuItem;
-        private System.Windows.Forms.ListBox MainListOfWeapons;
         private System.Windows.Forms.TextBox WeaponsToSearchBox;
-        private System.Windows.Forms.ListBox MainListBoxOfWeapons;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

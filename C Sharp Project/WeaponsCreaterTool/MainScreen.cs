@@ -30,63 +30,172 @@ namespace WeaponsCreaterTool
         //    string first = currentString.Substring(0,)
         //}
 
+
+        public void SortByAlphabeticalOrder(ref List<string> ofList)
+        {
+            //Create Checklist
+            string ID = "a";
+            string IDb = "b";
+            string IDc = "c";
+            string IDd = "d";
+            string IDe = "e";
+            string IDf = "f";
+            string IDg = "g";
+            string IDh = "h";
+            string IDi = "i";
+            string IDj = "j";
+            string IDk = "k";
+            string IDl = "l";
+            string IDm = "m";
+            string IDn = "n";
+            string IDo = "o";
+            string IDp = "p";
+            string IDq = "q";
+            string IDr = "r";
+            string IDs = "s";
+            string IDt = "t";
+            string IDu = "u";
+            string IDv = "v";
+            string IDw = "w";
+            string IDx = "x";
+            string IDy = "y";
+            string IDz = "z";
+            //Create Checklist
+
+            //should return first item
+            ofList.First<string>().Substring(0, 1);
+
+            //for(int i = 0; i < )
+
+            //if()
+
+        }
+
         public void AddTolist()
         {
+            // Create an instance of the ListBox
+            ListBox listBox1 = new ListBox();
+
+            // Set the size and location of the Listbox
+            listBox1.Size = new System.Drawing.Size(200, 100);
+            listBox1.Location = new System.Drawing.Point(10, 90);
+
+            // Add the listBox to form
+            this.Controls.Add(listBox1);
+
+            // Set the ListBox to display items in multiple columns
+            listBox1.MultiColumn = true;
+
+            // Set the selection mode to multiple and extended
+            listBox1.SelectionMode = SelectionMode.MultiExtended;
+
+            // Shutdown the painting of the Listbox as items are added
+            listBox1.BeginUpdate();
+
+            //Create List Of Weapon Names
+            List<string> Weapons = new List<string>();
+
             //files will equal the file of current directory, that has .xml as filter
             var files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.xml");
+
+            //Keeps Track of amount of files
+            int increment = 0;
+
             foreach (var file in files)
             {
+
                 //now replacement holds strings
                 string replacement = file.ToString();
 
                 //now we have states what to remove from string
-                //string toRemove = "C:\\Users\\sarthak\\Documents\\GitHub\\TestProject2D\\C Sharp Project\\WeaponsCreaterTool\\bin\\Debug\\";
                 string toRemove = "Debug\\";
-                string firstLetter = replacement.Substring(0,1);
+                //firstLetter equal to replacement string's first letter
+                string firstLetter = replacement.Substring(0, 1);
 
                 string NewString = string.Empty;
-                int i = replacement.IndexOf(toRemove) + 6;
+                int i = replacement.IndexOf(toRemove) + 6; //6 is equal to the extra letters in Debug
                 int firstIndex = replacement.IndexOf(firstLetter);
                 if (i >= 0)
                 {
-                    //removes per letter till length of 'toRemove' string
+                    //removes per letter till length of amount till debug
                     NewString = replacement.Remove(firstIndex, i);
                 }
+                //MainListOfWeapons.Text = NewString.ToString();
+
+                //MainListBoxOfWeapons.Text = NewString;
+
+                //============Adds the NewString to list==============
+
+                //added to weapons list
+                Weapons.Add(NewString);
+                increment++;
             }
+            //When here Weapons list should have all weapons
+            //Now we can sort by alphabetical order
+            Weapons.Sort();
+
+
+            //==========This will now be placed in List===========
+            //Place created String into listBox item number of X
+            for(int i = 0; i < increment; i++)
+            {
+                //Should add one list item for weapon name from weapon list each iteration
+                listBox1.Items.Add("Weapon: " + Weapons[i]);
+            }
+            // Allow the ListBox to repaint and display the new items.
+            listBox1.EndUpdate();
         }
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Each time a new file is created, a list will be generated.
+            AddTolist();
             WeaponGenerator newMDIChild = new WeaponGenerator();
             newMDIChild.MdiParent = this;
             newMDIChild.Show();
             WeaponsClass CreateWeapon = new WeaponsClass();
             newMDIChild.NewWeapon = CreateWeapon;
+
+            
             //WindowState = FormWindowState.Minimized;
         }
 
         private void LoadWeaponButton_Click(object sender, EventArgs e)
         {
 
-            //Open FileStream
-            Stream streamToOpen = File.Open(/*The .xml file name:*/ /*testObj2.returnWeaponName + */"TestNumberTwoXML.xml", FileMode.Open);
-            XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
+            //=================Error Handling=========================
+            //Try to load weapon
+            try
+            {
+                Stream streamToOpen = File.Open(/*The .xml file name:*/ /*testObj2.returnWeaponName + */WeaponsToSearchBox.Text + ".xml", FileMode.Open);
 
-            WeaponsClass testObj2 = null;
-            testObj2 = (WeaponsClass)serializer.Deserialize(streamToOpen);
-            streamToOpen.Close();
+                XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
 
-            WeaponsClass TemporaryClass = new WeaponsClass();
+                WeaponsClass testObj2 = null;
+                testObj2 = (WeaponsClass)serializer.Deserialize(streamToOpen);
+                streamToOpen.Close();
 
-            //TemporaryClass = testObj2
+                WeaponsClass TemporaryClass = new WeaponsClass();
 
-            //Set Text Boxes To Loaded TestObj2
-            LoadedWeaponTEXT.Text = testObj2.returnWeaponName;
-            LoadedAttributeTEXT.Text = testObj2.returnAttributes.ToString();
+                //TemporaryClass = testObj2
 
-            //Load Png
-            LoadedImage.Image = Image.FromFile(testObj2.imagePath);
-            //LoadedImage.Image = Image.FromFile("../bin/debug/TestNumberIMG");
+                //Set Text Boxes To Loaded TestObj2
+                LoadedWeaponTEXT.Text = testObj2.returnWeaponName;
+                LoadedAttributeTEXT.Text = testObj2.returnAttributes.ToString();
+
+                //Load Png
+                LoadedImage.Image = Image.FromFile(testObj2.imagePath);
+            }
+            //Clears Image, attribute, and name
+            //Stops from an unhandled exception error
+            catch (System.IO.IOException ex)
+            {
+                MessageBox.Show("Exception Occured" + "\n Please Enter a valid Weapon Name");
+                LoadedAttributeTEXT.Text = null;
+                LoadedWeaponTEXT.Text = null;
+                LoadedImage.Image = null;
+            }
+            //=================Error Handling==============================
 
         }
     }

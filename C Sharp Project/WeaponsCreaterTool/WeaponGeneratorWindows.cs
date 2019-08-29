@@ -27,7 +27,13 @@ namespace WeaponsCreaterTool
         public string s = "Picture";
         public int i = 1;
         public bool drawButtonRed = true;
-        public bool allDataFilled = false;
+
+        //All Data Filled Checklist
+        bool firstCheck = false;
+        bool secondCheck = false;
+        bool thirdCheck = false;
+        bool fourthCheck = false;
+        //All Data Filled Checklist
 
         public WeaponsClass NewWeapon;
 
@@ -46,7 +52,8 @@ namespace WeaponsCreaterTool
             this.SetStyle(ControlStyles.UserPaint, true);
             pictureBox1.AllowDrop = true;
             ChangeColour();
-            
+
+           
         }
 
 
@@ -80,6 +87,7 @@ namespace WeaponsCreaterTool
             }
         }
 
+        //Save Image File Button
         private void button2_Click(object sender, EventArgs e)
         {
             //indicates interaction with user
@@ -91,9 +99,13 @@ namespace WeaponsCreaterTool
             //Saving Image
             surface.Save(CreateImageName.Text, ImageFormat.Png);
             ChangeColour();
-        }
 
-        
+            //Allow FinalAddWeaponButton to be enabled
+            secondCheck = true;
+        }
+        //Save Image File Button
+
+
 
         //Transitions To Next Form
         private void CreateWeapon_Click(object sender, EventArgs e)
@@ -151,6 +163,9 @@ namespace WeaponsCreaterTool
             eraser.Width = Width;
         }
 
+
+
+        //============DRAG AND DROP FEATURE=====================
         //Reference PictureBox Image
         private void pictureBox1_DragEnter(object sender, DragEventArgs e)
         {
@@ -167,8 +182,11 @@ namespace WeaponsCreaterTool
                 DrawArea.BackgroundImage = img;
             }
         }
+        //============DRAG AND DROP FEATURE=====================
 
-        //===============CLEAR BUTTON CLEARS THE REFERENCE IMAGE====================
+
+
+        //===============CLEAR BUTTON CLEARS THE REFERENCE IMAGE============
         private void button3_Click(object sender, EventArgs e)
         {
             //Clear Button
@@ -176,9 +194,10 @@ namespace WeaponsCreaterTool
             pictureBox1.Image = null;
             DrawArea.BackgroundImage = img;
         }
-        //===============CLEAR BUTTON CLEARS THE REFERENCE IMAGE====================
+        //===============CLEAR BUTTON CLEARS THE REFERENCE IMAGE=============
 
-        
+
+        //==================Image Save Button Interaction With User==========
         private void button2_MouseHover(object sender, EventArgs e)
         {
             //If mouse on save button
@@ -190,6 +209,7 @@ namespace WeaponsCreaterTool
             //if mouse not on save button
             button2.BackColor = Color.LightGray;
         }
+        //==========Image Save Button Interaction With User==================
 
         //Sets the attributes of the newly generated weapon
         private void AttributeBox_MouseDown(object sender, MouseEventArgs e)
@@ -224,18 +244,21 @@ namespace WeaponsCreaterTool
                 NewWeapon.returnAttributes = 10;
                 AddAttributesButton.BackColor = Color.Green;
                 AttributeSetter = 10;
+                thirdCheck = true;
             }
             else if (radioButton7.Checked)
             {
                 NewWeapon.returnAttributes = 20;
                 AddAttributesButton.BackColor = Color.Green;
                 AttributeSetter = 20;
+                thirdCheck = true;
             }
             else if (radioButton6.Checked)
             {
                 NewWeapon.returnAttributes = 30;
                 AddAttributesButton.BackColor = Color.Green;
                 AttributeSetter = 30;
+                thirdCheck = true;
             }
             finalAttributes.Text = AttributeSetter.ToString();
         }
@@ -245,12 +268,22 @@ namespace WeaponsCreaterTool
 
         }
 
+        //Save Loadout Button Click Function
         private void SaveLoadoutButton_Click(object sender, EventArgs e)
         {
             //Saves the Entire LoadOut
             string fileName = finalWeaponNameTextBox.Text;
             NewWeapon.returnWeaponName = finalWeaponNameTextBox.Text;
-            //ewWeapon.imagePath = NewWeapon.imagePath + CreateImageName.Text;
+
+            //Check to enable finalAddWeapon Button
+            if (NewWeapon.returnWeaponName == null)
+            {
+                firstCheck = false;
+            }
+            else
+            {
+                firstCheck = true;
+            }
 
             //Used to be here. Just Changed
             //NewWeapon.imagePath = Path.Combine(NewWeapon.imagePath, CreateImageName.Text + ".png");
@@ -261,6 +294,41 @@ namespace WeaponsCreaterTool
 
             serializer.Serialize(writer, NewWeapon);
             writer.Close();
+
+            //So can't be pressed again
+            SaveLoadoutButton.Enabled = false;
+
+            //Allow FinalAddWeaponButtonToBePressed
+            fourthCheck = true;
+        }
+
+
+
+
+        //Add Weapon Button Click Function
+        private void FinalAddWeaponButton_Click(object sender, EventArgs e)
+        {
+
+            if (firstCheck == true && secondCheck == true && thirdCheck == true && fourthCheck == true)
+            {
+                this.Close();
+                MessageBox.Show("Weapon successfully created...");
+                //Display as green
+                //Then on click close form
+
+            }
+            if (secondCheck == false)
+            {
+                MessageBox.Show("Image Not Saved");
+            }
+            if (thirdCheck == false)
+            {
+                MessageBox.Show("No Attribute Selected");
+            }
+            if(fourthCheck == false)
+            {
+                MessageBox.Show("Loadout Not Saved");
+            }
         }
     }
     public class TPanel : Panel
