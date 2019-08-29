@@ -7,7 +7,26 @@ using System.Drawing;
 
 namespace WeaponsCreaterTool
 {
-    public class WeaponsClass
+    public class BaseItemsClass
+    {
+        private string weaponName;
+
+        public string returnWeaponName
+        {
+            get
+            {
+                return weaponName;
+            }
+            set
+            {
+                weaponName = value;
+            }
+        }
+    }
+
+
+
+    public class WeaponsClass : BaseItemsClass
     {
         //Creates a list of weapons from weapons class items
         List<WeaponsClass> listOfWeapons = new List<WeaponsClass>();
