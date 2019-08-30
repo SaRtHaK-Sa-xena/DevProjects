@@ -303,6 +303,7 @@ namespace LinkedList
                 Node nullValue = null;
                 Node node = tail;
                 node.GetLeft().SetRight(nullValue);
+                node.SetLeft(nullValue);
                 tail = tail.GetLeft();
                 node = nullValue;
             }
