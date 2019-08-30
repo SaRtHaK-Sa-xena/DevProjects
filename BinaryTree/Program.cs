@@ -19,6 +19,7 @@ namespace BinaryTree
 
             while (start)
             {
+                m_binaryTree.draw();
                 Console.WriteLine("(TESTING), PRESS 'I' TO INSERT");
                 string value = Console.ReadLine();
 
@@ -76,6 +77,24 @@ namespace BinaryTree
                     }
                 }
                 return false;
+            }
+
+            private void draw(TreeNode pNode, int x, int y, int horizontalSpacing, TreeNode selected = null)
+            {
+                horizontalSpacing /= 2;
+
+                if (pNode != null)
+                {
+                    if (pNode.hasLeft())
+                    {
+                        Console.WriteLine("hasLeft" + "\n pNode GetLeft:" + pNode.getLeft().getData() + "\n Selected: " + selected.getData());
+                    }
+                    if (pNode.hasRIght())
+                    {
+                        Console.WriteLine("hasRight" + "\n pNode GetRight:" + pNode.getRight().getData() + "\n Selected: " + selected.getData());
+
+                    }
+                }
             }
             //============Private function============
 
@@ -418,6 +437,16 @@ namespace BinaryTree
                 TreeNode parent = new TreeNode(a_nValue);
                 FindNode(a_nValue, ref current, ref parent);
                 return current;
+            }
+
+            public void draw(TreeNode selected = null)
+            {
+                if (m_pRoot != null && selected != null)
+                    Console.WriteLine("Root: " + m_pRoot.getData() + "Selected: " + selected.getData());
+                if (m_pRoot != null && selected == null)
+                    Console.WriteLine("Root: " + m_pRoot.getData());
+                if(m_pRoot == null && selected != null)
+                    Console.WriteLine("Selected: " + selected.getData());
             }
             //============Public functions============
 
