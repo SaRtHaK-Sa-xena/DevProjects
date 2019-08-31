@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,6 +43,7 @@
             this.LoadedWeaponTEXT = new System.Windows.Forms.TextBox();
             this.LoadWeaponButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LoadedImage)).BeginInit();
             this.SuspendLayout();
@@ -84,6 +86,8 @@
             this.WeaponsToSearchBox.Size = new System.Drawing.Size(411, 36);
             this.WeaponsToSearchBox.TabIndex = 4;
             this.WeaponsToSearchBox.Text = "WEAPONS";
+            this.toolTip1.SetToolTip(this.WeaponsToSearchBox, "Write Weapon Name. \r\nNote: You may use the list below as guidance. \r\nJust don\'t i" +
+        "nclude the .xml at the end.\r\n");
             // 
             // label1
             // 
@@ -176,6 +180,7 @@
             this.LoadWeaponButton.Size = new System.Drawing.Size(317, 82);
             this.LoadWeaponButton.TabIndex = 15;
             this.LoadWeaponButton.Text = "Load Weapon";
+            this.toolTip1.SetToolTip(this.LoadWeaponButton, "Loads in Weapon Labeled in \'Weapons\'");
             this.LoadWeaponButton.UseVisualStyleBackColor = true;
             this.LoadWeaponButton.Click += new System.EventHandler(this.LoadWeaponButton_Click);
             // 
@@ -185,7 +190,8 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(147, 82);
             this.button1.TabIndex = 17;
-            this.button1.Text = "SEARCH";
+            this.button1.Text = "SORT";
+            this.toolTip1.SetToolTip(this.button1, "Sorts by attribute");
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -236,5 +242,6 @@
         private System.Windows.Forms.TextBox LoadedWeaponTEXT;
         private System.Windows.Forms.Button LoadWeaponButton;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
