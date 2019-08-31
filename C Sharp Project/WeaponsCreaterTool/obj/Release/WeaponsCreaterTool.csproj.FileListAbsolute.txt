@@ -1,0 +1,12 @@
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\bin\Release\WeaponsCreaterTool.exe.config
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\bin\Release\WeaponsCreaterTool.exe
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\bin\Release\WeaponsCreaterTool.pdb
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Release\WeaponsCreaterTool.DisplayWeaponNameScreen.resources
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Release\WeaponsCreaterTool.WeaponGenerator.resources
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Release\WeaponsCreaterTool.MainScreen.resources
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Release\WeaponsCreaterTool.AddAttributesScreen.resources
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Release\WeaponsCreaterTool.Properties.Resources.resources
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Release\WeaponsCreaterTool.csproj.GenerateResource.cache
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Release\WeaponsCreaterTool.csproj.CoreCompileInputs.cache
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Release\WeaponsCreaterTool.exe
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Release\WeaponsCreaterTool.pdb

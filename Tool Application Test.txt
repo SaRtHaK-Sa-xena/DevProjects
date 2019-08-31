@@ -1,0 +1,46 @@
+ _________________________________________________________________________
+|Test 1:
+|Saving IMG file
+|
+|Intended Outcome:
+|Saves file openable by png.
+|
+|Received Outcome:
+|The tool saves file openable by PNG. Works as intended. 
+|__________________________________________________________________________
+
+ __________________________________________________________________________
+|Test 2:
+|Loading Weapon by Name
+|
+|Intended Outcome:
+|Loads in weapon name, weapon attributes and weapon image.
+|
+|Recieved Outcome:
+|The tool correctly loads in weapon's name, attribute and image. 
+|Works as intended.
+|___________________________________________________________________________
+
+ ___________________________________________________________________________
+|Test 3:
+|The 'Add Weapon' adds weapon to list in main menu
+|
+|Intended Outcome:
+|Weapon name will be listed upon opening of main menu.
+|
+|Recieved Outcome:
+|The weapon names listed are all saved .xml files. Works as intended.
+|____________________________________________________________________________
+
+ ____________________________________________________________________________
+|Test 4:
+|The 'Adding Weapon' will not be enabled until all necessary data filled.
+|
+|Intended Outcome:
+|Should notify user with type of data to be filled. The user should not be
+|able to add weapon.
+|
+|Recieved Outcome:
+|Notifies user of which data to be filled, and doesn't allow user to add until
+|the user fills in data. Works as intended.
+|_____________________________________________________________________________

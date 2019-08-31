@@ -1,0 +1,7 @@
+C:\Users\sarthak\Documents\GitHub\TestProject2D\BinaryTree\bin\Release\BinaryTree.exe.config
+C:\Users\sarthak\Documents\GitHub\TestProject2D\BinaryTree\bin\Release\BinaryTree.exe
+C:\Users\sarthak\Documents\GitHub\TestProject2D\BinaryTree\bin\Release\BinaryTree.pdb
+C:\Users\sarthak\Documents\GitHub\TestProject2D\BinaryTree\obj\Release\BinaryTree.csprojAssemblyReference.cache
+C:\Users\sarthak\Documents\GitHub\TestProject2D\BinaryTree\obj\Release\BinaryTree.csproj.CoreCompileInputs.cache
+C:\Users\sarthak\Documents\GitHub\TestProject2D\BinaryTree\obj\Release\BinaryTree.exe
+C:\Users\sarthak\Documents\GitHub\TestProject2D\BinaryTree\obj\Release\BinaryTree.pdb

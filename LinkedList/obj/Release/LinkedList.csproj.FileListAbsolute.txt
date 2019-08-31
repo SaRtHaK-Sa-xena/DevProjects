@@ -1,0 +1,7 @@
+C:\Users\sarthak\Documents\GitHub\TestProject2D\LinkedList\bin\Release\LinkedList.exe.config
+C:\Users\sarthak\Documents\GitHub\TestProject2D\LinkedList\bin\Release\LinkedList.exe
+C:\Users\sarthak\Documents\GitHub\TestProject2D\LinkedList\bin\Release\LinkedList.pdb
+C:\Users\sarthak\Documents\GitHub\TestProject2D\LinkedList\obj\Release\LinkedList.csprojAssemblyReference.cache
+C:\Users\sarthak\Documents\GitHub\TestProject2D\LinkedList\obj\Release\LinkedList.csproj.CoreCompileInputs.cache
+C:\Users\sarthak\Documents\GitHub\TestProject2D\LinkedList\obj\Release\LinkedList.exe
+C:\Users\sarthak\Documents\GitHub\TestProject2D\LinkedList\obj\Release\LinkedList.pdb
