@@ -158,8 +158,8 @@ namespace WeaponsCreaterTool
             ListBox listBox2 = new ListBox();
 
             // Set the size and location of the Listbox
-            listBox2.Size = new System.Drawing.Size(200, 100);
-            listBox2.Location = new System.Drawing.Point(10, 90);
+            listBox2.Size = new System.Drawing.Size(150, 100);
+            listBox2.Location = new System.Drawing.Point(250, 420);
 
             // Add the listBox to form
             this.Controls.Add(listBox2);
@@ -171,7 +171,6 @@ namespace WeaponsCreaterTool
             listBox2.SelectionMode = SelectionMode.MultiExtended;
 
             // Shutdown the painting of the Listbox as items are added
-            listBox2.BeginUpdate();
 
             //Create List Of Weapon Names
             List<string> WeaponsName = new List<string>();
@@ -266,10 +265,14 @@ namespace WeaponsCreaterTool
                     else
                     {
                         //perform switch
-                        int previousValue = WeaponsStats[i].returnAttributes;
-                        WeaponsStats[i].returnAttributes = WeaponsStats[i + 1].returnAttributes;
-                        WeaponsStats[i + 1].returnAttributes = previousValue;
+                        //int previousValue = WeaponsStats[i].returnAttributes;
+                        //WeaponsStats[i].returnAttributes = WeaponsStats[i + 1].returnAttributes;
+                        //WeaponsStats[i + 1].returnAttributes = previousValue;
                         //switch complete
+                        WeaponsClass temp = WeaponsStats[i];
+                        WeaponsStats[i] = WeaponsStats[i + 1];
+                        WeaponsStats[i + 1] = temp;
+
                         i = 0;
                     }
                 }
