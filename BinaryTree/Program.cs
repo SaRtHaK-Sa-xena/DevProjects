@@ -19,8 +19,9 @@ namespace BinaryTree
 
             while (start)
             {
-                m_binaryTree.draw();
-                Console.WriteLine("(TESTING), PRESS 'I' TO INSERT");
+                Console.WriteLine("Updated Binary Tree...");
+                m_binaryTree.print(m_binaryTree.returnRoot());
+                Console.WriteLine("\n(BINARY TREE APPLICATION), PRESS 'I' TO INSERT" + "\n PRESS 'R' TO REMOVE" + "\n PRESS 'S' TO SEARCH");
                 string value = Console.ReadLine();
 
                 Char choice = Convert.ToChar(value);
@@ -30,11 +31,22 @@ namespace BinaryTree
                         Console.WriteLine("Enter Which Number To Insert: ");
                         int.TryParse(Console.ReadLine(), out input);
                         m_binaryTree.insert(input);
-                        m_selectedNode = m_binaryTree.Find(input);
                         //pushFront function
                         break;
+                    case 'r':
+                        Console.WriteLine("Enter Which Number To delete: ");
+                        int.TryParse(Console.ReadLine(), out input);
+                        m_binaryTree.remove(input);
+                        break;
+                    case 's':
+                        Console.WriteLine("Enter Which Number To Search: ");
+                        int.TryParse(Console.ReadLine(), out input);
+                        Console.WriteLine("=================================");
+                        m_binaryTree.remove(input);
+                        Console.WriteLine("=================================");
+                        break;
                     default:
-                        Console.Write("Default Activated");
+                        Console.Write("Choose one of the given options...");
                         break;
                 }
             }
@@ -60,6 +72,10 @@ namespace BinaryTree
                     {
                         ppOutNode = current;
                         ppOutParent = previous;
+                        if (ppOutParent == null)
+                        { Console.WriteLine("Parent: NULL" + "\n" + "Current: " + ppOutNode.getData()); }
+                        else if (ppOutParent != null && ppOutNode != null)
+                        { Console.WriteLine("Parent: " + ppOutParent.getData() + "\n" + "Current: " + ppOutNode.getData()); }
                         return true;
                     }
                     else
@@ -76,6 +92,7 @@ namespace BinaryTree
                         }
                     }
                 }
+                Console.WriteLine("Binary Tree Does Not Contain That Element...");
                 return false;
             }
 
@@ -101,6 +118,80 @@ namespace BinaryTree
 
             //============Public functions============
             public BinaryTreeClass() { m_pRoot = null; }
+
+            public void print(TreeNode root)
+            {
+                if (root == null)
+                {
+                    Console.Write("_");
+                    return;
+                }
+                Console.Write(root.getData());
+                //check if null
+                if(root.getLeft() == null && root.getRight() == null)
+                {
+                    return;
+                }
+                Console.Write("[");
+                
+                //recursive
+                print(root.getLeft());
+                Console.Write(",");
+                print(root.getRight());
+                Console.Write("]");
+
+                //int iterator = 0;
+                //TreeNode current = m_pRoot;
+                //TreeNode parent = m_pRoot;
+                //bool reset = true;
+                //if (parent != null)
+                //{
+                //    while (reset)
+                //    {
+                //        //at top
+                //        while (parent.hasLeft() || parent.hasRIght())
+                //        {
+                //            Console.WriteLine(iterator + ":Current: " + current.getData());
+                //            if (parent.hasLeft())
+                //            {
+                //                //Derived Left
+                //                current = parent.getLeft();
+                //                Console.WriteLine(iterator + ": Left: " + current.getData());
+                //            }
+                //            if (parent.hasRIght())
+                //            {
+                //                //Derived Right
+                //                current = parent.getRight();
+                //                Console.WriteLine(iterator + ": Right: " + current.getData());
+                //            }
+
+                //            //To move the parent
+                //            if (parent.hasLeft())
+                //            {
+                //                parent = parent.getLeft();
+                //                if(parent.getLeft() == null && parent.getRight() == null)
+                //                {
+                //                    reset = true;
+                //                }
+                //            }
+                //            if (parent.hasRIght())
+                //            {
+                //                parent = parent.getRight();
+                //                if (parent.getLeft() == null && parent.getRight() == null)
+                //                {
+                //                    reset = true;
+                //                }
+                //            }
+                //        }
+                //    }
+
+                //}
+            }
+
+            public TreeNode returnRoot()
+            {
+                return m_pRoot;
+            }
 
             public bool isEmpty()
             {
@@ -445,7 +536,7 @@ namespace BinaryTree
                     Console.WriteLine("Root: " + m_pRoot.getData() + "Selected: " + selected.getData());
                 if (m_pRoot != null && selected == null)
                     Console.WriteLine("Root: " + m_pRoot.getData());
-                if(m_pRoot == null && selected != null)
+                if (m_pRoot == null && selected != null)
                     Console.WriteLine("Selected: " + selected.getData());
             }
             //============Public functions============
