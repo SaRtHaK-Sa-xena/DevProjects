@@ -10,3 +10,4 @@ C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTo
 C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Release\WeaponsCreaterTool.csproj.CoreCompileInputs.cache
 C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Release\WeaponsCreaterTool.exe
 C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Release\WeaponsCreaterTool.pdb
+C:\Users\sarthak\Documents\GitHub\TestProject2D\C Sharp Project\WeaponsCreaterTool\obj\Release\WeaponsCreaterTool.csprojAssemblyReference.cache

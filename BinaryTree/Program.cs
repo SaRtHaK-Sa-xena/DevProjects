@@ -140,52 +140,7 @@ namespace BinaryTree
                 print(root.getRight());
                 Console.Write("]");
 
-                //int iterator = 0;
-                //TreeNode current = m_pRoot;
-                //TreeNode parent = m_pRoot;
-                //bool reset = true;
-                //if (parent != null)
-                //{
-                //    while (reset)
-                //    {
-                //        //at top
-                //        while (parent.hasLeft() || parent.hasRIght())
-                //        {
-                //            Console.WriteLine(iterator + ":Current: " + current.getData());
-                //            if (parent.hasLeft())
-                //            {
-                //                //Derived Left
-                //                current = parent.getLeft();
-                //                Console.WriteLine(iterator + ": Left: " + current.getData());
-                //            }
-                //            if (parent.hasRIght())
-                //            {
-                //                //Derived Right
-                //                current = parent.getRight();
-                //                Console.WriteLine(iterator + ": Right: " + current.getData());
-                //            }
-
-                //            //To move the parent
-                //            if (parent.hasLeft())
-                //            {
-                //                parent = parent.getLeft();
-                //                if(parent.getLeft() == null && parent.getRight() == null)
-                //                {
-                //                    reset = true;
-                //                }
-                //            }
-                //            if (parent.hasRIght())
-                //            {
-                //                parent = parent.getRight();
-                //                if (parent.getLeft() == null && parent.getRight() == null)
-                //                {
-                //                    reset = true;
-                //                }
-                //            }
-                //        }
-                //    }
-
-                //}
+                
             }
 
             public TreeNode returnRoot()
