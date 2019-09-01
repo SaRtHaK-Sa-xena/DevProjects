@@ -44,6 +44,8 @@
             this.LoadWeaponButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Search = new System.Windows.Forms.Button();
+            this.SearchByAttribute = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LoadedImage)).BeginInit();
             this.SuspendLayout();
@@ -195,12 +197,33 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // Search
+            // 
+            this.Search.Location = new System.Drawing.Point(474, 655);
+            this.Search.Name = "Search";
+            this.Search.Size = new System.Drawing.Size(111, 39);
+            this.Search.TabIndex = 19;
+            this.Search.Text = "Search";
+            this.Search.UseVisualStyleBackColor = true;
+            this.Search.Click += new System.EventHandler(this.Search_Click);
+            // 
+            // SearchByAttribute
+            // 
+            this.SearchByAttribute.Location = new System.Drawing.Point(474, 690);
+            this.SearchByAttribute.Multiline = true;
+            this.SearchByAttribute.Name = "SearchByAttribute";
+            this.SearchByAttribute.Size = new System.Drawing.Size(111, 47);
+            this.SearchByAttribute.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.SearchByAttribute, "Enter Attribute To Search...");
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1284, 752);
+            this.Controls.Add(this.SearchByAttribute);
+            this.Controls.Add(this.Search);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.LoadWeaponButton);
             this.Controls.Add(this.LoadedWeaponTEXT);
@@ -243,5 +266,7 @@
         private System.Windows.Forms.Button LoadWeaponButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button Search;
+        private System.Windows.Forms.TextBox SearchByAttribute;
     }
 }
