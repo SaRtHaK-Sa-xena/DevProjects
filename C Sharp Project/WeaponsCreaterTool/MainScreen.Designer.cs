@@ -44,8 +44,14 @@
             this.LoadWeaponButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.Search = new System.Windows.Forms.Button();
             this.SearchByAttribute = new System.Windows.Forms.TextBox();
+            this.Search = new System.Windows.Forms.Button();
+            this.labelEditTEXT = new System.Windows.Forms.Label();
+            this.labelEditAttribute = new System.Windows.Forms.Label();
+            this.EditName = new System.Windows.Forms.TextBox();
+            this.EditAtt = new System.Windows.Forms.TextBox();
+            this.SaveEdit = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LoadedImage)).BeginInit();
             this.SuspendLayout();
@@ -197,6 +203,15 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // SearchByAttribute
+            // 
+            this.SearchByAttribute.Location = new System.Drawing.Point(474, 690);
+            this.SearchByAttribute.Multiline = true;
+            this.SearchByAttribute.Name = "SearchByAttribute";
+            this.SearchByAttribute.Size = new System.Drawing.Size(111, 47);
+            this.SearchByAttribute.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.SearchByAttribute, "Enter Attribute To Search...");
+            // 
             // Search
             // 
             this.Search.Location = new System.Drawing.Point(474, 655);
@@ -207,14 +222,64 @@
             this.Search.UseVisualStyleBackColor = true;
             this.Search.Click += new System.EventHandler(this.Search_Click);
             // 
-            // SearchByAttribute
+            // labelEditTEXT
             // 
-            this.SearchByAttribute.Location = new System.Drawing.Point(474, 690);
-            this.SearchByAttribute.Multiline = true;
-            this.SearchByAttribute.Name = "SearchByAttribute";
-            this.SearchByAttribute.Size = new System.Drawing.Size(111, 47);
-            this.SearchByAttribute.TabIndex = 20;
-            this.toolTip1.SetToolTip(this.SearchByAttribute, "Enter Attribute To Search...");
+            this.labelEditTEXT.AutoSize = true;
+            this.labelEditTEXT.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.labelEditTEXT.Location = new System.Drawing.Point(320, 136);
+            this.labelEditTEXT.Name = "labelEditTEXT";
+            this.labelEditTEXT.Size = new System.Drawing.Size(73, 17);
+            this.labelEditTEXT.TabIndex = 22;
+            this.labelEditTEXT.Text = "Edit Name";
+            // 
+            // labelEditAttribute
+            // 
+            this.labelEditAttribute.AutoSize = true;
+            this.labelEditAttribute.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.labelEditAttribute.Location = new System.Drawing.Point(320, 177);
+            this.labelEditAttribute.Name = "labelEditAttribute";
+            this.labelEditAttribute.Size = new System.Drawing.Size(89, 17);
+            this.labelEditAttribute.TabIndex = 23;
+            this.labelEditAttribute.Text = "Edit Attribute";
+            // 
+            // EditName
+            // 
+            this.EditName.Location = new System.Drawing.Point(413, 136);
+            this.EditName.Name = "EditName";
+            this.EditName.Size = new System.Drawing.Size(100, 22);
+            this.EditName.TabIndex = 24;
+            this.EditName.Text = "Enter new name...";
+            this.toolTip1.SetToolTip(this.EditName, "Enter New Name");
+            // 
+            // EditAtt
+            // 
+            this.EditAtt.Location = new System.Drawing.Point(413, 177);
+            this.EditAtt.Name = "EditAtt";
+            this.EditAtt.Size = new System.Drawing.Size(100, 22);
+            this.EditAtt.TabIndex = 25;
+            this.EditAtt.Text = "Enter new attribute";
+            this.toolTip1.SetToolTip(this.EditAtt, "Enter New Attribute\r\nNote: Attribute can only equal 10 or 20 or 30.");
+            // 
+            // SaveEdit
+            // 
+            this.SaveEdit.Location = new System.Drawing.Point(438, 227);
+            this.SaveEdit.Name = "SaveEdit";
+            this.SaveEdit.Size = new System.Drawing.Size(75, 23);
+            this.SaveEdit.TabIndex = 26;
+            this.SaveEdit.Text = "Save";
+            this.toolTip1.SetToolTip(this.SaveEdit, "Save Changes on selected weapon");
+            this.SaveEdit.UseVisualStyleBackColor = true;
+            this.SaveEdit.Click += new System.EventHandler(this.SaveEdit_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Location = new System.Drawing.Point(317, 127);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 134);
+            this.panel1.TabIndex = 27;
+            this.toolTip1.SetToolTip(this.panel1, "Weapon Editor");
             // 
             // MainScreen
             // 
@@ -222,6 +287,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1284, 752);
+            this.Controls.Add(this.labelEditTEXT);
+            this.Controls.Add(this.labelEditAttribute);
+            this.Controls.Add(this.EditName);
+            this.Controls.Add(this.EditAtt);
+            this.Controls.Add(this.SaveEdit);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.SearchByAttribute);
             this.Controls.Add(this.Search);
             this.Controls.Add(this.button1);
@@ -268,5 +339,11 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button Search;
         private System.Windows.Forms.TextBox SearchByAttribute;
+        private System.Windows.Forms.Label labelEditTEXT;
+        private System.Windows.Forms.Label labelEditAttribute;
+        private System.Windows.Forms.TextBox EditName;
+        private System.Windows.Forms.TextBox EditAtt;
+        private System.Windows.Forms.Button SaveEdit;
+        private System.Windows.Forms.Panel panel1;
     }
 }

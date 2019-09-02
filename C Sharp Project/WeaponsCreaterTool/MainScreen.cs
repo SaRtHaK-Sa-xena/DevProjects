@@ -133,6 +133,12 @@ namespace WeaponsCreaterTool
 
                 //Load Png
                 LoadedImage.Image = Image.FromFile(testObj2.imagePath);
+
+
+                //|----------------
+                EditName.Text = testObj2.returnName;
+                EditAtt.Text = testObj2.returnAttributes.ToString();
+                //|----------------
             }
             //Clears Image, attribute, and name
             //Stops from an unhandled exception error
@@ -368,6 +374,41 @@ namespace WeaponsCreaterTool
                 //display that file was not able to be deserialized
                 MessageBox.Show("Exception Occured" + "\n File Not Loaded");
             }
+        }
+
+        private void SaveEdit_Click(object sender, EventArgs e)
+        {
+            //if save clicked
+            //saved edited
+
+            //serialize name of file from loaded file name
+            Stream streamToOpen = File.Open(/*The .xml file name:*/LoadedWeaponTEXT.Text + ".xml", FileMode.Open);
+
+            XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
+
+            //Extract member variables
+            WeaponsClass testObj2 = null;
+            testObj2 = (WeaponsClass)serializer.Deserialize(streamToOpen);
+            streamToOpen.Close();
+
+            //If the value has changed from previous
+            if (EditAtt.Text != LoadedAttributeTEXT.Text)
+            {
+                if (EditAtt.Text == "10" || EditAtt.Text == "20" || EditAtt.Text == "30")
+                {
+                    testObj2.returnAttributes = Convert.ToInt32(EditAtt.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Invalid Attribute Edited... \n Enter either 10,20 or 30");
+                }
+            }
+
+            XmlSerializer Saveserializer = new XmlSerializer(typeof(WeaponsClass));
+            TextWriter writer = new StreamWriter(LoadedWeaponTEXT.Text + ".xml");
+
+            Saveserializer.Serialize(writer, testObj2);
+            writer.Close();
         }
 
 
