@@ -11,6 +11,7 @@ public:
 
 	// constructor
 	ArrayClass();
+	~ArrayClass();
 
 	//helper function returning root
 	NodeClass *returnRoot();

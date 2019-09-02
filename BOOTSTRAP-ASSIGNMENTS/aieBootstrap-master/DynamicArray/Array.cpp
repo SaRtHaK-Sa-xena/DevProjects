@@ -8,6 +8,10 @@ ArrayClass::ArrayClass()
 	root = nullptr;
 }
 
+ArrayClass::~ArrayClass()
+{
+}
+
 
 //helper function returning root
 NodeClass* ArrayClass::returnRoot()
