@@ -42,22 +42,19 @@ public:
 
 
 	//Assignment Operator Override function
-	DynamicArray *operator=(DynamicArray* otherArray)
+	void *operator=(DynamicArray* otherArray)
 	{
-		DynamicArray *copyIntoArray = new DynamicArray();
-
 		for (int i = 0; i < otherArray->usedElements; i++)
 		{
 			//copy into
-			copyIntoArray->ptrArray[i] = otherArray->ptrArray[i];
+			ptrArray[i] = otherArray->ptrArray[i];
 		}
 
 		//Copy other values of member variables
-		copyIntoArray->maxSize = otherArray->maxSize;
-		copyIntoArray->usedElements = otherArray->usedElements;
+		maxSize = otherArray->maxSize;
+		usedElements = otherArray->usedElements;
 
 		//return pointer to new copied Dynamic Array
-		return copyIntoArray;
 	}
 	//Assignment Operator Override function
 
@@ -90,7 +87,11 @@ public:
 
 	void CopyConstructor(DynamicArray *mainArray)
 	{
-		mainArray = this;
+		for (int i = 0; i < usedElements; i++)
+		{
+			ptrArray[i] = mainArray->ptrArray[i];
+			//mainArray->add(getAt(i));
+		}
 	}
 
 	void initializeArray(int from)
@@ -191,28 +192,31 @@ public:
 	//adds in the middle
 	void AddInMiddle(int value, int position)
 	{
-		//one element more than end
-		int i = usedElements + 1;
-		
-		while (i > position)
+		if (usedElements > 1)
 		{
-			//perform swap
-			int Temp = ptrArray[i];
-			ptrArray[i] = ptrArray[i - 1];
-			ptrArray[i - 1] = Temp;
-			//perform swap
-			i--;
-		}
-		//for (int i = position; i < usedElements; i++)
-		//{
-		//	//swap
+			//one element more than end
+			int i = usedElements + 1;
 
-		//	ptrArray[i] = ptrArray[i + 1];
-		//}
-		//increment usedElements
-		usedElements += 1;
-		//make the value of that position equal to value
-		ptrArray[position] = value;
+			while (i > position)
+			{
+				//perform swap
+				int Temp = ptrArray[i];
+				ptrArray[i] = ptrArray[i - 1];
+				ptrArray[i - 1] = Temp;
+				//perform swap
+				i--;
+			}
+			//for (int i = position; i < usedElements; i++)
+			//{
+			//	//swap
+
+			//	ptrArray[i] = ptrArray[i + 1];
+			//}
+			//increment usedElements
+			usedElements += 1;
+			//make the value of that position equal to value
+			ptrArray[position] = value;
+		}
 	}
 
 	//returns size of used elements
@@ -243,9 +247,16 @@ public:
 
 	void Display()
 	{
-		for (int i = 0; i < usedElements; i++)
+		if (getAt(0))
 		{
-			ptrArray[i]
+			for (int i = 0; i < usedElements; i++)
+			{
+				cout << i << ": " << getAt(i) << endl;
+			}
+		}
+		else
+		{
+			cout << "Array Empty..." << endl;
 		}
 	}
 
@@ -258,12 +269,7 @@ int main()
 
 
 	//Adds values
-	temp->add(15);
-	temp->add(125);
-	temp->add(13);
-	temp->add(3);
-	temp->add(67);
-	temp->add(12);
+	
 
 	//Add in middle
 	//temp->AddInMiddle(999, 3);
@@ -288,7 +294,7 @@ int main()
 
 	while (cont)
 	{
-		cout << "(q)Add To Middle---(w)RemoveValueORDERED---(e)RemoveValueUNORDERED---(r)AddToEnd---(u)PopBack---(t)Clear---(y)CopyConstructor---(p)Display---" << endl;
+		cout << "(q)Add To Middle---(w)RemoveValueORDERED---(e)RemoveValueUNORDERED---(r)AddToEnd---(u)PopBack---(t)Clear\n(y)CopyConstructor---(p)Display---" << endl;
 		cin >> choice;
 		switch (choice)
 		{
@@ -326,7 +332,8 @@ int main()
 			break;
 		case'y':
 			cout << "Copying into another array" << endl;
-			dArray->CopyConstructor(TemporaryArray);
+			TemporaryArray = dArray;
+			TemporaryArray->Display();
 			break;
 		case'u':
 			cout << "Deleting last element" << endl;
@@ -334,6 +341,7 @@ int main()
 			break;
 		case'p':
 			cout << "Displaying Array..." << endl;
+			dArray->Display();
 			break;
 		default:
 			break;
