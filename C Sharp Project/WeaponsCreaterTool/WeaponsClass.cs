@@ -24,7 +24,7 @@ namespace WeaponsCreaterTool
             }
         }
 
-        public string imagePath = "../../bin/Debug/";
+        public string imagePath = "../../bin/Release/";
     }
 
 

@@ -15,6 +15,9 @@ namespace WeaponsCreaterTool
 
     public partial class MainScreen : Form
     {
+        //Lets Ease of code editing
+        public const int RunningInExecutable = 8;
+        public const int RunningInDebug = 6;
 
         public MainScreen()
         {
@@ -65,12 +68,12 @@ namespace WeaponsCreaterTool
                 string replacement = file.ToString();
 
                 //now we have states what to remove from string
-                string toRemove = "Debug\\";
+                string toRemove = "Release\\";
                 //firstLetter equal to replacement string's first letter
                 string firstLetter = replacement.Substring(0, 1);
 
                 string NewString = string.Empty;
-                int i = replacement.IndexOf(toRemove) + 6; //6 is equal to the extra letters in Debug
+                int i = replacement.IndexOf(toRemove) + RunningInExecutable; //6 is equal to the extra letters in Debug //8 is equal to the extra letters in Debug
                 int firstIndex = replacement.IndexOf(firstLetter);
                 if (i >= 0)
                 {
@@ -192,12 +195,12 @@ namespace WeaponsCreaterTool
                 string replacement = file.ToString();
 
                 //now we have states what to remove from string
-                string toRemove = "Debug\\";
+                string toRemove = "Release\\";
                 //firstLetter equal to replacement string's first letter
                 string firstLetter = replacement.Substring(0, 1);
 
                 string NewString = string.Empty;
-                int i = replacement.IndexOf(toRemove) + 6; //6 is equal to the extra letters in Debug
+                int i = replacement.IndexOf(toRemove) + RunningInExecutable; //6 is equal to the extra letters in Debug// 8 is equal to the extra letters in Release
                 int firstIndex = replacement.IndexOf(firstLetter);
                 if (i >= 0)
                 {
@@ -304,7 +307,7 @@ namespace WeaponsCreaterTool
                 string replacement = file.ToString();
 
                 //now we have states what to remove from string
-                string toRemove = "Debug\\";
+                string toRemove = "Release\\";
                 //firstLetter equal to replacement string's first letter
                 string firstLetter = replacement.Substring(0, 1);
 

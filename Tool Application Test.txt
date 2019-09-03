@@ -32,8 +32,18 @@
 |The weapon names listed are all saved .xml files. Works as intended.
 |____________________________________________________________________________
 
- ____________________________________________________________________________
+ ___________________________________________________________________________
 |Test 4:
+|The 'SAVE' edits the weapon loaded in.
+|
+|Intended Outcome:
+|Weapon contents will be changed upon opening of main menu.
+|
+|Recieved Outcome:
+|The weapon gets editted and are all saved in .xml files. Works as intended.
+|____________________________________________________________________________
+ ____________________________________________________________________________
+|Test 5:
 |The 'Adding Weapon' will not be enabled until all necessary data filled.
 |
 |Intended Outcome:

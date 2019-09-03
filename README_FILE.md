@@ -19,6 +19,10 @@ The created image will be saved as .PNG and the entire loadout including the ima
 
 The main menu screen of the tool, brings an interactable weapons list interface, whihc allows the player to load in their weapon. This weapon will be loaded through the reading of the .xml format, opening the contents and loading it through by "Name:", "Weapon Attribute: " and "Weapon Image: ".
 
+## 2.3 Editing A Weapon
+
+The fully created weapon can be edited through the main menu 'Weapons Editor'. This allows user to change the attribute of the weapon created and the weapon name, withgout manually editting the .xml file. When changes have been made through the tool the weapon will now store the new value.
+
 ## 3.0 Tests Performed
 
 All tests have been recorded in seperate txt file, please refer to "Tool Application Test".

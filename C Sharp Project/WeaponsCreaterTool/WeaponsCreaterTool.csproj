@@ -46,12 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisplayWeaponNameScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DisplayWeaponNameScreen.Designer.cs">
-      <DependentUpon>DisplayWeaponNameScreen.cs</DependentUpon>
-    </Compile>
     <Compile Include="WeaponGeneratorWindows.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,26 +58,14 @@
     <Compile Include="MainScreen.Designer.cs">
       <DependentUpon>MainScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddAttributesScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddAttributesScreen.Designer.cs">
-      <DependentUpon>AddAttributesScreen.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WeaponsClass.cs" />
-    <EmbeddedResource Include="DisplayWeaponNameScreen.resx">
-      <DependentUpon>DisplayWeaponNameScreen.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="WeaponGeneratorWindows.resx">
       <DependentUpon>WeaponGeneratorWindows.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainScreen.resx">
       <DependentUpon>MainScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AddAttributesScreen.resx">
-      <DependentUpon>AddAttributesScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
