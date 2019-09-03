@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerActor : MonoBehaviour {
 
     private CharacterController controller;
-
+    public float speed = 5.0f;
 	// Use this for initialization
 	void Start () {
         controller = gameObject.GetComponent<CharacterController>();
@@ -19,22 +19,22 @@ public class PlayerActor : MonoBehaviour {
         if (Input.GetKey(KeyCode.S))
         {
             move_direction.Set(0, 0, -1);
-            controller.Move(move_direction * Time.deltaTime * 15);
+            controller.Move(move_direction * Time.deltaTime * speed);
         }
         if (Input.GetKey(KeyCode.W))
         {
             move_direction.Set(0, 0, 1);
-            controller.Move(move_direction * Time.deltaTime * 15);
+            controller.Move(move_direction * Time.deltaTime * speed);
         }
         if (Input.GetKey(KeyCode.A))
         {
             move_direction.Set(-1, 0, 0);
-            controller.Move(move_direction * Time.deltaTime * 15);
+            controller.Move(move_direction * Time.deltaTime * speed);
         }
         if (Input.GetKey(KeyCode.D))
         {
             move_direction.Set(1, 0, 0);
-            controller.Move(move_direction * Time.deltaTime * 15);
+            controller.Move(move_direction * Time.deltaTime * speed);
         }
     }
 }
