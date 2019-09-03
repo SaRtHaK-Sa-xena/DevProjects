@@ -45,13 +45,13 @@
             this.button1 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SearchByAttribute = new System.Windows.Forms.TextBox();
-            this.Search = new System.Windows.Forms.Button();
-            this.labelEditTEXT = new System.Windows.Forms.Label();
-            this.labelEditAttribute = new System.Windows.Forms.Label();
             this.EditName = new System.Windows.Forms.TextBox();
             this.EditAtt = new System.Windows.Forms.TextBox();
             this.SaveEdit = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Search = new System.Windows.Forms.Button();
+            this.labelEditTEXT = new System.Windows.Forms.Label();
+            this.labelEditAttribute = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LoadedImage)).BeginInit();
             this.SuspendLayout();
@@ -212,36 +212,6 @@
             this.SearchByAttribute.TabIndex = 20;
             this.toolTip1.SetToolTip(this.SearchByAttribute, "Enter Attribute To Search...");
             // 
-            // Search
-            // 
-            this.Search.Location = new System.Drawing.Point(474, 655);
-            this.Search.Name = "Search";
-            this.Search.Size = new System.Drawing.Size(111, 39);
-            this.Search.TabIndex = 19;
-            this.Search.Text = "Search";
-            this.Search.UseVisualStyleBackColor = true;
-            this.Search.Click += new System.EventHandler(this.Search_Click);
-            // 
-            // labelEditTEXT
-            // 
-            this.labelEditTEXT.AutoSize = true;
-            this.labelEditTEXT.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.labelEditTEXT.Location = new System.Drawing.Point(320, 136);
-            this.labelEditTEXT.Name = "labelEditTEXT";
-            this.labelEditTEXT.Size = new System.Drawing.Size(73, 17);
-            this.labelEditTEXT.TabIndex = 22;
-            this.labelEditTEXT.Text = "Edit Name";
-            // 
-            // labelEditAttribute
-            // 
-            this.labelEditAttribute.AutoSize = true;
-            this.labelEditAttribute.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.labelEditAttribute.Location = new System.Drawing.Point(320, 177);
-            this.labelEditAttribute.Name = "labelEditAttribute";
-            this.labelEditAttribute.Size = new System.Drawing.Size(89, 17);
-            this.labelEditAttribute.TabIndex = 23;
-            this.labelEditAttribute.Text = "Edit Attribute";
-            // 
             // EditName
             // 
             this.EditName.Location = new System.Drawing.Point(413, 136);
@@ -280,6 +250,36 @@
             this.panel1.Size = new System.Drawing.Size(200, 134);
             this.panel1.TabIndex = 27;
             this.toolTip1.SetToolTip(this.panel1, "Weapon Editor");
+            // 
+            // Search
+            // 
+            this.Search.Location = new System.Drawing.Point(474, 655);
+            this.Search.Name = "Search";
+            this.Search.Size = new System.Drawing.Size(111, 39);
+            this.Search.TabIndex = 19;
+            this.Search.Text = "Search";
+            this.Search.UseVisualStyleBackColor = true;
+            this.Search.Click += new System.EventHandler(this.Search_Click);
+            // 
+            // labelEditTEXT
+            // 
+            this.labelEditTEXT.AutoSize = true;
+            this.labelEditTEXT.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.labelEditTEXT.Location = new System.Drawing.Point(320, 136);
+            this.labelEditTEXT.Name = "labelEditTEXT";
+            this.labelEditTEXT.Size = new System.Drawing.Size(73, 17);
+            this.labelEditTEXT.TabIndex = 22;
+            this.labelEditTEXT.Text = "Edit Name";
+            // 
+            // labelEditAttribute
+            // 
+            this.labelEditAttribute.AutoSize = true;
+            this.labelEditAttribute.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.labelEditAttribute.Location = new System.Drawing.Point(320, 177);
+            this.labelEditAttribute.Name = "labelEditAttribute";
+            this.labelEditAttribute.Size = new System.Drawing.Size(89, 17);
+            this.labelEditAttribute.TabIndex = 23;
+            this.labelEditAttribute.Text = "Edit Attribute";
             // 
             // MainScreen
             // 

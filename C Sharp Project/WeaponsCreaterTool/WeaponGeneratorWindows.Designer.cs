@@ -336,7 +336,7 @@
             this.DrawWeapon.Margin = new System.Windows.Forms.Padding(4);
             this.DrawWeapon.Name = "DrawWeapon";
             this.DrawWeapon.SelectedIndex = 0;
-            this.DrawWeapon.Size = new System.Drawing.Size(801, 663);
+            this.DrawWeapon.Size = new System.Drawing.Size(751, 663);
             this.DrawWeapon.TabIndex = 11;
             // 
             // tabPage1
@@ -356,7 +356,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(793, 634);
+            this.tabPage1.Size = new System.Drawing.Size(743, 634);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Draw Weapon";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -488,9 +488,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(801, 663);
+            this.ClientSize = new System.Drawing.Size(751, 663);
             this.Controls.Add(this.DrawWeapon);
-            this.Location = new System.Drawing.Point(350, 0);
+            this.Location = new System.Drawing.Point(430, 0);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "WeaponGenerator";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

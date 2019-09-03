@@ -20,6 +20,8 @@ namespace WeaponsCreaterTool
         {
             InitializeComponent();
 
+            this.Size = new Size(1400, 799);
+
             //Create a new weapon list
             List<WeaponsClass> listOfWeapons = new List<WeaponsClass>();
             AddTolist();
@@ -392,6 +394,13 @@ namespace WeaponsCreaterTool
             streamToOpen.Close();
 
             //If the value has changed from previous
+            if (EditName.Text != LoadedWeaponTEXT.Text)
+            {
+                //overwrite
+                testObj2.returnName = EditName.Text;
+            }
+
+            //If the value has changed from previous
             if (EditAtt.Text != LoadedAttributeTEXT.Text)
             {
                 if (EditAtt.Text == "10" || EditAtt.Text == "20" || EditAtt.Text == "30")
@@ -404,17 +413,13 @@ namespace WeaponsCreaterTool
                 }
             }
 
+
+            //Then Save into current working file
             XmlSerializer Saveserializer = new XmlSerializer(typeof(WeaponsClass));
             TextWriter writer = new StreamWriter(LoadedWeaponTEXT.Text + ".xml");
 
             Saveserializer.Serialize(writer, testObj2);
             writer.Close();
         }
-
-
-        //Search for weapons with attributes of x and display weapon Names
-        //Display in new Form
-
-
     }
 }

@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace WeaponsCreaterTool
 {
+    //Base Class
     public class BaseItemsClass
     {
         private string itemName;
@@ -58,21 +59,6 @@ namespace WeaponsCreaterTool
         //variable of attributes
         private int attributes;
         public int returnAttributes { get { return attributes; } set { attributes = value;}}
-
-        //custom made weaponImage
-        //public Image weaponImage { get; set; }
-
-        //instead of storing image
-        //store image path, the path will always be the same
-
-        //public string returnImagePath //"../../bin/debug/";
-        //{
-        //    get { return imagePath; }
-        //    set { imagePath = value; }
-        //}
-
-
-
 
     }
 }
