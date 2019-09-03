@@ -64,7 +64,9 @@
     <Compile Include="Assets\EnemyAssets\Scripts\DestroyEnemy.cs" />
     <Compile Include="Assets\EnemyAssets\Scripts\EnemyActor.cs" />
     <Compile Include="Assets\EnemyAssets\Scripts\EnemySpawnActor.cs" />
+    <Compile Include="Assets\EnvironmentAssets\Scripts\CameraActor.cs" />
     <Compile Include="Assets\PlayerAssets\Scripts\PlayerActor.cs" />
+    <Compile Include="Assets\PlayerAssets\Scripts\ProjectileActor.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/s191509/Documents/GitHub/TestProject2D/UNITY/Tutorial - Unity3D/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
