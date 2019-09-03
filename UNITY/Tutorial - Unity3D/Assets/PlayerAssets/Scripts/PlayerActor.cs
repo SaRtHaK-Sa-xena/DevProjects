@@ -54,7 +54,7 @@ public class PlayerActor : MonoBehaviour
 
     void FireSingleShot()
     {
-        GameObject projectile = (GameObject)Instantiate(projectilePrefab);
+        GameObject projectile = Instantiate(projectilePrefab);
 
         projectile.transform.position = transform.position;
 
