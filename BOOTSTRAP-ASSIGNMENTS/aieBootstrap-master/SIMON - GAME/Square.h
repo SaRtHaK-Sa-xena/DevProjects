@@ -9,8 +9,24 @@ using namespace std;
 class Square
 {
 public:
+	Square()
+	{
+		this->m_posX = 0;
+		this->m_posY = 0;
+		this->m_width = 0;
+		this->m_height = 0;
+		this->m_value = "";
+	}
 	Square(float posX, float posY, float width, float height, string colour);
 	~Square();
+
+	Square(Square amount[], float size)
+	{
+		for (int i = 0; i < size; i++)
+		{
+
+		}
+	}
 
 	//Draws with Renderer, colour R, colour G, colour B
 	void Draw(aie::Renderer2D* renderer, float value_R, float value_G, float value_B);
@@ -43,5 +59,4 @@ public:
 private:
 	Square* m_right = nullptr;
 	string m_value;
-
 };
