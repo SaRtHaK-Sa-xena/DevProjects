@@ -25,9 +25,6 @@ SimonGameClass::~SimonGameClass()
 //used to insert colour
 void SimonGameClass::insert(string a_nValue)
 {
-	
-
-
 	if (root == nullptr)
 	{
 		root = new Square(0, 0, 0, 210, a_nValue);
