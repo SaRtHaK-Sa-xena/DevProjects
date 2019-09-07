@@ -3,7 +3,7 @@
 #include "Application.h"
 #include "Renderer2D.h"
 #include "Square.h"
-#include "SimonGameClass.h"
+//#include "SimonGameClass.h"
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
@@ -42,7 +42,8 @@ protected:
 	//=============Textures==============
 
 
-	SimonGameClass* SimonTree;
+	//SimonGameClass* SimonTree;
+	DynamicArray* SimonTree = new DynamicArray();
 
 	//====Colours=======
 	Square* Red;

@@ -3,7 +3,8 @@
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
-#include "SimonGameClass.h"
+//#include "SimonGameClass.h"
+#include "Dynamic Array.h"
 
 aie::Font* g_systemFont = nullptr;
 
@@ -18,7 +19,7 @@ SIMON___GAMEApp::~SIMON___GAMEApp() {
 bool SIMON___GAMEApp::startup() {
 	
 	m_2dRenderer = new aie::Renderer2D();
-	SimonTree = new SimonGameClass();
+	SimonTree = new DynamicArray();
 
 	m_BrightRedTexture = new aie::Texture("./textures/Bright_Red.png");
 	m_DarkRedTexture = new aie::Texture("./textures/Dark_Red.png");
@@ -87,7 +88,7 @@ void SIMON___GAMEApp::shutdown() {
 	delete Blue;
 	delete Green;
 	delete Yellow;
-	delete SimonTree;
+	//delete []SimonTree;
 	delete Data;
 }
 
@@ -143,7 +144,7 @@ void SIMON___GAMEApp::update(float deltaTime) {
 				{
 					randomColour = colours[rand() % 4];
 					current = SimonTree->ReturnRoot();
-					SimonTree->insert(randomColour);
+					SimonTree->add(randomColour);
 					valueInsertPhase = false;
 					cout << "Value Inserted" << endl;
 				}
@@ -206,7 +207,7 @@ void SIMON___GAMEApp::update(float deltaTime) {
 				{
 					randomColour = colours[rand() % 4];
 					current = SimonTree->ReturnRoot();
-					SimonTree->insert(randomColour);
+					SimonTree->add(randomColour);
 					insert = false;
 				}
 				if (randomColour == "RED")
