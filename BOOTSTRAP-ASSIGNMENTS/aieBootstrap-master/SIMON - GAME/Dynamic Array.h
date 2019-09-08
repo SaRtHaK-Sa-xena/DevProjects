@@ -195,7 +195,7 @@ public:
 		//add at end
 		
 		//check if value should be correct
-		if (colourValue == "RED")
+		//if (colourValue == "RED")
 			//
 		ptrArray[usedElements++] = *new Square(0,0,0,0,colourValue);
 	}
@@ -234,13 +234,13 @@ public:
 	int returnElementsUsed() { return usedElements; }
 
 	//returns element data at index
-	Square getAt(int index)
+	Square *getAt(int index)
 	{
 		if (index < 0 || index >= usedElements)
 		{
 			throw("Out of bounds exception!");
 		}
-		return ptrArray[index];
+		return &ptrArray[index];
 	}
 
 	//deletes last element in array
@@ -259,11 +259,11 @@ public:
 	void Display()
 	{
 		Square *temp = new Square();
-		if (getAt(0).getData() == "")
+		if (getAt(0)->getData() == "")
 		{
 			for (int i = 0; i < usedElements; i++)
 			{
-				cout << i << ": " << getAt(i).getData() << endl;
+				cout << i << ": " << getAt(i)->getData() << endl;
 			}
 		}
 		else

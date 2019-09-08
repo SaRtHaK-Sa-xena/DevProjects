@@ -4,7 +4,6 @@
 #include "Font.h"
 #include "Input.h"
 //#include "SimonGameClass.h"
-#include "Dynamic Array.h"
 
 aie::Font* g_systemFont = nullptr;
 
@@ -57,6 +56,7 @@ bool SIMON___GAMEApp::startup() {
 	inputPhase = false;
 	inputDone = false;
 	SequenceFinished = false;
+	increment = 0;
 	//Default Start
 
 	//Default Colour
@@ -64,6 +64,8 @@ bool SIMON___GAMEApp::startup() {
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	g_systemFont = new aie::Font("../bin/font/consolas.ttf", 32);
+
+
 
 	return true;
 }
@@ -142,11 +144,18 @@ void SIMON___GAMEApp::update(float deltaTime) {
 
 				if (valueInsertPhase == true)
 				{
+					//create random Colour
 					randomColour = colours[rand() % 4];
+
+					//Set current to beginning
 					current = SimonTree->ReturnRoot();
+					
+					// add colour to Tree
 					SimonTree->add(randomColour);
 					valueInsertPhase = false;
-					cout << "Value Inserted" << endl;
+					
+					cout << "Value Inserted: "<< randomColour << endl;
+					reset = true;
 				}
 
 				//=============Display By Current======================
@@ -189,26 +198,36 @@ void SIMON___GAMEApp::update(float deltaTime) {
 					cout << "GREAT!" << endl;
 					cout << "-------------CORRECT!!-----------" << endl;
 				}
-				else if (current->getRight() != nullptr)
+				//else if(SimonTree)
+
+				else if (increment < SimonTree->returnElementsUsed())
 				{
-					current = current->getRight();
+					current = SimonTree->getAt(increment);
+					increment = increment + 1;
 				}
 
+				//else if (current->getRight() != nullptr)
+				//{
+					//current = current->getRight();
+				//}
 			}
-
 			//=================Display Sequence Again===========================
 		}
 		else
 		{
+			//Beginning Of Game
 			TodrawGamePhase = true;
 			if (timer >= 1)
 			{
+				//insert values will equal false
+				//So it will display colours
 				if (insert == true)
 				{
 					randomColour = colours[rand() % 4];
 					current = SimonTree->ReturnRoot();
 					SimonTree->add(randomColour);
 					insert = false;
+					reset = true;
 				}
 				if (randomColour == "RED")
 				{
@@ -252,77 +271,147 @@ void SIMON___GAMEApp::update(float deltaTime) {
 		inputPhase = true;
 	}
 
-	if (inputPhase == true)
+	//Now that all colours have been displayed
+	//The input phase begins
 	{
+		if (reset)
+		{
+			increment = 0;
+			reset = false;
+		}
+
+		//Draw Input and not Game Phase Text
 		TodrawGamePhase = false;
 		TodrawInputPhase = true;
+
 		if (input->wasKeyPressed(aie::INPUT_KEY_W))
 		{
 			TodrawDarkBlue = false;
+			
+			//Set data to check against value
 			Data->setData("BLUE");
 			inputDone = true;
 		}
 		else if (input->wasKeyPressed(aie::INPUT_KEY_A))
 		{
 			TodrawDarkGreen = false;
+			
+			//Set data to check against value
 			Data->setData("GREEN");
 			inputDone = true;
 		}
 		else if (input->wasKeyPressed(aie::INPUT_KEY_S))
 		{
 			TodrawDarkRed = false;
+			
+			//Set data to check against value
 			Data->setData("RED");
 			inputDone = true;
 		}
 		else if (input->wasKeyPressed(aie::INPUT_KEY_D))
 		{
 			TodrawDarkYellow = false;
+			
+			//Set data to check against value
 			Data->setData("YELLOW");
 			inputDone = true;
 		}
 	}
 
+	//One of the buttons pressed
+	//Now it will check if it was correct
 	if (inputDone)
 	{
 		inputDone = false;
-		if (current->getData() == Data->getData())
-		{
-			if (current->getRight() != nullptr)
+
+		//if (increment < SimonTree->returnElementsUsed()-1)
+		//{
+			if (SimonTree->getAt(increment)->getData() == Data->getData())
 			{
-				current = current->getRight();
+				//If more elements being used in Array
+				if (increment < SimonTree->returnElementsUsed()-1)
+				{
+					//move up index
+					increment = increment + 1;
+				}
+				else
+				{
+					difficulty++;
+					Total_difficulty++;
+					TempTotaldifficulty = Total_difficulty;
+					timer = 5;
+					SequenceFinished = true;
+					valueInsertPhase = true;
+					//bring increment back to zero
+					increment = 0;
+				}
 			}
-			else
+			else if (SimonTree->getAt(increment)->getData() != Data->getData())
 			{
-				//increment difficulty
-				difficulty++;
-				Total_difficulty++;
-				TempTotaldifficulty = Total_difficulty;
+				cout << "Incorrect" << endl;
+
+				//---Set Values Back In-------
+				Total_difficulty = 3;
+				difficulty = 3;
 				timer = 5;
-				SequenceFinished = true;
-				valueInsertPhase = true;
+				SequenceFinished = false;
+				insert = true;
+				//---Set Values Back In-------
+
+				//set values to reseted value
+				increment = 0;
+
+				shutdown();
+				startup();
+
+				cout << "----------RESTARTING------" << endl;
+				cout << endl;
+				cout << "----------RESTARTING------" << endl;
 			}
-		}
-
-		else if (current->getData() != Data->getData())
-		{
-			cout << "Incorrect" << endl;
-			
-			//---Set Values Back In-------
-			Total_difficulty = 3;
-			difficulty = 3;
-			timer = 5;
-			SequenceFinished = false;
-			insert = true;
-			//---Set Values Back In-------
+		//}
+		//if first value equal to value of Data then
+		//if (current->getData() == Data->getData())
+		//{
+		//	//if current right not equal to nothing
 
 
-			shutdown();
-			startup();
+		//	if (current->getRight() != nullptr)
+		//	{
+		//		current = current->getRight();
+		//	}
+		//	else
+		//	{
+		//		//increment difficulty
+		//		difficulty++;
+		//		Total_difficulty++;
+		//		TempTotaldifficulty = Total_difficulty;
+		//		timer = 5;
+		//		SequenceFinished = true;
+		//		valueInsertPhase = true;
+		//	}
+		//}
 
-			cout << "----------RESTARTING------" << endl;
-			cout << endl;
-			cout << "----------RESTARTING------" << endl;
-		}
+		////If current's data not equal to Data 
+		//else if (current->getData() != Data->getData())
+		//{
+		//	cout << "Incorrect" << endl;
+		//	
+		//	//---Set Values Back In-------
+		//	Total_difficulty = 3;
+		//	difficulty = 3;
+		//	timer = 5;
+		//	SequenceFinished = false;
+		//	insert = true;
+		//	//---Set Values Back In-------
+
+
+		//	shutdown();
+		//	startup();
+
+		//	cout << "----------RESTARTING------" << endl;
+		//	cout << endl;
+		//	cout << "----------RESTARTING------" << endl;
+		//}
 
 	}
 
