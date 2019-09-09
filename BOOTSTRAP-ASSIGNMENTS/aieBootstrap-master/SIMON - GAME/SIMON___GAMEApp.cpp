@@ -172,7 +172,7 @@ void SIMON___GAMEApp::update(float deltaTime) {
 					randomColour = colours[rand() % 4];
 
 					//Set current to beginning
-					current = SimonTree->getAt(increment);
+					current = SimonTree->ReturnRoot();
 					
 					// add colour to Tree
 					SimonTree->add(randomColour);
@@ -244,7 +244,7 @@ void SIMON___GAMEApp::update(float deltaTime) {
 					}*/
 						
 					//make current the value at increment
-					current = SimonTree->getAt(increment + 1);
+					current = SimonTree->getAt(increment);
 
 					//increment value to go down the array list
 					increment = increment + 1;
@@ -252,7 +252,7 @@ void SIMON___GAMEApp::update(float deltaTime) {
 				}
 
 				
-				else if (TempTotaldifficulty < 0)
+				else if (TempTotaldifficulty <= 0)
 				{
 					//decrement difficulty since variable difficulty equals to temp difficulty
 					difficulty--;
@@ -455,7 +455,7 @@ void SIMON___GAMEApp::update(float deltaTime) {
 					
 					//bring increment back to zero
 					//increment back at zero to draw colours from beginning
-					increment = 0;
+					increment = 1;
 					reset = true;
 				}
 			}
