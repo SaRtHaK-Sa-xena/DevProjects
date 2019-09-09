@@ -110,9 +110,14 @@ void SIMON___GAMEApp::update(float deltaTime) {
 	inputPhase = false;
 	//==============Intitializing==================================
 
+	//counter that counts down by delta Time
 	timer -= deltaTime * 2;
+
+	//if the difficulty is greater than 0
+	//To add colours or display it
 	if (difficulty > 0)
 	{
+		//only triggered the second time
 		if (SequenceFinished)
 		{
 			TodrawGamePhase = true;
@@ -213,22 +218,40 @@ void SIMON___GAMEApp::update(float deltaTime) {
 			}
 			//=================Display Sequence Again===========================
 		}
+
+		//only triggered the first time
+		//Inputs three values to be displayed 
 		else
 		{
 			//Beginning Of Game
+
+			//Write Text Game Phase
 			TodrawGamePhase = true;
+
+			//if the timer greater or equal to 1
 			if (timer >= 1)
 			{
-				//insert values will equal false
 				//So it will display colours
+				//Set to true each time by difficulty
+				//which is set to 3
 				if (insert == true)
 				{
+					//finds random colour
 					randomColour = colours[rand() % 4];
+					
+					//makes current Node equal to root of Tree
 					current = SimonTree->ReturnRoot();
+					
+					//add a node with that random generated colour to Tree's end
 					SimonTree->add(randomColour);
+					
+					//make sure this doesn't get hit immediately after
 					insert = false;
 					reset = true;
 				}
+
+				//While timer running check if it is Red,Blue,Green,Yellow
+				//The one selected won't be dark
 				if (randomColour == "RED")
 				{
 					TodrawDarkRed = false;
@@ -246,6 +269,9 @@ void SIMON___GAMEApp::update(float deltaTime) {
 					TodrawDarkYellow = false;
 				}
 			}
+
+			//while the timer is greater or less than 1
+			//make each of them dark, as an interval betweeen switching
 			else if (timer > 0 && timer < 1)
 			{
 				TodrawDarkRed = true;
@@ -254,16 +280,29 @@ void SIMON___GAMEApp::update(float deltaTime) {
 				TodrawDarkYellow = true;
 			}
 
+			//if timer finally reaches 0 or is less than 0
+			//decrement difficulty to start the phase again
+			//but with a different colour
 			else if (timer <= 0)
 			{
+				//After displayed
+
+				//decrement difficulty
 				difficulty--;
+
+				//Make add 'another value' check to true
 				insert = true;
+
+				//set timer back to 5
 				timer = 5;
 			}
 		}
 	}
 	else
 	{
+		//if the difficulty has reached 0
+		//meaning 3 colours have been added and displayed
+		//make everything dark again and make input phase equal to true
 		TodrawDarkRed = true;
 		TodrawDarkBlue = true;
 		TodrawDarkGreen = true;
@@ -274,11 +313,11 @@ void SIMON___GAMEApp::update(float deltaTime) {
 	//Now that all colours have been displayed
 	//The input phase begins
 	{
-		if (reset)
+		/*if (reset)
 		{
 			increment = 0;
 			reset = false;
-		}
+		}*/
 
 		//Draw Input and not Game Phase Text
 		TodrawGamePhase = false;
@@ -322,6 +361,7 @@ void SIMON___GAMEApp::update(float deltaTime) {
 	//Now it will check if it was correct
 	if (inputDone)
 	{
+		//set it to false, so it doesn't immediately call it again
 		inputDone = false;
 
 		//if (increment < SimonTree->returnElementsUsed()-1)
@@ -336,34 +376,61 @@ void SIMON___GAMEApp::update(float deltaTime) {
 				}
 				else
 				{
+					//if the elements have all been checked 
+					
+					//increment diffculty, making it 4
 					difficulty++;
+
+					//increment Total difficulty which always equals to 3
 					Total_difficulty++;
+
+					//make the temperoryDifficulty equal to total
 					TempTotaldifficulty = Total_difficulty;
+					
+					//tiemr will be resetted
 					timer = 5;
+					
+					//Now the second Phase of the Game will start
+					//By checking true
 					SequenceFinished = true;
+					
+					//set the second phases' insert colour to true
 					valueInsertPhase = true;
+					
 					//bring increment back to zero
+					//increment back at zero to draw colours from beginning
 					increment = 0;
 				}
 			}
+
+			//If data not match
 			else if (SimonTree->getAt(increment)->getData() != Data->getData())
 			{
 				cout << "Incorrect" << endl;
 
 				//---Set Values Back In-------
+				//reset values
 				Total_difficulty = 3;
+				//reset values
 				difficulty = 3;
+				//reset values
 				timer = 5;
+				//reset values, don't start next phase
 				SequenceFinished = false;
+				//reset values, start first phase, which inserts three values
 				insert = true;
 				//---Set Values Back In-------
 
-				//set values to reseted value
+				//set value to 0 again
 				increment = 0;
 
+				//call Shutdown deleting objects
 				shutdown();
+
+				//instantiate needed variables again
 				startup();
 
+				//Display Restarting for Debug sakes
 				cout << "----------RESTARTING------" << endl;
 				cout << endl;
 				cout << "----------RESTARTING------" << endl;
@@ -465,11 +532,12 @@ void SIMON___GAMEApp::draw() {
 
 	if (TodrawGamePhase)
 	{
+		//Rules for player to abide by
 		m_2dRenderer->drawText(g_systemFont, "GAME PHASE", 500, 300);
 	}
 	else
 	{
-		//m_2dRenderer->drawSprite(m_InputPhaseTexture, InputPhase->m_posX, InputPhase->m_posY, InputPhase->m_width, InputPhase->m_height);
+		//Rules for player to abide by
 		m_2dRenderer->drawText(g_systemFont, "INPUT PHASE", 500, 400);
 	}
 
