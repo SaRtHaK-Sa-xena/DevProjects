@@ -101,16 +101,6 @@ public:
 	//Resize Function
 
 
-	//Copy Constructor may not be needed for this
-	void CopyConstructor(DynamicArray *mainArray)
-	{
-		for (int i = 0; i < usedElements; i++)
-		{
-			ptrArray[i] = mainArray->ptrArray[i];
-			//mainArray->add(getAt(i));
-		}
-	}
-
 	//initalize 
 	void initializeArray(int from)
 	{
@@ -123,65 +113,6 @@ public:
 		}
 	}
 
-	//remove unordered 
-	void RemoveUO(string value)
-	{
-		for (int i = 0; i < usedElements; i++)
-		{
-			//Ptr equal to value
-			if (ptrArray[i].getData() == value)
-			{
-				//|------------Swap------------------
-
-				//create a temp storage of pointer
-				Square Temp = ptrArray[i];
-				//element equal to last element
-				ptrArray[i] = ptrArray[usedElements - 1];
-				//last element equal to value[element]
-				ptrArray[usedElements - 1] = Temp;
-				//delete last value
-				popBack();
-				break;
-
-				//|------------Swap------------------
-			}
-		}
-	}
-
-	//Clears entire array---May not be required for this project
-	void ClearArray()
-	{
-		//Create new array
-		Square *ptrTemp = new Square[maxSize];
-		delete[]ptrArray;
-		ptrArray = ptrTemp;
-
-		usedElements = 0;
-
-		//intialize new array with no elements
-		initializeArray(usedElements);
-	}
-
-	//To remove the value ordered
-	void Remove(string value)
-	{
-		for (int i = 0; i < usedElements; i++)
-		{
-			//if the value of pos matches the value inputted
-			if (ptrArray[i].getData() == value)
-			{
-				//swap
-				Square Temp = ptrArray[i];
-				ptrArray[i] = ptrArray[i + 1];
-				ptrArray[i + 1] = Temp;
-				//swap
-			}
-		}
-		popBack();
-		//Call PopBack function
-
-	}
-
 	//adds to the dyanmic array
 	void add(string colourValue)
 	{
@@ -191,44 +122,8 @@ public:
 			//resizes the array
 			reSize();
 		}
-		//add after usedElements
 		//add at end
-		
-		//check if value should be correct
-		//if (colourValue == "RED")
-			//
 		ptrArray[usedElements++] = *new Square(0,0,0,0,colourValue);
-		//cout << colourValue << endl;
-	}
-
-	//adds in the middle
-	void AddInMiddle(string Colourvalue, int position)
-	{
-		if (usedElements > 1)
-		{
-			//one element more than end
-			int i = usedElements + 1;
-
-			while (i > position)
-			{
-				//perform swap
-				Square Temp = ptrArray[i];
-				ptrArray[i] = ptrArray[i - 1];
-				ptrArray[i - 1] = Temp;
-				//perform swap
-				i--;
-			}
-			//for (int i = position; i < usedElements; i++)
-			//{
-			//	//swap
-
-			//	ptrArray[i] = ptrArray[i + 1];
-			//}
-			//increment usedElements
-			usedElements += 1;
-			//make the value of that position equal to value
-			ptrArray[position] = *new Square(0,0,0,0,Colourvalue);
-		}
 	}
 
 	//returns size of used elements
@@ -256,23 +151,6 @@ public:
 			cout << "Array empty...";
 		}
 	}
-
-	void Display()
-	{
-		Square *temp = new Square();
-		if (getAt(0)->getData() == "")
-		{
-			for (int i = 0; i < usedElements; i++)
-			{
-				cout << i << ": " << getAt(i)->getData() << endl;
-			}
-		}
-		else
-		{
-			cout << "Array Empty..." << endl;
-		}
-	}
-
 };
 
 

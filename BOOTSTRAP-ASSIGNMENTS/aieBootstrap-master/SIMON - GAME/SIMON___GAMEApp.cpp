@@ -3,7 +3,6 @@
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
-//#include "SimonGameClass.h"
 
 aie::Font* g_systemFont = nullptr;
 
@@ -86,7 +85,6 @@ bool SIMON___GAMEApp::startup() {
 void SIMON___GAMEApp::shutdown() {
 
 	//Delete all used components
-
 	delete g_systemFont;
 	delete m_2dRenderer;
 
@@ -263,10 +261,6 @@ void SIMON___GAMEApp::update(float deltaTime) {
 					cout << "-------------CORRECT!!-----------" << endl;
 					increment = 0;
 				}
-				//else if (current->getRight() != nullptr)
-				//{
-					//current = current->getRight();
-				//}
 			}
 			//=================Display Sequence Again===========================
 		}
@@ -276,7 +270,6 @@ void SIMON___GAMEApp::update(float deltaTime) {
 		else
 		{
 			//Beginning Of Game
-
 			//Write Text Game Phase
 			TodrawGamePhase = true;
 
@@ -365,12 +358,6 @@ void SIMON___GAMEApp::update(float deltaTime) {
 	//The input phase begins
 	if(inputPhase)
 	{
-		/*if (reset)
-		{
-			increment = 0;
-			reset = false;
-		}*/
-
 		//Draw Input and not Game Phase Text
 		TodrawGamePhase = false;
 		TodrawInputPhase = true;
@@ -415,131 +402,76 @@ void SIMON___GAMEApp::update(float deltaTime) {
 	{
 		//set it to false, so it doesn't immediately call it again
 		inputDone = false;
-
-		//if (increment < SimonTree->returnElementsUsed()-1)
-		//{
-			for (int i = 0; i < SimonTree->returnElementsUsed(); i++) {
-				cout << "Value Stored: " << SimonTree->getAt(i)->getData() << endl;
-			}
-
-			if (SimonTree->getAt(increment)->getData() == Data->getData())
+		if (SimonTree->getAt(increment)->getData() == Data->getData())
+		{
+			//If more elements being used in Array
+			if (increment < SimonTree->returnElementsUsed()-1)
 			{
-				//If more elements being used in Array
-				if (increment < SimonTree->returnElementsUsed()-1)
-				{
-					//move up index
-					increment = increment + 1;
-				}
-				else
-				{
-					//if the elements have all been checked 
-					
-					//increment diffculty, making it 4
-					difficulty++;
-
-					//increment Total difficulty which always equals to 3
-					Total_difficulty++;
-
-					//make the temperoryDifficulty equal to total
-					TempTotaldifficulty = Total_difficulty;
-					
-					//timer will be resetted
-					timer = 5;
-					
-					//Now the second Phase of the Game will start
-					//By checking true
-					SequenceFinished = true;
-					
-					//set the second phases' insert colour to true
-					valueInsertPhase = true;
-					
-					//bring increment back to zero
-					//increment back at zero to draw colours from beginning
-					increment = 1;
-					reset = true;
-				}
+				//move up index
+				increment = increment + 1;
 			}
-
-			//If data not match
-			else if (SimonTree->getAt(increment)->getData() != Data->getData())
+			else
 			{
-				cout << "Incorrect" << endl;
+				//if the elements have all been checked 
+				//increment diffculty, making it 4
+				difficulty++;
 
-				//---Set Values Back In-------
-				//reset values
-				Total_difficulty = 3;
-				//reset values
-				difficulty = 3;
-				//reset values
+				//increment Total difficulty which always equals to 3
+				Total_difficulty++;
+
+				//make the temperoryDifficulty equal to total
+				TempTotaldifficulty = Total_difficulty;
+				
+				//timer will be resetted
 				timer = 5;
-				//reset values, don't start next phase
-				SequenceFinished = false;
-				//reset values, start first phase, which inserts three values
-				insert = true;
-				//---Set Values Back In-------
-
-				//set value to 0 again
-				increment = 0;
-
-				//call Shutdown deleting objects
-				shutdown();
-
-				//instantiate needed variables again
-				startup();
-
-				//Display Restarting for Debug sakes
-				cout << "----------RESTARTING------" << endl;
-				cout << endl;
-				cout << "----------RESTARTING------" << endl;
+				
+				//Now the second Phase of the Game will start
+				//By checking true
+				SequenceFinished = true;
+				
+				//set the second phases' insert colour to true
+				valueInsertPhase = true;
+				
+				//bring increment back to zero
+				//increment back at zero to draw colours from beginning
+				increment = 1;
+				reset = true;
 			}
-		//}
-		//if first value equal to value of Data then
-		//if (current->getData() == Data->getData())
-		//{
-		//	//if current right not equal to nothing
+		}
 
+		//If data not match
+		else if (SimonTree->getAt(increment)->getData() != Data->getData())
+		{
+			cout << "Incorrect" << endl;
 
-		//	if (current->getRight() != nullptr)
-		//	{
-		//		current = current->getRight();
-		//	}
-		//	else
-		//	{
-		//		//increment difficulty
-		//		difficulty++;
-		//		Total_difficulty++;
-		//		TempTotaldifficulty = Total_difficulty;
-		//		timer = 5;
-		//		SequenceFinished = true;
-		//		valueInsertPhase = true;
-		//	}
-		//}
+			//---Set Values Back In-------
+			//reset values
+			Total_difficulty = 3;
+			//reset values
+			difficulty = 3;
+			//reset values
+			timer = 5;
+			//reset values, don't start next phase
+			SequenceFinished = false;
+			//reset values, start first phase, which inserts three values
+			insert = true;
+			//---Set Values Back In-------
 
-		////If current's data not equal to Data 
-		//else if (current->getData() != Data->getData())
-		//{
-		//	cout << "Incorrect" << endl;
-		//	
-		//	//---Set Values Back In-------
-		//	Total_difficulty = 3;
-		//	difficulty = 3;
-		//	timer = 5;
-		//	SequenceFinished = false;
-		//	insert = true;
-		//	//---Set Values Back In-------
+			//set value to 0 again
+			increment = 0;
 
+			//call Shutdown deleting objects
+			shutdown();
 
-		//	shutdown();
-		//	startup();
+			//instantiate needed variables again
+			startup();
 
-		//	cout << "----------RESTARTING------" << endl;
-		//	cout << endl;
-		//	cout << "----------RESTARTING------" << endl;
-		//}
-
+			//Display Restarting for Debug sakes
+			cout << "----------RESTARTING------" << endl;
+			cout << endl;
+			cout << "----------RESTARTING------" << endl;
+		}
 	}
-
-	
 }
 
 void SIMON___GAMEApp::draw() {
