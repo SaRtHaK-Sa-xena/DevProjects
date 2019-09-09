@@ -17,9 +17,13 @@ SIMON___GAMEApp::~SIMON___GAMEApp() {
 
 bool SIMON___GAMEApp::startup() {
 	
+	//Create renderer
 	m_2dRenderer = new aie::Renderer2D();
+	
+	//Create Tree to use
 	SimonTree = new DynamicArray();
 
+	//====================================Load in Textures=========================
 	m_BrightRedTexture = new aie::Texture("./textures/Bright_Red.png");
 	m_DarkRedTexture = new aie::Texture("./textures/Dark_Red.png");
 
@@ -31,46 +35,57 @@ bool SIMON___GAMEApp::startup() {
 
 	m_BrightGreenTexture = new aie::Texture("./textures/Bright_Green.png");
 	m_DarkGreenTexture = new aie::Texture("./textures/Dark_Green.png");
+	//====================================Load in Textures=========================
 
-
+	//create a string of colours
 	string red = "red";
 	string blue = "blue";
 	string green = "green";
 	string yellow = "yellow";
 
 
-
+	//add colours in with instantiated default nodes
 	Red = new Square(600, 150, 200, 210, red); //bottom Square
 	Blue = new Square(600, 600, 200, 210, blue); //top square
 	Green = new Square(350, 350, 200, 210, green); //left square
 	Yellow = new Square(850, 350, 200, 210, yellow); //right square
 
 	//==================================================
+	//Use instantiated nodes specific data to load in attribute details to user
 	m_2dRenderer->drawSprite(m_DarkRedTexture, Red->m_posX, Red->m_posY, Red->m_width, Red->m_height);
 	m_2dRenderer->drawSprite(m_DarkBlueTexture, Blue->m_posX, Blue->m_posY, Blue->m_width, Blue->m_height);
 	m_2dRenderer->drawSprite(m_DarkGreenTexture, Green->m_posX, Green->m_posY, Green->m_width, Green->m_height);
 	m_2dRenderer->drawSprite(m_DarkRedTexture, Yellow->m_posX, Yellow->m_posY, Yellow->m_width, Yellow->m_height);
 	//==================================================
 
+	//create a temporary value to be edited and compared with
 	Data = new Square(0, 0, 0, 0, "");
+	
+	//second phase input will equal to false
 	inputPhase = false;
+	
+	//since no input will be done in beginning
+	//don't start checking
+	
 	inputDone = false;
+	
+	//Sequence will not be finished
+	//So don't start second phase
 	SequenceFinished = false;
+	
+	//start increment at 0
 	increment = 0;
-	//Default Start
-
-	//Default Colour
 
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	g_systemFont = new aie::Font("../bin/font/consolas.ttf", 32);
 
-
-
 	return true;
 }
 
 void SIMON___GAMEApp::shutdown() {
+
+	//Delete all used components
 
 	delete g_systemFont;
 	delete m_2dRenderer;
@@ -90,8 +105,9 @@ void SIMON___GAMEApp::shutdown() {
 	delete Blue;
 	delete Green;
 	delete Yellow;
-	//delete []SimonTree;
+	delete []SimonTree;
 	delete Data;
+	//Delete all used components
 }
 
 
@@ -101,12 +117,11 @@ void SIMON___GAMEApp::update(float deltaTime) {
 
 	// ==================input example===============
 	aie::Input* input = aie::Input::getInstance();
-	// ===============exit the application===========
 
-	//Default Start
 	//==============Intitializing==================================
-
+	//nothing is displayed so will equal false
 	AlreadyDisplayed = false;
+	//don't start input phase at beginning of each phase
 	inputPhase = false;
 	//==============Intitializing==================================
 
@@ -120,9 +135,13 @@ void SIMON___GAMEApp::update(float deltaTime) {
 		//only triggered the second time
 		if (SequenceFinished)
 		{
+			//Draw Game Phase text
 			TodrawGamePhase = true;
+			
+			//In beginning
 			if (timer > 4 && timer < 5)
 			{
+				//Display last used colour to be dark
 				if (randomColour == "RED")
 				{
 					TodrawDarkRed = true;
@@ -139,14 +158,14 @@ void SIMON___GAMEApp::update(float deltaTime) {
 				{
 					TodrawDarkYellow = true;
 				}
-
-				
 			}
+
+			//if timer greater or equal to 1
 			else if (timer >= 1)
 			{
 
 				//=================Display Sequence Again===========================
-
+				//since when sequenceFinished is true, insert phase will also equal true
 				if (valueInsertPhase == true)
 				{
 					//create random Colour
@@ -157,13 +176,20 @@ void SIMON___GAMEApp::update(float deltaTime) {
 					
 					// add colour to Tree
 					SimonTree->add(randomColour);
+					
+					//set to false so it doesn't immediate call this function again
 					valueInsertPhase = false;
 					
+					//dispaly colour added for debug purposes
 					cout << "Value Inserted: "<< randomColour << endl;
 					reset = true;
 				}
-
 				//=============Display By Current======================
+
+
+				//Since current at beginning
+				//displays first colour as bright 
+				//at the beginning
 				if (current->getData() == "RED")
 				{
 					TodrawDarkRed = false;
@@ -184,6 +210,8 @@ void SIMON___GAMEApp::update(float deltaTime) {
 
 			}
 
+			//Before it reaches 0,
+			//Create each colour to be dark
 			else if (timer > 0 && timer < 1)
 			{
 				TodrawDarkBlue = true;
@@ -191,26 +219,46 @@ void SIMON___GAMEApp::update(float deltaTime) {
 				TodrawDarkGreen = true;
 				TodrawDarkYellow = true;
 			}
+
+			//If timer finally less than 0
 			else if (timer < 0)
 			{
+				//set timer back to 6
 				timer = 5;
+
+				//decrement temp difficulty
 				TempTotaldifficulty--;
-				if (TempTotaldifficulty == 0)
+
+				//temp difficulty at zero
+				
+				//else if(SimonTree)
+
+				//Check if the incremented value less than usedElements
+				if (increment < SimonTree->returnElementsUsed()-1)
 				{
+					//make current the value at increment
+					current = SimonTree->getAt(increment);
+
+					//increment value to go down the array list
+					increment = increment + 1;
+				}
+
+				if (increment == SimonTree->returnElementsUsed() - 1)
+				{
+					increment = 0;
+				}
+
+				else if (TempTotaldifficulty == 0)
+				{
+					//decrement difficulty since variable difficulty equals to temp difficulty
 					difficulty--;
+
+					//set the current node to root node in Tree
 					current = SimonTree->ReturnRoot();
 					cout << "-----------CORRECT!!--------" << endl;
 					cout << "GREAT!" << endl;
 					cout << "-------------CORRECT!!-----------" << endl;
 				}
-				//else if(SimonTree)
-
-				else if (increment < SimonTree->returnElementsUsed())
-				{
-					current = SimonTree->getAt(increment);
-					increment = increment + 1;
-				}
-
 				//else if (current->getRight() != nullptr)
 				//{
 					//current = current->getRight();
@@ -312,6 +360,7 @@ void SIMON___GAMEApp::update(float deltaTime) {
 
 	//Now that all colours have been displayed
 	//The input phase begins
+	if(inputPhase)
 	{
 		/*if (reset)
 		{
@@ -387,7 +436,7 @@ void SIMON___GAMEApp::update(float deltaTime) {
 					//make the temperoryDifficulty equal to total
 					TempTotaldifficulty = Total_difficulty;
 					
-					//tiemr will be resetted
+					//timer will be resetted
 					timer = 5;
 					
 					//Now the second Phase of the Game will start
