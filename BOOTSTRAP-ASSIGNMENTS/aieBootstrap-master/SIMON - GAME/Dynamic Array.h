@@ -198,6 +198,7 @@ public:
 		//if (colourValue == "RED")
 			//
 		ptrArray[usedElements++] = *new Square(0,0,0,0,colourValue);
+		//cout << colourValue << endl;
 	}
 
 	//adds in the middle

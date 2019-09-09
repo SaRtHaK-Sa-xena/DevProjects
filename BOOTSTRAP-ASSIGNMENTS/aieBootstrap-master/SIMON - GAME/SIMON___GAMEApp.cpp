@@ -105,7 +105,7 @@ void SIMON___GAMEApp::shutdown() {
 	delete Blue;
 	delete Green;
 	delete Yellow;
-	delete []SimonTree;
+	delete SimonTree;
 	delete Data;
 	//Delete all used components
 }
@@ -172,17 +172,20 @@ void SIMON___GAMEApp::update(float deltaTime) {
 					randomColour = colours[rand() % 4];
 
 					//Set current to beginning
-					current = SimonTree->ReturnRoot();
+					current = SimonTree->getAt(increment);
 					
 					// add colour to Tree
 					SimonTree->add(randomColour);
 					
+					for (int i = 0; i < SimonTree->returnElementsUsed(); i++) {
+						cout << "Value Stored: " << SimonTree->getAt(i)->getData() << endl;
+					}
+
 					//set to false so it doesn't immediate call this function again
 					valueInsertPhase = false;
 					
 					//dispaly colour added for debug purposes
 					cout << "Value Inserted: "<< randomColour << endl;
-					reset = true;
 				}
 				//=============Display By Current======================
 
@@ -206,9 +209,11 @@ void SIMON___GAMEApp::update(float deltaTime) {
 				{
 					TodrawDarkYellow = false;
 				}
+				cout << "current: " << current->getData() << endl;
 				//=============Display By Current======================
 
 			}
+
 
 			//Before it reaches 0,
 			//Create each colour to be dark
@@ -229,35 +234,34 @@ void SIMON___GAMEApp::update(float deltaTime) {
 				//decrement temp difficulty
 				TempTotaldifficulty--;
 
-				//temp difficulty at zero
-				
-				//else if(SimonTree)
-
 				//Check if the incremented value less than usedElements
-				if (increment < SimonTree->returnElementsUsed()-1)
+				if (increment < SimonTree->returnElementsUsed())
 				{
+					/*if (reset)
+					{
+						increment = increment + 1;
+						reset = false;
+					}*/
+						
 					//make current the value at increment
-					current = SimonTree->getAt(increment);
+					current = SimonTree->getAt(increment + 1);
 
 					//increment value to go down the array list
 					increment = increment + 1;
+					
 				}
 
-				if (increment == SimonTree->returnElementsUsed() - 1)
-				{
-					increment = 0;
-				}
-
-				else if (TempTotaldifficulty == 0)
+				
+				else if (TempTotaldifficulty < 0)
 				{
 					//decrement difficulty since variable difficulty equals to temp difficulty
 					difficulty--;
-
 					//set the current node to root node in Tree
 					current = SimonTree->ReturnRoot();
 					cout << "-----------CORRECT!!--------" << endl;
 					cout << "GREAT!" << endl;
 					cout << "-------------CORRECT!!-----------" << endl;
+					increment = 0;
 				}
 				//else if (current->getRight() != nullptr)
 				//{
@@ -295,7 +299,6 @@ void SIMON___GAMEApp::update(float deltaTime) {
 					
 					//make sure this doesn't get hit immediately after
 					insert = false;
-					reset = true;
 				}
 
 				//While timer running check if it is Red,Blue,Green,Yellow
@@ -415,6 +418,10 @@ void SIMON___GAMEApp::update(float deltaTime) {
 
 		//if (increment < SimonTree->returnElementsUsed()-1)
 		//{
+			for (int i = 0; i < SimonTree->returnElementsUsed(); i++) {
+				cout << "Value Stored: " << SimonTree->getAt(i)->getData() << endl;
+			}
+
 			if (SimonTree->getAt(increment)->getData() == Data->getData())
 			{
 				//If more elements being used in Array
@@ -449,6 +456,7 @@ void SIMON___GAMEApp::update(float deltaTime) {
 					//bring increment back to zero
 					//increment back at zero to draw colours from beginning
 					increment = 0;
+					reset = true;
 				}
 			}
 
