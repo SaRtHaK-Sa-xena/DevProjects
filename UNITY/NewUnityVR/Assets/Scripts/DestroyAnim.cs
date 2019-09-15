@@ -21,7 +21,9 @@ public class DestroyAnim : MonoBehaviour
 
         foreach(Transform t in transform)
         {
-            rb = getCompo
+            rb = GetComponent<Rigidbody>();
+
+            
         }
     }
 }
