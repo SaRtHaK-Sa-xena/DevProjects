@@ -9,6 +9,7 @@ public class RayCasting : MonoBehaviour
     public GameObject particleExplosion;
     public Vector3 explodeOffset;
     public float Score;
+    private GameObject ValueStorage;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class RayCasting : MonoBehaviour
             ShootGun();
         }
         Target();
+        ValueStorage = GameObject.FindGameObjectWithTag("TimerTally");
     }
 
     private void Target()
@@ -61,6 +63,7 @@ public class RayCasting : MonoBehaviour
                 //Destory Animation After 3 seconds
                 Destroy(explosionFX, 3);
                 Score++;
+                ValueStorage.GetComponent<Timer>().Time = ValueStorage.GetComponent<Timer>().Time + 500;
             }
         }
     }
