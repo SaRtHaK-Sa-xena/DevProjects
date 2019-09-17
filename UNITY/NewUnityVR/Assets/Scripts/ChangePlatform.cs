@@ -7,16 +7,9 @@ public class ChangePlatform : MonoBehaviour
     //Player to Spawn
     public GameObject Player;
 
-    //GazePointer
-    public GameObject Pointer;
-
-    //EventSystem Script
-    public GameObject EventSystem;
-
     //Position To spawn player
     public Vector3 position;
 
-    //Default Rotation
     private Quaternion Rotation;
 
     //VR Rig To Destroy
@@ -36,13 +29,12 @@ public class ChangePlatform : MonoBehaviour
             //Allow Camera Rig to be movable by Mouse Input
 
             Destroy(vrRig);
-            Destroy(Pointer);
-            Destroy(EventSystem);
 
             //Attach Camera Movable by Mouse Script
             Rigidbody playerRB = Instantiate(Player, position, Rotation).GetComponent<Rigidbody>();
 
             accessabileBody = playerRB;
+
 
             //playerRB.constraints = ~RigidbodyConstraints.FreezePositionX;
             //playerRB.constraints = ~RigidbodyConstraints.FreezePositionY;
