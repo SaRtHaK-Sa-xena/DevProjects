@@ -8,6 +8,7 @@ public class RayCasting : MonoBehaviour
     public ParticleSystem explosion;
     public GameObject particleExplosion;
     public Vector3 explodeOffset;
+    public float Score;
 
     // Start is called before the first frame update
     void Start()
@@ -21,10 +22,26 @@ public class RayCasting : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
             ShootGun();
+        }
+        Target();
+    }
 
-            //Create Next Instance To Get Shot
-            //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            //cube.transform.position = new Vector3(0, 0.5f, 0);
+    private void Target()
+    {
+        RaycastHit targetHit;
+        if (Physics.Raycast(controller.position, controller.forward, out targetHit))
+        {
+            if (targetHit.collider.gameObject.CompareTag("Target"))
+            {
+                //targetHit.collider.gameObject.GetComponent<Material>().SetColor("Green", Color.green);
+                Renderer rend = targetHit.collider.gameObject.GetComponent<Renderer>();
+
+                //rend.material.shader = Shader.Find("_Color");
+
+                rend.material.shader = Shader.Find("Specular");
+                rend.material.color = Color.red;
+                rend.material.SetColor("_SpecColor", Color.red);
+            }
         }
     }
 
@@ -37,29 +54,14 @@ public class RayCasting : MonoBehaviour
             //if detected hit equals to Target
             if (detectHit.collider.gameObject.CompareTag("Target"))
             {
-                //Set position to hit collider
-                //explosion.transform.position = detectHit.collider.gameObject.transform.position;
-                //particleExplosion.transform.position = detectHit.collider.gameObject.transform.position;
-
-                //Start Explosion
-                //explosion = Instantiate(explosion, particleExplosion.transform);
-
                 GameObject explosionFX = Instantiate(particleExplosion, detectHit.collider.transform.position, Quaternion.identity) as GameObject;
-                
 
                 //Destroy Target
                 Destroy(detectHit.collider.gameObject);
-                //Destroy(explosion);
+                //Destory Animation After 3 seconds
+                Destroy(explosionFX, 3);
+                Score++;
             }
-            //Other wise nothing
         }
     }
-
-    //private IEnumerator StopAnimation()
-    //{
-    //    yield return new WaitForSeconds(.4f);
-    //    //explosion.GetComponent<ParticleSystem>().enableEmission = false;
-    //    explosion.Stop();
-    //}
-
 }

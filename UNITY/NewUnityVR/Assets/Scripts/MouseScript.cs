@@ -11,6 +11,10 @@ public class MouseScript : MonoBehaviour
     private Material Red;
     private float timer = 5;
     public float Score = 0;
+
+    //To Create a Link To This GameObject
+    private GameObject ValueStorage;
+
     void Start()
     {
         Score = 0;
@@ -18,11 +22,16 @@ public class MouseScript : MonoBehaviour
 
     private void Update()
     {
+        //Shoot RayCast
         if (Input.GetButtonDown("Fire1"))
         {
             ShootGun();
         }
+        //Highlight Enemy
         Target();
+
+        //Find And Create Link
+        ValueStorage = GameObject.FindGameObjectWithTag("TimerTally");
     }
 
     void Target()
@@ -32,14 +41,14 @@ public class MouseScript : MonoBehaviour
         {
             if (targetHit.collider.gameObject.CompareTag("Target"))
             {
-                //targetHit.collider.gameObject.GetComponent<Material>().SetColor("Green", Color.green);
+                //Create Renderer On Object
                 Renderer rend = targetHit.collider.gameObject.GetComponent<Renderer>();
 
-                //rend.material.shader = Shader.Find("_Color");
-
+                //Set Colour To Red
                 rend.material.shader = Shader.Find("Specular");
                 rend.material.color = Color.red;
                 rend.material.SetColor("_SpecColor", Color.red);
+
             }
         }
     }
@@ -58,7 +67,12 @@ public class MouseScript : MonoBehaviour
                 //Destroy Target
                 Destroy(detectHit.collider.gameObject);
                 Destroy(explosionFX, 3);
+                
+                //Add Score
                 Score++;
+                
+                //Add Time To Timer
+                ValueStorage.GetComponent<Timer>().Time = ValueStorage.GetComponent<Timer>().Time + 500;
             }
             //Other wise nothing
         }

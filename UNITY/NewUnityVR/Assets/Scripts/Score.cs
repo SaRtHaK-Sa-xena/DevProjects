@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     public Text scoreText;
-    public MouseScript scriptToUse;
+    public MouseScript scriptPC;
+    public RayCasting scriptVR;
     public GameObject player;
+    public GameObject playerVR;
 
     // Start is called before the first frame update
     void Start()
@@ -18,11 +20,17 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        //player.GetComponent<MouseScript>().Score.ToString();
-        scoreText.text = player.GetComponent<MouseScript>().Score.ToString();
-        //scoreText.text = scriptToUse.Score.ToString();
-        //Debug.Log(scriptToUse.Score);
-        //scoreText.text = 
+        if (SystemInfo.deviceType == DeviceType.Desktop)
+        {
+            //Get Info On Player
+            player = GameObject.FindGameObjectWithTag("Player");
+            //Get Score From That Script
+            scoreText.text = player.GetComponent<MouseScript>().Score.ToString();
+        }
+        else
+        {
+            playerVR = GameObject.FindGameObjectWithTag("PlayerVR");
+            scoreText.text = playerVR.GetComponent<RayCasting>().Score.ToString();
+        }
     }
 }
