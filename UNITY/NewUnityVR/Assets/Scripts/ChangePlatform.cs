@@ -7,6 +7,8 @@ public class ChangePlatform : MonoBehaviour
     //Player to Spawn
     public GameObject Player;
 
+    private Camera playerCam;
+
     //Position To spawn player
     public Vector3 position;
 
@@ -35,7 +37,9 @@ public class ChangePlatform : MonoBehaviour
 
             accessabileBody = playerRB;
 
+            playerCam = Camera.current;
 
+            Player.GetComponent<Canvas>().worldCamera = playerCam;
             //playerRB.constraints = ~RigidbodyConstraints.FreezePositionX;
             //playerRB.constraints = ~RigidbodyConstraints.FreezePositionY;
             //playerRB.constraints = ~RigidbodyConstraints.FreezePositionZ;

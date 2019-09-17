@@ -12,6 +12,9 @@ public class Timer : MonoBehaviour
     private GameObject valueToStore;
     public Transform SpawnPoint;
 
+    public Transform FinalSPWNPoint;
+    private GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +26,14 @@ public class Timer : MonoBehaviour
     void Update()
     {
         valueToStore = GameObject.FindGameObjectWithTag("ScoreTally");
-
+        if (SystemInfo.deviceType == DeviceType.Desktop)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+        else
+        {
+            player = GameObject.FindGameObjectWithTag("PlayerVR");
+        }
 
         timerText.text = Time.ToString();
 
@@ -43,8 +53,9 @@ public class Timer : MonoBehaviour
                 Time = 0;
                 startTimer = false;
 
-                valueToStore.transform.position = new Vector3(SpawnPoint.position.x + 45, SpawnPoint.position.y + 3, 6f);
-                timerText.transform.position = new Vector3(0, 0, 0);
+                //Teleport Player To End Position
+                player.transform.position = FinalSPWNPoint.position;
+                
                 //Display End Screen
                 //End Screen Displays Score And Button To Play Again
             }
