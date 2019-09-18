@@ -5,30 +5,23 @@ using UnityEngine;
 public class MovePlusCollision : MonoBehaviour
 {
     private Rigidbody rb;
-    private GameObject Player;
 
     public Transform Collider;
 
     [SerializeField]
-    private float speed = 45;
+    private float speed = 5;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        speed = Random.Range(50, 100);
         rb.AddForce(Vector3.left * speed);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Player = GameObject.FindGameObjectWithTag("Player");
-
-        if (Player.GetComponent<MouseScript>().Score > 10 && Player.GetComponent<MouseScript>().Score < 20)
-        {
-            speed = speed * 2;
-        }
-
         transform.LookAt(Collider.position);
         //Add Force Forward Where it's facing
     }

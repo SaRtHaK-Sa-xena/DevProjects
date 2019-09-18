@@ -22,15 +22,14 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        float xMov = Input.GetAxisRaw("Horizontal");
-        float zMov = Input.GetAxisRaw("Vertical");
-
-        Vector3 movHorizontal = transform.right * xMov;
-        Vector3 movVertical = transform.forward * zMov;
-
-        Vector3 m_velocity = (movHorizontal + movVertical).normalized * speed;
-
-        engine.Move(m_velocity);
+        //=================No Player Movement==============
+        //float xMov = Input.GetAxisRaw("Horizontal");
+        //float zMov = Input.GetAxisRaw("Vertical");
+        //Vector3 movHorizontal = transform.right * xMov;
+        //Vector3 movVertical = transform.forward * zMov;
+        //Vector3 m_velocity = (movHorizontal + movVertical).normalized * speed;
+        //engine.Move(m_velocity);
+        //=================No Player Movement==============
 
         float xRotation = Input.GetAxisRaw("Mouse X");
 

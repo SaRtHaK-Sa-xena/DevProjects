@@ -9,6 +9,10 @@ TagManager:
   - TimerTally
   - PlayerVR
   - ScoreBoard
+  - EventSystemTag
+  - GameEngine
+  - DisplayBoard
+  - MainMenu
   layers:
   - Default
   - TransparentFX

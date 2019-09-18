@@ -5,7 +5,6 @@ using UnityEngine;
 public class RayCasting : MonoBehaviour
 {
     public Transform controller;
-    public ParticleSystem explosion;
     public GameObject particleExplosion;
     public Vector3 explodeOffset;
     public float Score;
@@ -63,7 +62,7 @@ public class RayCasting : MonoBehaviour
                 //Destory Animation After 3 seconds
                 Destroy(explosionFX, 3);
                 Score++;
-                ValueStorage.GetComponent<Timer>().Time = ValueStorage.GetComponent<Timer>().Time + 500;
+                ValueStorage.GetComponent<Timer>().Time = ValueStorage.GetComponent<Timer>().Time + 100;
             }
         }
     }

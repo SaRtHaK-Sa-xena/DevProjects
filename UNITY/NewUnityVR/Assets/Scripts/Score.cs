@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     public Text scoreText;
-    public Text displayText;
-    public MouseScript scriptPC;
-    public RayCasting scriptVR;
+    public Text finalScoreText;
     public GameObject player;
     public GameObject playerVR;
 
@@ -27,13 +25,13 @@ public class Score : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player");
             //Get Score From That Script
             scoreText.text = player.GetComponent<MouseScript>().Score.ToString();
-            displayText.text = player.GetComponent<MouseScript>().Score.ToString();
+            finalScoreText.text = player.GetComponent<MouseScript>().Score.ToString();
         }
         else
         {
             playerVR = GameObject.FindGameObjectWithTag("PlayerVR");
             scoreText.text = playerVR.GetComponent<RayCasting>().Score.ToString();
-            displayText.text = playerVR.GetComponent<RayCasting>().Score.ToString();
+            finalScoreText.text = playerVR.GetComponent<RayCasting>().Score.ToString();
         }
     }
 }

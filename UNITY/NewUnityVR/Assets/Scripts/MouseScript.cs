@@ -72,7 +72,7 @@ public class MouseScript : MonoBehaviour
                 Score++;
                 
                 //Add Time To Timer
-                ValueStorage.GetComponent<Timer>().Time = ValueStorage.GetComponent<Timer>().Time + 500;
+                ValueStorage.GetComponent<Timer>().Time = ValueStorage.GetComponent<Timer>().Time + 100;
             }
             //Other wise nothing
         }

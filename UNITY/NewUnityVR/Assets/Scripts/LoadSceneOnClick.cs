@@ -10,4 +10,10 @@ public class LoadSceneOnClick : MonoBehaviour
     {
         SceneManager.LoadScene(sceneIndex);
     }
+
+    public void QuitGame()
+    {
+        //Close Game
+        Application.Quit();
+    }
 }

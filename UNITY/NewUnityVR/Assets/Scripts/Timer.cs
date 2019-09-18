@@ -7,12 +7,13 @@ public class Timer : MonoBehaviour
 {
     public Text timerText;
     public float Time = 5000;
-    private bool startTimer = true;
+    public bool startTimer = true;
 
     private GameObject valueToStore;
     public Transform SpawnPoint;
 
     public Transform FinalSPWNPoint;
+    public Transform FinalSPWNPointFacing;
     private GameObject player;
 
     // Start is called before the first frame update
@@ -55,10 +56,16 @@ public class Timer : MonoBehaviour
 
                 //Teleport Player To End Position
                 player.transform.position = FinalSPWNPoint.position;
-                
+                player.transform.LookAt(FinalSPWNPointFacing);
+
                 //Display End Screen
                 //End Screen Displays Score And Button To Play Again
             }
+        }
+        else
+        {
+            //Set Time To Default
+            Time = 5000;
         }
     }
 }

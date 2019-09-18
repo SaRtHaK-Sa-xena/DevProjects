@@ -223,7 +223,6 @@ MonoBehaviour:
   particleExplosion: {fileID: 2284405027587019137, guid: 426d936cfd39115419ac97ea0f019e0a,
     type: 3}
   Score: 0
-  scoreText: {fileID: 0}
 --- !u!1 &3051185468325768299
 GameObject:
   m_ObjectHideFlags: 0

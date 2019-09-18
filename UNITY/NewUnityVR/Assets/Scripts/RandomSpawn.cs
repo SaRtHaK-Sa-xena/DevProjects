@@ -27,7 +27,7 @@ public class RandomSpawn : MonoBehaviour
     private GameObject ValueStorage;
 
     //Bool To Create Enemies
-    bool CreateEnemies = true;
+    public bool CreateEnemies = true;
     
     // Start is called before the first frame update
     void Start()
