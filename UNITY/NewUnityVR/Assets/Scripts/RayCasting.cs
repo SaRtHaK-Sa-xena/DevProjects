@@ -9,16 +9,27 @@ public class RayCasting : MonoBehaviour
     public Vector3 explodeOffset;
     public float Score;
     private GameObject ValueStorage;
+    public float Difficulty = 50;
+    public float Counter = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        Difficulty = 50;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Start Counter For Difficulty
+        if(Counter == 5)
+        {
+            //Raise Difficulty
+            Difficulty = Difficulty + 50;
+            
+            //reset Counter
+            Counter = 10;
+        }
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
             ShootGun();
@@ -62,6 +73,7 @@ public class RayCasting : MonoBehaviour
                 //Destory Animation After 3 seconds
                 Destroy(explosionFX, 3);
                 Score++;
+                Counter++;
                 ValueStorage.GetComponent<Timer>().Time = ValueStorage.GetComponent<Timer>().Time + 100;
             }
         }

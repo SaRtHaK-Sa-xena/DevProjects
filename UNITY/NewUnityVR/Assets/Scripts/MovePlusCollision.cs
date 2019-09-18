@@ -7,15 +7,32 @@ public class MovePlusCollision : MonoBehaviour
     private Rigidbody rb;
 
     public Transform Collider;
+    
+    //Data container
+    private GameObject PlayerData;
 
     [SerializeField]
-    private float speed = 5;
+    private float speed;
 
     // Start is called before the first frame update
     void Start()
     {
+
         rb = GetComponent<Rigidbody>();
-        speed = Random.Range(50, 100);
+        if (SystemInfo.deviceType == DeviceType.Desktop)
+        {
+            //Get Data From PC Player's Shooting Script
+            PlayerData = GameObject.FindGameObjectWithTag("Player");
+            speed = PlayerData.GetComponent<MouseScript>().Difficulty;
+        }
+        else
+        {
+            //Get Data From VR Player's Shooting Script
+            PlayerData = GameObject.FindGameObjectWithTag("PlayerVR");
+            speed = PlayerData.GetComponent<RayCasting>().Difficulty;
+        }
+
+        //Add Force
         rb.AddForce(Vector3.left * speed);
     }
 

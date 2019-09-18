@@ -219,16 +219,27 @@ public class OVRRaycaster : GraphicRaycaster, IPointerEnterHandler
             if (RayIntersectsRectTransform(graphic.rectTransform, ray, out worldPos))
             {
                 //Work out where this is on the screen for compatibility with existing Unity UI code
-                Vector2 screenPos = eventCamera.WorldToScreenPoint(worldPos);
-                // mask/image intersection - See Unity docs on eventAlphaThreshold for when this does anything
-                if (graphic.Raycast(screenPos, eventCamera))
+
+                //Exception Handling:
+                try
                 {
-                    RaycastHit hit;
-                    hit.graphic = graphic;
-                    hit.worldPos = worldPos;
-                    hit.fromMouse = false;
-                    s_SortedGraphics.Add(hit);
+                    Vector2 screenPos = eventCamera.WorldToScreenPoint(worldPos);
+                    // mask/image intersection - See Unity docs on eventAlphaThreshold for when this does anything
+                    if (graphic.Raycast(screenPos, eventCamera))
+                    {
+                        RaycastHit hit;
+                        hit.graphic = graphic;
+                        hit.worldPos = worldPos;
+                        hit.fromMouse = false;
+                        s_SortedGraphics.Add(hit);
+                    }
                 }
+                catch
+                {
+                    Debug.Log("Failed Trying To Get Event Camera");
+                }
+
+                
             }
         }
 

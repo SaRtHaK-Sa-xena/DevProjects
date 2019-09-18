@@ -9,6 +9,8 @@ public class ChangePlatform : MonoBehaviour
 
     private GameObject RayCasterScript;
 
+    private GameObject Storage;
+
     //Position To spawn player
     public Vector3 position;
 

@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class MouseScript : MonoBehaviour
 {
-
+    //Creation Of variables
     public Transform GunPoint;
     public GameObject particleExplosion;
     private Material Red;
-    private float timer = 5;
     public float Score = 0;
+    public float Counter = 0;
+    public float Difficulty = 50;
 
     //To Create a Link To This GameObject
     private GameObject ValueStorage;
@@ -18,10 +19,20 @@ public class MouseScript : MonoBehaviour
     void Start()
     {
         Score = 0;
+        Difficulty = 50;
     }
 
     private void Update()
     {
+        if(Counter == 5)
+        {
+            //Increment Difficulty
+            Difficulty = Difficulty + 50;
+
+            //Reset Counter
+            Counter = 0;
+        }
+
         //Shoot RayCast
         if (Input.GetButtonDown("Fire1"))
         {
@@ -70,7 +81,10 @@ public class MouseScript : MonoBehaviour
                 
                 //Add Score
                 Score++;
-                
+
+                //Add To Counter
+                Counter++;
+
                 //Add Time To Timer
                 ValueStorage.GetComponent<Timer>().Time = ValueStorage.GetComponent<Timer>().Time + 100;
             }
