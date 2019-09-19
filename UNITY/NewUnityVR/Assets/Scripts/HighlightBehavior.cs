@@ -2,9 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/// <summary>
+/// Main Highlight Function Stored In Enemy 'Target' Prefab
+/// </summary>
 public class HighlightBehavior : MonoBehaviour
 {
-    private float timer = 5;
+    //Sets Float Timer
+    public float timer = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -12,21 +18,33 @@ public class HighlightBehavior : MonoBehaviour
     }
 
     // Update is called once per frame
+
+    /// <summary>
+    /// Handles The Amount Of Time The Targets Are Glowing
+    /// </summary>
     void Update()
     {
         //if colour Red Start Timer
         if (this.GetComponent<Renderer>().material.GetColor("_Color") == Color.red)
         {
             //Start Timer
-            timer = timer - 5;
+            timer = timer - 1;
         }
 
 
-        if(timer <= 0)
+        if (timer <= 0)
         {
             //Set it to the default Color
-            this.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
-            timer = 5;
+            Renderer rend = this.GetComponent<Renderer>();
+
+            //Set Colour To White
+            rend.material.shader = Shader.Find("Specular");
+            rend.material.color = Color.white;
+            rend.material.SetColor("_Color", Color.white);
+            rend.material.SetColor("_SpecColor", Color.white);
+
+            //Set Timer Back To 2
+            timer = 2;
         }
     }
 }

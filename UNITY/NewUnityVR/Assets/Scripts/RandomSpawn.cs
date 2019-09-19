@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Handles Enemy Spawn Function. Creates Five Enemies at a time and Doesn't Create more if 5 existing.
+/// If Enemy Died, Finds How Many More Enemies Need To Spawn To Be Created To Make Five Enemies At Time.
+/// </summary>
 public class RandomSpawn : MonoBehaviour
 {
 
@@ -37,6 +42,7 @@ public class RandomSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Get Value From Timer
         ValueStorage = GameObject.FindGameObjectWithTag("TimerTally");
 
         //If Timer World Object Reaches Zero
