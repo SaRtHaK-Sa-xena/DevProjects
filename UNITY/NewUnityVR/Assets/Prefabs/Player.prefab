@@ -223,6 +223,8 @@ MonoBehaviour:
   particleExplosion: {fileID: 2284405027587019137, guid: 426d936cfd39115419ac97ea0f019e0a,
     type: 3}
   Score: 0
+  Counter: 0
+  Difficulty: 50
 --- !u!1 &3051185468325768299
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,7 +355,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 15, z: 0}
+  - {x: 0, y: 35, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1

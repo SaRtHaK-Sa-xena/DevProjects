@@ -1,7 +1,8 @@
 Android
 PlayerPath?
-C:/Users/s191509/Documents/GitHub/TestProject2D/UNITY/NewVRProject/TestVR2OnlySample.apk
+C:/Users/s191509/Documents/GitHub/TestProject2D/UNITY/NewUnityVR/Release/TestingVR.apk
 SceneListBegin?
+Assets/Scenes/MainMenu.unity
 Assets/Scenes/SampleScene.unity
 SceneListEnd?
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.ONSPVersion
@@ -250,7 +251,7 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 193c69ee762e063929d8dfdebce7d035 Assembly-CSharp.dll:.Spawn
 9f7fd5f1cdce7cb0cbd6b8430ff831c1 Assembly-CSharp.dll:Oculus.Platform.Samples.VrBoardGame.EyeCamera
 a3b5c7ace69ce05da7ac8052564f6656 Assembly-CSharp.dll:.TeleportPoint
-71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.HighlightBehavior
+054c11ebe7357ca64685056210b17e5a Assembly-CSharp.dll:.HighlightBehavior
 ff7457f736b7a8c348d3498f09b3d520 Assembly-CSharp.dll:.ONSPAmbisonicsNative
 f43958685bca2e70b096da79d079c527 Assembly-CSharp.dll:Oculus.Platform.PlatformSettings
 a4ab9532686dbd13bc2c5bb58a3781ce Assembly-CSharp.dll:.MouseLook
@@ -323,7 +324,6 @@ c1313d723d19b50c00b55c8ce726b990 Assembly-CSharp.dll:.TeleportTargetHandlerNavMe
 85e8aa29d665952264bc2b39d7dd56b9 Assembly-CSharp.dll:.LaserPointer
 60f682e0b415b0b5f58f9b2389d918f2 Assembly-CSharp.dll:.MovePlusCollision
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.OVRVoiceMod
-afc5b93a7b192de2dcb3832fe35a5c7e Assembly-CSharp.dll:.baloonActor
 2c8713480afc658528751d731eed8a21 Assembly-CSharp.dll:.TeleportTransitionBlink
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 c3bd598ebf26a1734f4e48c8dfe999af Assembly-CSharp.dll:.TeleportDestination

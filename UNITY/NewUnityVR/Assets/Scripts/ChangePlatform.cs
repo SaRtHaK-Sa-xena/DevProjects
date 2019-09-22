@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Works In The Beginning Of Game in GameEngine To Set The Correct Player Into Position
+/// If Player PC then Deletes PLAYER VR, otherwise nothing
+/// </summary>
 public class ChangePlatform : MonoBehaviour
 {
     //Player to Spawn
@@ -29,26 +34,15 @@ public class ChangePlatform : MonoBehaviour
     {
         if (SystemInfo.deviceType == DeviceType.Desktop)
         {
-            //Fix Controller point to Middle
-            //Allow Camera Rig to be movable by Mouse Input
-
+            //Destory VR RIG
+            //To prevent memory Leak
             Destroy(vrRig);
 
             //Attach Camera Movable by Mouse Script
             Rigidbody playerRB = Instantiate(Player, position, Rotation).GetComponent<Rigidbody>();
 
+            //Store Reference Of Player's Rigid Body onto Accessabile Body
             accessabileBody = playerRB;
-
-            //Find RayCaster And Turn Off Ray Caster
-            RayCasterScript = GameObject.Find("RayCaster");
-            RayCasterScript.gameObject.SetActive(false);
-
-
-
-        }
-        else
-        {
-            
         }
     }
 
