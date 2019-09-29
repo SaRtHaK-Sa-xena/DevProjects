@@ -96,6 +96,9 @@ protected:
 	//iterator for node Vector in curentPath
 	int currentNode = 0;
 
+	//iterator for function Pathfinding
+	int maxSize = 0;
+
 	//temporary Node
 	Node* temporaryNode = new Node();
 

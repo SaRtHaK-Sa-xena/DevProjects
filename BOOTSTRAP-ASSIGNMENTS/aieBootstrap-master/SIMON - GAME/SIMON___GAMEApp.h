@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
+#include "Dynamic Array.h"
 
 
 class SIMON___GAMEApp : public aie::Application {
@@ -105,4 +106,8 @@ protected:
 	bool AlreadyDisplayed = false;
 	//=====InputPhaseChecks=======
 	
+
+	//Incrementer
+	int increment = 0;
+	bool reset = true;
 };

@@ -578,15 +578,35 @@ void AgentApp::update(float deltaTime) {
 			drawItem3 = true;
 			drawItem4 = true;
 			drawItem5 = true;
+
+			//set score to default
 			Score = 0;
+
+			//deltaTime to 0
 			deltaTime = 0;
+
+			//Add wander behavior
 			m_enemy->AddBehaviour(m_wanderBehaviour);
+			
+			//Don't draw Screen 'WIN'
 			drawWinScreen = false;
 		}
 		else
 		{
+			//StartGame will stay false
 			startGame = false;
+
+			//Draw Main Menu
 			drawMainMenu = true;
+
+			//remove previous Behavior
+			//m_enemy->RemoveBehaviour();
+
+			//Make check equal false
+			check = false;
+
+			//Stop PathFinding
+			startPathfinding = false;
 		}
 		
 	}
@@ -603,7 +623,7 @@ void AgentApp::update(float deltaTime) {
 
 
 
-	//Starts Game
+	//Starts Game==================================================================================================================================
 	if (startGame == true)
 	{
 		
@@ -612,6 +632,10 @@ void AgentApp::update(float deltaTime) {
 		
 		//m_enemyWander->Update(deltaTime); //calls update on wanderingEnemy changing it's force
 										 //and direction it's pointing
+		
+		//Store Players first position
+		Vector2 playerFirstPos = m_player->GetPosition();
+		
 		if (Score <= 2)
 		{
 			m_enemy->Update(deltaTime);
@@ -620,50 +644,81 @@ void AgentApp::update(float deltaTime) {
 		{
 			m_enemy->RemoveBehaviour();
 			m_enemy->AddBehaviour(m_findPathBehaviour);
-			Vector2 default;
+			Vector2 default(0,0);
 			m_enemy->SetVelocity(default);
 			startPathfinding = true;
 			check = true;
 			checkCollisionForEnemy = false;
 		}
 
+
 		
 
 		if (startPathfinding == true)
 		{
+			//If player position changed
+
+			//Finds closest Node to player
+			Node* playerPosNode = FindClosestNode(m_player->GetPosition());
+			
+			
+
 			if (pathFound == false)
 			{
+				maxSize = 0;
 				//each frame we get a path to endNode
 				std::vector<Node*>tempPath = dijkstrasSeatch(FindClosestNode(m_enemy->GetPosition()), FindClosestNode(m_player->GetPosition()), m_enemy, nodesList);
 				for (int i = tempPath.size() - 1; i >= 0; i--)
 				{
 					//stores it in current path
 					currentPath.push_back(tempPath[i]);
+					maxSize++;
 				}
+				maxSize = maxSize - 1;
 				pathFound = true;
 			}
+			
+			//if (m_player->GetPosition().m_x != currentPath[maxSize]->position.m_x && m_player->GetPosition().m_y != currentPath[maxSize]->position.m_y)
 
-			//current Iterator not at the end of List
-			if (currentNode < currentPath.size() - 1)
+			//Checks closest Node next to player with last node in Path of Agent
+			if (playerPosNode->position.m_x != currentPath[maxSize]->position.m_x && playerPosNode->position.m_y != currentPath[maxSize]->position.m_y)
 			{
-				//if collector at position of Node
-				Vector2 difference;
-				difference = m_enemy->GetPosition() - currentPath[currentNode]->position;
+				//Clear Path
+				currentPath.clear();
 
-				if (difference.magnitude() <= 2)
+				//Create another Path
+				pathFound = false;
+
+				//currentNode will point at first index
+				currentNode = 0;
+			}
+			
+
+			if (currentPath.size() != 0)
+			{
+				//current Iterator not at the end of List
+				if (currentNode < currentPath.size() - 1)
 				{
-					//increment Node
-					currentNode++;
+					//if collector at position of Node
+					Vector2 difference;
+					difference = m_enemy->GetPosition() - currentPath[currentNode]->position;
+
+					if (difference.magnitude() <= 2)
+					{
+						//increment Node
+						currentNode++;
+					}
+				}
+				else
+				{
+					//clears existing current path
+					currentPath.clear();
+					//sets iterator of current to 0 (beginning)
+					currentNode = 0;
+					pathFound = false;
 				}
 			}
-			else
-			{
-				//clears existing current path
-				currentPath.clear();
-				//sets iterator of current to 0 (beginning)
-				currentNode = 0;
-				pathFound = false;
-			}
+			
 
 			//if path still found
 			if (pathFound)
@@ -671,10 +726,13 @@ void AgentApp::update(float deltaTime) {
 				//Sets target to first Node in currentPathReturned
 				m_findPathBehaviour->SetTarget(currentPath[currentNode]); //takes in Path
 				//returns Force
-				//commenting it out for now
+
 				m_enemy->Update(deltaTime);
 			}
+
 		}
+
+		//======================================================================================================================================
 
 
 		//Under Enemy Update
@@ -838,29 +896,41 @@ void AgentApp::update(float deltaTime) {
 				case rightSide:
 					m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 					std::cout << "Right Contact Enemy" << std::endl;
+					
+					//set Start Game To False
 					startGame = false;
 					drawPlayerAndEnemy = false;
+					m_enemy->RemoveBehaviour();
 					break;
 
 				case leftSide:
 					m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
 					std::cout << "Left Contact Enemy" << std::endl;
+					
+					//set Start Game To False
 					startGame = false;
 					drawPlayerAndEnemy = false;
+					m_enemy->RemoveBehaviour();
 					break;
 
 				case topSide:
 					m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 					std::cout << "Top Contact Enemy" << std::endl;
+					
+					//set Start Game To False
 					startGame = false;
 					drawPlayerAndEnemy = false;
+					m_enemy->RemoveBehaviour();
 					break;
 
 				case bottomSide:
 					m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
 					std::cout << "Bottom Contact Enemy" << std::endl;
+					
+					//set Start Game To False
 					startGame = false;
 					drawPlayerAndEnemy = false;
+					m_enemy->RemoveBehaviour();
 					break;
 				}
 
