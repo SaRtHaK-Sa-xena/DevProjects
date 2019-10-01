@@ -66,6 +66,7 @@
     <Compile Include="Assets\Script\openBool.cs" />
     <Compile Include="Assets\Script\PlayerControl.cs" />
     <Compile Include="Assets\Script\PlayerEngine.cs" />
+    <Compile Include="Assets\TestingCollision.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Sarthak/Documents/GitHub/TestProject2D/UNITY/ProjectStress/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

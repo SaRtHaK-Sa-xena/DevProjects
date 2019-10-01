@@ -4,23 +4,35 @@ using UnityEngine;
 
 public class openBool : MonoBehaviour
 {
+    public Animator animationController;
 
-    [SerializeField]
-    private Animator animationController;
+
+    private void Start()
+    {
+        animationController.enabled = false;
+    }
+
+   
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
-        {
-            animationController.SetBool("openDoors", true);
-        }
+        animationController.enabled = true;
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            animationController.SetBool("openDoors", false);
-        }
-    }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.tag == "Player")
+    //    {
+    //        animationController.SetBool("openDoors", true);
+    //    }
+    //}
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.tag == "Player")
+    //    {
+    //        animationController.SetBool("openDoors", false);
+    //    }
+    //}
 }
