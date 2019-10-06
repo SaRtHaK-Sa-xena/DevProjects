@@ -6,14 +6,25 @@ using UnityEngine.UI;
 public class gameEngine : MonoBehaviour {
 
     private GameObject slider;
-    private int deltaTime = 0;
+    public float deltaTime = 0;
+
+    public bool startStress = true;
 
 	// Update is called once per frame
 	void Update ()
     {
-        deltaTime = deltaTime + 1;
+        if(deltaTime > 100)
+        {
+           
+        }
 
-        slider = GameObject.Find("StressMeter");
-        slider.GetComponent<Slider>().value = deltaTime;
+        if (startStress)
+        {
+            deltaTime = deltaTime + 1;
+
+            slider = GameObject.Find("StressMeter");
+            slider.GetComponent<Slider>().value = deltaTime;
+        }
+
 	}
 }

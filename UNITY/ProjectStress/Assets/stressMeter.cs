@@ -9,6 +9,7 @@ public class stressMeter : MonoBehaviour
     private GameObject paperObj1;
     private GameObject UIStress;
     private Transform eyes;
+    private GameObject gameEngine;
 
     // Use this for initialization
     void Start()
@@ -19,6 +20,7 @@ public class stressMeter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        gameEngine = GameObject.Find("GameEngine");
         eyes = GameObject.Find("Camera").transform;
 
         RaycastHit detectHit;
@@ -29,7 +31,13 @@ public class stressMeter : MonoBehaviour
             {
                 //Decrease Stress
                 UIStress = GameObject.Find("StressMeter");
-                UIStress.GetComponent<Slider>().value = UIStress.GetComponent<Slider>().value - 10;
+                UIStress.GetComponent<Slider>().value = UIStress.GetComponent<Slider>().value - 5;
+                gameEngine.GetComponent<gameEngine>().deltaTime = UIStress.GetComponent<Slider>().value;
+                gameEngine.GetComponent<gameEngine>().startStress = false;
+            }
+            else
+            {
+                gameEngine.GetComponent<gameEngine>().startStress = true;
             }
         }
     }
