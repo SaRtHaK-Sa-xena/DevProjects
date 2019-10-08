@@ -8,6 +8,7 @@ public class stressMeter : MonoBehaviour
 
     private GameObject paperObj1;
     private GameObject UIStress;
+    private GameObject startButton;
     private Transform eyes;
     private GameObject gameEngine;
 
@@ -15,6 +16,7 @@ public class stressMeter : MonoBehaviour
     void Start()
     {
         paperObj1 = GameObject.FindGameObjectWithTag("Good");
+        startButton = GameObject.Find("StartButton");
     }
 
     // Update is called once per frame
@@ -35,10 +37,16 @@ public class stressMeter : MonoBehaviour
                 gameEngine.GetComponent<gameEngine>().deltaTime = UIStress.GetComponent<Slider>().value;
                 gameEngine.GetComponent<gameEngine>().startStress = false;
             }
+            if(detectHit.collider.gameObject == startButton)
+            {
+                GUI.Box(new Rect(300, 300, 200, 20), "Press To Continue");
+            }
             else
             {
                 gameEngine.GetComponent<gameEngine>().startStress = true;
             }
         }
+
+        
     }
 }
