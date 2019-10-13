@@ -1,0 +1,9 @@
+Target Platform - PC
+
+Engine - Unity 
+
+Systems-
+Random Window System.
+Is a Random Window on each face of the building.
+Is changed upon collision from Player
+Displayed by a Golden Outline.
