@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4543446683303221508}
   - component: {fileID: 4543446684177168268}
   m_Layer: 9
-  m_Name: LedgeRotateLeft
+  m_Name: LedgeRightToLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
