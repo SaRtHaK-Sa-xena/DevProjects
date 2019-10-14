@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class attachPlayer : MonoBehaviour
+public class OtherLedgeRotation : MonoBehaviour
 {
     public Animator ledgeChangeAnim;
 
@@ -45,10 +45,10 @@ public class attachPlayer : MonoBehaviour
 
         Debug.Log("In  Update");
 
-        if(ledgeChangeAnim.enabled == true)
+        if (ledgeChangeAnim.enabled == true)
         {
             time = time - 1;
-            if(time <= 0)
+            if (time <= 0)
             {
                 Debug.Log("Entered Time Loop");
                 playerGameObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -65,46 +65,3 @@ public class attachPlayer : MonoBehaviour
         }
     }
 }
-
-//========Set Clamp to 30 - 60 - 90 Each update to nearest
-
-//private void OnTriggerEnter(Collider other)
-//{
-//    //If player enter collider
-//    if (other.gameObject.tag == "Player")
-//    {
-//        ledgeChangeAnim.enabled = true;
-//        other.transform.parent = this.transform;
-
-//    }
-//    else
-//    {
-//        ledgeChangeAnim.enabled = false;
-//    }
-//}
-
-//private void Start()
-//{
-//    ledgeChangeAnim.enabled = false;
-//    playerGameObj = GameObject.FindGameObjectWithTag("Player");
-//}
-
-//private void Update()
-//{
-//    float timer = 4;
-
-//    //Check if player on other side
-//    if (ledgeChangeAnim.enabled == true)
-//    {
-//        timer = timer - 1;
-//        Debug.Log("Timer: " + timer);
-
-//        if (timer <= 0)
-//        {
-//            ledgeChangeAnim.enabled = false;
-//            timer = 4;
-//            //reset
-//            Debug.Log("Timer: " + timer + " Now at end");
-//        }
-//    }
-//}
