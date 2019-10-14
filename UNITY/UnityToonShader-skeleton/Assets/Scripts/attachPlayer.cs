@@ -39,6 +39,9 @@ public class attachPlayer : MonoBehaviour
     private void Update()
     {
         float time = 2;
+
+        Debug.Log("In  Update");
+
         if(ledgeChangeAnim.enabled == true)
         {
             time = time - 1;
@@ -60,6 +63,7 @@ public class attachPlayer : MonoBehaviour
     }
 }
 
+//========Set Clamp to 30 - 60 - 90 Each update to nearest
 
 //private void OnTriggerEnter(Collider other)
 //{
