@@ -392,15 +392,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.48333332
-    functionName: Reposition
+  - time: 0.5
+    functionName: detachAllChildren
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
-    functionName: detachAllChildren
+  - time: 0.53333336
+    functionName: Reposition
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

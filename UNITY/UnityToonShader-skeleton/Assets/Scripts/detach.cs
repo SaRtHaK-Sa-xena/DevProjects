@@ -9,34 +9,32 @@ public class detach : MonoBehaviour
     public GameObject leftToRight;
     public GameObject rightToLeft;
 
-    public GameObject leftToRight_pref;
-    public GameObject rightToLeft_pref;
-
-    public Transform leftToRight_spawn;
-    public Transform rightToLeft_spawn;
-
-
     private void DestroyLeftToRight()
     {
-        Destroy(leftToRight);
+        leftToRight.GetComponent<CapsuleCollider>().enabled = false;
     }
 
 
     private void DestroyRightToLeft()
     {
-        Destroy(rightToLeft);
+        rightToLeft.GetComponent<CapsuleCollider>().enabled = false;
     }
 
 
     private void Reposition()
     {
-        if(leftToRight == null)
+        if(leftToRight.GetComponent<CapsuleCollider>().enabled == false)
         {
-            Instantiate(leftToRight_pref, leftToRight_spawn.transform);
+            leftToRight.GetComponent<CapsuleCollider>().enabled = true;
+            leftToRight.GetComponent<Animator>().Rebind();
+            leftToRight.GetComponent<Animator>().enabled = false;
+
         }
-        if (rightToLeft == null)
+        if (rightToLeft.GetComponent<CapsuleCollider>().enabled == false)
         {
-            Instantiate(rightToLeft_pref, rightToLeft.transform);
+            rightToLeft.GetComponent<CapsuleCollider>().enabled = true;
+            rightToLeft.GetComponent<Animator>().Rebind();
+            rightToLeft.GetComponent<Animator>().enabled = false;
         }
     }
 
