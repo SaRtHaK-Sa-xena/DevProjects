@@ -18,7 +18,6 @@ public class chrouchDownThroughPlatform : MonoBehaviour
         if (Input.GetKeyDown("s"))
         {
             other.GetComponent<BoxCollider>().enabled = false;
-            player.GetComponent<SphereCollider>().enabled = false;
         }
         //if(other.GetComponent<BoxCollider>().enabled == false)
         //{
@@ -30,7 +29,6 @@ public class chrouchDownThroughPlatform : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         other.GetComponent<BoxCollider>().enabled = true;
-        player.GetComponent<SphereCollider>().enabled = true;
         //storeVal.GetComponent<BoxCollider>().enabled = true;
     }
 
