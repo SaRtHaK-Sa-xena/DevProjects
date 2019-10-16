@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class DownThrough : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    //On trigger enter player
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if(Input.GetKeyDown("s"))
+        {
+            other.GetComponent<SphereCollider>().enabled = false;
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerExit(Collider other)
     {
-        
+        other.GetComponent<SphereCollider>().enabled = true;
     }
 }
