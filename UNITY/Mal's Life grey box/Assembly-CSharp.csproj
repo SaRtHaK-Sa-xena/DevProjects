@@ -60,26 +60,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scenes\jumpPhysics.cs" />
-    <Compile Include="Assets\Scenes\jumpScript.cs" />
-    <Compile Include="Assets\Scenes\NewBehaviourScript.cs" />
-    <Compile Include="Assets\Scenes\PlayerControl.cs" />
-    <Compile Include="Assets\Scenes\PlayerEngine.cs" />
-    <None Include="Assets\Toon.shader" />
+    <Compile Include="Assets\DownThrough.cs" />
+    <Compile Include="Assets\Scripts\chrouchDownThroughPlatform.cs" />
+    <Compile Include="Assets\Scripts\jumpPhysics.cs" />
+    <Compile Include="Assets\Scripts\jumpScript.cs" />
+    <Compile Include="Assets\Scripts\jumpUpThroughPlatform.cs" />
+    <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Scripts\PlayerControl.cs" />
+    <Compile Include="Assets\Scripts\PlayerEngine.cs" />
+    <Compile Include="Assets\UpThrough.cs" />
+    <None Include="Assets\Shaders\Toon.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/s172525/Mal's Life grey box/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/s191509/Documents/GitHub/TestProject2D/UNITY/Mal's Life grey box/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/s172525/Mal's Life grey box/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/s191509/Documents/GitHub/TestProject2D/UNITY/Mal's Life grey box/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/s172525/Mal's Life grey box/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/s191509/Documents/GitHub/TestProject2D/UNITY/Mal's Life grey box/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/s172525/Mal's Life grey box/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/s191509/Documents/GitHub/TestProject2D/UNITY/Mal's Life grey box/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/s172525/Mal's Life grey box/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/s191509/Documents/GitHub/TestProject2D/UNITY/Mal's Life grey box/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity 2018.3.8f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -283,13 +287,13 @@
       <HintPath>C:/Program Files/Unity 2018.3.8f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/Users/s172525/Mal's Life grey box/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/s191509/Documents/GitHub/TestProject2D/UNITY/Mal's Life grey box/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/s172525/Mal's Life grey box/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/s191509/Documents/GitHub/TestProject2D/UNITY/Mal's Life grey box/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/Users/s172525/Mal's Life grey box/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/s191509/Documents/GitHub/TestProject2D/UNITY/Mal's Life grey box/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity 2018.3.8f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
