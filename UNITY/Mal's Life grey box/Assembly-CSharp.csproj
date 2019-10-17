@@ -64,12 +64,14 @@
     <Compile Include="Assets\goThrough.cs" />
     <Compile Include="Assets\goThrough_Down.cs" />
     <Compile Include="Assets\Scripts\chrouchDownThroughPlatform.cs" />
+    <Compile Include="Assets\Scripts\gameEngine.cs" />
     <Compile Include="Assets\Scripts\jumpPhysics.cs" />
     <Compile Include="Assets\Scripts\jumpScript.cs" />
     <Compile Include="Assets\Scripts\jumpUpThroughPlatform.cs" />
     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\PlayerEngine.cs" />
+    <Compile Include="Assets\Scripts\stressMeter.cs" />
     <Compile Include="Assets\UpThrough.cs" />
     <None Include="Assets\Shaders\Toon.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
