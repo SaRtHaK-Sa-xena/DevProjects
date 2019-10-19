@@ -22,16 +22,16 @@ public class stressMeter : MonoBehaviour
     }
 
 
-    private void OnTriggerStay(Collider other)
-    {
-        if(other.tag == "RestPoint")
-        {
-            UIStress = GameObject.Find("StressMeter");
-            //UIStress.GetComponent<Slider>().value = UIStress.GetComponent<Slider>().value - 5;
-            //gameEngine.GetComponent<gameEngine>().deltaTime = UIStress.GetComponent<Slider>().value;
-            gameEngine.GetComponent<gameEngine>().startStress = false;
-        }
-    }
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if(other.tag == "RestPoint")
+    //    {
+    //        UIStress = GameObject.Find("StressMeter");
+    //        //UIStress.GetComponent<Slider>().value = UIStress.GetComponent<Slider>().value - 5;
+    //        //gameEngine.GetComponent<gameEngine>().deltaTime = UIStress.GetComponent<Slider>().value;
+    //        gameEngine.GetComponent<gameEngine>().startStress = false;
+    //    }
+    //}
 
     private void OnTriggerExit(Collider other)
     {

@@ -8,6 +8,9 @@ public class gameEngine : MonoBehaviour {
     private GameObject slider;
     public float deltaTime = 0;
 
+    //public GameObject scoreHighlight_pref;
+    //public GameObject player_UI;
+
     //private GameObject[] platforms;
 
     public bool startStress = true;
@@ -19,6 +22,12 @@ public class gameEngine : MonoBehaviour {
         //{
         //    platforms[i].AddComponent<Rigidbody>().useGravity = false;
         //}
+        //player_UI = GameObject.Find("Canvas");
+
+        //Instantiate(scoreHighlight_pref);
+        //Instantiate(scoreHighlight_pref, player_UI.transform);
+
+        //scoreHighlight_pref.transform.SetParent(player_UI.transform);
     }
 
     // Update is called once per frame
