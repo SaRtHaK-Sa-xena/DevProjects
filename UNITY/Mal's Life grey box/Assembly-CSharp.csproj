@@ -64,6 +64,8 @@
     <Compile Include="Assets\goThrough.cs" />
     <Compile Include="Assets\goThrough_Down.cs" />
     <Compile Include="Assets\IsActive.cs" />
+    <Compile Include="Assets\itemFunctionOnPickUp.cs" />
+    <Compile Include="Assets\itemManager.cs" />
     <Compile Include="Assets\Scripts\checkIfGoal.cs" />
     <Compile Include="Assets\Scripts\chrouchDownThroughPlatform.cs" />
     <Compile Include="Assets\Scripts\gameEngine.cs" />

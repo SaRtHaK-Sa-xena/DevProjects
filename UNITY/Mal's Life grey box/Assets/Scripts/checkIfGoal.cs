@@ -13,6 +13,12 @@ public class checkIfGoal : MonoBehaviour
     public GameObject scoreHighlight_pref;
     public GameObject player_UI;
 
+    //Player obj
+    public GameObject playerObj;
+
+    //player Holder Item
+    public GameObject playerItemHolder;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +31,8 @@ public class checkIfGoal : MonoBehaviour
         //Access Timer Script
         timer = GameObject.Find("Canvas");
         stressMeter = GameObject.Find("GameEngine");
+        playerObj = GameObject.FindGameObjectWithTag("Player");
+        playerItemHolder = GameObject.Find("itemHolder");
     }
 
 
@@ -48,23 +56,33 @@ public class checkIfGoal : MonoBehaviour
             //    }
             //}
 
-            //Add Visual Score
-            player_UI = GameObject.Find("Canvas");
+            if(playerObj.GetComponent<itemManager>().HoldingItem == true)
+            {
+                //Set Holding To false again
+                playerObj.GetComponent<itemManager>().HoldingItem = false;
 
-            //Place it on Screen
-            Instantiate(scoreHighlight_pref, player_UI.transform);
+                //delete Item, so delete child
+                Destroy(playerItemHolder.transform.GetChild(0).gameObject);
+
+                //Add Visual Score
+                player_UI = GameObject.Find("Canvas");
+
+                //Place it on Screen
+                Instantiate(scoreHighlight_pref, player_UI.transform);
 
 
-            GetComponent<Renderer>().material.color = Color.blue;
-            timer.GetComponent<Timer>().currentTime = timer.GetComponent<Timer>().currentTime + 10;
-            //Get DeltaTime
-            stressMeter.GetComponent<gameEngine>().deltaTime = stressMeter.GetComponent<gameEngine>().deltaTime - 250;
-            //Make DeltaTime = DeltaTime - 100;
+                GetComponent<Renderer>().material.color = Color.blue;
+                timer.GetComponent<Timer>().currentTime = timer.GetComponent<Timer>().currentTime + 10;
+                //Get DeltaTime
+                stressMeter.GetComponent<gameEngine>().deltaTime = stressMeter.GetComponent<gameEngine>().deltaTime - 250;
+                //Make DeltaTime = DeltaTime - 100;
+
+                ifGoal = false;
+            }
         }
 
         //Add +10 to timer
 
         //set If Goal to false
-        ifGoal = false;
     }
 }
