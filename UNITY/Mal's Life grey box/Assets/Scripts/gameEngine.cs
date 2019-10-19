@@ -8,6 +8,9 @@ public class gameEngine : MonoBehaviour {
     private GameObject slider;
     public float deltaTime = 0;
 
+    public Animation myAnim;
+    public Animation myAnim2;
+
     //public GameObject scoreHighlight_pref;
     //public GameObject player_UI;
 
@@ -28,6 +31,9 @@ public class gameEngine : MonoBehaviour {
         //Instantiate(scoreHighlight_pref, player_UI.transform);
 
         //scoreHighlight_pref.transform.SetParent(player_UI.transform);
+
+        myAnim.enabled = false;
+        myAnim2.enabled = false;
     }
 
     // Update is called once per frame
