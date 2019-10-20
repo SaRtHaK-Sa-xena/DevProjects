@@ -13,6 +13,13 @@ public class IsActive : MonoBehaviour
     //leftToRight Prefab
     public GameObject leftToRight_pref;
 
+    public GameObject rotated90;
+
+
+    private void setRotationTo90()
+    {
+        transform.SetPositionAndRotation(transform.position, rotated90.transform.rotation);
+    }
 
     private void removeCollidorFromRightToLeft()
     {

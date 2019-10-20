@@ -11,6 +11,8 @@ public class gameEngine : MonoBehaviour {
     public Animation myAnim;
     public Animation myAnim2;
 
+    public GameObject player;
+    public GameObject rotated90;
     //public GameObject scoreHighlight_pref;
     //public GameObject player_UI;
 
@@ -32,8 +34,9 @@ public class gameEngine : MonoBehaviour {
 
         //scoreHighlight_pref.transform.SetParent(player_UI.transform);
 
-        myAnim.enabled = false;
-        myAnim2.enabled = false;
+        player = GameObject.Find("Player");
+        player.transform.SetPositionAndRotation(player.transform.position, rotated90.transform.rotation);
+       
     }
 
     // Update is called once per frame
