@@ -13,17 +13,6 @@ public class IsActive : MonoBehaviour
     //leftToRight Prefab
     public GameObject leftToRight_pref;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        myAnim.enabled = true;
-        other.transform.SetParent(gameObject.transform);
-    }
-
-    private void DestroyItself()
-    {
-        //itself = GameObject.FindGameObjectWithTag("popUp");
-        Destroy(gameObject);
-    }
 
     private void removeCollidorFromRightToLeft()
     {
@@ -35,29 +24,33 @@ public class IsActive : MonoBehaviour
         leftToRight_pref.GetComponent<CapsuleCollider>().enabled = false;
     }
 
-    private void RepositionFromLeftToRight()
+    private void Reposition()
     {
-        leftToRight_pref.GetComponent<CapsuleCollider>().enabled = true;
+        if (leftToRight_pref.GetComponent<CapsuleCollider>().enabled == false)
+        {
+            leftToRight_pref.GetComponent<CapsuleCollider>().enabled = true;
+            leftToRight_pref.GetComponent<Animator>().Rebind();
+            leftToRight_pref.GetComponent<Animator>().enabled = false;
+
+        }
+        if (rightToLeft_pref.GetComponent<CapsuleCollider>().enabled == false)
+        {
+            rightToLeft_pref.GetComponent<CapsuleCollider>().enabled = true;
+            rightToLeft_pref.GetComponent<Animator>().Rebind();
+            rightToLeft_pref.GetComponent<Animator>().enabled = false;
+        }
     }
 
-    private void RepositionFromRightToLeft()
-    {
-        rightToLeft_pref.GetComponent<CapsuleCollider>().enabled = true;
-    }
 
-    private void Rebind()
+    private void detachAllChildren()
     {
-        myAnim.Rebind();
-    }
-
-    private void detach()
-    {
-        gameObject.transform.DetachChildren();
+        transform.DetachChildren();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        myAnim.enabled = false;
     }
 
     // Update is called once per frame

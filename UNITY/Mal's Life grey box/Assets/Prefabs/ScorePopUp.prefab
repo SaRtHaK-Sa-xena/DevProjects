@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6753991705742270872}
   - component: {fileID: 6450096269466330132}
   - component: {fileID: 709360021076768369}
-  - component: {fileID: 2701900193558138351}
+  - component: {fileID: 1435141957848388998}
   m_Layer: 5
   m_Name: ScorePopUp
   m_TagString: Untagged
@@ -181,7 +181,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2701900193558138351
+--- !u!114 &1435141957848388998
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,7 +190,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7579622763724805768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3112e8ad23985ab4ab7b9546b04a49d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fc43fa8f33d28345bdcd97b38a5737f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myAnim: {fileID: 709360021076768369}
