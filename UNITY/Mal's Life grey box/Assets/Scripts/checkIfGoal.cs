@@ -58,6 +58,8 @@ public class checkIfGoal : MonoBehaviour
 
             if(playerObj.GetComponent<itemManager>().HoldingItem == true)
             {
+                other.gameObject.GetComponentInParent<itemOnPosition>().HasItem = false;
+
                 //Set Holding To false again
                 playerObj.GetComponent<itemManager>().HoldingItem = false;
 
