@@ -62,7 +62,7 @@ public class checkIfGoal : MonoBehaviour
             if(playerObj.GetComponent<itemManager>().HoldingItem == true)
             {
                 //other.gameObject.GetComponentInParent<itemOnPosition>().HasItem = false;
-                playerItemHolder.transform.GetChild(0).GetComponent<itemFunctionOnPickUp>().parentOfItem.GetComponent<itemOnPosition>().HasItem = false; 
+                //playerItemHolder.transform.GetChild(0).GetComponent<itemFunctionOnPickUp>().parentOfItem.gameObject.GetComponent<itemOnPosition>().HasItem = false; 
 
                 //Set Holding To false again
                 playerObj.GetComponent<itemManager>().HoldingItem = false;
@@ -76,9 +76,13 @@ public class checkIfGoal : MonoBehaviour
                 //Place it on Screen
                 Instantiate(scoreHighlight_pref, player_UI.transform);
 
-
+                //Change Colour To Blue
                 GetComponent<Renderer>().material.color = Color.blue;
-                timer.GetComponent<Timer>().currentTime = timer.GetComponent<Timer>().currentTime + 10;
+                //Add 10 To the Timer
+                timer.GetComponent<Timer>().currentTime = timer.GetComponent<Timer>().currentTime + 30;
+
+                gameObject.tag = "Finished";
+
                 //Get DeltaTime
                 stressMeter.GetComponent<gameEngine>().deltaTime = stressMeter.GetComponent<gameEngine>().deltaTime - 250;
                 //Make DeltaTime = DeltaTime - 100;

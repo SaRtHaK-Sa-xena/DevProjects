@@ -7,9 +7,9 @@ public class itemManager : MonoBehaviour
     public bool HoldingItem;
 
     //Item Prefab
-    public GameObject item_prefab;
+    //public GameObject item_prefab;
     //item Transform Parent List
-    public GameObject[] ItemPosition;
+    //public GameObject[] ItemPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -120,49 +120,49 @@ public class itemManager : MonoBehaviour
         //}
 
         //Find all Items 
-        ItemPosition = GameObject.FindGameObjectsWithTag("ItemPos");
+        //ItemPosition = GameObject.FindGameObjectsWithTag("ItemPos");
 
 
-        int incrementIfItem = 0;
-        //Search if there is an item
-        for(int i = 0; i < ItemPosition.Length; i++)
-        {
-            //if there is an item
-            if(ItemPosition[i].GetComponent<itemOnPosition>().HasItem == true)
-            {
-                //increase this
-                incrementIfItem = 1;
-            }
-            else
-            {
-                //Do Nothing
-            }
-        }
+        //int incrementIfItem = 0;
+        ////Search if there is an item
+        //for(int i = 0; i < ItemPosition.Length; i++)
+        //{
+        //    //if there is an item
+        //    if(ItemPosition[i].GetComponent<itemOnPosition>().HasItem == true)
+        //    {
+        //        //increase this
+        //        incrementIfItem = 1;
+        //    }
+        //    else
+        //    {
+        //        //Do Nothing
+        //    }
+        //}
 
-        //if the incrementIfItem equals to 1
-        if(incrementIfItem == 1)
-        {
-            //Return
-            return;
-        }
-        else
-        {
-            //This will be triggered if there is no Item on screen
+        ////if the incrementIfItem equals to 1
+        //if(incrementIfItem == 1)
+        //{
+        //    //Return
+        //    return;
+        //}
+        //else
+        //{
+        //    //This will be triggered if there is no Item on screen
 
-            //generate Random Number
-            int randomNumber = Random.Range(0, ItemPosition.Length);
+        //    //generate Random Number
+        //    int randomNumber = Random.Range(0, ItemPosition.Length);
 
-            //use random number as index
-            //To set the Position
-            Instantiate(item_prefab, ItemPosition[randomNumber].transform);
+        //    //use random number as index
+        //    //To set the Position
+        //    Instantiate(item_prefab, ItemPosition[randomNumber].transform);
 
-            //Set that transform's hasItem to true
-            ItemPosition[randomNumber].GetComponent<itemOnPosition>().HasItem = true;
+        //    //Set that transform's hasItem to true
+        //    ItemPosition[randomNumber].GetComponent<itemOnPosition>().HasItem = true;
 
-            //Set Item script's parent to this transform
-            item_prefab.GetComponent<itemFunctionOnPickUp>().parentOfItem = ItemPosition[randomNumber];
+        //    //Set Item script's parent to this transform
+        //    item_prefab.GetComponent<itemFunctionOnPickUp>().parentOfItem = ItemPosition[randomNumber];
 
-        }
+        //}
 
 
 

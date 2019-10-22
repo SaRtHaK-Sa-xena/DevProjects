@@ -60,7 +60,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\itemOnPosition.cs" />
     <Compile Include="Assets\Scripts\attachPlayer.cs" />
     <Compile Include="Assets\Scripts\checkIfGoal.cs" />
     <Compile Include="Assets\Scripts\chrouchDownThroughPlatform.cs" />
@@ -71,6 +70,7 @@
     <Compile Include="Assets\Scripts\IsActive.cs" />
     <Compile Include="Assets\Scripts\itemFunctionOnPickUp.cs" />
     <Compile Include="Assets\Scripts\itemManager.cs" />
+    <Compile Include="Assets\Scripts\itemOnPosition.cs" />
     <Compile Include="Assets\Scripts\jumpPhysics.cs" />
     <Compile Include="Assets\Scripts\jumpScript.cs" />
     <Compile Include="Assets\Scripts\jumpUpThroughPlatform.cs" />
@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\textScript.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\UpThrough.cs" />
+    <Compile Include="Assets\Scripts\WinOrLoseCheck.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />

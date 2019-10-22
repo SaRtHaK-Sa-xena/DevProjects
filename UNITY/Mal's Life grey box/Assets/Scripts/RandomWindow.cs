@@ -5,7 +5,13 @@ using UnityEngine;
 public class RandomWindow : MonoBehaviour
 {
     private GameObject[] windows;
+    private GameObject[] workingArray;
+
+
+
     private bool timerStart;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +25,23 @@ public class RandomWindow : MonoBehaviour
         //windows = GameObject.FindGameObjectsWithTag("goal");
         //Find random from range of min and max
         //each update
+
+        //for (int i = 0; i < windows.Length; i++)
+        //{
+        //    if(windows[i].GetComponent<checkIfGoal>().ifTargetedOnce == false)
+        //    {
+        //        //workingArray[i].
+        //    }
+        //}
+
+        windows = GameObject.FindGameObjectsWithTag("goal");
+
+        if(windows.Length == 0)
+        {
+            //Play Script
+            Debug.Log("You Win!");
+        }
+
         int randomValue = Random.Range(0, windows.Length);
         Debug.Log("randomValue -> " + randomValue);
 

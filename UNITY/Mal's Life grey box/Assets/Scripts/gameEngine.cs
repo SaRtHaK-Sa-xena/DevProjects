@@ -12,11 +12,11 @@ public class gameEngine : MonoBehaviour {
     public Animation myAnim2;
 
     public GameObject player;
-    //public GameObject rotated90;
-    //public GameObject scoreHighlight_pref;
-    //public GameObject player_UI;
 
-    //private GameObject[] platforms;
+    //Item Prefab
+    public GameObject item_prefab;
+    //item Transform Parent List
+    public GameObject[] ItemPosition;
 
     public bool startStress = true;
 
@@ -42,6 +42,7 @@ public class gameEngine : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+
         //if(deltaTime > 100)
         //{
         //    for (int i = 0; i < platforms.Length; i++)
@@ -58,5 +59,62 @@ public class gameEngine : MonoBehaviour {
             slider.GetComponent<Slider>().value = deltaTime;
         }
 
-	}
+
+
+
+        //Items=========================================================================================
+
+        //Store all Transform Item Positions
+        ItemPosition = GameObject.FindGameObjectsWithTag("ItemPos");
+
+
+        int incrementIfItem = 0;
+        //Search if there is an item
+        for (int i = 0; i < ItemPosition.Length; i++)
+        {
+            //if there is an item
+            if (ItemPosition[i].GetComponent<itemOnPosition>().HasItem == true)
+            {
+                //increase this
+                incrementIfItem = 1;
+            }
+            else
+            {
+                //Do Nothing
+            }
+        }
+
+        //if the incrementIfItem equals to 1
+        if (incrementIfItem == 1)
+        {
+            //Return
+            return;
+        }
+        else
+        {
+            //This will be triggered if there is no Item on screen
+            ItemPosition = GameObject.FindGameObjectsWithTag("ItemPos");
+
+
+            //generate Random Number
+            int randomNumber = Random.Range(0,ItemPosition.Length);// Random.Range(0, ItemPosition.Length);
+
+            //use random number as index
+            //To set the Position
+            Instantiate(item_prefab, ItemPosition[randomNumber].transform);
+
+            Debug.Log("Random Number =" + randomNumber);
+
+            //Set that transform's hasItem to true
+            ItemPosition[randomNumber].GetComponent<itemOnPosition>().HasItem = true;
+
+            Debug.Log("Random Number =" + randomNumber);
+
+            //Set Item script's parent to this transform
+            //item_prefab.GetComponent<itemFunctionOnPickUp>().parentOfItem = ItemPosition[randomNumber];
+
+            Debug.Log("Random Number =" + randomNumber);
+        }
+
+    }
 }

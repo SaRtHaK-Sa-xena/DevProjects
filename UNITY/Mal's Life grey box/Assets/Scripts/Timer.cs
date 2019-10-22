@@ -10,6 +10,8 @@ public class Timer : MonoBehaviour
 
     public float currentTime = 30;
 
+    public float time;
+
     public bool startTime;
 
     // Start is called before the first frame update
@@ -25,7 +27,7 @@ public class Timer : MonoBehaviour
         if (startTime)
         {
             //Get time
-            float time = currentTime - Time.time;
+            time = currentTime - Time.time;
 
             if (time <= 0)
             {

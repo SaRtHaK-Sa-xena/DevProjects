@@ -6,7 +6,7 @@ public class itemFunctionOnPickUp : MonoBehaviour
 {
     public GameObject playerObj;
     public GameObject playeritemHolder;
-    public GameObject parentOfItem;
+    //public GameObject parentOfItem;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,6 +16,8 @@ public class itemFunctionOnPickUp : MonoBehaviour
         //If the player is not currently holding an item
         if (playerObj.GetComponent<itemManager>().HoldingItem == false)
         {
+            gameObject.GetComponentInParent<itemOnPosition>().HasItem = false;
+
             //Remove Collider of item
             gameObject.GetComponent<BoxCollider>().enabled = false;
 
