@@ -8,6 +8,7 @@ public class checkIfGoal : MonoBehaviour
     public GameObject timer;
     public GameObject stressMeter;
     public bool ifGoal;
+    public bool ifTargetedOnce;
 
     //For Score
     public GameObject scoreHighlight_pref;
@@ -24,6 +25,8 @@ public class checkIfGoal : MonoBehaviour
     {
         
     }
+    //Hold referernec
+
 
     // Update is called once per frame
     void Update()
@@ -58,7 +61,8 @@ public class checkIfGoal : MonoBehaviour
 
             if(playerObj.GetComponent<itemManager>().HoldingItem == true)
             {
-                other.gameObject.GetComponentInParent<itemOnPosition>().HasItem = false;
+                //other.gameObject.GetComponentInParent<itemOnPosition>().HasItem = false;
+                playerItemHolder.transform.GetChild(0).GetComponent<itemFunctionOnPickUp>().parentOfItem.GetComponent<itemOnPosition>().HasItem = false; 
 
                 //Set Holding To false again
                 playerObj.GetComponent<itemManager>().HoldingItem = false;

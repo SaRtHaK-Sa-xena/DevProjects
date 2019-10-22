@@ -16,7 +16,7 @@ public class RandomWindow : MonoBehaviour
     public void findARandomWindow()
     {
         //Generate List From Windows
-        windows = GameObject.FindGameObjectsWithTag("goal");
+        //windows = GameObject.FindGameObjectsWithTag("goal");
         //Find random from range of min and max
         //each update
         int randomValue = Random.Range(0, windows.Length);
@@ -25,6 +25,9 @@ public class RandomWindow : MonoBehaviour
         //Set in individual script to Is Goal
         windows[randomValue].GetComponent<checkIfGoal>().ifGoal = true;
         windows[randomValue].GetComponent<Renderer>().material.color = Color.red;
+
+
+        //========================================First Attempt=====================================================
         //This works but only for the first child in parent
         //windows[randomValue].GetComponentInChildren<Renderer>().material.color = Color.yellow;
 
@@ -36,7 +39,7 @@ public class RandomWindow : MonoBehaviour
         //    {
         //        //Set visual Colour to Goal Colour (Yellow)
         //        child.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
-                
+
         //        Debug.Log("No Renderer Component");
         //    }
         //    else
@@ -44,6 +47,7 @@ public class RandomWindow : MonoBehaviour
         //        Debug.Log("Skipped Component");
         //    }
         //}
+        //========================================First Attempt=====================================================
     }
 
 
@@ -69,8 +73,7 @@ public class RandomWindow : MonoBehaviour
             //    //First output to Log for Debug Purposes
             //    Debug.Log("There is now no windows as goal");
 
-            //    //Then Run the Find A Random Window System
-            //    findARandomWindow();
+            //    
             //}
         }
 
