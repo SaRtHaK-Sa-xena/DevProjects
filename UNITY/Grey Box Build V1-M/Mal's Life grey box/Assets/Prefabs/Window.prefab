@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 2312678845722543288}
   - component: {fileID: 2312678845722543289}
   - component: {fileID: 2312678845722543290}
-  - component: {fileID: 6702412925778381049}
+  - component: {fileID: 966395836818919306}
   m_Layer: 9
   m_Name: Window
-  m_TagString: Untagged
+  m_TagString: goal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,7 +92,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6702412925778381049
+--- !u!114 &966395836818919306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,7 +101,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2312678845722543292}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1f660278847cf243be577e590cec274, type: 3}
+  m_Script: {fileID: 11500000, guid: 5995493dda4a2af4392c2d5fae9e36ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: {fileID: 0}
+  stressMeter: {fileID: 0}
   ifGoal: 0
+  ifTargetedOnce: 0
+  scoreHighlight_pref: {fileID: 0}
+  player_UI: {fileID: 0}
+  playerObj: {fileID: 0}
+  playerItemHolder: {fileID: 0}
