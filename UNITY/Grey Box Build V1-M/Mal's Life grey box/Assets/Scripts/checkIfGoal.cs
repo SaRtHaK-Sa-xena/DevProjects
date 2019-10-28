@@ -20,6 +20,9 @@ public class checkIfGoal : MonoBehaviour
     //player Holder Item
     public GameObject playerItemHolder;
 
+    //script container
+    public GameObject winOrLose;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,9 @@ public class checkIfGoal : MonoBehaviour
         stressMeter = GameObject.Find("GameEngine");
         playerObj = GameObject.FindGameObjectWithTag("Player");
         playerItemHolder = GameObject.Find("itemHolder");
+
+        //AccessWinOrLoseScript
+        winOrLose = GameObject.Find("GameEngine");
     }
 
 
@@ -81,10 +87,11 @@ public class checkIfGoal : MonoBehaviour
                 //Add 10 To the Timer
                 timer.GetComponent<Timer>().currentTime = timer.GetComponent<Timer>().currentTime + 30;
 
-                gameObject.tag = "Finished";
+                //Add to counter To Find out in Script If Player Won
+                winOrLose.GetComponent<WinOrLoseCheck>().goalsHit = winOrLose.GetComponent<WinOrLoseCheck>().goalsHit + 1;
 
                 //Get DeltaTime
-                stressMeter.GetComponent<gameEngine>().deltaTime = stressMeter.GetComponent<gameEngine>().deltaTime - 250;
+                stressMeter.GetComponent<gameEngine>().deltaTime = stressMeter.GetComponent<gameEngine>().deltaTime - 100;
                 //Make DeltaTime = DeltaTime - 100;
 
                 ifGoal = false;

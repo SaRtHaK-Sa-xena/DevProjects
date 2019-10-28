@@ -5,12 +5,20 @@ using UnityEngine.UI;
 
 public class WinOrLoseCheck : MonoBehaviour
 {
+
+    //check If Win Iterator
+    public int goalsHit;
+
+    //Player Obj
     public GameObject playerObj;
 
+    //Windows
     public GameObject[] windows;
     
+    //CanvasObj
     public GameObject canvasObj;
 
+    //StartSearch
     public bool startSearch = true;
 
     // Start is called before the first frame update
@@ -37,6 +45,11 @@ public class WinOrLoseCheck : MonoBehaviour
             Debug.Log("You Lose");
         }
 
+
+        if(goalsHit == 3)
+        {
+            Debug.Log("You Win");
+        }
         //int increment = 0;
 
         //if(startSearch == true)

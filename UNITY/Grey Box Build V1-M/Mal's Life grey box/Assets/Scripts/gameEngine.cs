@@ -43,7 +43,9 @@ public class gameEngine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        slider = GameObject.Find("StressMeter");
 
+        slider.GetComponent<Slider>().value = deltaTime;
         //if(deltaTime > 100)
         //{
         //    for (int i = 0; i < platforms.Length; i++)
@@ -52,13 +54,15 @@ public class gameEngine : MonoBehaviour
         //    }
         //}
 
-        if (startStress)
-        {
-            deltaTime = deltaTime + 1;
+        //=================================Stress Meter Functionality==================================
+        //if (startStress)
+        //{
+        //    deltaTime = deltaTime + 1;
 
-            slider = GameObject.Find("StressMeter");
-            slider.GetComponent<Slider>().value = deltaTime;
-        }
+        //    slider = GameObject.Find("StressMeter");
+        //    slider.GetComponent<Slider>().value = deltaTime;
+        //}
+        //=================================Stress Meter Functionality==================================
 
 
 

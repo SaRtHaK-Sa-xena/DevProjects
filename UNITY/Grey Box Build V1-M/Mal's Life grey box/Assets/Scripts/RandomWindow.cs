@@ -36,16 +36,16 @@ public class RandomWindow : MonoBehaviour
 
         windows = GameObject.FindGameObjectsWithTag("goal");
 
-        if (windows.Length == 7)
-        {
-            //Play Script
-            Debug.Log("You Win!");
-        }
+        //if (windows.Length == 7)
+        //{
+        //    //Play Script
+        //    Debug.Log("You Win!");
+        //}
 
         int randomValue = Random.Range(0, windows.Length);
         Debug.Log("randomValue for Window-> " + randomValue);
 
-        windows[randomValue].GetComponent<Renderer>().material.color = Color.green;
+        windows[randomValue].GetComponent<Renderer>().material.color = Color.red;
 
         //Set in individual script to Is Goal
         windows[randomValue].GetComponent<checkIfGoal>().ifGoal = true;
