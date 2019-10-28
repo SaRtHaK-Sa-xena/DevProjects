@@ -45,12 +45,13 @@ public class RandomWindow : MonoBehaviour
         int randomValue = Random.Range(0, windows.Length);
         Debug.Log("randomValue for Window-> " + randomValue);
 
+        windows[randomValue].GetComponent<Renderer>().material.color = Color.green;
+
         //Set in individual script to Is Goal
         windows[randomValue].GetComponent<checkIfGoal>().ifGoal = true;
-        windows[randomValue].GetComponent<Renderer>().material.color = Color.green;
         //Destroy(windows[randomValue].gameObject);
 
-        Destroy(windows[randomValue]);
+        //Destroy(windows[randomValue]);
         //========================================First Attempt=====================================================
         //This works but only for the first child in parent
         //windows[randomValue].GetComponentInChildren<Renderer>().material.color = Color.yellow;
@@ -84,7 +85,7 @@ public class RandomWindow : MonoBehaviour
         //Iterator to count if there is a window
         int iterator = 0;
 
-        windows[0].GetComponent<checkIfGoal>().ifGoal = true;
+        //windows[0].GetComponent<checkIfGoal>().ifGoal = true;
 
         for (int i = 0; i < windows.Length; i++)
         {
