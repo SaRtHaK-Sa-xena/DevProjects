@@ -31,7 +31,7 @@ public class testingParabolaCurve : MonoBehaviour
 
 
         //New Vector3
-        Vector3 newPosition = new Vector3((Mathf.Pow(playerObj.transform.position.x,2)), playerObj.transform.position.y, playerObj.transform.position.z - 15);
+        Vector3 newPosition = new Vector3((Mathf.Pow(-playerObj.transform.position.x,2)), playerObj.transform.position.y, playerObj.transform.position.z + 2);
 
         
         playerObj.transform.position = Vector3.MoveTowards(playerObj.transform.position, newPosition, step);

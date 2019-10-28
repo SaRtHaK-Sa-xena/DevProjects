@@ -36,7 +36,7 @@ public class RandomWindow : MonoBehaviour
 
         windows = GameObject.FindGameObjectsWithTag("goal");
 
-        if(windows.Length == 0)
+        if(windows.Length == 7)
         {
             //Play Script
             Debug.Log("You Win!");

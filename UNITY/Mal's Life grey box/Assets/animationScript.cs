@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class animationScript : MonoBehaviour
 {
-    public Animator myAnim;
+    //public Animator myAnim;
 
 
     private void OnTriggerEnter(Collider other)
     {
-        myAnim.enabled = true;
+        //myAnim.enabled = true;
     }
 
 
@@ -18,7 +18,7 @@ public class animationScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myAnim.enabled = false;
+        //myAnim.enabled = false;
     }
 
     // Update is called once per frame
