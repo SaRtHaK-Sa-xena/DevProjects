@@ -18,10 +18,16 @@ public class jumpScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isGrounded() && Input.GetButtonDown("Jump"))
+        if (isGrounded() && Input.GetButtonDown("Jump"))
         {
             GetComponent<Rigidbody>().velocity = Vector3.up * jumpVelocity;
+            //GameObject.Find("GameEngine").GetComponent<gameEngine>().startStress = true;
+            GameObject.Find("GameEngine").GetComponent<gameEngine>().deltaTime += 25;
         }
+        //else
+        //{
+        //    GameObject.Find("GameEngine").GetComponent<gameEngine>().startStress = false;
+        //}
     }
 
     private bool isGrounded()

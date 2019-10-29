@@ -17,8 +17,15 @@ public class MenuFunctions : MonoBehaviour
         
     }
 
+
+    //Load Scenes
+    public void LoadSceneByIndex(int sceneIndex)
+    {
+        SceneManager.LoadScene(sceneIndex);
+    }
+
     //Exit Game
-    private void exitGame()
+    public void exitGame()
     {
         Application.Quit();
     }

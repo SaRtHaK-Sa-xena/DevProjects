@@ -41,6 +41,9 @@ public class stressMeter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+
         //eyes = GameObject.Find("Camera").transform;
 
         //RaycastHit detectHit;

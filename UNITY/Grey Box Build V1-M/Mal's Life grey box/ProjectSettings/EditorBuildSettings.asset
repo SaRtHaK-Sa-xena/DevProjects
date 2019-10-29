@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu/Menu.unity
+    guid: 7b0648477e696a94d973fb372ee031f2
+  - enabled: 1
+    path: Assets/Scenes/WinScreen/Winner_Winner_chicken_Dinner.unity
+    guid: b6f1c560890234d428e1378e07ae6b16
+  - enabled: 1
+    path: Assets/Scenes/GameOver/Game_Over.unity
+    guid: 2454b65dba334564ab45e026b111bd2d
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 85016c7c626e8004989f2eb0e0d9e692
   m_configObjects: {}

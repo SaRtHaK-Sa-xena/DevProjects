@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class gameEngine : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class gameEngine : MonoBehaviour
     //item Transform Parent List
     public GameObject[] ItemPosition;
 
-    public bool startStress = true;
+    public bool startStress;
 
     public int Stuntimer = 0;
 
@@ -45,101 +46,103 @@ public class gameEngine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player = GameObject.Find("Player");
-
-        slider = GameObject.Find("StressMeter");
-
-        slider.GetComponent<Slider>().value = deltaTime;
-        //if(deltaTime > 100)
-        //{
-        //    for (int i = 0; i < platforms.Length; i++)
-        //    { 
-        //        platforms[i].GetComponent<Rigidbody>().AddForce(Vector3.up);
-        //    }
-        //}
-
-        //=================================Stress Meter Functionality==================================
-        //if (startStress)
-        //{
-        //    deltaTime = deltaTime + 1;
-
-        //    slider = GameObject.Find("StressMeter");
-        //    slider.GetComponent<Slider>().value = deltaTime;
-        //}
-        //=================================Stress Meter Functionality==================================
-
-
-
-
-        //Items=========================================================================================
-
-        //Store all Transform Item Positions
-        ItemPosition = GameObject.FindGameObjectsWithTag("ItemPos");
-
-
-        int incrementIfItem = 0;
-        //Search if there is an item
-        for (int i = 0; i < ItemPosition.Length; i++)
+        if (!SceneManager.GetSceneByBuildIndex(2).isLoaded)
         {
-            //if there is an item
-            if (ItemPosition[i].GetComponent<itemOnPosition>().HasItem == true)
+            player = GameObject.Find("Player");
+
+            slider = GameObject.Find("StressMeter");
+
+            //slider.GetComponent<Slider>().value = deltaTime;
+            //if(deltaTime > 100)
+            //{
+            //    for (int i = 0; i < platforms.Length; i++)
+            //    { 
+            //        platforms[i].GetComponent<Rigidbody>().AddForce(Vector3.up);
+            //    }
+            //}
+            //=================================Stress Meter Functionality==================================
+            if (startStress)
             {
-                //increase this
-                incrementIfItem = 1;
-            }
-            else
-            {
-                //Do Nothing
-            }
-        }
+                deltaTime = deltaTime + 1;
 
-        //if the incrementIfItem equals to 1
-        if (incrementIfItem == 1)
-        {
-            //Return
-            return;
-        }
-        else
-        {
-            //This will be triggered if there is no Item on screen
+                slider = GameObject.Find("StressMeter");
+                slider.GetComponent<Slider>().value = deltaTime;
+            }
+            //=================================Stress Meter Functionality==================================
+
+
+
+
+            //Items=========================================================================================
+
+            //Store all Transform Item Positions
             ItemPosition = GameObject.FindGameObjectsWithTag("ItemPos");
 
 
-            //generate Random Number
-            int randomNumber = Random.Range(0, ItemPosition.Length);// Random.Range(0, ItemPosition.Length);
+            int incrementIfItem = 0;
+            //Search if there is an item
+            for (int i = 0; i < ItemPosition.Length; i++)
+            {
+                //if there is an item
+                if (ItemPosition[i].GetComponent<itemOnPosition>().HasItem == true)
+                {
+                    //increase this
+                    incrementIfItem = 1;
+                }
+                else
+                {
+                    //Do Nothing
+                }
+            }
 
-            //use random number as index
-            //To set the Position
-            Instantiate(item_prefab, ItemPosition[randomNumber].transform);
+            //if the incrementIfItem equals to 1
+            if (incrementIfItem == 1)
+            {
+                //Return
+                return;
+            }
+            else
+            {
+                //This will be triggered if there is no Item on screen
+                ItemPosition = GameObject.FindGameObjectsWithTag("ItemPos");
 
-            Debug.Log("Random Number =" + randomNumber);
 
-            //Set that transform's hasItem to true
-            ItemPosition[randomNumber].GetComponent<itemOnPosition>().HasItem = true;
+                //generate Random Number
+                int randomNumber = Random.Range(0, ItemPosition.Length);// Random.Range(0, ItemPosition.Length);
 
-            Debug.Log("Random Number =" + randomNumber);
+                //use random number as index
+                //To set the Position
+                Instantiate(item_prefab, ItemPosition[randomNumber].transform);
 
-            //Set Item script's parent to this transform
-            //item_prefab.GetComponent<itemFunctionOnPickUp>().parentOfItem = ItemPosition[randomNumber];
+                Debug.Log("Random Number =" + randomNumber);
 
-            Debug.Log("Random Number =" + randomNumber);
+                //Set that transform's hasItem to true
+                ItemPosition[randomNumber].GetComponent<itemOnPosition>().HasItem = true;
+
+                Debug.Log("Random Number =" + randomNumber);
+
+                //Set Item script's parent to this transform
+                //item_prefab.GetComponent<itemFunctionOnPickUp>().parentOfItem = ItemPosition[randomNumber];
+
+                Debug.Log("Random Number =" + randomNumber);
+            }
+
+            //if(player.GetComponent<Rigidbody>().isKinematic == true)
+            //{
+            //    Stuntimer++;
+
+            //    Debug.Log("Stun Timer: " + Stuntimer);
+
+            //    if (Stuntimer >= 30)
+            //    {
+            //        Debug.Log("Stun Timer Ended At: " + Stuntimer);
+            //        player.GetComponent<Rigidbody>().isKinematic = false;
+
+            //        Stuntimer = 0;
+            //    }
+            //}
+
         }
-
-        //if(player.GetComponent<Rigidbody>().isKinematic == true)
-        //{
-        //    Stuntimer++;
-
-        //    Debug.Log("Stun Timer: " + Stuntimer);
-
-        //    if (Stuntimer >= 30)
-        //    {
-        //        Debug.Log("Stun Timer Ended At: " + Stuntimer);
-        //        player.GetComponent<Rigidbody>().isKinematic = false;
-
-        //        Stuntimer = 0;
-        //    }
-        //}
-
     }
 }
 

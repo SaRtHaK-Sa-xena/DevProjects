@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\PlayerEngine.cs" />
     <Compile Include="Assets\Scripts\RandomWindow.cs" />
+    <Compile Include="Assets\Scripts\ResetGame.cs" />
     <Compile Include="Assets\Scripts\rotatingfromLeftToRight.cs" />
     <Compile Include="Assets\Scripts\rotatingfromRightToLeft.cs" />
     <Compile Include="Assets\Scripts\stressMeter.cs" />

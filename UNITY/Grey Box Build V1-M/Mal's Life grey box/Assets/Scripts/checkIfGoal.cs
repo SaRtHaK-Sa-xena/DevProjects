@@ -85,7 +85,7 @@ public class checkIfGoal : MonoBehaviour
                 //Change Colour To Blue
                 GetComponent<Renderer>().material.color = Color.blue;
                 //Add 10 To the Timer
-                timer.GetComponent<Timer>().currentTime = timer.GetComponent<Timer>().currentTime + 30;
+                //timer.GetComponent<Timer>().currentTime = timer.GetComponent<Timer>().currentTime + 30;
 
                 //Add to counter To Find out in Script If Player Won
                 winOrLose.GetComponent<WinOrLoseCheck>().goalsHit = winOrLose.GetComponent<WinOrLoseCheck>().goalsHit + 1;

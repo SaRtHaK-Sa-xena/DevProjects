@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class WinOrLoseCheck : MonoBehaviour
 {
@@ -21,10 +22,18 @@ public class WinOrLoseCheck : MonoBehaviour
     //StartSearch
     public bool startSearch = true;
 
+    //Store The Time To Be Carried On The Next Scene
+    public float storetime;
+
+    private void Awake()
+    {
+        //Keep This Alive, to be displayed in End screens
+        DontDestroyOnLoad(gameObject);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -36,20 +45,35 @@ public class WinOrLoseCheck : MonoBehaviour
 
         windows = GameObject.FindGameObjectsWithTag("goal");
 
+        //==============CHECKS IF YOU LOST====================
         //If Timer reaches zero
-        if(canvasObj.GetComponent<Timer>().time <= 0)
+        //if(!SceneManager.GetSceneByBuildIndex(2).isLoaded)
+        //{
+        //    if (canvasObj.GetComponent<Timer>().time <= 0)
+        //    {
+        //        //Trigger Particle Effect
+
+        //        //Display End Screen
+        //        SceneManager.LoadScene(2);
+        //    }
+        //    storetime = canvasObj.GetComponent<Timer>().time;
+        //}
+
+
+        //==============CHECKS IF YOU LOST====================
+
+        //carry variable to next screen
+
+
+        //==============Checks If you Have Won================
+        if (goalsHit == 3)
         {
-            //Trigger Particle Effect
-
-            //Display End Screen
-            Debug.Log("You Lose");
+            //Display Win Screen
+            SceneManager.LoadScene(1);
         }
+        //==============Checks If you Have Won================
 
 
-        if(goalsHit == 3)
-        {
-            Debug.Log("You Win");
-        }
         //int increment = 0;
 
         //if(startSearch == true)

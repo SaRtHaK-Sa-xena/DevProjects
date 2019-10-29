@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RandomWindow : MonoBehaviour
 {
@@ -34,23 +35,26 @@ public class RandomWindow : MonoBehaviour
         //    }
         //}
 
-        windows = GameObject.FindGameObjectsWithTag("goal");
+        //Do all this process when not in Game Over Screen
+        if (!SceneManager.GetSceneByBuildIndex(2).isLoaded)
+        {
+            windows = GameObject.FindGameObjectsWithTag("goal");
 
-        //if (windows.Length == 7)
-        //{
-        //    //Play Script
-        //    Debug.Log("You Win!");
-        //}
+            //if (windows.Length == 7)
+            //{
+            //    //Play Script
+            //    Debug.Log("You Win!");
+            //}
 
-        int randomValue = Random.Range(0, windows.Length);
-        Debug.Log("randomValue for Window-> " + randomValue);
+            int randomValue = Random.Range(0, windows.Length);
+            Debug.Log("randomValue for Window-> " + randomValue);
 
-        windows[randomValue].GetComponent<Renderer>().material.color = Color.red;
+            windows[randomValue].GetComponent<Renderer>().material.color = Color.red;
 
-        //Set in individual script to Is Goal
-        windows[randomValue].GetComponent<checkIfGoal>().ifGoal = true;
-        //Destroy(windows[randomValue].gameObject);
-
+            //Set in individual script to Is Goal
+            windows[randomValue].GetComponent<checkIfGoal>().ifGoal = true;
+            //Destroy(windows[randomValue].gameObject);
+        }
         //Destroy(windows[randomValue]);
         //========================================First Attempt=====================================================
         //This works but only for the first child in parent
@@ -79,58 +83,61 @@ public class RandomWindow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Get all window gameobjects
-        windows = GameObject.FindGameObjectsWithTag("goal");
-
-        //Iterator to count if there is a window
-        int iterator = 0;
-
-        //windows[0].GetComponent<checkIfGoal>().ifGoal = true;
-
-        for (int i = 0; i < windows.Length; i++)
+        if (!SceneManager.GetSceneByBuildIndex(2).isLoaded)
         {
-            if (windows[i].GetComponent<checkIfGoal>().ifGoal == true)
-            {
-                //break out of statement
-                iterator = 1;
-            }
-            //else
-            //{
-            //    //If no open windows, and it actually makes it here
-            //    //First output to Log for Debug Purposes
-            //    Debug.Log("There is now no windows as goal");
+            //Get all window gameobjects
+            windows = GameObject.FindGameObjectsWithTag("goal");
 
-            //    
+            //Iterator to count if there is a window
+            int iterator = 0;
+
+            //windows[0].GetComponent<checkIfGoal>().ifGoal = true;
+
+            for (int i = 0; i < windows.Length; i++)
+            {
+                if (windows[i].GetComponent<checkIfGoal>().ifGoal == true)
+                {
+                    //break out of statement
+                    iterator = 1;
+                }
+                //else
+                //{
+                //    //If no open windows, and it actually makes it here
+                //    //First output to Log for Debug Purposes
+                //    Debug.Log("There is now no windows as goal");
+
+                //    
+                //}
+            }
+
+            //check if the iterator more than zero
+            //if greater
+            if (iterator == 0)
+            {
+                Debug.Log("There is now no windows as goal");
+                findARandomWindow();
+            }
+
+            //check each window in windows
+            //foreach(GameObject window in windows)
+            //{
+            //    //if the goal for windows in true
+            //    if(window.GetComponent<checkIfGoal>().ifGoal == true)
+            //    {
+            //        //break out of loop since there is a open window
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        //If no open windows, and it actually makes it here
+            //        //First output to Log for Debug Purposes
+            //        Debug.Log("There is now no windows as goal");
+
+            //        //Then Run the Find A Random Window System
+            //        findARandomWindow();
+            //    }
             //}
         }
-
-        //check if the iterator more than zero
-        //if greater
-        if (iterator == 0)
-        {
-            Debug.Log("There is now no windows as goal");
-            findARandomWindow();
-        }
-
-        //check each window in windows
-        //foreach(GameObject window in windows)
-        //{
-        //    //if the goal for windows in true
-        //    if(window.GetComponent<checkIfGoal>().ifGoal == true)
-        //    {
-        //        //break out of loop since there is a open window
-        //        break;
-        //    }
-        //    else
-        //    {
-        //        //If no open windows, and it actually makes it here
-        //        //First output to Log for Debug Purposes
-        //        Debug.Log("There is now no windows as goal");
-
-        //        //Then Run the Find A Random Window System
-        //        findARandomWindow();
-        //    }
-        //}
     }
 }
 
