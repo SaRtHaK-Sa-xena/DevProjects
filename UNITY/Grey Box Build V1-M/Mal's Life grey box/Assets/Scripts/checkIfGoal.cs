@@ -91,7 +91,7 @@ public class checkIfGoal : MonoBehaviour
                 winOrLose.GetComponent<WinOrLoseCheck>().goalsHit = winOrLose.GetComponent<WinOrLoseCheck>().goalsHit + 1;
 
                 //Get DeltaTime
-                stressMeter.GetComponent<gameEngine>().deltaTime = stressMeter.GetComponent<gameEngine>().deltaTime - 100;
+                stressMeter.GetComponent<gameEngine>().deltaTime = stressMeter.GetComponent<gameEngine>().deltaTime - 150;
                 //Make DeltaTime = DeltaTime - 100;
 
                 ifGoal = false;

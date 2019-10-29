@@ -15,7 +15,7 @@ public class PlayerControl : MonoBehaviour
 {
     
     [SerializeField]
-    private float speed = 5f;
+    public float speed = 5f;
 
     [SerializeField]
     private float lookSensitivity = 5f;

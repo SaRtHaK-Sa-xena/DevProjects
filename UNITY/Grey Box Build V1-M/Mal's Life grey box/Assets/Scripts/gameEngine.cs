@@ -21,6 +21,8 @@ public class gameEngine : MonoBehaviour
 
     public bool startStress = true;
 
+    public int Stuntimer = 0;
+
     private void Start()
     {
         //platforms = GameObject.FindGameObjectsWithTag("platform");
@@ -43,6 +45,8 @@ public class gameEngine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        player = GameObject.Find("Player");
+
         slider = GameObject.Find("StressMeter");
 
         slider.GetComponent<Slider>().value = deltaTime;
@@ -120,6 +124,21 @@ public class gameEngine : MonoBehaviour
 
             Debug.Log("Random Number =" + randomNumber);
         }
+
+        //if(player.GetComponent<Rigidbody>().isKinematic == true)
+        //{
+        //    Stuntimer++;
+
+        //    Debug.Log("Stun Timer: " + Stuntimer);
+
+        //    if (Stuntimer >= 30)
+        //    {
+        //        Debug.Log("Stun Timer Ended At: " + Stuntimer);
+        //        player.GetComponent<Rigidbody>().isKinematic = false;
+
+        //        Stuntimer = 0;
+        //    }
+        //}
 
     }
 }
