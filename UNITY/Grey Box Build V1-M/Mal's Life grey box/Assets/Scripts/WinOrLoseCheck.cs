@@ -28,7 +28,7 @@ public class WinOrLoseCheck : MonoBehaviour
     private void Awake()
     {
         //Keep This Alive, to be displayed in End screens
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
@@ -58,12 +58,9 @@ public class WinOrLoseCheck : MonoBehaviour
         //    }
         //    storetime = canvasObj.GetComponent<Timer>().time;
         //}
-
-
         //==============CHECKS IF YOU LOST====================
 
         //carry variable to next screen
-
 
         //==============Checks If you Have Won================
         if (goalsHit == 3)
@@ -72,6 +69,15 @@ public class WinOrLoseCheck : MonoBehaviour
             SceneManager.LoadScene(1);
         }
         //==============Checks If you Have Won================
+
+        //=====================================CHECK IF WON============================================
+        //if(GameObject.Find("StressMeter").GetComponent<Slider>().value >= GameObject.Find("StressMeter").GetComponent<Slider>().maxValue)
+        //{
+
+        //    //Load You Lose Screen
+        //    SceneManager.LoadScene(2);
+        //}
+        //=====================================CHECK IF WON============================================
 
 
         //int increment = 0;
