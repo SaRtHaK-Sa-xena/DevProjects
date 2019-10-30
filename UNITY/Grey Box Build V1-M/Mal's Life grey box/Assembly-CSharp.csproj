@@ -61,9 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\enemyBehaviour.cs" />
-    <Compile Include="Assets\itemOnPosition.cs" />
-    <Compile Include="Assets\MenuFunctions.cs" />
-    <Compile Include="Assets\onCollision.cs" />
     <Compile Include="Assets\Scripts\attachPlayer.cs" />
     <Compile Include="Assets\Scripts\checkIfGoal.cs" />
     <Compile Include="Assets\Scripts\chrouchDownThroughPlatform.cs" />
@@ -74,10 +71,13 @@
     <Compile Include="Assets\Scripts\IsActive.cs" />
     <Compile Include="Assets\Scripts\itemFunctionOnPickUp.cs" />
     <Compile Include="Assets\Scripts\itemManager.cs" />
+    <Compile Include="Assets\Scripts\itemOnPosition.cs" />
     <Compile Include="Assets\Scripts\jumpPhysics.cs" />
     <Compile Include="Assets\Scripts\jumpScript.cs" />
     <Compile Include="Assets\Scripts\jumpUpThroughPlatform.cs" />
+    <Compile Include="Assets\Scripts\MenuFunctions.cs" />
     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Scripts\onCollision.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\PlayerEngine.cs" />
     <Compile Include="Assets\Scripts\RandomWindow.cs" />
@@ -124,6 +124,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\wayPoint.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
