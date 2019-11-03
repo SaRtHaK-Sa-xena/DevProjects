@@ -53,6 +53,8 @@ public class RandomWindow : MonoBehaviour
 
             //Set in individual script to Is Goal
             windows[randomValue].GetComponent<checkIfGoal>().ifGoal = true;
+
+            GameObject.Find("wayPointHandlers").GetComponent<wayPoint>().waypointTo = windows[randomValue].gameObject;
             //Destroy(windows[randomValue].gameObject);
         }
         //Destroy(windows[randomValue]);

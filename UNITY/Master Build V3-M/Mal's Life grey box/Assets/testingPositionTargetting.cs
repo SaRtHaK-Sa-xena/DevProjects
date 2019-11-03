@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class itemOnPosition : MonoBehaviour
+public class testingPositionTargetting : MonoBehaviour
 {
-    public bool HasItem;
-
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("World Position = " + gameObject.transform.rotation);
+
+        if(gameObject.transform.rotation.x == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
