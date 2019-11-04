@@ -66,7 +66,7 @@ public class WinOrLoseCheck : MonoBehaviour
         if (goalsHit == 3)
         {
             //Display Win Screen
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
         //==============Checks If you Have Won================
 
@@ -75,7 +75,7 @@ public class WinOrLoseCheck : MonoBehaviour
         {
 
             //Load You Lose Screen
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
         }
         //=====================================CHECK IF LOST============================================
 

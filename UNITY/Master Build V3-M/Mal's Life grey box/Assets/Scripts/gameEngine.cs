@@ -46,7 +46,7 @@ public class gameEngine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!SceneManager.GetSceneByBuildIndex(2).isLoaded)
+        if (!SceneManager.GetSceneByBuildIndex(3).isLoaded)
         {
             player = GameObject.Find("Player");
 

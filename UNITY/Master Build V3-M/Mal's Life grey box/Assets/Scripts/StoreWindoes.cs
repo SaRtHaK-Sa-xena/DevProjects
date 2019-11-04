@@ -23,7 +23,8 @@ public class StoreWindoes : MonoBehaviour
     void Update()
     {
         //If Not In GameOver
-        if (SceneManager.GetSceneByBuildIndex(3).isLoaded)
+        //In Game
+        if (SceneManager.GetSceneByBuildIndex(1).isLoaded)
         {
             storedWindowsScore = GameObject.Find("GameEngine");
 
@@ -32,12 +33,13 @@ public class StoreWindoes : MonoBehaviour
         }
         
         //If GameOver Screen Place Score On Board
-        if(SceneManager.GetSceneByBuildIndex(2).isLoaded)
+        if(SceneManager.GetSceneByBuildIndex(3).isLoaded)
         {
             GameObject.Find("windowTextBox").GetComponent<Text>().text = score.ToString();
         }
 
-        if(SceneManager.GetSceneByBuildIndex(1).isLoaded)
+        //Win Screen
+        if(SceneManager.GetSceneByBuildIndex(2).isLoaded)
         {
             GameObject.Find("score").GetComponent<Text>().text = score.ToString();
         }

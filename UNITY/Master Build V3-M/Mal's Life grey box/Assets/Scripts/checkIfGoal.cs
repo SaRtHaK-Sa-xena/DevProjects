@@ -47,57 +47,57 @@ public class checkIfGoal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //If The Material is already Gold
-        //Note: Added Boolean check so that the other collider doesn't just
-        //turn it grey
-        if (ifGoal == true)
-        {
-            //foreach (Transform child in transform)
-            //{
-            //    if (child.gameObject.tag != "skipGameObj")
-            //    {
-            //        //Turn Material back to original grey
-            //        child.gameObject.GetComponent<Renderer>().material.color = Color.blue;
-            //    }
-            //    else
-            //    {
-            //        Debug.Log("Skipped Component");
-            //    }
-            //}
+         //If The Material is already Gold
+         //Note: Added Boolean check so that the other collider doesn't just
+         //turn it grey
+         if (ifGoal == true)
+         {
+             //foreach (Transform child in transform)
+             //{
+             //    if (child.gameObject.tag != "skipGameObj")
+             //    {
+             //        //Turn Material back to original grey
+             //        child.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+             //    }
+             //    else
+             //    {
+             //        Debug.Log("Skipped Component");
+             //    }
+             //}
 
-            if (playerObj.GetComponent<itemManager>().HoldingItem == true)
-            {
-                //other.gameObject.GetComponentInParent<itemOnPosition>().HasItem = false;
-                //playerItemHolder.transform.GetChild(0).GetComponent<itemFunctionOnPickUp>().parentOfItem.gameObject.GetComponent<itemOnPosition>().HasItem = false; 
+             if (playerObj.GetComponent<itemManager>().HoldingItem == true)
+             {
+                 //other.gameObject.GetComponentInParent<itemOnPosition>().HasItem = false;
+                 //playerItemHolder.transform.GetChild(0).GetComponent<itemFunctionOnPickUp>().parentOfItem.gameObject.GetComponent<itemOnPosition>().HasItem = false; 
 
-                //Set Holding To false again
-                playerObj.GetComponent<itemManager>().HoldingItem = false;
+                 //Set Holding To false again
+                 playerObj.GetComponent<itemManager>().HoldingItem = false;
 
-                //delete Item, so delete child
-                Destroy(playerItemHolder.transform.GetChild(0).gameObject);
+                 //delete Item, so delete child
+                 Destroy(playerItemHolder.transform.GetChild(0).gameObject);
 
-                //Add Visual Score
-                player_UI = GameObject.Find("Canvas");
+                 //Add Visual Score
+                 player_UI = GameObject.Find("Canvas");
 
-                //Place it on Screen
-                Instantiate(scoreHighlight_pref, player_UI.transform);
+                 //Place it on Screen
+                 Instantiate(scoreHighlight_pref, player_UI.transform);
 
-                //Change Colour To Blue
-                GetComponent<Renderer>().material.color = Color.blue;
-                //Add 10 To the Timer
-                //timer.GetComponent<Timer>().currentTime = timer.GetComponent<Timer>().currentTime + 30;
+                 //Change Colour To Blue
+                 GetComponent<Renderer>().material.color = Color.blue;
+                 //Add 10 To the Timer
+                 //timer.GetComponent<Timer>().currentTime = timer.GetComponent<Timer>().currentTime + 30;
 
-                //Add to counter To Find out in Script If Player Won
-                winOrLose.GetComponent<WinOrLoseCheck>().goalsHit = winOrLose.GetComponent<WinOrLoseCheck>().goalsHit + 1;
+                 //Add to counter To Find out in Script If Player Won
+                 winOrLose.GetComponent<WinOrLoseCheck>().goalsHit = winOrLose.GetComponent<WinOrLoseCheck>().goalsHit + 1;
 
-                //Get DeltaTime
-                stressMeter.GetComponent<gameEngine>().deltaTime = stressMeter.GetComponent<gameEngine>().deltaTime - 400;
-                //Make DeltaTime = DeltaTime - 100;
+                 //Get DeltaTime
+                 stressMeter.GetComponent<gameEngine>().deltaTime = stressMeter.GetComponent<gameEngine>().deltaTime - 400;
+                 //Make DeltaTime = DeltaTime - 100;
 
-                ifGoal = false;
-            }
-        }
-
+                 ifGoal = false;
+             }
+         }
+        
         //Add +10 to timer
 
         //set If Goal to false
