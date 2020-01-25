@@ -217,6 +217,10 @@ public:
 			//make the value of that position equal to value
 			ptrArray[position] = value;
 		}
+		else
+		{
+			add(value);
+		}
 	}
 
 	//returns size of used elements
@@ -227,9 +231,13 @@ public:
 	{
 		if (index < 0 || index >= usedElements)
 		{
-			throw("Out of bounds exception!");
+			//throw("Out of bounds exception!");
+			cout << "No Items In Array" << endl;
 		}
-		return ptrArray[index];
+		else
+		{
+			return ptrArray[index];
+		}
 	}
 
 	//deletes last element in array

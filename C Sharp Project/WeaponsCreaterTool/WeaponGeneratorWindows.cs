@@ -35,6 +35,9 @@ namespace WeaponsCreaterTool
         bool fourthCheck = false;
         //All Data Filled Checklist
 
+        //checks if the save button has been clicked
+        bool saveButtonPressed = false;
+
         public WeaponsClass NewWeapon;
 
         public WeaponGenerator()
@@ -56,7 +59,6 @@ namespace WeaponsCreaterTool
            
         }
 
-
         //Changes Colour to display if user saved image
         public void ChangeColour()
         {
@@ -69,14 +71,6 @@ namespace WeaponsCreaterTool
                 CreateWeaponButton.BackColor = Color.LightGreen;
             }
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-       
-
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -104,8 +98,6 @@ namespace WeaponsCreaterTool
             secondCheck = true;
         }
         //Save Image File Button
-
-
 
         //Transitions To Next Form
         private void CreateWeapon_Click(object sender, EventArgs e)
@@ -271,65 +263,74 @@ namespace WeaponsCreaterTool
         //Save Loadout Button Click Function
         private void SaveLoadoutButton_Click(object sender, EventArgs e)
         {
-            //Saves the Entire LoadOut
-            string fileName = finalWeaponNameTextBox.Text;
-            NewWeapon.returnName = finalWeaponNameTextBox.Text;
-
-            //Check to enable finalAddWeapon Button
-            if (NewWeapon.returnName == null)
+            if(finalWeaponNameTextBox.Text == "")
             {
-                firstCheck = false;
+                MessageBox.Show("No Name Entered...");
             }
             else
             {
+                //Saves the Entire LoadOut
+                string fileName = finalWeaponNameTextBox.Text;
+                NewWeapon.returnName = finalWeaponNameTextBox.Text;
+
+                ////Check to enable finalAddWeapon Button
+                //if (NewWeapon.returnName == null)
+                //{
+                //    firstCheck = false;
+                //}
+                //else
+                //{
+                //    firstCheck = true;
+                //}
+
+                //Used to be here. Just Changed
+                //NewWeapon.imagePath = Path.Combine(NewWeapon.imagePath, CreateImageName.Text + ".png");
+                NewWeapon.imagePath = Path.Combine(NewWeapon.imagePath, CreateImageName.Text);// + ".png");
+                                                                                              //XML serialize to serialize just img
+                XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
+                TextWriter writer = new StreamWriter(fileName + ".xml");
+
+                serializer.Serialize(writer, NewWeapon);
+                writer.Close();
+
+                //So can't be pressed again
+                SaveLoadoutButton.Enabled = false;
+
+                //Allow FinalAddWeaponButtonToBePressed
+                fourthCheck = true;
+
                 firstCheck = true;
+
+                saveButtonPressed = true;
             }
-
-            //Used to be here. Just Changed
-            //NewWeapon.imagePath = Path.Combine(NewWeapon.imagePath, CreateImageName.Text + ".png");
-            NewWeapon.imagePath = Path.Combine(NewWeapon.imagePath, CreateImageName.Text);// + ".png");
-            //XML serialize to serialize just img
-            XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
-            TextWriter writer = new StreamWriter(fileName + ".xml");
-
-            serializer.Serialize(writer, NewWeapon);
-            writer.Close();
-
-            //So can't be pressed again
-            SaveLoadoutButton.Enabled = false;
-
-            //Allow FinalAddWeaponButtonToBePressed
-            fourthCheck = true;
+            
         }
-
-
 
 
         //Add Weapon Button Click Function
         private void FinalAddWeaponButton_Click(object sender, EventArgs e)
         {
-
-            if (firstCheck == true && secondCheck == true && thirdCheck == true && fourthCheck == true)
+            if(saveButtonPressed == true)
             {
-                this.Close();
-                MessageBox.Show("Weapon successfully created...");
-                //Display as green
-                //Then on click close form
-
+                if (firstCheck == true && secondCheck == true && thirdCheck == true && fourthCheck == true)
+                {
+                    this.Close();
+                    MessageBox.Show("Weapon successfully created...");
+                }
+                if (secondCheck == false)
+                {
+                    MessageBox.Show("Image Not Saved");
+                }
+                if (thirdCheck == false)
+                {
+                    MessageBox.Show("No Attribute Selected");
+                }
+                if (fourthCheck == false)
+                {
+                    MessageBox.Show("Loadout Not Saved");
+                }
             }
-            if(firstCheck == false)
-            {
-                MessageBox.Show("No Name Given To Weapon");
-            }
-            if (secondCheck == false)
-            {
-                MessageBox.Show("Image Not Saved");
-            }
-            if (thirdCheck == false)
-            {
-                MessageBox.Show("No Attribute Selected");
-            }
-            if(fourthCheck == false)
+            else
             {
                 MessageBox.Show("Loadout Not Saved");
             }
@@ -350,6 +351,34 @@ namespace WeaponsCreaterTool
         private void FinalAddWeaponButton_MouseLeave(object sender, EventArgs e)
         {
             FinalAddWeaponButton.BackColor = Color.Gray;
+        }
+
+        private void WeaponGenerator_Load(object sender, EventArgs e)
+        {
+            //if (firstCheck == false || secondCheck == false || thirdCheck == false || fourthCheck == false)
+            //{
+            //    FinalAddWeaponButton.Enabled = false;
+            //}
+
+            ////
+            //if(firstCheck == true && secondCheck == true && thirdCheck == true && fourthCheck == true)
+            //{
+            //    FinalAddWeaponButton.Enabled = true;
+            //}
+        }
+
+        private void WeaponGenerator_MouseUp(object sender, MouseEventArgs e)
+        {
+            //if (firstCheck == false || secondCheck == false || thirdCheck == false || fourthCheck == false)
+            //{
+            //    FinalAddWeaponButton.Enabled = false;
+            //}
+
+            ////
+            //if (firstCheck == true && secondCheck == true && thirdCheck == true && fourthCheck == true)
+            //{
+            //    FinalAddWeaponButton.Enabled = true;
+            //}
         }
     }
     public class TPanel : Panel

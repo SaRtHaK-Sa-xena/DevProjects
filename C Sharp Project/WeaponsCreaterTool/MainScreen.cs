@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.IO;
+using System.Data.SqlClient;
 
 namespace WeaponsCreaterTool
 {
@@ -18,6 +19,12 @@ namespace WeaponsCreaterTool
         //Lets Ease of code editing
         public const int RunningInExecutable = 8;
         public const int RunningInDebug = 6;
+
+        public string replacedName;
+
+        public bool createdListBox;
+
+        private ListBox referenceToListBox;
 
         public MainScreen()
         {
@@ -34,23 +41,25 @@ namespace WeaponsCreaterTool
         public void AddTolist()
         {
             // Create an instance of the ListBox
-            ListBox listBox1 = new ListBox();
-
+            //ListBox listBox1 = new ListBox();
             // Set the size and location of the Listbox
-            listBox1.Size = new System.Drawing.Size(200, 100);
-            listBox1.Location = new System.Drawing.Point(10, 90);
+            //listBox1.Size = new System.Drawing.Size(200, 100);
+            //listBox1.Location = new System.Drawing.Point(10, 90);
 
-            // Add the listBox to form
-            this.Controls.Add(listBox1);
+            //// Add the listBox to form
+            //this.Controls.Add(listBox1);
 
-            // Set the ListBox to display items in multiple columns
-            listBox1.MultiColumn = true;
+            //// Set the ListBox to display items in multiple columns
+            //listBox1.MultiColumn = true;
 
-            // Set the selection mode to multiple and extended
-            listBox1.SelectionMode = SelectionMode.MultiExtended;
+            //// Set the selection mode to multiple and extended
+            //listBox1.SelectionMode = SelectionMode.MultiExtended;
 
             // Shutdown the painting of the Listbox as items are added
             listBox1.BeginUpdate();
+
+            //Clear
+            listBox1.Items.Clear();
 
             //Create List Of Weapon Names
             List<string> Weapons = new List<string>();
@@ -96,7 +105,8 @@ namespace WeaponsCreaterTool
             for (int i = 0; i < increment; i++)
             {
                 //Should add one list item for weapon name from weapon list each iteration
-                listBox1.Items.Add("Weapon: " + Weapons[i]);
+                listBox1.Items.Add(Weapons[i]);
+                listBox1.Refresh();
             }
             // Allow the ListBox to repaint and display the new items.
         }
@@ -105,7 +115,6 @@ namespace WeaponsCreaterTool
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Each time a new file is created, a list will be generated.
-            AddTolist();
             WeaponGenerator newMDIChild = new WeaponGenerator();
             newMDIChild.MdiParent = this;
             newMDIChild.Show();
@@ -113,50 +122,12 @@ namespace WeaponsCreaterTool
             newMDIChild.NewWeapon = CreateWeapon;
         }
 
+        //Load Weapon Button============ (deperacted)
         private void LoadWeaponButton_Click(object sender, EventArgs e)
         {
-
-            //=================Error Handling=========================
-            //Try to load weapon
-            try
-            {
-                Stream streamToOpen = File.Open(/*The .xml file name:*/WeaponsToSearchBox.Text + ".xml", FileMode.Open);
-
-                XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
-
-                //Create a container
-                WeaponsClass testObj2 = null;
-                //Add elements in container
-                testObj2 = (WeaponsClass)serializer.Deserialize(streamToOpen);
-                streamToOpen.Close();
-
-
-
-                //Set Text Boxes To Loaded TestObj2
-                LoadedWeaponTEXT.Text = testObj2.returnName;
-                LoadedAttributeTEXT.Text = testObj2.returnAttributes.ToString();
-
-                //Load Png
-                LoadedImage.Image = Image.FromFile(testObj2.imagePath);
-
-
-                //|----------------
-                EditName.Text = testObj2.returnName;
-                EditAtt.Text = testObj2.returnAttributes.ToString();
-                //|----------------
-            }
-            //Clears Image, attribute, and name
-            //Stops from an unhandled exception error
-            catch (System.IO.IOException ex)
-            {
-                MessageBox.Show("Exception Occured" + "\n Please Enter a valid Weapon Name");
-                LoadedAttributeTEXT.Text = null;
-                LoadedWeaponTEXT.Text = null;
-                LoadedImage.Image = null;
-            }
-            //=================Error Handling==============================
-
         }
+        //Load Weapon Button============ (deperacted)
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -381,6 +352,8 @@ namespace WeaponsCreaterTool
             }
         }
 
+
+        //Save the edited 
         private void SaveEdit_Click(object sender, EventArgs e)
         {
             //if save clicked
@@ -401,7 +374,62 @@ namespace WeaponsCreaterTool
             {
                 //overwrite
                 testObj2.returnName = EditName.Text;
+
+                //generate a file in this directory of XML's
+                var files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.xml");
+
+                //go through each file --- Purpose Only have file name without, extra "//"
+                foreach (var file in files)
+                {
+                    //now replacement holds strings
+                    string replacement = file.ToString();
+
+                    //now we have states what to remove from string
+                    //change to release
+                    string toRemove = "Release\\";
+
+                    string firstLetter = replacement.Substring(0, 1);
+
+                    string NewString = string.Empty;
+
+                    //change to release
+                    int i = replacement.IndexOf(toRemove) + RunningInExecutable; //6 is equal to the extra letters in Debug //8 is equal to the extra letters in 
+
+                    //create substring only consisting of path without name
+                    string onlyPath = replacement.Substring(0, i);
+
+                    int firstIndex = replacement.IndexOf(firstLetter);
+
+                    if (i >= 0)
+                    {
+                        //removes per letter till length of amount till debug
+                        NewString = replacement.Remove(firstIndex, i);
+                    }
+
+                    //creates Weapon String without XML at the end
+                    string withoutXML = NewString.Substring(0, NewString.Length - 4);
+                    string replacementWithoutXML = replacement.Substring(0, replacement.Length - 4);
+
+                    //If the weapon loaded in equal to that of the withoutXML string
+                    if (withoutXML == LoadedWeaponTEXT.Text)
+                    {
+                        // "path" + "Name of the weapon"
+                        replacedName = onlyPath + EditName.Text;
+                        //System.IO.Directory.Move(@replacement, @replacedName);
+                        File.Delete(replacement);
+                    }
+                }
             }
+
+            //if the user inputs a different image name in choose image
+            if (ImagesList.Text != null)
+            {
+                WeaponsClass nullWeaponRef = new WeaponsClass();
+
+                //use different image 
+                testObj2.imagePath = Path.Combine(nullWeaponRef.imagePath, ImagesList.Text);
+            }
+        
 
             //If the value has changed from previous
             if (EditAtt.Text != LoadedAttributeTEXT.Text)
@@ -419,10 +447,170 @@ namespace WeaponsCreaterTool
 
             //Then Save into current working file
             XmlSerializer Saveserializer = new XmlSerializer(typeof(WeaponsClass));
-            TextWriter writer = new StreamWriter(LoadedWeaponTEXT.Text + ".xml");
+            TextWriter writer;
+
+            if (EditName.Text != LoadedWeaponTEXT.Text)
+            {
+                writer = new StreamWriter(replacedName + ".xml");
+            }
+            else
+            {
+                writer = new StreamWriter(WeaponsToSearchBox.Text + ".xml");
+            }
 
             Saveserializer.Serialize(writer, testObj2);
             writer.Close();
         }
+
+
+        //===========================Load In By Clicking List Items===============================
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            WeaponsToSearchBox.Text = listBox1.SelectedItem.ToString().TrimEnd('.','x','m','l');
+            //=================Error Handling=========================
+            //Try to load weapon
+            try
+            {
+                Stream streamToOpen = File.Open(/*The .xml file name:*/WeaponsToSearchBox.Text + ".xml", FileMode.Open);
+
+                XmlSerializer serializer = new XmlSerializer(typeof(WeaponsClass));
+
+                //Create a container
+                WeaponsClass testObj2 = null;
+                //Add elements in container
+                testObj2 = (WeaponsClass)serializer.Deserialize(streamToOpen);
+                streamToOpen.Close();
+
+
+
+                //Set Text Boxes To Loaded TestObj2
+                LoadedWeaponTEXT.Text = testObj2.returnName;
+                LoadedAttributeTEXT.Text = testObj2.returnAttributes.ToString();
+
+                //Load Png
+                LoadedImage.Image = Image.FromFile(testObj2.imagePath);
+
+                string imagePath_full = testObj2.imagePath;
+
+                //18 is the amount of characters predefined in the weapons Class
+                string onlyName = imagePath_full.Remove(0, 18);
+
+                //Make the text the imagesList text
+                ImagesList.Text = onlyName;
+
+                //|----------------
+                EditName.Text = testObj2.returnName;
+                EditAtt.Text = testObj2.returnAttributes.ToString();
+                //|----------------
+            }
+            //Clears Image, attribute, and name
+            //Stops from an unhandled exception error
+            catch (System.IO.IOException ex)
+            {
+                MessageBox.Show("Exception Occured" + "\n Please Enter a valid Weapon Name");
+                LoadedAttributeTEXT.Text = null;
+                LoadedWeaponTEXT.Text = null;
+                LoadedImage.Image = null;
+            }
+            //=================Error Handling==============================
+        }
+
+        private void RefreshList()
+        {
+            listBox1.Items.Clear();
+
+            //Create List Of Weapon Names
+            List<string> Weapons = new List<string>();
+
+            //files will equal the file of current directory, that has .xml as filter
+            var files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.xml");
+
+            //Keeps Track of amount of files
+            int increment = 0;
+
+            foreach (var file in files)
+            {
+
+                //now replacement holds strings
+                string replacement = file.ToString();
+
+                //now we have states what to remove from string
+                string toRemove = "Release\\";
+                //firstLetter equal to replacement string's first letter
+                string firstLetter = replacement.Substring(0, 1);
+
+                string NewString = string.Empty;
+                int i = replacement.IndexOf(toRemove) + RunningInExecutable; //6 is equal to the extra letters in Debug //8 is equal to the extra letters in Debug
+                int firstIndex = replacement.IndexOf(firstLetter);
+                if (i >= 0)
+                {
+                    //removes per letter till length of amount till debug
+                    NewString = replacement.Remove(firstIndex, i);
+                }
+
+                //============Adds the NewString to list==============
+                //added to weapons list
+                Weapons.Add(NewString);
+                increment++;
+            }
+            //When here Weapons list should have all weapons
+            //Now we can sort by alphabetical order
+            Weapons.Sort();
+
+
+            //==========This will now be placed in List===========
+            //Place created String into listBox item number of X
+            for (int i = 0; i < increment; i++)
+            {
+                //Should add one list item for weapon name from weapon list each iteration
+                listBox1.Items.Add(Weapons[i]);
+                listBox1.Refresh();
+            }
+            // Allow the ListBox to repaint and display the new items.
+           
+        }
+
+        private void MainScreen_Activated(object sender, EventArgs e)
+        {
+            //For Weaposn List====================
+            RefreshList();
+            //====================================
+
+            //For Images List=====================
+            ImagesList.Items.Clear();
+            //RefreshList();
+            WeaponsClass temp = new WeaponsClass();
+
+            string[] files = Directory.GetFiles(temp.imagePath, "*");
+
+            foreach (string file in files)
+            {
+                //If the file doesn't end with anything but a png
+                if (!file.EndsWith(".xml") && !file.EndsWith(".config") && !file.EndsWith(".pdb") && !file.EndsWith(".exe"))
+                {
+                    file.TrimEnd('x', 'm', 'l');
+                    ImagesList.Items.Add(Path.GetFileName(file));
+                    ImagesList.Refresh();
+                }
+            }
+        }
+
+        private void listBox1_MouseEnter(object sender, EventArgs e)
+        {
+            //RefreshList();
+        }
+
+        private void MainScreen_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_MouseEnter_1(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+
+        //===========================Load In By Clicking List Items===============================
     }
+
 }
