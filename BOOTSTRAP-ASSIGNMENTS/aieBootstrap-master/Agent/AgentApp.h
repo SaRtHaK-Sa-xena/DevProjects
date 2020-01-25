@@ -43,6 +43,7 @@ protected:
 	WanderBehaviour*	m_wanderBehaviour; //wandering behaviour
 
 
+	//==============Player Collectables==============
 	Agent*				m_collectibles;
 	Agent*				m_collectibles1;
 	Agent*				m_collectibles2;
@@ -50,6 +51,17 @@ protected:
 	Agent*				m_collectibles4;
 	Agent*				m_collectibles5;
 	Agent*				m_collectibles6;
+	//==============Player Collectables==============
+
+
+	//==============Enemy Collectables===============
+	Agent*				m_EnemyCollectibles1;
+	Agent*				m_EnemyCollectibles2;
+	Agent*				m_EnemyCollectibles3;
+	Agent*				m_EnemyCollectibles4;
+	Agent*				m_EnemyCollectibles5;
+	Agent*				m_EnemyCollectibles6;
+	//==============Enemy Collectables===============
 
 
 	aie::Texture*		m_playerTexture; //player 
@@ -66,6 +78,12 @@ protected:
 
 	// Holds Collision with Enemy
 	std::vector<Collider>contact;
+
+	// Holds The Range Collidor Of Enemy
+	std::vector<Collider>enemyRange_single;
+
+	// Holds The Range Collidor Outside of boundaries
+	std::vector<Collider>enemyRange_double;
 
 	// Holds Collision with Item
 	std::vector<Collider>collectibles;
@@ -133,6 +151,12 @@ protected:
 	//Change In Behavior
 	bool startPathfinding = false;
 
+	//Boolean To Start Collecting Items
+	bool startEnemyCollectingItems = false;
+
+	//Boolean To Keep Searching
+	bool continueCollison = false;
+
 	//Items To Draw
 	bool drawItem = false;
 	bool drawItem2 = false;
@@ -152,6 +176,13 @@ protected:
 	//Check to draw win screen
 	bool drawWinScreen = false;
 
+	// Check From First Boundary
+	bool checkingFromSingleCollider = true;
 
+	// Check From Second Boundary
+	bool checkingFromDoubleCollider = false;
+
+	// Do Not Check Either
+	bool doNotCheckBothColliders = false;
 
 };

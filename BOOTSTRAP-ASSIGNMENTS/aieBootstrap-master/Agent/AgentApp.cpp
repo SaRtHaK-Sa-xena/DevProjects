@@ -19,6 +19,8 @@ bool AgentApp::startup() {
 
 	walls.resize(16); //sets walls vector to 16
 	contact.resize(4); //sets contact vector to 4
+	enemyRange_single.resize(4); //sets contact vector to 4
+	enemyRange_double.resize(4); //sets contact vector to 4
 	collectibles.resize(5); //sets collectible vector to 10 
 	collectibles1.resize(5); //sets collectible vector to 10 
 	collectibles2.resize(5); //sets collectible vector to 10 
@@ -416,6 +418,8 @@ bool AgentApp::startup() {
 	//============================================================
 	
 
+	//==============Player Collectable Items
+
 	//-----------------ITEM 1---------------
 	m_collectibles = new Agent();
 	m_collectibles->SetPosition(Vector2(30 * 2, 30 * 2));
@@ -435,6 +439,12 @@ bool AgentApp::startup() {
 	//-----------------ITEM 5---------------
 	m_collectibles4 = new Agent();
 	m_collectibles4->SetPosition(Vector2(30 * 3, 30 * 15));
+
+	//==============Player Collectable Items=================
+
+
+	//==========================Set collidor Walls From Item 1 - 6================================
+
 	//Tracks Item For Collision //Reworked Increased by 5 //Reworked Increased by 10 //Reworked Increased by 15
 	collectibles[0].TopLeftposition = Vector2(m_collectibles->GetPosition().m_x - 30, m_collectibles->GetPosition().m_y + 40);
 	collectibles[0].BottomRightPosition = Vector2(m_collectibles->GetPosition().m_x + 25, m_collectibles->GetPosition().m_y + 35);
@@ -522,7 +532,14 @@ bool AgentApp::startup() {
 	collectibles4[3].BottomRightPosition = Vector2(m_collectibles4->GetPosition().m_x + 34, m_collectibles4->GetPosition().m_y - 34);
 	collectibles4[3].sideOfWall = rightSide;
 
+	//==========================Set collidor Walls From Item 1 - 6================================
 
+
+
+	//=================Enemy Collectable Items=============================
+	//m_EnemyCollectibles1 = new Agent();
+	//m_EnemyCollectibles1->SetPosition(Vector2(30 * 2, 30 * 2));
+	//=================Enemy Collectable Items=============================
 
 
 	return true;
@@ -543,8 +560,9 @@ void AgentApp::shutdown() {
 
 void AgentApp::update(float deltaTime) {
 
-
+	//Update List Of PLayer
 	
+
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 	
@@ -585,8 +603,15 @@ void AgentApp::update(float deltaTime) {
 			//deltaTime to 0
 			deltaTime = 0;
 
+
+			//=======Instead of wander Behaviour have it seek to Items===
 			//Add wander behavior
+			//m_enemy->AddBehaviour(m_wanderBehaviour);
+
+			//Enemy pathfinds to items
 			m_enemy->AddBehaviour(m_wanderBehaviour);
+			//=======Instead of wander Behaviour have it seek to Items===
+
 			
 			//Don't draw Screen 'WIN'
 			drawWinScreen = false;
@@ -607,6 +632,9 @@ void AgentApp::update(float deltaTime) {
 
 			//Stop PathFinding
 			startPathfinding = false;
+
+			//Stop PathFind To Items
+			//startEnemyCollectingItems = false;
 		}
 		
 	}
@@ -619,11 +647,7 @@ void AgentApp::update(float deltaTime) {
 		createdEntity = true;
 	}
 
-	//Score Check
-
-
-
-	//Starts Game==================================================================================================================================
+	//===========Starts Game=====================================================================================================================
 	if (startGame == true)
 	{
 		
@@ -636,24 +660,16 @@ void AgentApp::update(float deltaTime) {
 		//Store Players first position
 		Vector2 playerFirstPos = m_player->GetPosition();
 		
-		if (Score <= 2)
-		{
-			m_enemy->Update(deltaTime);
-		}
-		if (Score > 2 && check == false)
-		{
-			m_enemy->RemoveBehaviour();
-			m_enemy->AddBehaviour(m_findPathBehaviour);
-			Vector2 default(0,0);
-			m_enemy->SetVelocity(default);
-			startPathfinding = true;
-			check = true;
-			checkCollisionForEnemy = false;
-		}
-
 
 		
 
+		//if (startEnemyCollectingItems)
+		//{
+			//Get List Of Nodes
+			
+		//}
+
+		//=========PATHFINDING BEHAVIOUR===================================================================================================
 		if (startPathfinding == true)
 		{
 			//If player position changed
@@ -693,22 +709,27 @@ void AgentApp::update(float deltaTime) {
 				currentNode = 0;
 			}
 			
-
+			//If the path still has a Vector2 position of node
 			if (currentPath.size() != 0)
 			{
 				//current Iterator not at the end of List
 				if (currentNode < currentPath.size() - 1)
 				{
 					//if collector at position of Node
-					Vector2 difference;
+					Vector2 difference; //creates a difference
 					difference = m_enemy->GetPosition() - currentPath[currentNode]->position;
 
+					//checks if difference low enough to be considered
+					//on node
 					if (difference.magnitude() <= 2)
 					{
-						//increment Node
+						//increment Node to next on the list
 						currentNode++;
 					}
 				}
+				//If the currentList being followed is 0, then clear items
+				//make the current point equal to 0.
+				//make PathFound = false, To allow another path to be created
 				else
 				{
 					//clears existing current path
@@ -732,32 +753,145 @@ void AgentApp::update(float deltaTime) {
 
 		}
 
-		//======================================================================================================================================
+		//=========PATHFINDING BEHAVIOUR===================================================================================================
 
+		//Score Check
+		if (Score <= 2)
+		{
+			m_enemy->Update(deltaTime);
+			//startEnemyCollectingItems = true;
+		}
+		if (Score > 2 && check == false)
+		{
+			m_enemy->RemoveBehaviour();
+			m_enemy->AddBehaviour(m_findPathBehaviour);
+			Vector2 default(0, 0);
+			m_enemy->SetVelocity(default);
+			startPathfinding = true;
+			check = true;
+			checkCollisionForEnemy = false;
+			doNotCheckBothColliders = true;
+		}
 
 		//Under Enemy Update
 		//Tracks Enemy Position For Collision //Reworked Increased by 5 //Reworked Increased by 10 //Reworked Increased by 15
+		
+		//Top Side Of Enemy
 		contact[0].TopLeftposition = Vector2(m_enemy->GetPosition().m_x - 30, m_enemy->GetPosition().m_y + 40);
 		contact[0].BottomRightPosition = Vector2(m_enemy->GetPosition().m_x + 25, m_enemy->GetPosition().m_y + 35);
 		contact[0].sideOfWall = topSide;
 
+		//Left Side Of Enemy
 		contact[1].TopLeftposition = Vector2(m_enemy->GetPosition().m_x - 30, m_enemy->GetPosition().m_y + 35);
 		contact[1].BottomRightPosition = Vector2(m_enemy->GetPosition().m_x - 25, m_enemy->GetPosition().m_y - 35);
 		contact[1].sideOfWall = leftSide;
 
+		//Bottom Side Of Enemy
 		contact[2].TopLeftposition = Vector2(m_enemy->GetPosition().m_x - 30, m_enemy->GetPosition().m_y - 35);
 		contact[2].BottomRightPosition = Vector2(m_enemy->GetPosition().m_x + 30, m_enemy->GetPosition().m_y - 38);
 		contact[2].sideOfWall = bottomSide;
 
+		//Right Side Of Enemy
 		contact[3].TopLeftposition = Vector2(m_enemy->GetPosition().m_x + 30, m_enemy->GetPosition().m_y + 38);
 		contact[3].BottomRightPosition = Vector2(m_enemy->GetPosition().m_x + 34, m_enemy->GetPosition().m_y - 34);
 		contact[3].sideOfWall = rightSide;
 		//End of collision check function
 
 		
+		//Update List Of Enemy Outer Range
+		//first,second, third and fourth
+		//enemyRange[0].TopLeftposition = /*Equal To Vector2(x,y)*/FindClosestNode(m_enemy->get);
+		
+		//Top Side Of Enemy Range
 
 
 		
+
+	/*Vector2 topSide_left = new Vector2(FindClosestNode(Vector2(m_enemy->GetPosition().m_x - (30 * 2), m_enemy->GetPosition().m_y))->position.m_x,
+		FindClosestNode(Vector2(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y + (30 * 2)))->position.m_y);*/
+	
+	//enemyRange[0].TopLeftposition = Vector2(
+	//	FindClosestNode(Vector2(m_enemy->GetPosition().m_x - (30 * 3),
+	//		m_enemy->GetPosition().m_y))
+	//	->position.m_x,
+	//	FindClosestNode(Vector2(m_enemy->GetPosition().m_x,
+	//		m_enemy->GetPosition().m_y + (30 * 3)))
+	//	->position.m_y);
+	//
+	//enemyRange[0].BottomRightPosition = Vector2(FindClosestNode(Vector2(m_enemy->GetPosition().m_x + (30 * 3), m_enemy->GetPosition().m_y))->position.m_x, FindClosestNode(Vector2(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y + (30 * 3)))->position.m_y);
+	//enemyRange[0].sideOfWall = topSide;
+	//
+	////Left Side Of Enemy Range
+	//enemyRange[1].TopLeftposition = Vector2(FindClosestNode(Vector2(m_enemy->GetPosition().m_x - (30 * 3), m_enemy->GetPosition().m_y))->position.m_x, FindClosestNode(Vector2(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y + (30 * 3)))->position.m_y);
+	//enemyRange[1].BottomRightPosition = Vector2(FindClosestNode(Vector2(m_enemy->GetPosition().m_x - (30 * 3), m_enemy->GetPosition().m_y))->position.m_x, FindClosestNode(Vector2(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y - (30 * 3)))->position.m_y);
+	//enemyRange[1].sideOfWall = leftSide;
+	//
+	////Bottom Side of Enemy Range
+	//enemyRange[3].TopLeftposition = Vector2(FindClosestNode(Vector2(m_enemy->GetPosition().m_x - (30 * 3), m_enemy->GetPosition().m_y))->position.m_x, FindClosestNode(Vector2(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y - (30 * 3)))->position.m_y);;
+	//enemyRange[3].BottomRightPosition = Vector2(FindClosestNode(Vector2(m_enemy->GetPosition().m_x + (30 * 3), m_enemy->GetPosition().m_y))->position.m_x, FindClosestNode(Vector2(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y - (30 * 3)))->position.m_y);
+	//enemyRange[3].sideOfWall = bottomSide;
+	//
+	////Right Side Of Enemy Range
+	//enemyRange[2].TopLeftposition = Vector2(FindClosestNode(Vector2(m_enemy->GetPosition().m_x + (30 * 3), m_enemy->GetPosition().m_y))->position.m_x, FindClosestNode(Vector2(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y + (30 * 3)))->position.m_y);
+	//enemyRange[2].BottomRightPosition = Vector2(FindClosestNode(Vector2(m_enemy->GetPosition().m_x + (30 * 3), m_enemy->GetPosition().m_y))->position.m_x, FindClosestNode(Vector2(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y - (30 * 3)))->position.m_y);
+	//enemyRange[2].sideOfWall = rightSide;
+
+		if (doNotCheckBothColliders == false)
+		{
+			if (checkingFromSingleCollider)
+			{
+				//==== First Collidor Wall ===================================================================================
+
+				//Top Side Of Enemy
+				enemyRange_single[0].TopLeftposition = Vector2(m_enemy->GetPosition().m_x - (30 * 3), m_enemy->GetPosition().m_y + (40 * 3));
+				enemyRange_single[0].BottomRightPosition = Vector2(m_enemy->GetPosition().m_x + (25 * 3), m_enemy->GetPosition().m_y + (35 * 3));
+				enemyRange_single[0].sideOfWall = topSide;
+
+				//Left Side Of Enemy
+				enemyRange_single[1].TopLeftposition = Vector2(m_enemy->GetPosition().m_x - (30 * 3), m_enemy->GetPosition().m_y + (35 * 3));
+				enemyRange_single[1].BottomRightPosition = Vector2(m_enemy->GetPosition().m_x - (25 * 3), m_enemy->GetPosition().m_y - (35 * 3));
+				enemyRange_single[1].sideOfWall = leftSide;
+
+				//Bottom Side Of Enemy
+				enemyRange_single[2].TopLeftposition = Vector2(m_enemy->GetPosition().m_x - (30 * 3), m_enemy->GetPosition().m_y - (35 * 3));
+				enemyRange_single[2].BottomRightPosition = Vector2(m_enemy->GetPosition().m_x + (30 * 3), m_enemy->GetPosition().m_y - (38 * 3));
+				enemyRange_single[2].sideOfWall = bottomSide;
+
+				//Right Side Of Enemy
+				enemyRange_single[3].TopLeftposition = Vector2(m_enemy->GetPosition().m_x + (30 * 3), m_enemy->GetPosition().m_y + (38 * 3));
+				enemyRange_single[3].BottomRightPosition = Vector2(m_enemy->GetPosition().m_x + (34 * 3), m_enemy->GetPosition().m_y - (34 * 3));
+				enemyRange_single[3].sideOfWall = rightSide;
+
+				//==== First Collidor Wall ===================================================================================
+
+
+			}
+			else
+			{
+				//==== Second Collidor Wall ===================================================================================
+				//Top Side Of Enemy
+				enemyRange_double[0].TopLeftposition = Vector2(m_enemy->GetPosition().m_x - (30 * 6), m_enemy->GetPosition().m_y + (40 * 6));
+				enemyRange_double[0].BottomRightPosition = Vector2(m_enemy->GetPosition().m_x + (25 * 6), m_enemy->GetPosition().m_y + (35 * 6));
+				enemyRange_double[0].sideOfWall = topSide;
+
+				//Left Side Of Enemy
+				enemyRange_double[1].TopLeftposition = Vector2(m_enemy->GetPosition().m_x - (30 * 6), m_enemy->GetPosition().m_y + (35 * 6));
+				enemyRange_double[1].BottomRightPosition = Vector2(m_enemy->GetPosition().m_x - (25 * 6), m_enemy->GetPosition().m_y - (35 * 6));
+				enemyRange_double[1].sideOfWall = leftSide;
+
+				//Bottom Side Of Enemy
+				enemyRange_double[2].TopLeftposition = Vector2(m_enemy->GetPosition().m_x - (30 * 6), m_enemy->GetPosition().m_y - (35 * 6));
+				enemyRange_double[2].BottomRightPosition = Vector2(m_enemy->GetPosition().m_x + (30 * 6), m_enemy->GetPosition().m_y - (38 * 6));
+				enemyRange_double[2].sideOfWall = bottomSide;
+
+				//Right Side Of Enemy
+				enemyRange_double[3].TopLeftposition = Vector2(m_enemy->GetPosition().m_x + (30 * 6), m_enemy->GetPosition().m_y + (38 * 6));
+				enemyRange_double[3].BottomRightPosition = Vector2(m_enemy->GetPosition().m_x + (34 * 6), m_enemy->GetPosition().m_y - (34 * 6));
+				enemyRange_double[3].sideOfWall = rightSide;
+
+				//==== Second Collidor Wall ===================================================================================
+			}
+		}
 
 	//=============CHECKS COLLISION FOR OUTSIDE EDGE================
 	//checks for OuterEdge (LEFT SIDE)
@@ -786,7 +920,7 @@ void AgentApp::update(float deltaTime) {
 		}
 		//=============CHECKS COLLISION FOR OUTSIDE EDGE================
 
-		//Checks for collision for PLAYER
+		//==========Checks for collision for PLAYER against walls==========
 		for (int i = 0; i < walls.size(); i++)
 		{
 			if ((m_player->GetPosition().m_x < walls[i].BottomRightPosition.m_x && m_player->GetPosition().m_x > walls[i].TopLeftposition.m_x)
@@ -818,7 +952,10 @@ void AgentApp::update(float deltaTime) {
 
 			}
 		}
+		//==========Checks for collision for PLAYER against walls==========
 
+
+		//=======================Enemy Collision================================ 
 		if (checkCollisionForEnemy)
 		{
 			//Checks For Collision With Enemy
@@ -849,7 +986,7 @@ void AgentApp::update(float deltaTime) {
 			//=============CHECKS COLLISION FOR OUTSIDE EDGE================
 
 
-			//Checks for collision for ENEMY
+			//=========Checks for collision for ENEMY against Walls=========
 			for (int i = 0; i < walls.size(); i++)
 			{
 				if ((m_enemy->GetPosition().m_x < walls[i].BottomRightPosition.m_x && m_enemy->GetPosition().m_x > walls[i].TopLeftposition.m_x)
@@ -881,10 +1018,12 @@ void AgentApp::update(float deltaTime) {
 
 				}
 			}
+			//=========Checks for collision for ENEMY against Walls=========
 		}
-		
+		//=======================Enemy Collision================================ 
 
-		//Collision Test for Player Contact With Enemy
+
+		//==========Collision Test for Player Contact With Enemy==========
 		for (int i = 0; i < contact.size(); i++)
 		{
 			if ((m_player->GetPosition().m_x < contact[i].BottomRightPosition.m_x && m_player->GetPosition().m_x > contact[i].TopLeftposition.m_x)
@@ -937,6 +1076,208 @@ void AgentApp::update(float deltaTime) {
 			}
 		}
 
+		//If First Collidor On
+		//Check From First Collider
+		if (checkingFromSingleCollider)
+		{
+			for (int i = 0; i < enemyRange_single.size(); i++)
+			{
+				if ((m_player->GetPosition().m_x < enemyRange_single[i].BottomRightPosition.m_x && m_player->GetPosition().m_x > enemyRange_single[i].TopLeftposition.m_x)
+					&& (m_player->GetPosition().m_y > enemyRange_single[i].BottomRightPosition.m_y && m_player->GetPosition().m_y < enemyRange_single[i].TopLeftposition.m_y))
+					//This check is basically making sure the player is inside these parameters of topLeft (x,y) and bottomRight (x,y)
+				{
+					switch (enemyRange_single[i].sideOfWall)
+					{
+					case rightSide:
+						m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+						std::cout << "Right Contact Enemy" << std::endl;
+
+						m_enemy->RemoveBehaviour();
+
+						m_enemy->AddBehaviour(m_findPathBehaviour);
+
+						startPathfinding = true;
+
+						checkingFromSingleCollider = false;
+
+						break;
+
+					case leftSide:
+						m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+						std::cout << "Left Contact Enemy" << std::endl;
+
+						m_enemy->RemoveBehaviour();
+
+						m_enemy->AddBehaviour(m_findPathBehaviour);
+
+						startPathfinding = true;
+
+						checkingFromSingleCollider = false;
+
+						break;
+
+					case topSide:
+						m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+						std::cout << "Top Contact Enemy" << std::endl;
+
+						m_enemy->RemoveBehaviour();
+
+						m_enemy->AddBehaviour(m_findPathBehaviour);
+
+						startPathfinding = true;
+
+						checkingFromSingleCollider = false;
+
+						break;
+
+					case bottomSide:
+						m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+						std::cout << "Bottom Contact Enemy" << std::endl;
+
+						m_enemy->RemoveBehaviour();
+
+						m_enemy->AddBehaviour(m_findPathBehaviour);
+
+						startPathfinding = true;
+
+						checkingFromSingleCollider = false;
+
+						break;
+					}
+
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < enemyRange_double.size(); i++)
+			{
+				if ((m_player->GetPosition().m_x < enemyRange_double[i].BottomRightPosition.m_x && m_player->GetPosition().m_x > enemyRange_double[i].TopLeftposition.m_x)
+					&& (m_player->GetPosition().m_y > enemyRange_double[i].BottomRightPosition.m_y && m_player->GetPosition().m_y < enemyRange_double[i].TopLeftposition.m_y))
+					//This check is basically making sure the player is inside these parameters of topLeft (x,y) and bottomRight (x,y)
+				{
+					switch (enemyRange_double[i].sideOfWall)
+					{
+					case rightSide:
+						m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+						std::cout << "Right Contact Enemy" << std::endl;
+
+						m_enemy->RemoveBehaviour();
+
+						m_enemy->AddBehaviour(m_wanderBehaviour);
+
+						checkingFromSingleCollider = true;
+
+						break;
+
+					case leftSide:
+						m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+						std::cout << "Left Contact Enemy" << std::endl;
+
+						m_enemy->RemoveBehaviour();
+
+						m_enemy->AddBehaviour(m_wanderBehaviour);
+
+						checkingFromSingleCollider = true;
+
+						break;
+
+					case topSide:
+						m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+						std::cout << "Top Contact Enemy" << std::endl;
+
+						m_enemy->RemoveBehaviour();
+
+						m_enemy->AddBehaviour(m_wanderBehaviour);
+
+						checkingFromSingleCollider = true;
+
+						break;
+
+					case bottomSide:
+						m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+						std::cout << "Bottom Contact Enemy" << std::endl;
+
+						m_enemy->RemoveBehaviour();
+
+						m_enemy->AddBehaviour(m_wanderBehaviour);
+
+						checkingFromSingleCollider = true;
+
+						break;
+					}
+
+				}
+			}
+		}
+
+
+		//Collison Test with Enemies Outer Range
+		//for (int i = 0; i < enemyRange.size(); i++)
+		//{
+		//	if ((m_player->GetPosition().m_x < enemyRange[i].BottomRightPosition.m_x && m_player->GetPosition().m_x > enemyRange[i].TopLeftposition.m_x)
+		//		&& (m_player->GetPosition().m_y > enemyRange[i].BottomRightPosition.m_y && m_player->GetPosition().m_y < enemyRange[i].TopLeftposition.m_y))
+		//		//This check is basically making sure the player is inside these parameters of topLeft (x,y) and bottomRight (x,y)
+		//	{
+		//		Vector2 default_vel(0, 0);
+		//		switch (enemyRange[i].sideOfWall)
+		//		{
+		//		case rightSide:
+		//			//m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+		//			std::cout << "Enemy Right In Range" << std::endl;
+		//			//Remove Behaviour
+		//			m_enemy->RemoveBehaviour();
+		//			//Add Pathfind Behaviour
+		//			m_enemy->AddBehaviour(m_findPathBehaviour);
+		//			startPathfinding = true;
+		//			check = true;
+		//			checkCollisionForEnemy = false;
+		//			break;
+		//		case leftSide:
+		//			m_player->SetVelocity(Vector2(0, m_player->GetVelocity().m_y)); //only changes x not y
+		//			std::cout << "Enemy Left In Range" << std::endl;
+		//			//Remove Behaviour
+		//			m_enemy->RemoveBehaviour();
+		//			//Add Pathfind Behaviour
+		//			m_enemy->AddBehaviour(m_findPathBehaviour);
+		//			startPathfinding = true;
+		//			check = true;
+		//			checkCollisionForEnemy = false;
+		//			break;
+		//		case topSide:
+		//			m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+		//			std::cout << "Enemy Top In Range" << std::endl;
+		//			//Remove Behaviour
+		//			m_enemy->RemoveBehaviour();
+		//			//Add Pathfind Behaviour
+		//			m_enemy->AddBehaviour(m_findPathBehaviour);
+		//			startPathfinding = true;
+		//			check = true;
+		//			checkCollisionForEnemy = false;
+		//			break;
+		//		case bottomSide:
+		//			m_player->SetVelocity(Vector2(m_player->GetVelocity().m_x, 0)); //only changes y not x
+		//			std::cout << "Enemy Bottom In Range" << std::endl;
+		//			//Remove Behaviour
+		//			m_enemy->RemoveBehaviour();
+		//			//Add Pathfind Behaviour
+		//			m_enemy->AddBehaviour(m_findPathBehaviour);
+		//			startPathfinding = true;
+		//			check = true;
+		//			checkCollisionForEnemy = false;
+		//			break;
+		//		/*default:
+		//			std::cout << "Do not chase" << "... Only Wander" << std::endl;
+		//			m_enemy->RemoveBehaviour();
+		//			m_enemy->AddBehaviour(m_wanderBehaviour);
+		//			break;*/
+		//		}
+		//	}
+		//}
+		//==========Collision Test for Player Contact With Enemy==========
+
+
+		//================Check If An Item Should be drawn================
 		if (drawItem)
 		{
 			//Player Collision With Collectibles Tests
@@ -1148,6 +1489,9 @@ void AgentApp::update(float deltaTime) {
 				}
 			}
 		}
+		//================Check If An Item Should be drawn================
+
+		//==========================Checks Win Condition==========================
 		if (Score == 5)
 		{
 			//draw You Win
@@ -1157,6 +1501,7 @@ void AgentApp::update(float deltaTime) {
 			checkCollisionForEnemy = true;
 			drawWinScreen = true;
 		}
+		//==========================Checks Win Condition==========================
 	}
 }
 
@@ -1207,11 +1552,27 @@ void AgentApp::draw() {
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, Var, 18, 685);
 	
+	//Item 1 For Enemy
+	m_2dRenderer->drawBox((30*14), (30*14), 30,30);
+
+	//Top Right
+	m_2dRenderer->drawBox(FindClosestNode(Vector2(m_enemy->GetPosition().m_x + (30 * 3), m_enemy->GetPosition().m_y))->position.m_x, FindClosestNode(Vector2(m_enemy->GetPosition().m_x , m_enemy->GetPosition().m_y + (30 * 3)))->position.m_y,30, 30);
+	
+	//BottomRight
+	m_2dRenderer->drawBox(FindClosestNode(Vector2(m_enemy->GetPosition().m_x + (30 * 3), m_enemy->GetPosition().m_y))->position.m_x, FindClosestNode(Vector2(m_enemy->GetPosition().m_x , m_enemy->GetPosition().m_y - (30 * 3)))->position.m_y,30, 30);
+	
+	//Top Left
+	m_2dRenderer->drawBox(FindClosestNode(Vector2(m_enemy->GetPosition().m_x - (30 * 3), m_enemy->GetPosition().m_y))->position.m_x, FindClosestNode(Vector2(m_enemy->GetPosition().m_x, m_enemy->GetPosition().m_y + (30 * 3)))->position.m_y, 30, 30);
+
+	//Bottom Left
+	m_2dRenderer->drawBox(FindClosestNode(Vector2(m_enemy->GetPosition().m_x - (30 * 3), m_enemy->GetPosition().m_y))->position.m_x, FindClosestNode(Vector2(m_enemy->GetPosition().m_x , m_enemy->GetPosition().m_y - (30 * 3)))->position.m_y,30, 30);
 
 	// done drawing sprites
 	m_2dRenderer->end();
 }
 
+
+//Returns Closest Node From Given Position Function
 Node * AgentApp::FindClosestNode(Vector2 Position)
 {
 	Node* temp = nodesList[0];
@@ -1231,3 +1592,4 @@ Node * AgentApp::FindClosestNode(Vector2 Position)
 
 	return temp;
 }
+//Returns Closest Node From Given Position Function
