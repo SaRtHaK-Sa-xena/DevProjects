@@ -33,8 +33,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Simon - Assignment", "Simon
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DoubleLinkedList", "DoubleLinkedList\DoubleLinkedList.vcxproj", "{DC55B963-CC08-43B6-A53C-24646C7D1FA5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HASHING", "HASHING\HASHING.vcxproj", "{95D7CCA6-CC7D-4290-AEC3-CA160DB86A74}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -115,14 +113,6 @@ Global
 		{DC55B963-CC08-43B6-A53C-24646C7D1FA5}.Release|x64.Build.0 = Release|x64
 		{DC55B963-CC08-43B6-A53C-24646C7D1FA5}.Release|x86.ActiveCfg = Release|Win32
 		{DC55B963-CC08-43B6-A53C-24646C7D1FA5}.Release|x86.Build.0 = Release|Win32
-		{95D7CCA6-CC7D-4290-AEC3-CA160DB86A74}.Debug|x64.ActiveCfg = Debug|x64
-		{95D7CCA6-CC7D-4290-AEC3-CA160DB86A74}.Debug|x64.Build.0 = Debug|x64
-		{95D7CCA6-CC7D-4290-AEC3-CA160DB86A74}.Debug|x86.ActiveCfg = Debug|Win32
-		{95D7CCA6-CC7D-4290-AEC3-CA160DB86A74}.Debug|x86.Build.0 = Debug|Win32
-		{95D7CCA6-CC7D-4290-AEC3-CA160DB86A74}.Release|x64.ActiveCfg = Release|x64
-		{95D7CCA6-CC7D-4290-AEC3-CA160DB86A74}.Release|x64.Build.0 = Release|x64
-		{95D7CCA6-CC7D-4290-AEC3-CA160DB86A74}.Release|x86.ActiveCfg = Release|Win32
-		{95D7CCA6-CC7D-4290-AEC3-CA160DB86A74}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

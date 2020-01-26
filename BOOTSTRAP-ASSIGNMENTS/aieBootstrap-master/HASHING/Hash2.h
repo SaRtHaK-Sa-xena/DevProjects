@@ -23,10 +23,17 @@ public:
 	void FindBook(string name); // finds by name--> displays book
 	void OverwriteBook(string name); // finds by name--> edits book
 
+	void OverwriteId(string name);
+
 	void FindID(string name); // finds by name--> displays ID
 
-
 	void RemoveItem(string name); // removes key, therefore removing the index's values
+
+	//searches through ID
+	void searchThroughID(int unique_id);
+
+	//searches through book name
+	void searchThroughName(string book_Name);
 
 private:
 	static const int tableSize = 10;

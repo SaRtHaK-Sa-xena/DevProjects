@@ -11,11 +11,6 @@ NodeClass::~NodeClass()
 {
 }
 
-//void NodeClass::SetValue(float value)
-//{
-//	m_current = value;
-//}
-
 void NodeClass::setRight(NodeClass* current)
 {
 	m_right = current;

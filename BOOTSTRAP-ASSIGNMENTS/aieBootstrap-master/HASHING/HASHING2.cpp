@@ -1,9 +1,9 @@
 // HASHING.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 #include "Hash2.h"
-
 #include <string>
 using namespace std;
+
 
 int main()
 {
@@ -20,7 +20,8 @@ int main()
 
 	while (cont)
 	{	
-		cout << "---(a)dd---(r)emove---(f)ind---(u)pdate---(p)rint---(e)xit---" << endl;
+		cout << "---(a)dd---(r)emove---(f)DisplaySpecificInfo---(u)pdate---(p)rint---(e)xit---" << endl;
+		cout << "\n ---(s)Search---" << endl;
 		cin >> choice;
 
 		switch (choice)
@@ -35,6 +36,14 @@ int main()
 			cin.getline(book,50);
 			cout << "Enter Unique id: " << endl;
 			cin >> ID;
+			while (cin.fail())
+			{
+				cout << "Error" << endl;
+				cin.clear();
+				cin.ignore(256, '\n');
+				cout << "Enter a number please: " << endl;
+				cin >> ID;
+			}
 			Hashuse.AddItem(name, book, ID);
 			break;
 		case'r':
@@ -48,7 +57,6 @@ int main()
 
 		case'f':
 			//Finds either ID or BOOK depending on name
-			cout << "\t\t\t Finding..." << endl;
 			cout << "find (book) or (id)" << endl;
 			cin >> options;
 			if (options == "book")
@@ -90,42 +98,76 @@ int main()
 		case'u':
 			//Updates Book Title
 			cout << "\t\t\t Updating..." << endl;
-			cout << "Updating Book Name.." << endl;
 			cout << endl;
 			cout << "===========================" << endl;
-			cout << "Which Person's book would you like to update" << std::endl;
+			cout << "Which Person's details would you like to update" << std::endl;
 			cout << "Enter Person's name to Update: " << endl;
 			cin >> name;
-			Hashuse.OverwriteBook(name);
-			cout << "===========================" << endl;
+
+			cout << "Would you like to update the ID or the Book Name" << endl;
+			cout << "Enter 'id' or 'book'" << endl;
+
+			cin >> options;
+
+			if (options == "id")
+			{
+				cout << "===========================" << endl;
+				Hashuse.OverwriteId(name);
+				cout << "===========================" << endl;
+			}
+			else if (options == "book")
+			{
+				cout << "===========================" << endl;
+				Hashuse.OverwriteBook(name);
+				cout << "===========================" << endl;
+			}
+			else
+			{
+				cout << "Incorrect input entered, please try again later" << endl;
+			}
 			break;
 		case'e':
 			return 0;
+
+		case's':
+			//Searches using ID or NAME
+			cout << "\t\t\t Searching..." << endl;
+			cout << "Do you want to search using ID or Book Name" << endl;
+			cout << "===== Enter 'id' or 'book' =======" << endl;
+
+			cin >> options;
+			if (options == "book")
+			{
+				cout << "Enter Book Name To Use As Key" << endl;
+				cin >> options;
+				Hashuse.searchThroughName(options);
+				break;
+			}
+			else if (options == "id")
+			{
+				cout << "Enter ID To Use As Key" << endl;
+				cin >> ID;
+				while (cin.fail())
+				{
+					cout << "Error" << endl;
+					cin.clear();
+					cin.ignore(256, '\n');
+					cout << "Enter a number please: " << endl;
+					cin >> ID;
+				}
+				Hashuse.searchThroughID(ID);
+				break;
+			}
+			else
+			{
+				cout << "\t\t\t Wrong input...\n \t\t\t try again later..." << endl;
+				break;
+			}
+
 		default:
 			cout << "Pick one of the options listed" << endl;
 		}
 	}
-
-	//===============
-	/*while (name != "exit")
-	{
-		cout << "Remove ";
-		cin >> name;
-		if (name != "exit")
-		{
-			Hashy.RemoveItem(name);
-		}
-	}*/
-	//================
-	//Hashy.PrintItemsInIndex(2);
-
-	//Hashy.PrintItemsInIndex(8);
-	//Hashy
-
-	/*int index;
-	hashClass hashObject;
-	index = hashObject.Hash("Paula");
-	cout << "Index = " << index << endl;*/
 }
 
 

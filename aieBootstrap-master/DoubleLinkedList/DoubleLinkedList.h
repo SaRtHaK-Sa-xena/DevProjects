@@ -107,7 +107,7 @@ public:
 	void PopFront(); // Remove the first element in the list --DONE
 
 
-	void Sort();
+	void Sort(); // Sort The Values
 
 	//Return a boolean, true if the list is empty, false otherwise
 	bool Empty(); // --DONE

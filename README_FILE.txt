@@ -21,7 +21,7 @@ The main menu screen of the tool, brings an interactable weapons list interface,
 
 ## 2.3 Editing A Weapon
 
-The fully created weapon can be edited through the main menu 'Weapons Editor'. This allows user to change the attribute of the weapon created and the weapon name, withgout manually editting the .xml file. When changes have been made through the tool the weapon will now store the new value.
+The fully created weapon can be edited through the main menu 'Weapons Editor'. This allows user to change the attributes of the weapon created, the weapon name and the image it uses, without manually editting the .xml file. When changes have been made through the tool the weapon will now store the new value.
 
 ## 3.0 Tests Performed
 

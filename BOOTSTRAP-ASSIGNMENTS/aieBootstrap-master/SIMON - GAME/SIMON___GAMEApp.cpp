@@ -7,7 +7,6 @@
 aie::Font* g_systemFont = nullptr;
 
 SIMON___GAMEApp::SIMON___GAMEApp() {
-
 }
 
 SIMON___GAMEApp::~SIMON___GAMEApp() {
@@ -34,6 +33,8 @@ bool SIMON___GAMEApp::startup() {
 
 	m_BrightGreenTexture = new aie::Texture("./textures/Bright_Green.png");
 	m_DarkGreenTexture = new aie::Texture("./textures/Dark_Green.png");
+
+	m_redBackGround = new aie::Texture("./textures/redCanvas.png");
 	//====================================Load in Textures=========================
 
 	//create a string of colours
@@ -116,350 +117,16 @@ void SIMON___GAMEApp::update(float deltaTime) {
 	// ==================input example===============
 	aie::Input* input = aie::Input::getInstance();
 
-	//==============Intitializing==================================
-	//nothing is displayed so will equal false
-	AlreadyDisplayed = false;
-	//don't start input phase at beginning of each phase
-	inputPhase = false;
-	//==============Intitializing==================================
-
-	//counter that counts down by delta Time
-	timer -= deltaTime * 2;
-
-	//if the difficulty is greater than 0
-	//To add colours or display it
-	if (difficulty > 0)
+	//Checks if game is runnning...
+	if (gamePaused)
 	{
-		//only triggered the second time
-		if (SequenceFinished)
+		//display "You Lose"
+		//Display "Press 'E' to continue
+		if (input->wasKeyPressed(aie::INPUT_KEY_E))
 		{
-			//Draw Game Phase text
-			TodrawGamePhase = true;
+			//un pause game
+			gamePaused = false;
 			
-			//In beginning
-			if (timer > 4 && timer < 5)
-			{
-				//Display last used colour to be dark
-				if (randomColour == "RED")
-				{
-					TodrawDarkRed = true;
-				}
-				else if (randomColour == "BLUE")
-				{
-					TodrawDarkBlue = true;
-				}
-				else if (randomColour == "GREEN")
-				{
-					TodrawDarkGreen = true;
-				}
-				else if (randomColour == "YELLOW")
-				{
-					TodrawDarkYellow = true;
-				}
-			}
-
-			//if timer greater or equal to 1
-			else if (timer >= 1)
-			{
-
-				//=================Display Sequence Again===========================
-				//since when sequenceFinished is true, insert phase will also equal true
-				if (valueInsertPhase == true)
-				{
-					//create random Colour
-					randomColour = colours[rand() % 4];
-
-					//Set current to beginning
-					current = SimonTree->ReturnRoot();
-					
-					// add colour to Tree
-					SimonTree->add(randomColour);
-					
-					for (int i = 0; i < SimonTree->returnElementsUsed(); i++) {
-						cout << "Value Stored: " << SimonTree->getAt(i)->getData() << endl;
-					}
-
-					//set to false so it doesn't immediate call this function again
-					valueInsertPhase = false;
-					
-					//dispaly colour added for debug purposes
-					cout << "Value Inserted: "<< randomColour << endl;
-				}
-				//=============Display By Current======================
-
-
-				//Since current at beginning
-				//displays first colour as bright 
-				//at the beginning
-				if (current->getData() == "RED")
-				{
-					TodrawDarkRed = false;
-				}
-				else if (current->getData() == "BLUE")
-				{
-					TodrawDarkBlue = false;
-				}
-				else if (current->getData() == "GREEN")
-				{
-					TodrawDarkGreen = false;
-				}
-				else if (current->getData() == "YELLOW")
-				{
-					TodrawDarkYellow = false;
-				}
-				cout << "current: " << current->getData() << endl;
-				//=============Display By Current======================
-
-			}
-
-
-			//Before it reaches 0,
-			//Create each colour to be dark
-			else if (timer > 0 && timer < 1)
-			{
-				TodrawDarkBlue = true;
-				TodrawDarkRed = true;
-				TodrawDarkGreen = true;
-				TodrawDarkYellow = true;
-			}
-
-			//If timer finally less than 0
-			else if (timer < 0)
-			{
-				//set timer back to 6
-				timer = 5;
-
-				//decrement temp difficulty
-				TempTotaldifficulty--;
-
-				//Check if the incremented value less than usedElements
-				if (increment < SimonTree->returnElementsUsed())
-				{
-					/*if (reset)
-					{
-						increment = increment + 1;
-						reset = false;
-					}*/
-						
-					//make current the value at increment
-					current = SimonTree->getAt(increment);
-
-					//increment value to go down the array list
-					increment = increment + 1;
-					
-				}
-
-				
-				else if (TempTotaldifficulty <= 0)
-				{
-					//decrement difficulty since variable difficulty equals to temp difficulty
-					difficulty--;
-					//set the current node to root node in Tree
-					current = SimonTree->ReturnRoot();
-					cout << "-----------CORRECT!!--------" << endl;
-					cout << "GREAT!" << endl;
-					cout << "-------------CORRECT!!-----------" << endl;
-					increment = 0;
-				}
-			}
-			//=================Display Sequence Again===========================
-		}
-
-		//only triggered the first time
-		//Inputs three values to be displayed 
-		else
-		{
-			//Beginning Of Game
-			//Write Text Game Phase
-			TodrawGamePhase = true;
-
-			//if the timer greater or equal to 1
-			if (timer >= 1)
-			{
-				//So it will display colours
-				//Set to true each time by difficulty
-				//which is set to 3
-				if (insert == true)
-				{
-					//finds random colour
-					randomColour = colours[rand() % 4];
-					
-					//makes current Node equal to root of Tree
-					current = SimonTree->ReturnRoot();
-					
-					//add a node with that random generated colour to Tree's end
-					SimonTree->add(randomColour);
-					
-					//make sure this doesn't get hit immediately after
-					insert = false;
-				}
-
-				//While timer running check if it is Red,Blue,Green,Yellow
-				//The one selected won't be dark
-				if (randomColour == "RED")
-				{
-					TodrawDarkRed = false;
-				}
-				else if (randomColour == "BLUE")
-				{
-					TodrawDarkBlue = false;
-				}
-				else if (randomColour == "GREEN")
-				{
-					TodrawDarkGreen = false;
-				}
-				else if (randomColour == "YELLOW")
-				{
-					TodrawDarkYellow = false;
-				}
-			}
-
-			//while the timer is greater or less than 1
-			//make each of them dark, as an interval betweeen switching
-			else if (timer > 0 && timer < 1)
-			{
-				TodrawDarkRed = true;
-				TodrawDarkBlue = true;
-				TodrawDarkGreen = true;
-				TodrawDarkYellow = true;
-			}
-
-			//if timer finally reaches 0 or is less than 0
-			//decrement difficulty to start the phase again
-			//but with a different colour
-			else if (timer <= 0)
-			{
-				//After displayed
-
-				//decrement difficulty
-				difficulty--;
-
-				//Make add 'another value' check to true
-				insert = true;
-
-				//set timer back to 5
-				timer = 5;
-			}
-		}
-	}
-	else
-	{
-		//if the difficulty has reached 0
-		//meaning 3 colours have been added and displayed
-		//make everything dark again and make input phase equal to true
-		TodrawDarkRed = true;
-		TodrawDarkBlue = true;
-		TodrawDarkGreen = true;
-		TodrawDarkYellow = true;
-		inputPhase = true;
-	}
-
-	//Now that all colours have been displayed
-	//The input phase begins
-	if(inputPhase)
-	{
-		//Draw Input and not Game Phase Text
-		TodrawGamePhase = false;
-		TodrawInputPhase = true;
-
-		if (input->wasKeyPressed(aie::INPUT_KEY_W))
-		{
-			TodrawDarkBlue = false;
-			
-			//Set data to check against value
-			Data->setData("BLUE");
-			inputDone = true;
-		}
-		else if (input->wasKeyPressed(aie::INPUT_KEY_A))
-		{
-			TodrawDarkGreen = false;
-			
-			//Set data to check against value
-			Data->setData("GREEN");
-			inputDone = true;
-		}
-		else if (input->wasKeyPressed(aie::INPUT_KEY_S))
-		{
-			TodrawDarkRed = false;
-			
-			//Set data to check against value
-			Data->setData("RED");
-			inputDone = true;
-		}
-		else if (input->wasKeyPressed(aie::INPUT_KEY_D))
-		{
-			TodrawDarkYellow = false;
-			
-			//Set data to check against value
-			Data->setData("YELLOW");
-			inputDone = true;
-		}
-	}
-
-	//One of the buttons pressed
-	//Now it will check if it was correct
-	if (inputDone)
-	{
-		//set it to false, so it doesn't immediately call it again
-		inputDone = false;
-		if (SimonTree->getAt(increment)->getData() == Data->getData())
-		{
-			//If more elements being used in Array
-			if (increment < SimonTree->returnElementsUsed()-1)
-			{
-				//move up index
-				increment = increment + 1;
-			}
-			else
-			{
-				//if the elements have all been checked 
-				//increment diffculty, making it 4
-				difficulty++;
-
-				//increment Total difficulty which always equals to 3
-				Total_difficulty++;
-
-				//make the temperoryDifficulty equal to total
-				TempTotaldifficulty = Total_difficulty;
-				
-				//timer will be resetted
-				timer = 5;
-				
-				//Now the second Phase of the Game will start
-				//By checking true
-				SequenceFinished = true;
-				
-				//set the second phases' insert colour to true
-				valueInsertPhase = true;
-				
-				//bring increment back to zero
-				//increment back at zero to draw colours from beginning
-				increment = 1;
-				reset = true;
-			}
-		}
-
-		//If data not match
-		else if (SimonTree->getAt(increment)->getData() != Data->getData())
-		{
-			cout << "Incorrect" << endl;
-
-			//---Set Values Back In-------
-			//reset values
-			Total_difficulty = 3;
-			//reset values
-			difficulty = 3;
-			//reset values
-			timer = 5;
-			//reset values, don't start next phase
-			SequenceFinished = false;
-			//reset values, start first phase, which inserts three values
-			insert = true;
-			//---Set Values Back In-------
-
-			//set value to 0 again
-			increment = 0;
-
 			//call Shutdown deleting objects
 			shutdown();
 
@@ -470,6 +137,379 @@ void SIMON___GAMEApp::update(float deltaTime) {
 			cout << "----------RESTARTING------" << endl;
 			cout << endl;
 			cout << "----------RESTARTING------" << endl;
+		}
+		else
+		{
+			//set all colours to dark, and keep game paused
+			gamePaused = true;
+			TodrawInputPhase = false;
+			TodrawGamePhase = false;
+			TodrawDarkBlue = true;
+			TodrawDarkGreen = true;
+			TodrawDarkRed = true;
+			TodrawDarkYellow = true;
+			//display continue message
+		}
+	}
+	else
+	{
+		//==============Intitializing==================================
+		//nothing is displayed so will equal false
+		AlreadyDisplayed = false;
+		//don't start input phase at beginning of each phase
+		inputPhase = false;
+		//==============Intitializing==================================
+
+		//counter that counts down by delta Time
+		timer -= deltaTime * 2;
+
+		//if the difficulty is greater than 0
+		//To add colours or display it
+		if (difficulty > 0)
+		{
+			//only triggered the second time
+			if (SequenceFinished)
+			{
+				//Draw Game Phase text
+				TodrawGamePhase = true;
+				TodrawInputPhase = false;
+
+				//In beginning
+				if (timer > 4 && timer < 5)
+				{
+					//Display last used colour to be dark
+					if (randomColour == "RED")
+					{
+						TodrawDarkRed = true;
+					}
+					else if (randomColour == "BLUE")
+					{
+						TodrawDarkBlue = true;
+					}
+					else if (randomColour == "GREEN")
+					{
+						TodrawDarkGreen = true;
+					}
+					else if (randomColour == "YELLOW")
+					{
+						TodrawDarkYellow = true;
+					}
+				}
+
+				//if timer greater or equal to 1
+				else if (timer >= 1)
+				{
+
+					//=================Display Sequence Again===========================
+					//since when sequenceFinished is true, insert phase will also equal true
+					if (valueInsertPhase == true)
+					{
+						//create random Colour
+						randomColour = colours[rand() % 4];
+
+						//Set current to beginning
+						current = SimonTree->ReturnRoot();
+
+						// add colour to Tree
+						SimonTree->add(randomColour);
+
+						for (int i = 0; i < SimonTree->returnElementsUsed(); i++) {
+							cout << "Value Stored: " << SimonTree->getAt(i)->getData() << endl;
+						}
+
+						//set to false so it doesn't immediate call this function again
+						valueInsertPhase = false;
+
+						//dispaly colour added for debug purposes
+						cout << "Value Inserted: " << randomColour << endl;
+					}
+					//=============Display By Current======================
+
+
+					//Since current at beginning
+					//displays first colour as bright 
+					//at the beginning
+					if (current->getData() == "RED")
+					{
+						TodrawDarkRed = false;
+					}
+					else if (current->getData() == "BLUE")
+					{
+						TodrawDarkBlue = false;
+					}
+					else if (current->getData() == "GREEN")
+					{
+						TodrawDarkGreen = false;
+					}
+					else if (current->getData() == "YELLOW")
+					{
+						TodrawDarkYellow = false;
+					}
+					cout << "current: " << current->getData() << endl;
+					//=============Display By Current======================
+
+				}
+
+
+				//Before it reaches 0,
+				//Create each colour to be dark
+				else if (timer > 0 && timer < 1)
+				{
+					TodrawDarkBlue = true;
+					TodrawDarkRed = true;
+					TodrawDarkGreen = true;
+					TodrawDarkYellow = true;
+				}
+
+				//If timer finally less than 0
+				else if (timer < 0)
+				{
+					//set timer back to 6
+					timer = 5;
+
+					//decrement temp difficulty
+					TempTotaldifficulty--;
+
+					//Check if the incremented value less than usedElements
+					if (increment < SimonTree->returnElementsUsed())
+					{
+						//make current the value at increment
+						current = SimonTree->getAt(increment);
+
+						//increment value to go down the array list
+						increment = increment + 1;
+
+					}
+
+
+					else if (TempTotaldifficulty <= 0)
+					{
+						//decrement difficulty since variable difficulty equals to temp difficulty
+						difficulty--;
+						//set the current node to root node in Tree
+						current = SimonTree->ReturnRoot();
+						cout << "-----------CORRECT!!--------" << endl;
+						cout << "GREAT!" << endl;
+						cout << "-------------CORRECT!!-----------" << endl;
+						increment = 0;
+					}
+				}
+				//=================Display Sequence Again===========================
+			}
+
+			//only triggered the first time
+			//Inputs three values to be displayed 
+			else
+			{
+				//Beginning Of Game
+				//Write Text Game Phase
+				TodrawGamePhase = true;
+				TodrawInputPhase = false;
+
+				//if the timer greater or equal to 1
+				if (timer >= 1)
+				{
+					//So it will display colours
+					//Set to true each time by difficulty
+					//which is set to 3
+					if (insert == true)
+					{
+						//finds random colour
+						randomColour = colours[rand() % 4];
+
+						//makes current Node equal to root of Tree
+						current = SimonTree->ReturnRoot();
+
+						//add a node with that random generated colour to Tree's end
+						SimonTree->add(randomColour);
+
+						//make sure this doesn't get hit immediately after
+						insert = false;
+					}
+
+					//While timer running check if it is Red,Blue,Green,Yellow
+					//The one selected won't be dark
+					if (randomColour == "RED")
+					{
+						TodrawDarkRed = false;
+					}
+					else if (randomColour == "BLUE")
+					{
+						TodrawDarkBlue = false;
+					}
+					else if (randomColour == "GREEN")
+					{
+						TodrawDarkGreen = false;
+					}
+					else if (randomColour == "YELLOW")
+					{
+						TodrawDarkYellow = false;
+					}
+				}
+
+				//while the timer is greater or less than 1
+				//make each of them dark, as an interval betweeen switching
+				else if (timer > 0 && timer < 1)
+				{
+					TodrawDarkRed = true;
+					TodrawDarkBlue = true;
+					TodrawDarkGreen = true;
+					TodrawDarkYellow = true;
+				}
+
+				//if timer finally reaches 0 or is less than 0
+				//decrement difficulty to start the phase again
+				//but with a different colour
+				else if (timer <= 0)
+				{
+					//After displayed
+
+					//decrement difficulty
+					difficulty--;
+
+					//Make add 'another value' check to true
+					insert = true;
+
+					//set timer back to 5
+					timer = 5;
+				}
+			}
+		}
+		else
+		{
+			//if the difficulty has reached 0
+			//meaning 3 colours have been added and displayed
+			//make everything dark again and make input phase equal to true
+			TodrawDarkRed = true;
+			TodrawDarkBlue = true;
+			TodrawDarkGreen = true;
+			TodrawDarkYellow = true;
+			inputPhase = true;
+		}
+
+		//Now that all colours have been displayed
+		//The input phase begins
+		if (inputPhase)
+		{
+			//Draw Input and not Game Phase Text
+			TodrawGamePhase = false;
+			TodrawInputPhase = true;
+
+
+			if (input->wasKeyPressed(aie::INPUT_KEY_W))
+			{
+				TodrawDarkBlue = false;
+
+				//Set data to check against value
+				Data->setData("BLUE");
+				inputDone = true;
+			}
+			else if (input->wasKeyPressed(aie::INPUT_KEY_A))
+			{
+				TodrawDarkGreen = false;
+
+				//Set data to check against value
+				Data->setData("GREEN");
+				inputDone = true;
+			}
+			else if (input->wasKeyPressed(aie::INPUT_KEY_S))
+			{
+				TodrawDarkRed = false;
+
+				//Set data to check against value
+				Data->setData("RED");
+				inputDone = true;
+			}
+			else if (input->wasKeyPressed(aie::INPUT_KEY_D))
+			{
+				TodrawDarkYellow = false;
+
+				//Set data to check against value
+				Data->setData("YELLOW");
+				inputDone = true;
+			}
+		}
+
+		//One of the buttons pressed
+		//Now it will check if it was correct
+		if (inputDone)
+		{
+			//set it to false, so it doesn't immediately call it again
+			inputDone = false;
+			if (SimonTree->getAt(increment)->getData() == Data->getData())
+			{
+				//If more elements being used in Array
+				if (increment < SimonTree->returnElementsUsed() - 1)
+				{
+					//move up index
+					increment = increment + 1;
+				}
+				else
+				{
+					//Display Wrong
+
+					//if the elements have all been checked 
+					//increment diffculty, making it 4
+					difficulty++;
+
+					//increment Total difficulty which always equals to 3
+					Total_difficulty++;
+
+					//make the temperoryDifficulty equal to total
+					TempTotaldifficulty = Total_difficulty;
+
+					//timer will be resetted
+					timer = 5;
+
+					//Now the second Phase of the Game will start
+					//By checking true
+					SequenceFinished = true;
+
+					//set the second phases' insert colour to true
+					valueInsertPhase = true;
+
+					//bring increment back to zero
+					//increment back at zero to draw colours from beginning
+					increment = 1;
+					reset = true;
+				}
+			}
+
+			//If data not match
+			else if (SimonTree->getAt(increment)->getData() != Data->getData())
+			{
+				cout << "Incorrect" << endl;
+
+				//---Set Values Back In-------
+				//reset values
+				Total_difficulty = 3;
+				//reset values
+				difficulty = 3;
+				//reset values
+				timer = 5;
+				//reset values, don't start next phase
+				SequenceFinished = false;
+				//reset values, start first phase, which inserts three values
+				insert = true;
+				//---Set Values Back In-------
+
+				//set value to 0 again
+				increment = 0;
+
+				//Show that the User has inputted incorrectly
+				gamePaused = true;
+
+				//call Shutdown deleting objects
+				shutdown();
+
+				//instantiate needed variables again
+				startup();
+
+				//Display Restarting for Debug sakes
+				cout << "----------RESTARTING------" << endl;
+				cout << endl;
+				cout << "----------RESTARTING------" << endl;
+			}
 		}
 	}
 }
@@ -483,7 +523,7 @@ void SIMON___GAMEApp::draw() {
 	m_2dRenderer->begin();
 
 	// draw your stuff here!
-
+	
 	//=====================DEFAULT RED COLOURS RENDERERD IN========================================
 	if (TodrawDarkRed)
 	{
@@ -524,18 +564,28 @@ void SIMON___GAMEApp::draw() {
 		//Rules for player to abide by
 		m_2dRenderer->drawText(g_systemFont, "GAME PHASE", 500, 300);
 	}
-	else
+	if(TodrawInputPhase)
 	{
 		//Rules for player to abide by
 		m_2dRenderer->drawText(g_systemFont, "INPUT PHASE", 500, 400);
 	}
 
-	//============KEYS FOR HELP==========================
-	m_2dRenderer->drawText(g_systemFont, "W", 590, 590);
-	m_2dRenderer->drawText(g_systemFont, "A", 350, 350);
-	m_2dRenderer->drawText(g_systemFont, "S", 590, 100);
-	m_2dRenderer->drawText(g_systemFont, "D", 850, 350);
-	//============KEYS FOR HELP==========================
+	if (gamePaused)
+	{
+		m_2dRenderer->drawSprite(m_redBackGround, 630, 500, 1500, 1280);
+		//display wrong and then e to continue
+		m_2dRenderer->drawText(g_systemFont, "Wrong Sequence Inputted", 500, 500);
+		m_2dRenderer->drawText(g_systemFont, "Press 'E' To Continue", 500, 400);
+	}
+	else
+	{
+		//============KEYS FOR HELP==========================
+		m_2dRenderer->drawText(g_systemFont, "W", 590, 590);
+		m_2dRenderer->drawText(g_systemFont, "A", 350, 350);
+		m_2dRenderer->drawText(g_systemFont, "S", 590, 100);
+		m_2dRenderer->drawText(g_systemFont, "D", 850, 350);
+		//============KEYS FOR HELP==========================
+	}
 
 	// done drawing sprites
 	m_2dRenderer->end();

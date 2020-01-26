@@ -75,25 +75,124 @@ int hashClass::NumberOfItemsInIndex(int index)
 	return count; //the amount of items
 }
 
+
 void hashClass::PrintTable()
 {
+	//Previous:
+	//============================================================================
 	int number;
+	//for (int i = 0; i < tableSize; i++)
+	//{
+	//	number = NumberOfItemsInIndex(i); //number will equal no. of items in List
+	//	cout << "---------------------------\n";
+	//	cout << "index = " << i << endl;
+	//	cout << "Name: " << HashTable[i]->name << endl;
+	//	cout << "Favourite Book Name: " << HashTable[i]->favBookName << endl;
+	//	cout << "Unique Identifier: " << HashTable[i]->itemCode << endl;
+	//	cout << "# of items = " << number << endl;
+	//	cout << "---------------------------\n";
+	//	
+
+	//	item* Ptr = HashTable[i]; //makes the Ptr set to hashtable[index]
+	//	cout << "index " << i << " contains the following item\n";
+
+	//	// while that ptr is not null
+	//	while (Ptr != NULL)
+	//	{
+	//		cout << "-------------------\n";
+	//		cout << "Name: " << Ptr->name << endl;
+	//		cout << "Book: " << Ptr->favBookName << endl;
+	//		cout << "Unique ID: " << Ptr->itemCode << endl;
+	//		cout << "-------------------\n";
+
+	//		Ptr = Ptr->next;
+	//	}
+	//}
+	//============================================================================
+
+
+	//New Attempt:
+	//============================================================================
 	for (int i = 0; i < tableSize; i++)
 	{
 		number = NumberOfItemsInIndex(i); //number will equal no. of items in List
+		//displaying all data in all index
+		cout << "Displaying Items In Index: " << i << endl;
 		cout << "---------------------------\n";
 		cout << "index = " << i << endl;
 		cout << "Name: " << HashTable[i]->name << endl;
 		cout << "Favourite Book Name: " << HashTable[i]->favBookName << endl;
 		cout << "Unique Identifier: " << HashTable[i]->itemCode << endl;
 		cout << "# of items = " << number << endl;
+		if (number != 0)
+		{
+			PrintItemsInIndex(i);
+		}
 		cout << "---------------------------\n";
-
-
 	}
 }
 
+//uses the id as key to display details
+void hashClass::searchThroughID(int unique_id)
+{
+	bool keepSearching = true;
+	int number = 0;
+	
+	if (keepSearching)
+	{
+		for (int i = 0; i < tableSize; i++)
+		{
+			number = NumberOfItemsInIndex(i);
 
+			//look for items
+			item *Ptr = HashTable[i];
+
+			for (int j = 0; j < number; j++)
+			{
+				if(Ptr->itemCode == unique_id)
+				{
+					cout << "-------------------\n";
+					cout << "Name: " << Ptr->name << endl;
+					cout << "Book: " << Ptr->favBookName << endl;
+					cout << "Unique ID: " << Ptr->itemCode << endl;
+					cout << "-------------------\n";
+				}
+				Ptr = Ptr->next;
+			}
+		}
+	}
+}
+
+//uses the book name as key to display details
+void hashClass::searchThroughName(string book_Name)
+{
+	bool keepSearching = true;
+	int number = 0;
+
+	if (keepSearching)
+	{
+		for (int i = 0; i < tableSize; i++)
+		{
+			number = NumberOfItemsInIndex(i);
+
+			//look for items
+			item *Ptr = HashTable[i];
+
+			for (int j = 0; j < number; j++)
+			{
+				if (Ptr->favBookName == book_Name)
+				{
+					cout << "-------------------\n";
+					cout << "Name: " << Ptr->name << endl;
+					cout << "Book: " << Ptr->favBookName << endl;
+					cout << "Unique ID: " << Ptr->itemCode << endl;
+					cout << "-------------------\n";
+				}
+				Ptr = Ptr->next;
+			}
+		}
+	}
+}
 
 void hashClass::PrintItemsInIndex(int index)
 {
@@ -155,36 +254,63 @@ void hashClass::FindBook(string name)
 
 void hashClass::OverwriteBook(string name)
 {
-
-	int index = Hash(name);
-	bool foundName = false;
 	string book;
+	int number = 0;
 
-	//input gained for new book title
-	char newBook[50];
-
-	item* Ptr = HashTable[index];
-	//while not at end of list
-	while (Ptr != NULL)
-	{
-		if (Ptr->name == name)
+		for (int i = 0; i < tableSize; i++)
 		{
-			foundName = true;
-			book = Ptr->favBookName;
-			cout << "Enter New Book Title: " << endl;
-			cin.ignore(1);
-			cin.getline(newBook,50);
-			HashTable[index]->favBookName = newBook;
+			number = NumberOfItemsInIndex(i);
+
+			//look for items
+			item *Ptr = HashTable[i];
+
+			for (int j = 0; j < number; j++)
+			{
+				if (Ptr->name == name)
+				{
+					cout << "-----------PREVIOUS DATA--------\n";
+					cout << "Name: " << Ptr->name << endl;
+					cout << "Book: " << Ptr->favBookName << endl;
+					cout << "Unique ID: " << Ptr->itemCode << endl;
+					cout << "-----------PREVIOUS DATA--------\n";
+
+					cout << "Enter New Book Title: " << endl;
+					cin >> book;
+					Ptr->favBookName = book;
+				}
+				Ptr = Ptr->next;
+			}
 		}
-		Ptr = Ptr->next;
-	}
-	if (foundName == true)
+}
+
+void hashClass::OverwriteId(string name)
+{
+	int newID;
+	int number = 0;
+
+	for (int i = 0; i < tableSize; i++)
 	{
-		cout << "New Favorite Book = " << newBook << endl;
-	}
-	else
-	{
-		cout << name << "'s info wasn't found in the Hash table\n";
+		number = NumberOfItemsInIndex(i);
+
+		//look for items
+		item *Ptr = HashTable[i];
+
+		for (int j = 0; j < number; j++)
+		{
+			if (Ptr->name == name)
+			{
+				cout << "-----------PREVIOUS DATA--------\n";
+				cout << "Name: " << Ptr->name << endl;
+				cout << "Book: " << Ptr->favBookName << endl;
+				cout << "Unique ID: " << Ptr->itemCode << endl;
+				cout << "-----------PREVIOUS DATA--------\n";
+
+				cout << "Enter New Unique ID: " << endl;
+				cin >> newID;
+				Ptr->itemCode = newID;
+			}
+			Ptr = Ptr->next;
+		}
 	}
 }
 
@@ -287,6 +413,8 @@ void hashClass::RemoveItem(string name)
 	}
 	
 }
+
+
 
 
 

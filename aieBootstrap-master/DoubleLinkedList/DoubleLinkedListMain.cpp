@@ -12,7 +12,7 @@ using namespace std;
 void InsertValue(DoubleLinkedList *list);
 void BeginningOfIterator(DoubleLinkedList *list, Node *temp);
 void EndOfIterator(DoubleLinkedList *list);
-
+void EraseThroughIterator(DoubleLinkedList* list);
 
 int main()
 {
@@ -35,11 +35,11 @@ int main()
 		cout << endl;
 		cout << endl;
 		std::cout << "Would You Like To: " << std::endl;
-		std::cout << "|PUSHFRONT(A)-			-PUSHBACK(B)" << "\n" << "INSERTAFTER(C)-			-BEGIN(D)" << "\n" << "END(E)-				-FIRST(F)"
-			<< "\n\n|LAST(G)-			-COUNT(H)" << "\n" << "--ERASE(I)-			-REMOVE(J)" << "\n" << "-POPBACK(K)-			-POPFRONT(L)" << "\n" << "-CLEAR(M)" << std::endl;
+		std::cout << "|PUSHFRONT(a)-			-PUSHBACK(b)" << "\n" << "INSERTAFTER(c)-			-BEGIN(d)" << "\n" << "END(e)-				-FIRST(f)"
+			<< "\n\n|LAST(g)-			-COUNT(h)" << "\n" << "--ERASE(i)-			-REMOVE(j)" << "\n" << "-POPBACK(k)-			-POPFRONT(l)" << "\n" << "-CLEAR(m)" << std::endl;
 		
 		std::cout << "=============================" << endl;
-		std::cout << "Sort Data? (Y)" << std::endl;
+		std::cout << "Sort Data? (y)" << std::endl;
 		std::cin >> choice;
 
 		//input function
@@ -88,16 +88,22 @@ int main()
 			
 		case'd':
 			std::cout << "\t\t\tDisplaying From Begin..." << endl;//iterates
-			BeginningOfIterator(doubleList, node);
-			std::cout << "Printing After List: " << std::endl;
-			doubleList->Print();
+			if (doubleList->Count() > 1)
+			{
+				BeginningOfIterator(doubleList, node);
+				std::cout << "Printing After List: " << std::endl;
+				doubleList->Print();
+			}
 			break;
 
 		case'e':
 			std::cout << "\t\t\tDisplaying From End..." << endl;
-			EndOfIterator(doubleList);
-			std::cout << "Printing After List: " << std::endl;
-			doubleList->Print();
+			if (doubleList->Count() > 1)
+			{
+				EndOfIterator(doubleList);
+				std::cout << "Printing After List: " << std::endl;
+				doubleList->Print();
+			}
 			break;
 
 		case'f':
@@ -138,21 +144,6 @@ int main()
 				cin.ignore(256, '\n');
 				cin >> n;
 			}
-			//====================Delete=========================
-			/*node2 = doubleList->First();
-			for (int i = 0; i < doubleList->Count(); i++)
-			{
-				if (node2->m_data == n)
-				{
-					j++;
-				}
-				node2 = node2->next;
-			}
-			for (int i = 0; i < j; i++)
-			{
-				doubleList->Remove(n);
-			}*/
-			//====================Delete=========================
 			doubleList->Remove(n);
 			std::cout << "Printing After List: " << std::endl;
 			doubleList->Print();
@@ -205,37 +196,39 @@ int main()
 
 void InsertValue(DoubleLinkedList *list)
 {
+	//checks if list is empty
 	if (!list->Empty())
 	{
-		string input;
-		cout << "Select starting point --> from (FIRST) or from (LAST)" << endl;
-		cin >> input;
-		if (input == "FIRST")
+		//Function Attempt 1:
+		//Asks for position, asks for value, adds it after that position and appends the array
+
+
+		//value to be used as position
+		int position;
+
+		//value to be inserted after position
+		int NumberToBeInserted;
+
+		//ask for position
+
+		cout << "Enter Position:" << endl;
+		cin >> position;
+		while (cin.fail())
 		{
-			DoubleLinkedList::Iterator temp = list->First(); //sets to become an iterator, and sets position to FIRST
-			int size;
-			std::cout << "Enter" << "\n How many places down from the beginning : " << std::endl;
-			std::cin >> size;
-			if (list->Count() > size)
-			{
-				while (cin.fail())
-				{
-					cout << "Error" << endl;
-					cin.clear();
-					cout << "Enter a Number: " << endl;
-					cin.ignore(256, '\n');
-					cin >> size;
-				}
-				//Increments forward depending on temp = temp->next
-				for (int i = 0; i < size - 1; i++)
-				{
-					//temp = temp->next;
-					temp++;
-				}
-				int NumberToBeInserted;
-				std::cout << "What Number To Place In That Position: " << std::endl;
-				std::cin >> NumberToBeInserted;
-				while (cin.fail())
+			cout << "Error" << endl;
+			cin.clear();
+			cout << "Enter a Number: " << endl;
+			cin.ignore(256, '\n');
+			cin >> position;
+		}
+
+		//check if the position equal to list
+		if (position == list->Count())
+		{
+			int NumberToBeInserted;
+			std::cout << "What Number To Place In That Position: " << std::endl;
+			std::cin >> NumberToBeInserted;
+			while (cin.fail())
 				{
 					cout << "Error" << endl;
 					cin.clear();
@@ -243,58 +236,320 @@ void InsertValue(DoubleLinkedList *list)
 					cin.ignore(256, '\n');
 					cin >> NumberToBeInserted;
 				}
-				list->InsertAfter(temp.GetNode(), NumberToBeInserted);
+			list->PushBack(NumberToBeInserted);
+		}
+		else if (position > list->Count())
+		{
+			std::cout << "Number entered exceeds list size by more than one..." << std::endl;
+			std::cout << "---------------------------------------------------" << std::endl;
+		}
+		else
+		{
+			DoubleLinkedList::Iterator temp = list->First();
+			
+			//...move iterator up
+			for (int i = 0; i < position-1; i++)
+				{
+					temp++;
+				}
+
+			int NumberToBeInserted;
+			std::cout << "What Number To Place In That Position: " << std::endl;
+			std::cin >> NumberToBeInserted;
+			while (cin.fail())
+				{
+					cout << "Error" << endl;
+					cin.clear();
+					cout << "Enter a Number: " << endl;
+					cin.ignore(256, '\n');
+					cin >> NumberToBeInserted;
+				}
+			list->InsertAfter(temp.GetNode(), NumberToBeInserted);
+		}
+
+
+		//else
+		//{
+		//	//set iterator to First
+		//	//move iterator to the position
+		//	for (int i = 0; i < position; i++)
+		//	{
+		//		temp++;
+		//	}
+		//	cout << "What Number To Add: " << endl;
+		//	cin >> NumberToBeInserted;
+		//	while (cin.fail())
+		//	{
+		//		cout << "Error" << endl;
+		//		cin.clear();
+		//		cout << "Enter a Number: " << endl;
+		//		cin.ignore(256, '\n');
+		//		cin >> NumberToBeInserted;
+		//	}
+		//	list->InsertAfter(temp.GetNode(), NumberToBeInserted);
+		//}
+		//===========================================================
+
+
+
+		//=Previous Attempt: 
+		
+		
+		//value to be used
+		//int value;
+
+		////create string to take input
+		//string inputFromUser;
+
+		////call for input
+		//cout << "Enter + if you wish to start from the beginning" << endl;
+		//cout << "Enter - if you wish to start from the end" << endl;
+		//cout << "Examples include: +2, -3" << endl;
+		//cin >> inputFromUser;
+		//
+		//	if (inputFromUser[0] == '+')
+		//	{
+		//		//If it a plus
+		//		DoubleLinkedList::Iterator temp = list->First(); //sets to become an iterator, and sets position to FIRST
+
+		//		
+		//		//string without the plus or minus
+		//		string stringWithoutThePlusOrMinus = inputFromUser.erase(0, 1);
+
+		//		
+		//		//convert to an integer
+		//		value = std::stoi(stringWithoutThePlusOrMinus);
+
+		//		if (list->Count() >= value)
+		//		{
+		//			if (value == list->Count())
+		//			{
+		//				int NumberToBeInserted;
+		//				std::cout << "What Number To Place In That Position: " << std::endl;
+		//				std::cin >> NumberToBeInserted;
+		//				while (cin.fail())
+		//				{
+		//					cout << "Error" << endl;
+		//					cin.clear();
+		//					cout << "Enter a Number: " << endl;
+		//					cin.ignore(256, '\n');
+		//					cin >> NumberToBeInserted;
+		//				}
+		//				list->PushBack(NumberToBeInserted);
+		//			}
+		//			else
+		//			{
+		//				//...move iterator up
+		//				for (int i = 0; i < value; i++)
+		//				{
+		//					temp++;
+		//				}
+
+		//				int NumberToBeInserted;
+		//				std::cout << "What Number To Place In That Position: " << std::endl;
+		//				std::cin >> NumberToBeInserted;
+		//				while (cin.fail())
+		//				{
+		//					cout << "Error" << endl;
+		//					cin.clear();
+		//					cout << "Enter a Number: " << endl;
+		//					cin.ignore(256, '\n');
+		//					cin >> NumberToBeInserted;
+		//				}
+		//				list->InsertAfter(temp.GetNode(), NumberToBeInserted);
+		//			}
+		//		}
+		//		else
+		//		{
+		//			std::cout << "Number entered exceeds list size by more than one..." << std::endl;
+		//			std::cout << "---------------------------------------------------" << std::endl;
+		//		}
+		//	}
+
+		//	// if there is a minus at the beginning
+		//	else if (inputFromUser[0] == '-')
+		//	{
+		//		//If it a minus
+		//		DoubleLinkedList::Iterator temp = list->Last(); //sets to become an iterator, and sets position to FIRST
+		//		
+		//		//string without the plus or minus
+		//		string stringWithoutThePlusOrMinus = inputFromUser.erase(0, 1);
+
+		//		//convert to an integer
+		//		value = std::stoi(stringWithoutThePlusOrMinus);
+
+		//		if (list->Count() >= value)
+		//		{
+		//			if (value == list->Count())
+		//			{
+		//				int NumberToBeInserted;
+		//				std::cout << "What Number To Place In That Position: " << std::endl;
+		//				std::cin >> NumberToBeInserted;
+		//				while (cin.fail())
+		//				{
+		//					cout << "Error" << endl;
+		//					cin.clear();
+		//					cout << "Enter a Number: " << endl;
+		//					cin.ignore(256, '\n');
+		//					cin >> NumberToBeInserted;
+		//				}
+		//				list->PushFront(NumberToBeInserted);
+		//			}
+		//			//since iterator doesn't need to move
+		//			else if (value == 0)
+		//			{
+		//				int NumberToBeInserted;
+		//				std::cout << "What Number To Place In That Position: " << std::endl;
+		//				std::cin >> NumberToBeInserted;
+		//				while (cin.fail())
+		//				{
+		//					cout << "Error" << endl;
+		//					cin.clear();
+		//					cout << "Enter a Number: " << endl;
+		//					cin.ignore(256, '\n');
+		//					cin >> NumberToBeInserted;
+		//				}
+		//				list->PushBack(NumberToBeInserted);
+		//			}
+		//			else
+		//			{
+		//				//...move iterator up using that integer
+		//				for (int i = 0; i < (value); i++)
+		//				{
+		//					temp--;
+		//				}
+
+		//				int NumberToBeInserted;
+		//				std::cout << "What Number To Place In That Position: " << std::endl;
+		//				std::cin >> NumberToBeInserted;
+		//				while (cin.fail())
+		//				{
+		//					cout << "Error" << endl;
+		//					cin.clear();
+		//					cout << "Enter a Number: " << endl;
+		//					cin.ignore(256, '\n');
+		//					cin >> NumberToBeInserted;
+		//				}
+		//				list->InsertAfter(temp.GetNode(), NumberToBeInserted);
+		//			}
+		//		}
+		//		else
+		//		{
+		//			std::cout << "Number entered exceeds list size by more than one..." << std::endl;
+		//			std::cout << "---------------------------------------------------" << std::endl;
+		//		}
+		//	}
+		//	else
+		//	{
+		//		std::cout << "Number entered exceeds list size..." << std::endl;
+		//		std::cout << "---------------------------------------------------" << std::endl;
+		//	}
+			//===============================================================================================
+	}
+	else
+	{
+		cout << "List Is Empty" << endl;
+	}
+}
+
+void EraseThroughIterator(DoubleLinkedList *list)
+{
+	//checks if list is empty
+	if (!list->Empty())
+	{
+		//value to be used
+		int value;
+
+		//create string to take input
+		string inputFromUser;
+
+		//call for input
+		cout << "Enter + if you wish to start from the beginning" << endl;
+		cout << "Enter - if you wish to start from the end" << endl;
+		cout << "Examples include: +2, -3" << endl;
+		cin >> inputFromUser;
+
+		if (inputFromUser[0] == '+')
+		{
+			//If it a plus
+			DoubleLinkedList::Iterator temp = list->Begin(); //sets to become an iterator, and sets position to FIRST
+
+
+			//string without the plus or minus
+			string stringWithoutThePlusOrMinus = inputFromUser.erase(0, 1);
+
+
+			//convert to an integer
+			value = std::stoi(stringWithoutThePlusOrMinus);
+
+			if (list->Count() >= value)
+			{
+				if (value == list->Count())
+				{
+					list->PopBack();
+				}
+				else
+				{
+					//...move iterator up
+					for (int i = 0; i < value; i++)
+					{
+						temp++;
+					}
+
+					list->Erase(temp.GetNode());
+				}
 			}
 			else
 			{
-				std::cout << "Number entered exceeds list size..." << std::endl;
+				std::cout << "Number entered exceeds list size by more than one..." << std::endl;
 				std::cout << "---------------------------------------------------" << std::endl;
 			}
 		}
-		else if (input == "LAST")
+
+		// if there is a minus at the beginning
+		else if (inputFromUser[0] == '-')
 		{
-			DoubleLinkedList::Iterator temp = list->Last();
-			int size;
+			//If it a minus
+			DoubleLinkedList::Iterator temp = list->End(); //sets to become an iterator, and sets position to FIRST
 
-			cout << "Enter" << "\n How many places up from the end : " << endl;
-			cin >> size;
+			//string without the plus or minus
+			string stringWithoutThePlusOrMinus = inputFromUser.erase(0, 1);
 
-			if (list->Count() > size)
+			//convert to an integer
+			value = std::stoi(stringWithoutThePlusOrMinus);
+
+			if (list->Count() >= value)
 			{
+				if (value == list->Count())
+				{
+					list->PopFront();
+				}
+				//since iterator doesn't need to move
+				else if (value == 0)
+				{
+					list->PopBack();
+				}
+				else
+				{
+					//...move iterator up using that integer
+					for (int i = 0; i < (value); i++)
+					{
+						temp--;
+					}
 
-				while (cin.fail())
-				{
-					cout << "Error" << endl;
-					cin.clear();
-					cout << "Enter a Number: " << endl;
-					cin.ignore(256, '\n');
-					cin >> size;
+					list->Erase(temp.GetNode());
 				}
-
-				int NumberToBeInserted;
-				//Increments forward depending on temp = temp->next
-				for (int i = 0; i < size; i++)
-				{
-					//temp = temp->next;
-					temp--;
-				}
-				std::cout << "What Number To Place In That Position: " << std::endl;
-				std::cin >> NumberToBeInserted;
-				while (cin.fail())
-				{
-					cout << "Error" << endl;
-					cin.clear();
-					cout << "Enter a Number: " << endl;
-					cin.ignore(256, '\n');
-					cin >> NumberToBeInserted;
-				}
-				list->InsertAfter(temp.GetNode(), NumberToBeInserted);
 			}
 			else
 			{
-				std::cout << "Number entered exceeds list size..." << std::endl;
+				std::cout << "Number entered exceeds list size by more than one..." << std::endl;
 				std::cout << "---------------------------------------------------" << std::endl;
 			}
+		}
+		else
+		{
+			std::cout << "Number entered exceeds list size..." << std::endl;
+			std::cout << "---------------------------------------------------" << std::endl;
 		}
 	}
 	else
@@ -302,45 +557,54 @@ void InsertValue(DoubleLinkedList *list)
 		cout << "List Is Empty" << endl;
 	}
 }
+
+
 void BeginningOfIterator(DoubleLinkedList *list, Node* temp)
 {
-	DoubleLinkedList::Iterator current = list->Begin();
-	int position;
-	cout << "Enter Which Position To Display From the Beginning" << endl;
-	cin >> position;
-	while (cin.fail())
+	if (!list->Empty())
 	{
-		cout << "Error" << endl;
-		cin.clear();
-		cout << "Enter a Number: " << endl;
-		cin.ignore(256, '\n');
+		DoubleLinkedList::Iterator current = list->Begin();
+		int position;
+		cout << "Enter Which Position To Display From the Beginning" << endl;
 		cin >> position;
+		while (cin.fail())
+		{
+			cout << "Error" << endl;
+			cin.clear();
+			cout << "Enter a Number: " << endl;
+			cin.ignore(256, '\n');
+			cin >> position;
+		}
+		for (int i = 0; i < position; i++)
+		{
+			current++;
+		}
+		temp = current.GetNode();
+		std::cout << temp->m_data << endl;
 	}
-	for (int i = 0; i < position; i++)
-	{
-		current++;
-	}
-	temp = current.GetNode();
-	std::cout << temp->m_data << endl;
 }
+
 void EndOfIterator(DoubleLinkedList *list)
 {
-	DoubleLinkedList::Iterator current = list->End();
-	int position;
-	cout << "Enter Which Position To Display From the Beginning" << endl;
-	cin >> position;
-	while (cin.fail())
+	if (!list->Empty())
 	{
-		cout << "Error" << endl;
-		cin.clear();
-		cout << "Enter a Number: " << endl;
-		cin.ignore(256, '\n');
+		DoubleLinkedList::Iterator current = list->End();
+		int position;
+		cout << "Enter Which Position To Display From the End" << endl;
 		cin >> position;
+		while (cin.fail())
+		{
+			cout << "Error" << endl;
+			cin.clear();
+			cout << "Enter a Number: " << endl;
+			cin.ignore(256, '\n');
+			cin >> position;
+		}
+		for (int i = 0; i < position; i++)
+		{
+			current--;
+		}
+		Node *temp = current.GetNode();
+		std::cout << temp->m_data << endl;
 	}
-	for (int i = 0; i < position; i++)
-	{
-		current--;
-	}
-	Node *temp = current.GetNode();
-	std::cout << temp->m_data << endl;
 }

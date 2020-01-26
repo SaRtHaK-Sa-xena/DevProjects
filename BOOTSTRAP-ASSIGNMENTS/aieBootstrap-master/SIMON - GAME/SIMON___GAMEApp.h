@@ -40,6 +40,8 @@ protected:
 
 	aie::Texture* m_BrightGreenTexture;
 	aie::Texture* m_DarkGreenTexture;
+
+	aie::Texture* m_redBackGround;
 	//=============Textures==============
 
 
@@ -73,7 +75,8 @@ protected:
 	bool TodrawDarkGreen = true;
 	bool TodrawDarkYellow = true;
 	bool TodrawGamePhase = true;
-	bool TodrawInputPhase;
+	bool TodrawInputPhase = false;
+	bool gamePaused = false;
 	//=====ToDrawQuery===========
 
 

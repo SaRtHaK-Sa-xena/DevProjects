@@ -4,6 +4,7 @@
 #include "pch.h"
 #include <iostream>
 #include "Array.h"
+#include <string>
 
 
 using namespace std;
@@ -21,7 +22,8 @@ private:
 
 public:
 	
-	
+	bool restart = false;
+	bool restartUO = false;
 
 	//Constructor
 	DynamicArray()
@@ -106,6 +108,7 @@ public:
 	//remove unordered 
 	void RemoveUO(int value)
 	{
+		//remove the value
 		for (int i = 0; i < usedElements; i++)
 		{
 			//Ptr equal to value
@@ -119,26 +122,18 @@ public:
 				ptrArray[usedElements - 1] = Temp;
 				//delete last value
 				popBack();
-				break;
 				//Swap
 			}
 		}
-
-
-		/*int i = 0;
-		while (i < usedElements)
+		
+		//check if it needs to loop to it
+		for (int i = 0; i < usedElements; i++)
 		{
 			if (ptrArray[i] == value)
 			{
-				int Temp = ptrArray[i];
-				ptrArray[i] = ptrArray[usedElements];
-				ptrArray[usedElements] = ptrArray[i];
-				popBack();
-				break;
+				RemoveUO(value);
 			}
-			i++;
-		}*/
-
+		}
 	}
 
 	//Clears entire array
@@ -163,6 +158,10 @@ public:
 			//if the value of pos matches the value inputted
 			if (ptrArray[i] == value)
 			{
+				if (ptrArray[i + 1] == value)
+				{
+					restart = true;
+				}
 				//swap
 				int Temp = ptrArray[i];
 				ptrArray[i] = ptrArray[i + 1];
@@ -171,8 +170,11 @@ public:
 			}
 		}
 		popBack();
-		//Call PopBack function
-
+		if (restart)
+		{
+			restart = false;
+			Remove(value);
+		}
 	}
 
 	//adds to the dyanmic array
@@ -192,7 +194,7 @@ public:
 	//adds in the middle
 	void AddInMiddle(int value, int position)
 	{
-		if (usedElements > 1)
+		if (usedElements > 0)
 		{
 			//one element more than end
 			int i = usedElements + 1;
@@ -206,16 +208,15 @@ public:
 				//perform swap
 				i--;
 			}
-			//for (int i = position; i < usedElements; i++)
-			//{
-			//	//swap
-
-			//	ptrArray[i] = ptrArray[i + 1];
-			//}
+			
 			//increment usedElements
 			usedElements += 1;
 			//make the value of that position equal to value
 			ptrArray[position] = value;
+		}
+		else
+		{
+			add(value);
 		}
 	}
 
@@ -227,9 +228,13 @@ public:
 	{
 		if (index < 0 || index >= usedElements)
 		{
-			throw("Out of bounds exception!");
+			//throw("Out of bounds exception!");
+			cout << "No Items In Array" << endl;
 		}
-		return ptrArray[index];
+		else
+		{
+			return ptrArray[index];
+		}
 	}
 
 	//deletes last element in array
@@ -242,6 +247,65 @@ public:
 		else
 		{
 			cout << "Array empty...";
+		}
+	}
+
+	void Sort()
+	{
+		int i = 0;
+
+		//if list populated with at least two values to be sorted
+		if (usedElements > 1)
+		{
+			//starts loop
+			//checks if i less than usedElements
+			while (i < (usedElements-1))
+			{
+				//if current value greater than next value
+				if (ptrArray[i] > ptrArray[i + 1])
+				{
+					//swap both values
+					int temp = ptrArray[i];
+					ptrArray[i] = ptrArray[i+1];
+					ptrArray[i + 1] = temp;
+					//swap both values
+					i = 0;
+				}
+				else
+				{
+					i++;
+				}
+			}
+		}
+	}
+
+	void Search(int valueToSearch)
+	{
+		bool foundValue = false;
+		//search through all used elements for key value
+		for (int i = 0; i < usedElements; i++)
+		{
+			//if value matches display value key position value placed in
+			if (ptrArray[i] == valueToSearch)
+			{
+				cout << "Value Found in " << i << endl;
+				cout << endl;
+				cout << i << ": " << valueToSearch << endl;;
+				foundValue = true;
+			}
+		}
+		if (!foundValue)
+		{
+			std::cout << "The Number: " << "[" << valueToSearch << "]" << " Does not exist in the list" << std::endl;
+			std::cout << "Would You Like To Add it to the list? " << "\t\t (y/n)" << std::endl;
+			string option;
+			cin >> option;
+			if (option == "y")
+			{
+				//only case where list appends to add new value
+				std::cout << "Increased Size of Array to include value" << std::endl;
+				add(valueToSearch);
+			}
 		}
 	}
 
@@ -259,24 +323,12 @@ public:
 			cout << "Array Empty..." << endl;
 		}
 	}
-
 };
 
 
 int main()
 {
 	DynamicArray *temp = new DynamicArray();
-
-
-	//Adds values
-	
-
-	//Add in middle
-	//temp->AddInMiddle(999, 3);
-
-	//Remove by ordered
-	//temp->Remove(999);
-
 	//Remove by unordered
 	temp->ClearArray();
 
@@ -290,59 +342,163 @@ int main()
 	bool cont = true;
 	char choice = '0';
 	int input;
-	int location;
+	int location = dArray->returnElementsUsed()/2;
+	int amountToAdd;
 
 	while (cont)
 	{
-		cout << "(q)Add To Middle---(w)RemoveValueORDERED---(e)RemoveValueUNORDERED---(r)AddToEnd---(u)PopBack---(t)Clear\n(y)CopyConstructor---(p)Display---" << endl;
+		cout << "(q)Add To Middle---(w)RemoveValueORDERED---(e)RemoveValueUNORDERED---(r)AddToEnd---(u)PopBack---(t)Clear\n(y)CopyConstructor---(l)Sort---(;)Search---(p)Display---" << endl;
 		cin >> choice;
 		switch (choice)
 		{
+		
 		case'q':
 			cout << "Adding to middle..." << endl;
-			cout << "Enter Value to Enter: " << endl;
-			cin >> input;
-
-			cout << "Enter Position to Place it in: " << endl;
-			cin >> location;
-
-			dArray->AddInMiddle(input, location);
+			
+			//Fixed Attempt Number 1:
+			cout << "Enter How Many Values To Add To Middle" << endl;
+			cin >> amountToAdd;
+			while (cin.fail())
+			{
+				cout << "Error" << endl;
+				cin.clear();
+				cout << "Enter a Number: " << endl;
+				cin.ignore(256, '\n');
+				cin >> amountToAdd;
+			}
+			
+			for (int i = 0; i < amountToAdd; i++)
+			{
+				cout << "Enter Value to Enter: " << endl;
+				cin >> input;
+				while (cin.fail())
+				{
+					cout << "Error" << endl;
+					cin.clear();
+					cout << "Enter a Number: " << endl;
+					cin.ignore(256, '\n');
+					cin >> input;
+				}
+				location = dArray->returnElementsUsed() / 2;
+				dArray->AddInMiddle(input, location);
+			}
 			break;
+
+			//Previous
+			//not needed======================================
+			/*cout << "Enter Position to Place it in: " << endl;
+			cin >> location;
+			while (cin.fail())
+			{
+				cout << "Error" << endl;
+				cin.clear();
+				cout << "Enter a Number: " << endl;
+				cin.ignore(256, '\n');
+				cin >> location;
+			}*/
+
+
+			//checks if user entered position above used elements in array
+			/*if (location > dArray->returnElementsUsed())
+			{
+				cout << "Location entered exceeds array list by more than two" << endl;
+				break;
+			}
+			else
+			{
+				dArray->AddInMiddle(input, location);
+				break;
+			}*/
+			//================================================
+
 		case'w':
 			cout << "Removing Value...printing ordered" << endl;
 			cout << "Enter value to Remove: " << endl;
 			cin >> input;
+			while (cin.fail())
+			{
+				cout << "Error" << endl;
+				cin.clear();
+				cout << "Enter a Number: " << endl;
+				cin.ignore(256, '\n');
+				cin >> input;
+			}
 			dArray->Remove(input);
 			break;
+		
 		case'e':
 			cout << "Removing Value...printing unordered" << endl;
 			cout << "Enter value to Remove: " << endl;
 			cin >> input;
+			while (cin.fail())
+			{
+				cout << "Error" << endl;
+				cin.clear();
+				cout << "Enter a Number: " << endl;
+				cin.ignore(256, '\n');
+				cin >> input;
+			}
 			dArray->RemoveUO(input);
 			break;
+		
 		case'r':
 			cout << "Adding to end..." << endl;
 			cout << "Which value to add to array: " << endl;
 			cin >> input;
+			while (cin.fail())
+			{
+				cout << "Error" << endl;
+				cin.clear();
+				cout << "Enter a Number: " << endl;
+				cin.ignore(256, '\n');
+				cin >> input;
+			}
 			dArray->add(input);
 			break;
+		
 		case't':
 			cout << "Clearing Array..." << endl;
 			dArray->ClearArray();
 			break;
+		
 		case'y':
 			cout << "Copying into another array" << endl;
 			TemporaryArray = dArray;
 			TemporaryArray->Display();
 			break;
+		
 		case'u':
 			cout << "Deleting last element" << endl;
 			dArray->popBack();
 			break;
+		
 		case'p':
 			cout << "Displaying Array..." << endl;
 			dArray->Display();
 			break;
+		
+		case 'l':
+			cout << "Sorting Array..." << endl;
+			dArray->Sort();
+			dArray->Display();
+			break;
+		
+		case';':
+			cout << "Searching For Array..." << endl;
+			cout << "Enter Value to search" << endl;
+			//gather input
+			cin >> input;
+			while (cin.fail())
+			{
+				cout << "Error" << endl;
+				cin.clear();
+				cout << "Enter a Number: " << endl;
+				cin.ignore(256, '\n');
+				cin >> input;
+			}
+			dArray->Search(input);
+			break;
+		
 		default:
 			break;
 		}
@@ -350,214 +506,3 @@ int main()
 		
 
 }
-
-//----Don't Hit-----
-//int main()
-//{
-//	ArrayClass* DynamicTree = new ArrayClass();
-//	ArrayClass * secondDynamicTree = new ArrayClass();
-//	int value;
-//	bool cont = true;
-//	bool NewArrayCreated = false;
-//	bool switchArray = false;
-//	char choice = '0';
-//	int i = 0;
-//	int t1 = 555;
-//	int t2 = 222;
-//	int searchId;
-//	NodeClass* current;
-//	NodeClass* currentRight;
-//	
-//
-//	std::cout << "What size will you like to give your dynamic array?" << std::endl;
-//	DynamicTree->manualSetter();
-//
-//	while (cont)
-//	{
-//		cout << "What Do you want to Do? " << endl;
-//		cout << "(d)isplay---(s)ort---(f)ind---(c)popBack---(x)popFront---(z)clear---(b)setIndex---(,)copyConstructor---(e)xit---" << endl;
-//		if (NewArrayCreated)
-//		{
-//			cout << "Use Newly created array (n)" << endl;
-//		}
-//		cin >> choice;
-//		if (switchArray == false)
-//		{
-//			switch (choice)
-//			{
-//			case'd':
-//				//displays entire array
-//				cout << "\t\t\t displaying..." << endl;
-//				DynamicTree->display();
-//				break;
-//			case'c':
-//				//removes last element
-//				DynamicTree->popBack();
-//				cout << "\t\t\t displaying..." << endl;
-//				DynamicTree->display();
-//				break;
-//			case'x':
-//				//removes front element
-//				DynamicTree->popFront();
-//				cout << "\t\t\t displaying..." << endl;
-//				DynamicTree->display();
-//				break;
-//			case'z':
-//				//clears entire array
-//				DynamicTree->clear();
-//				cout << "\t\t\t displaying..." << endl;
-//				DynamicTree->display();
-//				break;
-//			case'b':
-//				//sets values on index
-//				DynamicTree->setOnIndex();
-//				cout << "\t\t\t displaying..." << endl;
-//				DynamicTree->display();
-//				break;
-//			case',':
-//				//copies elements of array into second array
-//				DynamicTree->CopyContructor(secondDynamicTree);
-//				cout << "\t\t\t displaying..." << endl;
-//				std::cin.get();
-//				//displays it in second Dynamic Array
-//				std::cout << "Displaying in New Array" << std::endl;
-//				secondDynamicTree->display();
-//				NewArrayCreated = true;
-//				break;
-//			case's':
-//				//sorts the array
-//				cout << "\t\t\t Sorting..." << endl;
-//				DynamicTree->sort();
-//				//==============DISPLAY====================
-//				current = DynamicTree->returnRoot();
-//				cout << "Reached End" << endl;
-//				while (current->getRight() != nullptr)
-//				{
-//					i++;
-//					cout << "Data:" << i << " " << current->getData() << endl;
-//					current = current->getRight();
-//				}
-//				i = i + 1;
-//				cout << "Data:" << i << " " << current->getData() << endl;
-//				i = 0;
-//				//==============DISPLAY====================
-//
-//				break;
-//			case'f':
-//				//displays searched id
-//				cout << "\t\t\t searching..." << endl;
-//				cout << "Enter Id To Look For: " << endl;
-//				cin >> searchId;
-//				while (cin.fail())
-//				{
-//					cout << "Error" << endl;
-//					cin.clear();
-//					cin.ignore(256, '\n');
-//					cout << endl;
-//					cout << "Enter a number please: " << endl;
-//					cin >> searchId;
-//				}
-//				DynamicTree->search(searchId);
-//				break;
-//			case'e':
-//				//exits the application
-//				cout << "Exiting..." << endl;
-//				return 0;
-//			default:
-//				//default, activated due to improper input
-//				cout << "Enter One Of The Listed Options" << endl;
-//				break;
-//			if (NewArrayCreated)
-//			{
-//			case'n':
-//				cout << "Switching Working Array" << endl;
-//				switchArray = true;
-//			}
-//			}
-//		}
-//		if (switchArray == true)
-//		{
-//			switch (choice)
-//			{
-//			case'd':
-//				//displays entire array
-//				cout << "\t\t\t displaying..." << endl;
-//				secondDynamicTree->display();
-//				break;
-//			case'c':
-//				//removes last element
-//				secondDynamicTree->popBack();
-//				cout << "\t\t\t displaying..." << endl;
-//				secondDynamicTree->display();
-//				break;
-//			case'x':
-//				//removes front element
-//				secondDynamicTree->popFront();
-//				cout << "\t\t\t displaying..." << endl;
-//				secondDynamicTree->display();
-//				break;
-//			case'z':
-//				//clears entire array
-//				secondDynamicTree->clear();
-//				cout << "\t\t\t displaying..." << endl;
-//				secondDynamicTree->display();
-//				break;
-//			case'b':
-//				//sets values on index
-//				secondDynamicTree->setOnIndex();
-//				cout << "\t\t\t displaying..." << endl;
-//				secondDynamicTree->display();
-//				break;
-//			case's':
-//				//sorts the array
-//				cout << "\t\t\t Sorting..." << endl;
-//				secondDynamicTree->sort();
-//				//==============DISPLAY====================
-//				current = secondDynamicTree->returnRoot();
-//				cout << "Reached End" << endl;
-//				while (current->getRight() != nullptr)
-//				{
-//					i++;
-//					cout << "Data:" << i << " " << current->getData() << endl;
-//					current = current->getRight();
-//				}
-//				i = i + 1;
-//				cout << "Data:" << i << " " << current->getData() << endl;
-//				i = 0;
-//				//==============DISPLAY====================
-//
-//				break;
-//			case',':
-//				switchArray = false;
-//				break;
-//			case'f':
-//				//displays searched id
-//				cout << "\t\t\t searching..." << endl;
-//				cout << "Enter Id To Look For: " << endl;
-//				cin >> searchId;
-//				while (cin.fail())
-//				{
-//					cout << "Error" << endl;
-//					cin.clear();
-//					cin.ignore(256, '\n');
-//					cout << endl;
-//					cout << "Enter a number please: " << endl;
-//					cin >> searchId;
-//				}
-//				secondDynamicTree->search(searchId);
-//				break;
-//			case'e':
-//				//exits the application
-//				cout << "Exiting..." << endl;
-//				return 0;
-//			default:
-//				//default, activated due to improper input
-//				cout << "Enter One Of The Listed Options" << endl;
-//				break;
-//			}
-//		}
-//	}
-//}
-//----Don't Hit-----
-
-
