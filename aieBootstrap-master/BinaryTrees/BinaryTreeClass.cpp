@@ -82,6 +82,8 @@ void BinaryTree::remove(int a_nValue)
 {
 	TreeNode *current = nullptr; //To remove
 	TreeNode *parent = nullptr;
+
+	TreeNode *nullValue = nullptr;
 //========================================================================================
 	if (findNode(a_nValue, &current, &parent) == true)
 	{
@@ -92,7 +94,7 @@ void BinaryTree::remove(int a_nValue)
 			if (!current->hasLeft() && !current->hasRight()) //has no children
 			{
 				m_pRoot = nullptr;
-				delete current; //closes program since there is no root
+				current = nullValue; //closes program since there is no root
 			}
 			else if (current->hasLeft() && current->hasRight())// has both children
 			{
