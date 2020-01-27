@@ -202,9 +202,16 @@ public:
 			while (i > position)
 			{
 				//perform swap
+
+				//create copy of data in Temp of position
 				int Temp = ptrArray[i];
+
+				//make that position equal to the position before it
 				ptrArray[i] = ptrArray[i - 1];
+
+				//make the position before i equal to the copied temp
 				ptrArray[i - 1] = Temp;
+				
 				//perform swap
 				i--;
 			}
@@ -339,23 +346,26 @@ int main()
 
 	DynamicArray *dArray = new DynamicArray();
 	DynamicArray *TemporaryArray = new DynamicArray();
+	DynamicArray *valueHolder = new DynamicArray();
 	bool cont = true;
+	bool firstCheck = true;
 	char choice = '0';
 	int input;
 	int location = dArray->returnElementsUsed()/2;
 	int amountToAdd;
+	int firstValueStored;
 
 	while (cont)
 	{
 		cout << "(q)Add To Middle---(w)RemoveValueORDERED---(e)RemoveValueUNORDERED---(r)AddToEnd---(u)PopBack---(t)Clear\n(y)CopyConstructor---(l)Sort---(;)Search---(p)Display---" << endl;
 		cin >> choice;
+		
 		switch (choice)
 		{
 		
 		case'q':
 			cout << "Adding to middle..." << endl;
-			
-			//Fixed Attempt Number 1:
+
 			cout << "Enter How Many Values To Add To Middle" << endl;
 			cin >> amountToAdd;
 			while (cin.fail())
@@ -367,49 +377,76 @@ int main()
 				cin >> amountToAdd;
 			}
 			
-			for (int i = 0; i < amountToAdd; i++)
+			if (amountToAdd >= 1)
 			{
-				cout << "Enter Value to Enter: " << endl;
-				cin >> input;
-				while (cin.fail())
+				//if the array empty or only one value add to end
+				if (dArray->returnElementsUsed() <= 1)
 				{
-					cout << "Error" << endl;
-					cin.clear();
-					cout << "Enter a Number: " << endl;
-					cin.ignore(256, '\n');
-					cin >> input;
+					cout << "Array empty..." << endl;
+					cout << "Adding to the end of the array" << endl;
+
+					for (int i = 0; i < amountToAdd; i++)
+					{
+						cout << "Enter Value to Enter: " << endl;
+						cin >> input;
+						while (cin.fail())
+						{
+							cout << "Error" << endl;
+							cin.clear();
+							cout << "Enter a Number: " << endl;
+							cin.ignore(256, '\n');
+							cin >> input;
+						}
+						dArray->add(input);
+					}
 				}
-				location = dArray->returnElementsUsed() / 2;
-				dArray->AddInMiddle(input, location);
-			}
-			break;
+				else
+				{
+					//finds location once
+					location = dArray->returnElementsUsed() / 2;
+					for (int i = 0; i < amountToAdd; i++)
+					{
+						cout << "Enter Value to Enter: " << endl;
+						cin >> input;
+						while (cin.fail())
+						{
+							cout << "Error" << endl;
+							cin.clear();
+							cout << "Enter a Number: " << endl;
+							cin.ignore(256, '\n');
+							cin >> input;
+						}
 
-			//Previous
-			//not needed======================================
-			/*cout << "Enter Position to Place it in: " << endl;
-			cin >> location;
-			while (cin.fail())
-			{
-				cout << "Error" << endl;
-				cin.clear();
-				cout << "Enter a Number: " << endl;
-				cin.ignore(256, '\n');
-				cin >> location;
-			}*/
+						if (firstCheck)
+						{
+							firstValueStored = input;
+							firstCheck = false;
+						}
 
+						//store value into temporary dynamic array
+						valueHolder->add(input);
+					}
+					//set firstCheck back to true
+					firstCheck = true;
 
-			//checks if user entered position above used elements in array
-			/*if (location > dArray->returnElementsUsed())
-			{
-				cout << "Location entered exceeds array list by more than two" << endl;
-				break;
+					//then add the values to working array
+					for (int i = valueHolder->returnElementsUsed() - 1; i > 0; i--)
+					{
+						dArray->AddInMiddle(valueHolder->getAt(i), location);
+					}
+					//adds in value that was first stored keeping order
+					dArray->AddInMiddle(firstValueStored, location);
+
+					//then clear all items in valueHolder to be used again
+					valueHolder->ClearArray();
+				}
 			}
 			else
 			{
-				dArray->AddInMiddle(input, location);
-				break;
-			}*/
-			//================================================
+				//prompt no value will be entered
+				cout << "No Value Added..." << endl;
+			}
+			break;
 
 		case'w':
 			cout << "Removing Value...printing ordered" << endl;

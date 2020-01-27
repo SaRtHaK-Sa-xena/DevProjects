@@ -78,41 +78,7 @@ int hashClass::NumberOfItemsInIndex(int index)
 
 void hashClass::PrintTable()
 {
-	//Previous:
-	//============================================================================
 	int number;
-	//for (int i = 0; i < tableSize; i++)
-	//{
-	//	number = NumberOfItemsInIndex(i); //number will equal no. of items in List
-	//	cout << "---------------------------\n";
-	//	cout << "index = " << i << endl;
-	//	cout << "Name: " << HashTable[i]->name << endl;
-	//	cout << "Favourite Book Name: " << HashTable[i]->favBookName << endl;
-	//	cout << "Unique Identifier: " << HashTable[i]->itemCode << endl;
-	//	cout << "# of items = " << number << endl;
-	//	cout << "---------------------------\n";
-	//	
-
-	//	item* Ptr = HashTable[i]; //makes the Ptr set to hashtable[index]
-	//	cout << "index " << i << " contains the following item\n";
-
-	//	// while that ptr is not null
-	//	while (Ptr != NULL)
-	//	{
-	//		cout << "-------------------\n";
-	//		cout << "Name: " << Ptr->name << endl;
-	//		cout << "Book: " << Ptr->favBookName << endl;
-	//		cout << "Unique ID: " << Ptr->itemCode << endl;
-	//		cout << "-------------------\n";
-
-	//		Ptr = Ptr->next;
-	//	}
-	//}
-	//============================================================================
-
-
-	//New Attempt:
-	//============================================================================
 	for (int i = 0; i < tableSize; i++)
 	{
 		number = NumberOfItemsInIndex(i); //number will equal no. of items in List
@@ -413,10 +379,6 @@ void hashClass::RemoveItem(string name)
 	}
 	
 }
-
-
-
-
 
 
 int hashClass::Hash(string key)

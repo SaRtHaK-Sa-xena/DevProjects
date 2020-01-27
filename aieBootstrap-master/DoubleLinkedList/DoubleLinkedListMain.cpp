@@ -229,13 +229,13 @@ void InsertValue(DoubleLinkedList *list)
 			std::cout << "What Number To Place In That Position: " << std::endl;
 			std::cin >> NumberToBeInserted;
 			while (cin.fail())
-				{
-					cout << "Error" << endl;
-					cin.clear();
-					cout << "Enter a Number: " << endl;
-					cin.ignore(256, '\n');
-					cin >> NumberToBeInserted;
-				}
+			{
+				cout << "Error" << endl;
+				cin.clear();
+				cout << "Enter a Number: " << endl;
+				cin.ignore(256, '\n');
+				cin >> NumberToBeInserted;
+			}
 			list->PushBack(NumberToBeInserted);
 		}
 		else if (position > list->Count())
@@ -245,13 +245,18 @@ void InsertValue(DoubleLinkedList *list)
 		}
 		else
 		{
+			if (position <= 0)
+			{
+				std::cout << "This will be placed after position: 1" << endl;
+			}
+
 			DoubleLinkedList::Iterator temp = list->First();
 			
 			//...move iterator up
 			for (int i = 0; i < position-1; i++)
-				{
-					temp++;
-				}
+			{
+				temp++;
+			}
 
 			int NumberToBeInserted;
 			std::cout << "What Number To Place In That Position: " << std::endl;
