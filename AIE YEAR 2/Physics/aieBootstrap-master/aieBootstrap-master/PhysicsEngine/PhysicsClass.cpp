@@ -3,7 +3,7 @@
 #include <list>
 #include <iostream>
 
-PhysicsScene::PhysicsScene():m_timeStep(0.01f), m_gravity(glm::vec2(0,0))
+PhysicsScene::PhysicsScene():m_timeStep(0.01f), m_gravity(glm::vec2(0,-10))
 {
 }
 

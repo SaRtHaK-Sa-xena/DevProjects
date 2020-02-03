@@ -1,8 +1,9 @@
 #pragma once
-#include "PhysicsObject.h"
 #include <vector>
 #include <Gizmos.h>
 #include <glm\ext.hpp>
+
+class PhysicsObject;
 
 class PhysicsScene
 {

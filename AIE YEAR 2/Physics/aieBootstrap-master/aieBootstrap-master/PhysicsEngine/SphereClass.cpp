@@ -6,24 +6,36 @@ SphereClass::SphereClass(glm::vec2 position, glm::vec2 velocity, float mass, flo
 	m_colour = colour;
 }
 
+SphereClass::~SphereClass()
+{
+}
+
+void SphereClass::makeGizmo()
+{
+	aie::Gizmos::add2DCircle(m_position, m_radius, 17, m_colour);
+}
+
 bool SphereClass::checkCollision(PhysicsObject* pOther)
 {
-
 	SphereClass* Dcast = dynamic_cast<SphereClass*>(pOther);
 	if (Dcast)
 	{
 		//start collision check
 		
-		//store vec2 of the differenc in distance
+		//store vec2 of the difference in distance
 		glm::vec2 difference = Dcast->getPosition() - m_position;
 
-		//(x,y) divide to find the gradient in float value
-		double gradient = sqrt(difference.x * difference.x + difference.y * difference.y) / 2;
+		//find magnitude
+		float mag = sqrt(difference.x * difference.x + difference.y * difference.y);
 
 		//find it in 
-		if (gradient < (Dcast->getRadius() + m_radius))
+		if (mag < (Dcast->getRadius() + m_radius))
 		{
 			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 	else

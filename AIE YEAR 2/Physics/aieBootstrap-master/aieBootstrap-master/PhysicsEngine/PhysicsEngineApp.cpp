@@ -28,14 +28,25 @@ bool PhysicsEngineApp::startup() {
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 
-
+	//create physics scene
 	m_physicsScene = new PhysicsScene();
+	
+	//set gravity to zero
 	m_physicsScene->setGravity(glm::vec2(0, 0));
 	m_physicsScene->setTimeStep(0.01f);
+	
+	//create actors
+	Ball1 = new SphereClass(glm::vec2(-20, 0), glm::vec2(0, 0), 4.0f, 4, glm::vec4(1, 0, 0, 1));
+	Ball2 = new SphereClass(glm::vec2(10, 0), glm::vec2(0, 0), 4.0f, 4, glm::vec4(1, 1, 0, 1));
+	
+	
+	//add actors
+	m_physicsScene->addActor(Ball1);
+	m_physicsScene->addActor(Ball2);
 
-	SphereClass* ball;
-	ball = new SphereClass(glm::vec2(-40, 0), glm::vec2(10, 30), 3.0f, 1, glm::vec4(1, 0, 0, 1));
-	m_physicsScene->addActor(ball);
+	Ball1->applyForce(glm::vec2(30, 0));
+	Ball2->applyForce(glm::vec2(-15, 0));
+
 	return true;
 }
 

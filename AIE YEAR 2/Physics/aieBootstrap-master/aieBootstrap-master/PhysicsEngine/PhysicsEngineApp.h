@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Renderer2D.h"
 #include "PhysicsClass.h"
+#include "SphereClass.h"
 
 class PhysicsEngineApp : public aie::Application {
 public:
@@ -17,6 +18,8 @@ public:
 
 
 	PhysicsScene* m_physicsScene;
+	SphereClass* Ball1;
+	SphereClass* Ball2;
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;

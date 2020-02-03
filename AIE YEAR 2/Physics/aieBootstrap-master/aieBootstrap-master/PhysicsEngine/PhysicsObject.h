@@ -1,5 +1,4 @@
 #pragma once
-#include "PhysicsClass.h"
 #include <Gizmos.h>
 #include <glm\ext.hpp>
 
