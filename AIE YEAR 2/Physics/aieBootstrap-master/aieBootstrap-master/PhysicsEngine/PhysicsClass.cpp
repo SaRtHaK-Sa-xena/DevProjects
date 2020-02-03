@@ -1,9 +1,18 @@
 #include "PhysicsClass.h"
 #include "RigidBodyClass.h"
 #include <list>
+#include <iostream>
 
 PhysicsScene::PhysicsScene():m_timeStep(0.01f), m_gravity(glm::vec2(0,0))
 {
+}
+
+PhysicsScene::~PhysicsScene()
+{
+	for (auto pActor : m_actors)
+	{
+		delete pActor;
+	}
 }
 
 //adds that pointer to the end of the list
@@ -72,5 +81,16 @@ void PhysicsScene::updateGizmos()
 {
 	for (auto pActor : m_actors) {
 		pActor->makeGizmo();
+	}
+}
+
+void PhysicsScene::debugScene()
+{
+	int count = 0;
+	for (auto pActor : m_actors)
+	{
+		std::cout << count << " : ";
+		pActor->debug();
+		count++;
 	}
 }

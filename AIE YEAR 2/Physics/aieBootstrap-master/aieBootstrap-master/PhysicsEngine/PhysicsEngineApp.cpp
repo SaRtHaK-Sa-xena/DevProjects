@@ -1,5 +1,7 @@
 #include "PhysicsEngineApp.h"
 #include "PhysicsClass.h"
+#include "RigidBodyClass.h"
+#include "SphereClass.h"
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
@@ -28,7 +30,12 @@ bool PhysicsEngineApp::startup() {
 
 
 	m_physicsScene = new PhysicsScene();
+	m_physicsScene->setGravity(glm::vec2(0, 0));
 	m_physicsScene->setTimeStep(0.01f);
+
+	SphereClass* ball;
+	ball = new SphereClass(glm::vec2(-40, 0), glm::vec2(10, 30), 3.0f, 1, glm::vec4(1, 0, 0, 1));
+	m_physicsScene->addActor(ball);
 	return true;
 }
 

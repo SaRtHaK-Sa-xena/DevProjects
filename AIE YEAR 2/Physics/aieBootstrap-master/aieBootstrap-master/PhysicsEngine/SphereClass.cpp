@@ -18,7 +18,7 @@ bool SphereClass::checkCollision(PhysicsObject* pOther)
 		glm::vec2 difference = Dcast->getPosition() - m_position;
 
 		//(x,y) divide to find the gradient in float value
-		float gradient = difference.x / difference.y;
+		double gradient = sqrt(difference.x * difference.x + difference.y * difference.y) / 2;
 
 		//find it in 
 		if (gradient < (Dcast->getRadius() + m_radius))
