@@ -1,6 +1,7 @@
 #include "PhysicsClass.h"
 #include "RigidBodyClass.h"
 #include "SphereClass.h"
+#include "PlaneClass.h"
 #include <list>
 #include <iostream>
 
@@ -152,8 +153,32 @@ bool PhysicsScene::plane2Box(PhysicsObject*, PhysicsObject*)
 	return false;
 }
 
-bool PhysicsScene::sphere2Plane(PhysicsObject*, PhysicsObject*)
+bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 {
+	SphereClass *sphere = dynamic_cast<SphereClass*>(obj1);
+	PlaneClass *plane = dynamic_cast<PlaneClass*>(obj2);
+
+	//if we are successful then test for collision
+	if (sphere != nullptr && plane != nullptr)
+	{
+		glm::vec2 collisionNormal = plane->getNormal();
+		float sphereToPlane = glm::dot(sphere->getPosition(), plane->getNormal() - plane->getDistance());
+
+		//if we are behind plane then we flip the normal
+		if (sphereToPlane < 0) 
+		{
+			collisionNormal *= -1;
+			sphereToPlane *= -1;
+		}
+
+		float intersection = sphere->getRadius() - sphereToPlane;
+		if (intersection > 0)
+		{
+			//set sphere velocity to zero
+			sphere->setVelocity(glm::vec2(0, 0));
+			return true;
+		}
+	}
 	return false;
 }
 

@@ -2,6 +2,7 @@
 #include "PhysicsClass.h"
 #include "RigidBodyClass.h"
 #include "SphereClass.h"
+#include "PlaneClass.h"
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
@@ -48,11 +49,14 @@ bool PhysicsEngineApp::startup() {
 	m_physicsScene = new PhysicsScene();
 	m_physicsScene->setGravity(glm::vec2(0,0));
 
-	SphereClass *ball1 = new SphereClass(glm::vec2(-4, 0), glm::vec2(2, 0), 1, 1, glm::vec4(1, 0, 0, 1));
-	SphereClass *ball2 = new SphereClass(glm::vec2(4, 0), glm::vec2(-2, 0), 1, 1, glm::vec4(1, 0, 0, 1));
+	SphereClass *ball1 = new SphereClass(glm::vec2(-20, -10), glm::vec2(2, 0), 1, 1, glm::vec4(1, 0, 0, 1));
+	SphereClass *ball2 = new SphereClass(glm::vec2(20, 10), glm::vec2(-2, 0), 1, 1, glm::vec4(1, 0, 0, 1));
+
+	PlaneClass* plane1 = new PlaneClass(glm::vec2(1, 1), 100);
 
 	m_physicsScene->addActor(ball1);
 	m_physicsScene->addActor(ball2);
+	m_physicsScene->addActor(plane1);
 
 	return true;
 }
