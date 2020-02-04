@@ -16,6 +16,7 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
+	void setupContinuousDemo(glm::vec2 startPos, float inclination, float speed, float gravity);
 
 	PhysicsScene* m_physicsScene;
 	float fuel = 100;

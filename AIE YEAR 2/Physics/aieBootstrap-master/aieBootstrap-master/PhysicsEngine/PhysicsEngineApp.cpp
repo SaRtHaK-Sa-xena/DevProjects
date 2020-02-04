@@ -27,22 +27,8 @@ bool PhysicsEngineApp::startup() {
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
-
-	//create physics scene
-	m_physicsScene = new PhysicsScene();
 	
-	//set gravity to zero
-	m_physicsScene->setGravity(glm::vec2(0, 0));
-	m_physicsScene->setTimeStep(0.01f);
-	
-	//create actors
-	rocket_Ship = new SphereClass(glm::vec2(0, -20), glm::vec2(0, 0), fuel, 4, glm::vec4(1, 0, 0, 1));
-	
-	//apply force 
-	rocket_Ship->applyForce(glm::vec2(0, -2));
-
-	//add actors
-	m_physicsScene->addActor(rocket_Ship);
+	setupContinuousDemo();
 
 	return true;
 }
@@ -55,43 +41,40 @@ void PhysicsEngineApp::shutdown() {
 
 void PhysicsEngineApp::update(float deltaTime) {
 
-	time = time - 1;
-
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 
-	aie::Gizmos::clear();
-
-	m_physicsScene->update(deltaTime);
-	m_physicsScene->updateGizmos();
-
+	//Rocket Ship Exercise
+	#pragma region RocketShip
 	//Each Update
 	//Repeated until mass depleted (fuel depleted)
 	//check if mass greater than zero
-	if (time > 0 && time < 10 || time > 20 && time < 30 || time > 40 && time < 50 || time > 60 && time < 70
+	/*if (time > 0 && time < 10 || time > 20 && time < 30 || time > 40 && time < 50 || time > 60 && time < 70
 		|| time > 80 && time < 90)
 	{
 		if (rocket_Ship->getMass() > 0)
 		{
-			//Decrease mass of the rocket by M to simulate fuel being used
+			Decrease mass of the rocket by M to simulate fuel being used
 			fuel = fuel - 1;
 			rocket_Ship->setMass(fuel);
-			rocket_Ship->applyForce(glm::vec2(0, 2));
+
+			Create a particle sphere of mass M next to the rocket to simulate an exhaust gas particle
+			SphereClass* exhaust_ptc = new SphereClass(glm::vec2(rocket_Ship->getPosition().x, (rocket_Ship->getPosition().y - 2)),
+				glm::vec2(0, 0), 1, 1, glm::vec4(1, 1, 0, 1));
+
+			m_physicsScene->addActor(exhaust_ptc);
+
+			use ApplyForceToActor to the exhaust gas from the rocket (will be the opposite to the direction of the rocket)
+			rocket_Ship->applyForceToActor(exhaust_ptc, glm::vec2(0, -1));
+
+			 exit the application
+			if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
+				quit();
 		}
-	}
+	}*/
+	#pragma endregion RocketShip
 
-	//Create a particle sphere of mass M next to the rocket to simulate an exhaust gas particle
-	SphereClass* exhaust_ptc = new SphereClass(glm::vec2(rocket_Ship->getPosition().x, (rocket_Ship->getPosition().y - 2)),
-		glm::vec2(0, 0), 1, 1, glm::vec4(1, 1, 0, 1));
-
-	m_physicsScene->addActor(exhaust_ptc);
-
-	//use ApplyForceToActor to the exhaust gas from the rocket (will be the opposite to the direction of the rocket)
-	rocket_Ship->applyForceToActor(exhaust_ptc, glm::vec2(0, -1));
-
-	// exit the application
-	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
-		quit();
+	
 }
 
 void PhysicsEngineApp::draw() {
@@ -113,4 +96,25 @@ void PhysicsEngineApp::draw() {
 
 	// done drawing sprites
 	m_2dRenderer->end();
+}
+
+void PhysicsEngineApp::setupContinuousDemo(glm::vec2 startPos, float inclination, float speed, float gravity)
+{
+	float t = 0;
+	float tStep = 0.5f;
+	float radius = 1.0f;
+	int segments = 12;
+
+	glm::vec4 colour = glm::vec4(1, 1, 0, 1);
+
+	while (t <= 5)
+	{
+		//calculate the x,y position of the projectile at time t
+		float x = speed * t + (1 / 2 * gravity) * (t * t);
+
+		float y = sqrt(tan(inclination / x));
+
+		aie::Gizmos::add2DCircle(glm::vec2(x, y), radius, segments, colour);
+		t += tStep;
+	}
 }
