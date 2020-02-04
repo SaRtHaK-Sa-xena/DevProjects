@@ -1,5 +1,6 @@
 #include "PhysicsClass.h"
 #include "RigidBodyClass.h"
+#include "SphereClass.h"
 #include <list>
 #include <iostream>
 
@@ -62,7 +63,8 @@ void PhysicsScene::update(float dt)
 
 
 		//check for collisions
-		for (auto pActor : m_actors)
+		checkForCollision();
+		/*for (auto pActor : m_actors)
 		{
 			for (auto pOther : m_actors)
 			{
@@ -85,7 +87,7 @@ void PhysicsScene::update(float dt)
 				}
 			}
 		}
-		dirty.clear();
+		dirty.clear();*/
 	}
 }
 
@@ -135,6 +137,26 @@ void PhysicsScene::checkForCollision()
 	}
 }
 
+bool PhysicsScene::plane2Plane(PhysicsObject*, PhysicsObject*)
+{
+	return false;
+}
+
+bool PhysicsScene::plane2Sphere(PhysicsObject*, PhysicsObject*)
+{
+	return false;
+}
+
+bool PhysicsScene::plane2Box(PhysicsObject*, PhysicsObject*)
+{
+	return false;
+}
+
+bool PhysicsScene::sphere2Plane(PhysicsObject*, PhysicsObject*)
+{
+	return false;
+}
+
 bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 {
 	//try to cast objects to sphere and sphere
@@ -148,11 +170,35 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 		// set the velocity of the two spheres to zero
 		//if overlapping
 
-		if (sphere1->checkCollision(sphere2))
+		glm::vec2 difference = sphere1->getPosition() - sphere2->getPosition();
+
+		float gradient = sqrt(difference.x * difference.x + difference.y * difference.y) * 2;
+
+		if (gradient < (sphere1->getRadius() + sphere2->getRadius()))
 		{
-			sphere1->setVelocity(glm::ivec2(0, 0));
-			sphere2->setVelocity(glm::ivec2(0, 0));
+			sphere1->setVelocity(glm::vec2(0, 0));
+			sphere2->setVelocity(glm::vec2(0, 0));
 		}
 	}
+	return false;
+}
+
+bool PhysicsScene::sphere2Box(PhysicsObject*, PhysicsObject*)
+{
+	return false;
+}
+
+bool PhysicsScene::box2Plane(PhysicsObject*, PhysicsObject*)
+{
+	return false;
+}
+
+bool PhysicsScene::box2Sphere(PhysicsObject*, PhysicsObject*)
+{
+	return false;
+}
+
+bool PhysicsScene::box2Box(PhysicsObject*, PhysicsObject*)
+{
 	return false;
 }

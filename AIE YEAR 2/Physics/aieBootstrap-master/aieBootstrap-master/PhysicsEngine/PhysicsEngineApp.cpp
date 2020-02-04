@@ -33,23 +33,26 @@ bool PhysicsEngineApp::startup() {
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 	
 	#pragma region Projectile Tutorial
-	m_physicsScene = new PhysicsScene();
-	m_physicsScene->setGravity(glm::vec2(0, -10));
-	m_physicsScene->setTimeStep(0.5f);
-	float radius = 1.0f;
-	float speed = 30;
-	glm::vec2 startPos(-40, 0);
-	//returns radian of 45 degrees
-	float inclination = (float)M_PI / 4.0f;
-	m_physicsScene->addActor(new SphereClass(startPos, inclination, speed, 1, radius, glm::vec4(1, 0, 0, 1)));
-	setupContinuousDemo(glm::vec2(-40,0), inclination, 30, 10);
+	//m_physicsScene = new PhysicsScene();
+	//m_physicsScene->setGravity(glm::vec2(0, -10));
+	//m_physicsScene->setTimeStep(0.5f);
+	//float radius = 1.0f;
+	//float speed = 30;
+	//glm::vec2 startPos(-40, 0);
+	////returns radian of 45 degrees
+	//float inclination = (float)M_PI / 4.0f;
+	//m_physicsScene->addActor(new SphereClass(startPos, inclination, speed, 1, radius, glm::vec4(1, 0, 0, 1)));
+	//setupContinuousDemo(glm::vec2(-40,0), inclination, 30, 10);
 	#pragma endregion
 
 	m_physicsScene = new PhysicsScene();
 	m_physicsScene->setGravity(glm::vec2(0,0));
 
-	m_physicsScene->addActor(new SphereClass(glm::vec2(4, 0), glm::vec2(4, 0), 1, 1, glm::vec4(1, 0, 0, 1)));
-	m_physicsScene->addActor(new SphereClass(glm::vec2(-4, 0), glm::vec2(-4, 0), 1, 1, glm::vec4(1, 0, 0, 1)));
+	SphereClass *ball1 = new SphereClass(glm::vec2(-4, 0), glm::vec2(2, 0), 1, 1, glm::vec4(1, 0, 0, 1));
+	SphereClass *ball2 = new SphereClass(glm::vec2(4, 0), glm::vec2(-2, 0), 1, 1, glm::vec4(1, 0, 0, 1));
+
+	m_physicsScene->addActor(ball1);
+	m_physicsScene->addActor(ball2);
 
 	return true;
 }
@@ -64,6 +67,8 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 	// input example
 	aie::Input* input = aie::Input::getInstance();
+
+	aie::Gizmos::clear();
 
 	//Rocket Ship Exercise
 	#pragma region RocketShip
@@ -97,6 +102,7 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
+
 
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();

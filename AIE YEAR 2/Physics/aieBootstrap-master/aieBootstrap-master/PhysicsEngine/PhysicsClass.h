@@ -38,6 +38,6 @@ protected:
 	glm::vec2 m_gravity;
 	float m_timeStep;
 	std::vector<PhysicsObject*> m_actors;
-	const int SHAPE_COUNT = BOX;
+	const int SHAPE_COUNT = 3;
 
 };

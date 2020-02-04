@@ -1,7 +1,6 @@
 #pragma once
 #include <Gizmos.h>
 #include <glm\ext.hpp>
-#include "SphereClass.h"
 
 enum ShapeType {
 	PLANE = 0,
