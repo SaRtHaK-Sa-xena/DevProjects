@@ -3,6 +3,18 @@
 #include <list>
 #include <iostream>
 
+//function pointer array for doing collisions
+typedef bool(*fn)(PhysicsObject*, PhysicsObject*);
+
+
+static fn collisionFunctionArray[] =
+{
+	PhysicsScene::plane2Plane, PhysicsScene::plane2Sphere, PhysicsScene::plane2Box,
+	PhysicsScene::sphere2Plane, PhysicsScene::sphere2Sphere, PhysicsScene::sphere2Box,
+	PhysicsScene::box2Plane, PhysicsScene::box2Sphere, PhysicsScene::box2Box,
+};
+
+
 PhysicsScene::PhysicsScene():m_timeStep(0.01f), m_gravity(glm::vec2(0,-10))
 {
 }
@@ -93,4 +105,54 @@ void PhysicsScene::debugScene()
 		pActor->debug();
 		count++;
 	}
+}
+
+
+
+void PhysicsScene::checkForCollision()
+{
+	int actorCount = m_actors.size();
+
+	//need to check for collisions against all objects except this one.
+	for (int outer = 0; outer < actorCount - 1; outer++)
+	{
+		for (int inner = outer + 1; inner < actorCount; inner++)
+		{
+			PhysicsObject* object1 = m_actors[outer];
+			PhysicsObject* object2 = m_actors[inner];
+			int shapeId1 = object1->getShapeID();
+			int shapeId2 = object2->getShapeID();
+
+			//using function pointers
+			int functionIdx = (shapeId1 * SHAPE_COUNT) + shapeId2;
+			fn collisionFunctionPtr = collisionFunctionArray[functionIdx];
+			if (collisionFunctionPtr != nullptr)
+			{
+				// did a collision occur?
+				collisionFunctionPtr(object1, object2);
+			}
+		}
+	}
+}
+
+bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
+{
+	//try to cast objects to sphere and sphere
+	SphereClass* sphere1 = dynamic_cast<SphereClass*>(obj1);
+	SphereClass* sphere2 = dynamic_cast<SphereClass*>(obj2);
+
+	//if we are successful then test for collision
+	if (sphere1 != nullptr && sphere2 != nullptr)
+	{
+		//coliison detection
+		// set the velocity of the two spheres to zero
+		//if overlapping
+
+		if (sphere1->checkCollision(sphere2))
+		{
+			sphere1->setVelocity(glm::ivec2(0, 0));
+			sphere2->setVelocity(glm::ivec2(0, 0));
+		}
+	}
+	return false;
 }

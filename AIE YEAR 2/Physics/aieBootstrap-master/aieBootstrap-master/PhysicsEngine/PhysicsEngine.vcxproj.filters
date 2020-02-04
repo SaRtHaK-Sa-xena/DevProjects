@@ -24,10 +24,13 @@
     <ClCompile Include="PhysicsClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SphereClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="RigidBodyClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SphereClass.cpp">
+    <ClCompile Include="PlaneClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,10 +44,13 @@
     <ClInclude Include="PhysicsClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SphereClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="RigidBodyClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SphereClass.h">
+    <ClInclude Include="PlaneClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

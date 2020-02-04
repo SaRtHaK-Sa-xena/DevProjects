@@ -1,6 +1,7 @@
 #pragma once
 #include <Gizmos.h>
 #include <glm\ext.hpp>
+#include "SphereClass.h"
 
 enum ShapeType {
 	PLANE = 0,
@@ -18,6 +19,8 @@ public:
 	virtual void debug() = 0;
 	virtual void makeGizmo() = 0;
 	virtual void resetPosition() {};
+
+	int getShapeID() { return m_shapeID; }
 
 protected:
 	ShapeType m_shapeID;

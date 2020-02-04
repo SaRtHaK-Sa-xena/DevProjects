@@ -7,6 +7,17 @@ public:
 	RigidBodyClass(ShapeType shapeID, glm::vec2 position,
 		glm::vec2 velocity, float rotation, float mass);
 
+	RigidBodyClass(ShapeType shapeID, glm::vec2 position, float angle, float speed, float rotation, float mass) : PhysicsObject(shapeID)
+	{
+		m_position = position;
+		m_rotation = rotation;
+		m_mass = mass;
+
+		//creates velocity
+		m_velocity.x = speed * cos(angle);
+		m_velocity.y = speed * sin(angle);
+	};
+
 	~RigidBodyClass();
 
 	virtual void fixedUpdate(glm::vec2 gravity, float timeStep);
@@ -16,12 +27,15 @@ public:
 
 	virtual bool checkCollision(PhysicsObject* pOther) = 0;
 
+
+
 	glm::vec2 getPosition() { return m_position; }
 	float getRotation() { return m_rotation; }
 	glm::vec2 getVelocity() { return m_velocity; }
 	float getMass() { return m_mass; }
 
 	void setMass(float a_mass) { m_mass = a_mass; }
+	void setVelocity(glm::vec2 a_velocity) { m_velocity = a_velocity; }
 
 protected:
 	glm::vec2 m_position;

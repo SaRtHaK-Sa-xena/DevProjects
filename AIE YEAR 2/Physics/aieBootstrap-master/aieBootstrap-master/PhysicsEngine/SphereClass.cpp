@@ -6,6 +6,15 @@ SphereClass::SphereClass(glm::vec2 position, glm::vec2 velocity, float mass, flo
 	m_colour = colour;
 }
 
+SphereClass::SphereClass(glm::vec2 position, float angle, float speed, float mass, float radius, glm::vec4 colour) : RigidBodyClass(SPHERE, position, speed, angle, 0, mass)
+{
+	m_velocity.x = speed * cos(angle);
+	m_velocity.y = speed * sin(angle);
+
+	m_radius = radius;
+	m_colour = colour;
+}
+
 SphereClass::~SphereClass()
 {
 }

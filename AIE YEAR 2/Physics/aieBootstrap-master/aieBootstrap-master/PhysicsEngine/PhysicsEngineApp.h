@@ -19,8 +19,6 @@ public:
 	void setupContinuousDemo(glm::vec2 startPos, float inclination, float speed, float gravity);
 
 	PhysicsScene* m_physicsScene;
-	float fuel = 100;
-	float time = 100;
 
 	SphereClass* rocket_Ship;
 protected:

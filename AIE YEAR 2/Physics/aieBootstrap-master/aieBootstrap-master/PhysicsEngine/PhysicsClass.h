@@ -23,9 +23,21 @@ public:
 	void setTimeStep(const float timeStep) { m_timeStep = timeStep; }
 	float getTimeStep() const { return m_timeStep; }
 
+	void checkForCollision();
 
+	static bool plane2Plane(PhysicsObject*, PhysicsObject*);
+	static bool plane2Sphere(PhysicsObject*, PhysicsObject*);
+	static bool plane2Box(PhysicsObject*, PhysicsObject*);
+	static bool sphere2Plane(PhysicsObject*, PhysicsObject*);
+	static bool sphere2Sphere(PhysicsObject* obj1, PhysicsObject*obj2);
+	static bool sphere2Box(PhysicsObject*, PhysicsObject*);
+	static bool box2Plane(PhysicsObject*, PhysicsObject*);
+	static bool box2Sphere(PhysicsObject*, PhysicsObject*);
+	static bool box2Box(PhysicsObject*, PhysicsObject*);
 protected:
 	glm::vec2 m_gravity;
 	float m_timeStep;
 	std::vector<PhysicsObject*> m_actors;
+	const int SHAPE_COUNT = BOX;
+
 };

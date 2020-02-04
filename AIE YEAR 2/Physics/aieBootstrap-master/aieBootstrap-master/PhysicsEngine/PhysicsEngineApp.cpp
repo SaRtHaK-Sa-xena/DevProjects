@@ -9,6 +9,10 @@
 #include <glm\ext.hpp>
 #include <vector>
 
+#define _USE_MATH_DEFINES
+
+#include <math.h>
+
 PhysicsEngineApp::PhysicsEngineApp() {
 
 }
@@ -28,7 +32,24 @@ bool PhysicsEngineApp::startup() {
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 	
-	setupContinuousDemo();
+	#pragma region Projectile Tutorial
+	m_physicsScene = new PhysicsScene();
+	m_physicsScene->setGravity(glm::vec2(0, -10));
+	m_physicsScene->setTimeStep(0.5f);
+	float radius = 1.0f;
+	float speed = 30;
+	glm::vec2 startPos(-40, 0);
+	//returns radian of 45 degrees
+	float inclination = (float)M_PI / 4.0f;
+	m_physicsScene->addActor(new SphereClass(startPos, inclination, speed, 1, radius, glm::vec4(1, 0, 0, 1)));
+	setupContinuousDemo(glm::vec2(-40,0), inclination, 30, 10);
+	#pragma endregion
+
+	m_physicsScene = new PhysicsScene();
+	m_physicsScene->setGravity(glm::vec2(0,0));
+
+	m_physicsScene->addActor(new SphereClass(glm::vec2(4, 0), glm::vec2(4, 0), 1, 1, glm::vec4(1, 0, 0, 1)));
+	m_physicsScene->addActor(new SphereClass(glm::vec2(-4, 0), glm::vec2(-4, 0), 1, 1, glm::vec4(1, 0, 0, 1)));
 
 	return true;
 }
@@ -74,7 +95,11 @@ void PhysicsEngineApp::update(float deltaTime) {
 	}*/
 	#pragma endregion RocketShip
 
-	
+	m_physicsScene->update(deltaTime);
+	m_physicsScene->updateGizmos();
+
+	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
+		quit();
 }
 
 void PhysicsEngineApp::draw() {
@@ -86,6 +111,7 @@ void PhysicsEngineApp::draw() {
 	m_2dRenderer->begin();
 
 	// draw your stuff here!
+	//static float aspectRatio = 16 / 9.f;
 	static float aspectRatio = 16 / 9.f;
 	aie::Gizmos::draw2D(glm::ortho<float>(-100, 100,
 		-100 / aspectRatio, 100 / aspectRatio, -1.0f, 1.0f));
@@ -102,7 +128,7 @@ void PhysicsEngineApp::setupContinuousDemo(glm::vec2 startPos, float inclination
 {
 	float t = 0;
 	float tStep = 0.5f;
-	float radius = 1.0f;
+	float radius = 0.5f;
 	int segments = 12;
 
 	glm::vec4 colour = glm::vec4(1, 1, 0, 1);
@@ -110,11 +136,21 @@ void PhysicsEngineApp::setupContinuousDemo(glm::vec2 startPos, float inclination
 	while (t <= 5)
 	{
 		//calculate the x,y position of the projectile at time t
-		float x = speed * t + (1 / 2 * gravity) * (t * t);
+		//-------------------KEY----------------------|
+		//ini velocity of x = speed * cos(inclination)| 
+		//ini velocity of y = speed * sin(inclination)|
+		//--------------------------------------------|
 
-		float y = sqrt(tan(inclination / x));
+		//x = ini x pos + ini vel of x times t 
+		float x = startPos.x + (speed * t * cos(inclination));
+		
+		//y = ini y pos + ini vel of y times t plus half of g times squared t
+		float y = startPos.y + (speed * t * sin(inclination)) - (0.5 * gravity * pow(t,2));
 
+		//create a circle if position, radius, segment, colour 
 		aie::Gizmos::add2DCircle(glm::vec2(x, y), radius, segments, colour);
+		
+		//increment time to be by timeStep of 0.5
 		t += tStep;
 	}
 }
