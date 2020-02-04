@@ -36,16 +36,13 @@ bool PhysicsEngineApp::startup() {
 	m_physicsScene->setTimeStep(0.01f);
 	
 	//create actors
-	Ball1 = new SphereClass(glm::vec2(-20, 0), glm::vec2(0, 0), 4.0f, 4, glm::vec4(1, 0, 0, 1));
-	Ball2 = new SphereClass(glm::vec2(10, 0), glm::vec2(0, 0), 4.0f, 4, glm::vec4(1, 1, 0, 1));
+	rocket_Ship = new SphereClass(glm::vec2(0, -20), glm::vec2(0, 0), fuel, 4, glm::vec4(1, 0, 0, 1));
 	
-	
-	//add actors
-	m_physicsScene->addActor(Ball1);
-	m_physicsScene->addActor(Ball2);
+	//apply force 
+	rocket_Ship->applyForce(glm::vec2(0, -2));
 
-	Ball1->applyForce(glm::vec2(30, 0));
-	Ball2->applyForce(glm::vec2(-15, 0));
+	//add actors
+	m_physicsScene->addActor(rocket_Ship);
 
 	return true;
 }
@@ -58,6 +55,8 @@ void PhysicsEngineApp::shutdown() {
 
 void PhysicsEngineApp::update(float deltaTime) {
 
+	time = time - 1;
+
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 
@@ -65,6 +64,30 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
+
+	//Each Update
+	//Repeated until mass depleted (fuel depleted)
+	//check if mass greater than zero
+	if (time > 0 && time < 10 || time > 20 && time < 30 || time > 40 && time < 50 || time > 60 && time < 70
+		|| time > 80 && time < 90)
+	{
+		if (rocket_Ship->getMass() > 0)
+		{
+			//Decrease mass of the rocket by M to simulate fuel being used
+			fuel = fuel - 1;
+			rocket_Ship->setMass(fuel);
+			rocket_Ship->applyForce(glm::vec2(0, 2));
+		}
+	}
+
+	//Create a particle sphere of mass M next to the rocket to simulate an exhaust gas particle
+	SphereClass* exhaust_ptc = new SphereClass(glm::vec2(rocket_Ship->getPosition().x, (rocket_Ship->getPosition().y - 2)),
+		glm::vec2(0, 0), 1, 1, glm::vec4(1, 1, 0, 1));
+
+	m_physicsScene->addActor(exhaust_ptc);
+
+	//use ApplyForceToActor to the exhaust gas from the rocket (will be the opposite to the direction of the rocket)
+	rocket_Ship->applyForceToActor(exhaust_ptc, glm::vec2(0, -1));
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))

@@ -18,8 +18,10 @@ public:
 
 
 	PhysicsScene* m_physicsScene;
-	SphereClass* Ball1;
-	SphereClass* Ball2;
+	float fuel = 100;
+	float time = 100;
+
+	SphereClass* rocket_Ship;
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;

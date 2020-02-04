@@ -31,7 +31,8 @@ bool SphereClass::checkCollision(PhysicsObject* pOther)
 		//find it in 
 		if (mag < (Dcast->getRadius() + m_radius))
 		{
-			return true;
+			//turned off for rocket Exercise
+			return false;
 		}
 		else
 		{
