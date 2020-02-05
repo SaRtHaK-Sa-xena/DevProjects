@@ -36,6 +36,7 @@ public:
 
 	void setMass(float a_mass) { m_mass = a_mass; }
 	void setVelocity(glm::vec2 a_velocity) { m_velocity = a_velocity; }
+	void movePosition(glm::vec2 a_position) { m_position += a_position; }
 
 protected:
 	glm::vec2 m_position;

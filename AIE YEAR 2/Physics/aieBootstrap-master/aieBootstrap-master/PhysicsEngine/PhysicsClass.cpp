@@ -162,20 +162,34 @@ bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 	if (sphere != nullptr && plane != nullptr)
 	{
 		glm::vec2 collisionNormal = plane->getNormal();
-		float sphereToPlane = glm::dot(sphere->getPosition(), plane->getNormal() - plane->getDistance());
+		float sphereToPlane = glm::dot(sphere->getPosition(), plane->getNormal()) - plane->getDistance();
+		float forceDirection = 1.0f;
 
 		//if we are behind plane then we flip the normal
 		if (sphereToPlane < 0) 
 		{
 			collisionNormal *= -1;
 			sphereToPlane *= -1;
+			forceDirection = -1.0f;
 		}
 
+		//intersection
 		float intersection = sphere->getRadius() - sphereToPlane;
 		if (intersection > 0)
 		{
 			//set sphere velocity to zero
-			sphere->setVelocity(glm::vec2(0, 0));
+			//sphere->setVelocity(glm::vec2(0, 0));
+
+			//add that distance to the velocity of sphere to move it
+			//sphere->getPosition() += sphere->getPosition() * collisionNormal * intersection;
+			
+			//Keep Sphere above Plane
+			sphere->movePosition(intersection * collisionNormal);
+
+			//Apply Force Upwards
+			glm::vec2 appliedForce = collisionNormal * glm::length(sphere->getVelocity()) * forceDirection;
+			sphere->applyForce(appliedForce * 0.7f);
+
 			return true;
 		}
 	}
@@ -193,7 +207,7 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 	{
 		//coliison detection
 		// set the velocity of the two spheres to zero
-		//if overlapping
+		//if overlappingd
 
 		glm::vec2 difference = sphere1->getPosition() - sphere2->getPosition();
 
@@ -201,8 +215,12 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 
 		if (gradient < (sphere1->getRadius() + sphere2->getRadius()))
 		{
-			sphere1->setVelocity(glm::vec2(0, 0));
-			sphere2->setVelocity(glm::vec2(0, 0));
+			//works somewhat
+			glm::vec2 normalizeSphere1 = glm::normalize(sphere1->getVelocity());
+			glm::vec2 normalizeSphere2 = glm::normalize(sphere2->getVelocity());
+			sphere1->movePosition(normalizeSphere1 * gradient);
+			sphere2->movePosition(normalizeSphere2 * gradient);
+			sphere1->applyForceToActor(sphere2, sphere1->getVelocity() * 0.1f);
 		}
 	}
 	return false;

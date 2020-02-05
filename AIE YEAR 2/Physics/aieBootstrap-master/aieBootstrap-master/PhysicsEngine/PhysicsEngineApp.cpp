@@ -47,16 +47,19 @@ bool PhysicsEngineApp::startup() {
 	#pragma endregion
 
 	m_physicsScene = new PhysicsScene();
-	m_physicsScene->setGravity(glm::vec2(0,0));
+	m_physicsScene->setGravity(glm::vec2(0,-10));
 
-	SphereClass *ball1 = new SphereClass(glm::vec2(-20, -10), glm::vec2(2, 0), 1, 1, glm::vec4(1, 0, 0, 1));
-	SphereClass *ball2 = new SphereClass(glm::vec2(20, 10), glm::vec2(-2, 0), 1, 1, glm::vec4(1, 0, 0, 1));
+	SphereClass *ball1 = new SphereClass(glm::vec2(-24, 50), glm::vec2(20, 0), 1, 1, glm::vec4(1, 0, 0, 1));
+	SphereClass *ball2 = new SphereClass(glm::vec2(24, 50), glm::vec2(-20, 0), 1, 1, glm::vec4(1, 0, 0, 1));
 
-	PlaneClass* plane1 = new PlaneClass(glm::vec2(1, 1), 100);
+	PlaneClass* plane1 = new PlaneClass(glm::normalize(glm::vec2(1, 3)), 15);
+	PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(-1, 3)), 15);
 
 	m_physicsScene->addActor(ball1);
 	m_physicsScene->addActor(ball2);
+
 	m_physicsScene->addActor(plane1);
+	m_physicsScene->addActor(plane2);
 
 	return true;
 }
