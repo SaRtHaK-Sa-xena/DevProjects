@@ -22,3 +22,8 @@ void AABBClass::makeGizmo()
 	aie::Gizmos::add2DAABB(m_position, glm::vec2(m_width, m_height), colour);
 }
 
+bool AABBClass::checkCollision(PhysicsObject* pOther)
+{
+	return false;
+}
+

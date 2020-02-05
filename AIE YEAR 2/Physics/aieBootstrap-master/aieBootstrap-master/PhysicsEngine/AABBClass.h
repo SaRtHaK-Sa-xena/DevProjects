@@ -17,7 +17,7 @@ public:
 	//some functions
 	virtual void debug() {};
 	virtual void makeGizmo();
-	virtual bool checkCollision(PhysicsObject* pOther) { return false; };
+	virtual bool checkCollision(PhysicsObject* pOther);
 
 	float getWidth() { return m_width; };
 	float getHeight() { return m_height; }

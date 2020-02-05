@@ -45,7 +45,7 @@ bool PhysicsEngineApp::startup() {
 	//float inclination = (float)M_PI / 4.0f;
 	//m_physicsScene->addActor(new SphereClass(startPos, inclination, speed, 1, radius, glm::vec4(1, 0, 0, 1)));
 	//setupContinuousDemo(glm::vec2(-40,0), inclination, 30, 10);
-	#pragma endregion
+	#pragma endregion Projectile Tutorial
 
 	#pragma region SphereToSphere and SphereToPlane Collision [Testing Bounce]
 	/*m_physicsScene = new PhysicsScene();
@@ -62,19 +62,18 @@ bool PhysicsEngineApp::startup() {
 
 	m_physicsScene->addActor(plane1);
 	m_physicsScene->addActor(plane2);*/
-	#pragma endregion
+	#pragma endregion SphereToSphere and SphereToPlane Collision [Testing Bounce]
 
-
+	#pragma region AABB Collision Tests
 	m_physicsScene = new PhysicsScene();
 	m_physicsScene->setGravity(glm::vec2(0, 0));
 
-	//box1 = new AABBClass(glm::vec2(20,10), 10, 2.0);
 	box2 = new AABBClass(glm::vec2(20,-10), 20, 20);
 	SphereClass* sphere = new SphereClass(glm::vec2(20, 40), glm::vec2(0, -10), 1, 1, glm::vec4(1, 0, 1, 1));
 
 	m_physicsScene->addActor(sphere);
 	m_physicsScene->addActor(box2);
-
+	#pragma endregion AABB Collision Tests
 
 	return true;
 }
