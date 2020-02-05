@@ -68,10 +68,13 @@ bool PhysicsEngineApp::startup() {
 	m_physicsScene = new PhysicsScene();
 	m_physicsScene->setGravity(glm::vec2(0, 0));
 
-	AABBClass* box = new AABBClass(25,25,10,10);
-	box->setPosition(glm::vec2(25, 25));
+	//box1 = new AABBClass(glm::vec2(20,10), 10, 2.0);
+	box2 = new AABBClass(glm::vec2(20,-10), 20, 20);
+	SphereClass* sphere = new SphereClass(glm::vec2(20, 40), glm::vec2(0, -10), 1, 1, glm::vec4(1, 0, 1, 1));
 
-	m_physicsScene->addActor(box);
+	m_physicsScene->addActor(sphere);
+	m_physicsScene->addActor(box2);
+
 
 	return true;
 }
@@ -118,7 +121,7 @@ void PhysicsEngineApp::update(float deltaTime) {
 		}
 	}*/
 	#pragma endregion RocketShip
-
+	
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
 

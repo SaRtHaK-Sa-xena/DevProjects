@@ -2,6 +2,16 @@
 
 
 
+AABBClass::AABBClass(glm::vec2 a_topLeft, glm::vec2 a_bottomRight) : RigidBodyClass(BOX, m_position, m_velocity, m_rotation, m_mass)
+{
+}
+
+AABBClass::AABBClass(glm::vec2 position, float a_width, float a_height) : RigidBodyClass(BOX, position, glm::vec2(0,0), 1.f, 1.f)
+{
+	m_width = a_width;
+	m_height = a_height;
+}
+
 AABBClass::~AABBClass()
 {
 }
@@ -9,6 +19,6 @@ AABBClass::~AABBClass()
 void AABBClass::makeGizmo()
 {
 	glm::vec4 colour(1, 0, 0, 1);
-	aie::Gizmos::add2DAABB(glm::vec2(m_position.x, m_position.y), glm::vec2(m_width, m_height), colour);
+	aie::Gizmos::add2DAABB(m_position, glm::vec2(m_width, m_height), colour);
 }
 

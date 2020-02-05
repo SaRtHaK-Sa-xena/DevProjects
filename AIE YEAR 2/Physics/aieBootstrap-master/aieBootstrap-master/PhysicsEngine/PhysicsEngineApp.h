@@ -3,6 +3,7 @@
 #include "Renderer2D.h"
 #include "PhysicsClass.h"
 #include "SphereClass.h"
+#include "AABBClass.h"
 
 class PhysicsEngineApp : public aie::Application {
 public:
@@ -21,6 +22,8 @@ public:
 	PhysicsScene* m_physicsScene;
 
 	SphereClass* rocket_Ship;
+	AABBClass* box1;
+	AABBClass* box2;
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;

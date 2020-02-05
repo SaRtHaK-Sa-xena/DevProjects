@@ -2,6 +2,7 @@
 #include "RigidBodyClass.h"
 #include "SphereClass.h"
 #include "PlaneClass.h"
+#include "AABBClass.h"
 #include <list>
 #include <iostream>
 
@@ -236,12 +237,111 @@ bool PhysicsScene::box2Plane(PhysicsObject*, PhysicsObject*)
 	return false;
 }
 
-bool PhysicsScene::box2Sphere(PhysicsObject*, PhysicsObject*)
+bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 {
+	AABBClass* box1 = dynamic_cast<AABBClass*>(obj1);
+	SphereClass* sphere1 = dynamic_cast<SphereClass*>(obj2);
+
+	//if valid
+	if (sphere1, box1)
+	{
+		//glm::vec2 difference = sphere1->getPosition() - box1->getPosition();
+
+		////============================================================
+		//float minX;
+		//if ((box1->getWidth() + box1->getPosition().x) < sphere1->getRadius())
+		//{
+		//	minX = box1->getWidth() + box1->getPosition().x;
+		//}
+		//else
+		//{
+		//	minX = sphere1->getRadius();
+		//}
+		//float maxX;
+		//if (minX > box1->getWidth())
+		//{
+		//	maxX = minX;
+		//}
+		//else
+		//{
+		//	maxX = box1->getWidth();
+		//}
+		////==========================================================
+		//float minY;
+		//if ((box1->getHeight() + box1->getPosition().y) > sphere1->getPosition().y)
+		//{
+		//	minY = box1->getHeight() + box1->getPosition().y;
+		//}
+		//else
+		//{
+		//	minY = sphere1->getPosition().y;
+		//}
+		//float maxY;
+		//if (maxY > box1->getHeight())
+		//{
+		//	maxY = minY;
+		//}
+		//else
+		//{
+		//	maxY = box1->getHeight();
+		//}
+
+		//float distance = sqrt((maxX - sphere1->getRadius()) * (maxX - sphere1->getRadius()) +
+		//	(maxY - sphere1->getPosition().y) * (maxY - sphere1->getPosition().y));
+
+		//if (distance < sphere1->getRadius())
+		//{
+		//	sphere1->setVelocity(glm::vec2(0, 0));
+		//	box1->setVelocity(glm::vec2(0, 0));
+		//}
+
+
+		//=====NEW ATTEMPT=======
+		glm::vec2 distance = sphere1->getPosition() - box1->getPosition();
+		if (box1->getPosition().x < sphere1->getPosition().x + sphere1->getRadius() &&
+			(sphere1->getPosition().x - sphere1->getRadius()) > box1->getPosition().x&&
+			box1->getPosition().y < (sphere1->getPosition().y - sphere1->getRadius()) &&
+			(sphere1->getPosition().y + sphere1->getRadius()) > box1->getPosition().y)
+		{
+			sphere1->setVelocity(glm::vec2(0, 0));
+			box1->setVelocity(glm::vec2(0, 0));
+		}
+
+		/*float sphereToPlaneOfBox = glm::dot(sphere1->getPosition(), box1->getVelocity()) - box1->getPosition().x;
+
+		if (sphereToPlaneOfBox < 0)
+		{
+			sphereToPlaneOfBox *= -1;
+		}
+
+
+		float intersection = sphere1->getRadius() - sphereToPlaneOfBox;
+		
+		if (intersection > 0)
+		{
+			
+		}*/
+	}
 	return false;
 }
 
-bool PhysicsScene::box2Box(PhysicsObject*, PhysicsObject*)
+bool PhysicsScene::box2Box(PhysicsObject* obj1, PhysicsObject* obj2)
 {
+	//cast to AABB Class
+	AABBClass* box1 = dynamic_cast<AABBClass*>(obj1);
+	AABBClass* box2 = dynamic_cast<AABBClass*>(obj2);
+
+	//if cast successful
+	if (box1, box2)
+	{
+		if (box1->getPosition().x < box2->getPosition().x + box2->getWidth() &&
+			(box1->getPosition().x + box1->getWidth()) > box2->getPosition().x &&
+			box1->getPosition().y < (box2->getPosition().y + box2->getHeight()) &&
+			(box1->getPosition().y + box1->getHeight()) > box2->getPosition().y)
+		{
+			box1->setVelocity(glm::vec2(0, 0));
+		}
+	}
+
 	return false;
 }
