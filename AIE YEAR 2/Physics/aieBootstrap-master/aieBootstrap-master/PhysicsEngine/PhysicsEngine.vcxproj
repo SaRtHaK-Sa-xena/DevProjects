@@ -164,6 +164,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AABBClass.cpp" />
     <ClCompile Include="PhysicsClass.cpp" />
     <ClCompile Include="PhysicsEngineApp.cpp" />
     <ClCompile Include="main.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="SphereClass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AABBClass.h" />
     <ClInclude Include="PhysicsClass.h" />
     <ClInclude Include="PhysicsEngineApp.h" />
     <ClInclude Include="PhysicsObject.h" />

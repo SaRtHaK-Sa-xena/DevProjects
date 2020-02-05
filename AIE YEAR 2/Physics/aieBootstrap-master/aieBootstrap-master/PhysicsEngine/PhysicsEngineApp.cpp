@@ -3,6 +3,7 @@
 #include "RigidBodyClass.h"
 #include "SphereClass.h"
 #include "PlaneClass.h"
+#include "AABBClass.h"
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
@@ -46,7 +47,8 @@ bool PhysicsEngineApp::startup() {
 	//setupContinuousDemo(glm::vec2(-40,0), inclination, 30, 10);
 	#pragma endregion
 
-	m_physicsScene = new PhysicsScene();
+	#pragma region SphereToSphere and SphereToPlane Collision [Testing Bounce]
+	/*m_physicsScene = new PhysicsScene();
 	m_physicsScene->setGravity(glm::vec2(0,-10));
 
 	SphereClass *ball1 = new SphereClass(glm::vec2(-24, 50), glm::vec2(20, 0), 1, 1, glm::vec4(1, 0, 0, 1));
@@ -59,7 +61,17 @@ bool PhysicsEngineApp::startup() {
 	m_physicsScene->addActor(ball2);
 
 	m_physicsScene->addActor(plane1);
-	m_physicsScene->addActor(plane2);
+	m_physicsScene->addActor(plane2);*/
+	#pragma endregion
+
+
+	m_physicsScene = new PhysicsScene();
+	m_physicsScene->setGravity(glm::vec2(0, 0));
+
+	AABBClass* box = new AABBClass(25,25,10,10);
+	box->setPosition(glm::vec2(25, 25));
+
+	m_physicsScene->addActor(box);
 
 	return true;
 }
