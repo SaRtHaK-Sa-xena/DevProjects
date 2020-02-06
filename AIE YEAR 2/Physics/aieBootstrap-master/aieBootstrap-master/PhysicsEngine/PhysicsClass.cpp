@@ -239,11 +239,11 @@ bool PhysicsScene::box2Plane(PhysicsObject*, PhysicsObject*)
 
 bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 {
-	AABBClass* box1 = dynamic_cast<AABBClass*>(obj1);
-	SphereClass* sphere1 = dynamic_cast<SphereClass*>(obj2);
+	AABBClass* box = dynamic_cast<AABBClass*>(obj1);
+	SphereClass* sphere = dynamic_cast<SphereClass*>(obj2);
 
 	//if valid
-	if (sphere1, box1)
+	if (sphere && box)
 	{
 		//glm::vec2 difference = sphere1->getPosition() - box1->getPosition();
 
@@ -307,27 +307,36 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 			box1->setVelocity(glm::vec2(0, 0));
 		}*/
 
-
+		//Second Attempt===========
 		//Function To Dissassable Box
 		//..Top Line
-		glm::vec2 collisionNormal = glm::normalize(glm::vec2(0, 10));
-		float sphereToPlane = glm::dot(sphere1->getPosition(), glm::normalize(glm::vec2(0, 10))) - box1->getWidth();
-		float forceDirection = 1.0f;
+		//glm::vec2 collisionNormal = glm::normalize(glm::vec2(0, 10));
+		//float sphereToPlane = glm::dot(sphere1->getPosition(), glm::normalize(glm::vec2(0, 10))) - box1->getWidth();
+		//float forceDirection = 1.0f;
 
-		//if we are behind plane then we flip the normal
-		if (sphereToPlane < 0)
-		{
-			collisionNormal *= -1;
-			sphereToPlane *= -1;
-			forceDirection = -1.0f;
-		}
+		////if we are behind plane then we flip the normal
+		//if (sphereToPlane < 0)
+		//{
+		//	collisionNormal *= -1;
+		//	sphereToPlane *= -1;
+		//	forceDirection = -1.0f;
+		//}
 
-		//intersection
-		float intersection = sphere1->getRadius() - sphereToPlane;
-		if (intersection > 0)
-		{
-			sphere1->setVelocity(glm::vec2(0,0));
-		}
+		////intersection
+		//float intersection = sphere1->getRadius() - sphereToPlane;
+		//if (intersection > 0)
+		//{
+		//	sphere1->setVelocity(glm::vec2(0,0));
+		//}
+
+		//=======================================================================================================
+		
+		//draws directional line to sphere center
+		glm::vec2 vectorToSphere = sphere->getPosition() - box->getVelocity();
+
+
+		float Top_y = (box->getHeight()) + box->getPosition().y;
+		//float top_x = (box.getPosition.x);
 
 
 

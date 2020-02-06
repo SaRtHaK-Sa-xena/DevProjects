@@ -23,7 +23,7 @@ public:
 
 	SphereClass* rocket_Ship;
 	AABBClass* box1;
-	AABBClass* box2;
+	AABBClass* box;
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;

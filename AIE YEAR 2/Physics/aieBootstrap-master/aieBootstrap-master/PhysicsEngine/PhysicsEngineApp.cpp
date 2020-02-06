@@ -10,6 +10,7 @@
 #include <Gizmos.h>
 #include <glm\ext.hpp>
 #include <vector>
+#include <iostream>
 
 #define _USE_MATH_DEFINES
 
@@ -65,14 +66,54 @@ bool PhysicsEngineApp::startup() {
 	#pragma endregion SphereToSphere and SphereToPlane Collision [Testing Bounce]
 
 	#pragma region AABB Collision Tests
+
 	m_physicsScene = new PhysicsScene();
 	m_physicsScene->setGravity(glm::vec2(0, 0));
 
-	box2 = new AABBClass(glm::vec2(20,-10), 20, 20);
+	box = new AABBClass(glm::vec2(20,-10), 20, 20);
 	SphereClass* sphere = new SphereClass(glm::vec2(20, 40), glm::vec2(0, -10), 1, 1, glm::vec4(1, 0, 1, 1));
 
 	m_physicsScene->addActor(sphere);
-	m_physicsScene->addActor(box2);
+	m_physicsScene->addActor(box);
+
+	//correct version
+	glm::vec2 vectorToSphere = box->getPosition() - sphere->getVelocity();
+	
+
+	std::cout << "VectorTowardsSphere:" << std::endl;
+	std::cout << "Vector: " << "\n" << "x: " << vectorToSphere.x << " y: " << vectorToSphere.y << std::endl;
+
+	float Top_y = (box->getHeight()) + box->getPosition().y;
+
+	AABBClass* newBox = new AABBClass(glm::vec2(box->getPosition().x, Top_y), 1, 1);
+	AABBClass* newBox1 = new AABBClass(vectorToSphere, 1, 1);
+	
+	//glm::vec2(box->getPosition().x + box->getWidth(), box->getPosition().y + box->getHeight());
+
+	glm::vec2 PointA(box->getPosition().x - box->getWidth(), box->getPosition().y + box->getHeight());
+	glm::vec2 PointB(box->getPosition().x + box->getWidth(), box->getPosition().y + box->getHeight());
+
+	AABBClass* newBox3 = new AABBClass(PointA, 1, 1);
+	AABBClass* newBox4 = new AABBClass(PointB, 1, 1);
+	AABBClass* collision = new AABBClass(glm::vec2(5,10), 1, 1);
+
+	
+	glm::vec2 vectorOfTopLine = newBox3->getPosition() - newBox4->getVelocity();
+	PlaneClass* newLine = new PlaneClass(glm::normalize(vectorOfTopLine), 10);
+	PlaneClass* newLine1 = new PlaneClass(glm::normalize(vectorToSphere), 10);
+
+	//m_physicsScene->addActor(newBox);
+	//m_physicsScene->addActor(newBox1);
+	//m_physicsScene->addActor(newBox3);
+	//m_physicsScene->addActor(newBox4);
+	m_physicsScene->addActor(newLine);
+	m_physicsScene->addActor(newLine1);
+	m_physicsScene->addActor(collision);
+
+
+	std::cout << "Top Line" << "\n" << "x:" << vectorOfTopLine.x << " y:" << vectorOfTopLine.y << std::endl;
+
+
 	#pragma endregion AABB Collision Tests
 
 	return true;
@@ -121,6 +162,8 @@ void PhysicsEngineApp::update(float deltaTime) {
 	}*/
 	#pragma endregion RocketShip
 	
+
+
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
 
@@ -142,7 +185,6 @@ void PhysicsEngineApp::draw() {
 	static float aspectRatio = 16 / 9.f;
 	aie::Gizmos::draw2D(glm::ortho<float>(-100, 100,
 		-100 / aspectRatio, 100 / aspectRatio, -1.0f, 1.0f));
-
 
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
