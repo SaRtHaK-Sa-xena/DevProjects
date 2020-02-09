@@ -27,3 +27,8 @@ void PlaneClass::makeGizmo()
 void PlaneClass::resetPosition()
 {
 }
+
+void PlaneClass::resolveCollision(RigidBodyClass* actor2)
+{
+
+}
