@@ -22,6 +22,7 @@ public:
 	PhysicsScene* m_physicsScene;
 
 	SphereClass* rocket_Ship;
+	SphereClass* sphere;
 	AABBClass* box1;
 	AABBClass* box;
 protected:

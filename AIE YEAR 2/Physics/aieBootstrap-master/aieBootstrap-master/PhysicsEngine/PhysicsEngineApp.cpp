@@ -49,11 +49,12 @@ bool PhysicsEngineApp::startup() {
 	#pragma endregion Projectile Tutorial
 
 	#pragma region SphereToSphere and SphereToPlane Collision [Testing Bounce]
-	/*m_physicsScene = new PhysicsScene();
+
+	m_physicsScene = new PhysicsScene();
 	m_physicsScene->setGravity(glm::vec2(0,-10));
 
-	SphereClass *ball1 = new SphereClass(glm::vec2(-24, 50), glm::vec2(20, 0), 1, 1, glm::vec4(1, 0, 0, 1));
-	SphereClass *ball2 = new SphereClass(glm::vec2(24, 50), glm::vec2(-20, 0), 1, 1, glm::vec4(1, 0, 0, 1));
+	SphereClass *ball1 = new SphereClass(glm::vec2(-24, 50), glm::vec2(0, 0), 1, 1, glm::vec4(1, 0, 0, 1));
+	SphereClass *ball2 = new SphereClass(glm::vec2(24, 50), glm::vec2(0, 0), 1, 1, glm::vec4(1, 0, 0, 1));
 
 	PlaneClass* plane1 = new PlaneClass(glm::normalize(glm::vec2(1, 3)), 15);
 	PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(-1, 3)), 15);
@@ -62,59 +63,51 @@ bool PhysicsEngineApp::startup() {
 	m_physicsScene->addActor(ball2);
 
 	m_physicsScene->addActor(plane1);
-	m_physicsScene->addActor(plane2);*/
+	m_physicsScene->addActor(plane2);
+
 	#pragma endregion SphereToSphere and SphereToPlane Collision [Testing Bounce]
 
 	#pragma region AABB Collision Tests
 
-	m_physicsScene = new PhysicsScene();
+	#pragma region AABB -> Sphere Collision
+	/*m_physicsScene = new PhysicsScene();
 	m_physicsScene->setGravity(glm::vec2(0, 0));
 
 	box = new AABBClass(glm::vec2(20,-10), 20, 20);
-	SphereClass* sphere = new SphereClass(glm::vec2(20, 40), glm::vec2(0, -10), 1, 1, glm::vec4(1, 0, 1, 1));
+	sphere = new SphereClass(glm::vec2(-10, +20), glm::vec2(+10, -10), 10, 1, glm::vec4(1, 0, 1, 1));
 
 	m_physicsScene->addActor(sphere);
-	m_physicsScene->addActor(box);
+	m_physicsScene->addActor(box);*/
+	#pragma endregion AABB -> Sphere Collision
 
-	//correct version
-	glm::vec2 vectorToSphere = box->getPosition() - sphere->getVelocity();
-	
+	#pragma region AABB -> Plane Collision
 
-	std::cout << "VectorTowardsSphere:" << std::endl;
-	std::cout << "Vector: " << "\n" << "x: " << vectorToSphere.x << " y: " << vectorToSphere.y << std::endl;
+	// set scene
+	//m_physicsScene = new PhysicsScene();
+	//m_physicsScene->setGravity(glm::vec2(0, -10));
 
-	float Top_y = (box->getHeight()) + box->getPosition().y;
+	//// create box
+	//box = new AABBClass(glm::vec2(20, 40), 10, 10);
 
-	AABBClass* newBox = new AABBClass(glm::vec2(box->getPosition().x, Top_y), 1, 1);
-	AABBClass* newBox1 = new AABBClass(vectorToSphere, 1, 1);
-	
-	//glm::vec2(box->getPosition().x + box->getWidth(), box->getPosition().y + box->getHeight());
+	//// create plane
+	//PlaneClass* plane = new PlaneClass(glm::vec2(0, 1), 20);
 
-	glm::vec2 PointA(box->getPosition().x - box->getWidth(), box->getPosition().y + box->getHeight());
-	glm::vec2 PointB(box->getPosition().x + box->getWidth(), box->getPosition().y + box->getHeight());
-
-	AABBClass* newBox3 = new AABBClass(PointA, 1, 1);
-	AABBClass* newBox4 = new AABBClass(PointB, 1, 1);
-	AABBClass* collision = new AABBClass(glm::vec2(5,10), 1, 1);
-
-	
-	glm::vec2 vectorOfTopLine = newBox3->getPosition() - newBox4->getVelocity();
-	PlaneClass* newLine = new PlaneClass(glm::normalize(vectorOfTopLine), 10);
-	PlaneClass* newLine1 = new PlaneClass(glm::normalize(vectorToSphere), 10);
-
-	//m_physicsScene->addActor(newBox);
-	//m_physicsScene->addActor(newBox1);
-	//m_physicsScene->addActor(newBox3);
-	//m_physicsScene->addActor(newBox4);
-	m_physicsScene->addActor(newLine);
-	m_physicsScene->addActor(newLine1);
-	m_physicsScene->addActor(collision);
+	////TemporaryTest
+	////AABBClass* temp_box = new AABBClass(plane->getNormal() * box->getPosition() + plane->getDistance(), 1, 1);
 
 
-	std::cout << "Top Line" << "\n" << "x:" << vectorOfTopLine.x << " y:" << vectorOfTopLine.y << std::endl;
+	////m_physicsScene->addActor(temp_box);
 
+	//// add into scene
+	//m_physicsScene->addActor(box);
+	//m_physicsScene->addActor(plane);
+
+
+	#pragma endregion AABB -> Plane Collision
 
 	#pragma endregion AABB Collision Tests
+
+
 
 	return true;
 }

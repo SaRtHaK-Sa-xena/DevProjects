@@ -32,3 +32,21 @@ void RigidBodyClass::applyForceToActor(RigidBodyClass* actor2, glm::vec2 force)
 	//force effect itself obj B
 	applyForce(-force);
 }
+
+void RigidBodyClass::resolveCollision(RigidBodyClass* actor2)
+{
+	glm::vec2 normal = glm::normalize(actor2->getPosition() - m_position);
+	glm::vec2 relativeVelocity = actor2->getVelocity() - m_velocity;
+
+	//assumed as one
+	float elasticity = 1;
+
+	//Formula for calculating impulse magnitude
+	float j = glm::dot(-(1 + elasticity) * (relativeVelocity), normal)
+		/ glm::dot(normal, normal * ((1 / m_mass) + (1 / actor2->getMass())));
+
+	glm::vec2 force = normal * j;
+
+	applyForceToActor(actor2, -force);
+
+}

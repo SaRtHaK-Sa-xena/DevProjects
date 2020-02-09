@@ -141,17 +141,31 @@ void PhysicsScene::checkForCollision()
 
 bool PhysicsScene::plane2Plane(PhysicsObject*, PhysicsObject*)
 {
+	//doesn't move..
+	//static object's don't collide
 	return false;
 }
 
-bool PhysicsScene::plane2Sphere(PhysicsObject*, PhysicsObject*)
+bool PhysicsScene::plane2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 {
-	return false;
+	PlaneClass* plane = dynamic_cast<PlaneClass*>(obj1);
+	SphereClass* sphere = dynamic_cast<SphereClass*>(obj2);
+	
+	if (plane != NULL && sphere != NULL)
+	{
+		return sphere2Plane(sphere, plane);
+	}
 }
 
-bool PhysicsScene::plane2Box(PhysicsObject*, PhysicsObject*)
+bool PhysicsScene::plane2Box(PhysicsObject* obj1, PhysicsObject* obj2)
 {
-	return false;
+	PlaneClass* plane = dynamic_cast<PlaneClass*>(obj1);
+	AABBClass* box = dynamic_cast<AABBClass*>(obj2);
+
+	if (plane != NULL && box != NULL)
+	{
+		return box2Plane(box, plane);
+	}
 }
 
 bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
@@ -178,12 +192,6 @@ bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 		float intersection = sphere->getRadius() - sphereToPlane;
 		if (intersection > 0)
 		{
-			//set sphere velocity to zero
-			//sphere->setVelocity(glm::vec2(0, 0));
-
-			//add that distance to the velocity of sphere to move it
-			//sphere->getPosition() += sphere->getPosition() * collisionNormal * intersection;
-			
 			//Keep Sphere above Plane
 			sphere->movePosition(intersection * collisionNormal);
 
@@ -207,33 +215,147 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 	if (sphere1 != nullptr && sphere2 != nullptr)
 	{
 		//coliison detection
-		// set the velocity of the two spheres to zero
-		//if overlappingd
 
 		glm::vec2 difference = sphere1->getPosition() - sphere2->getPosition();
 
-		float gradient = sqrt(difference.x * difference.x + difference.y * difference.y) * 2;
+		float gradient = sqrt(difference.x * difference.x + difference.y * difference.y);
 
+		// if overlapping
 		if (gradient < (sphere1->getRadius() + sphere2->getRadius()))
 		{
-			//works somewhat
-			glm::vec2 normalizeSphere1 = glm::normalize(sphere1->getVelocity());
-			glm::vec2 normalizeSphere2 = glm::normalize(sphere2->getVelocity());
-			sphere1->movePosition(normalizeSphere1 * gradient);
-			sphere2->movePosition(normalizeSphere2 * gradient);
-			sphere1->applyForceToActor(sphere2, sphere1->getVelocity() * 0.1f);
+			// set the velocity of the two spheres to zero
+			//sphere1->setVelocity(glm::vec2(0, 0));
+			//sphere2->setVelocity(glm::vec2(0, 0));
+
+
+			// works somewhat
+			//glm::vec2 normalizeSphere1 = glm::normalize(sphere1->getVelocity());
+			//glm::vec2 normalizeSphere2 = glm::normalize(sphere2->getVelocity());
+			//sphere1->movePosition(normalizeSphere1 * (gradient/2));
+			//sphere2->movePosition(normalizeSphere2* (gradient / 2));
+			//sphere1->applyForceToActor(sphere2, sphere1->getVelocity() * 0.1f);
+			
+			sphere1->resolveCollision(sphere2);
+
+			//sphere1->applyForce(sphere2->getVelocity() * 0.1f);
+			//sphere2->applyForce(sphere1->getVelocity() * 0.1f);
 		}
 	}
 	return false;
 }
 
-bool PhysicsScene::sphere2Box(PhysicsObject*, PhysicsObject*)
+bool PhysicsScene::sphere2Box(PhysicsObject* obj1, PhysicsObject* obj2)
 {
-	return false;
+	SphereClass* sphere = dynamic_cast<SphereClass*>(obj1);
+	AABBClass* box = dynamic_cast<AABBClass*>(obj2);
+
+	//if valid
+	if (sphere != NULL && box != NULL)
+	{
+		return box2Sphere(box, sphere);
+	}
 }
 
-bool PhysicsScene::box2Plane(PhysicsObject*, PhysicsObject*)
+bool PhysicsScene::box2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 {
+	AABBClass* box = dynamic_cast<AABBClass*>(obj1);
+	PlaneClass* plane = dynamic_cast<PlaneClass*>(obj2);
+
+	if (box != NULL && plane != NULL)
+	{
+		//glm::vec2 vectorToPlane = plane->getNormal()
+
+		//create vector
+		//glm::vec2 vectorToPlane = plane->getNormal() * box->getPosition();
+		glm::vec2 vectorToPlane = plane->getNormal() * box->getPosition() - plane->getDistance();
+		glm::vec2 boxPoint;
+
+		//for x-AXIS
+		if (vectorToPlane.x < -box->getHeight())
+		{
+			//set it to the left side
+			boxPoint.x = -box->getWidth();
+		}
+		else if (vectorToPlane.x > box->getWidth())
+		{
+			//set it to the right side
+			boxPoint.x = box->getWidth();
+		}
+		else
+		{
+			//set it to the vector.x
+			boxPoint.x = vectorToPlane.x;
+		}
+
+
+		//Setting the y-AXIS
+		if (vectorToPlane.y < -box->getHeight())
+		{
+			//set it to the bottom
+			boxPoint.y = -box->getHeight();
+		}
+		else if (vectorToPlane.y > box->getHeight())
+		{
+			//set it to the top
+			boxPoint.y = box->getHeight();
+		}
+		else
+		{
+			//set it to the vector.y
+			boxPoint.y = vectorToPlane.y;
+		}
+
+		//aie::Gizmos::add2DAABB(boxPoint, glm::vec2(1, 1), glm::vec4(1, 0, 0, 1));
+
+		//float boxToPlane = glm::dot(vectorToPlane, plane->getNormal()) - plane->getDistance();
+
+		/*if (boxToPlane > vectorToPlane)
+		{
+
+		}*/
+
+		//seperate line, check if line advances past 
+		glm::vec2 collisionNormal = plane->getNormal();
+		float boxToPlane = glm::dot(boxPoint, plane->getNormal()) - plane->getDistance();
+		float forceDirection = 1.0f;
+
+		//if we are behind plane then we flip the normal
+		if (boxToPlane < 0)
+		{
+			collisionNormal *= -1;
+			boxToPlane *= -1;
+			forceDirection = -1.0f;
+
+			//collision has occured
+			//box->setVelocity(glm::vec2(0, 0));
+		}
+
+		/*glm::vec2 distance = box->getPosition() - plane->getNormal();
+
+		if (distance.x * distance.x + distance.y * distance.y < boxToPlane)
+		{
+			box->setVelocity(glm::vec2(0, 0));
+		}*/
+
+		//intersection
+		float intersection = box->getHeight() - boxToPlane;
+		if (intersection > 0)
+		{
+			box->setVelocity(glm::vec2(0, 0));
+		}
+		//{
+		//	//Keep Sphere above Plane
+		//	sphere->movePosition(intersection * collisionNormal);
+
+		//	//Apply Force Upwards
+		//	glm::vec2 appliedForce = collisionNormal * glm::length(sphere->getVelocity()) * forceDirection;
+		//	sphere->applyForce(appliedForce * 0.7f);
+
+		//	return true;
+		//}
+
+	}
+
 	return false;
 }
 
@@ -243,9 +365,59 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 	SphereClass* sphere = dynamic_cast<SphereClass*>(obj2);
 
 	//if valid
-	if (sphere && box)
+	if (sphere != NULL && box != NULL)
 	{
-		//glm::vec2 difference = sphere1->getPosition() - box1->getPosition();
+		//create vector from box to sphere
+		glm::vec2 vectorToSphere(sphere->getPosition() - box->getPosition());
+		
+		//closest point on the box
+		glm::vec2 boxPoint;
+
+		//Setting the x-AXIS
+		if (vectorToSphere.x < -box->getHeight())
+		{
+			//set it to the left side
+			boxPoint.x = -box->getWidth();
+		}
+		else if (vectorToSphere.x > box->getWidth())
+		{
+			//set it to the right side
+			boxPoint.x = box->getWidth();
+		}
+		else
+		{
+			//set it to the vector.x
+			boxPoint.x = vectorToSphere.x;
+		}
+
+		//Setting the y-AXIS
+		if (vectorToSphere.y < -box->getHeight())
+		{
+			//set it to the bottom
+			boxPoint.y = -box->getHeight();
+		}
+		else if (vectorToSphere.y > box->getHeight())
+		{
+			//set it to the top
+			boxPoint.y = box->getHeight();
+		}
+		else
+		{
+			//set it to the vector.y
+			boxPoint.y = vectorToSphere.y;
+		}
+
+		//Now we should have the closest point on the box
+		//check if distance from that point to the sphere center less than the radius
+		glm::vec2 distance = vectorToSphere - boxPoint;
+		
+		//check if collision
+		if (distance.x * distance.x + distance.y * distance.y < sphere->getRadius() * sphere->getRadius())
+		{
+			//set velocity of sphere to zero
+			sphere->setVelocity(glm::vec2(0,0));
+		}
+
 
 		////============================================================
 		//float minX;
@@ -332,13 +504,28 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 		//=======================================================================================================
 		
 		//draws directional line to sphere center
-		glm::vec2 vectorToSphere = sphere->getPosition() - box->getVelocity();
+		//glm::vec2 vectorToSphere = sphere->getPosition() - box->getVelocity();
+
+		//glm::vec2 boxMin(box->getPosition().x - box->getWidth(), box->getPosition().y - box->getHeight());
+		//glm::vec2 boxMax(box->getPosition().x + box->getWidth(), box->getPosition().y + box->getHeight());
 
 
-		float Top_y = (box->getHeight()) + box->getPosition().y;
+		//float Top_y = (box->getHeight()) + box->getPosition().y;
+		
+		
+
 		//float top_x = (box.getPosition.x);
 
-
+		/*float sqDist = 0.0f;
+		for (int i = 0; i < 3; i++)
+		{
+			float v = sphere->getPosition()[i];
+			if (v < sumBox->getWidth()[i])
+			{
+				sqDist += (box->getWidth() - v) * (box->getWidth() - v);
+			}
+			if(v > box->getHeight())
+		}*/
 
 
 		/*float sphereToPlaneOfBox = glm::dot(sphere1->getPosition(), box1->getVelocity()) - box1->getPosition().x;

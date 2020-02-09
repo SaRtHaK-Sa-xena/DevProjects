@@ -38,6 +38,8 @@ public:
 	void setVelocity(glm::vec2 a_velocity) { m_velocity = a_velocity; }
 	void movePosition(glm::vec2 a_position) { m_position += a_position; }
 
+	void resolveCollision(RigidBodyClass* actor2);
+
 protected:
 	glm::vec2 m_position;
 	glm::vec2 m_velocity;
