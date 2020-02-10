@@ -28,7 +28,7 @@ void AABBClass::makeGizmo()
 	glm::vec2 p3 = m_position - m_localX * m_width + m_localY * m_height;
 	glm::vec2 p4 = m_position + m_localX * m_width + m_localY * m_height;
 	aie::Gizmos::add2DTri(p1, p2, p4, m_colour);
-	aie::Gizmos::add2DTri(p1, p2, p3, m_colour);
+	aie::Gizmos::add2DTri(p1, p4, p3, m_colour);
 }
 
 void AABBClass::fixedUpdate(glm::vec2 gravity, float timeStep)
@@ -38,6 +38,7 @@ void AABBClass::fixedUpdate(glm::vec2 gravity, float timeStep)
 	//store the local axes
 	float cs = cosf(m_rotation);
 	float sn = sinf(m_rotation);
+	
 	m_localX = glm::normalize(glm::vec2(cs, sn));
 	m_localY = glm::normalize(glm::vec2(-sn, cs));
 }

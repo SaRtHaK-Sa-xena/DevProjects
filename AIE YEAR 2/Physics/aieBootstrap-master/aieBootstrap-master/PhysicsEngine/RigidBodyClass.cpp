@@ -40,8 +40,8 @@ void RigidBodyClass::debug()
 void RigidBodyClass::applyForce(glm::vec2 force, glm::vec2 pos)
 {
 	m_velocity += force / m_mass;
-	m_angularVelocity += (force.x * pos.y - force.y * pos.x) / (m_moment);
-	m_angularVelocity = m_angularVelocity * 5584124.f;
+	m_angularVelocity += (force.y * pos.x - force.x * pos.y) / (m_moment);
+	//m_angularVelocity = m_angularVelocity * 5584124.f;
 }
 
 //void RigidBodyClass::applyForceToActor(RigidBodyClass* actor2, glm::vec2 force)
@@ -66,8 +66,8 @@ void RigidBodyClass::resolveCollision(RigidBodyClass* actor2, glm::vec2 contact,
 	// for both linear and rotational
 
 	// 'r' is the radius from axis to application of force
-	float r1 = glm::dot(contact - m_position, -perp * normal); //I added the normal
-	float r2 = glm::dot(contact - actor2->m_position, perp * normal);
+	float r1 = glm::dot(contact - m_position, -perp); 
+	float r2 = glm::dot(contact - actor2->m_position, perp);
 	
 	// velocity of the contact point on this object
 	float v1 = glm::dot(m_velocity, normal) - r1 * m_angularVelocity;
