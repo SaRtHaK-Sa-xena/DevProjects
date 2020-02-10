@@ -50,20 +50,25 @@ bool PhysicsEngineApp::startup() {
 
 	#pragma region SphereToSphere and SphereToPlane Collision [Testing Bounce]
 
-	m_physicsScene = new PhysicsScene();
+	/*m_physicsScene = new PhysicsScene();
 	m_physicsScene->setGravity(glm::vec2(0,-10));
 
-	SphereClass *ball1 = new SphereClass(glm::vec2(-24, 50), glm::vec2(0, 0), 1, 1, glm::vec4(1, 0, 0, 1));
-	SphereClass *ball2 = new SphereClass(glm::vec2(24, 50), glm::vec2(0, 0), 1, 1, glm::vec4(1, 0, 0, 1));
+	SphereClass *ball1 = new SphereClass(glm::vec2(0, 50), glm::vec2(-5, 0), 1, 1, glm::vec4(1, 0, 0, 1));
+	SphereClass *ball2 = new SphereClass(glm::vec2(0, 40), glm::vec2(10, 0), 1, 1, glm::vec4(1, 0, 0, 1));
+	SphereClass *ball3 = new SphereClass(glm::vec2(0, 70), glm::vec2(-20, 0), 1, 1, glm::vec4(1, 0, 0, 1));
+	SphereClass *ball4 = new SphereClass(glm::vec2(0, 60), glm::vec2(5, 0), 1, 1, glm::vec4(1, 0, 0, 1));
+	sphere = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 1, 1, glm::vec4(1, 0, 1, 1));
 
 	PlaneClass* plane1 = new PlaneClass(glm::normalize(glm::vec2(1, 3)), 15);
-	PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(-1, 3)), 15);
+	PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(-2, 3)), 15);
 
 	m_physicsScene->addActor(ball1);
 	m_physicsScene->addActor(ball2);
+	m_physicsScene->addActor(ball3);
+	m_physicsScene->addActor(ball4);
 
 	m_physicsScene->addActor(plane1);
-	m_physicsScene->addActor(plane2);
+	m_physicsScene->addActor(plane2);*/
 
 	#pragma endregion SphereToSphere and SphereToPlane Collision [Testing Bounce]
 
@@ -90,7 +95,7 @@ bool PhysicsEngineApp::startup() {
 	//box = new AABBClass(glm::vec2(20, 40), 10, 10);
 
 	//// create plane
-	//PlaneClass* plane = new PlaneClass(glm::vec2(0, 1), 20);
+	//PlaneClass* plane = new PlaneClass(glm::normalize(glm::vec2(1, 1)), 20);
 
 	////TemporaryTest
 	////AABBClass* temp_box = new AABBClass(plane->getNormal() * box->getPosition() + plane->getDistance(), 1, 1);
@@ -107,7 +112,27 @@ bool PhysicsEngineApp::startup() {
 
 	#pragma endregion AABB Collision Tests
 
+	#pragma region DragCheck
 
+	m_physicsScene = new PhysicsScene();
+	m_physicsScene->setGravity(glm::vec2(0, 0));
+
+	sphere =			   new SphereClass(glm::vec2(20, 0), glm::vec2(0, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
+	striker =			   new SphereClass(glm::vec2(-20, 3), glm::vec2(30, 0), 10, 5, 1, 0, 1, glm::vec4(0, 1, 1, 1));
+
+	AABBClass* box = new AABBClass(glm::vec2(0, -40), 10, 10);
+	PlaneClass* ground = new PlaneClass(glm::normalize(glm::vec2(0,1)), 50);
+
+	//set Elasticity Value
+	//sphere->setElasticity(0.8);
+	//striker->setElasticity(1.0);
+
+	m_physicsScene->addActor(sphere);
+	m_physicsScene->addActor(striker);
+	m_physicsScene->addActor(ground);
+	m_physicsScene->addActor(box);
+
+	#pragma endregion DragCheck + ElasticityCheck
 
 	return true;
 }
@@ -156,10 +181,11 @@ void PhysicsEngineApp::update(float deltaTime) {
 	#pragma endregion RocketShip
 	
 
-
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
 
+	std::cout << "Sphere Dark Blue: " << sphere->getRotation() << std::endl;
+	std::cout << "Sphere Light Blue: " << striker->getRotation() << std::endl;
 
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();

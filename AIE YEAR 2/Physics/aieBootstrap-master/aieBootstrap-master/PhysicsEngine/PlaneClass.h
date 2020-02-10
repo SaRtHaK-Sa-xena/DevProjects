@@ -14,7 +14,7 @@ public:
 	virtual void makeGizmo();
 	virtual void resetPosition();
 	
-	void resolveCollision(RigidBodyClass* actor2);
+	void resolveCollision(RigidBodyClass* actor2, glm::vec2 contact);
 	
 
 	glm::vec2 getNormal() { return m_normal; }

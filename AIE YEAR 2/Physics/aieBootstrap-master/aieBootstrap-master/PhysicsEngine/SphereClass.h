@@ -5,7 +5,7 @@ class SphereClass : public RigidBodyClass
 {
 public:
 	SphereClass(glm::vec2 position, glm::vec2 velocity, 
-		float mass, float radius, glm::vec4 colour);
+		float mass, float radius, float elasticity, float angularVelocity, float moment, glm::vec4 colour);
 
 	SphereClass(glm::vec2 position, float speed, float angle,
 		float mass, float radius, glm::vec4 colour);

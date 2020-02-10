@@ -193,11 +193,14 @@ bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 		if (intersection > 0)
 		{
 			//Keep Sphere above Plane
-			sphere->movePosition(intersection * collisionNormal);
+			//sphere->movePosition(intersection * collisionNormal);
 
 			//Apply Force Upwards
-			glm::vec2 appliedForce = collisionNormal * glm::length(sphere->getVelocity()) * forceDirection;
-			sphere->applyForce(appliedForce * 0.7f);
+			//glm::vec2 appliedForce = collisionNormal * glm::length(sphere->getVelocity()) * forceDirection;
+			//sphere->applyForce(appliedForce * 0.7f);
+			glm::vec2 contact = sphere->getPosition() + (collisionNormal * -sphere->getRadius());
+
+			plane->resolveCollision(sphere, contact);
 
 			return true;
 		}
@@ -235,7 +238,9 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 			//sphere2->movePosition(normalizeSphere2* (gradient / 2));
 			//sphere1->applyForceToActor(sphere2, sphere1->getVelocity() * 0.1f);
 			
-			sphere1->resolveCollision(sphere2);
+			glm::vec2 contact = sphere1->getPosition() + sphere2->getPosition();
+
+			sphere1->resolveCollision(sphere2, 0.5f * contact);
 
 			//sphere1->applyForce(sphere2->getVelocity() * 0.1f);
 			//sphere2->applyForce(sphere1->getVelocity() * 0.1f);
@@ -263,97 +268,128 @@ bool PhysicsScene::box2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 
 	if (box != NULL && plane != NULL)
 	{
-		//glm::vec2 vectorToPlane = plane->getNormal()
+		int numContacts = 0;
+		glm::vec2 contact(0, 0);
+		float contactV = 0;
+		float radius = 0.5f * std::fminf(box->getWidth(), box->getHeight());
 
-		//create vector
-		//glm::vec2 vectorToPlane = plane->getNormal() * box->getPosition();
-		glm::vec2 vectorToPlane = plane->getNormal() * box->getPosition() - plane->getDistance();
-		glm::vec2 boxPoint;
+		// which side is the centre of mass on?
+		glm::vec2 planeOrigin = plane->getNormal() * plane->getDistance();
+		float comFromPlane = glm::dot(box->getPosition() - planeOrigin, plane->getNormal());
 
-		//for x-AXIS
-		if (vectorToPlane.x < -box->getHeight())
+		// check all four corners to see if we've hit the plane
+		for (float x = -box->getWidth(); x < box->getWidth(); x += box->getWidth())
 		{
-			//set it to the left side
-			boxPoint.x = -box->getWidth();
-		}
-		else if (vectorToPlane.x > box->getWidth())
-		{
-			//set it to the right side
-			boxPoint.x = box->getWidth();
-		}
-		else
-		{
-			//set it to the vector.x
-			boxPoint.x = vectorToPlane.x;
-		}
+			for (float y = -box->getHeight(); y < box->getHeight(); y += box->getHeight())
+			{
+				// get the position of the corner in world space
+				glm::vec2 p = box->getPosition() * x * box->getLocalX() + y * box->getLocalY();
 
+				float distFromPlane = glm::dot(p - planeOrigin, plane->getNormal());
 
-		//Setting the y-AXIS
-		if (vectorToPlane.y < -box->getHeight())
-		{
-			//set it to the bottom
-			boxPoint.y = -box->getHeight();
-		}
-		else if (vectorToPlane.y > box->getHeight())
-		{
-			//set it to the top
-			boxPoint.y = box->getHeight();
-		}
-		else
-		{
-			//set it to the vector.y
-			boxPoint.y = vectorToPlane.y;
+				// this is the total velocity of the point
+				float velocityIntoPlane = glm::dot(box->getVelocity() + box->getAngularVelocity() * (-y * box->getLocalX() + x * box->getLocalY()), plane->getNormal());
+
+				// if this corner is on the opposite side from the Center Of Mass,
+				// and moving further in, resolve the collision
+				if ((distFromPlane > 0 && comFromPlane < 0 && velocityIntoPlane > 0) || (distFromPlane < 0 && comFromPlane > 0 && velocityIntoPlane < 0))
+				{
+					numContacts++;
+					contact += p;
+					contactV += velocityIntoPlane;
+				}
+			}
 		}
 
-		//aie::Gizmos::add2DAABB(boxPoint, glm::vec2(1, 1), glm::vec4(1, 0, 0, 1));
-
-		//float boxToPlane = glm::dot(vectorToPlane, plane->getNormal()) - plane->getDistance();
-
-		/*if (boxToPlane > vectorToPlane)
+		// after this we have a hit
+		// typically only two corners hit...
+		if (numContacts > 0)
 		{
+			// get the average collision velocity into the plane
+			// (covers linear and rotational velocity of all corners involved)
+			float collisionV = contactV / (float)numContacts;
 
-		}*/
+			// get the acceleration required to stop (restitution = 0) or reverse 
+			// (restitution = 1) the average velocity into the plane
+			glm::vec2 acceleration = -plane->getNormal() * ((1.f + box->getElasticity()) * collisionV);
 
-		//seperate line, check if line advances past 
-		glm::vec2 collisionNormal = plane->getNormal();
-		float boxToPlane = glm::dot(boxPoint, plane->getNormal()) - plane->getDistance();
-		float forceDirection = 1.0f;
+			// and the average position at which we'll apply the force 
+			// (corner or edge centre)
+			glm::vec2 localContact = (contact / (float)numContacts) - box->getPosition();
 
-		//if we are behind plane then we flip the normal
-		if (boxToPlane < 0)
-		{
-			collisionNormal *= -1;
-			boxToPlane *= -1;
-			forceDirection = -1.0f;
+			// this is the perpendicular distance we apply the force at relative to
+			// the Centre Of Mass, so Torque = F*r
+			float r = glm::dot(localContact, glm::vec2(plane->getNormal().y, -plane->getNormal().x));
 
-			//collision has occured
-			//box->setVelocity(glm::vec2(0, 0));
+			// work out the "effective mass" - this is a combination of moment of 
+			// inertia and mass, and tells us how much the contact point velocity
+			// will change with the force we're applying
+			float mass0 = 1.f / (1.f / box->getMass() + (r * r) / box->getMoment());
+
+			// and apply the force
+			box->applyForce(acceleration * mass0, localContact);
 		}
 
-		/*glm::vec2 distance = box->getPosition() - plane->getNormal();
+		////create vector
+		////glm::vec2 vectorToPlane = plane->getNormal() * box->getPosition();
+		//glm::vec2 vectorToPlane = plane->getNormal() * box->getPosition() - plane->getDistance();
+		//glm::vec2 boxPoint;
 
-		if (distance.x * distance.x + distance.y * distance.y < boxToPlane)
-		{
-			box->setVelocity(glm::vec2(0, 0));
-		}*/
-
-		//intersection
-		float intersection = box->getHeight() - boxToPlane;
-		if (intersection > 0)
-		{
-			box->setVelocity(glm::vec2(0, 0));
-		}
+		////for x-AXIS
+		//if (vectorToPlane.x < -box->getHeight())
 		//{
-		//	//Keep Sphere above Plane
-		//	sphere->movePosition(intersection * collisionNormal);
-
-		//	//Apply Force Upwards
-		//	glm::vec2 appliedForce = collisionNormal * glm::length(sphere->getVelocity()) * forceDirection;
-		//	sphere->applyForce(appliedForce * 0.7f);
-
-		//	return true;
+		//	//set it to the left side
+		//	boxPoint.x = -box->getWidth();
+		//}
+		//else if (vectorToPlane.x > box->getWidth())
+		//{
+		//	//set it to the right side
+		//	boxPoint.x = box->getWidth();
+		//}
+		//else
+		//{
+		//	//set it to the vector.x
+		//	boxPoint.x = vectorToPlane.x;
 		//}
 
+		////Setting the y-AXIS
+		//if (vectorToPlane.y < -box->getHeight())
+		//{
+		//	//set it to the bottom
+		//	boxPoint.y = -box->getHeight();
+		//}
+		//else if (vectorToPlane.y > box->getHeight())
+		//{
+		//	//set it to the top
+		//	boxPoint.y = box->getHeight();
+		//}
+		//else
+		//{
+		//	//set it to the vector.y
+		//	boxPoint.y = vectorToPlane.y;
+		//}
+
+		////seperate line, check if line advances past 
+		//glm::vec2 collisionNormal = plane->getNormal();
+		//float boxToPlane = glm::dot(boxPoint, plane->getNormal()) - plane->getDistance();
+		//float forceDirection = 1.0f;
+
+		////if we are behind plane then we flip the normal
+		//if (boxToPlane < 0)
+		//{
+		//	collisionNormal *= -1;
+		//	boxToPlane *= -1;
+		//	forceDirection = -1.0f;
+
+		//	//collision has occured
+		//	//box->setVelocity(glm::vec2(0, 0));
+		//}
+		////intersection
+		//float intersection = box->getHeight() - boxToPlane;
+		//if (intersection < 0)
+		//{
+		//	box->setVelocity(glm::vec2(0, 0));
+		//}
 	}
 
 	return false;

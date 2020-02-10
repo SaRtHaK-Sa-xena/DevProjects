@@ -17,10 +17,17 @@ public:
 	//some functions
 	virtual void debug() {};
 	virtual void makeGizmo();
+	virtual void fixedUpdate(glm::vec2 gravity, float timeStep);
 	virtual bool checkCollision(PhysicsObject* pOther);
 
 	float getWidth() { return m_width; };
 	float getHeight() { return m_height; }
+
+	glm::vec2 getLocalX() { return m_localX; }
+	glm::vec2 getLocalY() { return m_localY; }
+
+	float getAngularVelocity() { return m_angularVelocity; }
+	float getMoment() { return m_moment; }
 
 protected:
 	
@@ -37,5 +44,8 @@ protected:
 
 	float m_width;
 	float m_height;
+
+	glm::vec2 m_localX;
+	glm::vec2 m_localY;
 };
 

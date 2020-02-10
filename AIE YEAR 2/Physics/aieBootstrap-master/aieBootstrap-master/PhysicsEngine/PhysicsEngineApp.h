@@ -25,6 +25,8 @@ public:
 	SphereClass* sphere;
 	AABBClass* box1;
 	AABBClass* box;
+	SphereClass* striker;
+
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;
