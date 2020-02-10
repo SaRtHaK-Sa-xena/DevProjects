@@ -114,51 +114,33 @@ bool PhysicsEngineApp::startup() {
 
 	#pragma region DragCheck
 
-	m_physicsScene = new PhysicsScene();
-	m_physicsScene->setGravity(glm::vec2(0, 0));
+		#pragma region DragCollision
+			
+		/*m_physicsScene = new PhysicsScene();
+		m_physicsScene->setGravity(glm::vec2(0, 0));
 
-	sphere =						   new SphereClass(glm::vec2(5, 25), glm::vec2(0, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
-	SphereClass *sphere1 =			   new SphereClass(glm::vec2(10, 35), glm::vec2(0, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
-	SphereClass *sphere2 =			   new SphereClass(glm::vec2(20, 35), glm::vec2(0, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
-	SphereClass *sphere3 =			   new SphereClass(glm::vec2(30, 35), glm::vec2(0, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
-	SphereClass *sphere4 =			   new SphereClass(glm::vec2(0, 35), glm::vec2(0, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
-	SphereClass *sphere5 =			   new SphereClass(glm::vec2(-10, 35), glm::vec2(0, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
-	SphereClass *sphere6 =			   new SphereClass(glm::vec2(-20, 35), glm::vec2(0, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
+		sphere = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
+		striker = new SphereClass(glm::vec2(-50, 3), glm::vec2(40, 0), 10, 5, 1, 0, 1, glm::vec4(0, 1, 1, 1));
 
-	//================================
-	//second row
-	SphereClass* s7 = new SphereClass(glm::vec2(45, 25), glm::vec2(0, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
+		m_physicsScene->addActor(sphere);
+		m_physicsScene->addActor(striker);*/
+
+		#pragma endregion DragCollision
+
+		#pragma region BoxToPlaneCollision
+		
+		m_physicsScene = new PhysicsScene();
+		m_physicsScene->setGravity(glm::vec2(0, -20));
+
+		box = new AABBClass(glm::vec2(0, 10), 5, 5);
+		PlaneClass* ground = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -20);
+
+		m_physicsScene->addActor(box);
+		m_physicsScene->addActor(ground);
+
+		#pragma endregion BoxToPlaneCollision
 	
-	striker =			   new SphereClass(glm::vec2(0, -20), glm::vec2(0, 40), 10, 5, 1, 0, 1, glm::vec4(0, 1, 1, 1));
-
-	AABBClass* box = new AABBClass(glm::vec2(0, 0), 10, 10);
-	PlaneClass* ground = new PlaneClass(glm::normalize(glm::vec2(0,1)), -50);
-	PlaneClass* ground1 = new PlaneClass(glm::normalize(glm::vec2(0,1)), 50);
-
-	//set Elasticity Value
-	//sphere->setElasticity(0.8);
-	//striker->setElasticity(1.0);
-
-	//m_physicsScene->addActor(sphere);
-	//m_physicsScene->addActor(striker);
-
-	m_physicsScene->addActor(sphere);
-	m_physicsScene->addActor(sphere1);
-	m_physicsScene->addActor(sphere2);
-	m_physicsScene->addActor(sphere3);
-	m_physicsScene->addActor(sphere4);
-	m_physicsScene->addActor(sphere5);
-	m_physicsScene->addActor(sphere6);
-
-	m_physicsScene->addActor(s7);
-
-	m_physicsScene->addActor(striker);
-
-	m_physicsScene->addActor(ground);
-	m_physicsScene->addActor(ground1);
-	//m_physicsScene->addActor(box);
-
-	#pragma endregion DragCheck + ElasticityCheck
+	#pragma endregion Rotational Velocity
 
 	return true;
 }
@@ -209,9 +191,6 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
-
-	std::cout << "Sphere Dark Blue: " << sphere->getRotation() << std::endl;
-	std::cout << "Sphere Light Blue: " << striker->getRotation() << std::endl;
 
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();

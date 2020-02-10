@@ -31,17 +31,6 @@ public:
 
 protected:
 	
-	//points on the Box
-	//float m_TopLeft_x;
-	//float m_TopLeft_y;
-
-	//float m_BottomRight_x;
-	//float m_BottomRight_y;
-
-	////direct position
-	//glm::vec2 m_topLeft;
-	//glm::vec2 m_bottomRight;
-
 	float m_width;
 	float m_height;
 

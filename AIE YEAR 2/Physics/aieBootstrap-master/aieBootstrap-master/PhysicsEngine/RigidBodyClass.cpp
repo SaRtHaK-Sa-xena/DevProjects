@@ -40,7 +40,8 @@ void RigidBodyClass::debug()
 void RigidBodyClass::applyForce(glm::vec2 force, glm::vec2 pos)
 {
 	m_velocity += force / m_mass;
-	m_angularVelocity += (force.y * pos.x - force.x * pos.y) / (m_moment);
+	//m_angularVelocity += (force.y * pos.x - force.x * pos.y) / (m_moment);
+	m_angularVelocity += glm::length(m_velocity) / glm::length((pos / 2.f) / (m_moment) * (force));
 	//m_angularVelocity = m_angularVelocity * 5584124.f;
 }
 
