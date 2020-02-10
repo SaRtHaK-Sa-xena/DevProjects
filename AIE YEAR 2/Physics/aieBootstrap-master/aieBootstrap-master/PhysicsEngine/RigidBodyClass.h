@@ -12,6 +12,12 @@ public:
 		m_position = position;
 		m_rotation = rotation;
 		m_mass = mass;
+		
+		m_angularDrag = 0.3f;
+		m_elasticity = 0.6f;
+		m_rotation = 0;
+		m_angularVelocity = 0;
+		m_moment = 1;
 
 		//creates velocity
 		m_velocity.x = speed * cos(angle);

@@ -278,12 +278,12 @@ bool PhysicsScene::box2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 		float comFromPlane = glm::dot(box->getPosition() - planeOrigin, plane->getNormal());
 
 		// check all four corners to see if we've hit the plane
-		for (float x = -box->getWidth(); x < box->getWidth(); x += box->getWidth())
+		for (float x = -box->getWidth()/2; x < box->getWidth(); x += box->getWidth())
 		{
-			for (float y = -box->getHeight(); y < box->getHeight(); y += box->getHeight())
+			for (float y = -box->getHeight()/2; y < box->getHeight(); y += box->getHeight())
 			{
 				// get the position of the corner in world space
-				glm::vec2 p = box->getPosition() * x * box->getLocalX() + y * box->getLocalY();
+				glm::vec2 p = box->getPosition() + x * box->getLocalX() + y * box->getLocalY();
 
 				float distFromPlane = glm::dot(p - planeOrigin, plane->getNormal());
 
@@ -403,181 +403,121 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 	//if valid
 	if (sphere != NULL && box != NULL)
 	{
-		//create vector from box to sphere
-		glm::vec2 vectorToSphere(sphere->getPosition() - box->getPosition());
-		
-		//closest point on the box
-		glm::vec2 boxPoint;
+		glm::vec2 circlePos = sphere->getPosition() - box->getPosition();
+		float w2 = box->getWidth() / 2, h2 = box->getHeight() / 2;
 
-		//Setting the x-AXIS
-		if (vectorToSphere.x < -box->getHeight())
+		int numContacts = 0;
+		glm::vec2 contact(0, 0); // contact is in our box coordinates
+
+		//check the four corners to see if ay of them are inside the circle
+		for (float x = -w2; x <= w2; x += box->getWidth())
 		{
-			//set it to the left side
-			boxPoint.x = -box->getWidth();
-		}
-		else if (vectorToSphere.x > box->getWidth())
-		{
-			//set it to the right side
-			boxPoint.x = box->getWidth();
-		}
-		else
-		{
-			//set it to the vector.x
-			boxPoint.x = vectorToSphere.x;
-		}
-
-		//Setting the y-AXIS
-		if (vectorToSphere.y < -box->getHeight())
-		{
-			//set it to the bottom
-			boxPoint.y = -box->getHeight();
-		}
-		else if (vectorToSphere.y > box->getHeight())
-		{
-			//set it to the top
-			boxPoint.y = box->getHeight();
-		}
-		else
-		{
-			//set it to the vector.y
-			boxPoint.y = vectorToSphere.y;
-		}
-
-		//Now we should have the closest point on the box
-		//check if distance from that point to the sphere center less than the radius
-		glm::vec2 distance = vectorToSphere - boxPoint;
-		
-		//check if collision
-		if (distance.x * distance.x + distance.y * distance.y < sphere->getRadius() * sphere->getRadius())
-		{
-			//set velocity of sphere to zero
-			sphere->setVelocity(glm::vec2(0,0));
-		}
-
-
-		////============================================================
-		//float minX;
-		//if ((box1->getWidth() + box1->getPosition().x) < sphere1->getRadius())
-		//{
-		//	minX = box1->getWidth() + box1->getPosition().x;
-		//}
-		//else
-		//{
-		//	minX = sphere1->getRadius();
-		//}
-		//float maxX;
-		//if (minX > box1->getWidth())
-		//{
-		//	maxX = minX;
-		//}
-		//else
-		//{
-		//	maxX = box1->getWidth();
-		//}
-		////==========================================================
-		//float minY;
-		//if ((box1->getHeight() + box1->getPosition().y) > sphere1->getPosition().y)
-		//{
-		//	minY = box1->getHeight() + box1->getPosition().y;
-		//}
-		//else
-		//{
-		//	minY = sphere1->getPosition().y;
-		//}
-		//float maxY;
-		//if (maxY > box1->getHeight())
-		//{
-		//	maxY = minY;
-		//}
-		//else
-		//{
-		//	maxY = box1->getHeight();
-		//}
-
-		//float distance = sqrt((maxX - sphere1->getRadius()) * (maxX - sphere1->getRadius()) +
-		//	(maxY - sphere1->getPosition().y) * (maxY - sphere1->getPosition().y));
-
-		//if (distance < sphere1->getRadius())
-		//{
-		//	sphere1->setVelocity(glm::vec2(0, 0));
-		//	box1->setVelocity(glm::vec2(0, 0));
-		//}
-
-
-		//=====NEW ATTEMPT=======
-		//glm::vec2 distance = sphere1->getPosition() - box1->getPosition();
-		/*if (box1->getPosition().x < sphere1->getPosition().x + sphere1->getRadius() &&
-			(sphere1->getPosition().x - sphere1->getRadius()) > box1->getPosition().x&&
-			box1->getPosition().y < (sphere1->getPosition().y - sphere1->getRadius()) &&
-			(sphere1->getPosition().y + sphere1->getRadius()) > box1->getPosition().y)
-		{
-			sphere1->setVelocity(glm::vec2(0, 0));
-			box1->setVelocity(glm::vec2(0, 0));
-		}*/
-
-		//Second Attempt===========
-		//Function To Dissassable Box
-		//..Top Line
-		//glm::vec2 collisionNormal = glm::normalize(glm::vec2(0, 10));
-		//float sphereToPlane = glm::dot(sphere1->getPosition(), glm::normalize(glm::vec2(0, 10))) - box1->getWidth();
-		//float forceDirection = 1.0f;
-
-		////if we are behind plane then we flip the normal
-		//if (sphereToPlane < 0)
-		//{
-		//	collisionNormal *= -1;
-		//	sphereToPlane *= -1;
-		//	forceDirection = -1.0f;
-		//}
-
-		////intersection
-		//float intersection = sphere1->getRadius() - sphereToPlane;
-		//if (intersection > 0)
-		//{
-		//	sphere1->setVelocity(glm::vec2(0,0));
-		//}
-
-		//=======================================================================================================
-		
-		//draws directional line to sphere center
-		//glm::vec2 vectorToSphere = sphere->getPosition() - box->getVelocity();
-
-		//glm::vec2 boxMin(box->getPosition().x - box->getWidth(), box->getPosition().y - box->getHeight());
-		//glm::vec2 boxMax(box->getPosition().x + box->getWidth(), box->getPosition().y + box->getHeight());
-
-
-		//float Top_y = (box->getHeight()) + box->getPosition().y;
-		
-		
-
-		//float top_x = (box.getPosition.x);
-
-		/*float sqDist = 0.0f;
-		for (int i = 0; i < 3; i++)
-		{
-			float v = sphere->getPosition()[i];
-			if (v < sumBox->getWidth()[i])
+			for (float y = -h2; y < h2; y += box->getHeight())
 			{
-				sqDist += (box->getWidth() - v) * (box->getWidth() - v);
+				glm::vec2 p = x * box->getLocalX() + y * box->getLocalY();
+				glm::vec2 dp = p - circlePos;
+				if (dp.x * dp.x + dp.y * dp.y < sphere->getRadius() * sphere->getRadius())
+				{
+					numContacts++;
+					contact += glm::vec2(x, y);
+				}
 			}
-			if(v > box->getHeight())
-		}*/
-
-
-		/*float sphereToPlaneOfBox = glm::dot(sphere1->getPosition(), box1->getVelocity()) - box1->getPosition().x;
-
-		if (sphereToPlaneOfBox < 0)
-		{
-			sphereToPlaneOfBox *= -1;
 		}
 
+		glm::vec2* direction = nullptr;
+		//	get the local position of the circle center
+		glm::vec2 localPos(glm::dot(box->getLocalX(), circlePos), glm::dot(box->getLocalY(), circlePos));
 
-		float intersection = sphere1->getRadius() - sphereToPlaneOfBox;
-		
-		if (intersection > 0)
+		if (localPos.y < h2 && localPos.y > -h2)
 		{
-			
-		}*/
+			if (localPos.x > 0 && localPos.x < w2 + sphere->getRadius())
+			{
+				numContacts++;
+				contact += glm::vec2(w2, localPos.y);
+				direction = new glm::vec2(box->getLocalX());
+			}
+			if (localPos.x < 0 && localPos.x > -(w2 + sphere->getRadius()))
+			{
+				numContacts++;
+				contact += glm::vec2(-w2, localPos.y);
+				direction = new glm::vec2(-box->getLocalX());
+			}
+		}
+		if (localPos.x < w2 && localPos.x > -w2)
+		{
+			if (localPos.y > 0 && localPos.y < h2 + sphere->getRadius())
+			{
+				numContacts++;
+				contact += glm::vec2(localPos.x, h2);
+				direction = new glm::vec2(box->getLocalY());
+			}
+			if(localPos.y < 0 && localPos.y > -(h2 + sphere->getRadius()))
+			{
+				numContacts++;
+				contact += glm::vec2(localPos.x, -h2);
+				direction = new glm::vec2(-box->getLocalY());
+			}
+		}
+
+		if (numContacts > 0)
+		{
+			//	average, and convert back into world coordinates
+			contact = box->getPosition() + (1.f / numContacts) * (box->getLocalX() * contact.x + box->getLocalY() * contact.y);
+			box->resolveCollision(sphere, contact, direction);
+		}
+		delete direction;
+		
+		
+		////create vector from box to sphere
+		//glm::vec2 vectorToSphere(sphere->getPosition() - box->getPosition());
+		//
+		////closest point on the box
+		//glm::vec2 boxPoint;
+
+		////Setting the x-AXIS
+		//if (vectorToSphere.x < -box->getHeight())
+		//{
+		//	//set it to the left side
+		//	boxPoint.x = -box->getWidth();
+		//}
+		//else if (vectorToSphere.x > box->getWidth())
+		//{
+		//	//set it to the right side
+		//	boxPoint.x = box->getWidth();
+		//}
+		//else
+		//{
+		//	//set it to the vector.x
+		//	boxPoint.x = vectorToSphere.x;
+		//}
+
+		////Setting the y-AXIS
+		//if (vectorToSphere.y < -box->getHeight())
+		//{
+		//	//set it to the bottom
+		//	boxPoint.y = -box->getHeight();
+		//}
+		//else if (vectorToSphere.y > box->getHeight())
+		//{
+		//	//set it to the top
+		//	boxPoint.y = box->getHeight();
+		//}
+		//else
+		//{
+		//	//set it to the vector.y
+		//	boxPoint.y = vectorToSphere.y;
+		//}
+
+		////Now we should have the closest point on the box
+		////check if distance from that point to the sphere center less than the radius
+		//glm::vec2 distance = vectorToSphere - boxPoint;
+		//
+		////check if collision
+		//if (distance.x * distance.x + distance.y * distance.y < sphere->getRadius() * sphere->getRadius())
+		//{
+		//	//set velocity of sphere to zero
+		//	sphere->setVelocity(glm::vec2(0,0));
+		//}
 	}
 	return false;
 }
