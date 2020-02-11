@@ -19,6 +19,7 @@ public:
 	virtual void makeGizmo();
 	virtual void fixedUpdate(glm::vec2 gravity, float timeStep);
 	virtual bool checkCollision(PhysicsObject* pOther);
+	bool checkBoxCorners(const AABBClass& box, glm::vec2& contact, int& numContacts, float& pen, glm::vec2& edgeNormal);
 
 	float getWidth() { return m_width; };
 	float getHeight() { return m_height; }

@@ -531,13 +531,31 @@ bool PhysicsScene::box2Box(PhysicsObject* obj1, PhysicsObject* obj2)
 	//if cast successful
 	if (box1, box2)
 	{
-		if (box1->getPosition().x < box2->getPosition().x + box2->getWidth() &&
+		/*if (box1->getPosition().x < box2->getPosition().x + box2->getWidth() &&
 			(box1->getPosition().x + box1->getWidth()) > box2->getPosition().x &&
 			box1->getPosition().y < (box2->getPosition().y + box2->getHeight()) &&
 			(box1->getPosition().y + box1->getHeight()) > box2->getPosition().y)
 		{
 			box1->setVelocity(glm::vec2(0, 0));
+		}*/
+		glm::vec2 boxPos = box2->getPosition() - box1->getPosition();
+
+		glm::vec2 norm(0, 0);
+		glm::vec2 contact(0, 0);
+		float pen = 0;
+		int numContacts = 0;
+
+		box1->checkBoxCorners(*box2, contact, numContacts, pen, norm);
+
+		if (box2->checkBoxCorners(*box1, contact, numContacts, pen, norm))
+		{
+			norm = -norm;
 		}
+		if (pen > 0)
+		{
+			box1->resolveCollision(box2, contact / float(numContacts), &norm);
+		}
+		return true;
 	}
 
 	return false;

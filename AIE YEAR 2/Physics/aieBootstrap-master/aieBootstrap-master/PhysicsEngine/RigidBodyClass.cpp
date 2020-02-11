@@ -3,8 +3,7 @@
 #include <math.h>
 
 const float MIN_LINEAR_THRESHOLD = 0.1f;
-const float MIN_ROTATION_THRESHOLD = 0.01f;
-
+const float MIN_ROTATION_THRESHOLD = 0.00001f;
 
 RigidBodyClass::RigidBodyClass(ShapeType shapeID, glm::vec2 position, glm::vec2 velocity, float rotation, float mass, float elasticity, float angularVelocity, float moment) : PhysicsObject(shapeID), m_position(position), m_velocity(velocity), m_rotation(rotation), m_mass(mass), m_elasticity(elasticity), m_angularVelocity(angularVelocity), m_moment(moment)
 {
@@ -40,19 +39,15 @@ void RigidBodyClass::debug()
 void RigidBodyClass::applyForce(glm::vec2 force, glm::vec2 pos)
 {
 	m_velocity += force / m_mass;
-	m_angularVelocity += (force.y * pos.x - force.x * pos.y) / (m_moment);
-	//m_angularVelocity += glm::length(m_velocity) / glm::length((pos / 2.f) / (m_moment) * (force));
+	//m_angularVelocity += 1+(force.y * pos.x - force.x * pos.y) / (m_moment);
+	m_angularVelocity += glm::length(m_velocity) / glm::length((pos / 2.f) / (m_moment) * (force));
+
+	float temp = glm::length(pos);
+	//glm::length(pos - force)
+	//m_angularVelocity += glm::length(m_velocity) / -temp;
 	//m_angularVelocity = m_angularVelocity * 5584124.f;
 }
 
-//void RigidBodyClass::applyForceToActor(RigidBodyClass* actor2, glm::vec2 force)
-//{
-//	//force effect obj A
-//	actor2->applyForce(force);
-//	
-//	//force effect itself obj B
-//	applyForce(-force);
-//}
 
 void RigidBodyClass::resolveCollision(RigidBodyClass* actor2, glm::vec2 contact, glm::vec2*collisionNormal)
 {
@@ -89,9 +84,13 @@ void RigidBodyClass::resolveCollision(RigidBodyClass* actor2, glm::vec2 contact,
 		glm::vec2 force = (1.0f + elasticity)*mass1*mass2 / 
 			(mass1 + mass2)*(v1-v2)*normal;
 
+		float spin_const = 2;
+		glm::vec2 halfPos(m_position.x / spin_const, m_position.y / spin_const);
+		glm::vec2 halfPos2(actor2->getPosition().x / spin_const, actor2->getPosition().y / spin_const);
+
 		//	apply equal and opposite force
 		//	according to Newton's Third Law
-		applyForce(-force, contact - m_position);
-		actor2->applyForce(force, contact - actor2->m_position);
+		applyForce(-force, halfPos - contact);
+		actor2->applyForce(force, contact - halfPos2);
 	}
 }

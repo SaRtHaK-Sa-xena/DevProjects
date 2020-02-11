@@ -75,14 +75,16 @@ bool PhysicsEngineApp::startup() {
 	#pragma region AABB Collision Tests
 
 	#pragma region AABB -> Sphere Collision
+	
 	/*m_physicsScene = new PhysicsScene();
 	m_physicsScene->setGravity(glm::vec2(0, 0));
 
-	box = new AABBClass(glm::vec2(20,-10), 20, 20);
-	sphere = new SphereClass(glm::vec2(-10, +20), glm::vec2(+10, -10), 10, 1, glm::vec4(1, 0, 1, 1));
+	box = new AABBClass(glm::vec2(50,0), 20, 20);
+	sphere = new SphereClass(glm::vec2(-30, 0), glm::vec2(30, 0), 10, 5, 0.8, 0, 1, glm::vec4(1, 0, 1, 1));
 
 	m_physicsScene->addActor(sphere);
 	m_physicsScene->addActor(box);*/
+
 	#pragma endregion AABB -> Sphere Collision
 
 	#pragma region AABB -> Plane Collision
@@ -120,7 +122,7 @@ bool PhysicsEngineApp::startup() {
 		m_physicsScene->setGravity(glm::vec2(0, 0));
 
 		sphere = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
-		striker = new SphereClass(glm::vec2(-50, 3), glm::vec2(40, 0), 10, 5, 1, 0, 1, glm::vec4(0, 1, 1, 1));
+		striker = new SphereClass(glm::vec2(-50, 3), glm::vec2(40, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 1, 1, 1));
 
 		m_physicsScene->addActor(sphere);
 		m_physicsScene->addActor(striker);*/
@@ -129,17 +131,51 @@ bool PhysicsEngineApp::startup() {
 
 		#pragma region BoxToPlaneCollision
 		
-		m_physicsScene = new PhysicsScene();
+		/*m_physicsScene = new PhysicsScene();
 		m_physicsScene->setGravity(glm::vec2(0, -20));
 
 		box = new AABBClass(glm::vec2(0, 10), 5, 5);
 		PlaneClass* ground = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -20);
 
 		m_physicsScene->addActor(box);
-		m_physicsScene->addActor(ground);
+		m_physicsScene->addActor(ground);*/
 
 		#pragma endregion BoxToPlaneCollision
-	
+		
+		#pragma region BoxToBoxCollision
+		
+		m_physicsScene = new PhysicsScene();
+		m_physicsScene->setGravity(glm::vec2(0, 0));
+		
+		sphere = new SphereClass(glm::vec2(-40, 0), glm::vec2(40, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 1, 0, 1));
+
+		SphereClass *crazySphere = new SphereClass(glm::vec2(-60, 30), (glm::vec2(10, -30)*3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
+		SphereClass *crazySphere2 = new SphereClass(glm::vec2(60, -30), (glm::vec2(-10, 30)*3.f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
+
+		box = new AABBClass(glm::vec2(0, 10), 5, 5);
+		AABBClass* box2 = new AABBClass(glm::vec2(0, -10), 5, 5);
+		AABBClass* box3 = new AABBClass(glm::vec2(40, 10), 5, 5);
+		PlaneClass* plane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -50);
+		PlaneClass* plane1 = new PlaneClass(glm::normalize(glm::vec2(0, 1)), 50);
+		PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 80);
+		PlaneClass* plane3 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -80);
+		
+		m_physicsScene->addActor(box);
+		m_physicsScene->addActor(box2);
+		m_physicsScene->addActor(box3);
+		m_physicsScene->addActor(plane);
+		m_physicsScene->addActor(plane1);
+		m_physicsScene->addActor(plane2);
+		m_physicsScene->addActor(plane3);
+		m_physicsScene->addActor(sphere);
+		m_physicsScene->addActor(crazySphere);
+		m_physicsScene->addActor(crazySphere2);
+
+		box->applyForce(glm::vec2(0,-20), box->getPosition());
+		box3->applyForce(glm::vec2(-20,-20), box->getPosition());
+
+		#pragma endregion BoxToBoxCollision
+
 	#pragma endregion Rotational Velocity
 
 	return true;
@@ -194,6 +230,10 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
+	if (input->isKeyDown(aie::INPUT_KEY_0))
+	{
+		sphere->applyForce(glm::vec2(-20, -10), sphere->getPosition());
+	}
 }
 
 void PhysicsEngineApp::draw() {
