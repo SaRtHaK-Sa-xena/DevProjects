@@ -38,5 +38,9 @@ void PlaneClass::resolveCollision(RigidBodyClass* actor2, glm::vec2 contact)
 
 	glm::vec2 forceApplied = m_normal*j;
 
-	actor2->applyForce(forceApplied, contact - actor2->getPosition());
+
+	float spinForce = 2;
+	glm::vec2 halfPos(actor2->getPosition().x / spinForce, actor2->getPosition().y / spinForce);
+	//actor2->applyForce(forceApplied, contact - actor2->getPosition());
+	actor2->applyForce(forceApplied, halfPos - contact);
 }
