@@ -156,7 +156,15 @@ bool PhysicsEngineApp::startup() {
 		sphere = new SphereClass(glm::vec2(-40, 0), glm::vec2(40, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 1, 0, 1));
 
 		SphereClass *crazySphere = new SphereClass(glm::vec2(-60, 30), (glm::vec2(10, -30)*3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
-		SphereClass *crazySphere2 = new SphereClass(glm::vec2(60, -30), (glm::vec2(-10, 30)*3.f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
+		SphereClass *crazySphere2 = new SphereClass(glm::vec2(60, -30), (glm::vec2(-10, 30)*3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
+		
+		//top Row
+		SphereClass *s1 = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
+		
+		SphereClass *s2 = new SphereClass(glm::vec2(1.5, 2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		SphereClass *s3 = new SphereClass(glm::vec2(2, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		SphereClass *s4 = new SphereClass(glm::vec2(0, 0.5), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+
 
 		box = new AABBClass(glm::vec2(0, 10), 5, 5);
 		AABBClass* box2 = new AABBClass(glm::vec2(0, -10), 5, 5);
@@ -173,12 +181,17 @@ bool PhysicsEngineApp::startup() {
 		m_physicsScene->addActor(plane1);
 		m_physicsScene->addActor(plane2);
 		m_physicsScene->addActor(plane3);
+
+		m_physicsScene->addActor(s1);
+		m_physicsScene->addActor(s2);
+		m_physicsScene->addActor(s3);
+		//m_physicsScene->addActor(s4);
 		//m_physicsScene->addActor(sphere);
-		m_physicsScene->addActor(crazySphere);
+		//m_physicsScene->addActor(crazySphere);
 		//m_physicsScene->addActor(crazySphere2);
 
-		box->applyForce(glm::vec2(0,-20), box->getPosition());
-		box3->applyForce(glm::vec2(-20,-20), box->getPosition());
+		//box->applyForce(glm::vec2(0,-20), box->getPosition());
+		//box3->applyForce(glm::vec2(-20,-20), box->getPosition());
 
 		#pragma endregion BoxToBoxCollision
 
@@ -238,7 +251,7 @@ void PhysicsEngineApp::update(float deltaTime) {
 		quit();
 	if (input->isKeyDown(aie::INPUT_KEY_0))
 	{
-		sphere->applyForce(glm::vec2(-20, -10), sphere->getPosition());
+		//sphere->applyForce(glm::vec2(-20, -10), sphere->getPosition());
 	}
 }
 

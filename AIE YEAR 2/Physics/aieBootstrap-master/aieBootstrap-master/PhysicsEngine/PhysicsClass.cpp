@@ -226,7 +226,7 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 
 		if (intersection > 0)
 		{
-			glm::vec2 contactForce = 0.5f * (distance - (sphere1->getRadius() + sphere2->getRadius())) * delta / distance;
+			glm::vec2 contactForce = 0.5f*(distance - (sphere1->getRadius() + sphere2->getRadius())) * delta / distance;
 
 			sphere1->setPosition(sphere1->getPosition() + contactForce);
 			sphere2->setPosition(sphere2->getPosition() - contactForce);

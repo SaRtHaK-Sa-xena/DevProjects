@@ -40,11 +40,18 @@ void RigidBodyClass::applyForce(glm::vec2 force, glm::vec2 pos)
 {
 	m_velocity += force / m_mass;
 	//m_angularVelocity += 1+(force.y * pos.x - force.x * pos.y) / (m_moment);
+	
+	//Correct One That Worked The Best	
 	m_angularVelocity += glm::length(m_velocity) / glm::length((pos / 2.f) / (m_moment) * (force));
 
 	//point of contact
 	//float pos = glm::distance(/*radius, pos*/)
 	//float angle = acos(glm::length(force / pos));
+
+	//	new implementation
+	/*glm::vec2 angle = glm::acos(rad_distance / force);
+	m_angularVelocity += glm::length(force) * rad_distance * sin(glm::length(angle));
+	m_angularVelocity = m_angularVelocity / m_moment;*/
 
 	//m_angularVelocity += glm::length(force) * glm::length(pos) * sin(angle);
 
@@ -93,6 +100,7 @@ void RigidBodyClass::resolveCollision(RigidBodyClass* actor2, glm::vec2 contact,
 		float spin_const = 2;
 		glm::vec2 halfPos(m_position.x / spin_const, m_position.y / spin_const);
 		glm::vec2 halfPos2(actor2->getPosition().x / spin_const, actor2->getPosition().y / spin_const);
+
 
 		//	apply equal and opposite force
 		//	according to Newton's Third Law
