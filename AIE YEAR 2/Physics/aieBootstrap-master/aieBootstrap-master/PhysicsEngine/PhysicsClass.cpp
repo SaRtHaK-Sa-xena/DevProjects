@@ -192,17 +192,20 @@ bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 		float intersection = sphere->getRadius() - sphereToPlane;
 		if (intersection > 0)
 		{
+			glm::vec2 contact = sphere->getPosition() + (collisionNormal * -sphere->getRadius());
+			
+			sphere->setPosition(collisionNormal * intersection);
+			
+			plane->resolveCollision(sphere, contact);
+			
+			return true;
+
 			//Keep Sphere above Plane
 			//sphere->movePosition(intersection * collisionNormal);
 
 			//Apply Force Upwards
 			//glm::vec2 appliedForce = collisionNormal * glm::length(sphere->getVelocity()) * forceDirection;
 			//sphere->applyForce(appliedForce * 0.7f);
-			glm::vec2 contact = sphere->getPosition() + (collisionNormal * -sphere->getRadius());
-
-			plane->resolveCollision(sphere, contact);
-
-			return true;
 		}
 	}
 	return false;
@@ -217,34 +220,50 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 	//if we are successful then test for collision
 	if (sphere1 != nullptr && sphere2 != nullptr)
 	{
-		//coliison detection
+		glm::vec2 delta = sphere2->getPosition() - sphere1->getPosition();
+		float distance = glm::length(delta);
+		float intersection = sphere1->getRadius() + sphere2->getRadius() - distance;
 
-		glm::vec2 difference = sphere1->getPosition() - sphere2->getPosition();
-
-		float gradient = sqrt(difference.x * difference.x + difference.y * difference.y);
-
-		// if overlapping
-		if (gradient < (sphere1->getRadius() + sphere2->getRadius()))
+		if (intersection > 0)
 		{
-			// set the velocity of the two spheres to zero
-			//sphere1->setVelocity(glm::vec2(0, 0));
-			//sphere2->setVelocity(glm::vec2(0, 0));
+			glm::vec2 contactForce = 0.5f * (distance - (sphere1->getRadius() + sphere2->getRadius())) * delta / distance;
 
+			sphere1->setPosition(sphere1->getPosition() + contactForce);
+			sphere2->setPosition(sphere2->getPosition() - contactForce);
 
-			// works somewhat
-			//glm::vec2 normalizeSphere1 = glm::normalize(sphere1->getVelocity());
-			//glm::vec2 normalizeSphere2 = glm::normalize(sphere2->getVelocity());
-			//sphere1->movePosition(normalizeSphere1 * (gradient/2));
-			//sphere2->movePosition(normalizeSphere2* (gradient / 2));
-			//sphere1->applyForceToActor(sphere2, sphere1->getVelocity() * 0.1f);
-			
-			glm::vec2 contact = sphere1->getPosition() + sphere2->getPosition();
-
-			sphere1->resolveCollision(sphere2, 0.5f * contact);
-
-			//sphere1->applyForce(sphere2->getVelocity() * 0.1f);
-			//sphere2->applyForce(sphere1->getVelocity() * 0.1f);
+			//respond to the collision
+			sphere1->resolveCollision(sphere2, 0.5f * (sphere1->getPosition() + sphere2->getPosition()));
+			return true;
 		}
+		
+		
+		//collison detection
+		//glm::vec2 difference = sphere1->getPosition() - sphere2->getPosition();
+
+		//float gradient = sqrt(difference.x * difference.x + difference.y * difference.y);
+
+		////// if overlapping
+		//if (gradient < (sphere1->getRadius() + sphere2->getRadius()))
+		//{
+		//	// set the velocity of the two spheres to zero
+		//	//sphere1->setVelocity(glm::vec2(0, 0));
+		//	//sphere2->setVelocity(glm::vec2(0, 0));
+
+
+		//	// works somewhat
+		//	//glm::vec2 normalizeSphere1 = glm::normalize(sphere1->getVelocity());
+		//	//glm::vec2 normalizeSphere2 = glm::normalize(sphere2->getVelocity());
+		//	//sphere1->movePosition(normalizeSphere1 * (gradient/2));
+		//	//sphere2->movePosition(normalizeSphere2* (gradient / 2));
+		//	//sphere1->applyForceToActor(sphere2, sphere1->getVelocity() * 0.1f);
+		//	
+		//	glm::vec2 contact = sphere1->getPosition() + sphere2->getPosition();
+
+		//	sphere1->setPosition(sphere1->getPosition() + contact);
+		//	sphere2->setPosition(sphere2->getPosition() - contact);
+
+		//	sphere1->resolveCollision(sphere2, 0.5f * contact);
+		//}
 	}
 	return false;
 }

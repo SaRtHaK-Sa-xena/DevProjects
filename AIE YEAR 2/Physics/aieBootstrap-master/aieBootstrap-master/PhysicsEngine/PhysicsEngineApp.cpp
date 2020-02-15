@@ -50,25 +50,31 @@ bool PhysicsEngineApp::startup() {
 
 	#pragma region SphereToSphere and SphereToPlane Collision [Testing Bounce]
 
-	/*m_physicsScene = new PhysicsScene();
-	m_physicsScene->setGravity(glm::vec2(0,-10));
+	//m_physicsScene = new PhysicsScene();
+	//m_physicsScene->setGravity(glm::vec2(0,0));
 
-	SphereClass *ball1 = new SphereClass(glm::vec2(0, 50), glm::vec2(-5, 0), 1, 1, glm::vec4(1, 0, 0, 1));
-	SphereClass *ball2 = new SphereClass(glm::vec2(0, 40), glm::vec2(10, 0), 1, 1, glm::vec4(1, 0, 0, 1));
-	SphereClass *ball3 = new SphereClass(glm::vec2(0, 70), glm::vec2(-20, 0), 1, 1, glm::vec4(1, 0, 0, 1));
-	SphereClass *ball4 = new SphereClass(glm::vec2(0, 60), glm::vec2(5, 0), 1, 1, glm::vec4(1, 0, 0, 1));
-	sphere = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 1, 1, glm::vec4(1, 0, 1, 1));
+	//SphereClass *ball1 = new SphereClass(glm::vec2(0, 0), (glm::vec2(-10, -10)*15.f), 1, 2.5, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
+	//SphereClass *ball2 = new SphereClass(glm::vec2(-10, 50), glm::vec2(5, 0), 1, 2.5, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
+	//SphereClass *ball3 = new SphereClass(glm::vec2(0, 70), glm::vec2(-20, 0), 1, 1, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
+	//SphereClass *ball4 = new SphereClass(glm::vec2(0, 60), glm::vec2(5, 0), 1, 1, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
+	//sphere = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(1, 0, 1, 1));
 
-	PlaneClass* plane1 = new PlaneClass(glm::normalize(glm::vec2(1, 3)), 15);
-	PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(-2, 3)), 15);
+	//PlaneClass* plane1 = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -50);
+	//PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(0, 1)), 50);
+	//PlaneClass* plane3 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 90);
+	//PlaneClass* plane4 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -90);
+	////PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(-1, 3)), -15);
 
-	m_physicsScene->addActor(ball1);
-	m_physicsScene->addActor(ball2);
-	m_physicsScene->addActor(ball3);
-	m_physicsScene->addActor(ball4);
+	//m_physicsScene->addActor(ball1);
+	////m_physicsScene->addActor(ball2);
+	////m_physicsScene->addActor(ball3);
+	////m_physicsScene->addActor(ball4);
 
-	m_physicsScene->addActor(plane1);
-	m_physicsScene->addActor(plane2);*/
+	//m_physicsScene->addActor(plane1);
+	//m_physicsScene->addActor(plane2);
+	//m_physicsScene->addActor(plane3);
+	//m_physicsScene->addActor(plane4);
+	////m_physicsScene->addActor(plane2);
 
 	#pragma endregion SphereToSphere and SphereToPlane Collision [Testing Bounce]
 
@@ -160,16 +166,16 @@ bool PhysicsEngineApp::startup() {
 		PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 80);
 		PlaneClass* plane3 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -80);
 		
-		m_physicsScene->addActor(box);
-		m_physicsScene->addActor(box2);
-		m_physicsScene->addActor(box3);
+		//m_physicsScene->addActor(box);
+		//m_physicsScene->addActor(box2);
+		//m_physicsScene->addActor(box3);
 		m_physicsScene->addActor(plane);
 		m_physicsScene->addActor(plane1);
 		m_physicsScene->addActor(plane2);
 		m_physicsScene->addActor(plane3);
-		m_physicsScene->addActor(sphere);
+		//m_physicsScene->addActor(sphere);
 		m_physicsScene->addActor(crazySphere);
-		m_physicsScene->addActor(crazySphere2);
+		//m_physicsScene->addActor(crazySphere2);
 
 		box->applyForce(glm::vec2(0,-20), box->getPosition());
 		box3->applyForce(glm::vec2(-20,-20), box->getPosition());

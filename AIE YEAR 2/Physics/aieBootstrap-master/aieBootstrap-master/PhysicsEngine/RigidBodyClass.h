@@ -37,6 +37,11 @@ public:
 
 
 	glm::vec2 getPosition() { return m_position; }
+	
+	
+	void setPosition(glm::vec2 a_position) { m_position += a_position; }
+	
+	
 	float getRotation() { return m_rotation; }
 	glm::vec2 getVelocity() { return m_velocity; }
 	float getMass() { return m_mass; }
