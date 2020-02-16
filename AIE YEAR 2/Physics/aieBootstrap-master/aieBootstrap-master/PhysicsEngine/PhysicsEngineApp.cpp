@@ -182,6 +182,9 @@ bool PhysicsEngineApp::startup() {
 		PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 95);
 		PlaneClass* plane3 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -95);
 		
+		
+		
+
 		m_physicsScene->addActor(box);
 		m_physicsScene->addActor(sphere);
 		//m_physicsScene->addActor(box2);
@@ -193,6 +196,10 @@ bool PhysicsEngineApp::startup() {
 
 		//box->applyForce(glm::vec2(0,-20), box->getPosition());
 		//box3->applyForce(glm::vec2(-20,-20), box->getPosition());
+
+		//=======================Mouse Test================================
+		m_physicsScene->addActor(mousePointer);
+		//=======================Mouse Test================================
 
 		#pragma endregion GameSetup
 
@@ -211,6 +218,20 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 	// input example
 	aie::Input* input = aie::Input::getInstance();
+	
+	aie::Input* mouseCur_x = aie::Input::getInstance();
+	aie::Input* mouseCur_y = aie::Input::getInstance();
+
+	float x_value = mouseCur_x->getMouseX();
+	//x_value = (1280/2) - x_value;
+	x_value = glm::distance(x_value, sphere->getPosition().x);
+	float y_value = mouseCur_y->getMouseY();
+	//y_value = (720/2) - y_value;
+	y_value = glm::distance(y_value, sphere->getPosition().x);
+
+	glm::vec2 mouseCursor(-x_value, -y_value);
+
+	mousePointer->movePosition(mouseCursor);
 
 	aie::Gizmos::clear();
 
@@ -278,7 +299,7 @@ void PhysicsEngineApp::startPhase()
 		std::cout << "X: " << mouseCurrentPosition.x << " Y: " << mouseCurrentPosition.y << std::endl;
 
 		//create vector, of scale directed towards the mouse
-		glm::vec2 end = mouseCurrentPosition - sphere->getPosition() * glm::normalize(mouseCurrentPosition);
+		glm::vec2 end = mousePointer->getPosition() - sphere->getPosition() * glm::normalize(mousePointer->getPosition());
 		aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 1, 0, 1));
 	}
 	else

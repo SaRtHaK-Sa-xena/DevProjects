@@ -31,6 +31,7 @@ public:
 	AABBClass* box;
 	SphereClass* striker;
 
+	SphereClass* mousePointer = new SphereClass(glm::vec2(0, 0), 0, 0, 1, 2, glm::vec4(1, 0, 1, 1));
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;
