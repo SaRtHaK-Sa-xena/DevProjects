@@ -30,6 +30,16 @@ void RigidBodyClass::fixedUpdate(glm::vec2 gravity, float timeStep)
 	{
 		m_angularVelocity = 0;
 	}
+	
+	//check if it should be set as moving 
+	if (m_velocity != glm::vec2(0, 0))
+	{
+		m_kinematic = true;
+	}
+	else
+	{
+		m_kinematic = false;
+	}
 }
 
 void RigidBodyClass::debug()

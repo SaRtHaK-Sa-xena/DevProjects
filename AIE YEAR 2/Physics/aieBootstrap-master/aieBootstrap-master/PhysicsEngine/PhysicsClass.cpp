@@ -228,8 +228,8 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 		{
 			glm::vec2 contactForce = 0.5f*(distance - (sphere1->getRadius() + sphere2->getRadius())) * delta / distance;
 
-			sphere1->setPosition(sphere1->getPosition() + contactForce);
-			sphere2->setPosition(sphere2->getPosition() - contactForce);
+			sphere1->setPosition(contactForce);
+			sphere2->setPosition(-contactForce);
 
 			//respond to the collision
 			sphere1->resolveCollision(sphere2, 0.5f * (sphere1->getPosition() + sphere2->getPosition()));
@@ -291,6 +291,7 @@ bool PhysicsScene::box2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 		glm::vec2 contact(0, 0);
 		float contactV = 0;
 		float radius = 0.5f * std::fminf(box->getWidth(), box->getHeight());
+		float penetration = 0;
 
 		// which side is the centre of mass on?
 		glm::vec2 planeOrigin = plane->getNormal() * plane->getDistance();
@@ -311,11 +312,25 @@ bool PhysicsScene::box2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 
 				// if this corner is on the opposite side from the Center Of Mass,
 				// and moving further in, resolve the collision
-				if ((distFromPlane > 0 && comFromPlane < 0 && velocityIntoPlane > 0) || (distFromPlane < 0 && comFromPlane > 0 && velocityIntoPlane < 0))
+				if ((distFromPlane > 0 && comFromPlane < 0 && velocityIntoPlane >= 0) || (distFromPlane < 0 && comFromPlane > 0 && velocityIntoPlane <= 0))
 				{
 					numContacts++;
 					contact += p;
 					contactV += velocityIntoPlane;
+				}
+				if (comFromPlane >= 0)
+				{
+					if (penetration > distFromPlane)
+					{
+						penetration = distFromPlane;
+					}
+					else
+					{
+						if (penetration < distFromPlane)
+						{
+							penetration = distFromPlane;
+						}
+					}
 				}
 			}
 		}
@@ -347,6 +362,8 @@ bool PhysicsScene::box2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 
 			// and apply the force
 			box->applyForce(acceleration * mass0, localContact);
+
+			box->setPosition(box->getPosition() - plane->getNormal() * penetration);
 		}
 
 		////create vector
@@ -483,6 +500,13 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 			//	average, and convert back into world coordinates
 			contact = box->getPosition() + (1.f / numContacts) * (box->getLocalX() * contact.x + box->getLocalY() * contact.y);
 			box->resolveCollision(sphere, contact, direction);
+
+			//	given the contact point we can find a penetration amount and normal
+			float pen = sphere->getRadius() - glm::length(contact - sphere->getPosition());
+			glm::vec2 norm = glm::normalize(sphere->getPosition() - contact);
+
+			PhysicsScene* classCall = new PhysicsScene();
+			classCall->ApplyContactForces(box, sphere, norm, pen);
 		}
 		delete direction;
 		
@@ -548,7 +572,7 @@ bool PhysicsScene::box2Box(PhysicsObject* obj1, PhysicsObject* obj2)
 	AABBClass* box2 = dynamic_cast<AABBClass*>(obj2);
 
 	//if cast successful
-	if (box1, box2)
+	if (box1 != NULL && box2 != NULL)
 	{
 		/*if (box1->getPosition().x < box2->getPosition().x + box2->getWidth() &&
 			(box1->getPosition().x + box1->getWidth()) > box2->getPosition().x &&
@@ -573,9 +597,20 @@ bool PhysicsScene::box2Box(PhysicsObject* obj1, PhysicsObject* obj2)
 		if (pen > 0)
 		{
 			box1->resolveCollision(box2, contact / float(numContacts), &norm);
+
+			PhysicsScene *classCall = new PhysicsScene();
+			classCall->ApplyContactForces(box1, box2, norm, pen);
 		}
 		return true;
 	}
 
 	return false;
+}
+
+void PhysicsScene::ApplyContactForces(RigidBodyClass* body1, RigidBodyClass* body2, glm::vec2 norm, float pen)
+{
+	float body1Factor = body1->isKinematic() ? 0 : (body2->isKinematic() ? 1.0f : 0.5f);
+
+	body1->setPosition(body1->getPosition() - body1Factor * norm * pen);
+	body2->setPosition(body2->getPosition() + (1 - body1Factor) * norm * pen);
 }

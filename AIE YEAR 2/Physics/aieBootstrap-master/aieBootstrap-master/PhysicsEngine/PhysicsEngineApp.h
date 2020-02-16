@@ -19,6 +19,10 @@ public:
 
 	void setupContinuousDemo(glm::vec2 startPos, float inclination, float speed, float gravity);
 
+	void startPhase();
+	void selectPhase();
+	void gamePhase();
+
 	PhysicsScene* m_physicsScene;
 
 	SphereClass* rocket_Ship;

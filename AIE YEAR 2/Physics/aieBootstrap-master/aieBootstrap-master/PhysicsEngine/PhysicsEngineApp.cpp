@@ -148,33 +148,42 @@ bool PhysicsEngineApp::startup() {
 
 		#pragma endregion BoxToPlaneCollision
 		
-		#pragma region BoxToBoxCollision
+		#pragma region GameSetup
 		
 		m_physicsScene = new PhysicsScene();
-		m_physicsScene->setGravity(glm::vec2(0, 0));
+		m_physicsScene->setGravity(glm::vec2(0,0));
 		
-		sphere = new SphereClass(glm::vec2(-40, 0), glm::vec2(40, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 1, 0, 1));
 
 		SphereClass *crazySphere = new SphereClass(glm::vec2(-60, 30), (glm::vec2(10, -30)*3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
 		SphereClass *crazySphere2 = new SphereClass(glm::vec2(60, -30), (glm::vec2(-10, 30)*3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
 		
-		//top Row
-		SphereClass *s1 = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
+		SphereClass* striker = new SphereClass(glm::vec2(5, -20), (glm::vec2(0, 10) * 2.f), 1, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
+
+		//centre
+		SphereClass *s1 = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
 		
-		SphereClass *s2 = new SphereClass(glm::vec2(1.5, 2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		//first ring
+		SphereClass *s2 = new SphereClass(glm::vec2(1, 2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
 		SphereClass *s3 = new SphereClass(glm::vec2(2, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		SphereClass *s4 = new SphereClass(glm::vec2(0, 0.5), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		SphereClass *s4 = new SphereClass(glm::vec2(-1, 2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		SphereClass *s5 = new SphereClass(glm::vec2(-2, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1,  glm::vec4(0, 1, 1, 1));
+		SphereClass *s6 = new SphereClass(glm::vec2(-1, -2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		SphereClass *s7 = new SphereClass(glm::vec2(1, -2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1,  glm::vec4(0, 1, 1, 1));
 
 
-		box = new AABBClass(glm::vec2(0, 10), 5, 5);
+
+		box = new AABBClass(glm::vec2(30, 0), 5, 5);
+		sphere = new SphereClass(glm::vec2(-40, 0), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(1, 1, 0, 1));
+
 		AABBClass* box2 = new AABBClass(glm::vec2(0, -10), 5, 5);
 		AABBClass* box3 = new AABBClass(glm::vec2(40, 10), 5, 5);
 		PlaneClass* plane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -50);
 		PlaneClass* plane1 = new PlaneClass(glm::normalize(glm::vec2(0, 1)), 50);
-		PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 80);
-		PlaneClass* plane3 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -80);
+		PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 95);
+		PlaneClass* plane3 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -95);
 		
-		//m_physicsScene->addActor(box);
+		m_physicsScene->addActor(box);
+		m_physicsScene->addActor(sphere);
 		//m_physicsScene->addActor(box2);
 		//m_physicsScene->addActor(box3);
 		m_physicsScene->addActor(plane);
@@ -182,18 +191,10 @@ bool PhysicsEngineApp::startup() {
 		m_physicsScene->addActor(plane2);
 		m_physicsScene->addActor(plane3);
 
-		m_physicsScene->addActor(s1);
-		m_physicsScene->addActor(s2);
-		m_physicsScene->addActor(s3);
-		//m_physicsScene->addActor(s4);
-		//m_physicsScene->addActor(sphere);
-		//m_physicsScene->addActor(crazySphere);
-		//m_physicsScene->addActor(crazySphere2);
-
 		//box->applyForce(glm::vec2(0,-20), box->getPosition());
 		//box3->applyForce(glm::vec2(-20,-20), box->getPosition());
 
-		#pragma endregion BoxToBoxCollision
+		#pragma endregion GameSetup
 
 	#pragma endregion Rotational Velocity
 
@@ -246,12 +247,53 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
+	startPhase();
+}
 
-	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
-		quit();
-	if (input->isKeyDown(aie::INPUT_KEY_0))
+void PhysicsEngineApp::startPhase()
+{
+	//	list of inititalized
+	aie::Input* input = aie::Input::getInstance();
+	aie::Input* mousePos_x = aie::Input::getInstance();
+	aie::Input* mousePos_y = aie::Input::getInstance();
+	glm::vec2 xMove(0.5, 0);
+
+	//	query mouse x and y position
+	//	cast as float
+	float x_value = mousePos_x->getMouseX();
+	float y_value = mousePos_y->getMouseY();
+	
+	//	create position from given query
+	glm::vec2 mouseCurrentPosition(x_value, y_value);
+	
+	mouseCurrentPosition += sphere->getPosition();
+
+	//player setup turn
+	if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT))
 	{
-		//sphere->applyForce(glm::vec2(-20, -10), sphere->getPosition());
+		//works
+		std::cout << "Right Click Pressed" << std::endl;
+		std::cout << "Mouse Location: " << std::endl;
+
+		std::cout << "X: " << mouseCurrentPosition.x << " Y: " << mouseCurrentPosition.y << std::endl;
+
+		//create vector, of scale directed towards the mouse
+		glm::vec2 end = mouseCurrentPosition - sphere->getPosition() * glm::normalize(mouseCurrentPosition);
+		aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 1, 0, 1));
+	}
+	else
+	{
+		//move along the x-axis within play area
+		if (input->isKeyDown(aie::INPUT_KEY_A))
+			if (sphere->getPosition().x < 85 && sphere->getPosition().x > -85)
+				sphere->setPosition(-xMove);
+				if (sphere->getPosition().x > 80)
+					sphere->movePosition(glm::vec2(80, 0));
+		if (input->isKeyDown(aie::INPUT_KEY_D))
+			if (sphere->getPosition().x < 85 && sphere->getPosition().x > -85)
+				sphere->setPosition(xMove);
+				if (sphere->getPosition().x < -80)
+					sphere->movePosition(glm::vec2(-80, 0));
 	}
 }
 
