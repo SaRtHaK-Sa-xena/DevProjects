@@ -228,6 +228,7 @@ void PhysicsEngineApp::update(float deltaTime) {
 	float y_value = mouseCur_y->getMouseY();
 	//y_value = (720/2) - y_value;
 	y_value = glm::distance(y_value, sphere->getPosition().x);
+	y_value * 
 
 	glm::vec2 mouseCursor(-x_value, -y_value);
 
