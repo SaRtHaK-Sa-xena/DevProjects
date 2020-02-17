@@ -19,10 +19,13 @@ public:
 	float getRadius() { return m_radius; }
 	glm::vec4 getColour() { return m_colour; }
 
-	
+	float getTimeStored() { return m_timeUntilScore; }
+	void incrementTimeStored() { m_timeUntilScore = m_timeUntilScore + 1; }
 
 protected:
 	float m_radius;
 	glm::vec4 m_colour;
+
+	float m_timeUntilScore;
 };
 

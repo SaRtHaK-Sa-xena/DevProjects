@@ -6,7 +6,7 @@ AABBClass::AABBClass(glm::vec2 a_topLeft, glm::vec2 a_bottomRight) : RigidBodyCl
 {
 }
 
-AABBClass::AABBClass(glm::vec2 position, float a_width, float a_height) : RigidBodyClass(BOX, position, glm::vec2(0,0), 0, 1.f,0.6f,0,1.0f)
+AABBClass::AABBClass(glm::vec2 position, float a_width, float a_height) : RigidBodyClass(BOX, position, glm::vec2(0,0), 0, 10.f,0.6f,0,1.0f)
 {
 	m_width = a_width;
 	m_height = a_height;

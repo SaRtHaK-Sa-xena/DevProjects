@@ -15,7 +15,10 @@ RigidBodyClass::~RigidBodyClass()
 
 void RigidBodyClass::fixedUpdate(glm::vec2 gravity, float timeStep)
 {
-	
+	if (m_isKinematic == true)
+	{
+		return;
+	}
 	m_velocity += gravity * timeStep;
 	m_position += m_velocity * timeStep;
 
@@ -40,11 +43,12 @@ void RigidBodyClass::debug()
 void RigidBodyClass::applyForce(glm::vec2 force, glm::vec2 pos)
 {
 	m_velocity += force / m_mass;
-	//m_angularVelocity += 1+(force.y * pos.x - force.x * pos.y) / (m_moment);
-	
-	//Correct One That Worked The Best	
-	m_angularVelocity += glm::length(m_velocity) / glm::length((pos / 2.f) / (m_moment) * (force));
+	//m_angularVelocity += (force.y * pos.x - force.x * pos.y) / (m_moment);
 
+
+	//Correct One That Worked The Best	
+	m_angularVelocity += glm::length(m_velocity) / glm::length((pos) / (m_moment) * (force));
+	
 	//point of contact
 	//float pos = glm::distance(/*radius, pos*/)
 	//float angle = acos(glm::length(force / pos));

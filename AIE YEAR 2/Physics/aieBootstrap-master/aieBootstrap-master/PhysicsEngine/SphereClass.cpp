@@ -6,6 +6,7 @@ SphereClass::SphereClass(glm::vec2 position, glm::vec2 velocity, float mass, flo
 	m_colour = colour;
 
 	m_moment = 0.5f * m_mass * m_radius * m_radius;
+	m_timeUntilScore = 0;
 }
 
 SphereClass::SphereClass(glm::vec2 position, float angle, float speed, float mass, float radius, glm::vec4 colour) : RigidBodyClass(SPHERE, position, speed, angle, 0, mass)
@@ -15,6 +16,8 @@ SphereClass::SphereClass(glm::vec2 position, float angle, float speed, float mas
 
 	m_radius = radius;
 	m_colour = colour;
+
+	m_timeUntilScore = 0;
 }
 
 SphereClass::~SphereClass()
@@ -26,7 +29,7 @@ void SphereClass::makeGizmo()
 	glm::vec2 end = glm::vec2(std::cos(m_rotation), std::sin(m_rotation)) * m_radius;
 
 	aie::Gizmos::add2DCircle(m_position, m_radius, 17, m_colour);
-	aie::Gizmos::add2DLine(m_position, m_position + end, glm::vec4(0, 1, 0, 1));
+	aie::Gizmos::add2DLine(m_position, m_position + end, glm::vec4(1, 0, 1, 1));
 }
 
 bool SphereClass::checkCollision(PhysicsObject* pOther)

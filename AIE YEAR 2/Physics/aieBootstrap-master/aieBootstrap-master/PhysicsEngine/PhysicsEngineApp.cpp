@@ -150,55 +150,55 @@ bool PhysicsEngineApp::startup() {
 		
 		#pragma region GameSetup
 		
-		//m_physicsScene = new PhysicsScene();
-		//m_physicsScene->setGravity(glm::vec2(0,0));
-		//
+		m_physicsScene = new PhysicsScene();
+		m_physicsScene->setGravity(glm::vec2(0,0));
+		
 
-		//SphereClass *crazySphere = new SphereClass(glm::vec2(-60, 30), (glm::vec2(10, -30)*3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
-		//SphereClass *crazySphere2 = new SphereClass(glm::vec2(60, -30), (glm::vec2(-10, 30)*3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
-		//
-		//SphereClass* striker = new SphereClass(glm::vec2(5, -20), (glm::vec2(0, 10) * 2.f), 1, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
+		SphereClass *crazySphere = new SphereClass(glm::vec2(-60, 30), (glm::vec2(10, -30)*3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
+		SphereClass *crazySphere2 = new SphereClass(glm::vec2(60, -30), (glm::vec2(-10, 30)*3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
+		
+		SphereClass* striker = new SphereClass(glm::vec2(5, -20), (glm::vec2(0, 10) * 2.f), 1, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
 
-		////centre
-		//SphereClass *s1 = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
-		//
-		////first ring
-		//SphereClass *s2 = new SphereClass(glm::vec2(1, 2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		//SphereClass *s3 = new SphereClass(glm::vec2(2, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		//SphereClass *s4 = new SphereClass(glm::vec2(-1, 2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		//SphereClass *s5 = new SphereClass(glm::vec2(-2, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1,  glm::vec4(0, 1, 1, 1));
-		//SphereClass *s6 = new SphereClass(glm::vec2(-1, -2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		//SphereClass *s7 = new SphereClass(glm::vec2(1, -2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1,  glm::vec4(0, 1, 1, 1));
+		//centre
+		SphereClass *s1 = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
+		
+		//first ring
+		SphereClass *s2 = new SphereClass(glm::vec2(1, 2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		SphereClass *s3 = new SphereClass(glm::vec2(2, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		SphereClass *s4 = new SphereClass(glm::vec2(-1, 2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		SphereClass *s5 = new SphereClass(glm::vec2(-2, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1,  glm::vec4(0, 1, 1, 1));
+		SphereClass *s6 = new SphereClass(glm::vec2(-1, -2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		SphereClass *s7 = new SphereClass(glm::vec2(1, -2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1,  glm::vec4(0, 1, 1, 1));
 
 
 
-		//box = new AABBClass(glm::vec2(30, 0), 5, 5);
-		//sphere = new SphereClass(glm::vec2(-40, 0), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(1, 1, 0, 1));
+		box = new AABBClass(glm::vec2(30, 0), 5, 5);
+		sphere = new SphereClass(glm::vec2(-40, 0), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(1, 1, 0, 1));
 
-		//AABBClass* box2 = new AABBClass(glm::vec2(0, -10), 5, 5);
-		//AABBClass* box3 = new AABBClass(glm::vec2(40, 10), 5, 5);
-		//PlaneClass* plane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -50);
-		//PlaneClass* plane1 = new PlaneClass(glm::normalize(glm::vec2(0, 1)), 50);
-		//PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 95);
-		//PlaneClass* plane3 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -95);
-		//
-		//
-		//
+		AABBClass* box2 = new AABBClass(glm::vec2(0, -10), 5, 5);
+		AABBClass* box3 = new AABBClass(glm::vec2(40, 10), 5, 5);
+		PlaneClass* plane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -50);
+		PlaneClass* plane1 = new PlaneClass(glm::normalize(glm::vec2(0, 1)), 50);
+		PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 95);
+		PlaneClass* plane3 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -95);
+		
+		
+		
 
-		//m_physicsScene->addActor(box);
-		//m_physicsScene->addActor(sphere);
-		////m_physicsScene->addActor(box2);
-		////m_physicsScene->addActor(box3);
-		//m_physicsScene->addActor(plane);
-		//m_physicsScene->addActor(plane1);
-		//m_physicsScene->addActor(plane2);
-		//m_physicsScene->addActor(plane3);
+		m_physicsScene->addActor(box);
+		m_physicsScene->addActor(sphere);
+		//m_physicsScene->addActor(box2);
+		//m_physicsScene->addActor(box3);
+		m_physicsScene->addActor(plane);
+		m_physicsScene->addActor(plane1);
+		m_physicsScene->addActor(plane2);
+		m_physicsScene->addActor(plane3);
 
-		////box->applyForce(glm::vec2(0,-20), box->getPosition());
-		////box3->applyForce(glm::vec2(-20,-20), box->getPosition());
+		//box->applyForce(glm::vec2(0,-20), box->getPosition());
+		//box3->applyForce(glm::vec2(-20,-20), box->getPosition());
 
-		////=======================Mouse Test================================
-		//m_physicsScene->addActor(mousePointer);
+		//=======================Mouse Test================================
+		m_physicsScene->addActor(mousePointer);
 		//=======================Mouse Test================================
 
 		#pragma endregion GameSetup
@@ -208,16 +208,21 @@ bool PhysicsEngineApp::startup() {
 	
 	#pragma region Joint And Spring Tests
 
-	m_physicsScene = new PhysicsScene();
-	m_physicsScene->setGravity(glm::vec2(0, 0));
-	
-	sphere = new SphereClass(glm::vec2(-55, 0), glm::vec2(0, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
-	striker = new SphereClass(glm::vec2(-50, 3), 10, 3,1,5, glm::vec4(0, 1, 1, 1));
+	//m_physicsScene = new PhysicsScene();
+	//m_physicsScene->setGravity(glm::vec2(0, 0));
+	//
+	//sphere = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 10, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
+	//striker = new SphereClass(glm::vec2(30, 0), glm::vec2(-60,0), 1, 5, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
 
-	AABBClass* staticBox = new AABBClass(glm::vec2(-55, 0), 5,5);
+	////striker = new SphereClass(glm::vec2(-50, 0), 10, sin(90), 1, 5, glm::vec4(1, 0, 1, 1));
 
-	m_physicsScene->addActor(staticBox);
-	m_physicsScene->addActor(striker);
+	//AABBClass* staticBox = new AABBClass(glm::vec2(0, 0), 5,5);
+	//staticBox->setElasticity(0.9f);
+	//staticBox->setKinematic(false);
+	//sphere->setKinematic(true);
+
+	//m_physicsScene->addActor(staticBox);
+	//m_physicsScene->addActor(striker);
 
 	#pragma endregion Joint and Spring Tests
 	return true;
@@ -236,19 +241,21 @@ void PhysicsEngineApp::update(float deltaTime) {
 	
 	#pragma region GameBuilding
 
-	//aie::Input* mouseCur_x = aie::Input::getInstance();
-	//aie::Input* mouseCur_y = aie::Input::getInstance();
+	aie::Input* mouseCur_x = aie::Input::getInstance();
+	aie::Input* mouseCur_y = aie::Input::getInstance();
 
-	//float x_value = mouseCur_x->getMouseX();
-	////x_value = (1280/2) - x_value;
+	float x_value = mouseCur_x->getMouseX();
+	x_value = (1280/2) - x_value;
+	x_value += sphere->getPosition().x;
 	//x_value = glm::distance(x_value, sphere->getPosition().x);
-	//float y_value = mouseCur_y->getMouseY();
-	////y_value = (720/2) - y_value;
-	//y_value = glm::distance(y_value, sphere->getPosition().x);
+	float y_value = mouseCur_y->getMouseY();
+	y_value = (720/2) - y_value;
+	y_value += sphere->getPosition().y;
+	//y_value = glm::distance(y_value, sphere->getPosition().y);
 
-	//glm::vec2 mouseCursor(-x_value, -y_value);
+	glm::vec2 mouseCursor(x_value, y_value);
 
-	//mousePointer->movePosition(mouseCursor);
+	mousePointer->movePosition(mouseCursor);
 
 	#pragma endregion GameBuilding
 
@@ -287,7 +294,7 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
-	//startPhase();
+	startPhase();
 }
 
 void PhysicsEngineApp::startPhase()
@@ -306,7 +313,7 @@ void PhysicsEngineApp::startPhase()
 	//	create position from given query
 	glm::vec2 mouseCurrentPosition(x_value, y_value);
 	
-	mouseCurrentPosition += sphere->getPosition();
+	//mouseCurrentPosition += sphere->getPosition();
 
 	//player setup turn
 	if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT))
@@ -315,7 +322,7 @@ void PhysicsEngineApp::startPhase()
 		std::cout << "Right Click Pressed" << std::endl;
 		std::cout << "Mouse Location: " << std::endl;
 
-		std::cout << "X: " << mouseCurrentPosition.x << " Y: " << mouseCurrentPosition.y << std::endl;
+		std::cout << "X: " << mousePointer->getPosition().x << " Y: " << mousePointer->getPosition().y<< std::endl;
 
 		//create vector, of scale directed towards the mouse
 		glm::vec2 end = mousePointer->getPosition() - sphere->getPosition() * glm::normalize(mousePointer->getPosition());

@@ -18,7 +18,7 @@ static fn collisionFunctionArray[] =
 };
 
 
-PhysicsScene::PhysicsScene():m_timeStep(0.01f), m_gravity(glm::vec2(0,-10))
+PhysicsScene::PhysicsScene():m_timeStep(0.01f), m_gravity(glm::vec2(0,0))
 {
 }
 
@@ -66,30 +66,6 @@ void PhysicsScene::update(float dt)
 
 		//check for collisions
 		checkForCollision();
-		/*for (auto pActor : m_actors)
-		{
-			for (auto pOther : m_actors)
-			{
-				if (pActor == pOther)
-				{
-					continue;
-				}
-				if (std::find(dirty.begin(), dirty.end(), pActor) != dirty.end() && std::find(dirty.begin(), dirty.end(), pOther) != dirty.end())
-					continue;
-
-
-				RigidBodyClass* pRigid = dynamic_cast<RigidBodyClass*>(pActor);
-				if (pRigid->checkCollision(pOther) == true)
-				{
-					pRigid->applyForceToActor(
-						dynamic_cast<RigidBodyClass*>(pOther),
-						pRigid->getVelocity()* pRigid->getMass());
-					dirty.push_back(pRigid);
-					dirty.push_back(pOther);
-				}
-			}
-		}
-		dirty.clear();*/
 	}
 }
 
@@ -440,7 +416,7 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 	if (sphere != NULL && box != NULL)
 	{
 		glm::vec2 circlePos = sphere->getPosition() - box->getPosition();
-		float w2 = box->getWidth() / 2, h2 = box->getHeight() / 2;
+		float w2 = box->getWidth(), h2 = box->getHeight();
 
 		int numContacts = 0;
 		glm::vec2 contact(0, 0); // contact is in our box coordinates
@@ -505,10 +481,26 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 			glm::vec2 norm = glm::normalize(sphere->getPosition() - contact);
 
 			glm::vec2 penVec = glm::normalize(contact - sphere->getPosition() * pen);
-			sphere->setPosition(sphere->getPosition() - penVec);
-			box->resolveCollision(sphere, contact, direction);
+			if (!box->isKinematic() && !sphere->isKinematic())
+			{
+				//box->setPosition(penVec * 0.5f);
+				//sphere->setPosition(-penVec * 0.5f);
+			}
+			else if (!box->isKinematic())
+			{
+				//box->setPosition(penVec);
+			}
+			else
+			{
+				//sphere->setPosition(-penVec);
+			}
 			PhysicsScene* classCall = new PhysicsScene();
-			classCall->ApplyContactForces(box, sphere, norm, pen);
+			//classCall->ApplyContactForces(box, sphere, norm, pen);
+			if (box->isKinematic())
+			{
+				box->resolveCollision(sphere, contact, direction);
+			}
+			sphere->incrementTimeStored();
 		}
 		delete direction;
 		
@@ -613,6 +605,6 @@ void PhysicsScene::ApplyContactForces(RigidBodyClass* body1, RigidBodyClass* bod
 {
 	float body1Factor = body1->isKinematic() ? 0 : (body2->isKinematic() ? 1.0f : 0.5f);
 
-	body1->setPosition(body1->getPosition() - body1Factor * norm * pen);
-	body2->setPosition(body2->getPosition() + (1 - body1Factor) * norm * pen);
+	//body1->setPosition(-body1Factor * norm * pen);
+	//body2->setPosition((1 - body1Factor) * norm * pen);
 }
