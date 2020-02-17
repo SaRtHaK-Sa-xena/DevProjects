@@ -499,12 +499,14 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 		{
 			//	average, and convert back into world coordinates
 			contact = box->getPosition() + (1.f / numContacts) * (box->getLocalX() * contact.x + box->getLocalY() * contact.y);
-			box->resolveCollision(sphere, contact, direction);
 
 			//	given the contact point we can find a penetration amount and normal
 			float pen = sphere->getRadius() - glm::length(contact - sphere->getPosition());
 			glm::vec2 norm = glm::normalize(sphere->getPosition() - contact);
 
+			glm::vec2 penVec = glm::normalize(contact - sphere->getPosition() * pen);
+			sphere->setPosition(sphere->getPosition() - penVec);
+			box->resolveCollision(sphere, contact, direction);
 			PhysicsScene* classCall = new PhysicsScene();
 			classCall->ApplyContactForces(box, sphere, norm, pen);
 		}
