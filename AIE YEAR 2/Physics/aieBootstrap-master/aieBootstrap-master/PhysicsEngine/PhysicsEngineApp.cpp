@@ -244,13 +244,13 @@ void PhysicsEngineApp::update(float deltaTime) {
 	aie::Input* mouseCur_x = aie::Input::getInstance();
 	aie::Input* mouseCur_y = aie::Input::getInstance();
 
-	float x_value = mouseCur_x->getMouseX();
-	x_value = (1280/2) - x_value;
-	x_value += sphere->getPosition().x;
+	float x_value = sphere->getPosition().x + mouseCur_x->getMouseX();
+	//x_value = (1280/2) - x_value;
+	//x_value += sphere->getPosition().x;
 	//x_value = glm::distance(x_value, sphere->getPosition().x);
-	float y_value = mouseCur_y->getMouseY();
-	y_value = (720/2) - y_value;
-	y_value += sphere->getPosition().y;
+	float y_value = sphere->getPosition().y + mouseCur_y->getMouseY();
+	//y_value = (720/2) - y_value;
+	//y_value += sphere->getPosition().y;
 	//y_value = glm::distance(y_value, sphere->getPosition().y);
 
 	glm::vec2 mouseCursor(x_value, y_value);
@@ -310,6 +310,23 @@ void PhysicsEngineApp::startPhase()
 	float x_value = mousePos_x->getMouseX();
 	float y_value = mousePos_y->getMouseY();
 	
+	x_value = (1280 / 2) - x_value;
+	x_value = x_value / 6.3;
+	x_value = -x_value;
+
+	if (sphere->getPosition().x > 0)
+	{
+		x_value = sphere->getPosition().x + x_value;
+	}
+	else
+	{
+		x_value = x_value - sphere->getPosition().x;
+	}
+	
+	y_value = (720 / 2) - y_value;
+	y_value = y_value / 6.3;
+	y_value = -y_value;
+
 	//	create position from given query
 	glm::vec2 mouseCurrentPosition(x_value, y_value);
 	
@@ -322,11 +339,19 @@ void PhysicsEngineApp::startPhase()
 		std::cout << "Right Click Pressed" << std::endl;
 		std::cout << "Mouse Location: " << std::endl;
 
-		std::cout << "X: " << mousePointer->getPosition().x << " Y: " << mousePointer->getPosition().y<< std::endl;
+		std::cout << "X: " << mouseCurrentPosition.x << " Y: " << mouseCurrentPosition.y<< std::endl;
 
 		//create vector, of scale directed towards the mouse
-		glm::vec2 end = mousePointer->getPosition() - sphere->getPosition() * glm::normalize(mousePointer->getPosition());
+		glm::vec2 end = mouseCurrentPosition - sphere->getPosition() * glm::normalize(mouseCurrentPosition);
 		aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 1, 0, 1));
+		float lineDistance = glm::distance(sphere->getPosition(), end);
+		float templineDistance = lineDistance;
+
+		if (templineDistance > maxDistance)
+		{
+			templineDistance;
+		}
+
 	}
 	else
 	{
