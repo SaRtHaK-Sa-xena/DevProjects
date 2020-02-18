@@ -241,22 +241,6 @@ void PhysicsEngineApp::update(float deltaTime) {
 	
 	#pragma region GameBuilding
 
-	aie::Input* mouseCur_x = aie::Input::getInstance();
-	aie::Input* mouseCur_y = aie::Input::getInstance();
-
-	float x_value = sphere->getPosition().x + mouseCur_x->getMouseX();
-	//x_value = (1280/2) - x_value;
-	//x_value += sphere->getPosition().x;
-	//x_value = glm::distance(x_value, sphere->getPosition().x);
-	float y_value = sphere->getPosition().y + mouseCur_y->getMouseY();
-	//y_value = (720/2) - y_value;
-	//y_value += sphere->getPosition().y;
-	//y_value = glm::distance(y_value, sphere->getPosition().y);
-
-	glm::vec2 mouseCursor(x_value, y_value);
-
-	mousePointer->movePosition(mouseCursor);
-
 	#pragma endregion GameBuilding
 
 	aie::Gizmos::clear();
@@ -310,19 +294,21 @@ void PhysicsEngineApp::startPhase()
 	float x_value = mousePos_x->getMouseX();
 	float y_value = mousePos_y->getMouseY();
 	
+	//	set values of x to position of sphere
+	//	and invert
 	x_value = (1280 / 2) - x_value;
 	x_value = x_value / 6.3;
 	x_value = -x_value;
 
+	//	set it to location of sphere, depending on 
+	//	it's x
 	if (sphere->getPosition().x > 0)
-	{
 		x_value = sphere->getPosition().x + x_value;
-	}
 	else
-	{
 		x_value = x_value - sphere->getPosition().x;
-	}
 	
+	//	set values of y to position of sphere
+	//	and invert
 	y_value = (720 / 2) - y_value;
 	y_value = y_value / 6.3;
 	y_value = -y_value;
@@ -336,34 +322,59 @@ void PhysicsEngineApp::startPhase()
 	if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT))
 	{
 		//works
-		std::cout << "Right Click Pressed" << std::endl;
-		std::cout << "Mouse Location: " << std::endl;
+		//std::cout << "Right Click Pressed" << std::endl;
+		//std::cout << "Mouse Location: " << std::endl;
 
-		std::cout << "X: " << mouseCurrentPosition.x << " Y: " << mouseCurrentPosition.y<< std::endl;
+		//std::cout << "X: " << mouseCurrentPosition.x << " Y: " << mouseCurrentPosition.y<< std::endl;
 
 		//create vector, of scale directed towards the mouse
 		glm::vec2 end = mouseCurrentPosition - sphere->getPosition() * glm::normalize(mouseCurrentPosition);
-		aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 1, 0, 1));
-		float lineDistance = glm::distance(sphere->getPosition(), end);
-		float templineDistance = lineDistance;
-
-		if (templineDistance > maxDistance)
+		
+		//track lineDistance to set find Max
+		float lineDistance = glm::length((sphere->getPosition() + end) - sphere->getPosition());
+		if (lineDistance > 30)
 		{
-			templineDistance;
+			//cannot be shot
+			aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1));
+			lineDistance = 30;
+			
+			//	Player shot at Cap
+			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT)) 
+			{
+				//normalize end and set scalar value to the 30
+				end = glm::normalize(end) * 30.f;
+				sphere->setVelocity(-end);
+			}
 		}
-
+		else
+		{
+			//otherwise can be shot, if under cap
+			aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 1, 0, 1));
+			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
+			{
+				sphere->setVelocity(-end);
+			}
+		}
 	}
 	else
 	{
-		//move along the x-axis within play area
+		//	move along the x-axis within play area
 		if (input->isKeyDown(aie::INPUT_KEY_A))
+			//	if sphere inside of x boundaries
+			//	let it move
 			if (sphere->getPosition().x < 85 && sphere->getPosition().x > -85)
 				sphere->setPosition(-xMove);
+				//	if sphere outside of x boundary from LEFT
+				//	clamp it's x position to max LEFT
 				if (sphere->getPosition().x > 80)
 					sphere->movePosition(glm::vec2(80, 0));
 		if (input->isKeyDown(aie::INPUT_KEY_D))
+			//	if sphere inside of x boundaries
+			//	let it move
 			if (sphere->getPosition().x < 85 && sphere->getPosition().x > -85)
 				sphere->setPosition(xMove);
+				//	if sphere outside of x boundary from RIGHT
+				// clamp it's x position to max RIGHT
 				if (sphere->getPosition().x < -80)
 					sphere->movePosition(glm::vec2(-80, 0));
 	}
