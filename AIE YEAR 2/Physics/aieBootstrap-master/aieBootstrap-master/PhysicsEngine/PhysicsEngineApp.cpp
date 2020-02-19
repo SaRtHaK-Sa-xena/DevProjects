@@ -369,71 +369,86 @@ void PhysicsEngineApp::startPhase()
 			//aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); |ORIGINAL|
 			lineDistance = 50;
 
-			//	Player shot at Cap
-			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
+			if (-end.y < 0)
 			{
-				//	normalize end and set scalar value to 80
-				end = glm::normalize(end) * 80.f;
-				sphere->setVelocity(-end);
+				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); //|EDITTED RED: 1,0,0,1|
+			}
+			else
+			{
 
-				//	run game phase |Checks for any goal, and runs physics|
-				playerTurnActivated = false;
-
-				// Condition to set for
-				bool condition;
-
-				//	set Player Turn
-				if (sphere->returnPlayerTurn()) 
+				//	Player shot at Cap
+				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
-					//	set it to 'PLAYER 2'
-					condition = false;
-					for (int i = 0; i < CoinsInScene.size(); i++)
+					//	normalize end and set scalar value to 80
+					end = glm::normalize(end) * 80.f;
+					sphere->setVelocity(-end);
+
+					//	run game phase |Checks for any goal, and runs physics|
+					playerTurnActivated = false;
+
+					// Condition to set for
+					bool condition;
+
+					//	set Player Turn
+					if (sphere->returnPlayerTurn())
 					{
-						CoinsInScene[i]->setPlayerTurn(condition);
+						//	set it to 'PLAYER 2'
+						condition = false;
+						for (int i = 0; i < CoinsInScene.size(); i++)
+						{
+							CoinsInScene[i]->setPlayerTurn(condition);
+						}
 					}
-				}
-				else
-				{
-					//	set it to 'PLAYER 2'
-					condition = true;
-					for (int i = 0; i < CoinsInScene.size(); i++)
+					else
 					{
-						CoinsInScene[i]->setPlayerTurn(condition);
+						//	set it to 'PLAYER 2'
+						condition = true;
+						for (int i = 0; i < CoinsInScene.size(); i++)
+						{
+							CoinsInScene[i]->setPlayerTurn(condition);
+						}
 					}
 				}
 			}
 		}
 		else
 		{
-			//otherwise can be shot, if under cap
-			aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 80, 0, 1));
-			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
+			if (-end.y < 0)
 			{
-				sphere->setVelocity(-end*2.f);
-
-				//run game phase |Checks for any goal, and runs physics|
-				playerTurnActivated = false;
-
-				// Condition to set for
-				bool condition;
-
-				//	set Player Turn
-				if (sphere->returnPlayerTurn())
+				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); //|EDITTED RED: 1,0,0,1|
+			}
+			else
+			{
+				//otherwise can be shot, if under cap
+				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 80, 0, 1));
+				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
-					//	set it to 'PLAYER 2'
-					condition = false;
-					for (int i = 0; i < CoinsInScene.size(); i++)
+					sphere->setVelocity(-end * 2.f);
+
+					//run game phase |Checks for any goal, and runs physics|
+					playerTurnActivated = false;
+
+					// Condition to set for
+					bool condition;
+
+					//	set Player Turn
+					if (sphere->returnPlayerTurn())
 					{
-						CoinsInScene[i]->setPlayerTurn(condition);
+						//	set it to 'PLAYER 2'
+						condition = false;
+						for (int i = 0; i < CoinsInScene.size(); i++)
+						{
+							CoinsInScene[i]->setPlayerTurn(condition);
+						}
 					}
-				}
-				else
-				{
-					//	set it to 'PLAYER 2'
-					condition = true;
-					for (int i = 0; i < CoinsInScene.size(); i++)
+					else
 					{
-						CoinsInScene[i]->setPlayerTurn(condition);
+						//	set it to 'PLAYER 2'
+						condition = true;
+						for (int i = 0; i < CoinsInScene.size(); i++)
+						{
+							CoinsInScene[i]->setPlayerTurn(condition);
+						}
 					}
 				}
 			}
