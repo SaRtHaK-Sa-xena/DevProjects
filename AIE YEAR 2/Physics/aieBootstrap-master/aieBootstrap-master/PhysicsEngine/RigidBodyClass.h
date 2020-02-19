@@ -43,7 +43,7 @@ public:
 	
 	void setPosition(glm::vec2 a_position) { m_position += a_position; }
 	
-	
+	void resetRotation() { m_rotation = 0; }
 	float getRotation() { return m_rotation; }
 	glm::vec2 getVelocity() { return m_velocity; }
 
@@ -74,8 +74,5 @@ protected:
 	float m_angularVelocity;
 
 	bool m_isKinematic;
-
-	//vector of rigidbodies in scene
-	std::vector<RigidBodyClass*> dynamicObjects;
 };
 

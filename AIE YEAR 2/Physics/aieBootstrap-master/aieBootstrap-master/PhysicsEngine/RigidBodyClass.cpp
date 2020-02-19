@@ -47,7 +47,7 @@ void RigidBodyClass::applyForce(glm::vec2 force, glm::vec2 pos)
 
 
 	//Correct One That Worked The Best	
-	m_angularVelocity += glm::length(m_velocity) / glm::length((pos) / (m_moment) * (force));
+	m_angularVelocity += glm::length(m_velocity) / glm::length((pos) / (m_moment) * (-force));
 	
 	//point of contact
 	//float pos = glm::distance(/*radius, pos*/)

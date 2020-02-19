@@ -494,8 +494,7 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 			{
 				//sphere->setPosition(-penVec);
 			}
-			PhysicsScene* classCall = new PhysicsScene();
-			//classCall->ApplyContactForces(box, sphere, norm, pen);
+			//ApplyContactForces(box, sphere, norm, pen);
 			if (box->isKinematic())
 			{
 				box->resolveCollision(sphere, contact, direction);
@@ -605,6 +604,6 @@ void PhysicsScene::ApplyContactForces(RigidBodyClass* body1, RigidBodyClass* bod
 {
 	float body1Factor = body1->isKinematic() ? 0 : (body2->isKinematic() ? 1.0f : 0.5f);
 
-	//body1->setPosition(-body1Factor * norm * pen);
-	//body2->setPosition((1 - body1Factor) * norm * pen);
+	body1->setPosition(-body1Factor * norm * pen);
+	body2->setPosition((1 - body1Factor) * norm * pen);
 }

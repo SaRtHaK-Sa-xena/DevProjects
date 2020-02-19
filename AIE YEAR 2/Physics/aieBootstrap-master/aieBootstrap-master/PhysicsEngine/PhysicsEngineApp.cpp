@@ -172,7 +172,7 @@ bool PhysicsEngineApp::startup() {
 
 
 
-		box = new AABBClass(glm::vec2(30, 0), 5, 5);
+		box = new AABBClass(glm::vec2(0, -20), 5, 5);
 		sphere = new SphereClass(glm::vec2(-40, 0), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(1, 1, 0, 1));
 
 		AABBClass* box2 = new AABBClass(glm::vec2(0, -10), 5, 5);
@@ -183,9 +183,8 @@ bool PhysicsEngineApp::startup() {
 		PlaneClass* plane3 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -95);
 		
 		
-		
-
 		m_physicsScene->addActor(box);
+
 		m_physicsScene->addActor(sphere);
 		//m_physicsScene->addActor(box2);
 		//m_physicsScene->addActor(box3);
@@ -285,12 +284,32 @@ void PhysicsEngineApp::update(float deltaTime) {
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
 	
-	//	if it's time for player
-	//	to take their turn
+		//if it's time for player
+		//to take their turn
 	if (playerTurnActivated)
 		startPhase();
 	else
 		gamePhase();
+
+	//Debug Log--------------------
+	//|
+	//|
+	//|
+	std::cout << "-----DATA OUT------" << std::endl;
+	std::cout << "-------------------" << std::endl;
+	if (sphere->returnPlayerTurn())
+		std::cout << "-----Player Turn 1-----" << std::endl;
+	else
+		std::cout << "-----Player Turn 2-----" << std::endl;
+	if (playerTurnActivated)
+		std::cout << "Player (CAN) Move The Striker" << std::endl;
+	if (playerTurnActivated == false)
+		std::cout << "Player (CAN NOT) Move The Striker" << std::endl;
+	std::cout << "-------------------" << std::endl;
+	std::cout << std::endl;
+
+	
+
 }
 
 void PhysicsEngineApp::startPhase()
@@ -344,33 +363,79 @@ void PhysicsEngineApp::startPhase()
 
 			//track lineDistance to set find Max
 			float lineDistance = glm::length((sphere->getPosition() + end) - sphere->getPosition());
-			if (lineDistance > 30)
+			if (lineDistance > 50)
 			{
 				//cannot be shot
 				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1));
-				lineDistance = 30;
+				lineDistance = 50;
 
 				//	Player shot at Cap
 				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
 					//normalize end and set scalar value to the 30
-					end = glm::normalize(end) * 30.f;
+					end = glm::normalize(end) * 80.f;
 					sphere->setVelocity(-end);
 
 					//run game phase |Checks for any goal, and runs physics|
 					playerTurnActivated = false;
+
+					// Condition to set for
+					bool condition;
+
+					//	set Player Turn
+					if (sphere->returnPlayerTurn()) 
+					{
+						//	set it to 'PLAYER 2'
+						condition = false;
+						for (int i = 0; i < CoinsInScene.size(); i++)
+						{
+							CoinsInScene[i]->setPlayerTurn(condition);
+						}
+					}
+					else
+					{
+						//	set it to 'PLAYER 2'
+						condition = true;
+						for (int i = 0; i < CoinsInScene.size(); i++)
+						{
+							CoinsInScene[i]->setPlayerTurn(condition);
+						}
+					}
 				}
 			}
 			else
 			{
 				//otherwise can be shot, if under cap
-				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 1, 0, 1));
+				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 80, 0, 1));
 				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
-					sphere->setVelocity(-end);
+					sphere->setVelocity(-end*2.f);
 
 					//run game phase |Checks for any goal, and runs physics|
 					playerTurnActivated = false;
+
+					// Condition to set for
+					bool condition;
+
+					//	set Player Turn
+					if (sphere->returnPlayerTurn())
+					{
+						//	set it to 'PLAYER 2'
+						condition = false;
+						for (int i = 0; i < CoinsInScene.size(); i++)
+						{
+							CoinsInScene[i]->setPlayerTurn(condition);
+						}
+					}
+					else
+					{
+						//	set it to 'PLAYER 2'
+						condition = true;
+						for (int i = 0; i < CoinsInScene.size(); i++)
+						{
+							CoinsInScene[i]->setPlayerTurn(condition);
+						}
+					}
 				}
 			}
 		}
@@ -441,12 +506,18 @@ void PhysicsEngineApp::gamePhase()
 	{
 		//set position of sphere to (0,0)
 		sphere->movePosition(glm::vec2(0, 0));
+		
+		//reset rotation
+		sphere->resetRotation();
 
 		//reset all timeStored for objects in scene
 		for (int i = 0; i < CoinsInScene.size(); i++)
 		{
 			CoinsInScene[i]->resetTimeStored();
 		}
+
+		//Start Player Phase again
+		playerTurnActivated = true;
 	}
 	#pragma endregion Checks if pieces have stopped moving
 }

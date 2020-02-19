@@ -26,6 +26,7 @@ public:
 	
 	//	To Track Player Turn
 	bool returnPlayerTurn() { return m_player; }
+	void setPlayerTurn(bool a_condition) { m_player = a_condition; }
 
 protected:
 	float m_radius;
