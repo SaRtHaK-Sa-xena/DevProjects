@@ -24,6 +24,11 @@ public:
 	void incrementTimeStored() { m_timeUntilScore = m_timeUntilScore + 1; }
 	void resetTimeStored() { m_timeUntilScore = 0; }
 	
+	//	To Track Striker
+	void setThisToStriker() { isStriker = true; }
+	bool isThisStriker() { return isStriker; }
+
+	
 	//	To Track Player Turn
 	bool returnPlayerTurn() { return m_player; }
 	void setPlayerTurn(bool a_condition) { m_player = a_condition; }
@@ -31,6 +36,8 @@ public:
 protected:
 	float m_radius;
 	glm::vec4 m_colour;
+
+	bool isStriker = false;
 
 	// Stores Time Here When Above Hole
 	float m_timeUntilScore;
