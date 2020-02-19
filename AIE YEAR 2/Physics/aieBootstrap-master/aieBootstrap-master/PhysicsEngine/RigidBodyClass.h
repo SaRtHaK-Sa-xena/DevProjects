@@ -74,5 +74,8 @@ protected:
 	float m_angularVelocity;
 
 	bool m_isKinematic;
+
+	//vector of rigidbodies in scene
+	std::vector<RigidBodyClass*> dynamicObjects;
 };
 

@@ -197,9 +197,15 @@ bool PhysicsEngineApp::startup() {
 		//box->applyForce(glm::vec2(0,-20), box->getPosition());
 		//box3->applyForce(glm::vec2(-20,-20), box->getPosition());
 
-		//=======================Mouse Test================================
-		m_physicsScene->addActor(mousePointer);
-		//=======================Mouse Test================================
+		//add to vector
+		CoinsInScene.push_back(sphere);
+		CoinsInScene.push_back(s1);
+		CoinsInScene.push_back(s2);
+		CoinsInScene.push_back(s3);
+		CoinsInScene.push_back(s4);
+		CoinsInScene.push_back(s5);
+		CoinsInScene.push_back(s6);
+		CoinsInScene.push_back(s7);
 
 		#pragma endregion GameSetup
 
@@ -278,7 +284,13 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
-	startPhase();
+	
+	//	if it's time for player
+	//	to take their turn
+	if (playerTurnActivated)
+		startPhase();
+	else
+		gamePhase();
 }
 
 void PhysicsEngineApp::startPhase()
@@ -320,64 +332,123 @@ void PhysicsEngineApp::startPhase()
 
 	//player setup turn
 	if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT))
-	{
-		//works
-		//std::cout << "Right Click Pressed" << std::endl;
-		//std::cout << "Mouse Location: " << std::endl;
-
-		//std::cout << "X: " << mouseCurrentPosition.x << " Y: " << mouseCurrentPosition.y<< std::endl;
-
-		//create vector, of scale directed towards the mouse
-		glm::vec2 end = mouseCurrentPosition - sphere->getPosition() * glm::normalize(mouseCurrentPosition);
-		
-		//track lineDistance to set find Max
-		float lineDistance = glm::length((sphere->getPosition() + end) - sphere->getPosition());
-		if (lineDistance > 30)
 		{
-			//cannot be shot
-			aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1));
-			lineDistance = 30;
-			
-			//	Player shot at Cap
-			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT)) 
+			//works
+			//std::cout << "Right Click Pressed" << std::endl;
+			//std::cout << "Mouse Location: " << std::endl;
+
+			//std::cout << "X: " << mouseCurrentPosition.x << " Y: " << mouseCurrentPosition.y<< std::endl;
+
+			//create vector, of scale directed towards the mouse
+			glm::vec2 end = mouseCurrentPosition - sphere->getPosition() * glm::normalize(mouseCurrentPosition);
+
+			//track lineDistance to set find Max
+			float lineDistance = glm::length((sphere->getPosition() + end) - sphere->getPosition());
+			if (lineDistance > 30)
 			{
-				//normalize end and set scalar value to the 30
-				end = glm::normalize(end) * 30.f;
-				sphere->setVelocity(-end);
+				//cannot be shot
+				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1));
+				lineDistance = 30;
+
+				//	Player shot at Cap
+				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
+				{
+					//normalize end and set scalar value to the 30
+					end = glm::normalize(end) * 30.f;
+					sphere->setVelocity(-end);
+
+					//run game phase |Checks for any goal, and runs physics|
+					playerTurnActivated = false;
+				}
 			}
+			else
+			{
+				//otherwise can be shot, if under cap
+				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 1, 0, 1));
+				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
+				{
+					sphere->setVelocity(-end);
+
+					//run game phase |Checks for any goal, and runs physics|
+					playerTurnActivated = false;
+				}
+			}
+		}
+	else
+		{
+			//	move along the x-axis within play area
+			if (input->isKeyDown(aie::INPUT_KEY_A))
+				//	if sphere inside of x boundaries
+				//	let it move
+				if (sphere->getPosition().x < 85 && sphere->getPosition().x > -85)
+					sphere->setPosition(-xMove);
+			//	if sphere outside of x boundary from LEFT
+			//	clamp it's x position to max LEFT
+			if (sphere->getPosition().x > 80)
+				sphere->movePosition(glm::vec2(80, 0));
+			if (input->isKeyDown(aie::INPUT_KEY_D))
+				//	if sphere inside of x boundaries
+				//	let it move
+				if (sphere->getPosition().x < 85 && sphere->getPosition().x > -85)
+					sphere->setPosition(xMove);
+			//	if sphere outside of x boundary from RIGHT
+			// clamp it's x position to max RIGHT
+			if (sphere->getPosition().x < -80)
+				sphere->movePosition(glm::vec2(-80, 0));
+		}
+}
+
+void PhysicsEngineApp::gamePhase()
+{
+	// Checks If Pieces Have Stored Enough Time to score
+	#pragma region Score Check
+	for (int i = 0; i < CoinsInScene.size(); i++)
+	{
+		if (CoinsInScene[i]->getTimeStored() > 30)
+		{
+			//Add Score to Player
+			bool playerTurn = CoinsInScene[i]->returnPlayerTurn();
+			//if playerTurn == 'PLAYER 1'
+			if (playerTurn)
+				ScorePlayer1++;
+			else
+				ScorePlayer2++;
+			
+			//delete from scene
+			delete CoinsInScene[i];
+		}
+	}
+	#pragma endregion Checks If Score gets added
+
+	// Checks If Pieces On Board Have Stopped Moving
+	#pragma region Movement Check
+	int valueToCheck = 0;
+
+	//check if every piece has stopped moving, has a velocity of zero
+	for (int i = 0; i < CoinsInScene.size(); i++)
+	{
+		//iterate through and check if velocity is zero
+		if (CoinsInScene[i]->getVelocity() != glm::vec2(0, 0))
+		{
+			break;
 		}
 		else
 		{
-			//otherwise can be shot, if under cap
-			aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 1, 0, 1));
-			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
-			{
-				sphere->setVelocity(-end);
-			}
+			valueToCheck++;
 		}
 	}
-	else
+	if (valueToCheck == CoinsInScene.size())
 	{
-		//	move along the x-axis within play area
-		if (input->isKeyDown(aie::INPUT_KEY_A))
-			//	if sphere inside of x boundaries
-			//	let it move
-			if (sphere->getPosition().x < 85 && sphere->getPosition().x > -85)
-				sphere->setPosition(-xMove);
-				//	if sphere outside of x boundary from LEFT
-				//	clamp it's x position to max LEFT
-				if (sphere->getPosition().x > 80)
-					sphere->movePosition(glm::vec2(80, 0));
-		if (input->isKeyDown(aie::INPUT_KEY_D))
-			//	if sphere inside of x boundaries
-			//	let it move
-			if (sphere->getPosition().x < 85 && sphere->getPosition().x > -85)
-				sphere->setPosition(xMove);
-				//	if sphere outside of x boundary from RIGHT
-				// clamp it's x position to max RIGHT
-				if (sphere->getPosition().x < -80)
-					sphere->movePosition(glm::vec2(-80, 0));
+		//set position of sphere to (0,0)
+		sphere->movePosition(glm::vec2(0, 0));
+
+		//reset all timeStored for objects in scene
+		for (int i = 0; i < CoinsInScene.size(); i++)
+		{
+			CoinsInScene[i]->resetTimeStored();
+		}
 	}
+	#pragma endregion Checks if pieces have stopped moving
 }
 
 void PhysicsEngineApp::draw() {

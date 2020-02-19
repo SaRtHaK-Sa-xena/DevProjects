@@ -19,13 +19,23 @@ public:
 	float getRadius() { return m_radius; }
 	glm::vec4 getColour() { return m_colour; }
 
+	//	To Track Score Functions
 	float getTimeStored() { return m_timeUntilScore; }
 	void incrementTimeStored() { m_timeUntilScore = m_timeUntilScore + 1; }
+	void resetTimeStored() { m_timeUntilScore = 0; }
+	
+	//	To Track Player Turn
+	bool returnPlayerTurn() { return m_player; }
 
 protected:
 	float m_radius;
 	glm::vec4 m_colour;
 
+	// Stores Time Here When Above Hole
 	float m_timeUntilScore;
+
+	//	if true player equal to 'PLAYER 1'
+	//	if false player equal to 'PLAYER 2'
+	bool m_player = true;
 };
 
