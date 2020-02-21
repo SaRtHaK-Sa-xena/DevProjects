@@ -331,35 +331,62 @@ void PhysicsEngineApp::startPhase()
 	
 	//	set values of x to position of sphere
 	//	and invert
-	x_value = (1280 / 2) - x_value;
-	x_value = x_value / ratioProportion;
-	x_value = -x_value;
-	x_value = x_value - sphere->getPosition().x;
+	//x_value = (1280 / 2) - x_value;
+	//x_value = x_value / ratioProportion;
+	//x_value = -x_value;
+	
+	//
+	//x_value = x_value - sphere->getPosition().x;
 
 
 	//	set values of y to position of sphere
 	//	and invert
-	y_value = (720 / 2) - y_value;
-	y_value = y_value / ratioProportion;
-	y_value = -y_value;
+	//y_value = (720 / 2) - y_value;
+	//y_value = y_value / ratioProportion;
+	//y_value = -y_value;
 	
 	
 	//	set it to location of sphere, depending on 
 	//	it's x
 	if (sphere->getPosition().x > 0)
 	{
-		glm::vec2 SetMousePosition(-x_value, -y_value);
-		mouseCurrentPosition = SetMousePosition;
+		x_value = (1280 / 2) - x_value;
+		x_value = x_value / ratioProportion;
+		//x_value = -x_value;
+
+		//=============Y_value
+		y_value = (720 / 2) - y_value;
+		y_value = y_value / ratioProportion;
+		//y_value = -y_value;
+
+		x_value = x_value + sphere->getPosition().x;
+		glm::vec2 tempPosition(x_value, -y_value);
+		mouseCurrentPosition = tempPosition;
+		//glm::vec2 mouseCurrentPosition(-x_value, -y_value);
+		//mouseCurrentPosition = SetMousePosition;
 	}
 	else
 	{
-		glm::vec2 SetMousePosition(x_value, y_value);
-		mouseCurrentPosition = SetMousePosition;
+		//=============X_value
+		x_value = (1280 / 2) - x_value;
+		x_value = x_value / ratioProportion;
+		x_value = -x_value;
+
+		//=============Y_value
+		y_value = (720 / 2) - y_value;
+		y_value = y_value / ratioProportion;
+		y_value = -y_value;
+
+		x_value = x_value - sphere->getPosition().x;
+		glm::vec2 tempPosition(x_value, y_value);
+		mouseCurrentPosition = tempPosition;
+		//glm::vec2 SetMousePosition(x_value, y_value);
+		//mouseCurrentPosition = SetMousePosition;
 	}
 		//	create position from given query
 		//x_value = x_value - sphere->getPosition().x;
-	std::cout << "X Value: " << x_value << std::endl;
-
+	std::cout << "X Value: " << x_value << " Y Value: " << y_value << std::endl;
+	//glm::vec2 mouseCurrentPosition(x_value, y_value);
 
 	//player setup turn
 	if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT))
