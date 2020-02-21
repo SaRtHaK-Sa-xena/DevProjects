@@ -43,7 +43,8 @@ public:
 	
 	void setPosition(glm::vec2 a_position) { m_position += a_position; }
 	
-	void resetRotation() { m_rotation = 0; }
+	void resetRotation() { m_rotation = 0.f; }
+	void resetAngular() { m_angularVelocity = 0.f; }
 	float getRotation() { return m_rotation; }
 	glm::vec2 getVelocity() { return m_velocity; }
 

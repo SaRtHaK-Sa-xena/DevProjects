@@ -196,6 +196,8 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 	//if we are successful then test for collision
 	if (sphere1 != nullptr && sphere2 != nullptr)
 	{
+		
+
 		glm::vec2 delta = sphere2->getPosition() - sphere1->getPosition();
 		float distance = glm::length(delta);
 		float intersection = sphere1->getRadius() + sphere2->getRadius() - distance;
@@ -203,6 +205,20 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 		if (intersection > 0)
 		{
 			glm::vec2 contactForce = 0.5f*(distance - (sphere1->getRadius() + sphere2->getRadius())) * delta / distance;
+
+			if (sphere1->ifCollidable() == false || sphere2->ifCollidable() == false)
+			{
+				//don't set collision resolution
+				// Or the force added afterwards
+
+				return true;
+
+				//ifCollidable allows us to move the striker along the path
+				//highlight green when placeable 
+				//red otherwise
+
+				//if collided with sphere on line, reset to previous positions
+			}
 
 			sphere1->setPosition(contactForce);
 			sphere2->setPosition(-contactForce);
@@ -481,25 +497,26 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 			glm::vec2 norm = glm::normalize(sphere->getPosition() - contact);
 
 			glm::vec2 penVec = glm::normalize(contact - sphere->getPosition() * pen);
-			if (!box->isKinematic() && !sphere->isKinematic())
-			{
-				//box->setPosition(penVec * 0.5f);
-				//sphere->setPosition(-penVec * 0.5f);
-			}
-			else if (!box->isKinematic())
-			{
-				//box->setPosition(penVec);
-			}
-			else
-			{
-				//sphere->setPosition(-penVec);
-			}
-			//ApplyContactForces(box, sphere, norm, pen);
+			
+			//if box->isKinematic ==
+			//when does sphere need to bounce back?
+			//When hit kinematic box
+			//so if box->isKinematic(apply contact force, and resolve collision)
 			if (box->isKinematic())
 			{
+				sphere->setPosition(-penVec);
+				PhysicsScene *classCall;
+				classCall->ApplyContactForces(box, sphere, norm, pen);
 				box->resolveCollision(sphere, contact, direction);
 			}
-			sphere->incrementTimeStored();
+			
+			//When does sphere need to travel through
+			//When over hole
+			//so if box->isNotKinematic, don't apply contact force, and don't resolve collision
+			else
+			{
+				sphere->incrementTimeStored();
+			}
 		}
 		delete direction;
 		

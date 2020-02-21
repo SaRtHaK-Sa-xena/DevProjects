@@ -28,15 +28,22 @@ public:
 	void setThisToStriker() { isStriker = true; }
 	bool isThisStriker() { return isStriker; }
 
+	bool ifCollidable() { return m_collidable; }
+	void setCollision(bool a_collision) { m_collidable = a_collision; }
 	
 	//	To Track Player Turn
 	bool returnPlayerTurn() { return m_player; }
 	void setPlayerTurn(bool a_condition) { m_player = a_condition; }
+	//for continuous streak create bool for scored
+	//then set it to the same one if resolution was true
+
 
 protected:
+	//default
 	float m_radius;
 	glm::vec4 m_colour;
 
+	//TO Track Striker
 	bool isStriker = false;
 
 	// Stores Time Here When Above Hole
@@ -45,5 +52,8 @@ protected:
 	//	if true player equal to 'PLAYER 1'
 	//	if false player equal to 'PLAYER 2'
 	bool m_player = true;
+
+	//set Collision for Spheres
+	bool m_collidable = true;
 };
 

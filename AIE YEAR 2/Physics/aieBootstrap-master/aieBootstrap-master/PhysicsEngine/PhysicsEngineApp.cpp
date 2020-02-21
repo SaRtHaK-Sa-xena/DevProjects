@@ -176,6 +176,7 @@ bool PhysicsEngineApp::startup() {
 
 		box = new AABBClass(glm::vec2(0, -20), 5, 5);
 		sphere = new SphereClass(glm::vec2(-40, 0), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(1, 1, 0, 1));
+		SphereClass* sphere2 = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(1, 1, 0, 1));
 
 		AABBClass* box2 = new AABBClass(glm::vec2(0, -10), 5, 5);
 		AABBClass* box3 = new AABBClass(glm::vec2(40, 10), 5, 5);
@@ -187,7 +188,13 @@ bool PhysicsEngineApp::startup() {
 		
 		m_physicsScene->addActor(box);
 
+		
+		//Sphere Variable Setter
 		m_physicsScene->addActor(sphere);
+		sphere->setThisToStriker();
+		sphere->setCollision(false);
+
+		m_physicsScene->addActor(sphere2);
 		//m_physicsScene->addActor(box2);
 		//m_physicsScene->addActor(box3);
 		m_physicsScene->addActor(plane);
@@ -200,6 +207,7 @@ bool PhysicsEngineApp::startup() {
 
 		//add to vector
 		CoinsInScene.push_back(sphere);
+		CoinsInScene.push_back(sphere2);
 		CoinsInScene.push_back(s1);
 		CoinsInScene.push_back(s2);
 		CoinsInScene.push_back(s3);
@@ -326,22 +334,32 @@ void PhysicsEngineApp::startPhase()
 	x_value = (1280 / 2) - x_value;
 	x_value = x_value / ratioProportion;
 	x_value = -x_value;
+	x_value = x_value - sphere->getPosition().x;
 
-	//	set it to location of sphere, depending on 
-	//	it's x
-	if (sphere->getPosition().x > 0)
-		x_value = sphere->getPosition().x + x_value;
-	else
-		x_value = x_value - sphere->getPosition().x;
-	
+
 	//	set values of y to position of sphere
 	//	and invert
 	y_value = (720 / 2) - y_value;
 	y_value = y_value / ratioProportion;
 	y_value = -y_value;
+	
+	
+	//	set it to location of sphere, depending on 
+	//	it's x
+	if (sphere->getPosition().x > 0)
+	{
+		glm::vec2 SetMousePosition(-x_value, -y_value);
+		mouseCurrentPosition = SetMousePosition;
+	}
+	else
+	{
+		glm::vec2 SetMousePosition(x_value, y_value);
+		mouseCurrentPosition = SetMousePosition;
+	}
+		//	create position from given query
+		//x_value = x_value - sphere->getPosition().x;
+	std::cout << "X Value: " << x_value << std::endl;
 
-	//	create position from given query
-	glm::vec2 mouseCurrentPosition(x_value, y_value);
 
 	//player setup turn
 	if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT))
@@ -386,6 +404,9 @@ void PhysicsEngineApp::startPhase()
 					//	run game phase |Checks for any goal, and runs physics|
 					playerTurnActivated = false;
 
+					//set striker's collision on
+					sphere->setCollision(true);
+
 					// Condition to set for
 					bool condition;
 
@@ -423,12 +444,16 @@ void PhysicsEngineApp::startPhase()
 				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 80, 0, 1));
 				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
+					//set velocity
 					sphere->setVelocity(-end * 2.f);
+
+					//set striker's collision on
+					sphere->setCollision(true);
 
 					//run game phase |Checks for any goal, and runs physics|
 					playerTurnActivated = false;
 
-					// Condition to set for
+					// Condition to set for striker
 					bool condition;
 
 					//	set Player Turn
@@ -533,6 +558,12 @@ void PhysicsEngineApp::gamePhase()
 		//reset rotation
 		sphere->resetRotation();
 
+		//reset angualar
+		sphere->resetAngular();
+
+		//reset it to collidable false
+		sphere->setCollision(false);
+
 		//reset all timeStored for objects in scene
 		for (int i = 0; i < CoinsInScene.size(); i++)
 		{
@@ -541,6 +572,7 @@ void PhysicsEngineApp::gamePhase()
 
 		//Start Player Phase again
 		playerTurnActivated = true;
+
 	}
 	#pragma endregion Checks if pieces have stopped moving
 }

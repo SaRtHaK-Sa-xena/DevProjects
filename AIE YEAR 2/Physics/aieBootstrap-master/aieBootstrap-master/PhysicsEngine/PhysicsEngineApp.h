@@ -40,6 +40,8 @@ public:
 
 	SphereClass* mousePointer = new SphereClass(glm::vec2(0, 0), 0, 0, 1, 2, glm::vec4(1, 0, 1, 1));
 
+	glm::vec2 mouseCurrentPosition;
+
 	// checks if player can shoot
 	bool playerTurnActivated;
 
