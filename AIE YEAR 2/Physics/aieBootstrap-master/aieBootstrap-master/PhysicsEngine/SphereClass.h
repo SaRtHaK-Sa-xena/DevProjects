@@ -18,7 +18,7 @@ public:
 
 	float getRadius() { return m_radius; }
 	glm::vec4 getColour() { return m_colour; }
-	glm::vec4 setColour(glm::vec4 a_colour) { m_colour = a_colour; }
+	void setColour(glm::vec4 a_colour) { m_colour = a_colour; }
 
 	//	To Track Score Functions
 	float getTimeStored() { return m_timeUntilScore; }
@@ -47,6 +47,19 @@ public:
 	bool isPlaceble() { return m_placeable; }
 	void setPlaceable(bool condition) { m_placeable = condition; }
 
+	//	Sets piece to foul if in play area,
+	//	so it can't be directly hit
+	bool isFoul() { return m_foul; }
+	void setFoul(bool a_condition) { m_foul = a_condition; }
+
+	// To Track Previous Variables
+	float setPrevAng_vel(float a_ang_vel) { prev_angVel = a_ang_vel; }
+	float setPrevRot(float a_rotation) { prev_rot = a_rotation; }
+	float setPrevPos(glm::vec2 a_pos) { prev_pos = a_pos; }
+
+	// To Rewind to previous status
+	void rewindTime() { m_angularVelocity = prev_angVel; m_rotation = prev_rot; m_position = prev_pos; }
+
 protected:
 	//default
 	float m_radius;
@@ -68,7 +81,14 @@ protected:
 	//	placeable to start aim
 	bool m_placeable;
 
-	//streak
+	//	streak
 	bool m_streak;
+
+	//	sets peices to fouls
+	bool m_foul;
+
+	float prev_angVel;
+	float prev_rot;
+	glm::vec2 prev_pos;
 };
 

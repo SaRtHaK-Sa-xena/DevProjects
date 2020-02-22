@@ -58,3 +58,5 @@ protected:
 	int ScorePlayer2;
 
 };
+
+void setFoulPieces(std::vector<SphereClass*> arrayOfPieces);

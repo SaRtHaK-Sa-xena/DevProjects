@@ -329,23 +329,6 @@ void PhysicsEngineApp::startPhase()
 	float x_value = mousePos_x->getMouseX();
 	float y_value = mousePos_y->getMouseY();
 	
-	//	set values of x to position of sphere
-	//	and invert
-	//x_value = (1280 / 2) - x_value;
-	//x_value = x_value / ratioProportion;
-	//x_value = -x_value;
-	
-	//
-	//x_value = x_value - sphere->getPosition().x;
-
-
-	//	set values of y to position of sphere
-	//	and invert
-	//y_value = (720 / 2) - y_value;
-	//y_value = y_value / ratioProportion;
-	//y_value = -y_value;
-	
-	
 	//	set it to location of sphere, depending on 
 	//	it's x
 	if (sphere->getPosition().x > 0)
@@ -362,8 +345,6 @@ void PhysicsEngineApp::startPhase()
 		x_value = x_value + sphere->getPosition().x;
 		glm::vec2 tempPosition(x_value, -y_value);
 		mouseCurrentPosition = tempPosition;
-		//glm::vec2 mouseCurrentPosition(-x_value, -y_value);
-		//mouseCurrentPosition = SetMousePosition;
 	}
 	else
 	{
@@ -378,18 +359,14 @@ void PhysicsEngineApp::startPhase()
 		y_value = -y_value;
 
 		x_value = x_value - sphere->getPosition().x;
+		
+		//	create position from given query
 		glm::vec2 tempPosition(x_value, y_value);
 		mouseCurrentPosition = tempPosition;
-		//glm::vec2 SetMousePosition(x_value, y_value);
-		//mouseCurrentPosition = SetMousePosition;
 	}
-		//	create position from given query
-		//x_value = x_value - sphere->getPosition().x;
-	std::cout << "X Value: " << x_value << " Y Value: " << y_value << std::endl;
-	//glm::vec2 mouseCurrentPosition(x_value, y_value);
 
 	//player setup turn
-	if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT))
+	if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT) && sphere->isPlaceble())
 	{
 		//	create vector, of scale directed towards the mouse
 		glm::vec2 end = mouseCurrentPosition - sphere->getPosition() * glm::normalize(mouseCurrentPosition);
@@ -398,10 +375,12 @@ void PhysicsEngineApp::startPhase()
 		float lineDistance = glm::length((sphere->getPosition() + end) - sphere->getPosition());
 		glm::vec2 LineDirCheck = sphere->getPosition() + glm::normalize(end) * 50.f;
 
+		std::cout << "Slope: " << (end.y / end.x) << std::endl;
 
 		//	check Line Direction
 		//	prevent line from being directed below sphere
-		if (-end.y < 0)
+		if (-end.y < 0 || (end.y / end.x > -0.004 && end.y / end.x < 0.5) ||
+			(end.y / end.x < 0 && end.y / end.x > -0.5)) //greater than 0.5 but less than < 0
 		{
 			aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); //|EDITTED RED: 1,0,0,1|
 		}
@@ -414,7 +393,8 @@ void PhysicsEngineApp::startPhase()
 			//aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); |ORIGINAL|
 			lineDistance = 50;
 
-			if (-end.y < 0)
+			if (-end.y < 0 || (end.y / end.x > -0.004 && end.y / end.x < 0.5) ||
+				(end.y / end.x < 0 && end.y / end.x > -0.5))
 			{
 				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); //|EDITTED RED: 1,0,0,1|
 			}
@@ -437,23 +417,27 @@ void PhysicsEngineApp::startPhase()
 					// Condition to set for
 					bool condition;
 
-					//	set Player Turn
-					if (sphere->returnPlayerTurn())
+					//if there is no streak then switch turns
+					if (sphere->ifStreak() == false)
 					{
-						//	set it to 'PLAYER 2'
-						condition = false;
-						for (int i = 0; i < CoinsInScene.size(); i++)
+						//	set Player Turn
+						if (sphere->returnPlayerTurn())
 						{
-							CoinsInScene[i]->setPlayerTurn(condition);
+							//	set it to 'PLAYER 2'
+							condition = false;
+							for (int i = 0; i < CoinsInScene.size(); i++)
+							{
+								CoinsInScene[i]->setPlayerTurn(condition);
+							}
 						}
-					}
-					else
-					{
-						//	set it to 'PLAYER 2'
-						condition = true;
-						for (int i = 0; i < CoinsInScene.size(); i++)
+						else
 						{
-							CoinsInScene[i]->setPlayerTurn(condition);
+							//	set it to 'PLAYER 2'
+							condition = true;
+							for (int i = 0; i < CoinsInScene.size(); i++)
+							{
+								CoinsInScene[i]->setPlayerTurn(condition);
+							}
 						}
 					}
 				}
@@ -461,7 +445,8 @@ void PhysicsEngineApp::startPhase()
 		}
 		else
 		{
-			if (-end.y < 0)
+			if (-end.y < 0 || (end.y / end.x > -0.004 && end.y / end.x < 0.5) ||
+				(end.y / end.x < 0 && end.y / end.x > -0.5))
 			{
 				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); //|EDITTED RED: 1,0,0,1|
 			}
@@ -483,23 +468,27 @@ void PhysicsEngineApp::startPhase()
 					// Condition to set for striker
 					bool condition;
 
-					//	set Player Turn
-					if (sphere->returnPlayerTurn())
+					//if there is no streak then switch turns
+					if (sphere->ifStreak() == false)
 					{
-						//	set it to 'PLAYER 2'
-						condition = false;
-						for (int i = 0; i < CoinsInScene.size(); i++)
+						//	set Player Turn
+						if (sphere->returnPlayerTurn())
 						{
-							CoinsInScene[i]->setPlayerTurn(condition);
+							//	set it to 'PLAYER 2'
+							condition = false;
+							for (int i = 0; i < CoinsInScene.size(); i++)
+							{
+								CoinsInScene[i]->setPlayerTurn(condition);
+							}
 						}
-					}
-					else
-					{
-						//	set it to 'PLAYER 2'
-						condition = true;
-						for (int i = 0; i < CoinsInScene.size(); i++)
+						else
 						{
-							CoinsInScene[i]->setPlayerTurn(condition);
+							//	set it to 'PLAYER 2'
+							condition = true;
+							for (int i = 0; i < CoinsInScene.size(); i++)
+							{
+								CoinsInScene[i]->setPlayerTurn(condition);
+							}
 						}
 					}
 				}
@@ -528,6 +517,7 @@ void PhysicsEngineApp::startPhase()
 		if (sphere->getPosition().x < -80)
 			sphere->movePosition(glm::vec2(-80, 0));
 	}
+
 }
 
 void PhysicsEngineApp::gamePhase()
@@ -544,6 +534,9 @@ void PhysicsEngineApp::gamePhase()
 		{
 			if (CoinsInScene[i]->getTimeStored() > 30)
 			{
+
+				//if it is the striker decrement score isntead of breaking out of this
+
 				//Add Score to Player
 				bool playerTurn = CoinsInScene[i]->returnPlayerTurn();
 				//if playerTurn == 'PLAYER 1'
@@ -551,6 +544,8 @@ void PhysicsEngineApp::gamePhase()
 					ScorePlayer1++;
 				else
 					ScorePlayer2++;
+				
+				sphere->setStreak(true);
 
 				//delete from scene
 				delete CoinsInScene[i];
@@ -559,6 +554,10 @@ void PhysicsEngineApp::gamePhase()
 		
 	}
 	#pragma endregion Checks If Score gets added
+
+
+	//	Checks If Pieces On Board Are Touching Play Area
+	setFoulPieces(CoinsInScene);
 
 	// Checks If Pieces On Board Have Stopped Moving
 	#pragma region Movement Check
@@ -592,9 +591,16 @@ void PhysicsEngineApp::gamePhase()
 		sphere->setCollision(false);
 
 		//reset all timeStored for objects in scene
+		//set all their positions, rotation, angular velocity for prev_variables
 		for (int i = 0; i < CoinsInScene.size(); i++)
 		{
+			//reset the time stored
 			CoinsInScene[i]->resetTimeStored();
+			
+			//set the prev_variables
+			CoinsInScene[i]->setPrevAng_vel(CoinsInScene[i]->getAngularVelocity());
+			CoinsInScene[i]->setPrevRot(CoinsInScene[i]->getRotation());
+			CoinsInScene[i]->setPrevPos(CoinsInScene[i]->getPosition());
 		}
 
 		//Start Player Phase again
@@ -653,5 +659,27 @@ void PhysicsEngineApp::setupContinuousDemo(glm::vec2 startPos, float inclination
 		
 		//increment time to be by timeStep of 0.5
 		t += tStep;
+	}
+}
+
+void setFoulPieces(std::vector <SphereClass*> arrayOfPieces)
+{
+	for (int i = 0; i < arrayOfPieces.size(); i++)
+	{
+		if (arrayOfPieces[i]->isThisStriker())
+		{
+			break;
+		}
+		else
+		{
+			//continue search
+			//	if in play area, or touching play area
+			if (arrayOfPieces[i]->getPosition().y > -5 && arrayOfPieces[i]->getPosition().y < 5)
+			{
+				//found by testing y position
+				//	sets it to foul
+				arrayOfPieces[i]->setFoul(true);
+			}
+		}
 	}
 }

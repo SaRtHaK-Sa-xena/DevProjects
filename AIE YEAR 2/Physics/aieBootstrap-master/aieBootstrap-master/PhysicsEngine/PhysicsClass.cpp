@@ -206,6 +206,8 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 		{
 			glm::vec2 contactForce = 0.5f*(distance - (sphere1->getRadius() + sphere2->getRadius())) * delta / distance;
 
+			
+
 			//	checks if sphere can be placed to be aimed 
 			//	when not on any coins
 			if (sphere1->isThisStriker())
@@ -242,7 +244,17 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 				//if collided with sphere on line, reset to previous positions
 			}
 			
-			
+			//	checks if collided with a foul piece
+			//	if collided with foul piece rewind it to previous status
+			if (sphere1->isFoul())
+			{
+				sphere1->rewindTime();
+			}
+			if (sphere2->isFoul())
+			{
+				sphere2->rewindTime();
+			}
+
 
 			sphere1->setPosition(contactForce);
 			sphere2->setPosition(-contactForce);
@@ -250,6 +262,26 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 			//respond to the collision
 			sphere1->resolveCollision(sphere2, 0.5f * (sphere1->getPosition() + sphere2->getPosition()));
 			return true;
+		}
+		//when not colliding set placeable on play area to true
+		else
+		{
+			if (sphere1->isThisStriker())
+			{
+				//	can't be placed or aimed
+				sphere1->setPlaceable(true);
+
+				// set colour to red
+				sphere1->setColour(glm::vec4(1, 1, 0, 1));
+			}
+			if (sphere2->isThisStriker())
+			{
+				//can't be placed or aimed
+				sphere2->setPlaceable(true);
+
+				// set colour to red
+				sphere2->setColour(glm::vec4(1, 1, 0, 1));
+			}
 		}
 		
 		
