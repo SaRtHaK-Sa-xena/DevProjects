@@ -6,7 +6,8 @@ int main() {
 	auto app = new PhysicsEngineApp();
 
 	// initialise and loop
-	app->run("AIE", 1280, 720, false);
+	app->run("AIE", 900, 900, false);
+	//app->run("AIE", 1280, 720, false);
 
 	// deallocation
 	delete app;

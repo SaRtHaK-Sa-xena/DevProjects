@@ -12,11 +12,12 @@
 #include <vector>
 #include <iostream>
 
+
 #define _USE_MATH_DEFINES
 
 #include <math.h>
 
-const float ratioProportion = 6.3;
+const float ratioProportion = 900/900;
 
 PhysicsEngineApp::PhysicsEngineApp() {
 
@@ -174,33 +175,58 @@ bool PhysicsEngineApp::startup() {
 
 
 
-		box = new AABBClass(glm::vec2(0, -20), 5, 5);
-		sphere = new SphereClass(glm::vec2(-40, 0), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(1, 1, 0, 1));
-		SphereClass* sphere2 = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(1, 1, 0, 1));
+		sphere = new SphereClass(glm::vec2(0, -25), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(1, 1, 0, 1));
+		SphereClass* sphere2 = new SphereClass(glm::vec2(0, 10), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(1, 1, 0, 1));
 
 		AABBClass* box2 = new AABBClass(glm::vec2(0, -10), 5, 5);
 		AABBClass* box3 = new AABBClass(glm::vec2(40, 10), 5, 5);
-		PlaneClass* plane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -50);
-		PlaneClass* plane1 = new PlaneClass(glm::normalize(glm::vec2(0, 1)), 50);
-		PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 95);
-		PlaneClass* plane3 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -95);
 		
+
+		//Corners Of Board=========
+		bottomLeftHole = new AABBClass(glm::vec2(-87, -42), 8, 8);
+		bottomRightHole = new AABBClass(glm::vec2(87, -42), 8, 8);
+		topLeftHole = new AABBClass(glm::vec2(-87, 42), 8, 8);
+		topRightHole = new AABBClass(glm::vec2(87, 42), 8, 8);
+		//Corners Of Board=========
+
+
+		//Edges Of Board===========
+		PlaneClass* bottomPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -50);
+		PlaneClass* topPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), 50);
+		PlaneClass* rightPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 95);
+		PlaneClass* leftPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -95);
+		//Edges Of Board===========
+
 		
-		m_physicsScene->addActor(box);
+		//m_physicsScene->addActor(box);
 
 		
 		//Sphere Variable Setter
 		m_physicsScene->addActor(sphere);
 		sphere->setThisToStriker();
 		sphere->setCollision(false);
+		sphere->setFoul(false);
+		sphere->setStartTurn(true);
 
 		m_physicsScene->addActor(sphere2);
+		sphere2->setFoul(true);
 		//m_physicsScene->addActor(box2);
 		//m_physicsScene->addActor(box3);
-		m_physicsScene->addActor(plane);
-		m_physicsScene->addActor(plane1);
-		m_physicsScene->addActor(plane2);
-		m_physicsScene->addActor(plane3);
+
+		//Edges Of Board====================
+		m_physicsScene->addActor(bottomPlane);
+		m_physicsScene->addActor(topPlane);
+		m_physicsScene->addActor(rightPlane);
+		m_physicsScene->addActor(leftPlane);
+		//Edges Of Board====================
+
+		//Corner Holes======================
+		m_physicsScene->addActor(bottomLeftHole);
+		m_physicsScene->addActor(bottomRightHole);
+		m_physicsScene->addActor(topLeftHole);
+		m_physicsScene->addActor(topRightHole);
+		//Corner Holes======================
+
 
 		//box->applyForce(glm::vec2(0,-20), box->getPosition());
 		//box3->applyForce(glm::vec2(-20,-20), box->getPosition());
@@ -208,13 +234,13 @@ bool PhysicsEngineApp::startup() {
 		//add to vector
 		CoinsInScene.push_back(sphere);
 		CoinsInScene.push_back(sphere2);
-		CoinsInScene.push_back(s1);
+		/*CoinsInScene.push_back(s1);
 		CoinsInScene.push_back(s2);
 		CoinsInScene.push_back(s3);
 		CoinsInScene.push_back(s4);
 		CoinsInScene.push_back(s5);
 		CoinsInScene.push_back(s6);
-		CoinsInScene.push_back(s7);
+		CoinsInScene.push_back(s7);*/
 
 		#pragma endregion GameSetup
 
@@ -299,7 +325,7 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 	#pragma region GameBuilding
 
-	/*std::cout << "-----DATA OUT------" << std::endl;
+	std::cout << "-----DATA OUT------" << std::endl;
 	std::cout << "-------------------" << std::endl;
 	if (sphere->returnPlayerTurn())
 		std::cout << "-----Player Turn 1-----" << std::endl;
@@ -310,7 +336,7 @@ void PhysicsEngineApp::update(float deltaTime) {
 	if (playerTurnActivated == false)
 		std::cout << "Player (CAN NOT) Move The Striker" << std::endl;
 	std::cout << "-------------------" << std::endl;
-	std::cout << std::endl;*/
+	std::cout << std::endl;
 
 	#pragma endregion GameBuilding Debug Log
 	
@@ -333,28 +359,30 @@ void PhysicsEngineApp::startPhase()
 	//	it's x
 	if (sphere->getPosition().x > 0)
 	{
-		x_value = (1280 / 2) - x_value;
+		x_value = (900 / 2) - x_value;
 		x_value = x_value / ratioProportion;
 		//x_value = -x_value;
 
 		//=============Y_value
-		y_value = (720 / 2) - y_value;
+		y_value = (900 / 2) - y_value;
 		y_value = y_value / ratioProportion;
 		//y_value = -y_value;
 
 		x_value = x_value + sphere->getPosition().x;
+
+		//	create position from given query
 		glm::vec2 tempPosition(x_value, -y_value);
 		mouseCurrentPosition = tempPosition;
 	}
 	else
 	{
 		//=============X_value
-		x_value = (1280 / 2) - x_value;
+		x_value = (900 / 2) - x_value;
 		x_value = x_value / ratioProportion;
 		x_value = -x_value;
 
 		//=============Y_value
-		y_value = (720 / 2) - y_value;
+		y_value = (900 / 2) - y_value;
 		y_value = y_value / ratioProportion;
 		y_value = -y_value;
 
@@ -375,7 +403,7 @@ void PhysicsEngineApp::startPhase()
 		float lineDistance = glm::length((sphere->getPosition() + end) - sphere->getPosition());
 		glm::vec2 LineDirCheck = sphere->getPosition() + glm::normalize(end) * 50.f;
 
-		std::cout << "Slope: " << (end.y / end.x) << std::endl;
+		//std::cout << "Slope: " << (end.y / end.x) << std::endl;
 
 		//	check Line Direction
 		//	prevent line from being directed below sphere
@@ -467,7 +495,7 @@ void PhysicsEngineApp::startPhase()
 
 					// Condition to set for striker
 					bool condition;
-
+					
 					//if there is no streak then switch turns
 					if (sphere->ifStreak() == false)
 					{
@@ -506,7 +534,7 @@ void PhysicsEngineApp::startPhase()
 		//	if sphere outside of x boundary from LEFT
 		//	clamp it's x position to max LEFT
 		if (sphere->getPosition().x > 80)
-			sphere->movePosition(glm::vec2(80, 0));
+			sphere->movePosition(glm::vec2(80, sphere->getPosition().y));
 		if (input->isKeyDown(aie::INPUT_KEY_D))
 			//	if sphere inside of x boundaries
 			//	let it move
@@ -515,50 +543,64 @@ void PhysicsEngineApp::startPhase()
 		//	if sphere outside of x boundary from RIGHT
 		// clamp it's x position to max RIGHT
 		if (sphere->getPosition().x < -80)
-			sphere->movePosition(glm::vec2(-80, 0));
+			sphere->movePosition(glm::vec2(-80, sphere->getPosition().y));
 	}
 
+	//	Checks If Pieces On Board Are Touching Play Area
+	setFoulPieces(CoinsInScene);
 }
 
 void PhysicsEngineApp::gamePhase()
 {
+	// Checks If Striker Holds Condition to reset foul pieces
+	if(sphere->returnResetFoulPieces())
+	{
+		for (int i = 0; i < CoinsInScene.size(); i++)
+		{
+			if (CoinsInScene[i]->isFoul() && CoinsInScene[i]->isThisStriker() == false)
+			{
+				CoinsInScene[i]->setFoul(false);
+			}
+		}
+	}
+
 	// Checks If Pieces Have Stored Enough Time to score
 	#pragma region Score Check
 	for (int i = 0; i < CoinsInScene.size(); i++)
 	{
-		if (CoinsInScene[i]->isThisStriker())
+		
+		if (CoinsInScene[i]->getTimeStored() > 30)
 		{
-			break;
-		}
-		else
-		{
-			if (CoinsInScene[i]->getTimeStored() > 30)
+			//Add Score to Player
+			bool playerTurn = CoinsInScene[i]->returnPlayerTurn();
+
+			//if it is the striker decrement score isntead of breaking out of this
+			if (CoinsInScene[i]->isThisStriker())
 			{
-
-				//if it is the striker decrement score isntead of breaking out of this
-
-				//Add Score to Player
-				bool playerTurn = CoinsInScene[i]->returnPlayerTurn();
+				//if playerTurn == 'PLAYER 1'
+				if (playerTurn)
+					ScorePlayer1--;
+				else
+					ScorePlayer2--;
+			}
+			else
+			{
 				//if playerTurn == 'PLAYER 1'
 				if (playerTurn)
 					ScorePlayer1++;
 				else
 					ScorePlayer2++;
-				
-				sphere->setStreak(true);
-
-				//delete from scene
-				delete CoinsInScene[i];
 			}
+			
+			sphere->setStreak(true);
+
+			//delete from scene
+			delete CoinsInScene[i];
 		}
-		
 	}
 	#pragma endregion Checks If Score gets added
 
-
-	//	Checks If Pieces On Board Are Touching Play Area
-	setFoulPieces(CoinsInScene);
-
+	
 	// Checks If Pieces On Board Have Stopped Moving
 	#pragma region Movement Check
 	int valueToCheck = 0;
@@ -668,7 +710,8 @@ void setFoulPieces(std::vector <SphereClass*> arrayOfPieces)
 	{
 		if (arrayOfPieces[i]->isThisStriker())
 		{
-			break;
+			//	do nothing
+			//break;
 		}
 		else
 		{

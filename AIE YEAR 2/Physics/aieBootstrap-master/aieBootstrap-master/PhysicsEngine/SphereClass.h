@@ -52,10 +52,20 @@ public:
 	bool isFoul() { return m_foul; }
 	void setFoul(bool a_condition) { m_foul = a_condition; }
 
+	//	To Allow Collision To Set Other Foul Pieces to False
+	//	In Scene
+	void resetFoulPieces(bool a_condition) { m_resetFoulPieces = a_condition; }
+	bool returnResetFoulPieces() { return m_resetFoulPieces; }
+
 	// To Track Previous Variables
-	float setPrevAng_vel(float a_ang_vel) { prev_angVel = a_ang_vel; }
-	float setPrevRot(float a_rotation) { prev_rot = a_rotation; }
-	float setPrevPos(glm::vec2 a_pos) { prev_pos = a_pos; }
+	void setPrevAng_vel(float a_ang_vel) { prev_angVel = a_ang_vel; }
+	void setPrevRot(float a_rotation) { prev_rot = a_rotation; }
+	void setPrevPos(glm::vec2 a_pos) { prev_pos = a_pos; }
+
+	//	To Set Striker With INformation That it
+	//	Is The Start Of The Turn
+	void setStartTurn(bool a_condition) { m_startOfTurn = a_condition;}
+	bool isitStartTurn() { return m_startOfTurn; }
 
 	// To Rewind to previous status
 	void rewindTime() { m_angularVelocity = prev_angVel; m_rotation = prev_rot; m_position = prev_pos; }
@@ -82,13 +92,17 @@ protected:
 	bool m_placeable;
 
 	//	streak
-	bool m_streak;
+	bool m_streak = false;
 
 	//	sets peices to fouls
-	bool m_foul;
+	bool m_foul = false;
 
-	float prev_angVel;
-	float prev_rot;
-	glm::vec2 prev_pos;
+	float prev_angVel = m_angularVelocity;
+	float prev_rot = m_rotation;
+	glm::vec2 prev_pos = m_position;
+
+	bool m_resetFoulPieces = false;
+
+	bool m_startOfTurn = false;
 };
 

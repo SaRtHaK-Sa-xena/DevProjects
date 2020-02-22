@@ -35,7 +35,13 @@ public:
 	SphereClass* sphere;
 	
 	AABBClass* box1;
-	AABBClass* box;
+
+	AABBClass* topLeftHole;
+	AABBClass* topRightHole;
+
+	AABBClass* bottomLeftHole;
+	AABBClass* bottomRightHole;
+
 	SphereClass* striker;
 
 	SphereClass* mousePointer = new SphereClass(glm::vec2(0, 0), 0, 0, 1, 2, glm::vec4(1, 0, 1, 1));

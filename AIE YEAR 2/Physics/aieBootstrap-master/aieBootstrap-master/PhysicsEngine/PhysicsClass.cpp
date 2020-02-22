@@ -206,19 +206,22 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 		{
 			glm::vec2 contactForce = 0.5f*(distance - (sphere1->getRadius() + sphere2->getRadius())) * delta / distance;
 
-			
+			// checks if the striker is hitting anything that isn't foul
 
 			//	checks if sphere can be placed to be aimed 
 			//	when not on any coins
-			if (sphere1->isThisStriker())
+
+			//	if it is the striker and the player is in start turn
+			if (sphere1->isThisStriker() && sphere1->isitStartTurn())
 			{
 				//	can't be placed or aimed
 				sphere1->setPlaceable(false);
 				
 				// set colour to red
 				sphere1->setColour(glm::vec4(1, 0, 0, 1));
+
 			}
-			if (sphere2->isThisStriker())
+			if (sphere2->isThisStriker() && sphere1->isitStartTurn())
 			{
 				//can't be placed or aimed
 				sphere2->setPlaceable(false);
@@ -246,13 +249,42 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 			
 			//	checks if collided with a foul piece
 			//	if collided with foul piece rewind it to previous status
-			if (sphere1->isFoul())
+			if (sphere1->isFoul() || sphere2->isFoul())
 			{
+				//reset their positions and velocity
 				sphere1->rewindTime();
-			}
-			if (sphere2->isFoul())
-			{
+				sphere1->setVelocity(glm::vec2(0,0));
 				sphere2->rewindTime();
+				sphere2->setVelocity(glm::vec2(0,0));
+				
+				//	Turn Streak On 
+				//	To Maintain Player x's turn
+				if (sphere1->isThisStriker())
+					if (sphere1->returnPlayerTurn())
+						sphere1->setPlayerTurn(true);
+					else
+						sphere1->setPlayerTurn(false);
+				if (sphere2->isThisStriker())
+					if (sphere2->returnPlayerTurn())
+						sphere2->setPlayerTurn(true);
+					else
+						sphere2->setPlayerTurn(false);
+				return true;
+			}
+			else
+			{
+				if (sphere1->isThisStriker())
+				{
+					// Let Striker Hold Condition To Reset Foul
+					sphere1->resetFoulPieces(true);
+					sphere1->setStreak(false);
+				}
+				if (sphere2->isThisStriker())
+				{
+					// Let Striker Hold Condition To Reset Foul
+					sphere2->resetFoulPieces(true);
+					sphere2->setStreak(false);
+				}
 			}
 
 
