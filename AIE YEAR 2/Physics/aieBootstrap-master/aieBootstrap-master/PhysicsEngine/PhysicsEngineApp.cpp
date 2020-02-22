@@ -174,13 +174,32 @@ bool PhysicsEngineApp::startup() {
 		SphereClass *s7 = new SphereClass(glm::vec2(1, -2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1,  glm::vec4(0, 1, 1, 1));
 
 
-
-		sphere = new SphereClass(glm::vec2(0, -25), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(1, 1, 0, 1));
-		SphereClass* sphere2 = new SphereClass(glm::vec2(0, 10), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(1, 1, 0, 1));
-
-		AABBClass* box2 = new AABBClass(glm::vec2(0, -10), 5, 5);
-		AABBClass* box3 = new AABBClass(glm::vec2(40, 10), 5, 5);
+		//striker
+		sphere = new SphereClass(glm::vec2(0, -25), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 0, 0));
 		
+		SphereClass* centreSphere = new SphereClass(glm::vec2(0,5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
+		
+		//top_mid left and right
+		SphereClass* sphereInner1 = new SphereClass(glm::vec2(5,9), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		SphereClass* sphereInner2 = new SphereClass(glm::vec2(-5,9), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		
+		
+		//bottom_mid left and right
+		SphereClass* sphereInner3 = new SphereClass(glm::vec2(5,0.5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		SphereClass* sphereInner4 = new SphereClass(glm::vec2(-5, 0.5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+
+		//top
+		SphereClass* sphereInner5 = new SphereClass(glm::vec2(0, 13), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+
+		//right_mid
+		SphereClass* sphereInner6 = new SphereClass(glm::vec2(9, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		
+		//left_mid
+		SphereClass* sphereInner7 = new SphereClass(glm::vec2(-9, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+
+		//bottom
+		SphereClass* sphereInner8 = new SphereClass(glm::vec2(0, -3), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+
 
 		//Corners Of Board=========
 		bottomLeftHole = new AABBClass(glm::vec2(-87, -42), 8, 8);
@@ -188,6 +207,12 @@ bool PhysicsEngineApp::startup() {
 		topLeftHole = new AABBClass(glm::vec2(-87, 42), 8, 8);
 		topRightHole = new AABBClass(glm::vec2(87, 42), 8, 8);
 		//Corners Of Board=========
+
+		//Set Kinematics To False
+		bottomLeftHole->setKinematic(false);
+		bottomRightHole->setKinematic(false);
+		topLeftHole->setKinematic(false);
+		topRightHole->setKinematic(false);
 
 
 		//Edges Of Board===========
@@ -208,11 +233,19 @@ bool PhysicsEngineApp::startup() {
 		sphere->setFoul(false);
 		sphere->setStartTurn(true);
 
-		m_physicsScene->addActor(sphere2);
-		sphere2->setFoul(true);
-		//m_physicsScene->addActor(box2);
-		//m_physicsScene->addActor(box3);
+		//Initialize For Coins In Centre=====
+		m_physicsScene->addActor(centreSphere);
+		m_physicsScene->addActor(sphereInner1);
+		m_physicsScene->addActor(sphereInner2);
+		m_physicsScene->addActor(sphereInner3);
+		m_physicsScene->addActor(sphereInner4);
+		m_physicsScene->addActor(sphereInner5);
+		m_physicsScene->addActor(sphereInner6);
+		m_physicsScene->addActor(sphereInner7);
+		m_physicsScene->addActor(sphereInner8);
+		//Initialize For Coins In Centre=====
 
+		
 		//Edges Of Board====================
 		m_physicsScene->addActor(bottomPlane);
 		m_physicsScene->addActor(topPlane);
@@ -231,9 +264,20 @@ bool PhysicsEngineApp::startup() {
 		//box->applyForce(glm::vec2(0,-20), box->getPosition());
 		//box3->applyForce(glm::vec2(-20,-20), box->getPosition());
 
-		//add to vector
+		//add to vector=====================
 		CoinsInScene.push_back(sphere);
-		CoinsInScene.push_back(sphere2);
+		CoinsInScene.push_back(centreSphere);
+		CoinsInScene.push_back(sphereInner1);
+		CoinsInScene.push_back(sphereInner2);
+		CoinsInScene.push_back(sphereInner3);
+		CoinsInScene.push_back(sphereInner4);
+		CoinsInScene.push_back(sphereInner5);
+		CoinsInScene.push_back(sphereInner6);
+		CoinsInScene.push_back(sphereInner7);
+		CoinsInScene.push_back(sphereInner8);
+		//add to vector=====================
+		
+		
 		/*CoinsInScene.push_back(s1);
 		CoinsInScene.push_back(s2);
 		CoinsInScene.push_back(s3);
@@ -325,7 +369,7 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 	#pragma region GameBuilding
 
-	std::cout << "-----DATA OUT------" << std::endl;
+	/*std::cout << "-----DATA OUT------" << std::endl;
 	std::cout << "-------------------" << std::endl;
 	if (sphere->returnPlayerTurn())
 		std::cout << "-----Player Turn 1-----" << std::endl;
@@ -336,7 +380,7 @@ void PhysicsEngineApp::update(float deltaTime) {
 	if (playerTurnActivated == false)
 		std::cout << "Player (CAN NOT) Move The Striker" << std::endl;
 	std::cout << "-------------------" << std::endl;
-	std::cout << std::endl;
+	std::cout << std::endl;*/
 
 	#pragma endregion GameBuilding Debug Log
 	
@@ -364,7 +408,7 @@ void PhysicsEngineApp::startPhase()
 		//x_value = -x_value;
 
 		//=============Y_value
-		y_value = (900 / 2) - y_value;
+		y_value = (900 / 2) - y_value*2;
 		y_value = y_value / ratioProportion;
 		//y_value = -y_value;
 
@@ -377,12 +421,12 @@ void PhysicsEngineApp::startPhase()
 	else
 	{
 		//=============X_value
-		x_value = (900 / 2) - x_value;
+		x_value = (900 /2) - x_value;
 		x_value = x_value / ratioProportion;
 		x_value = -x_value;
 
 		//=============Y_value
-		y_value = (900 / 2) - y_value;
+		y_value = (900 / 2) - y_value*2;
 		y_value = y_value / ratioProportion;
 		y_value = -y_value;
 
@@ -529,21 +573,21 @@ void PhysicsEngineApp::startPhase()
 		if (input->isKeyDown(aie::INPUT_KEY_A))
 			//	if sphere inside of x boundaries
 			//	let it move
-			if (sphere->getPosition().x < 85 && sphere->getPosition().x > -85)
+			if (sphere->getPosition().x < 75 && sphere->getPosition().x > -75)
 				sphere->setPosition(-xMove);
 		//	if sphere outside of x boundary from LEFT
 		//	clamp it's x position to max LEFT
-		if (sphere->getPosition().x > 80)
-			sphere->movePosition(glm::vec2(80, sphere->getPosition().y));
+		if (sphere->getPosition().x > 70)
+			sphere->movePosition(glm::vec2(70, sphere->getPosition().y));
 		if (input->isKeyDown(aie::INPUT_KEY_D))
 			//	if sphere inside of x boundaries
 			//	let it move
-			if (sphere->getPosition().x < 85 && sphere->getPosition().x > -85)
+			if (sphere->getPosition().x < 75 && sphere->getPosition().x > -75)
 				sphere->setPosition(xMove);
 		//	if sphere outside of x boundary from RIGHT
 		// clamp it's x position to max RIGHT
-		if (sphere->getPosition().x < -80)
-			sphere->movePosition(glm::vec2(-80, sphere->getPosition().y));
+		if (sphere->getPosition().x < -70)
+			sphere->movePosition(glm::vec2(-70, sphere->getPosition().y));
 	}
 
 	//	Checks If Pieces On Board Are Touching Play Area
@@ -582,6 +626,11 @@ void PhysicsEngineApp::gamePhase()
 					ScorePlayer1--;
 				else
 					ScorePlayer2--;
+
+				sphere->setStreak(true);
+				
+				sphere->rewindTime();
+				sphere->setVelocity(glm::vec2(0, 0));
 			}
 			else
 			{
@@ -590,12 +639,15 @@ void PhysicsEngineApp::gamePhase()
 					ScorePlayer1++;
 				else
 					ScorePlayer2++;
+				
+				sphere->setStreak(true);
+				
+				
+				m_physicsScene->removeActor(CoinsInScene[i]);
+				
+				//delete from scene
+				delete CoinsInScene[i];
 			}
-			
-			sphere->setStreak(true);
-
-			//delete from scene
-			delete CoinsInScene[i];
 		}
 	}
 	#pragma endregion Checks If Score gets added
@@ -621,7 +673,7 @@ void PhysicsEngineApp::gamePhase()
 	if (valueToCheck == CoinsInScene.size())
 	{
 		//set position of sphere to (0,0)
-		sphere->movePosition(glm::vec2(0, 0));
+		sphere->movePosition(glm::vec2(0, -25));
 		
 		//reset rotation
 		sphere->resetRotation();
@@ -717,7 +769,7 @@ void setFoulPieces(std::vector <SphereClass*> arrayOfPieces)
 		{
 			//continue search
 			//	if in play area, or touching play area
-			if (arrayOfPieces[i]->getPosition().y > -5 && arrayOfPieces[i]->getPosition().y < 5)
+			if (arrayOfPieces[i]->getPosition().y > -28 && arrayOfPieces[i]->getPosition().y < -21)
 			{
 				//found by testing y position
 				//	sets it to foul

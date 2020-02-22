@@ -36,6 +36,7 @@ void PhysicsScene::addActor(PhysicsObject* actor)
 	m_actors.push_back(actor);
 }
 
+
 //remove the actor
 void PhysicsScene::removeActor(PhysicsObject* actor)
 {
@@ -43,9 +44,25 @@ void PhysicsScene::removeActor(PhysicsObject* actor)
 	{
 		if (actor == m_actors[i])
 		{
-			delete m_actors[i];
+			//start swapping to move the one to remove at the end
+			// temp equals last index in array
+			PhysicsObject* temp_actor = m_actors[m_actors.size()];
+
+			//make last index actor equal to the designated actor to remove
+			m_actors[m_actors.size()] = actor;
+			
+			//then make the last position stored equal to the current index 
+			temp_actor = m_actors[i];
+
+			//then remove the last index
+			m_actors.pop_back();
+			
+			//then delete
+			delete actor;
+			break;
 		}
 	}
+
 }
 
 void PhysicsScene::update(float dt)
@@ -593,7 +610,7 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 			if (box->isKinematic())
 			{
 				sphere->setPosition(-penVec);
-				PhysicsScene *classCall;
+				PhysicsScene *classCall = new PhysicsScene();
 				classCall->ApplyContactForces(box, sphere, norm, pen);
 				box->resolveCollision(sphere, contact, direction);
 			}
