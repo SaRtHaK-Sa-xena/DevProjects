@@ -27,13 +27,39 @@ public:
 
 	void selectPhase();
 
+	//	physics scene
 	PhysicsScene* m_physicsScene;
 
 	SphereClass* rocket_Ship;
 	
 	// Being Used
-	SphereClass* sphere;
+	//SphereClass* sphere;
 	
+	SphereClass* sphere = new SphereClass(glm::vec2(0, -25), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 0, 0));
+
+	SphereClass* centreSphere = new SphereClass(glm::vec2(0, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
+
+	//top_mid left and right
+	SphereClass* sphereInner1 = new SphereClass(glm::vec2(5, 9), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* sphereInner2 = new SphereClass(glm::vec2(-5, 9), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+
+
+	//bottom_mid left and right
+	SphereClass* sphereInner3 = new SphereClass(glm::vec2(5, 0.5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* sphereInner4 = new SphereClass(glm::vec2(-5, 0.5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+
+	//top
+	SphereClass* sphereInner5 = new SphereClass(glm::vec2(0, 13), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+
+	//right_mid
+	SphereClass* sphereInner6 = new SphereClass(glm::vec2(9, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+
+	//left_mid
+	SphereClass* sphereInner7 = new SphereClass(glm::vec2(-9, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+
+	//bottom
+	SphereClass* sphereInner8 = new SphereClass(glm::vec2(0, -3), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+
 	AABBClass* box1;
 
 	AABBClass* topLeftHole;

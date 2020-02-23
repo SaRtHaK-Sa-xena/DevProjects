@@ -184,30 +184,30 @@ bool PhysicsEngineApp::startup() {
 
 
 		//striker
-		sphere = new SphereClass(glm::vec2(0, -25), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 0, 0));
+		//sphere = new SphereClass(glm::vec2(0, -25), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 0, 0));
 		
-		SphereClass* centreSphere = new SphereClass(glm::vec2(0,5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
-		
-		//top_mid left and right
-		SphereClass* sphereInner1 = new SphereClass(glm::vec2(5,9), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		SphereClass* sphereInner2 = new SphereClass(glm::vec2(-5,9), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		
-		
-		//bottom_mid left and right
-		SphereClass* sphereInner3 = new SphereClass(glm::vec2(5,0.5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		SphereClass* sphereInner4 = new SphereClass(glm::vec2(-5, 0.5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		//SphereClass* centreSphere = new SphereClass(glm::vec2(0,5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
+		//
+		////top_mid left and right
+		//SphereClass* sphereInner1 = new SphereClass(glm::vec2(5,9), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		//SphereClass* sphereInner2 = new SphereClass(glm::vec2(-5,9), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		//
+		//
+		////bottom_mid left and right
+		//SphereClass* sphereInner3 = new SphereClass(glm::vec2(5,0.5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		//SphereClass* sphereInner4 = new SphereClass(glm::vec2(-5, 0.5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
 
-		//top
-		SphereClass* sphereInner5 = new SphereClass(glm::vec2(0, 13), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		////top
+		//SphereClass* sphereInner5 = new SphereClass(glm::vec2(0, 13), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
 
-		//right_mid
-		SphereClass* sphereInner6 = new SphereClass(glm::vec2(9, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		
-		//left_mid
-		SphereClass* sphereInner7 = new SphereClass(glm::vec2(-9, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		////right_mid
+		//SphereClass* sphereInner6 = new SphereClass(glm::vec2(9, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		//
+		////left_mid
+		//SphereClass* sphereInner7 = new SphereClass(glm::vec2(-9, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
 
-		//bottom
-		SphereClass* sphereInner8 = new SphereClass(glm::vec2(0, -3), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+		////bottom
+		//SphereClass* sphereInner8 = new SphereClass(glm::vec2(0, -3), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
 
 
 		//Corners Of Board=========
@@ -254,6 +254,18 @@ bool PhysicsEngineApp::startup() {
 		m_physicsScene->addActor(sphereInner8);
 		//Initialize For Coins In Centre=====
 
+		//add to vector=====================
+		CoinsInScene.push_back(sphere);
+		CoinsInScene.push_back(centreSphere);
+		CoinsInScene.push_back(sphereInner1);
+		CoinsInScene.push_back(sphereInner2);
+		CoinsInScene.push_back(sphereInner3);
+		CoinsInScene.push_back(sphereInner4);
+		CoinsInScene.push_back(sphereInner5);
+		CoinsInScene.push_back(sphereInner6);
+		CoinsInScene.push_back(sphereInner7);
+		CoinsInScene.push_back(sphereInner8);
+		//add to vector=====================
 		
 		//Edges Of Board====================
 		m_physicsScene->addActor(bottomPlane);
@@ -273,18 +285,7 @@ bool PhysicsEngineApp::startup() {
 		//box->applyForce(glm::vec2(0,-20), box->getPosition());
 		//box3->applyForce(glm::vec2(-20,-20), box->getPosition());
 
-		//add to vector=====================
-		CoinsInScene.push_back(sphere);
-		CoinsInScene.push_back(centreSphere);
-		CoinsInScene.push_back(sphereInner1);
-		CoinsInScene.push_back(sphereInner2);
-		CoinsInScene.push_back(sphereInner3);
-		CoinsInScene.push_back(sphereInner4);
-		CoinsInScene.push_back(sphereInner5);
-		CoinsInScene.push_back(sphereInner6);
-		CoinsInScene.push_back(sphereInner7);
-		CoinsInScene.push_back(sphereInner8);
-		//add to vector=====================
+		
 		
 		
 		/*CoinsInScene.push_back(s1);
@@ -405,9 +406,46 @@ void PhysicsEngineApp::startPhase()
 
 
 	//	Check If Game Won and needs to be reset
-	
-	//Add all actors into .h file
-	//then add them in again
+	if (player1_winScreen || player2_winScreen)
+	{
+		//	set player win to false
+		player1_winScreen = false;
+		player2_winScreen = false;
+
+		//Reset all initializations==========
+
+		//Sphere Variable Setter
+		m_physicsScene->addActor(sphere);
+		sphere->setThisToStriker();
+		sphere->setCollision(false);
+		sphere->setFoul(false);
+		sphere->setStartTurn(true);
+
+		//Initialize For Coins In Centre=====
+		m_physicsScene->addActor(centreSphere);
+		m_physicsScene->addActor(sphereInner1);
+		m_physicsScene->addActor(sphereInner2);
+		m_physicsScene->addActor(sphereInner3);
+		m_physicsScene->addActor(sphereInner4);
+		m_physicsScene->addActor(sphereInner5);
+		m_physicsScene->addActor(sphereInner6);
+		m_physicsScene->addActor(sphereInner7);
+		m_physicsScene->addActor(sphereInner8);
+		//Initialize For Coins In Centre=====
+
+		//add to vector=====================
+		CoinsInScene.push_back(sphere);
+		CoinsInScene.push_back(centreSphere);
+		CoinsInScene.push_back(sphereInner1);
+		CoinsInScene.push_back(sphereInner2);
+		CoinsInScene.push_back(sphereInner3);
+		CoinsInScene.push_back(sphereInner4);
+		CoinsInScene.push_back(sphereInner5);
+		CoinsInScene.push_back(sphereInner6);
+		CoinsInScene.push_back(sphereInner7);
+		CoinsInScene.push_back(sphereInner8);
+		//add to vector=====================
+	}
 	
 	//make player1, player2 win screen to false
 	//
@@ -463,8 +501,6 @@ void PhysicsEngineApp::startPhase()
 		//	track lineDistance to set find Max
 		float lineDistance = glm::length((sphere->getPosition() + end) - sphere->getPosition());
 		glm::vec2 LineDirCheck = sphere->getPosition() + glm::normalize(end) * 50.f;
-
-		//std::cout << "Slope: " << (end.y / end.x) << std::endl;
 
 		//	check Line Direction
 		//	prevent line from being directed below sphere
