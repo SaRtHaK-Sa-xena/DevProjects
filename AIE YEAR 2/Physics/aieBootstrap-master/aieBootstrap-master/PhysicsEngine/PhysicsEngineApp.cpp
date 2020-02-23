@@ -403,6 +403,14 @@ void PhysicsEngineApp::startPhase()
 	aie::Input* mousePos_y = aie::Input::getInstance();
 	glm::vec2 xMove(0.5, 0);
 
+
+	//	Check If Game Won and needs to be reset
+	
+	//Add all actors into .h file
+	//then add them in again
+	
+	//make player1, player2 win screen to false
+	//
 	//	query mouse x and y position
 	//	cast as float
 	float x_value = mousePos_x->getMouseX();
@@ -607,10 +615,27 @@ void PhysicsEngineApp::startPhase()
 
 	//	Checks If Pieces On Board Are Touching Play Area
 	setFoulPieces(CoinsInScene);
+
 }
 
 void PhysicsEngineApp::gamePhase()
 {
+	// Checks if game ended,
+	// Tallies Score
+	if (CoinsInScene.size() == 0)
+	{
+		if (ScorePlayer1 > ScorePlayer2)
+		{
+			//Display Player 1 Wins
+			player1_winScreen = true;
+		}
+		else if(ScorePlayer2 > ScorePlayer1)
+		{
+			//Display Player 2 Wins
+			player2_winScreen = true;
+		}
+	}
+
 	// Checks If Striker Holds Condition to reset foul pieces
 	if(sphere->returnResetFoulPieces())
 	{
@@ -751,7 +776,14 @@ void PhysicsEngineApp::draw() {
 
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
-	
+
+	if(player1_winScreen)
+		m_2dRenderer->drawText(m_font, "Player 1 WINS", getWindowWidth()/2, getWindowHeight()/2);
+		m_2dRenderer->drawText(m_font, "Press R to reset", getWindowWidth() / 2, getWindowHeight() / 2 - 100);
+	if(player2_winScreen)
+		m_2dRenderer->drawText(m_font, "Player 2 WINS", getWindowWidth() / 2, getWindowHeight() / 2);
+		m_2dRenderer->drawText(m_font, "Press R to reset", getWindowWidth() / 2, getWindowHeight() / 2 - 100);
+		
 	m_2dRenderer->drawSprite(m_backgroundTexture, getWindowWidth() / 2, getWindowHeight() / 2, getWindowWidth(), getWindowHeight());
 
 	//Draw White Coins

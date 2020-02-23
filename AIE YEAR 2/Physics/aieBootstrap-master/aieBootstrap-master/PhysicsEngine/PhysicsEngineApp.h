@@ -51,7 +51,11 @@ public:
 	// checks if player can shoot
 	bool playerTurnActivated;
 
+	// Display Player 1 Wins
+	bool player1_winScreen = false;
 	
+	// Display Player 2 Wins
+	bool player2_winScreen = false;
 
 
 protected:
