@@ -645,8 +645,17 @@ void PhysicsEngineApp::gamePhase()
 				
 				m_physicsScene->removeActor(CoinsInScene[i]);
 				
-				//delete from scene
-				delete CoinsInScene[i];
+				// store value of last position
+				SphereClass* temp_value = CoinsInScene[CoinsInScene.size() - 1];
+				
+				// make the last position hold value of the one to delete
+				CoinsInScene[CoinsInScene.size() - 1] = CoinsInScene[i];
+
+				// make that position equal to the last value that was stored
+				CoinsInScene[i] = temp_value;
+
+				// remove from list
+				CoinsInScene.pop_back();
 			}
 		}
 	}
