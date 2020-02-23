@@ -188,6 +188,12 @@ bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 		float intersection = sphere->getRadius() - sphereToPlane;
 		if (intersection > 0)
 		{
+			if (sphere->isThisStriker())
+			{
+				sphere->resetFoulPieces(true);
+				sphere->setStreak(true);
+			}
+
 			glm::vec2 contact = sphere->getPosition() + (collisionNormal * -sphere->getRadius());
 			
 			sphere->setPosition(collisionNormal * intersection);
@@ -241,7 +247,7 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 				sphere1->setColour(glm::vec4(1, 0, 0, 1));
 
 			}
-			if (sphere2->isThisStriker() && sphere1->isitStartTurn())
+			if (sphere2->isThisStriker() && sphere2->isitStartTurn())
 			{
 				//can't be placed or aimed
 				sphere2->setPlaceable(false);
@@ -269,7 +275,7 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 			
 			//	checks if collided with a foul piece
 			//	if collided with foul piece rewind it to previous status
-			if (sphere1->isFoul() || sphere2->isFoul())
+			if (sphere1->isFoul() && sphere2->isThisStriker() || sphere2->isFoul() && sphere1->isThisStriker())
 			{
 				//reset their positions and velocity
 				sphere1->rewindTime();
@@ -323,16 +329,16 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 				//	can't be placed or aimed
 				sphere1->setPlaceable(true);
 
-				// set colour to red
-				sphere1->setColour(glm::vec4(1, 1, 0, 1));
+				// set colour to white
+				sphere1->setColour(glm::vec4(1, 1, 1, 1));
 			}
 			if (sphere2->isThisStriker())
 			{
 				//can't be placed or aimed
 				sphere2->setPlaceable(true);
 
-				// set colour to red
-				sphere2->setColour(glm::vec4(1, 1, 0, 1));
+				// set colour to white
+				sphere2->setColour(glm::vec4(1, 1, 1, 1));
 			}
 		}
 		

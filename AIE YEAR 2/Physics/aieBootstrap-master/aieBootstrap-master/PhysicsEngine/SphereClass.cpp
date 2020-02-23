@@ -32,6 +32,11 @@ void SphereClass::makeGizmo()
 	aie::Gizmos::add2DLine(m_position, m_position + end, glm::vec4(1, 0, 1, 1));
 }
 
+void SphereClass::DrawSprites(aie::Renderer2D* renderer, aie::Texture* texture)
+{
+	renderer->drawSprite(texture, m_position.x, m_position.y, 50, 50);
+}
+
 bool SphereClass::checkCollision(PhysicsObject* pOther)
 {
 	SphereClass* Dcast = dynamic_cast<SphereClass*>(pOther);

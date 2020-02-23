@@ -1,5 +1,6 @@
 #pragma once
 #include "RigidBodyClass.h"
+#include <Renderer2D.h>
 
 class SphereClass : public RigidBodyClass
 {
@@ -14,7 +15,7 @@ public:
 
 	virtual void makeGizmo();
 	virtual bool checkCollision(PhysicsObject* pOther);
-
+	void DrawSprites(aie::Renderer2D* renderer, aie::Texture* texture);
 
 	float getRadius() { return m_radius; }
 	glm::vec4 getColour() { return m_colour; }

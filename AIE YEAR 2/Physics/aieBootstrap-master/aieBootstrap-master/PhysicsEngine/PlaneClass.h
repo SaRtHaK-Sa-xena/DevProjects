@@ -1,6 +1,7 @@
 #pragma once
 #include "PhysicsObject.h"
 #include "RigidBodyClass.h"
+#include <Renderer2D.h>
 
 class PlaneClass : public PhysicsObject
 {

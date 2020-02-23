@@ -11,6 +11,7 @@
 #include <glm\ext.hpp>
 #include <vector>
 #include <iostream>
+#include <Windows.h>
 
 
 #define _USE_MATH_DEFINES
@@ -38,6 +39,14 @@ bool PhysicsEngineApp::startup() {
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 	
+	//	Initialize Sprites
+	// background_sprite
+	m_backgroundTexture = new aie::Texture("../bin/textures/CB_background_0.3.png");
+
+	// white coin_sprite
+	m_whiteCoinTexture = new aie::Texture("../bin/textures/CB_whiteCoin_0.2.png");
+
+
 	#pragma region Projectile Tutorial
 	//m_physicsScene = new PhysicsScene();
 	//m_physicsScene->setGravity(glm::vec2(0, -10));
@@ -483,6 +492,9 @@ void PhysicsEngineApp::startPhase()
 					//	run game phase |Checks for any goal, and runs physics|
 					playerTurnActivated = false;
 
+					//	set player in StartTurn to false
+					sphere->setStartTurn(false);
+
 					//set striker's collision on
 					sphere->setCollision(true);
 
@@ -536,6 +548,9 @@ void PhysicsEngineApp::startPhase()
 
 					//run game phase |Checks for any goal, and runs physics|
 					playerTurnActivated = false;
+
+					//	set player in StartTurn to false
+					sphere->setStartTurn(false);
 
 					// Condition to set for striker
 					bool condition;
@@ -628,9 +643,11 @@ void PhysicsEngineApp::gamePhase()
 					ScorePlayer2--;
 
 				sphere->setStreak(true);
-				
-				sphere->rewindTime();
-				sphere->setVelocity(glm::vec2(0, 0));
+				for (int i = 0; i < CoinsInScene.size(); i++)
+				{
+					CoinsInScene[i]->rewindTime();
+					CoinsInScene[i]->setVelocity(glm::vec2(0, 0));
+				}
 			}
 			else
 			{
@@ -708,7 +725,9 @@ void PhysicsEngineApp::gamePhase()
 
 		//Start Player Phase again
 		playerTurnActivated = true;
-
+		
+		//	set player in StartTurn to true
+		sphere->setStartTurn(true);
 	}
 	#pragma endregion Checks if pieces have stopped moving
 }
@@ -722,6 +741,9 @@ void PhysicsEngineApp::draw() {
 	m_2dRenderer->begin();
 
 	// draw your stuff here!
+	
+	
+
 	//static float aspectRatio = 16 / 9.f;
 	static float aspectRatio = 16 / 9.f;
 	aie::Gizmos::draw2D(glm::ortho<float>(-100, 100,
@@ -729,6 +751,14 @@ void PhysicsEngineApp::draw() {
 
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
+	
+	m_2dRenderer->drawSprite(m_backgroundTexture, getWindowWidth() / 2, getWindowHeight() / 2, getWindowWidth(), getWindowHeight());
+
+	//Draw White Coins
+	/*for (int i = 0; i < CoinsInScene.size(); i++)
+	{
+		m_2dRenderer->drawSprite(m_whiteCoinTexture, CoinsInScene[i]->getPosition().x/aspectRatio, CoinsInScene[i]->getPosition().y/aspectRatio);
+	}*/
 
 	// done drawing sprites
 	m_2dRenderer->end();

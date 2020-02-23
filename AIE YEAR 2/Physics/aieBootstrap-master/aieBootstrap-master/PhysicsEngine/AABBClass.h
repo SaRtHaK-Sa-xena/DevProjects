@@ -1,5 +1,6 @@
 #pragma once
 #include "RigidBodyClass.h"
+#include <Renderer2D.h>
 
 class AABBClass : public RigidBodyClass
 {
@@ -20,6 +21,8 @@ public:
 	virtual void fixedUpdate(glm::vec2 gravity, float timeStep);
 	virtual bool checkCollision(PhysicsObject* pOther);
 	bool checkBoxCorners(const AABBClass& box, glm::vec2& contact, int& numContacts, float& pen, glm::vec2& edgeNormal);
+
+	void DrawSprites(aie::Renderer2D* renderer, aie::Texture* texture);
 
 	float getWidth() { return m_width; };
 	float getHeight() { return m_height; }

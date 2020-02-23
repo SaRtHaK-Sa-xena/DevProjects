@@ -51,10 +51,19 @@ public:
 	// checks if player can shoot
 	bool playerTurnActivated;
 
+	
+
+
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
+
+	//background sprite
+	aie::Texture* m_backgroundTexture; 
+	
+	// white piece sprite
+	aie::Texture* m_whiteCoinTexture;
 
 	//objects in scene
 	std::vector<SphereClass*> CoinsInScene;

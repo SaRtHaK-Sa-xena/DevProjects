@@ -31,6 +31,11 @@ void AABBClass::makeGizmo()
 	aie::Gizmos::add2DTri(p1, p4, p3, m_colour);
 }
 
+void AABBClass::DrawSprites(aie::Renderer2D* renderer, aie::Texture* texture)
+{
+	renderer->drawSprite(texture, m_position.x, m_position.y, 50, 50);
+}
+
 void AABBClass::fixedUpdate(glm::vec2 gravity, float timeStep)
 {
 	RigidBodyClass::fixedUpdate(gravity, timeStep);
