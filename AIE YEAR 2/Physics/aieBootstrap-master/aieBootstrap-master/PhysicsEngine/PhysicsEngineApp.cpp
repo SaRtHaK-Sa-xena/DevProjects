@@ -159,144 +159,6 @@ bool PhysicsEngineApp::startup() {
 		m_physicsScene->addActor(ground);*/
 
 		#pragma endregion BoxToPlaneCollision
-		
-		#pragma region GameSetup
-		
-		m_physicsScene = new PhysicsScene();
-		m_physicsScene->setGravity(glm::vec2(0,0));
-		
-
-		SphereClass *crazySphere = new SphereClass(glm::vec2(-60, 30), (glm::vec2(10, -30)*3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
-		SphereClass *crazySphere2 = new SphereClass(glm::vec2(60, -30), (glm::vec2(-10, 30)*3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
-		
-		SphereClass* striker = new SphereClass(glm::vec2(5, -20), (glm::vec2(0, 10) * 2.f), 1, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
-
-		//centre
-		SphereClass *s1 = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
-		
-		//first ring
-		SphereClass *s2 = new SphereClass(glm::vec2(1, 2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		SphereClass *s3 = new SphereClass(glm::vec2(2, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		SphereClass *s4 = new SphereClass(glm::vec2(-1, 2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		SphereClass *s5 = new SphereClass(glm::vec2(-2, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1,  glm::vec4(0, 1, 1, 1));
-		SphereClass *s6 = new SphereClass(glm::vec2(-1, -2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		SphereClass *s7 = new SphereClass(glm::vec2(1, -2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1,  glm::vec4(0, 1, 1, 1));
-
-
-		//striker
-		//sphere = new SphereClass(glm::vec2(0, -25), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 0, 0));
-		
-		//SphereClass* centreSphere = new SphereClass(glm::vec2(0,5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
-		//
-		////top_mid left and right
-		//SphereClass* sphereInner1 = new SphereClass(glm::vec2(5,9), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		//SphereClass* sphereInner2 = new SphereClass(glm::vec2(-5,9), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		//
-		//
-		////bottom_mid left and right
-		//SphereClass* sphereInner3 = new SphereClass(glm::vec2(5,0.5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		//SphereClass* sphereInner4 = new SphereClass(glm::vec2(-5, 0.5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-
-		////top
-		//SphereClass* sphereInner5 = new SphereClass(glm::vec2(0, 13), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-
-		////right_mid
-		//SphereClass* sphereInner6 = new SphereClass(glm::vec2(9, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-		//
-		////left_mid
-		//SphereClass* sphereInner7 = new SphereClass(glm::vec2(-9, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-
-		////bottom
-		//SphereClass* sphereInner8 = new SphereClass(glm::vec2(0, -3), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-
-
-		//Corners Of Board=========
-		bottomLeftHole = new AABBClass(glm::vec2(-87, -42), 8, 8);
-		bottomRightHole = new AABBClass(glm::vec2(87, -42), 8, 8);
-		topLeftHole = new AABBClass(glm::vec2(-87, 42), 8, 8);
-		topRightHole = new AABBClass(glm::vec2(87, 42), 8, 8);
-		//Corners Of Board=========
-
-		//Set Kinematics To False
-		bottomLeftHole->setKinematic(false);
-		bottomRightHole->setKinematic(false);
-		topLeftHole->setKinematic(false);
-		topRightHole->setKinematic(false);
-
-
-		//Edges Of Board===========
-		PlaneClass* bottomPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -50);
-		PlaneClass* topPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), 50);
-		PlaneClass* rightPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 95);
-		PlaneClass* leftPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -95);
-		//Edges Of Board===========
-
-		
-		//m_physicsScene->addActor(box);
-
-		
-		//Sphere Variable Setter
-		m_physicsScene->addActor(sphere);
-		sphere->setThisToStriker();
-		sphere->setCollision(false);
-		sphere->setFoul(false);
-		sphere->setStartTurn(true);
-
-		//Initialize For Coins In Centre=====
-		m_physicsScene->addActor(centreSphere);
-		m_physicsScene->addActor(sphereInner1);
-		m_physicsScene->addActor(sphereInner2);
-		m_physicsScene->addActor(sphereInner3);
-		m_physicsScene->addActor(sphereInner4);
-		m_physicsScene->addActor(sphereInner5);
-		m_physicsScene->addActor(sphereInner6);
-		m_physicsScene->addActor(sphereInner7);
-		m_physicsScene->addActor(sphereInner8);
-		//Initialize For Coins In Centre=====
-
-		//add to vector=====================
-		CoinsInScene.push_back(sphere);
-		CoinsInScene.push_back(centreSphere);
-		CoinsInScene.push_back(sphereInner1);
-		CoinsInScene.push_back(sphereInner2);
-		CoinsInScene.push_back(sphereInner3);
-		CoinsInScene.push_back(sphereInner4);
-		CoinsInScene.push_back(sphereInner5);
-		CoinsInScene.push_back(sphereInner6);
-		CoinsInScene.push_back(sphereInner7);
-		CoinsInScene.push_back(sphereInner8);
-		//add to vector=====================
-		
-		//Edges Of Board====================
-		m_physicsScene->addActor(bottomPlane);
-		m_physicsScene->addActor(topPlane);
-		m_physicsScene->addActor(rightPlane);
-		m_physicsScene->addActor(leftPlane);
-		//Edges Of Board====================
-
-		//Corner Holes======================
-		m_physicsScene->addActor(bottomLeftHole);
-		m_physicsScene->addActor(bottomRightHole);
-		m_physicsScene->addActor(topLeftHole);
-		m_physicsScene->addActor(topRightHole);
-		//Corner Holes======================
-
-
-		//box->applyForce(glm::vec2(0,-20), box->getPosition());
-		//box3->applyForce(glm::vec2(-20,-20), box->getPosition());
-
-		
-		
-		
-		/*CoinsInScene.push_back(s1);
-		CoinsInScene.push_back(s2);
-		CoinsInScene.push_back(s3);
-		CoinsInScene.push_back(s4);
-		CoinsInScene.push_back(s5);
-		CoinsInScene.push_back(s6);
-		CoinsInScene.push_back(s7);*/
-
-		#pragma endregion GameSetup
 
 	#pragma endregion Rotational Velocity
 
@@ -320,6 +182,145 @@ bool PhysicsEngineApp::startup() {
 	//m_physicsScene->addActor(striker);
 
 	#pragma endregion Joint and Spring Tests
+
+	#pragma region GameSetup
+
+	m_physicsScene = new PhysicsScene();
+	m_physicsScene->setGravity(glm::vec2(0, 0));
+	
+	
+	SphereClass* crazySphere = new SphereClass(glm::vec2(-60, 30), (glm::vec2(10, -30) * 3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
+	SphereClass* crazySphere2 = new SphereClass(glm::vec2(60, -30), (glm::vec2(-10, 30) * 3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
+	
+	SphereClass* striker = new SphereClass(glm::vec2(5, -20), (glm::vec2(0, 10) * 2.f), 1, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
+	
+	//centre
+	SphereClass* s1 = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
+	
+	//first ring
+	SphereClass* s2 = new SphereClass(glm::vec2(1, 2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* s3 = new SphereClass(glm::vec2(2, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* s4 = new SphereClass(glm::vec2(-1, 2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* s5 = new SphereClass(glm::vec2(-2, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* s6 = new SphereClass(glm::vec2(-1, -2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* s7 = new SphereClass(glm::vec2(1, -2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	
+	
+	//striker
+	//sphere = new SphereClass(glm::vec2(0, -25), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 0, 0));
+	
+	//SphereClass* centreSphere = new SphereClass(glm::vec2(0,5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
+	//
+	////top_mid left and right
+	//SphereClass* sphereInner1 = new SphereClass(glm::vec2(5,9), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	//SphereClass* sphereInner2 = new SphereClass(glm::vec2(-5,9), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	//
+	//
+	////bottom_mid left and right
+	//SphereClass* sphereInner3 = new SphereClass(glm::vec2(5,0.5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	//SphereClass* sphereInner4 = new SphereClass(glm::vec2(-5, 0.5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	
+	////top
+	//SphereClass* sphereInner5 = new SphereClass(glm::vec2(0, 13), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	
+	////right_mid
+	//SphereClass* sphereInner6 = new SphereClass(glm::vec2(9, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	//
+	////left_mid
+	//SphereClass* sphereInner7 = new SphereClass(glm::vec2(-9, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	
+	////bottom
+	//SphereClass* sphereInner8 = new SphereClass(glm::vec2(0, -3), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	
+	
+	//Corners Of Board=========
+	bottomLeftHole = new AABBClass(glm::vec2(-87, -42), 8, 8);
+	bottomRightHole = new AABBClass(glm::vec2(87, -42), 8, 8);
+	topLeftHole = new AABBClass(glm::vec2(-87, 42), 8, 8);
+	topRightHole = new AABBClass(glm::vec2(87, 42), 8, 8);
+	//Corners Of Board=========
+	
+	//Set Kinematics To False
+	bottomLeftHole->setKinematic(false);
+	bottomRightHole->setKinematic(false);
+	topLeftHole->setKinematic(false);
+	topRightHole->setKinematic(false);
+	
+	
+	//Edges Of Board===========
+	PlaneClass* bottomPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -50);
+	PlaneClass* topPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), 50);
+	PlaneClass* rightPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 95);
+	PlaneClass* leftPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -95);
+	//Edges Of Board===========
+	
+	
+	//m_physicsScene->addActor(box);
+	
+	
+	//Sphere Variable Setter
+	m_physicsScene->addActor(sphere);
+	sphere->setThisToStriker();
+	sphere->setCollision(false);
+	sphere->setFoul(false);
+	sphere->setStartTurn(true);
+	
+	//Initialize For Coins In Centre=====
+	m_physicsScene->addActor(centreSphere);
+	m_physicsScene->addActor(sphereInner1);
+	m_physicsScene->addActor(sphereInner2);
+	m_physicsScene->addActor(sphereInner3);
+	m_physicsScene->addActor(sphereInner4);
+	m_physicsScene->addActor(sphereInner5);
+	m_physicsScene->addActor(sphereInner6);
+	m_physicsScene->addActor(sphereInner7);
+	m_physicsScene->addActor(sphereInner8);
+	//Initialize For Coins In Centre=====
+	
+	//add to vector=====================
+	CoinsInScene.push_back(sphere);
+	CoinsInScene.push_back(centreSphere);
+	CoinsInScene.push_back(sphereInner1);
+	CoinsInScene.push_back(sphereInner2);
+	CoinsInScene.push_back(sphereInner3);
+	CoinsInScene.push_back(sphereInner4);
+	CoinsInScene.push_back(sphereInner5);
+	CoinsInScene.push_back(sphereInner6);
+	CoinsInScene.push_back(sphereInner7);
+	CoinsInScene.push_back(sphereInner8);
+	//add to vector=====================
+	
+	//Edges Of Board====================
+	m_physicsScene->addActor(bottomPlane);
+	m_physicsScene->addActor(topPlane);
+	m_physicsScene->addActor(rightPlane);
+	m_physicsScene->addActor(leftPlane);
+	//Edges Of Board====================
+	
+	//Corner Holes======================
+	m_physicsScene->addActor(bottomLeftHole);
+	m_physicsScene->addActor(bottomRightHole);
+	m_physicsScene->addActor(topLeftHole);
+	m_physicsScene->addActor(topRightHole);
+	//Corner Holes======================
+	
+	
+	//box->applyForce(glm::vec2(0,-20), box->getPosition());
+	//box3->applyForce(glm::vec2(-20,-20), box->getPosition());
+	
+	
+	
+	
+	/*CoinsInScene.push_back(s1);
+	CoinsInScene.push_back(s2);
+	CoinsInScene.push_back(s3);
+	CoinsInScene.push_back(s4);
+	CoinsInScene.push_back(s5);
+	CoinsInScene.push_back(s6);
+	CoinsInScene.push_back(s7);*/
+
+	#pragma endregion GameSetup
+
 	return true;
 }
 
