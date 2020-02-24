@@ -189,36 +189,6 @@ bool PhysicsEngineApp::startup() {
 	m_physicsScene->setGravity(glm::vec2(0, 0));
 	
 	
-	SphereClass* crazySphere = new SphereClass(glm::vec2(-60, 30), (glm::vec2(10, -30) * 3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
-	SphereClass* crazySphere2 = new SphereClass(glm::vec2(60, -30), (glm::vec2(-10, 30) * 3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
-	
-	//striker
-	//sphere = new SphereClass(glm::vec2(0, -25), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 0, 0));
-	
-	//SphereClass* centreSphere = new SphereClass(glm::vec2(0,5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
-	//
-	////top_mid left and right
-	//SphereClass* sphereInner1 = new SphereClass(glm::vec2(5,9), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	//SphereClass* sphereInner2 = new SphereClass(glm::vec2(-5,9), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	//
-	//
-	////bottom_mid left and right
-	//SphereClass* sphereInner3 = new SphereClass(glm::vec2(5,0.5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	//SphereClass* sphereInner4 = new SphereClass(glm::vec2(-5, 0.5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	
-	////top
-	//SphereClass* sphereInner5 = new SphereClass(glm::vec2(0, 13), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	
-	////right_mid
-	//SphereClass* sphereInner6 = new SphereClass(glm::vec2(9, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	//
-	////left_mid
-	//SphereClass* sphereInner7 = new SphereClass(glm::vec2(-9, 5), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	
-	////bottom
-	//SphereClass* sphereInner8 = new SphereClass(glm::vec2(0, -3), glm::vec2(0, 0), 1, 3, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	
-	
 	//Corners Of Board=========
 	bottomLeftHole = new AABBClass(glm::vec2(-370, -370), 25, 25);
 	bottomRightHole = new AABBClass(glm::vec2(370, -370), 25, 25);
@@ -357,6 +327,17 @@ void PhysicsEngineApp::update(float deltaTime) {
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
 	
+	//update rotational line
+	r_end = glm::vec2(std::cos(sphere->getRotation()), std::sin(sphere->getRotation())) * sphere->getRadius();
+
+	// Updates the rotational vector for each coin
+	#pragma region RotationUpdate
+	for (int i = 0; i < CoinsInScene.size(); i++)
+	{
+		CoinsInScene[i]->updateRotationVector();
+	}
+	#pragma endregion Updates Rotation For Each Coin
+
 	//	if it's time for player
 	//	to take their turn
 	if (playerTurnActivated)
@@ -510,7 +491,6 @@ void PhysicsEngineApp::startPhase()
 			}
 			else
 			{
-
 				//	Player shot at Cap
 				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
@@ -567,7 +547,6 @@ void PhysicsEngineApp::startPhase()
 			{
 				//otherwise can be shot, if under cap
 				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 80, 0, 1));
-				m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, mouseCurrentPosition.x, mouseCurrentPosition.y,10);
 				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
 					//set velocity
@@ -642,8 +621,10 @@ void PhysicsEngineApp::startPhase()
 
 void PhysicsEngineApp::gamePhase()
 {
-	// Checks if game ended,
-	// Tallies Score
+	// Checks If Game Ended, Tallies Score
+	#pragma region Tally Score
+	
+	//If no coin in scene
 	if (CoinsInScene.size() == 0)
 	{
 		if (ScorePlayer1 > ScorePlayer2)
@@ -657,8 +638,10 @@ void PhysicsEngineApp::gamePhase()
 			player2_winScreen = true;
 		}
 	}
+	#pragma endregion Tallies Score and Checks if Game Ended
 
 	// Checks If Striker Holds Condition to reset foul pieces
+	#pragma region Foul Check
 	if(sphere->returnResetFoulPieces())
 	{
 		for (int i = 0; i < CoinsInScene.size(); i++)
@@ -669,6 +652,7 @@ void PhysicsEngineApp::gamePhase()
 			}
 		}
 	}
+	#pragma endregion Checks If Foul Has Occured
 
 	// Checks If Pieces Have Stored Enough Time to score
 	#pragma region Score Check
@@ -724,7 +708,6 @@ void PhysicsEngineApp::gamePhase()
 		}
 	}
 	#pragma endregion Checks If Score gets added
-
 	
 	// Checks If Pieces On Board Have Stopped Moving
 	#pragma region Movement Check
@@ -799,25 +782,35 @@ void PhysicsEngineApp::draw() {
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
 
+	//Win Condition
+	//	Draws Win Screen For Respective Player
 	if (player1_winScreen) {
 		m_2dRenderer->drawText(m_font, "Player 1 WINS", getWindowWidth() / 2, getWindowHeight() / 2);
 		m_2dRenderer->drawText(m_font, "Press R to reset", getWindowWidth() / 2, getWindowHeight() / 2 - 100);
 	}
-		
 	if (player2_winScreen) {
 		m_2dRenderer->drawText(m_font, "Player 2 WINS", getWindowWidth() / 2, getWindowHeight() / 2);
 		m_2dRenderer->drawText(m_font, "Press R to reset", getWindowWidth() / 2, getWindowHeight() / 2 - 100);
 	}
 		
-		
+	//	Create Background Texture
 	m_2dRenderer->drawSprite(m_backgroundTexture, 0, 0, getWindowWidth(), getWindowHeight());
 
 	//Draw White Coins
 	for (int i = 0; i < CoinsInScene.size(); i++)
 	{
+		//Draw White Coin
 		m_2dRenderer->drawSprite(m_whiteCoinTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, 50, 50);
+		
+		//Create Vector2 of rotationVector + Coin.position
+		glm::vec2 spherePlusr_end = CoinsInScene[i]->getPosition() + CoinsInScene[i]->getRotationVector();
+		
+		// This is the rotation line
+		m_2dRenderer->drawLine(CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, spherePlusr_end.x, spherePlusr_end.y, 1);
 	}
 
+	//==DEBUG PURPOSES==
+	//Displays range for estimation of position of corner pockets
 	//b_left
 	m_2dRenderer->drawBox(-370, -370, 50, 50);
 	
@@ -829,6 +822,11 @@ void PhysicsEngineApp::draw() {
 	
 	//b_right
 	m_2dRenderer->drawBox(370, -370, 50, 50);
+
+	//draw only if right click held
+	aie::Input* input = input->getInstance();
+	if(input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT))
+		m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, sphere->getPosition().x + mouseCurrentPosition.x, sphere->getPosition().y + mouseCurrentPosition.y, 10);
 
 	// done drawing sprites
 	m_2dRenderer->end();
@@ -878,7 +876,7 @@ void setFoulPieces(std::vector <SphereClass*> arrayOfPieces)
 		{
 			//continue search
 			//	if in play area, or touching play area
-			if (arrayOfPieces[i]->getPosition().y > -28 && arrayOfPieces[i]->getPosition().y < -21)
+			if (arrayOfPieces[i]->getPosition().y > -245 && arrayOfPieces[i]->getPosition().y < -235)
 			{
 				//found by testing y position
 				//	sets it to foul

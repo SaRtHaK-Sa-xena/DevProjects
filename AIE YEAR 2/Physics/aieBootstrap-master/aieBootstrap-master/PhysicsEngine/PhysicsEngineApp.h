@@ -74,6 +74,8 @@ public:
 
 	glm::vec2 mouseCurrentPosition;
 
+	glm::vec2 r_end;
+
 	// checks if player can shoot
 	bool playerTurnActivated;
 
