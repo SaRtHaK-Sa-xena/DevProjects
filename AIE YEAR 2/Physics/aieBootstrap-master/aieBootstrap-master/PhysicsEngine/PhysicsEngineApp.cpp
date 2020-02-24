@@ -220,10 +220,10 @@ bool PhysicsEngineApp::startup() {
 	
 	
 	//Corners Of Board=========
-	bottomLeftHole = new AABBClass(glm::vec2(-87, -42), 8, 8);
-	bottomRightHole = new AABBClass(glm::vec2(87, -42), 8, 8);
-	topLeftHole = new AABBClass(glm::vec2(-87, 42), 8, 8);
-	topRightHole = new AABBClass(glm::vec2(87, 42), 8, 8);
+	bottomLeftHole = new AABBClass(glm::vec2(-370, -370), 25, 25);
+	bottomRightHole = new AABBClass(glm::vec2(370, -370), 25, 25);
+	topLeftHole = new AABBClass(glm::vec2(-370, 370), 25, 25);
+	topRightHole = new AABBClass(glm::vec2(370, 370), 25, 25);
 	//Corners Of Board=========
 	
 	//Set Kinematics To False
@@ -439,9 +439,6 @@ void PhysicsEngineApp::startPhase()
 	float x_value = mousePos_x->getMouseX();
 	float y_value = mousePos_y->getMouseY();
 	
-	std::cout << "Before:" << std::endl;
-	std::cout << "X:" << x_value << " Y:" << y_value << std::endl;
-
 	//	set it to location of sphere, depending on 
 	//	it's x
 	if (sphere->getPosition().x > 0)
@@ -456,9 +453,6 @@ void PhysicsEngineApp::startPhase()
 		//y_value = -y_value;
 
 		x_value = x_value + sphere->getPosition().x;
-
-		std::cout << "After in IF:" << std::endl;
-		std::cout << "X:" << x_value << " Y:" << y_value << std::endl;
 
 		//	create position from given query
 		glm::vec2 tempPosition(x_value, -y_value);
@@ -478,9 +472,6 @@ void PhysicsEngineApp::startPhase()
 
 		x_value = x_value - sphere->getPosition().x;
 		
-		std::cout << "After in ELSE:" << std::endl;
-		std::cout << "X:" << x_value << " Y:" << y_value << std::endl;
-
 		//	create position from given query
 		glm::vec2 tempPosition(x_value, y_value);
 		mouseCurrentPosition = tempPosition;
@@ -627,21 +618,21 @@ void PhysicsEngineApp::startPhase()
 		if (input->isKeyDown(aie::INPUT_KEY_A))
 			//	if sphere inside of x boundaries
 			//	let it move
-			if (sphere->getPosition().x < 75 && sphere->getPosition().x > -75)
+			if (sphere->getPosition().x < 270 && sphere->getPosition().x > -270)
 				sphere->setPosition(-xMove);
-		//	if sphere outside of x boundary from LEFT
-		//	clamp it's x position to max LEFT
-		if (sphere->getPosition().x > 70)
-			sphere->movePosition(glm::vec2(70, sphere->getPosition().y));
+				//	if sphere outside of x boundary from LEFT
+				//	clamp it's x position to max LEFT
+				if (sphere->getPosition().x <= -260)
+					sphere->movePosition(glm::vec2(-260, sphere->getPosition().y));
 		if (input->isKeyDown(aie::INPUT_KEY_D))
 			//	if sphere inside of x boundaries
 			//	let it move
-			if (sphere->getPosition().x < 75 && sphere->getPosition().x > -75)
+			if (sphere->getPosition().x < 270 && sphere->getPosition().x > -270)
 				sphere->setPosition(xMove);
-		//	if sphere outside of x boundary from RIGHT
-		// clamp it's x position to max RIGHT
-		if (sphere->getPosition().x < -70)
-			sphere->movePosition(glm::vec2(-70, sphere->getPosition().y));
+				//	if sphere outside of x boundary from RIGHT
+				// clamp it's x position to max RIGHT
+				if (sphere->getPosition().x >= 260)
+					sphere->movePosition(glm::vec2(260, sphere->getPosition().y));
 	}
 
 	//	Checks If Pieces On Board Are Touching Play Area
@@ -755,7 +746,7 @@ void PhysicsEngineApp::gamePhase()
 	if (valueToCheck == CoinsInScene.size())
 	{
 		//set position of sphere to (0,0)
-		sphere->movePosition(glm::vec2(0, -25));
+		sphere->movePosition(glm::vec2(-10, -240));
 		
 		//reset rotation
 		sphere->resetRotation();
@@ -798,7 +789,6 @@ void PhysicsEngineApp::draw() {
 
 	// draw your stuff here!
 	m_2dRenderer->setCameraPos(-450, -450);
-
 	//static float aspectRatio = 16 / 9.f;
 	//static float aspectRatio = 16 / 9.f;
 	static float aspectRatio = 1.f;
@@ -827,6 +817,18 @@ void PhysicsEngineApp::draw() {
 	{
 		m_2dRenderer->drawSprite(m_whiteCoinTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, 50, 50);
 	}
+
+	//b_left
+	m_2dRenderer->drawBox(-370, -370, 50, 50);
+	
+	//top_right
+	m_2dRenderer->drawBox(370, 370, 50, 50);
+	
+	//top_left
+	m_2dRenderer->drawBox(-370, 370, 50, 50);
+	
+	//b_right
+	m_2dRenderer->drawBox(370, -370, 50, 50);
 
 	// done drawing sprites
 	m_2dRenderer->end();
