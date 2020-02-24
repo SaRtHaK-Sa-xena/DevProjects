@@ -192,20 +192,6 @@ bool PhysicsEngineApp::startup() {
 	SphereClass* crazySphere = new SphereClass(glm::vec2(-60, 30), (glm::vec2(10, -30) * 3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
 	SphereClass* crazySphere2 = new SphereClass(glm::vec2(60, -30), (glm::vec2(-10, 30) * 3.3f), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
 	
-	SphereClass* striker = new SphereClass(glm::vec2(5, -20), (glm::vec2(0, 10) * 2.f), 1, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
-	
-	//centre
-	SphereClass* s1 = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
-	
-	//first ring
-	SphereClass* s2 = new SphereClass(glm::vec2(1, 2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	SphereClass* s3 = new SphereClass(glm::vec2(2, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	SphereClass* s4 = new SphereClass(glm::vec2(-1, 2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	SphereClass* s5 = new SphereClass(glm::vec2(-2, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	SphereClass* s6 = new SphereClass(glm::vec2(-1, -2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	SphereClass* s7 = new SphereClass(glm::vec2(1, -2), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	
-	
 	//striker
 	//sphere = new SphereClass(glm::vec2(0, -25), glm::vec2(0, 0), 1, 5, 0.6, 0, 1, glm::vec4(0, 0, 0, 0));
 	
@@ -248,10 +234,10 @@ bool PhysicsEngineApp::startup() {
 	
 	
 	//Edges Of Board===========
-	PlaneClass* bottomPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -50);
-	PlaneClass* topPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), 50);
-	PlaneClass* rightPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 95);
-	PlaneClass* leftPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -95);
+	PlaneClass* bottomPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -427);
+	PlaneClass* topPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), 427);
+	PlaneClass* rightPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 427);
+	PlaneClass* leftPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -427);
 	//Edges Of Board===========
 	
 	
@@ -403,7 +389,7 @@ void PhysicsEngineApp::startPhase()
 	aie::Input* input = aie::Input::getInstance();
 	aie::Input* mousePos_x = aie::Input::getInstance();
 	aie::Input* mousePos_y = aie::Input::getInstance();
-	glm::vec2 xMove(0.5, 0);
+	glm::vec2 xMove(5, 0);
 
 
 	//	Check If Game Won and needs to be reset
@@ -448,13 +434,14 @@ void PhysicsEngineApp::startPhase()
 		//add to vector=====================
 	}
 	
-	//make player1, player2 win screen to false
-	//
 	//	query mouse x and y position
 	//	cast as float
 	float x_value = mousePos_x->getMouseX();
 	float y_value = mousePos_y->getMouseY();
 	
+	std::cout << "Before:" << std::endl;
+	std::cout << "X:" << x_value << " Y:" << y_value << std::endl;
+
 	//	set it to location of sphere, depending on 
 	//	it's x
 	if (sphere->getPosition().x > 0)
@@ -469,6 +456,9 @@ void PhysicsEngineApp::startPhase()
 		//y_value = -y_value;
 
 		x_value = x_value + sphere->getPosition().x;
+
+		std::cout << "After in IF:" << std::endl;
+		std::cout << "X:" << x_value << " Y:" << y_value << std::endl;
 
 		//	create position from given query
 		glm::vec2 tempPosition(x_value, -y_value);
@@ -488,6 +478,9 @@ void PhysicsEngineApp::startPhase()
 
 		x_value = x_value - sphere->getPosition().x;
 		
+		std::cout << "After in ELSE:" << std::endl;
+		std::cout << "X:" << x_value << " Y:" << y_value << std::endl;
+
 		//	create position from given query
 		glm::vec2 tempPosition(x_value, y_value);
 		mouseCurrentPosition = tempPosition;
@@ -531,7 +524,7 @@ void PhysicsEngineApp::startPhase()
 				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
 					//	normalize end and set scalar value to 80
-					end = glm::normalize(end) * 80.f;
+					end = glm::normalize(end) * 800.f;
 					sphere->setVelocity(-end);
 
 					//	run game phase |Checks for any goal, and runs physics|
@@ -583,10 +576,11 @@ void PhysicsEngineApp::startPhase()
 			{
 				//otherwise can be shot, if under cap
 				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 80, 0, 1));
+				m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, mouseCurrentPosition.x, mouseCurrentPosition.y,10);
 				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
 					//set velocity
-					sphere->setVelocity(-end * 2.f);
+					sphere->setVelocity(-end * 20.f);
 
 					//set striker's collision on
 					sphere->setCollision(true);
@@ -803,31 +797,36 @@ void PhysicsEngineApp::draw() {
 	m_2dRenderer->begin();
 
 	// draw your stuff here!
-	
-	
+	m_2dRenderer->setCameraPos(-450, -450);
 
 	//static float aspectRatio = 16 / 9.f;
-	static float aspectRatio = 16 / 9.f;
-	aie::Gizmos::draw2D(glm::ortho<float>(-100, 100,
-		-100 / aspectRatio, 100 / aspectRatio, -1.0f, 1.0f));
+	//static float aspectRatio = 16 / 9.f;
+	static float aspectRatio = 1.f;
+	//aie::Gizmos::draw2D(glm::ortho<float>(-900, 900,
+		//-900 / aspectRatio, 900 / aspectRatio, -1.0f, 1.0f));
+
 
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
 
-	if(player1_winScreen)
-		m_2dRenderer->drawText(m_font, "Player 1 WINS", getWindowWidth()/2, getWindowHeight()/2);
+	if (player1_winScreen) {
+		m_2dRenderer->drawText(m_font, "Player 1 WINS", getWindowWidth() / 2, getWindowHeight() / 2);
 		m_2dRenderer->drawText(m_font, "Press R to reset", getWindowWidth() / 2, getWindowHeight() / 2 - 100);
-	if(player2_winScreen)
+	}
+		
+	if (player2_winScreen) {
 		m_2dRenderer->drawText(m_font, "Player 2 WINS", getWindowWidth() / 2, getWindowHeight() / 2);
 		m_2dRenderer->drawText(m_font, "Press R to reset", getWindowWidth() / 2, getWindowHeight() / 2 - 100);
+	}
 		
-	m_2dRenderer->drawSprite(m_backgroundTexture, getWindowWidth() / 2, getWindowHeight() / 2, getWindowWidth(), getWindowHeight());
+		
+	m_2dRenderer->drawSprite(m_backgroundTexture, 0, 0, getWindowWidth(), getWindowHeight());
 
 	//Draw White Coins
-	/*for (int i = 0; i < CoinsInScene.size(); i++)
+	for (int i = 0; i < CoinsInScene.size(); i++)
 	{
-		m_2dRenderer->drawSprite(m_whiteCoinTexture, CoinsInScene[i]->getPosition().x/aspectRatio, CoinsInScene[i]->getPosition().y/aspectRatio);
-	}*/
+		m_2dRenderer->drawSprite(m_whiteCoinTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, 50, 50);
+	}
 
 	// done drawing sprites
 	m_2dRenderer->end();
