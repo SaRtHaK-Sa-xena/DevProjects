@@ -35,30 +35,30 @@ public:
 	// Being Used
 	//SphereClass* sphere;
 	
-	SphereClass* sphere = new SphereClass(glm::vec2(-10, -240), glm::vec2(0, 0), 1, (5*5), 0.6, 0, 1, glm::vec4(0, 0, 0, 0));
+	SphereClass* sphere = new SphereClass(glm::vec2(-10, -240), glm::vec2(0, 0), 1, (5*6), 0.6, 0, 1, glm::vec4(0, 0, 0, 0));
 
-	SphereClass* centreSphere = new SphereClass(glm::vec2(-10, 5), glm::vec2(0, 0), 1, 3*5, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
+	SphereClass* centreSphere = new SphereClass(glm::vec2(-10, 5), glm::vec2(0, 0), 1, 3*6, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
 
 	//top_mid left and right
-	SphereClass* sphereInner1 = new SphereClass(glm::vec2(25, 35), glm::vec2(0, 0), 1, 3*5, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	SphereClass* sphereInner2 = new SphereClass(glm::vec2(-45, 35), glm::vec2(0, 0), 1, 3*5, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* sphereInner1 = new SphereClass(glm::vec2(25, 35), glm::vec2(0, 0), 1, 3*6, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* sphereInner2 = new SphereClass(glm::vec2(-45, 35), glm::vec2(0, 0), 1, 3*6, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
 
 
 	//bottom_mid left and right
-	SphereClass* sphereInner3 = new SphereClass(glm::vec2(25, -35), glm::vec2(0, 0), 1, 3 * 5, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-	SphereClass* sphereInner4 = new SphereClass(glm::vec2(-45, -35), glm::vec2(0, 0), 1, 3 * 5, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* sphereInner3 = new SphereClass(glm::vec2(25, -35), glm::vec2(0, 0), 1, 3 * 6, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* sphereInner4 = new SphereClass(glm::vec2(-45, -35), glm::vec2(0, 0), 1, 3 * 6, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
 
 	//top
-	SphereClass* sphereInner5 = new SphereClass(glm::vec2(-10, 50), glm::vec2(0, 0), 1, 3 * 5, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* sphereInner5 = new SphereClass(glm::vec2(-10, 50), glm::vec2(0, 0), 1, 3 * 6, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
 
 	//right_mid
-	SphereClass* sphereInner6 = new SphereClass(glm::vec2(50, 0), glm::vec2(0, 0), 1, 3 * 5, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* sphereInner6 = new SphereClass(glm::vec2(50, 0), glm::vec2(0, 0), 1, 3 * 6, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
 
 	//left_mid
-	SphereClass* sphereInner7 = new SphereClass(glm::vec2(-70, 0), glm::vec2(0, 0), 1, 3 * 5, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* sphereInner7 = new SphereClass(glm::vec2(-70, 0), glm::vec2(0, 0), 1, 3 *6, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
 
 	//bottom
-	SphereClass* sphereInner8 = new SphereClass(glm::vec2(-10, -60), glm::vec2(0, 0), 1, 3 * 5, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass* sphereInner8 = new SphereClass(glm::vec2(-10, -60), glm::vec2(0, 0), 1, 3 * 6, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
 
 	AABBClass* box1;
 
@@ -73,8 +73,6 @@ public:
 	SphereClass* mousePointer = new SphereClass(glm::vec2(0, 0), 0, 0, 1, 2, glm::vec4(1, 0, 1, 1));
 
 	glm::vec2 mouseCurrentPosition;
-
-	glm::vec2 r_end;
 
 	// checks if player can shoot
 	bool playerTurnActivated;
@@ -104,6 +102,13 @@ protected:
 	int ScorePlayer1;
 	int ScorePlayer2;
 
+	//	bool to track if line will be displayed red
+	//	during Draw Function
+	bool invalidAim = false;
+	
+
+	//	bool to track if the line will be drawn at max
+	bool maxLine = false;
 };
 
 void setFoulPieces(std::vector<SphereClass*> arrayOfPieces);

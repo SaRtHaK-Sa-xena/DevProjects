@@ -210,10 +210,6 @@ bool PhysicsEngineApp::startup() {
 	PlaneClass* leftPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -427);
 	//Edges Of Board===========
 	
-	
-	//m_physicsScene->addActor(box);
-	
-	
 	//Sphere Variable Setter
 	m_physicsScene->addActor(sphere);
 	sphere->setThisToStriker();
@@ -246,12 +242,14 @@ bool PhysicsEngineApp::startup() {
 	CoinsInScene.push_back(sphereInner8);
 	//add to vector=====================
 	
+
 	//Edges Of Board====================
 	m_physicsScene->addActor(bottomPlane);
 	m_physicsScene->addActor(topPlane);
 	m_physicsScene->addActor(rightPlane);
 	m_physicsScene->addActor(leftPlane);
 	//Edges Of Board====================
+	
 	
 	//Corner Holes======================
 	m_physicsScene->addActor(bottomLeftHole);
@@ -260,21 +258,6 @@ bool PhysicsEngineApp::startup() {
 	m_physicsScene->addActor(topRightHole);
 	//Corner Holes======================
 	
-	
-	//box->applyForce(glm::vec2(0,-20), box->getPosition());
-	//box3->applyForce(glm::vec2(-20,-20), box->getPosition());
-	
-	
-	
-	
-	/*CoinsInScene.push_back(s1);
-	CoinsInScene.push_back(s2);
-	CoinsInScene.push_back(s3);
-	CoinsInScene.push_back(s4);
-	CoinsInScene.push_back(s5);
-	CoinsInScene.push_back(s6);
-	CoinsInScene.push_back(s7);*/
-
 	#pragma endregion GameSetup
 
 	return true;
@@ -327,9 +310,6 @@ void PhysicsEngineApp::update(float deltaTime) {
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
 	
-	//update rotational line
-	r_end = glm::vec2(std::cos(sphere->getRotation()), std::sin(sphere->getRotation())) * sphere->getRadius();
-
 	// Updates the rotational vector for each coin
 	#pragma region RotationUpdate
 	for (int i = 0; i < CoinsInScene.size(); i++)
@@ -473,30 +453,39 @@ void PhysicsEngineApp::startPhase()
 		if (-end.y < 0 || (end.y / end.x > -0.004 && end.y / end.x < 0.5) ||
 			(end.y / end.x < 0 && end.y / end.x > -0.5)) //greater than 0.5 but less than < 0
 		{
+			invalidAim = true;
 			aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); //|EDITTED RED: 1,0,0,1|
 		}
 
+		std::cout << "Line Distance: " << lineDistance << std::endl;
+
 		//	clamp line to max
-		if (lineDistance > 50)
+		if (lineDistance > 350)
 		{
 			//	can be shot at max
-			aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + glm::normalize(end) * 50.f, glm::vec4(0, 80, 0, 1)); //|EDITTED RED: 1,0,0,1|
-			//aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); |ORIGINAL|
-			lineDistance = 50;
+			maxLine = true;
+			aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + glm::normalize(end) * 350.f, glm::vec4(0, 80, 0, 1)); //|EDITTED RED: 1,0,0,1|
 
+			//Check if Gradient of line, pointing down, and directly horizontal
 			if (-end.y < 0 || (end.y / end.x > -0.004 && end.y / end.x < 0.5) ||
 				(end.y / end.x < 0 && end.y / end.x > -0.5))
 			{
+				invalidAim = true;
 				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); //|EDITTED RED: 1,0,0,1|
 			}
 			else
 			{
+				//To Draw it as normal
+				invalidAim = false;
+
 				//	Player shot at Cap
 				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
 					//	normalize end and set scalar value to 80
-					end = glm::normalize(end) * 800.f;
+					end = glm::normalize(end) * (800.f);
 					sphere->setVelocity(-end);
+					
+					std::cout << "Applied Velocity At Max-> X: " << sphere->getVelocity().x << " Y: " << sphere->getVelocity().y << std::endl;
 
 					//	run game phase |Checks for any goal, and runs physics|
 					playerTurnActivated = false;
@@ -538,19 +527,30 @@ void PhysicsEngineApp::startPhase()
 		}
 		else
 		{
+			//Not at max so no need to clamp
+			maxLine = false;
+
+			//Check if Gradient of line, pointing down, and directly horizontal
 			if (-end.y < 0 || (end.y / end.x > -0.004 && end.y / end.x < 0.5) ||
 				(end.y / end.x < 0 && end.y / end.x > -0.5))
 			{
+				//To Allow Draw Function to know to draw it red
+				invalidAim = true;
 				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); //|EDITTED RED: 1,0,0,1|
 			}
 			else
 			{
+				//To Draw it as normal
+				invalidAim = false;
+
 				//otherwise can be shot, if under cap
 				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 80, 0, 1));
 				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
 					//set velocity
-					sphere->setVelocity(-end * 20.f);
+					sphere->setVelocity(-end);
+
+					std::cout << "Applied Velocity-> X: " << sphere->getVelocity().x << " Y: " << sphere->getVelocity().y << std::endl;
 
 					//set striker's collision on
 					sphere->setCollision(true);
@@ -614,9 +614,9 @@ void PhysicsEngineApp::startPhase()
 					sphere->movePosition(glm::vec2(260, sphere->getPosition().y));
 	}
 
+
 	//	Checks If Pieces On Board Are Touching Play Area
 	setFoulPieces(CoinsInScene);
-
 }
 
 void PhysicsEngineApp::gamePhase()
@@ -772,12 +772,6 @@ void PhysicsEngineApp::draw() {
 
 	// draw your stuff here!
 	m_2dRenderer->setCameraPos(-450, -450);
-	//static float aspectRatio = 16 / 9.f;
-	//static float aspectRatio = 16 / 9.f;
-	static float aspectRatio = 1.f;
-	//aie::Gizmos::draw2D(glm::ortho<float>(-900, 900,
-		//-900 / aspectRatio, 900 / aspectRatio, -1.0f, 1.0f));
-
 
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
@@ -826,8 +820,26 @@ void PhysicsEngineApp::draw() {
 	//draw only if right click held
 	aie::Input* input = input->getInstance();
 	if(input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT))
-		m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, sphere->getPosition().x + mouseCurrentPosition.x, sphere->getPosition().y + mouseCurrentPosition.y, 10);
+	{
+		//	create vector, of scale directed towards the mouse
+		glm::vec2 end = mouseCurrentPosition - sphere->getPosition() * glm::normalize(mouseCurrentPosition);
 
+		if (invalidAim)
+		{
+			m_2dRenderer->setRenderColour(1, 0, 0);
+		}
+		if (maxLine)
+		{
+			//Clamp Line Distance
+			glm::vec2 end_normalized = glm::normalize(mouseCurrentPosition);
+			end_normalized = end_normalized * 350.f;
+			m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, sphere->getPosition().x + end_normalized.x , sphere->getPosition().y + end_normalized.y, 10);
+		}
+		else
+		{
+			m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, sphere->getPosition().x + mouseCurrentPosition.x, sphere->getPosition().y + mouseCurrentPosition.y, 10);
+		}
+	}
 	// done drawing sprites
 	m_2dRenderer->end();
 }
