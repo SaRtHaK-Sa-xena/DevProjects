@@ -530,6 +530,8 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 	//if valid
 	if (sphere != NULL && box != NULL)
 	{
+		#pragma region Tutorial Example
+
 		glm::vec2 circlePos = sphere->getPosition() - box->getPosition();
 		float w2 = box->getWidth(), h2 = box->getHeight();
 
@@ -624,7 +626,11 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 		}
 		delete direction;
 		
-		
+		#pragma endregion Tutorial Example
+
+
+		#pragma region AABB Implementation
+
 		////create vector from box to sphere
 		//glm::vec2 vectorToSphere(sphere->getPosition() - box->getPosition());
 		//
@@ -673,8 +679,31 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 		//if (distance.x * distance.x + distance.y * distance.y < sphere->getRadius() * sphere->getRadius())
 		//{
 		//	//set velocity of sphere to zero
-		//	sphere->setVelocity(glm::vec2(0,0));
+		//	//sphere->setVelocity(glm::vec2(0,0));
+		//	//when does sphere need to bounce back?
+		//	//When hit kinematic box
+		//	//so if box->isKinematic(apply contact force, and resolve collision)
+		//	if (box->isKinematic())
+		//	{
+		//		if (sphere->isThisStriker())
+		//		{
+		//			sphere->resetFoulPieces(true);
+		//			sphere->setStreak(false);
+		//		}
+		//		box->resolveCollision(sphere, distance);
+		//	}
+		//	
+		//	//When does sphere need to travel through
+		//	//When over hole
+		//	//so if box->isNotKinematic, don't apply contact force, and don't resolve collision
+		//	else
+		//	{
+		//		sphere->incrementTimeStored();
+		//	}
 		//}
+
+		#pragma endregion AABB Implementation
+
 	}
 	return false;
 }
