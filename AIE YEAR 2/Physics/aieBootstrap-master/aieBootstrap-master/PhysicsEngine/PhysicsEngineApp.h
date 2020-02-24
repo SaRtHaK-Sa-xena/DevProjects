@@ -62,11 +62,17 @@ public:
 
 	AABBClass* box1;
 
+	//Corner Pockets===========
 	AABBClass* topLeftHole;
 	AABBClass* topRightHole;
-
 	AABBClass* bottomLeftHole;
 	AABBClass* bottomRightHole;
+	//Corner Pockets===========
+
+	//Obstacle Boxes===========
+	AABBClass* midLeftObs;
+	AABBClass* midRightObs;
+	//Obstacle Boxes===========
 
 	SphereClass* striker;
 
@@ -94,6 +100,12 @@ protected:
 	
 	// white piece sprite
 	aie::Texture* m_whiteCoinTexture;
+
+	// obstacles sprite
+	aie::Texture* m_obstacleTexture;
+
+	// striker sprite
+	aie::Texture* m_strikerTexture;
 
 	//objects in scene
 	std::vector<SphereClass*> CoinsInScene;

@@ -46,6 +46,11 @@ bool PhysicsEngineApp::startup() {
 	// white coin_sprite
 	m_whiteCoinTexture = new aie::Texture("../bin/textures/CB_whiteCoin_0.2.png");
 
+	// Obstacles_sprite
+	m_obstacleTexture = new aie::Texture("../bin/textures/CB_Obstacle_0.5.png");
+	
+	// Striker_sprite
+	m_strikerTexture = new aie::Texture("../bin/textures/CB_StrikerCoin_0.1.png");
 
 	#pragma region Projectile Tutorial
 	//m_physicsScene = new PhysicsScene();
@@ -196,12 +201,22 @@ bool PhysicsEngineApp::startup() {
 	topRightHole = new AABBClass(glm::vec2(370, 370), 25, 25);
 	//Corners Of Board=========
 	
-	//Set Kinematics To False
+	//Static Box Obstacles=====
+	midLeftObs = new AABBClass(glm::vec2(-227, 0), 30, 30);
+	midRightObs = new AABBClass(glm::vec2(230, 0), 30, 30);
+	
+	//=Set Kinematics to True==
+	midLeftObs->setKinematic(true);
+	midRightObs->setKinematic(true);
+	//=========================
+
+	//Set Kinematics To False==
 	bottomLeftHole->setKinematic(false);
 	bottomRightHole->setKinematic(false);
 	topLeftHole->setKinematic(false);
 	topRightHole->setKinematic(false);
-	
+	//Set Kinematics To False==
+
 	
 	//Edges Of Board===========
 	PlaneClass* bottomPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -427);
@@ -210,13 +225,16 @@ bool PhysicsEngineApp::startup() {
 	PlaneClass* leftPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -427);
 	//Edges Of Board===========
 	
-	//Sphere Variable Setter
+	
+	//Sphere Variable Setter===
 	m_physicsScene->addActor(sphere);
 	sphere->setThisToStriker();
 	sphere->setCollision(false);
 	sphere->setFoul(false);
 	sphere->setStartTurn(true);
-	
+	//Sphere Variable Setter===
+
+
 	//Initialize For Coins In Centre=====
 	m_physicsScene->addActor(centreSphere);
 	m_physicsScene->addActor(sphereInner1);
@@ -257,6 +275,11 @@ bool PhysicsEngineApp::startup() {
 	m_physicsScene->addActor(topLeftHole);
 	m_physicsScene->addActor(topRightHole);
 	//Corner Holes======================
+
+	//Obstacles=========================
+	m_physicsScene->addActor(midLeftObs);
+	m_physicsScene->addActor(midRightObs);
+	//Obstacles=========================
 	
 	#pragma endregion GameSetup
 
@@ -415,6 +438,8 @@ void PhysicsEngineApp::startPhase()
 
 		x_value = x_value + sphere->getPosition().x;
 
+		x_value = -x_value;
+
 		//	create position from given query
 		glm::vec2 tempPosition(x_value, -y_value);
 		mouseCurrentPosition = tempPosition;
@@ -482,7 +507,7 @@ void PhysicsEngineApp::startPhase()
 				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
 					//	normalize end and set scalar value to 80
-					end = glm::normalize(end) * (800.f);
+					end = glm::normalize(end) * (600.f);
 					sphere->setVelocity(-end);
 					
 					std::cout << "Applied Velocity At Max-> X: " << sphere->getVelocity().x << " Y: " << sphere->getVelocity().y << std::endl;
@@ -793,8 +818,17 @@ void PhysicsEngineApp::draw() {
 	//Draw White Coins
 	for (int i = 0; i < CoinsInScene.size(); i++)
 	{
-		//Draw White Coin
-		m_2dRenderer->drawSprite(m_whiteCoinTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, 50, 50);
+		// if this striker
+		if (CoinsInScene[i]->isThisStriker())
+		{
+			//draw striker
+			m_2dRenderer->drawSprite(m_strikerTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, 50, 50);
+		}
+		else
+		{
+			//Draw White Coin
+			m_2dRenderer->drawSprite(m_whiteCoinTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, 50, 50);
+		}
 		
 		//Create Vector2 of rotationVector + Coin.position
 		glm::vec2 spherePlusr_end = CoinsInScene[i]->getPosition() + CoinsInScene[i]->getRotationVector();
@@ -817,6 +851,12 @@ void PhysicsEngineApp::draw() {
 	//b_right
 	m_2dRenderer->drawBox(370, -370, 50, 50);
 
+	//Render in Obstacle_mid_left
+	m_2dRenderer->drawSprite(m_obstacleTexture, -227, 0, 95, 95);
+
+	//Render in Obstacle_mid_right
+	m_2dRenderer->drawSprite(m_obstacleTexture, 230, 0, 95, 95);
+
 	//draw only if right click held
 	aie::Input* input = input->getInstance();
 	if(input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT))
@@ -832,7 +872,7 @@ void PhysicsEngineApp::draw() {
 		{
 			//Clamp Line Distance
 			glm::vec2 end_normalized = glm::normalize(mouseCurrentPosition);
-			end_normalized = end_normalized * 350.f;
+			end_normalized = end_normalized * 300.f;
 			m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, sphere->getPosition().x + end_normalized.x , sphere->getPosition().y + end_normalized.y, 10);
 		}
 		else

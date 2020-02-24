@@ -244,7 +244,6 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 				sphere1->setPlaceable(false);
 				
 				// set colour to red
-				sphere1->setColour(glm::vec4(1, 0, 0, 1));
 
 			}
 			if (sphere2->isThisStriker() && sphere2->isitStartTurn())
@@ -253,7 +252,6 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 				sphere2->setPlaceable(false);
 
 				// set colour to red
-				sphere2->setColour(glm::vec4(1, 0, 0, 1));
 			}
 
 
@@ -263,14 +261,7 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 			{
 				//don't set collision resolution
 				// Or the force added afterwards
-
 				return true;
-
-				//ifCollidable allows us to move the striker along the path
-				//highlight green when placeable 
-				//red otherwise
-
-				//if collided with sphere on line, reset to previous positions
 			}
 			
 			//	checks if collided with a foul piece
@@ -328,17 +319,11 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 			{
 				//	can't be placed or aimed
 				sphere1->setPlaceable(true);
-
-				// set colour to white
-				sphere1->setColour(glm::vec4(1, 1, 1, 1));
 			}
 			if (sphere2->isThisStriker())
 			{
 				//can't be placed or aimed
 				sphere2->setPlaceable(true);
-
-				// set colour to white
-				sphere2->setColour(glm::vec4(1, 1, 1, 1));
 			}
 		}
 		
@@ -612,12 +597,17 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 
 			glm::vec2 penVec = glm::normalize(contact - sphere->getPosition() * pen);
 			
-			//if box->isKinematic ==
 			//when does sphere need to bounce back?
 			//When hit kinematic box
 			//so if box->isKinematic(apply contact force, and resolve collision)
 			if (box->isKinematic())
 			{
+				if (sphere->isThisStriker())
+				{
+					sphere->resetFoulPieces(true);
+					sphere->setStreak(false);
+				}
+
 				sphere->setPosition(-penVec);
 				PhysicsScene *classCall = new PhysicsScene();
 				classCall->ApplyContactForces(box, sphere, norm, pen);
