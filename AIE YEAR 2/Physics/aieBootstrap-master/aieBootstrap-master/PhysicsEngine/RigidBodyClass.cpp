@@ -18,6 +18,7 @@ void RigidBodyClass::fixedUpdate(glm::vec2 gravity, float timeStep)
 {
 	if (m_isKinematic == true)
 	{
+		m_velocity = glm::vec2(0, 0);
 		return;
 	}
 	m_velocity += gravity * timeStep;
@@ -46,7 +47,9 @@ void RigidBodyClass::applyForce(glm::vec2 force, glm::vec2 pos)
 	//===Previous Implementation
 	//comments: Works, but not as good as the new implementation, when recieving multiple collisions
 
+	std::cout << "===========================VELOCITY CHECK START=============================" << std::endl;
 	std::cout << "Before Velocity: " << "X: " << m_velocity.x << " Y: " << m_velocity.y << std::endl;
+	std::cout << "Before Mass: " << m_mass << std::endl;
 	m_velocity += force / m_mass;
 	m_angularVelocity += (force.y * pos.x - force.x * pos.y) / (m_moment);
 	//Correct One That Worked The Best	
@@ -65,8 +68,13 @@ void RigidBodyClass::applyForce(glm::vec2 force, glm::vec2 pos)
 	////m_angularVelocity += glm::length(m_velocity) / -temp;
 	////m_angularVelocity = m_angularVelocity * 5584124.f;
 
-	std::cout << "Force: " << "X: " << force.x << " Y: " << force.y << std::endl;
+	//std::cout << "Force: " << "X: " << force.x << " Y: " << force.y << std::endl;
 	std::cout << "After Velocity: " << "X: " << m_velocity.x << " Y: " << m_velocity.y << std::endl;
+	std::cout << "===========================VELOCITY CHECK END=============================" << std::endl;
+	if (debugCheck == false)
+	{
+		debugCheck = true;
+	}
 
 	//===================NEW IMPLEMENTATION=================================================================
 	#pragma region New Implementation
@@ -138,21 +146,47 @@ void RigidBodyClass::resolveCollision(RigidBodyClass* actor2, glm::vec2 contact,
 
 		float elasticity = (m_elasticity + actor2->getElasticity()) / 2.0f;
 
+		std::cout << "=========PRIOR TO FORCE CALCULATION===========" << std::endl;
+		std::cout << "Elasticity:" << 1.0f + elasticity << std::endl;
+		std::cout << "Mass For Actor 1: " << mass1 << std::endl;
+		std::cout << "Mass For Actor 2: " << mass2 << std::endl;
+		std::cout << "Velocity of Contact POint on Actor 1: " << v1 << std::endl;
+		std::cout << "Velocity of Contact POint on Actor 2: " << v2 << std::endl;
+		std::cout << "Normal X_POS: " << normal.x << std::endl;
+		std::cout << "Normal Y_POS: " << normal.y << std::endl;
+		std::cout << "=============================================" << std::endl;
+
+
 		glm::vec2 force = (1.0f + elasticity)*mass1*mass2 / 
 			(mass1 + mass2)*(v1-v2)*normal;
 
-		if (glm::length(force) > 1000)
-		{
-			glm::normalize(force)* 300.f;
-		}
 
 		float spin_const = 2;
 		glm::vec2 halfPos(m_position.x / spin_const, m_position.y / spin_const);
 		glm::vec2 halfPos2(actor2->getPosition().x / spin_const, actor2->getPosition().y / spin_const);
 
 
+		std::cout << "=========AFTER THE FORCE CALCULATION===========" << std::endl;
+		std::cout << "Elasticity:" << 1.0f + elasticity << std::endl;
+		std::cout << "Mass For Actor 1: " << mass1 << std::endl;
+		std::cout << "Mass For Actor 2: " << mass2 << std::endl;
+		std::cout << "Velocity of Contact POint on Actor 1: " << v1 << std::endl;
+		std::cout << "Velocity of Contact POint on Actor 2: " << v2 << std::endl;
+		std::cout << "Normal X_POS: " << normal.x << std::endl;
+		std::cout << "Normal Y_POS: " << normal.y << std::endl;
+		std::cout << "=============================================" << std::endl;
+
 		//	apply equal and opposite force
 		//	according to Newton's Third Law
+
+		std::cout << "applied Force for Actor: " << getShapeID() << std::endl;
+		std::cout << "FORCE X: " << -force.x << std::endl;
+		std::cout << "FORCE Y: " << -force.y << std::endl;
+
+		std::cout << "applied Force for Actor 2: " << actor2->getShapeID() << std::endl;
+		std::cout << "FORCE X: " << force.x << std::endl;
+		std::cout << "FORCE Y: " << force.y << std::endl;
+
 		applyForce(-force, halfPos - contact);
 		actor2->applyForce(force, contact - halfPos2);
 

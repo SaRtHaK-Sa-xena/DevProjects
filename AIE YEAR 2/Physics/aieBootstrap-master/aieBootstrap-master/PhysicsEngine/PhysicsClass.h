@@ -36,7 +36,7 @@ public:
 	static bool box2Sphere(PhysicsObject*, PhysicsObject*);
 	static bool box2Box(PhysicsObject*, PhysicsObject*);
 
-	void ApplyContactForces(RigidBodyClass* body1, RigidBodyClass* body2, glm::vec2 norm, float pen);
+	static void ApplyContactForces(RigidBodyClass* body1, RigidBodyClass* body2, glm::vec2 norm, float pen);
 protected:
 	glm::vec2 m_gravity;
 	float m_timeStep;

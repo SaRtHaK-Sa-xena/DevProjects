@@ -35,7 +35,7 @@ public:
 	// Being Used
 	//SphereClass* sphere;
 	
-	SphereClass* sphere = new SphereClass(glm::vec2(-10, -240), glm::vec2(0, 0), 5, (5*6), 0.6, 0, 1, glm::vec4(0, 0, 0, 0));
+	SphereClass* sphere = new SphereClass(glm::vec2(-10, -240), glm::vec2(0, 0), 5, (3.5*6), 0.9, 0, 1, glm::vec4(0, 0, 0, 0));
 
 	SphereClass* centreSphere = new SphereClass(glm::vec2(-10, 5), glm::vec2(0, 0), 1, 3*6, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
 
@@ -93,6 +93,7 @@ public:
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;
+	aie::Renderer2D*	m_2dRendererGizmos;
 	aie::Font*			m_font;
 
 	//background sprite

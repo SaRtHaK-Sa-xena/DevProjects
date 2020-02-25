@@ -76,5 +76,7 @@ protected:
 	float m_angularVelocity;
 
 	bool m_isKinematic;
+
+	bool debugCheck = false;
 };
 

@@ -31,6 +31,7 @@ PhysicsEngineApp::~PhysicsEngineApp() {
 bool PhysicsEngineApp::startup() {
 	
 	m_2dRenderer = new aie::Renderer2D();
+	m_2dRendererGizmos = new aie::Renderer2D();
 
 	//increase the 2d line count to maxmimize the number of objects we can draw
 	aie::Gizmos::create(255U, 255U, 65535U, 65535U);
@@ -202,8 +203,8 @@ bool PhysicsEngineApp::startup() {
 	//Corners Of Board=========
 	
 	//Static Box Obstacles=====
-	midLeftObs = new AABBClass(glm::vec2(-227, 0), 30, 30);
-	midRightObs = new AABBClass(glm::vec2(230, 0), 30, 30);
+	midLeftObs = new AABBClass(glm::vec2(-227, 0), 35, 35);
+	midRightObs = new AABBClass(glm::vec2(230, 0), 35, 35);
 	
 	//=Set Kinematics to True==
 	midLeftObs->setKinematic(true);
@@ -290,6 +291,7 @@ void PhysicsEngineApp::shutdown() {
 
 	delete m_font;
 	delete m_2dRenderer;
+	delete m_2dRendererGizmos;
 }
 
 void PhysicsEngineApp::update(float deltaTime) {
@@ -481,8 +483,6 @@ void PhysicsEngineApp::startPhase()
 			invalidAim = true;
 			aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); //|EDITTED RED: 1,0,0,1|
 		}
-
-		std::cout << "Line Distance: " << lineDistance << std::endl;
 
 		//	clamp line to max
 		if (lineDistance > 350)
@@ -822,7 +822,8 @@ void PhysicsEngineApp::draw() {
 		if (CoinsInScene[i]->isThisStriker())
 		{
 			//draw striker
-			m_2dRenderer->drawSprite(m_strikerTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, 50, 50);
+			m_2dRenderer->drawSprite(m_strikerTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y,
+				CoinsInScene[i]->getRadius()*CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getRadius()* CoinsInScene[i]->getPosition().y);
 		}
 		else
 		{
@@ -836,20 +837,6 @@ void PhysicsEngineApp::draw() {
 		// This is the rotation line
 		m_2dRenderer->drawLine(CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, spherePlusr_end.x, spherePlusr_end.y, 1);
 	}
-
-	//==DEBUG PURPOSES==
-	//Displays range for estimation of position of corner pockets
-	//b_left
-	m_2dRenderer->drawBox(-370, -370, 50, 50);
-	
-	//top_right
-	m_2dRenderer->drawBox(370, 370, 50, 50);
-	
-	//top_left
-	m_2dRenderer->drawBox(-370, 370, 50, 50);
-	
-	//b_right
-	m_2dRenderer->drawBox(370, -370, 50, 50);
 
 	//Render in Obstacle_mid_left
 	m_2dRenderer->drawSprite(m_obstacleTexture, -227, 0, 95, 95);
@@ -880,8 +867,21 @@ void PhysicsEngineApp::draw() {
 			m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, sphere->getPosition().x + mouseCurrentPosition.x, sphere->getPosition().y + mouseCurrentPosition.y, 10);
 		}
 	}
-	// done drawing sprites
+	// done drawing sprites	
+	
 	m_2dRenderer->end();
+
+
+	// begin drawing Gizmos
+	m_2dRendererGizmos->begin();
+
+	static float aspectRatio = 16 / 9.f;
+	aie::Gizmos::draw2D(glm::ortho<float>(-450, 450,
+		-800 / aspectRatio, 800 / aspectRatio, -1.0f, 1.0f));
+
+
+
+	m_2dRendererGizmos->end();
 }
 
 void PhysicsEngineApp::setupContinuousDemo(glm::vec2 startPos, float inclination, float speed, float gravity)

@@ -610,10 +610,11 @@ bool PhysicsScene::box2Sphere(PhysicsObject*obj1, PhysicsObject*obj2)
 					sphere->setStreak(false);
 				}
 
-				sphere->setPosition(-penVec);
-				PhysicsScene *classCall = new PhysicsScene();
-				classCall->ApplyContactForces(box, sphere, norm, pen);
+				//sphere->setPosition(-penVec);
+				//PhysicsScene *classCall = new PhysicsScene();
+				ApplyContactForces(box, sphere, norm, pen);
 				box->resolveCollision(sphere, contact, direction);
+
 			}
 			
 			//When does sphere need to travel through
