@@ -220,10 +220,10 @@ bool PhysicsEngineApp::startup() {
 
 	
 	//Edges Of Board===========
-	PlaneClass* bottomPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -427);
-	PlaneClass* topPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), 427);
+	PlaneClass* bottomPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -414);
+	PlaneClass* topPlane = new PlaneClass(glm::normalize(glm::vec2(0, 1)), 419);
 	PlaneClass* rightPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 427);
-	PlaneClass* leftPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -427);
+	PlaneClass* leftPlane = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -419);
 	//Edges Of Board===========
 	
 	
@@ -387,7 +387,7 @@ void PhysicsEngineApp::startPhase()
 
 		//Reset all initializations==========
 
-		//Sphere Variable Setter
+		//Striker Variable Setter
 		m_physicsScene->addActor(sphere);
 		sphere->setThisToStriker();
 		sphere->setCollision(false);
@@ -437,14 +437,16 @@ void PhysicsEngineApp::startPhase()
 		y_value = (900 / 2) - y_value*2;
 		y_value = y_value / ratioProportion;
 		//y_value = -y_value;
+		
 
 		x_value = x_value + sphere->getPosition().x;
 
 		x_value = -x_value;
 
 		//	create position from given query
-		glm::vec2 tempPosition(x_value, -y_value);
+		glm::vec2 tempPosition(-x_value, -y_value);
 		mouseCurrentPosition = tempPosition;
+
 	}
 	else
 	{
@@ -458,12 +460,14 @@ void PhysicsEngineApp::startPhase()
 		y_value = y_value / ratioProportion;
 		y_value = -y_value;
 
+
 		x_value = x_value - sphere->getPosition().x;
 		
 		//	create position from given query
 		glm::vec2 tempPosition(x_value, y_value);
 		mouseCurrentPosition = tempPosition;
 	}
+
 
 	//player setup turn
 	if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT) && sphere->isPlaceble())
@@ -496,7 +500,7 @@ void PhysicsEngineApp::startPhase()
 				(end.y / end.x < 0 && end.y / end.x > -0.5))
 			{
 				invalidAim = true;
-				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); //|EDITTED RED: 1,0,0,1|
+				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + glm::normalize(end) * 350.f, glm::vec4(1, 0, 0, 1)); //|EDITTED RED: 1,0,0,1|
 			}
 			else
 			{
@@ -878,7 +882,6 @@ void PhysicsEngineApp::draw() {
 	static float aspectRatio = 16 / 9.f;
 	aie::Gizmos::draw2D(glm::ortho<float>(-450, 450,
 		-800 / aspectRatio, 800 / aspectRatio, -1.0f, 1.0f));
-
 
 
 	m_2dRendererGizmos->end();

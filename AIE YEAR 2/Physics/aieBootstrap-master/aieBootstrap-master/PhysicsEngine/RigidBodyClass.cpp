@@ -111,6 +111,10 @@ void RigidBodyClass::applyForce(glm::vec2 force, glm::vec2 pos)
 	//i = moment of inertia
 	m_angularVelocity += torque / m_moment;
 
+	//m_angularVelocity = m_angularVelocity * glm::length(glm::normalize(-force));
+
+	m_angularVelocity = -m_angularVelocity;
+
 	#pragma endregion New Implementation
 }
 
