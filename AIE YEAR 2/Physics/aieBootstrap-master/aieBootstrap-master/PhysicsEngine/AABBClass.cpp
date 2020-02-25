@@ -10,6 +10,8 @@ AABBClass::AABBClass(glm::vec2 position, float a_width, float a_height) : RigidB
 {
 	m_width = a_width;
 	m_height = a_height;
+
+	m_moment = 1.0f / 12.0f * m_mass * (m_width/2) * (m_height/2);
 }
 
 AABBClass::~AABBClass()

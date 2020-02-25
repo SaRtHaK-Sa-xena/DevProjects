@@ -4,7 +4,7 @@
 #include <iostream>
 
 const float MIN_LINEAR_THRESHOLD = 0.1f;
-const float MIN_ROTATION_THRESHOLD = 0.00001f;
+const float MIN_ROTATION_THRESHOLD = 0.001f;
 
 RigidBodyClass::RigidBodyClass(ShapeType shapeID, glm::vec2 position, glm::vec2 velocity, float rotation, float mass, float elasticity, float angularVelocity, float moment) : PhysicsObject(shapeID), m_position(position), m_velocity(velocity), m_rotation(rotation), m_mass(mass), m_elasticity(elasticity), m_angularVelocity(angularVelocity), m_moment(moment)
 {
@@ -48,10 +48,15 @@ void RigidBodyClass::applyForce(glm::vec2 force, glm::vec2 pos)
 	//comments: Works, but not as good as the new implementation, when recieving multiple collisions
 
 	std::cout << "===========================VELOCITY CHECK START=============================" << std::endl;
-	std::cout << "Before Velocity: " << "X: " << m_velocity.x << " Y: " << m_velocity.y << std::endl;
-	std::cout << "Before Mass: " << m_mass << std::endl;
-	m_velocity += force / m_mass;
-	m_angularVelocity += (force.y * pos.x - force.x * pos.y) / (m_moment);
+	std::cout << "Before Angular Velocity: " << m_angularVelocity << std::endl;
+	//m_velocity += force / m_mass;
+	//m_angularVelocity = (force.y * pos.x - force.x * pos.y) / (m_moment);
+	//m_angularVelocity = (force.x * pos.y - force.y * pos.x) / (m_moment);
+
+	std::cout << "force.x: " << force.x << std::endl;
+	std::cout << "force.y: " << force.y << std::endl;
+
+	//if (m_angularVelocity > 50) { m_angularVelocity = 50; }
 	//Correct One That Worked The Best	
 	//m_angularVelocity += glm::length(m_velocity) / glm::length((pos) / (m_moment) * (-force));
 	//
@@ -69,46 +74,42 @@ void RigidBodyClass::applyForce(glm::vec2 force, glm::vec2 pos)
 	////m_angularVelocity = m_angularVelocity * 5584124.f;
 
 	//std::cout << "Force: " << "X: " << force.x << " Y: " << force.y << std::endl;
-	std::cout << "After Velocity: " << "X: " << m_velocity.x << " Y: " << m_velocity.y << std::endl;
+	std::cout << "After Angular Velocity: " << m_angularVelocity << std::endl;
 	std::cout << "===========================VELOCITY CHECK END=============================" << std::endl;
-	if (debugCheck == false)
-	{
-		debugCheck = true;
-	}
 
 	//===================NEW IMPLEMENTATION=================================================================
 	#pragma region New Implementation
 	
-	////Implementation of calculating Torque, and angular velocity from Michaela
-	////[ F = m * a ] can be rewritten to [ a = F / m ] 
-	////F = force
-	////m = mass
-	////a = acceleration
-	//m_velocity += force / m_mass;
-	//
-	////Torque is calculated as	[ t = ||r|| * ||f|| * sin0 ]
-	////t = torque
-	////||r|| = the magnitude of the radius from the axis of rotation to the point of application of the force. In otherwords, the distance from the center of the object to the contact point
-	////||f|| = the magnitude of the force vector
-	////0 = the angle between the object's current angular heading and 'r'
-	//
-	//glm::vec2 heading = glm::normalize(m_position + force); //Current heading
-	//
-	////The formula to find the angle between two vectors is [ cos0 = dot(a, b) / ||a|| * ||b|| ]
-	//float dotResult = glm::dot(heading, pos);
-	//float magnitudeResult = sqrtf(heading.x * heading.x + heading.y * heading.y) * sqrtf(pos.x * pos.x + pos.y * pos.y);
-	//float angle = (dotResult == 0 && magnitudeResult == 0) ? 0 : acosf(dotResult / magnitudeResult);
-	//
-	////Multiply lever arm by force
-	//glm::vec2 lever = pos * sinf(angle);
-	//glm::vec2 t = lever * force;
-	//float torque = sqrtf(t.x * t.x + t.y * t.y);
-	//
-	////Angular acceleration is calculations as	[ a = t / i ]
-	////a = angular acceleration
-	////t = torque
-	////i = moment of inertia
-	//m_angularVelocity = torque / m_moment;
+	//Implementation of calculating Torque, and angular velocity from Michaela
+	//[ F = m * a ] can be rewritten to [ a = F / m ] 
+	//F = force
+	//m = mass
+	//a = acceleration
+	m_velocity += force / m_mass;
+	
+	//Torque is calculated as	[ t = ||r|| * ||f|| * sin0 ]
+	//t = torque
+	//||r|| = the magnitude of the radius from the axis of rotation to the point of application of the force. In otherwords, the distance from the center of the object to the contact point
+	//||f|| = the magnitude of the force vector
+	//0 = the angle between the object's current angular heading and 'r'
+	
+	glm::vec2 heading = glm::normalize(m_position + force); //Current heading
+	
+	//The formula to find the angle between two vectors is [ cos0 = dot(a, b) / ||a|| * ||b|| ]
+	float dotResult = glm::dot(heading, pos);
+	float magnitudeResult = sqrtf(heading.x * heading.x + heading.y * heading.y) * sqrtf(pos.x * pos.x + pos.y * pos.y);
+	float angle = (dotResult == 0 && magnitudeResult == 0) ? 0 : acosf(dotResult / magnitudeResult);
+	
+	//Multiply lever arm by force
+	glm::vec2 lever = pos * sinf(angle);
+	glm::vec2 t = lever * force;
+	float torque = sqrtf(t.x * t.x + t.y * t.y);
+	
+	//Angular acceleration is calculations as	[ a = t / i ]
+	//a = angular acceleration
+	//t = torque
+	//i = moment of inertia
+	m_angularVelocity += torque / m_moment;
 
 	#pragma endregion New Implementation
 }
@@ -134,7 +135,7 @@ void RigidBodyClass::resolveCollision(RigidBodyClass* actor2, glm::vec2 contact,
 	float v1 = glm::dot(m_velocity, normal) - r1;// * m_angularVelocity;
 
 	// velocity of contact point on actor2
-	float v2 = glm::dot(actor2->m_velocity, normal) + r2;// * actor2->m_angularVelocity;
+	float v2 = glm::dot(actor2->m_velocity, normal) + r2;// *actor2->m_angularVelocity;
 
 	if (v1 > v2) //	if moving closer
 	{
@@ -187,10 +188,10 @@ void RigidBodyClass::resolveCollision(RigidBodyClass* actor2, glm::vec2 contact,
 		std::cout << "FORCE X: " << force.x << std::endl;
 		std::cout << "FORCE Y: " << force.y << std::endl;
 
-		applyForce(-force, halfPos - contact);
-		actor2->applyForce(force, contact - halfPos2);
+		//applyForce(-force, halfPos - contact);
+		//actor2->applyForce(force, contact - halfPos2);
 
-		//applyForce(-force, contact-m_position);
-		//actor2->applyForce(force, contact - actor2->getPosition());
+		applyForce(-force, contact-m_position);
+		actor2->applyForce(force, contact - actor2->getPosition());
 	}
 }

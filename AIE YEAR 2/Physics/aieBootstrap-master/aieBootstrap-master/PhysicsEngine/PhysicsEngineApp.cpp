@@ -823,12 +823,12 @@ void PhysicsEngineApp::draw() {
 		{
 			//draw striker
 			m_2dRenderer->drawSprite(m_strikerTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y,
-				CoinsInScene[i]->getRadius()*CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getRadius()* CoinsInScene[i]->getPosition().y);
+				52,52);
 		}
 		else
 		{
 			//Draw White Coin
-			m_2dRenderer->drawSprite(m_whiteCoinTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, 50, 50);
+			m_2dRenderer->drawSprite(m_whiteCoinTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, 45, 45);
 		}
 		
 		//Create Vector2 of rotationVector + Coin.position
@@ -839,10 +839,10 @@ void PhysicsEngineApp::draw() {
 	}
 
 	//Render in Obstacle_mid_left
-	m_2dRenderer->drawSprite(m_obstacleTexture, -227, 0, 95, 95);
+	m_2dRenderer->drawSprite(m_obstacleTexture, midLeftObs->getPosition().x, midLeftObs->getPosition().y, midLeftObs->getWidth()*2.2-5, midLeftObs->getHeight()*2.2 - 5);
 
 	//Render in Obstacle_mid_right
-	m_2dRenderer->drawSprite(m_obstacleTexture, 230, 0, 95, 95);
+	m_2dRenderer->drawSprite(m_obstacleTexture, midRightObs->getPosition().x, midRightObs->getPosition().y, midRightObs->getWidth() * 2.2 - 5, midRightObs->getHeight() * 2.2 - 5);
 
 	//draw only if right click held
 	aie::Input* input = input->getInstance();
