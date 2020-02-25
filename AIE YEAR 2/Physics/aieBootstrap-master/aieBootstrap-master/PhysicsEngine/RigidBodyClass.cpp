@@ -188,10 +188,16 @@ void RigidBodyClass::resolveCollision(RigidBodyClass* actor2, glm::vec2 contact,
 		std::cout << "FORCE X: " << force.x << std::endl;
 		std::cout << "FORCE Y: " << force.y << std::endl;
 
+		//What used to be
 		//applyForce(-force, halfPos - contact);
 		//actor2->applyForce(force, contact - halfPos2);
-
+		
+		//Updated
 		applyForce(-force, contact-m_position);
 		actor2->applyForce(force, contact - actor2->getPosition());
+
+		//TESTING
+		//applyForce(-force, contact - halfPos);
+		//actor2->applyForce(force, halfPos2 - contact);
 	}
 }
