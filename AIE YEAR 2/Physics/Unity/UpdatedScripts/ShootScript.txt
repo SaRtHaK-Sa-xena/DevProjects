@@ -1,0 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class shoot : MonoBehaviour
+{
+    public Camera cam;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            shootForward();
+            Debug.Log("Shot!");
+        }
+    }
+
+    public void shootForward()
+    {
+        RaycastHit objectHit;
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out objectHit))
+        {
+            Debug.Log("Enemy Shot!");
+            if (objectHit.collider.gameObject.CompareTag("Enemy"))
+            {
+                Debug.Log("Enemy Shot!");
+                objectHit.collider.gameObject.GetComponentInParent<Zombie>().speed = 0;
+                objectHit.collider.gameObject.GetComponentInParent<Rigidbody>().AddForce(Vector3.back);
+                objectHit.collider.gameObject.GetComponentInParent<Ragdoll>().RagdollOn = true;
+            }
+        }
+    }
+}
