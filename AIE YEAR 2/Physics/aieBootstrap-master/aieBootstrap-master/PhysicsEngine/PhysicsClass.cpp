@@ -223,7 +223,6 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 	if (sphere1 != nullptr && sphere2 != nullptr)
 	{
 		
-
 		glm::vec2 delta = sphere2->getPosition() - sphere1->getPosition();
 		float distance = glm::length(delta);
 		float intersection = sphere1->getRadius() + sphere2->getRadius() - distance;
@@ -236,7 +235,7 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 
 			//	checks if sphere can be placed to be aimed 
 			//	when not on any coins
-
+			
 			//	if it is the striker and the player is in start turn
 			if (sphere1->isThisStriker() && sphere1->isitStartTurn())
 			{
@@ -244,7 +243,8 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 				sphere1->setPlaceable(false);
 				
 				// set colour to red
-
+				//std::cout << "Setting Placeable To False" << std::endl;
+				//std::cout << "[fn] X:" << sphere1->getPosition().x << " Y: " << sphere1->getPosition().y << std::endl;
 			}
 			if (sphere2->isThisStriker() && sphere2->isitStartTurn())
 			{
@@ -252,6 +252,8 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 				sphere2->setPlaceable(false);
 
 				// set colour to red
+				//std::cout << "Setting Placeable To False" << std::endl;
+				//std::cout << "[fn] X:" << sphere1->getPosition().x << " Y: " << sphere1->getPosition().y << std::endl;
 			}
 
 
@@ -261,7 +263,7 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 			{
 				//don't set collision resolution
 				// Or the force added afterwards
-				return true;
+				return false;
 			}
 			
 			//	checks if collided with a foul piece
@@ -312,18 +314,23 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 			sphere1->resolveCollision(sphere2, 0.5f * (sphere1->getPosition() + sphere2->getPosition()));
 			return true;
 		}
+		
 		//when not colliding set placeable on play area to true
 		else
 		{
-			if (sphere1->isThisStriker())
+			if (sphere1->isThisStriker() && sphere1->isitStartTurn())
 			{
 				//	can't be placed or aimed
 				sphere1->setPlaceable(true);
+				std::cout << "Setting Placeable To True" << std::endl;
+				std::cout << "[fn] X:" << sphere1->getPosition().x << " Y: " << sphere1->getPosition().y << std::endl;
 			}
-			if (sphere2->isThisStriker())
+			if (sphere2->isThisStriker() && sphere2->isitStartTurn())
 			{
 				//can't be placed or aimed
 				sphere2->setPlaceable(true);
+				std::cout << "Setting Placeable To True" << std::endl;
+				std::cout << "[fn] X:" << sphere1->getPosition().x << " Y: " << sphere1->getPosition().y << std::endl;
 			}
 		}
 		

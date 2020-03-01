@@ -104,6 +104,9 @@ protected:
 	// white piece sprite
 	aie::Texture* m_whiteCoinTexture;
 
+	// white piece foul sprite
+	aie::Texture* m_whiteCoinFoulTexture;
+
 	// obstacles sprite
 	aie::Texture* m_obstacleTexture;
 

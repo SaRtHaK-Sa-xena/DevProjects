@@ -47,6 +47,9 @@ bool PhysicsEngineApp::startup() {
 	// white coin_sprite
 	m_whiteCoinTexture = new aie::Texture("../bin/textures/CB_whiteCoin_0.2.png");
 
+	// foul white coin_sprite
+	m_whiteCoinFoulTexture = new aie::Texture("../bin/textures/CB_whiteFoulCoin_0.1.png");
+
 	// Obstacles_sprite
 	m_obstacleTexture = new aie::Texture("../bin/textures/CB_Obstacle_0.5.png");
 	
@@ -364,7 +367,7 @@ void PhysicsEngineApp::update(float deltaTime) {
 		std::cout << "Player (CAN NOT) Move The Striker" << std::endl;
 	std::cout << "-------------------" << std::endl;
 	std::cout << std::endl;*/
-
+	
 	#pragma endregion GameBuilding Debug Log
 	
 }
@@ -390,7 +393,7 @@ void PhysicsEngineApp::startPhase()
 		//Striker Variable Setter
 		m_physicsScene->addActor(sphere);
 		sphere->setThisToStriker();
-		sphere->setCollision(false);
+		sphere->setCollision(true);
 		sphere->setFoul(false);
 		sphere->setStartTurn(true);
 
@@ -514,8 +517,6 @@ void PhysicsEngineApp::startPhase()
 					end = glm::normalize(end) * (600.f);
 					sphere->setVelocity(-end);
 					
-					std::cout << "Applied Velocity At Max-> X: " << sphere->getVelocity().x << " Y: " << sphere->getVelocity().y << std::endl;
-
 					//	run game phase |Checks for any goal, and runs physics|
 					playerTurnActivated = false;
 
@@ -578,8 +579,6 @@ void PhysicsEngineApp::startPhase()
 				{
 					//set velocity
 					sphere->setVelocity(-end);
-
-					std::cout << "Applied Velocity-> X: " << sphere->getVelocity().x << " Y: " << sphere->getVelocity().y << std::endl;
 
 					//set striker's collision on
 					sphere->setCollision(true);
@@ -831,8 +830,15 @@ void PhysicsEngineApp::draw() {
 		}
 		else
 		{
-			//Draw White Coin
-			m_2dRenderer->drawSprite(m_whiteCoinTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, 45, 45);
+			if (CoinsInScene[i]->isFoul())
+			{
+				m_2dRenderer->drawSprite(m_whiteCoinFoulTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, 45, 45);
+			}
+			else
+			{
+				//Draw White Coin
+				m_2dRenderer->drawSprite(m_whiteCoinTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, 45, 45);
+			}
 		}
 		
 		//Create Vector2 of rotationVector + Coin.position
@@ -936,6 +942,7 @@ void setFoulPieces(std::vector <SphereClass*> arrayOfPieces)
 				//found by testing y position
 				//	sets it to foul
 				arrayOfPieces[i]->setFoul(true);
+				std::cout << "Piece set to false" << std::endl;
 			}
 		}
 	}

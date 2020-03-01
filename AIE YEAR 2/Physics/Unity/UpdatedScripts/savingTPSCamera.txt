@@ -1,0 +1,58 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class tpsCamera : MonoBehaviour
+{
+
+    //  y-axis constraints
+    private const float y_angle_min = 15.0f;
+    private const float y_angle_max = 25.0f;
+
+    float turnSpeed = 25;
+
+    //  what the is camera looking at
+    public Transform character;
+
+    // RigidBody
+    public Rigidbody rigidBody;
+
+    public GameObject Player;
+                            
+    //  distance between character and camera
+    [SerializeField]
+    private float distance = -10.0f;
+
+    //  current x and y axis values
+    private float currentX = 0.0f;
+    private float currentY = 0.0f;
+
+    Vector3 dir;
+    // Update is called once per frame
+    void Update()
+    {
+        Player = GameObject.Find("Player");
+
+        if (Input.GetAxis("Mouse X") != null || Input.GetAxis("Mouse Y") != null)
+        {
+            currentX += Input.GetAxis("Mouse X");
+            currentY += Input.GetAxis("Mouse Y");
+        }
+
+        currentY = Mathf.Clamp(currentY, y_angle_min,y_angle_max);
+    }
+
+    private void LateUpdate()
+    {   //                                                          Character Rotation              Position Away from Character
+        gameObject.transform.position = character.position + Quaternion.Euler(currentY, currentX, 0) * new Vector3(0,0,distance);
+
+        dir = (GetComponent<Camera>().transform.right) + (GetComponent<Camera>().transform.forward);
+
+        dir.y = 0;
+
+        rigidBody.rotation = Quaternion.Slerp(Player.transform.rotation, Quaternion.LookRotation(dir), turnSpeed * Time.deltaTime);
+
+        //  Points camera at character
+        gameObject.transform.LookAt(character.position);
+    }
+}
