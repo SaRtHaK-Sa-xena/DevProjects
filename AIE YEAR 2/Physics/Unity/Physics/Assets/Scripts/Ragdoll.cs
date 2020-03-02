@@ -36,6 +36,10 @@ public class Ragdoll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug Purpose
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            RagdollOn = true;
+        }
     }
 }

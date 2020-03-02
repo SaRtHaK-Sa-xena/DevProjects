@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 /// <summary>
@@ -18,6 +19,22 @@ public class Zombie : MonoBehaviour
     public float speed;
     public float pushPower = 2.0f;
 
+    //==========Health=================
+    private int maxHealth = 100;
+
+    public int currentHealth;
+
+    public event Action<float> OnHealthPctChanged = delegate { };
+
+    public void modifyHealth(int amount)
+    {
+        currentHealth += amount;
+        float currentHealthPct = (float)currentHealth / (float)maxHealth;
+        OnHealthPctChanged(currentHealthPct);
+    }
+    //==========Health=================
+
+
     //[SerializeField]
     public Transform newPosition;
 
@@ -27,6 +44,7 @@ public class Zombie : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -40,6 +58,9 @@ public class Zombie : MonoBehaviour
         //transform.position = Vector3.MoveTowards(transform.position, newPosition.position, Time.deltaTime);
         animator.SetFloat("Speed", speed * Time.deltaTime);
         //animator.SetFloat("Speed", vertical * speed * Time.deltaTime);
+
+        // Make Decision
+        makeDecision();
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -55,6 +76,13 @@ public class Zombie : MonoBehaviour
 
     public void makeDecision()
     {
+        //Health Check
+        if(currentHealth <= 0)
+        {
+            //  Activate Ragdoll
+            GetComponent<Ragdoll>().RagdollOn = true;
+        }
+
         //If Zombie in range
         if(Vector3.Distance(transform.position, player_obj.transform.position) < 10.50f)
         {

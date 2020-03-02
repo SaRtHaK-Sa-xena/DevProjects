@@ -13,7 +13,7 @@ using UnityEngine;
 /// </summary>
 public class PlayerControl : MonoBehaviour
 {
-    
+
     [SerializeField]
     private float speed = 5f;
 
@@ -53,5 +53,9 @@ public class PlayerControl : MonoBehaviour
 
         //Call rotate
         //engine.RotateCamera(cameraRotation);
+    }
+
+    private void LateUpdate()
+    {
     }
 }
