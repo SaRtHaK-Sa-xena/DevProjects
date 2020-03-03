@@ -35,8 +35,7 @@ public class shoot : MonoBehaviour
         // if LEFT MOUSE pressed
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
-            firedProjectile();
-            Debug.Log("Shot!");
+            shootGun();
         }
 
         Debug.DrawRay(gunPoint.position, gunPoint.forward * 10.0f, Color.green);
@@ -102,6 +101,9 @@ public class shoot : MonoBehaviour
                 //  Transform
                 ParticleSystem.transform.GetChild(0).transform.position = contactPoint;
 
+                ParticleSystem.GetComponent<destroyParticle>().PostShot(firedRayCast);
+
+                firedRayCast.collider.gameObject.GetComponentInParent<Zombie>().AfterEachShot(firedRayCast);
                 //============Spawn Particle==================
             }
         }

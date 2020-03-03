@@ -35,6 +35,8 @@ public class Zombie : MonoBehaviour
     //==========Health=================
 
 
+    private RaycastHit raycastUsed;
+
     //[SerializeField]
     public Transform newPosition;
 
@@ -76,11 +78,19 @@ public class Zombie : MonoBehaviour
         body.velocity = pushDir * pushPower;
     }
 
+    public void AfterEachShot(RaycastHit rayInfo)
+    {
+        raycastUsed = rayInfo;
+    }
+
     public void makeDecision()
     {
         //Health Check
         if(currentHealth <= 0)
         {
+            //Add force of 100
+            raycastUsed.collider.gameObject.GetComponentInParent<Rigidbody>().AddForce(-raycastUsed.normal * 100f);
+
             //  Activate Ragdoll
             GetComponent<Ragdoll>().RagdollOn = true;
         }
