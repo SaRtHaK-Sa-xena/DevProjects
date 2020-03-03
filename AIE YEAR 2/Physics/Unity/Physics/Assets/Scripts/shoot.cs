@@ -214,11 +214,11 @@ public class shoot : MonoBehaviour
         if (raycast.collider.gameObject.name == "Head")
         {
             //Apply Max Damage
-            raycast.collider.gameObject.GetComponentInParent<Zombie>().modifyHealth(-50);
+            raycast.collider.gameObject.GetComponentInParent<Zombie>().modifyHealth(-10);
         }
         else
         {
-            raycast.collider.gameObject.GetComponentInParent<Zombie>().modifyHealth(-10);
+            raycast.collider.gameObject.GetComponentInParent<Zombie>().modifyHealth(-1);
         }
     }
 }
