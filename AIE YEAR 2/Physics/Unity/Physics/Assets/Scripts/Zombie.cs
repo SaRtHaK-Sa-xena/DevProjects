@@ -16,7 +16,7 @@ public class Zombie : MonoBehaviour
     Animator animator = null;
 
     //gets set by the zombie manager script
-    public float speed;
+    public float speedEnemyTravellingAt;
     public float pushPower = 2.0f;
 
     //==========Health=================
@@ -53,14 +53,16 @@ public class Zombie : MonoBehaviour
         //Store Player Info in player_obj
         player_obj = GameObject.Find("Player");
 
-        //Set Where to go
+        //  Set Where to go
         transform.LookAt(newPosition);
-        //transform.position = Vector3.MoveTowards(transform.position, newPosition.position, Time.deltaTime);
-        animator.SetFloat("Speed", speed * Time.deltaTime);
-        //animator.SetFloat("Speed", vertical * speed * Time.deltaTime);
+        //  Set Speed 
+        animator.SetFloat("Speed", speedEnemyTravellingAt * Time.fixedDeltaTime);
 
         // Make Decision
         makeDecision();
+
+        //transform.position = Vector3.MoveTowards(transform.position, newPosition.position, Time.deltaTime);
+        //animator.SetFloat("Speed", vertical * speed * Time.deltaTime);
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
