@@ -35,6 +35,13 @@ public class Zombie : MonoBehaviour
     //==========Health=================
 
 
+    //  Check if zombie dead
+    bool isAlive = true;
+
+    //  Time To Despawn
+    float despawnTime = 10;
+
+    // Last RayCast Used
     private RaycastHit raycastUsed;
 
     //[SerializeField]
@@ -52,16 +59,33 @@ public class Zombie : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Store Player Info in player_obj
-        player_obj = GameObject.Find("Player");
 
-        //  Set Where to go
-        transform.LookAt(newPosition);
-        //  Set Speed 
-        animator.SetFloat("Speed", speedEnemyTravellingAt * Time.fixedDeltaTime);
+        if (isAlive)
+        {
+            //Store Player Info in player_obj
+            player_obj = GameObject.Find("Player");
 
-        // Make Decision
-        makeDecision();
+            //  Set Where to go
+            transform.LookAt(newPosition);
+            //  Set Speed 
+            animator.SetFloat("Speed", speedEnemyTravellingAt * Time.fixedDeltaTime);
+
+            // Make Decision
+            makeDecision();
+        }
+        else
+        {
+            //  Decrement time
+            despawnTime = despawnTime - Time.fixedDeltaTime;
+
+            //  If Timer less than zero
+            if(despawnTime <= 0)
+            {
+                //  Destroy Zombie
+                Destroy(gameObject);
+            }
+        }
+
 
         //transform.position = Vector3.MoveTowards(transform.position, newPosition.position, Time.deltaTime);
         //animator.SetFloat("Speed", vertical * speed * Time.deltaTime);
@@ -78,6 +102,7 @@ public class Zombie : MonoBehaviour
         body.velocity = pushDir * pushPower;
     }
 
+    // Assign raycast info, and store
     public void AfterEachShot(RaycastHit rayInfo)
     {
         raycastUsed = rayInfo;
@@ -88,11 +113,14 @@ public class Zombie : MonoBehaviour
         //Health Check
         if(currentHealth <= 0)
         {
-            //Add force of 100
+            //  Add force of 100
             raycastUsed.collider.gameObject.GetComponentInParent<Rigidbody>().AddForce(-raycastUsed.normal * 100f);
 
             //  Activate Ragdoll
             GetComponent<Ragdoll>().RagdollOn = true;
+
+            //  Set Zombie to dead in script
+            isAlive = false;
         }
 
         //If Zombie in range

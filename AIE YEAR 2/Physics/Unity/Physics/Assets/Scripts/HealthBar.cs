@@ -23,17 +23,21 @@ public class HealthBar : MonoBehaviour
 
     private IEnumerator ChangeToPct(float pct)
     {
-        float preChangePct = healthBar.fillAmount;
-        float elapsed = 0f;
-
-        while(elapsed < updateSpeedSeconds)
+        Image Health = healthBar;
+        if(Health)
         {
-            elapsed += Time.deltaTime;
-            healthBar.fillAmount = Mathf.Lerp(preChangePct, pct, elapsed / updateSpeedSeconds);
-            yield return null;
-        }
+            float preChangePct = healthBar.fillAmount;
+            float elapsed = 0f;
 
-        healthBar.fillAmount = pct;
+            while (elapsed < updateSpeedSeconds)
+            {
+                elapsed += Time.deltaTime;
+                healthBar.fillAmount = Mathf.Lerp(preChangePct, pct, elapsed / updateSpeedSeconds);
+                yield return null;
+            }
+
+            healthBar.fillAmount = pct;
+        }
     }
 
     // Update is called once per frame
@@ -42,6 +46,16 @@ public class HealthBar : MonoBehaviour
         if(healthBar.fillAmount <= 0)
         {
             Destroy(this.gameObject);
+        }
+    }
+
+    // On Destroy
+    private void OnDestroy()
+    {
+        // if not null
+        if(this)
+        {
+            GetComponentInParent<Zombie>().OnHealthPctChanged -= HandleHealthChanged;
         }
     }
 }
