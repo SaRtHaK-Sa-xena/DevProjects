@@ -42,6 +42,9 @@ public class shoot : MonoBehaviour
         RaycastHit firedRayCast;
         GameObject ParticleSystem = Instantiate(particle, particle_Point.transform);
         ParticleSystem.transform.SetParent(null);
+
+
+
         //  if raycast successfull
         if (Physics.Raycast(gunPoint.transform.position, gunPoint.transform.forward, out firedRayCast, 8))
         {

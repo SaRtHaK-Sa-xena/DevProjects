@@ -36,7 +36,7 @@ public class Zombie : MonoBehaviour
 
 
     //  Check if zombie dead
-    bool isAlive = true;
+    public bool isAlive = true;
 
     //  Time To Despawn
     float despawnTime = 10;
@@ -93,6 +93,9 @@ public class Zombie : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
+
+
+        //PushBack
         Rigidbody body = hit.collider.attachedRigidbody;
         if (body == null || body.isKinematic)
             return;
@@ -123,17 +126,6 @@ public class Zombie : MonoBehaviour
             isAlive = false;
         }
 
-        //If Zombie in range
-        if(Vector3.Distance(transform.position, player_obj.transform.position) < 10.50f)
-        {
-            //start to move towards player otherwise
-
-        }
-
-        //Finds Player then sets new position to player position
-
-
-        //getting up Animation
         //https://www.mixamo.com/#/?page=1&query=getting+up&type=Motion%2CMotionPack
     }
 }

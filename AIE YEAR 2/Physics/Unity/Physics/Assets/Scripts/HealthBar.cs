@@ -13,7 +13,14 @@ public class HealthBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponentInParent<Zombie>().OnHealthPctChanged += HandleHealthChanged;
+        if(gameObject.transform.parent.CompareTag("Enemy"))
+        {
+            GetComponentInParent<Zombie>().OnHealthPctChanged += HandleHealthChanged;
+        }
+        if(gameObject.transform.parent.CompareTag("Player"))
+        {
+            GetComponentInParent<PlayerHealth>().OnHealthPctChanged += HandleHealthChanged;
+        }
     }
 
     private void HandleHealthChanged(float pct)
@@ -55,7 +62,17 @@ public class HealthBar : MonoBehaviour
         // if not null
         if(this)
         {
-            GetComponentInParent<Zombie>().OnHealthPctChanged -= HandleHealthChanged;
+            //Enemy
+            if (gameObject.transform.parent.CompareTag("Enemy"))
+            {
+                GetComponentInParent<Zombie>().OnHealthPctChanged -= HandleHealthChanged;
+            }
+            
+            //Player
+            if (gameObject.transform.parent.CompareTag("MainCamera"))
+            {
+                GetComponentInParent<PlayerHealth>().OnHealthPctChanged -= HandleHealthChanged;
+            }
         }
     }
 }
