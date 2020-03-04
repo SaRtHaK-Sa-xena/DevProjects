@@ -20,33 +20,7 @@ public class shoot : MonoBehaviour
     //set picking up to true
     private bool pickup = false;
 
-    private Vector3 mOffset;
-    private float mZCoord;
-
-    private void OnMouseDown()
-    {
-        mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
-
-        //Store offset = gameobject world pos - mouse world pos
-        mOffset = gameObject.transform.position - GetMouseWorldPos();
-    }
-
-    private Vector3 GetMouseWorldPos()
-    {
-        //  pixel coordinates (x,y)
-        Vector3 mousePOint = Input.mousePosition;
-
-        //  z coordinate of game object on screen
-        mousePOint.z = mZCoord;
-
-        return Camera.main.ScreenToWorldPoint(mousePOint);
-
-    }
-
-    private void OnMouseDrag()
-    {
-        transform.position = GetMouseWorldPos() + mOffset;
-    }
+    
 
     // Update is called once per frame
     void Update()

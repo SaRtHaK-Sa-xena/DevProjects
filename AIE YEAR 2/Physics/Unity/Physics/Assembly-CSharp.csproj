@@ -62,10 +62,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\collisionManager.cs" />
     <Compile Include="Assets\GameManager.cs" />
-    <Compile Include="Assets\liftManager.cs" />
-    <Compile Include="Assets\PlayerHealth.cs" />
+    <Compile Include="Assets\Scripts\collisionManager.cs" />
     <Compile Include="Assets\Scripts\destroyParticle.cs" />
     <Compile Include="Assets\Scripts\Example_phy\CannonBall.cs" />
     <Compile Include="Assets\Scripts\Example_phy\PhysicsObject.cs" />
@@ -74,14 +72,16 @@
     <Compile Include="Assets\Scripts\Example_phy\PlayerEngine.cs" />
     <Compile Include="Assets\Scripts\Example_phy\RagdollTrigger.cs" />
     <Compile Include="Assets\Scripts\HealthBar.cs" />
+    <Compile Include="Assets\Scripts\liftManager.cs" />
     <Compile Include="Assets\Scripts\PickUpObject.cs" />
+    <Compile Include="Assets\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Scripts\Ragdoll.cs" />
     <Compile Include="Assets\Scripts\shoot.cs" />
     <Compile Include="Assets\Scripts\tpsCamera.cs" />
     <Compile Include="Assets\Scripts\tpsController.cs" />
     <Compile Include="Assets\Scripts\trapSelection.cs" />
+    <Compile Include="Assets\Scripts\wreckingBall.cs" />
     <Compile Include="Assets\Scripts\Zombie.cs" />
-    <Compile Include="Assets\wreckingBall.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
