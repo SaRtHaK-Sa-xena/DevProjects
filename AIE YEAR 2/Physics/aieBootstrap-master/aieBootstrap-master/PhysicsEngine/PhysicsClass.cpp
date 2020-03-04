@@ -243,8 +243,6 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 				sphere1->setPlaceable(false);
 				
 				// set colour to red
-				//std::cout << "Setting Placeable To False" << std::endl;
-				//std::cout << "[fn] X:" << sphere1->getPosition().x << " Y: " << sphere1->getPosition().y << std::endl;
 			}
 			if (sphere2->isThisStriker() && sphere2->isitStartTurn())
 			{
@@ -252,8 +250,6 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 				sphere2->setPlaceable(false);
 
 				// set colour to red
-				//std::cout << "Setting Placeable To False" << std::endl;
-				//std::cout << "[fn] X:" << sphere1->getPosition().x << " Y: " << sphere1->getPosition().y << std::endl;
 			}
 
 
@@ -322,15 +318,11 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 			{
 				//	can't be placed or aimed
 				sphere1->setPlaceable(true);
-				std::cout << "Setting Placeable To True" << std::endl;
-				std::cout << "[fn] X:" << sphere1->getPosition().x << " Y: " << sphere1->getPosition().y << std::endl;
 			}
 			if (sphere2->isThisStriker() && sphere2->isitStartTurn())
 			{
 				//can't be placed or aimed
 				sphere2->setPlaceable(true);
-				std::cout << "Setting Placeable To True" << std::endl;
-				std::cout << "[fn] X:" << sphere1->getPosition().x << " Y: " << sphere1->getPosition().y << std::endl;
 			}
 		}
 		
