@@ -21,5 +21,7 @@ public class GameManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
+
+        //GameObject[] listOfEnemies = GameObject.FindGameObjectsWithTag("")
     }
 }
