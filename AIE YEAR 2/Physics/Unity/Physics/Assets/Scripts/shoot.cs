@@ -17,10 +17,35 @@ public class shoot : MonoBehaviour
     private Vector3 EnemiesPositionAfterwards_distance;
     private float bullet_velocity = 10.0f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    //set picking up to true
+    private bool pickup = false;
 
+    private Vector3 mOffset;
+    private float mZCoord;
+
+    private void OnMouseDown()
+    {
+        mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
+
+        //Store offset = gameobject world pos - mouse world pos
+        mOffset = gameObject.transform.position - GetMouseWorldPos();
+    }
+
+    private Vector3 GetMouseWorldPos()
+    {
+        //  pixel coordinates (x,y)
+        Vector3 mousePOint = Input.mousePosition;
+
+        //  z coordinate of game object on screen
+        mousePOint.z = mZCoord;
+
+        return Camera.main.ScreenToWorldPoint(mousePOint);
+
+    }
+
+    private void OnMouseDrag()
+    {
+        transform.position = GetMouseWorldPos() + mOffset;
     }
 
     // Update is called once per frame
@@ -29,13 +54,14 @@ public class shoot : MonoBehaviour
         // if LEFT MOUSE pressed
         if(Input.GetButtonDown("Fire1"))
         {
-            //  Shoot Gun
-            shootGun();
+           //  Shoot Gun
+           shootGun();
         }
 
         Debug.DrawRay(gunPoint.position, gunPoint.forward * 10.0f, Color.green);
     }
 
+    //  Cast Ray Functions
     public void shootGun()
     {
         //  instantiate raycast
@@ -45,7 +71,7 @@ public class shoot : MonoBehaviour
 
 
 
-        //  if raycast successfull
+        //  if raycast hit successful
         if (Physics.Raycast(gunPoint.transform.position, gunPoint.transform.forward, out firedRayCast, 8))
         {
             //  Point of contact
@@ -67,9 +93,17 @@ public class shoot : MonoBehaviour
                 firedRayCast.collider.gameObject.GetComponentInParent<Zombie>().AfterEachShot(firedRayCast);
                 //============Spawn Particle==================
             }
+
+            //  if raycast hits interactable button
+            if(firedRayCast.collider.gameObject.CompareTag("Button"))
+            {
+                //  Activate Lift
+                firedRayCast.collider.gameObject.GetComponentInParent<liftManager>().liftControls(firedRayCast);
+            }
         }
     }
 
+    //  Checks Damage Depending On Position Of Raycasted Impact
     public void checkDamage(RaycastHit raycast)
     {
         //  Head

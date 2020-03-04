@@ -20,6 +20,8 @@ public class tpsCamera : MonoBehaviour
     
     void start() { }
 
+
+
     void Update()
     {
         player_pref = GameObject.Find("Player");
