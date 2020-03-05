@@ -3,7 +3,7 @@
 #include <math.h>
 #include <iostream>
 
-const float MIN_LINEAR_THRESHOLD = 0.1f;
+const float MIN_LINEAR_THRESHOLD = 0.8f;
 const float MIN_ROTATION_THRESHOLD = 0.001f;
 
 RigidBodyClass::RigidBodyClass(ShapeType shapeID, glm::vec2 position, glm::vec2 velocity, float rotation, float mass, float elasticity, float angularVelocity, float moment) : PhysicsObject(shapeID), m_position(position), m_velocity(velocity), m_rotation(rotation), m_mass(mass), m_elasticity(elasticity), m_angularVelocity(angularVelocity), m_moment(moment)

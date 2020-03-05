@@ -61,6 +61,8 @@ public:
 
 	//bottom
 	SphereClass* sphereInner8 = new SphereClass(glm::vec2(-10, -60), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
+	//SphereClass* sphereInner8 = new SphereClass(glm::vec2(-10, -60), glm::vec2(10, -50), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
+	//SphereClass* sphereInner8 = new SphereClass(glm::vec2(-2,-150), glm::vec2(-100, -50), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
 
 	AABBClass* box1;
 

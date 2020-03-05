@@ -285,6 +285,7 @@ bool PhysicsEngineApp::startup() {
 	m_physicsScene->addActor(midRightObs);
 	//Obstacles=========================
 	
+
 	#pragma endregion GameSetup
 
 	return true;
@@ -355,16 +356,22 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 	#pragma region GameBuilding
 
+	//std::cout << "Position X: " << sphereInner8->getPosition().x << " Y: " << sphereInner8->getPosition().y << std::endl;
+	if (sphere->ifStreak())
+	{
+		std::cout << "Streak set to true " << std::endl;
+	}
+	else
+	{
+		std::cout << "Streak set to false " << std::endl;
+	}
+
 	/*std::cout << "-----DATA OUT------" << std::endl;
 	std::cout << "-------------------" << std::endl;
 	if (sphere->returnPlayerTurn())
 		std::cout << "-----Player Turn 1-----" << std::endl;
 	else
 		std::cout << "-----Player Turn 2-----" << std::endl;
-	if (playerTurnActivated)
-		std::cout << "Player (CAN) Move The Striker" << std::endl;
-	if (playerTurnActivated == false)
-		std::cout << "Player (CAN NOT) Move The Striker" << std::endl;
 	std::cout << "-------------------" << std::endl;
 	std::cout << std::endl;*/
 	
@@ -526,32 +533,32 @@ void PhysicsEngineApp::startPhase()
 					//set striker's collision on
 					sphere->setCollision(true);
 
-					// Condition to set for
-					bool condition;
+					//// Condition to set for
+					//bool condition;
 
-					//if there is no streak then switch turns
-					if (sphere->ifStreak() == false)
-					{
-						//	set Player Turn
-						if (sphere->returnPlayerTurn())
-						{
-							//	set it to 'PLAYER 2'
-							condition = false;
-							for (int i = 0; i < CoinsInScene.size(); i++)
-							{
-								CoinsInScene[i]->setPlayerTurn(condition);
-							}
-						}
-						else
-						{
-							//	set it to 'PLAYER 2'
-							condition = true;
-							for (int i = 0; i < CoinsInScene.size(); i++)
-							{
-								CoinsInScene[i]->setPlayerTurn(condition);
-							}
-						}
-					}
+					////if there is no streak then switch turns
+					//if (sphere->ifStreak() == false)
+					//{
+					//	//	set Player Turn
+					//	if (sphere->returnPlayerTurn())
+					//	{
+					//		//	set it to 'PLAYER 2'
+					//		condition = false;
+					//		for (int i = 0; i < CoinsInScene.size(); i++)
+					//		{
+					//			CoinsInScene[i]->setPlayerTurn(condition);
+					//		}
+					//	}
+					//	else
+					//	{
+					//		//	set it to 'PLAYER 2'
+					//		condition = true;
+					//		for (int i = 0; i < CoinsInScene.size(); i++)
+					//		{
+					//			CoinsInScene[i]->setPlayerTurn(condition);
+					//		}
+					//	}
+					//}
 				}
 			}
 		}
@@ -589,32 +596,32 @@ void PhysicsEngineApp::startPhase()
 					//	set player in StartTurn to false
 					sphere->setStartTurn(false);
 
-					// Condition to set for striker
-					bool condition;
-					
-					//if there is no streak then switch turns
-					if (sphere->ifStreak() == false)
-					{
-						//	set Player Turn
-						if (sphere->returnPlayerTurn())
-						{
-							//	set it to 'PLAYER 2'
-							condition = false;
-							for (int i = 0; i < CoinsInScene.size(); i++)
-							{
-								CoinsInScene[i]->setPlayerTurn(condition);
-							}
-						}
-						else
-						{
-							//	set it to 'PLAYER 2'
-							condition = true;
-							for (int i = 0; i < CoinsInScene.size(); i++)
-							{
-								CoinsInScene[i]->setPlayerTurn(condition);
-							}
-						}
-					}
+					//// Condition to set for striker
+					//bool condition;
+					//
+					////if there is no streak then switch turns
+					//if (sphere->ifStreak() == false)
+					//{
+					//	//	set Player Turn
+					//	if (sphere->returnPlayerTurn())
+					//	{
+					//		//	set it to 'PLAYER 2'
+					//		condition = false;
+					//		for (int i = 0; i < CoinsInScene.size(); i++)
+					//		{
+					//			CoinsInScene[i]->setPlayerTurn(condition);
+					//		}
+					//	}
+					//	else
+					//	{
+					//		//	set it to 'PLAYER 2'
+					//		condition = true;
+					//		for (int i = 0; i < CoinsInScene.size(); i++)
+					//		{
+					//			CoinsInScene[i]->setPlayerTurn(condition);
+					//		}
+					//	}
+					//}
 				}
 			}
 		}
@@ -645,6 +652,9 @@ void PhysicsEngineApp::startPhase()
 
 	//	Checks If Pieces On Board Are Touching Play Area
 	setFoulPieces(CoinsInScene);
+	
+	//	set streak off
+	sphere->setStreak(false);
 }
 
 void PhysicsEngineApp::gamePhase()
@@ -679,6 +689,9 @@ void PhysicsEngineApp::gamePhase()
 				CoinsInScene[i]->setFoul(false);
 			}
 		}
+
+		//	don't reset unless changed through functionality
+		sphere->resetFoulPieces(false);
 	}
 	#pragma endregion Checks If Foul Has Occured
 
@@ -786,6 +799,34 @@ void PhysicsEngineApp::gamePhase()
 		
 		//	set player in StartTurn to true
 		sphere->setStartTurn(true);
+
+		// Change Turn Basis--------------------
+		// Condition to set for striker
+		bool condition;
+
+		//if there is no streak then switch turns
+		if (sphere->ifStreak() == false)
+		{
+			//	set Player Turn
+			if (sphere->returnPlayerTurn())
+			{
+				//	set it to 'PLAYER 2'
+				condition = false;
+				for (int i = 0; i < CoinsInScene.size(); i++)
+				{
+					CoinsInScene[i]->setPlayerTurn(condition);
+				}
+			}
+			else
+			{
+				//	set it to 'PLAYER 2'
+				condition = true;
+				for (int i = 0; i < CoinsInScene.size(); i++)
+				{
+					CoinsInScene[i]->setPlayerTurn(condition);
+				}
+			}
+		}
 	}
 	#pragma endregion Checks if pieces have stopped moving
 }
@@ -937,13 +978,24 @@ void setFoulPieces(std::vector <SphereClass*> arrayOfPieces)
 		{
 			//continue search
 			//	if in play area, or touching play area
-			if (arrayOfPieces[i]->getPosition().y > -245 && arrayOfPieces[i]->getPosition().y < -235)
+
+			//	Check against y value		>>>less than the top				>>>greater than the bottom
+			if (arrayOfPieces[i]->getPosition().y < -190 && arrayOfPieces[i]->getPosition().y > -290)
 			{
-				//found by testing y position
-				//	sets it to foul
-				arrayOfPieces[i]->setFoul(true);
-				std::cout << "Piece set to false" << std::endl;
+				//	Check against x value				right								    left
+				if (arrayOfPieces[i]->getPosition().x < 300 && arrayOfPieces[i]->getPosition().x > -280)
+				{
+					//found by testing y position
+					//	sets it to foul
+					arrayOfPieces[i]->setFoul(true);
+				}
+					
 			}
+			//else
+			//{
+			//	//	set it back to false
+			//	arrayOfPieces[i]->setFoul(false);
+			//}
 		}
 	}
 }

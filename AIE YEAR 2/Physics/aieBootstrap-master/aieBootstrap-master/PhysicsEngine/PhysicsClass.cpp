@@ -191,7 +191,7 @@ bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 			if (sphere->isThisStriker())
 			{
 				sphere->resetFoulPieces(true);
-				sphere->setStreak(true);
+				//sphere->setStreak(true);
 			}
 
 			glm::vec2 contact = sphere->getPosition() + (collisionNormal * -sphere->getRadius());
@@ -275,30 +275,48 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 				//	Turn Streak On 
 				//	To Maintain Player x's turn
 				if (sphere1->isThisStriker())
-					if (sphere1->returnPlayerTurn())
+				{
+					sphere1->setStreak(true);
+					/*if (sphere1->returnPlayerTurn())
+					{
 						sphere1->setPlayerTurn(true);
+					}
 					else
+					{
 						sphere1->setPlayerTurn(false);
+					}*/
+				}
 				if (sphere2->isThisStriker())
-					if (sphere2->returnPlayerTurn())
+				{
+					sphere2->setStreak(true);
+					/*if (sphere2->returnPlayerTurn())
+					{
 						sphere2->setPlayerTurn(true);
+					}
 					else
+					{
 						sphere2->setPlayerTurn(false);
+					}*/
+				}
 				return true;
 			}
 			else
 			{
-				if (sphere1->isThisStriker())
+				if (sphere1->isThisStriker() && !sphere2->isFoul())
 				{
 					// Let Striker Hold Condition To Reset Foul
 					sphere1->resetFoulPieces(true);
 					sphere1->setStreak(false);
+					sphere1->setPlayerTurn(false);
 				}
-				if (sphere2->isThisStriker())
+
+
+				if (sphere2->isThisStriker() && !sphere1->isFoul())
 				{
 					// Let Striker Hold Condition To Reset Foul
 					sphere2->resetFoulPieces(true);
 					sphere2->setStreak(false);
+					sphere2->setPlayerTurn(true);
 				}
 			}
 
