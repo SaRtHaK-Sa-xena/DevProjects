@@ -25,7 +25,9 @@ public:
 	//	game turn
 	void gamePhase();
 
-	void selectPhase();
+	//	displayed after 
+	//	either player wins
+	void winPhase();
 
 	//	physics scene
 	PhysicsScene* m_physicsScene;
@@ -119,8 +121,8 @@ protected:
 	std::vector<SphereClass*> CoinsInScene;
 
 	//Score Tracker for players
-	int ScorePlayer1;
-	int ScorePlayer2;
+	int ScorePlayer1 = 0;
+	int ScorePlayer2 = 0;
 
 	//	bool to track if line will be displayed red
 	//	during Draw Function

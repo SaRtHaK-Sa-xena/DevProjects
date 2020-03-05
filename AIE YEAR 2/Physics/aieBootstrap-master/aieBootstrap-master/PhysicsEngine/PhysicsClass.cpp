@@ -307,7 +307,7 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 					// Let Striker Hold Condition To Reset Foul
 					sphere1->resetFoulPieces(true);
 					sphere1->setStreak(false);
-					sphere1->setPlayerTurn(false);
+					//sphere1->setPlayerTurn(false);
 				}
 
 
@@ -316,7 +316,7 @@ bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 					// Let Striker Hold Condition To Reset Foul
 					sphere2->resetFoulPieces(true);
 					sphere2->setStreak(false);
-					sphere2->setPlayerTurn(true);
+					//sphere2->setPlayerTurn(true);
 				}
 			}
 
