@@ -134,3 +134,4 @@ protected:
 };
 
 void setFoulPieces(std::vector<SphereClass*> arrayOfPieces);
+void clearCoins(PhysicsScene* currentScene, std::vector<SphereClass*> arrayOfPieces);

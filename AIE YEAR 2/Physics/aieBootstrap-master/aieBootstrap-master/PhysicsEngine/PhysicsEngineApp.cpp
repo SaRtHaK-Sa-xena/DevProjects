@@ -369,15 +369,25 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 	//std::cout << "Position X: " << sphereInner8->getPosition().x << " Y: " << sphereInner8->getPosition().y << std::endl;
 
-	std::cout << "-----DATA OUT------" << std::endl;
-	std::cout << "-------------------" << std::endl;
-	if (sphere->returnPlayerTurn())
-		std::cout << "-----Player Turn 1-----" << std::endl;
-	else
-		std::cout << "-----Player Turn 2-----" << std::endl;
-	std::cout << "-------------------" << std::endl;
-	std::cout << std::endl;
-	
+	//std::cout << "-----DATA OUT------" << std::endl;
+	//std::cout << "-------------------" << std::endl;
+	//if (sphere->returnPlayerTurn())
+	//	std::cout << "-----Player Turn 1-----" << std::endl;
+	//else
+	//	std::cout << "-----Player Turn 2-----" << std::endl;
+	//std::cout << "-------------------" << std::endl;
+	//std::cout << std::endl;
+	//
+	////	Check if player won
+	//if (player1_winScreen)
+	//{
+	//	std::cout << "Player 1 Wins" << std::endl;
+	//}
+	//if (player2_winScreen)
+	//{
+	//	std::cout << "Player 2 Wins" << std::endl;
+	//}
+
 	#pragma endregion GameBuilding Debug Log
 	
 }
@@ -581,6 +591,9 @@ void PhysicsEngineApp::gamePhase()
 	{
 		// Player 2 Wins
 		player2_winScreen = true;
+
+		//	Clear all coins
+		clearCoins(m_physicsScene, CoinsInScene);
 	}
 	
 	// If Player2 Score plus all pieces on board
@@ -589,6 +602,9 @@ void PhysicsEngineApp::gamePhase()
 	{
 		//Player 1 Wins
 		player1_winScreen = true;
+
+		//	Clear all coins
+		clearCoins(m_physicsScene, CoinsInScene);
 	}
 
 	//minus 1 to ignore striker
@@ -598,11 +614,17 @@ void PhysicsEngineApp::gamePhase()
 		{
 			//Display Player 1 Wins
 			player1_winScreen = true;
+
+			//	Clear all coins
+			clearCoins(m_physicsScene, CoinsInScene);
 		}
 		else if(ScorePlayer2 > ScorePlayer1)
 		{
 			//Display Player 2 Wins
 			player2_winScreen = true;
+
+			//	Clear all coins
+			clearCoins(m_physicsScene, CoinsInScene);
 		}
 	}
 	#pragma endregion Tallies Score and Checks if Game Ended
@@ -829,22 +851,22 @@ void PhysicsEngineApp::draw() {
 	//Win Condition
 	//	Draws Win Screen For Respective Player
 	if (player1_winScreen) {
-		m_2dRenderer->drawText(m_font, "Player 1 WINS", getWindowWidth() / 2, getWindowHeight() / 2);
-		m_2dRenderer->drawText(m_font, "Press R to reset", getWindowWidth() / 2, getWindowHeight() / 2 - 100);
+		m_2dRenderer->drawText(m_font, "Player 1 WINS", 0, 0);
+		m_2dRenderer->drawText(m_font, "Press R to reset", 0, -100);
 	}
 	if (player2_winScreen) {
-		m_2dRenderer->drawText(m_font, "Player 2 WINS", getWindowWidth() / 2, getWindowHeight() / 2);
-		m_2dRenderer->drawText(m_font, "Press R to reset", getWindowWidth() / 2, getWindowHeight() / 2 - 100);
+		m_2dRenderer->drawText(m_font, "Player 2 WINS", 0,0);
+		m_2dRenderer->drawText(m_font, "Press R to reset", 0, -100);
 	}
 	
+	//	Create Background Texture
+	m_2dRenderer->drawSprite(m_backgroundTexture, 0, 0, getWindowWidth(), getWindowHeight());
+
 	//	If any player has not won 
 	//	only then draw
 	//	otherwise don't draw at all
-	if (player1_winScreen == false || player2_winScreen == false)
+	if (player1_winScreen == false && player2_winScreen == false)
 	{
-		//	Create Background Texture
-		m_2dRenderer->drawSprite(m_backgroundTexture, 0, 0, getWindowWidth(), getWindowHeight());
-
 		//Draw White Coins
 		for (int i = 0; i < CoinsInScene.size(); i++)
 		{
@@ -907,7 +929,6 @@ void PhysicsEngineApp::draw() {
 
 		m_2dRenderer->setRenderColour(0, 0, 1);
 
-
 		// draw output text Player1  Score
 		char Var_player1[256];
 		sprintf(Var_player1, "Player1 Score: %d", ScorePlayer1);
@@ -920,21 +941,21 @@ void PhysicsEngineApp::draw() {
 
 		// output some text, uses the last used colour
 		m_2dRenderer->drawText(m_font, Var_player1, 18, 685);
-
-		// done drawing sprites	
-		m_2dRenderer->end();
-
-
-		// begin drawing Gizmos
-		m_2dRendererGizmos->begin();
-
-		static float aspectRatio = 16 / 9.f;
-		aie::Gizmos::draw2D(glm::ortho<float>(-450, 450,
-			-800 / aspectRatio, 800 / aspectRatio, -1.0f, 1.0f));
-
-
-		m_2dRendererGizmos->end();
 	}
+
+	// done drawing sprites	
+	m_2dRenderer->end();
+
+
+	// begin drawing Gizmos
+	m_2dRendererGizmos->begin();
+
+	static float aspectRatio = 16 / 9.f;
+	aie::Gizmos::draw2D(glm::ortho<float>(-450, 450,
+		-800 / aspectRatio, 800 / aspectRatio, -1.0f, 1.0f));
+
+
+	m_2dRendererGizmos->end();
 }
 
 //	Sets foul pieces depending on their position on the board
@@ -966,4 +987,62 @@ void setFoulPieces(std::vector <SphereClass*> arrayOfPieces)
 			}
 		}
 	}
+}
+
+//	Clears all coin gizmos on field
+void clearCoins(PhysicsScene* currentScene, std::vector<SphereClass*> arrayofPieces)
+{
+	//	iterate through all coins
+	//	then delete them
+	std::cout << "Before Coin Size: " << arrayofPieces.size() << std::endl;
+	for (int i = 0; i < arrayofPieces.size() + 1; i++)
+	{
+		if (i == arrayofPieces.size())
+		{
+			currentScene->removeActor(arrayofPieces[0]);
+		}
+		else
+		{
+			// remove actor
+			// then remove from list of coins
+			currentScene->removeActor(arrayofPieces[i]);
+		}
+	}
+
+	//Clear
+	arrayofPieces.clear();
+	std::cout << "After Coin Size: " << arrayofPieces.size() << std::endl;
+
+	//if (arrayofPieces.size() == i)
+		//{
+		//	currentScene->removeActor(arrayofPieces[0]);
+		//	arrayofPieces.pop_back();
+		//}
+		//else
+		//{
+		//	// remove actor in the scene
+		//	currentScene->removeActor(arrayofPieces[i]);
+
+		//	if (arrayofPieces.size() > 0)
+		//	{
+		//		// store value of last position
+		//		SphereClass* temp_value = arrayofPieces[arrayofPieces.size() - 1];
+
+		//		// make the last position hold value of the one to delete
+		//		arrayofPieces[arrayofPieces.size() - 1] = arrayofPieces[i];
+
+		//		// make that position equal to the last value that was stored
+		//		arrayofPieces[i] = temp_value;
+
+		//		// remove from list
+		//		arrayofPieces.pop_back();
+		//	}
+
+		//	std::cout << "After Coin Size: " << arrayofPieces.size() << std::endl;
+		//}
+		
+	//}
+
+	
+	
 }

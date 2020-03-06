@@ -41,6 +41,7 @@ void PhysicsScene::addActor(PhysicsObject* actor)
 void PhysicsScene::removeActor(PhysicsObject* actor)
 {
 	//	iterate through vector of actors
+	std::cout << "Actor Size: " << m_actors.size() << std::endl;
 	for (int i = 0; i < m_actors.size(); i++)
 	{
 		//	if the actor matches the current index vector
@@ -49,19 +50,20 @@ void PhysicsScene::removeActor(PhysicsObject* actor)
 		{
 			//start swapping to move the one to remove at the end
 			// temp equals last index in array
-			PhysicsObject* temp_actor = m_actors[m_actors.size()-1];
+			PhysicsObject* temp_actor = m_actors[m_actors.size() - 1];
 
 			//make last index actor equal to the designated actor to remove
-			m_actors[m_actors.size()-1] = actor;
-			
+			m_actors[m_actors.size() - 1] = actor;
+
 			//then make the last position stored equal to the current index 
 			m_actors[i] = temp_actor;
 
 			//then remove the last index
 			m_actors.pop_back();
-			
+
 			//then delete
 			delete actor;
+			std::cout << "After Actor Size: " << m_actors.size() << std::endl;
 			break;
 		}
 	}
