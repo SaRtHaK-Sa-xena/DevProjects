@@ -29,6 +29,9 @@ public:
 	//	either player wins
 	void winPhase();
 
+	//	Reset Pieces
+	void reset();
+
 	//	physics scene
 	PhysicsScene* m_physicsScene;
 
@@ -37,32 +40,7 @@ public:
 	// Being Used
 	//SphereClass* sphere;
 	
-	//Striker To be used
-	SphereClass* sphere = new SphereClass(glm::vec2(-10, -240), glm::vec2(0, 0), 2, (3.5*6), 0.6, 0, 1, glm::vec4(0, 0, 0, 0));
-
-	//Centre Sphere
-	SphereClass* centreSphere = new SphereClass(glm::vec2(-10, 5), glm::vec2(0, 0), 1, 3*6, 0.3, 0, 1, glm::vec4(1, 0, 0, 1));
-
-	//top_mid left and right
-	SphereClass* sphereInner1 = new SphereClass(glm::vec2(25, 35), glm::vec2(0, 0), 1, 3*6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
-	SphereClass* sphereInner2 = new SphereClass(glm::vec2(-45, 35), glm::vec2(0, 0), 1, 3*6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
-
-
-	//bottom_mid left and right
-	SphereClass* sphereInner3 = new SphereClass(glm::vec2(25, -35), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
-	SphereClass* sphereInner4 = new SphereClass(glm::vec2(-45, -35), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
-
-	//top
-	SphereClass* sphereInner5 = new SphereClass(glm::vec2(-10, 50), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
-
-	//right_mid
-	SphereClass* sphereInner6 = new SphereClass(glm::vec2(50, 0), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
-
-	//left_mid
-	SphereClass* sphereInner7 = new SphereClass(glm::vec2(-70, 0), glm::vec2(0, 0), 1, 3 *6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
-
-	//bottom
-	SphereClass* sphereInner8 = new SphereClass(glm::vec2(-10, -60), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
+	
 	//SphereClass* sphereInner8 = new SphereClass(glm::vec2(-10, -60), glm::vec2(10, -50), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
 	//SphereClass* sphereInner8 = new SphereClass(glm::vec2(-2,-150), glm::vec2(-100, -50), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
 
@@ -131,6 +109,34 @@ protected:
 
 	//	bool to track if the line will be drawn at max
 	bool maxLine = false;
+
+	//Striker To be used
+	SphereClass* sphere = new SphereClass(glm::vec2(-10, -240), glm::vec2(0, 0), 2, (3.5 * 6), 0.6, 0, 1, glm::vec4(0, 0, 0, 0));
+
+	//Centre Sphere
+	SphereClass * centreSphere = new SphereClass(glm::vec2(-10, 5), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(1, 0, 0, 1));
+
+	//top_mid left and right
+	SphereClass * sphereInner1 = new SphereClass(glm::vec2(25, 35), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass * sphereInner2 = new SphereClass(glm::vec2(-45, 35), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
+
+
+	//bottom_mid left and right
+	SphereClass * sphereInner3 = new SphereClass(glm::vec2(25, -35), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
+	SphereClass * sphereInner4 = new SphereClass(glm::vec2(-45, -35), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
+
+	//top
+	SphereClass * sphereInner5 = new SphereClass(glm::vec2(-10, 50), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
+
+	//right_mid
+	SphereClass * sphereInner6 = new SphereClass(glm::vec2(50, 0), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
+
+	//left_mid
+	SphereClass * sphereInner7 = new SphereClass(glm::vec2(-70, 0), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
+
+	//bottom
+	SphereClass * sphereInner8 = new SphereClass(glm::vec2(-10, -60), glm::vec2(0, 0), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
+
 };
 
 void setFoulPieces(std::vector<SphereClass*> arrayOfPieces);

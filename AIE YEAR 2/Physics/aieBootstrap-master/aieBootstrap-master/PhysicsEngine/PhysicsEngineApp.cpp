@@ -794,22 +794,21 @@ void PhysicsEngineApp::winPhase()
 			//Reset all initializations==========
 
 			//Striker Variable Setter
-			//m_physicsScene->addActor(sphere);
-			sphere->setThisToStriker();
-			sphere->setCollision(true);
-			sphere->setFoul(false);
-			sphere->setStartTurn(true);
+			m_physicsScene->addActor(sphere);
+			
+
+			
 
 			//Initialize For Coins In Centre=====
 			m_physicsScene->addActor(centreSphere);
 			m_physicsScene->addActor(sphereInner1);
 			m_physicsScene->addActor(sphereInner2);
-			m_physicsScene->addActor(sphereInner3);
+			/*m_physicsScene->addActor(sphereInner3);
 			m_physicsScene->addActor(sphereInner4);
 			m_physicsScene->addActor(sphereInner5);
 			m_physicsScene->addActor(sphereInner6);
 			m_physicsScene->addActor(sphereInner7);
-			m_physicsScene->addActor(sphereInner8);
+			m_physicsScene->addActor(sphereInner8);*/
 			//Initialize For Coins In Centre=====
 
 			//add to vector=====================
@@ -817,13 +816,31 @@ void PhysicsEngineApp::winPhase()
 			CoinsInScene.push_back(centreSphere);
 			CoinsInScene.push_back(sphereInner1);
 			CoinsInScene.push_back(sphereInner2);
-			CoinsInScene.push_back(sphereInner3);
+			/*CoinsInScene.push_back(sphereInner3);
 			CoinsInScene.push_back(sphereInner4);
 			CoinsInScene.push_back(sphereInner5);
 			CoinsInScene.push_back(sphereInner6);
 			CoinsInScene.push_back(sphereInner7);
-			CoinsInScene.push_back(sphereInner8);
+			CoinsInScene.push_back(sphereInner8);*/
 			//add to vector=====================
+
+			reset();
+
+			sphere->setThisToStriker();
+			sphere->setCollision(true);
+			sphere->setFoul(false);
+			sphere->setStartTurn(true);
+
+			sphere->movePosition(glm::vec2(-10, -240));
+			centreSphere->movePosition(glm::vec2(-10, 5));
+			sphereInner1->movePosition(glm::vec2(45, 35));
+			sphereInner2->movePosition(glm::vec2(-45, 35));
+			/*sphereInner3->setPosition(glm::vec2(25, -35));
+			sphereInner4->setPosition(glm::vec2(-45, -35));
+			sphereInner5->setPosition(glm::vec2(-10, 50));
+			sphereInner6->setPosition(glm::vec2(50, 0));
+			sphereInner7->setPosition(glm::vec2(-70, 0));
+			sphereInner8->setPosition(glm::vec2(-10, -60));*/
 		}
 	}
 }
@@ -955,6 +972,24 @@ void PhysicsEngineApp::draw() {
 	m_2dRendererGizmos->end();
 }
 
+void PhysicsEngineApp::reset()
+{
+	//sphere->setPlayerTurn(true);
+
+	// First Reset all float values to default
+	for (int i = 0; i < CoinsInScene.size(); i++)
+	{
+		CoinsInScene[i]->setVelocity(glm::vec2(0, 0));
+		CoinsInScene[i]->resetRotation();
+		CoinsInScene[i]->resetAngular();
+		CoinsInScene[i]->setCollision(true);
+		CoinsInScene[i]->setStreak(false);
+		CoinsInScene[i]->setFoul(false);
+		CoinsInScene[i]->setStartTurn(false);
+	}
+}
+
+
 //	Sets foul pieces depending on their position on the board
 void setFoulPieces(std::vector <SphereClass*> arrayOfPieces)
 {
@@ -1010,3 +1045,4 @@ void clearCoins(PhysicsScene* currentScene, std::vector<SphereClass*> arrayofPie
 	//Clear list of coins
 	arrayofPieces.clear();
 }
+

@@ -61,7 +61,7 @@ void PhysicsScene::removeActor(PhysicsObject* actor)
 			m_actors.pop_back();
 
 			//then delete
-			delete actor;
+			//delete actor;
 			break;
 		}
 	}
