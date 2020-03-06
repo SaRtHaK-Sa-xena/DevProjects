@@ -659,12 +659,6 @@ void PhysicsEngineApp::gamePhase()
 			//if it is the striker decrement score isntead of breaking out of this
 			if (CoinsInScene[i]->isThisStriker())
 			{
-				//if playerTurn == 'PLAYER 1'
-				if (playerTurn)
-					ScorePlayer1--;
-				else
-					ScorePlayer2--;
-
 				sphere->setStreak(true);
 				for (int i = 0; i < CoinsInScene.size(); i++)
 				{
@@ -846,21 +840,25 @@ void PhysicsEngineApp::draw() {
 	m_2dRenderer->setCameraPos(-450, -450);
 
 	// output some text, uses the last used colour
-	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
+	//m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
+
+	//	Create Background Texture
+	m_2dRenderer->drawSprite(m_backgroundTexture, 0, 0, getWindowWidth(), getWindowHeight());
 
 	//Win Condition
 	//	Draws Win Screen For Respective Player
 	if (player1_winScreen) {
-		m_2dRenderer->drawText(m_font, "Player 1 WINS", 0, 0);
-		m_2dRenderer->drawText(m_font, "Press R to reset", 0, -100);
+		m_2dRenderer->setRenderColour(0, 1, 0);
+		m_2dRenderer->drawText(m_font, "Player 1 WINS", -70, 300);
+		m_2dRenderer->drawText(m_font, "Press R to reset", -70, 200);
+		m_2dRenderer->setRenderColour(1, 1, 1);
 	}
 	if (player2_winScreen) {
-		m_2dRenderer->drawText(m_font, "Player 2 WINS", 0,0);
-		m_2dRenderer->drawText(m_font, "Press R to reset", 0, -100);
+		m_2dRenderer->setRenderColour(0, 1, 0);
+		m_2dRenderer->drawText(m_font, "Player 2 WINS", -70,300);
+		m_2dRenderer->drawText(m_font, "Press R to reset", -70, 200);
+		m_2dRenderer->setRenderColour(1, 1, 1);
 	}
-	
-	//	Create Background Texture
-	m_2dRenderer->drawSprite(m_backgroundTexture, 0, 0, getWindowWidth(), getWindowHeight());
 
 	//	If any player has not won 
 	//	only then draw
