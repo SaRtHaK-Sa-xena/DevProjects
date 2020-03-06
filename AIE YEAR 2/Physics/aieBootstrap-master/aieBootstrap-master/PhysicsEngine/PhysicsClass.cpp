@@ -41,7 +41,6 @@ void PhysicsScene::addActor(PhysicsObject* actor)
 void PhysicsScene::removeActor(PhysicsObject* actor)
 {
 	//	iterate through vector of actors
-	std::cout << "Actor Size: " << m_actors.size() << std::endl;
 	for (int i = 0; i < m_actors.size(); i++)
 	{
 		//	if the actor matches the current index vector
@@ -63,7 +62,6 @@ void PhysicsScene::removeActor(PhysicsObject* actor)
 
 			//then delete
 			delete actor;
-			std::cout << "After Actor Size: " << m_actors.size() << std::endl;
 			break;
 		}
 	}

@@ -954,7 +954,6 @@ void PhysicsEngineApp::draw() {
 	aie::Gizmos::draw2D(glm::ortho<float>(-450, 450,
 		-800 / aspectRatio, 800 / aspectRatio, -1.0f, 1.0f));
 
-
 	m_2dRendererGizmos->end();
 }
 
@@ -994,11 +993,12 @@ void clearCoins(PhysicsScene* currentScene, std::vector<SphereClass*> arrayofPie
 {
 	//	iterate through all coins
 	//	then delete them
-	std::cout << "Before Coin Size: " << arrayofPieces.size() << std::endl;
 	for (int i = 0; i < arrayofPieces.size() + 1; i++)
 	{
+		//If iterator at max
 		if (i == arrayofPieces.size())
 		{
+			//keep it inside of range
 			currentScene->removeActor(arrayofPieces[0]);
 		}
 		else
@@ -1009,40 +1009,6 @@ void clearCoins(PhysicsScene* currentScene, std::vector<SphereClass*> arrayofPie
 		}
 	}
 
-	//Clear
+	//Clear list of coins
 	arrayofPieces.clear();
-	std::cout << "After Coin Size: " << arrayofPieces.size() << std::endl;
-
-	//if (arrayofPieces.size() == i)
-		//{
-		//	currentScene->removeActor(arrayofPieces[0]);
-		//	arrayofPieces.pop_back();
-		//}
-		//else
-		//{
-		//	// remove actor in the scene
-		//	currentScene->removeActor(arrayofPieces[i]);
-
-		//	if (arrayofPieces.size() > 0)
-		//	{
-		//		// store value of last position
-		//		SphereClass* temp_value = arrayofPieces[arrayofPieces.size() - 1];
-
-		//		// make the last position hold value of the one to delete
-		//		arrayofPieces[arrayofPieces.size() - 1] = arrayofPieces[i];
-
-		//		// make that position equal to the last value that was stored
-		//		arrayofPieces[i] = temp_value;
-
-		//		// remove from list
-		//		arrayofPieces.pop_back();
-		//	}
-
-		//	std::cout << "After Coin Size: " << arrayofPieces.size() << std::endl;
-		//}
-		
-	//}
-
-	
-	
 }
