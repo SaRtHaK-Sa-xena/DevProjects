@@ -62,6 +62,7 @@ public:
 	void setPrevAng_vel(float a_ang_vel) { prev_angVel = a_ang_vel; }
 	void setPrevRot(float a_rotation) { prev_rot = a_rotation; }
 	void setPrevPos(glm::vec2 a_pos) { prev_pos = a_pos; }
+	void setPrevVel(glm::vec2 a_velocity) { prev_vel = a_velocity; }
 
 	//	To Set Striker With INformation That it
 	//	Is The Start Of The Turn
@@ -74,6 +75,8 @@ public:
 
 	// To Rewind to previous status
 	void rewindTime() { m_angularVelocity = prev_angVel; m_rotation = prev_rot; m_position = prev_pos; }
+
+	void resumeGame() { m_angularVelocity = prev_angVel; m_rotation = prev_rot; m_velocity = prev_vel; }
 
 protected:
 	//default
@@ -107,6 +110,7 @@ protected:
 	float prev_angVel = m_angularVelocity;
 	float prev_rot = m_rotation;
 	glm::vec2 prev_pos = m_position;
+	glm::vec2 prev_vel = m_velocity;
 
 	//Lets it know to resetFoulPieces
 	bool m_resetFoulPieces = false;

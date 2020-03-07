@@ -78,6 +78,7 @@ protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Renderer2D*	m_2dRendererGizmos;
+	aie::Renderer2D*	m_menuRenderer;
 	aie::Font*			m_font;
 
 	//background sprite
@@ -101,6 +102,12 @@ protected:
 	//	player turn 2 header sprite
 	aie::Texture* m_player2_header;
 
+	//	menu sprite
+	aie::Texture* m_menu;
+
+	//	instruction sprite
+	aie::Texture* m_instructions;
+
 	//objects in scene
 	std::vector<SphereClass*> CoinsInScene;
 
@@ -121,6 +128,18 @@ protected:
 
 	//	bool to track if alpha levels need to be modified
 	bool modify_alpha = true;
+
+	//	bool to track the new clamp point
+	bool clampHigh = true;
+
+	//	draw playerHeader
+	bool drawHeader = true;
+
+	//	draw menu
+	bool drawMenu = false;
+
+	//	draw instructions
+	bool switchToInstructions = false;
 
 	//Striker To be used
 	SphereClass* sphere = new SphereClass(glm::vec2(-10, -240), glm::vec2(0, 0), 2, (3.5 * 6), 0.6, 0, 1, glm::vec4(0, 0, 0, 0));

@@ -31,7 +31,12 @@ PhysicsEngineApp::~PhysicsEngineApp() {
 bool PhysicsEngineApp::startup() {
 	
 	m_2dRenderer = new aie::Renderer2D();
+
+	// draws Gizmos
 	m_2dRendererGizmos = new aie::Renderer2D();
+	
+	// draws menu items
+	m_menuRenderer = new aie::Renderer2D();
 
 	//increase the 2d line count to maxmimize the number of objects we can draw
 	aie::Gizmos::create(255U, 255U, 65535U, 65535U);
@@ -61,6 +66,12 @@ bool PhysicsEngineApp::startup() {
 
 	// playyer 2 header_sprite
 	m_player2_header = new aie::Texture("../bin/textures/Player2_header_0.1.png");
+	
+	// menu_sprite
+	m_menu = new aie::Texture("../bin/textures/CB_menu_0.1.png");
+
+	// instructions_sprite
+	m_instructions = new aie::Texture("../bin/textures/CB_instructions_0.2.png");
 
 	#pragma region GameSetup
 
@@ -191,16 +202,31 @@ void PhysicsEngineApp::update(float deltaTime) {
 	//	First check if we want to modiy the alpha
 	if (modify_alpha)
 	{
-		//	then increase if below min
-		if (alpha_value < 0)
-		{
-			alpha_value = alpha_value + 0.1;
-		}
-		
-		//	and increase if above max
+		//KEY____
+		//	clampHigh = TRUE --> increment up
+		//	clampHigh = FALSE --> increment down
+
+
+		//	Check if it needs to clamp high or low
+		//	Set correct bool check
 		if (alpha_value > 1)
 		{
-			alpha_value = alpha_value - 0.1;
+			clampHigh = false;
+		}
+		if (alpha_value < 0)
+		{
+			clampHigh = true;
+		}
+
+
+		//	Increment or Decrement based on clamp
+		if (clampHigh)
+		{
+			alpha_value += 0.1;
+		}
+		else
+		{
+			alpha_value -= 0.1;
 		}
 	}
 	
@@ -224,6 +250,102 @@ void PhysicsEngineApp::update(float deltaTime) {
 			gamePhase();
 	}
 	
+	// If ESC pressed -> check menu
+	if (input->wasKeyPressed(aie::INPUT_KEY_ESCAPE))
+	{
+		//	draw menu if menu not already drawn
+		//	otherwise remove
+		if (drawMenu)
+			drawMenu = false;
+		else
+			drawMenu = true;
+	}
+
+	//	Menu Functions
+	//	If menu displayed
+	if (drawMenu)
+	{
+		float x_value = input->getMouseX();
+		float y_value = input->getMouseY();
+
+		glm::vec2 mouseXandY(x_value, y_value);
+
+		std::cout << "MOUSE X: " << x_value << " Y: " << y_value << std::endl;
+
+		//	if inside of collidor values
+		if (x_value > 264 && x_value < 626 && y_value < 433 && y_value > 399)
+		{
+			//	if left click pressed on instructions
+			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
+			{
+				//	Check if it needs to do anything to board
+				if (player1_winScreen == false && player2_winScreen == false)
+				{
+					//	freeze peices
+					for (int i = 0; i < CoinsInScene.size(); i++)
+					{
+						//	stop it from moving
+						CoinsInScene[i]->setVelocity(glm::vec2(0, 0));
+						CoinsInScene[i]->resetRotation();
+						CoinsInScene[i]->resetAngular();
+					}
+
+					//	stop drawing menu
+					//	draw Instructions instead
+					drawMenu = false;
+					switchToInstructions = true;
+
+				}
+			}
+		}
+
+		//	If exit button pressed
+		if (x_value > 395 && x_value < 510 && y_value < 288 && y_value > 245)
+		{
+			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
+			{
+				//	stop drawing menu
+				drawMenu = false;
+			}
+		}
+
+	}
+
+	//	If instructions displayed
+	if (switchToInstructions)
+	{
+		float x_value = input->getMouseX();
+		float y_value = input->getMouseY();
+
+		glm::vec2 mouseXandY(x_value, y_value);
+
+		std::cout << "MOUSE X: " << x_value << " Y: " << y_value << std::endl;
+
+		// if mouse hovering over 'EXIT'
+		if (x_value > 395 && x_value < 510 && y_value < 288 && y_value > 245)
+		{
+			//	Exit button pressed
+			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
+			{
+				//	Check if game being played
+				if (player1_winScreen == false && player2_winScreen == false)
+				{
+					//	reset values of velocity and rotation
+					for (int i = 0; i < CoinsInScene.size(); i++)
+					{
+						//	reset rotation, angular velocity
+						//	and velocity
+						CoinsInScene[i]->resumeGame();
+
+						//return to instructions
+						drawMenu = true;
+						switchToInstructions = false;
+					}
+				}
+			}
+		}
+	}
+
 
 	#pragma region GameBuilding
 
@@ -365,6 +487,10 @@ void PhysicsEngineApp::startPhase()
 
 					//set striker's collision on
 					sphere->setCollision(true);
+
+					//	draw helpful header to display turn
+					drawHeader = false;
+					modify_alpha = false;
 				}
 			}
 		}
@@ -401,12 +527,18 @@ void PhysicsEngineApp::startPhase()
 
 					//	set player in StartTurn to false
 					sphere->setStartTurn(false);
+
+					//	draw helpful header to display turn
+					drawHeader = false;
+					modify_alpha = false;
+
 				}
 			}
 		}
 	}
 	else
 	{
+		//=============Input from Player=======================
 		//	move along the x-axis within play area
 		if (input->isKeyDown(aie::INPUT_KEY_A))
 			//	if sphere inside of x boundaries
@@ -597,19 +729,24 @@ void PhysicsEngineApp::gamePhase()
 			CoinsInScene[i]->setPrevAng_vel(CoinsInScene[i]->getAngularVelocity());
 			CoinsInScene[i]->setPrevRot(CoinsInScene[i]->getRotation());
 			CoinsInScene[i]->setPrevPos(CoinsInScene[i]->getPosition());
+			CoinsInScene[i]->setPrevVel(CoinsInScene[i]->getVelocity());
 		}
 
-		//Start Player Phase again
+		//	Start Player Phase again
 		playerTurnActivated = true;
 		
 		//	set player in StartTurn to true
 		sphere->setStartTurn(true);
 
+		//	draw helpful header to display turn
+		drawHeader = true;
+		modify_alpha = true;
+
 		// Change Turn Basis--------------------
 		// Condition to set for striker
 		bool condition;
 
-		//if there is no streak then switch turns
+		//	if there is no streak then switch turns
 		if (sphere->ifStreak() == false)
 		{
 			//	set Player Turn
@@ -703,8 +840,11 @@ void PhysicsEngineApp::winPhase()
 			sphereInner7->setPosition(glm::vec2(-70, 0));
 			sphereInner8->setPosition(glm::vec2(-10, -60));*/
 
-			//call UI display to be modified again
+			//	call UI display to be modified again
 			modify_alpha = true;
+
+			//	call UI display for Player
+			drawHeader = true;
 		}
 	}
 }
@@ -725,6 +865,8 @@ void PhysicsEngineApp::draw() {
 
 	//	Create Background Texture
 	m_2dRenderer->drawSprite(m_backgroundTexture, 0, 0, getWindowWidth(), getWindowHeight());
+
+	
 
 	//Win Condition
 	//	Draws Win Screen For Respective Player
@@ -755,7 +897,7 @@ void PhysicsEngineApp::draw() {
 		// a clamp that gets set if value to little or large
 
 		//	Check to see if modify alpha has been set to true
-		if (modify_alpha)
+		if (drawHeader)
 		{
 			//	Player 1 Turn
 			if (sphere->returnPlayerTurn())
@@ -832,6 +974,21 @@ void PhysicsEngineApp::draw() {
 			{
 				m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, sphere->getPosition().x + mouseCurrentPosition.x, sphere->getPosition().y + mouseCurrentPosition.y, 10);
 			}
+		}
+
+		//	if user pressed 'esc'
+		if (drawMenu)
+		{
+			m_2dRenderer->setRenderColour(1, 1, 1, 0.5);
+			//	display menu
+			m_2dRenderer->drawSprite(m_menu, 0, 0);
+		}
+		
+		if (switchToInstructions)
+		{
+			m_2dRenderer->setRenderColour(1, 1, 1, 0.7);
+			//	display menu
+			m_2dRenderer->drawSprite(m_instructions, 0, 0);
 		}
 
 		m_2dRenderer->setRenderColour(0, 0, 1);
