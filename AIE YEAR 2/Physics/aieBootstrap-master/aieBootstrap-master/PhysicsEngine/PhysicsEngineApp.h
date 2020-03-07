@@ -95,12 +95,21 @@ protected:
 	// striker sprite
 	aie::Texture* m_strikerTexture;
 
+	//	player turn 1 header sprite
+	aie::Texture* m_player1_header;
+
+	//	player turn 2 header sprite
+	aie::Texture* m_player2_header;
+
 	//objects in scene
 	std::vector<SphereClass*> CoinsInScene;
 
-	//Score Tracker for players
+	//	Score Tracker for players
 	int ScorePlayer1 = 0;
 	int ScorePlayer2 = 0;
+
+	//	alpha_values
+	float alpha_value = 0.1;
 
 	//	bool to track if line will be displayed red
 	//	during Draw Function
@@ -109,6 +118,9 @@ protected:
 
 	//	bool to track if the line will be drawn at max
 	bool maxLine = false;
+
+	//	bool to track if alpha levels need to be modified
+	bool modify_alpha = true;
 
 	//Striker To be used
 	SphereClass* sphere = new SphereClass(glm::vec2(-10, -240), glm::vec2(0, 0), 2, (3.5 * 6), 0.6, 0, 1, glm::vec4(0, 0, 0, 0));

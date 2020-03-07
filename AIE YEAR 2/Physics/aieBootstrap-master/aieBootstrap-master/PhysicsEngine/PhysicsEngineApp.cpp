@@ -56,141 +56,11 @@ bool PhysicsEngineApp::startup() {
 	// Striker_sprite
 	m_strikerTexture = new aie::Texture("../bin/textures/CB_StrikerCoin_0.1.png");
 
-	#pragma region Projectile Tutorial
-	//m_physicsScene = new PhysicsScene();
-	//m_physicsScene->setGravity(glm::vec2(0, -10));
-	//m_physicsScene->setTimeStep(0.5f);
-	//float radius = 1.0f;
-	//float speed = 30;
-	//glm::vec2 startPos(-40, 0);
-	////returns radian of 45 degrees
-	//float inclination = (float)M_PI / 4.0f;
-	//m_physicsScene->addActor(new SphereClass(startPos, inclination, speed, 1, radius, glm::vec4(1, 0, 0, 1)));
-	//setupContinuousDemo(glm::vec2(-40,0), inclination, 30, 10);
-	#pragma endregion Projectile Tutorial
+	// player 1 header_sprite
+	m_player1_header = new aie::Texture("../bin/textures/Player1_header_0.4.png");
 
-	#pragma region SphereToSphere and SphereToPlane Collision [Testing Bounce]
-
-	//m_physicsScene = new PhysicsScene();
-	//m_physicsScene->setGravity(glm::vec2(0,0));
-
-	//SphereClass *ball1 = new SphereClass(glm::vec2(0, 0), (glm::vec2(-10, -10)*15.f), 1, 2.5, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
-	//SphereClass *ball2 = new SphereClass(glm::vec2(-10, 50), glm::vec2(5, 0), 1, 2.5, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
-	//SphereClass *ball3 = new SphereClass(glm::vec2(0, 70), glm::vec2(-20, 0), 1, 1, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
-	//SphereClass *ball4 = new SphereClass(glm::vec2(0, 60), glm::vec2(5, 0), 1, 1, 0.6, 0, 1, glm::vec4(1, 0, 0, 1));
-	//sphere = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 1, 1, 0.6, 0, 1, glm::vec4(1, 0, 1, 1));
-
-	//PlaneClass* plane1 = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -50);
-	//PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(0, 1)), 50);
-	//PlaneClass* plane3 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), 90);
-	//PlaneClass* plane4 = new PlaneClass(glm::normalize(glm::vec2(1, 0)), -90);
-	////PlaneClass* plane2 = new PlaneClass(glm::normalize(glm::vec2(-1, 3)), -15);
-
-	//m_physicsScene->addActor(ball1);
-	////m_physicsScene->addActor(ball2);
-	////m_physicsScene->addActor(ball3);
-	////m_physicsScene->addActor(ball4);
-
-	//m_physicsScene->addActor(plane1);
-	//m_physicsScene->addActor(plane2);
-	//m_physicsScene->addActor(plane3);
-	//m_physicsScene->addActor(plane4);
-	////m_physicsScene->addActor(plane2);
-
-	#pragma endregion SphereToSphere and SphereToPlane Collision [Testing Bounce]
-
-	#pragma region AABB Collision Tests
-
-	#pragma region AABB -> Sphere Collision
-	
-	/*m_physicsScene = new PhysicsScene();
-	m_physicsScene->setGravity(glm::vec2(0, 0));
-
-	box = new AABBClass(glm::vec2(50,0), 20, 20);
-	sphere = new SphereClass(glm::vec2(-30, 0), glm::vec2(30, 0), 10, 5, 0.8, 0, 1, glm::vec4(1, 0, 1, 1));
-
-	m_physicsScene->addActor(sphere);
-	m_physicsScene->addActor(box);*/
-
-	#pragma endregion AABB -> Sphere Collision
-
-	#pragma region AABB -> Plane Collision
-
-	// set scene
-	//m_physicsScene = new PhysicsScene();
-	//m_physicsScene->setGravity(glm::vec2(0, -10));
-
-	//// create box
-	//box = new AABBClass(glm::vec2(20, 40), 10, 10);
-
-	//// create plane
-	//PlaneClass* plane = new PlaneClass(glm::normalize(glm::vec2(1, 1)), 20);
-
-	////TemporaryTest
-	////AABBClass* temp_box = new AABBClass(plane->getNormal() * box->getPosition() + plane->getDistance(), 1, 1);
-
-
-	////m_physicsScene->addActor(temp_box);
-
-	//// add into scene
-	//m_physicsScene->addActor(box);
-	//m_physicsScene->addActor(plane);
-
-
-	#pragma endregion AABB -> Plane Collision
-
-	#pragma endregion AABB Collision Tests
-
-	#pragma region DragCheck
-
-		#pragma region DragCollision
-			
-		/*m_physicsScene = new PhysicsScene();
-		m_physicsScene->setGravity(glm::vec2(0, 0));
-
-		sphere = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 0, 1, 1));
-		striker = new SphereClass(glm::vec2(-50, 3), glm::vec2(40, 0), 10, 5, 0.8, 0, 1, glm::vec4(0, 1, 1, 1));
-
-		m_physicsScene->addActor(sphere);
-		m_physicsScene->addActor(striker);*/
-
-		#pragma endregion DragCollision
-
-		#pragma region BoxToPlaneCollision
-		
-		/*m_physicsScene = new PhysicsScene();
-		m_physicsScene->setGravity(glm::vec2(0, -20));
-
-		box = new AABBClass(glm::vec2(0, 10), 5, 5);
-		PlaneClass* ground = new PlaneClass(glm::normalize(glm::vec2(0, 1)), -20);
-
-		m_physicsScene->addActor(box);
-		m_physicsScene->addActor(ground);*/
-
-		#pragma endregion BoxToPlaneCollision
-
-	#pragma endregion Rotational Velocity
-
-	
-	#pragma region Joint And Spring Tests
-
-	//m_physicsScene = new PhysicsScene();
-	//m_physicsScene->setGravity(glm::vec2(0, 0));
-	//
-	//sphere = new SphereClass(glm::vec2(0, 0), glm::vec2(0, 0), 10, 5, 0.6, 0, 1, glm::vec4(0, 0, 1, 1));
-	//striker = new SphereClass(glm::vec2(30, 0), glm::vec2(-60,0), 1, 5, 0.6, 0, 1, glm::vec4(0, 1, 1, 1));
-
-	////striker = new SphereClass(glm::vec2(-50, 0), 10, sin(90), 1, 5, glm::vec4(1, 0, 1, 1));
-
-	//AABBClass* staticBox = new AABBClass(glm::vec2(0, 0), 5,5);
-	//staticBox->setElasticity(0.9f);
-	//staticBox->setKinematic(false);
-	//sphere->setKinematic(true);
-
-	//m_physicsScene->addActor(staticBox);
-	//m_physicsScene->addActor(striker);
-
-	#pragma endregion Joint and Spring Tests
+	// playyer 2 header_sprite
+	m_player2_header = new aie::Texture("../bin/textures/Player2_header_0.1.png");
 
 	#pragma region GameSetup
 
@@ -305,37 +175,6 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 	aie::Gizmos::clear();
 
-	//Rocket Ship Exercise
-	#pragma region RocketShip
-	//Each Update
-	//Repeated until mass depleted (fuel depleted)
-	//check if mass greater than zero
-	/*if (time > 0 && time < 10 || time > 20 && time < 30 || time > 40 && time < 50 || time > 60 && time < 70
-		|| time > 80 && time < 90)
-	{
-		if (rocket_Ship->getMass() > 0)
-		{
-			Decrease mass of the rocket by M to simulate fuel being used
-			fuel = fuel - 1;
-			rocket_Ship->setMass(fuel);
-
-			Create a particle sphere of mass M next to the rocket to simulate an exhaust gas particle
-			SphereClass* exhaust_ptc = new SphereClass(glm::vec2(rocket_Ship->getPosition().x, (rocket_Ship->getPosition().y - 2)),
-				glm::vec2(0, 0), 1, 1, glm::vec4(1, 1, 0, 1));
-
-			m_physicsScene->addActor(exhaust_ptc);
-
-			use ApplyForceToActor to the exhaust gas from the rocket (will be the opposite to the direction of the rocket)
-			rocket_Ship->applyForceToActor(exhaust_ptc, glm::vec2(0, -1));
-
-			 exit the application
-			if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
-				quit();
-		}
-	}*/
-	#pragma endregion RocketShip
-	
-
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
 	
@@ -347,10 +186,31 @@ void PhysicsEngineApp::update(float deltaTime) {
 	}
 	#pragma endregion Updates Rotation For Each Coin
 
+	//	Updates Alpha Levels of Player 1 & 2 Headers
+
+	//	First check if we want to modiy the alpha
+	if (modify_alpha)
+	{
+		//	then increase if below min
+		if (alpha_value < 0)
+		{
+			alpha_value = alpha_value + 0.1;
+		}
+		
+		//	and increase if above max
+		if (alpha_value > 1)
+		{
+			alpha_value = alpha_value - 0.1;
+		}
+	}
+	
+
 	//	If one of the player has won
 	//	Display Event
 	if (player1_winScreen || player2_winScreen)
 	{
+		modify_alpha = false;
+
 		winPhase();
 	}
 	// when game still running
@@ -824,6 +684,7 @@ void PhysicsEngineApp::winPhase()
 			CoinsInScene.push_back(sphereInner8);*/
 			//add to vector=====================
 
+			//Reset all values for coins
 			reset();
 
 			sphere->setThisToStriker();
@@ -833,7 +694,7 @@ void PhysicsEngineApp::winPhase()
 
 			sphere->movePosition(glm::vec2(-10, -240));
 			centreSphere->movePosition(glm::vec2(-10, 5));
-			sphereInner1->movePosition(glm::vec2(45, 35));
+			sphereInner1->movePosition(glm::vec2(25, 35));
 			sphereInner2->movePosition(glm::vec2(-45, 35));
 			/*sphereInner3->setPosition(glm::vec2(25, -35));
 			sphereInner4->setPosition(glm::vec2(-45, -35));
@@ -841,6 +702,9 @@ void PhysicsEngineApp::winPhase()
 			sphereInner6->setPosition(glm::vec2(50, 0));
 			sphereInner7->setPosition(glm::vec2(-70, 0));
 			sphereInner8->setPosition(glm::vec2(-10, -60));*/
+
+			//call UI display to be modified again
+			modify_alpha = true;
 		}
 	}
 }
@@ -882,6 +746,34 @@ void PhysicsEngineApp::draw() {
 	//	otherwise don't draw at all
 	if (player1_winScreen == false && player2_winScreen == false)
 	{
+		//	Check Who's turn
+		//	Draw Title: PLAYER 1 TURN
+
+
+		// give it properties to be assigned from the updarte
+		// a check to start and decrease giving values 
+		// a clamp that gets set if value to little or large
+
+		//	Check to see if modify alpha has been set to true
+		if (modify_alpha)
+		{
+			//	Player 1 Turn
+			if (sphere->returnPlayerTurn())
+			{
+				m_2dRenderer->setRenderColour(1, 1, 1, alpha_value);
+				m_2dRenderer->drawSprite(m_player1_header, 0, 340, 250, 250);
+				m_2dRenderer->setRenderColour(1, 1, 1);
+			}
+			//	Player 2 Turn
+			else
+			{
+				m_2dRenderer->setRenderColour(1, 1, 1, alpha_value);
+				m_2dRenderer->drawSprite(m_player2_header, 0, 340, 250, 250);
+				m_2dRenderer->setRenderColour(1, 1, 1);
+			}
+		}
+	
+
 		//Draw White Coins
 		for (int i = 0; i < CoinsInScene.size(); i++)
 		{
@@ -952,10 +844,7 @@ void PhysicsEngineApp::draw() {
 		// draw output text Player2  Score
 		Var_player1[256];
 		sprintf(Var_player1, "Player2 Score: %d", ScorePlayer2);
-		m_2dRenderer->drawText(m_font, Var_player1, 100, -445);
-
-		// output some text, uses the last used colour
-		m_2dRenderer->drawText(m_font, Var_player1, 18, 685);
+		m_2dRenderer->drawText(m_font, Var_player1, 150, -445);
 	}
 
 	// done drawing sprites	
@@ -965,6 +854,7 @@ void PhysicsEngineApp::draw() {
 	// begin drawing Gizmos
 	m_2dRendererGizmos->begin();
 
+	//	Set Gizmo Clamp
 	static float aspectRatio = 16 / 9.f;
 	aie::Gizmos::draw2D(glm::ortho<float>(-450, 450,
 		-800 / aspectRatio, 800 / aspectRatio, -1.0f, 1.0f));
@@ -972,13 +862,13 @@ void PhysicsEngineApp::draw() {
 	m_2dRendererGizmos->end();
 }
 
+// Resets values of the coins placed
 void PhysicsEngineApp::reset()
 {
-	//sphere->setPlayerTurn(true);
-
 	// First Reset all float values to default
 	for (int i = 0; i < CoinsInScene.size(); i++)
 	{
+		//	reset to default
 		CoinsInScene[i]->setVelocity(glm::vec2(0, 0));
 		CoinsInScene[i]->resetRotation();
 		CoinsInScene[i]->resetAngular();
@@ -986,6 +876,11 @@ void PhysicsEngineApp::reset()
 		CoinsInScene[i]->setStreak(false);
 		CoinsInScene[i]->setFoul(false);
 		CoinsInScene[i]->setStartTurn(false);
+		CoinsInScene[i]->resetTimeStored();
+
+		//	reset score for both players
+		ScorePlayer1 = 0;
+		ScorePlayer2 = 0;
 	}
 }
 
