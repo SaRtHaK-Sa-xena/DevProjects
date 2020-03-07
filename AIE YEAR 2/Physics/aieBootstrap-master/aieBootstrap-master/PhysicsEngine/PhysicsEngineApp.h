@@ -81,19 +81,19 @@ protected:
 	aie::Renderer2D*	m_menuRenderer;
 	aie::Font*			m_font;
 
-	//background sprite
+	//	background sprite
 	aie::Texture* m_backgroundTexture; 
 	
-	// white piece sprite
+	//  white piece sprite
 	aie::Texture* m_whiteCoinTexture;
 
-	// white piece foul sprite
+	//  white piece foul sprite
 	aie::Texture* m_whiteCoinFoulTexture;
 
-	// obstacles sprite
+	//  obstacles sprite
 	aie::Texture* m_obstacleTexture;
 
-	// striker sprite
+	//  striker sprite
 	aie::Texture* m_strikerTexture;
 
 	//	player turn 1 header sprite
@@ -108,6 +108,9 @@ protected:
 	//	instruction sprite
 	aie::Texture* m_instructions;
 
+	//	instructions_txt sprite
+	aie::Texture* m_instructionsText;
+
 	//objects in scene
 	std::vector<SphereClass*> CoinsInScene;
 
@@ -117,6 +120,9 @@ protected:
 
 	//	alpha_values
 	float alpha_value = 0.1;
+
+	//	sprite scalar value
+	float sprite_scalar = 0.1;
 
 	//	bool to track if line will be displayed red
 	//	during Draw Function
@@ -132,6 +138,9 @@ protected:
 	//	bool to track the new clamp point
 	bool clampHigh = true;
 
+	//	bool to track the new clamp point for sprites
+	bool clamp_spriteHigh = true;
+
 	//	draw playerHeader
 	bool drawHeader = true;
 
@@ -140,6 +149,9 @@ protected:
 
 	//	draw instructions
 	bool switchToInstructions = false;
+
+	//	draw instructions text scaled
+	bool drawInstructionsScaled = false;
 
 	//Striker To be used
 	SphereClass* sphere = new SphereClass(glm::vec2(-10, -240), glm::vec2(0, 0), 2, (3.5 * 6), 0.6, 0, 1, glm::vec4(0, 0, 0, 0));

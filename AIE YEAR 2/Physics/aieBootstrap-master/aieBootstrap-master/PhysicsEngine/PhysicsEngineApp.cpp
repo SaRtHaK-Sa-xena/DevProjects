@@ -73,6 +73,9 @@ bool PhysicsEngineApp::startup() {
 	// instructions_sprite
 	m_instructions = new aie::Texture("../bin/textures/CB_instructions_0.2.png");
 
+	// instructionsTXT_Sprite
+	m_instructionsText = new aie::Texture("../bin/textures/CB_instructionsTXT_0.1.png");
+
 	#pragma region GameSetup
 
 	m_physicsScene = new PhysicsScene();
@@ -256,9 +259,13 @@ void PhysicsEngineApp::update(float deltaTime) {
 		//	draw menu if menu not already drawn
 		//	otherwise remove
 		if (drawMenu)
+		{
 			drawMenu = false;
+		}
 		else
+		{
 			drawMenu = true;
+		}
 	}
 
 	//	Menu Functions
@@ -270,11 +277,20 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 		glm::vec2 mouseXandY(x_value, y_value);
 
-		std::cout << "MOUSE X: " << x_value << " Y: " << y_value << std::endl;
-
-		//	if inside of collidor values
+		//	if inside of collidor for 'INSTRUCTIONS'
 		if (x_value > 264 && x_value < 626 && y_value < 433 && y_value > 399)
 		{
+			//	increase scalar
+			//	and clamp if need be
+			sprite_scalar += 0.1;
+			if (sprite_scalar >= 2)
+			{
+				sprite_scalar = 2;
+			}
+
+			//	drawitScaled
+			drawInstructionsScaled = true;
+
 			//	if left click pressed on instructions
 			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 			{
@@ -298,14 +314,38 @@ void PhysicsEngineApp::update(float deltaTime) {
 				}
 			}
 		}
+		else
+		{
+			sprite_scalar -= 0.1;
+			if (sprite_scalar <= 0)
+			{
+				sprite_scalar = 0;
+			}
+		}
 
 		//	If exit button pressed
 		if (x_value > 395 && x_value < 510 && y_value < 288 && y_value > 245)
 		{
+			//	increase scalar
+			//	and clamp if need be
+			sprite_scalar += 0.1;
+			if (sprite_scalar >= 1)
+			{
+				sprite_scalar = 1;
+			}
+
 			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 			{
 				//	stop drawing menu
 				drawMenu = false;
+			}
+		}
+		else
+		{
+			sprite_scalar -= 0.1;
+			if (sprite_scalar <= 0)
+			{
+				sprite_scalar = 0;
 			}
 		}
 
@@ -319,11 +359,17 @@ void PhysicsEngineApp::update(float deltaTime) {
 
 		glm::vec2 mouseXandY(x_value, y_value);
 
-		std::cout << "MOUSE X: " << x_value << " Y: " << y_value << std::endl;
-
 		// if mouse hovering over 'EXIT'
 		if (x_value > 395 && x_value < 510 && y_value < 288 && y_value > 245)
 		{
+			//	increase scalar
+			//	and clamp if need be
+			sprite_scalar += 0.1;
+			if (sprite_scalar >= 2)
+			{
+				sprite_scalar = 2;
+			}
+
 			//	Exit button pressed
 			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 			{
@@ -344,8 +390,18 @@ void PhysicsEngineApp::update(float deltaTime) {
 				}
 			}
 		}
+		else
+		{
+			sprite_scalar -= 0.1;
+			if (sprite_scalar <= 0)
+			{
+				sprite_scalar = 0;
+			}
+		}
 	}
 
+
+	//	If menu displayed, or switchToinstructions diplayed
 
 	#pragma region GameBuilding
 
@@ -976,19 +1032,32 @@ void PhysicsEngineApp::draw() {
 			}
 		}
 
+		//	draw scaled,
+		//	else normal size
+		if (drawInstructionsScaled)
+		{
+			m_2dRenderer->setRenderColour(1, 1, 1, 0.5);
+			//	display menu
+			m_2dRenderer->drawSprite(m_instructionsText, 0, -50, m_instructionsText->getWidth()* sprite_scalar, m_instructionsText->getHeight()* sprite_scalar);
+		}
+		else
+		{
+			m_2dRenderer->drawSprite(m_instructionsText, 0, -50);
+		}
+
 		//	if user pressed 'esc'
 		if (drawMenu)
 		{
 			m_2dRenderer->setRenderColour(1, 1, 1, 0.5);
 			//	display menu
-			m_2dRenderer->drawSprite(m_menu, 0, 0);
+			m_2dRenderer->drawSprite(m_menu, 0, 0, m_menu->getWidth(), m_menu->getHeight());
 		}
 		
 		if (switchToInstructions)
 		{
 			m_2dRenderer->setRenderColour(1, 1, 1, 0.7);
 			//	display menu
-			m_2dRenderer->drawSprite(m_instructions, 0, 0);
+			m_2dRenderer->drawSprite(m_instructions, 0, 0, m_instructions->getWidth(), m_instructions->getHeight());
 		}
 
 		m_2dRenderer->setRenderColour(0, 0, 1);
