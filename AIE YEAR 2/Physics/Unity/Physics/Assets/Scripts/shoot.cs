@@ -40,7 +40,7 @@ public class shoot : MonoBehaviour
     {
         //  instantiate raycast
         RaycastHit firedRayCast;
-        GameObject ParticleSystem = Instantiate(particle, gunPoint.transform);
+        GameObject ParticleSystem = Instantiate(particle, particle_Point.transform);
         ParticleSystem.transform.SetParent(null);
 
 
