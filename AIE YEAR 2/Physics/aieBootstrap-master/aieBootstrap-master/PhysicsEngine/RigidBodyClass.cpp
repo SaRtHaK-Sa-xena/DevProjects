@@ -44,39 +44,6 @@ void RigidBodyClass::debug()
 
 void RigidBodyClass::applyForce(glm::vec2 force, glm::vec2 pos)
 {
-	//===Previous Implementation
-	//comments: Works, but not as good as the new implementation, when recieving multiple collisions
-
-	//std::cout << "===========================VELOCITY CHECK START=============================" << std::endl;
-	//std::cout << "Before Angular Velocity: " << m_angularVelocity << std::endl;
-	//m_velocity += force / m_mass;
-	//m_angularVelocity = (force.y * pos.x - force.x * pos.y) / (m_moment);
-	//m_angularVelocity = (force.x * pos.y - force.y * pos.x) / (m_moment);
-
-	//std::cout << "force.x: " << force.x << std::endl;
-	//std::cout << "force.y: " << force.y << std::endl;
-
-	//if (m_angularVelocity > 50) { m_angularVelocity = 50; }
-	//Correct One That Worked The Best	
-	//m_angularVelocity += glm::length(m_velocity) / glm::length((pos) / (m_moment) * (-force));
-	//
-	////point of contact
-	////float pos = glm::distance(/*radius, pos*/)
-	////float angle = acos(glm::length(force / pos));
-	////	new implementation
-	///glm::vec2 angle = glm::acos(rad_distance / force);
-	//m_angularVelocity += glm::length(force) * rad_distance * sin(glm::length(angle));
-	//m_angularVelocity = m_angularVelocity / m_moment;
-	////m_angularVelocity += glm::length(force) * glm::length(pos) * sin(angle);
-	//float temp = glm::length(pos);
-	////glm::length(pos - force)
-	////m_angularVelocity += glm::length(m_velocity) / -temp;
-	////m_angularVelocity = m_angularVelocity * 5584124.f;
-
-	//std::cout << "Force: " << "X: " << force.x << " Y: " << force.y << std::endl;
-	//std::cout << "After Angular Velocity: " << m_angularVelocity << std::endl;
-	//std::cout << "===========================VELOCITY CHECK END=============================" << std::endl;
-
 	//===================NEW IMPLEMENTATION=================================================================
 	#pragma region New Implementation
 	
@@ -151,17 +118,6 @@ void RigidBodyClass::resolveCollision(RigidBodyClass* actor2, glm::vec2 contact,
 
 		float elasticity = (m_elasticity + actor2->getElasticity()) / 2.0f;
 
-		/*std::cout << "=========PRIOR TO FORCE CALCULATION===========" << std::endl;
-		std::cout << "Elasticity:" << 1.0f + elasticity << std::endl;
-		std::cout << "Mass For Actor 1: " << mass1 << std::endl;
-		std::cout << "Mass For Actor 2: " << mass2 << std::endl;
-		std::cout << "Velocity of Contact POint on Actor 1: " << v1 << std::endl;
-		std::cout << "Velocity of Contact POint on Actor 2: " << v2 << std::endl;
-		std::cout << "Normal X_POS: " << normal.x << std::endl;
-		std::cout << "Normal Y_POS: " << normal.y << std::endl;
-		std::cout << "=============================================" << std::endl;*/
-
-
 		glm::vec2 force = (1.0f + elasticity)*mass1*mass2 / 
 			(mass1 + mass2)*(v1-v2)*normal;
 
@@ -170,38 +126,8 @@ void RigidBodyClass::resolveCollision(RigidBodyClass* actor2, glm::vec2 contact,
 		glm::vec2 halfPos(m_position.x / spin_const, m_position.y / spin_const);
 		glm::vec2 halfPos2(actor2->getPosition().x / spin_const, actor2->getPosition().y / spin_const);
 
-
-		/*std::cout << "=========AFTER THE FORCE CALCULATION===========" << std::endl;
-		std::cout << "Elasticity:" << 1.0f + elasticity << std::endl;
-		std::cout << "Mass For Actor 1: " << mass1 << std::endl;
-		std::cout << "Mass For Actor 2: " << mass2 << std::endl;
-		std::cout << "Velocity of Contact POint on Actor 1: " << v1 << std::endl;
-		std::cout << "Velocity of Contact POint on Actor 2: " << v2 << std::endl;
-		std::cout << "Normal X_POS: " << normal.x << std::endl;
-		std::cout << "Normal Y_POS: " << normal.y << std::endl;
-		std::cout << "=============================================" << std::endl;*/
-
-		//	apply equal and opposite force
-		//	according to Newton's Third Law
-
-		/*std::cout << "applied Force for Actor: " << getShapeID() << std::endl;
-		std::cout << "FORCE X: " << -force.x << std::endl;
-		std::cout << "FORCE Y: " << -force.y << std::endl;
-
-		std::cout << "applied Force for Actor 2: " << actor2->getShapeID() << std::endl;
-		std::cout << "FORCE X: " << force.x << std::endl;
-		std::cout << "FORCE Y: " << force.y << std::endl;*/
-
-		//What used to be
-		//applyForce(-force, halfPos - contact);
-		//actor2->applyForce(force, contact - halfPos2);
-		
 		//Updated
 		applyForce(-force, contact-m_position);
 		actor2->applyForce(force, contact - actor2->getPosition());
-
-		//TESTING
-		//applyForce(-force, contact - halfPos);
-		//actor2->applyForce(force, halfPos2 - contact);
 	}
 }

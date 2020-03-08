@@ -13,7 +13,6 @@
 #include <iostream>
 #include <Windows.h>
 
-
 #define _USE_MATH_DEFINES
 
 #include <math.h>
@@ -131,12 +130,12 @@ bool PhysicsEngineApp::startup() {
 	m_physicsScene->addActor(centreSphere);
 	m_physicsScene->addActor(sphereInner1);
 	m_physicsScene->addActor(sphereInner2);
-	/*m_physicsScene->addActor(sphereInner3);
+	m_physicsScene->addActor(sphereInner3);
 	m_physicsScene->addActor(sphereInner4);
 	m_physicsScene->addActor(sphereInner5);
 	m_physicsScene->addActor(sphereInner6);
 	m_physicsScene->addActor(sphereInner7);
-	m_physicsScene->addActor(sphereInner8);*/
+	m_physicsScene->addActor(sphereInner8);
 	//Initialize For Coins In Centre=====
 	
 	//add to vector=====================
@@ -144,12 +143,12 @@ bool PhysicsEngineApp::startup() {
 	CoinsInScene.push_back(centreSphere);
 	CoinsInScene.push_back(sphereInner1);
 	CoinsInScene.push_back(sphereInner2);
-	/*CoinsInScene.push_back(sphereInner3);
+	CoinsInScene.push_back(sphereInner3);
 	CoinsInScene.push_back(sphereInner4);
 	CoinsInScene.push_back(sphereInner5);
 	CoinsInScene.push_back(sphereInner6);
 	CoinsInScene.push_back(sphereInner7);
-	CoinsInScene.push_back(sphereInner8);*/
+	CoinsInScene.push_back(sphereInner8);
 	//add to vector=====================
 	
 
@@ -184,6 +183,21 @@ void PhysicsEngineApp::shutdown() {
 	delete m_font;
 	delete m_2dRenderer;
 	delete m_2dRendererGizmos;
+	delete m_physicsScene;
+	delete m_backgroundTexture;
+	delete m_whiteCoinTexture;
+	delete m_whiteCoinFoulTexture;
+	delete m_obstacleTexture;
+	delete m_strikerTexture;
+	delete m_player1_header;
+	delete m_player2_header;
+	delete m_menu;
+	delete m_instructions;
+	delete m_instructionsText;
+	delete m_exitText;
+	
+	//quit application
+	quit();
 }
 
 void PhysicsEngineApp::update(float deltaTime) {
@@ -196,14 +210,6 @@ void PhysicsEngineApp::update(float deltaTime) {
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
 	
-	// Updates the rotational vector for each coin
-	#pragma region RotationUpdate
-	for (int i = 0; i < CoinsInScene.size(); i++)
-	{
-		CoinsInScene[i]->updateRotationVector();
-	}
-	#pragma endregion Updates Rotation For Each Coin
-
 	//	Updates Alpha Levels of Player 1 & 2 Headers
 
 	//	First check if we want to modiy the alpha
@@ -321,6 +327,8 @@ void PhysicsEngineApp::update(float deltaTime) {
 				}
 			}
 		}
+		
+		
 		//	If exit button pressed
 		else if (x_value > 395 && x_value < 510 && y_value < 288 && y_value > 245)
 		{
@@ -336,6 +344,9 @@ void PhysicsEngineApp::update(float deltaTime) {
 			{
 				//	stop drawing menu
 				drawMenu = false;
+
+				// end game
+				quit();
 			}
 
 			// do not draw other scaled
@@ -410,46 +421,6 @@ void PhysicsEngineApp::update(float deltaTime) {
 			}
 		}
 	}
-
-	if (drawInstructionsScaled)
-	{
-		std::cout << "Instructions set to true" << std::endl;
-	}
-	else
-	{
-		std::cout << "Instructions set to false" << std::endl;
-	}
-
-	std::cout << "Sprite Scalar: " << sprite_scalar << std::endl;
-	std::cout << "Sprite X: " << m_instructionsText->getWidth()* sprite_scalar << " Y: " << m_instructionsText->getHeight()* sprite_scalar << std::endl;
-
-	//	If menu displayed, or switchToinstructions diplayed
-
-	#pragma region GameBuilding
-
-	//std::cout << "Position X: " << sphereInner8->getPosition().x << " Y: " << sphereInner8->getPosition().y << std::endl;
-
-	//std::cout << "-----DATA OUT------" << std::endl;
-	//std::cout << "-------------------" << std::endl;
-	//if (sphere->returnPlayerTurn())
-	//	std::cout << "-----Player Turn 1-----" << std::endl;
-	//else
-	//	std::cout << "-----Player Turn 2-----" << std::endl;
-	//std::cout << "-------------------" << std::endl;
-	//std::cout << std::endl;
-	//
-	////	Check if player won
-	//if (player1_winScreen)
-	//{
-	//	std::cout << "Player 1 Wins" << std::endl;
-	//}
-	//if (player2_winScreen)
-	//{
-	//	std::cout << "Player 2 Wins" << std::endl;
-	//}
-
-	#pragma endregion GameBuilding Debug Log
-	
 }
 
 void PhysicsEngineApp::startPhase()
@@ -459,9 +430,6 @@ void PhysicsEngineApp::startPhase()
 	aie::Input* mousePos_x = aie::Input::getInstance();
 	aie::Input* mousePos_y = aie::Input::getInstance();
 	glm::vec2 xMove(5, 0);
-
-
-	
 	
 	//	query mouse x and y position
 	//	cast as float
@@ -527,7 +495,6 @@ void PhysicsEngineApp::startPhase()
 		if (-end.y < 0 || (end.y / end.x > -0.004 && end.y / end.x < 0.5) ||
 			(end.y / end.x < 0 && end.y / end.x > -0.5)) //greater than 0.5 but less than < 0
 		{
-			invalidAim = true;
 			aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); //|EDITTED RED: 1,0,0,1|
 		}
 
@@ -535,21 +502,16 @@ void PhysicsEngineApp::startPhase()
 		if (lineDistance > 350)
 		{
 			//	can be shot at max
-			maxLine = true;
 			aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + glm::normalize(end) * 350.f, glm::vec4(0, 80, 0, 1)); //|EDITTED RED: 1,0,0,1|
 
 			//Check if Gradient of line, pointing down, and directly horizontal
 			if (-end.y < 0 || (end.y / end.x > -0.004 && end.y / end.x < 0.5) ||
 				(end.y / end.x < 0 && end.y / end.x > -0.5))
 			{
-				invalidAim = true;
 				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + glm::normalize(end) * 350.f, glm::vec4(1, 0, 0, 1)); //|EDITTED RED: 1,0,0,1|
 			}
 			else
 			{
-				//To Draw it as normal
-				invalidAim = false;
-
 				//	Player shot at Cap
 				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
@@ -574,22 +536,15 @@ void PhysicsEngineApp::startPhase()
 		}
 		else
 		{
-			//Not at max so no need to clamp
-			maxLine = false;
-
 			//Check if Gradient of line, pointing down, and directly horizontal
 			if (-end.y < 0 || (end.y / end.x > -0.004 && end.y / end.x < 0.5) ||
 				(end.y / end.x < 0 && end.y / end.x > -0.5))
 			{
 				//To Allow Draw Function to know to draw it red
-				invalidAim = true;
 				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(1, 0, 0, 1)); //|EDITTED RED: 1,0,0,1|
 			}
 			else
 			{
-				//To Draw it as normal
-				invalidAim = false;
-
 				//otherwise can be shot, if under cap
 				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 80, 0, 1));
 				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
@@ -872,18 +827,16 @@ void PhysicsEngineApp::winPhase()
 			m_physicsScene->addActor(sphere);
 			
 
-			
-
 			//Initialize For Coins In Centre=====
 			m_physicsScene->addActor(centreSphere);
 			m_physicsScene->addActor(sphereInner1);
 			m_physicsScene->addActor(sphereInner2);
-			/*m_physicsScene->addActor(sphereInner3);
+			m_physicsScene->addActor(sphereInner3);
 			m_physicsScene->addActor(sphereInner4);
 			m_physicsScene->addActor(sphereInner5);
 			m_physicsScene->addActor(sphereInner6);
 			m_physicsScene->addActor(sphereInner7);
-			m_physicsScene->addActor(sphereInner8);*/
+			m_physicsScene->addActor(sphereInner8);
 			//Initialize For Coins In Centre=====
 
 			//add to vector=====================
@@ -891,12 +844,12 @@ void PhysicsEngineApp::winPhase()
 			CoinsInScene.push_back(centreSphere);
 			CoinsInScene.push_back(sphereInner1);
 			CoinsInScene.push_back(sphereInner2);
-			/*CoinsInScene.push_back(sphereInner3);
+			CoinsInScene.push_back(sphereInner3);
 			CoinsInScene.push_back(sphereInner4);
 			CoinsInScene.push_back(sphereInner5);
 			CoinsInScene.push_back(sphereInner6);
 			CoinsInScene.push_back(sphereInner7);
-			CoinsInScene.push_back(sphereInner8);*/
+			CoinsInScene.push_back(sphereInner8);
 			//add to vector=====================
 
 			//Reset all values for coins
@@ -911,12 +864,12 @@ void PhysicsEngineApp::winPhase()
 			centreSphere->movePosition(glm::vec2(-10, 5));
 			sphereInner1->movePosition(glm::vec2(25, 35));
 			sphereInner2->movePosition(glm::vec2(-45, 35));
-			/*sphereInner3->setPosition(glm::vec2(25, -35));
+			sphereInner3->setPosition(glm::vec2(25, -35));
 			sphereInner4->setPosition(glm::vec2(-45, -35));
 			sphereInner5->setPosition(glm::vec2(-10, 50));
 			sphereInner6->setPosition(glm::vec2(50, 0));
 			sphereInner7->setPosition(glm::vec2(-70, 0));
-			sphereInner8->setPosition(glm::vec2(-10, -60));*/
+			sphereInner8->setPosition(glm::vec2(-10, -60));
 
 			//	call UI display to be modified again
 			modify_alpha = true;
@@ -937,9 +890,6 @@ void PhysicsEngineApp::draw() {
 
 	// draw your stuff here!
 	m_2dRenderer->setCameraPos(-450, -450);
-
-	// output some text, uses the last used colour
-	//m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
 
 	//	Create Background Texture
 	m_2dRenderer->drawSprite(m_backgroundTexture, 0, 0, getWindowWidth(), getWindowHeight());
@@ -967,12 +917,7 @@ void PhysicsEngineApp::draw() {
 	if (player1_winScreen == false && player2_winScreen == false)
 	{
 		//	Check Who's turn
-		//	Draw Title: PLAYER 1 TURN
-
-
-		// give it properties to be assigned from the updarte
-		// a check to start and decrease giving values 
-		// a clamp that gets set if value to little or large
+		//	Draw Title: PLAYER 1 TURN || PLAYER 2 TURN
 
 		//	Check to see if modify alpha has been set to true
 		if (drawHeader)
@@ -1016,12 +961,6 @@ void PhysicsEngineApp::draw() {
 					m_2dRenderer->drawSprite(m_whiteCoinTexture, CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, 45, 45);
 				}
 			}
-
-			//Create Vector2 of rotationVector + Coin.position
-			glm::vec2 spherePlusr_end = CoinsInScene[i]->getPosition() + CoinsInScene[i]->getRotationVector();
-
-			// This is the rotation line
-			m_2dRenderer->drawLine(CoinsInScene[i]->getPosition().x, CoinsInScene[i]->getPosition().y, spherePlusr_end.x, spherePlusr_end.y, 1);
 		}
 
 		//Render in Obstacle_mid_left
@@ -1032,44 +971,26 @@ void PhysicsEngineApp::draw() {
 
 		//draw only if right click held
 		aie::Input* input = input->getInstance();
-		if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT))
-		{
-			//	create vector, of scale directed towards the mouse
-			glm::vec2 end = mouseCurrentPosition - sphere->getPosition() * glm::normalize(mouseCurrentPosition);
-
-			if (invalidAim)
-			{
-				m_2dRenderer->setRenderColour(1, 0, 0);
-			}
-			if (maxLine)
-			{
-				//Clamp Line Distance
-				glm::vec2 end_normalized = glm::normalize(mouseCurrentPosition);
-				end_normalized = end_normalized * 300.f;
-				m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, sphere->getPosition().x + end_normalized.x, sphere->getPosition().y + end_normalized.y, 10);
-			}
-			else
-			{
-				m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, sphere->getPosition().x + mouseCurrentPosition.x, sphere->getPosition().y + mouseCurrentPosition.y, 10);
-			}
-		}
-
-		//	draw scaled,
-		//	else normal size
-		
-		//else
+		//if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT))
 		//{
-		//	//	display instruction text normal
-		//	m_2dRenderer->drawSprite(m_instructionsText, 0, -100, m_instructionsText->getWidth(), m_instructionsText->getHeight());
-		//}
+		//	//	create vector, of scale directed towards the mouse
+		//	glm::vec2 end = mouseCurrentPosition - sphere->getPosition() * glm::normalize(mouseCurrentPosition);
 
-		//	draw exit scaled 
-		//	else normal
-		
-		//else
-		//{
-		//	//	display exit normal
-		//	m_2dRenderer->drawSprite(m_exitText, 0, -200, m_exitText->getWidth(), m_exitText->getHeight());
+		//	if (invalidAim)
+		//	{
+		//		m_2dRenderer->setRenderColour(1, 0, 0);
+		//	}
+		//	if (maxLine)
+		//	{
+		//		//Clamp Line Distance
+		//		glm::vec2 end_normalized = glm::normalize(mouseCurrentPosition);
+		//		end_normalized = end_normalized * 300.f;
+		//		m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, sphere->getPosition().x + end_normalized.x, sphere->getPosition().y + end_normalized.y, 10);
+		//	}
+		//	else
+		//	{
+		//		m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, sphere->getPosition().x + mouseCurrentPosition.x, sphere->getPosition().y + mouseCurrentPosition.y, 10);
+		//	}
 		//}
 
 

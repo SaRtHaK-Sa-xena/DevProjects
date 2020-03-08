@@ -15,7 +15,6 @@ public:
 
 	virtual void makeGizmo();
 	virtual bool checkCollision(PhysicsObject* pOther);
-	void DrawSprites(aie::Renderer2D* renderer, aie::Texture* texture);
 
 	float getRadius() { return m_radius; }
 	glm::vec4 getColour() { return m_colour; }
@@ -69,13 +68,10 @@ public:
 	void setStartTurn(bool a_condition) { m_startOfTurn = a_condition;}
 	bool isitStartTurn() { return m_startOfTurn; }
 
-	//Update Rotational Vector of the spheres
-	void updateRotationVector() { m_rotation_Vector = glm::vec2(std::cos(m_rotation), std::sin(m_rotation))* m_radius; }
-	glm::vec2 getRotationVector() { return m_rotation_Vector; }
-
 	// To Rewind to previous status
 	void rewindTime() { m_angularVelocity = prev_angVel; m_rotation = prev_rot; m_position = prev_pos; }
 
+	// resumes with known velocity and direction from rotation
 	void resumeGame() { m_angularVelocity = prev_angVel; m_rotation = prev_rot; m_velocity = prev_vel; }
 
 protected:
@@ -118,10 +114,5 @@ protected:
 	//	To allow easier condition checks
 	//	When in Start of turn
 	bool m_startOfTurn = false;
-
-	//	Creation of rotational vector
-	//	Allows drawing in Draw function easier
-	//	As it updates the values accordingly
-	glm::vec2 m_rotation_Vector;
 };
 

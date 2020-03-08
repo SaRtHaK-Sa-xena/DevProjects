@@ -17,8 +17,6 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
-	void setupContinuousDemo(glm::vec2 startPos, float inclination, float speed, float gravity);
-
 	//	player turn
 	void startPhase();
 	
@@ -34,18 +32,7 @@ public:
 
 	//	physics scene
 	PhysicsScene* m_physicsScene;
-
-	SphereClass* rocket_Ship;
 	
-	// Being Used
-	//SphereClass* sphere;
-	
-	
-	//SphereClass* sphereInner8 = new SphereClass(glm::vec2(-10, -60), glm::vec2(10, -50), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
-	//SphereClass* sphereInner8 = new SphereClass(glm::vec2(-2,-150), glm::vec2(-100, -50), 1, 3 * 6, 0.3, 0, 1, glm::vec4(0, 1, 1, 1));
-
-	AABBClass* box1;
-
 	//Corner Pockets===========
 	AABBClass* topLeftHole;
 	AABBClass* topRightHole;
@@ -57,10 +44,6 @@ public:
 	AABBClass* midLeftObs;
 	AABBClass* midRightObs;
 	//Obstacle Boxes===========
-
-	SphereClass* striker;
-
-	SphereClass* mousePointer = new SphereClass(glm::vec2(0, 0), 0, 0, 1, 2, glm::vec4(1, 0, 1, 1));
 
 	glm::vec2 mouseCurrentPosition;
 
