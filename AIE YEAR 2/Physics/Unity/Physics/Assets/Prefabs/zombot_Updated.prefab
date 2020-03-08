@@ -1166,9 +1166,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0aeb19c13fb8f42a63aee75284eef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
+  speedEnemyTravellingAt: 10
   pushPower: 2
   currentHealth: 0
+  isAlive: 1
   newPosition: {fileID: 0}
 --- !u!1 &2763059473481484428
 GameObject:

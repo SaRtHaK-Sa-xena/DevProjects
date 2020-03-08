@@ -14,17 +14,17 @@ public class PickUpObject : MonoBehaviour
     //    //Store offset = gameobject world pos - mouse world pos
     //    mOffset = gameObject.transform.position - GetMouseWorldPos();
     //}
-    private void Update()
-    {
-        if(Input.GetKey(KeyCode.F))
-        {
-            mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
+    //private void Update()
+    //{
+    //    if(Input.GetKey(KeyCode.F))
+    //    {
+    //        mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
 
-            //Store offset = gameobject world pos - mouse world pos
-            mOffset = gameObject.transform.position - GetMouseWorldPos();
-            transform.position = GetMouseWorldPos() + mOffset;
-        }
-    }
+    //        //Store offset = gameobject world pos - mouse world pos
+    //        mOffset = gameObject.transform.position - GetMouseWorldPos();
+    //        transform.position = GetMouseWorldPos() + mOffset;
+    //    }
+    //}
 
     //  Helper function
     private Vector3 GetMouseWorldPos()
@@ -39,11 +39,21 @@ public class PickUpObject : MonoBehaviour
 
     }
 
-    //private void OnMouseDrag()
-    //{
-    //    if (Input.GetKey(KeyCode.F))
-    //    {
-            
-    //    }
-    //}
+    private void OnMouseDown()
+    {
+        if(gameObject.CompareTag("Enemy"))
+        {
+            gameObject.GetComponentInParent<Ragdoll>().RagdollOn = true;
+        }
+
+        mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
+
+        //Store offset = gameobject world pos - mouse world pos
+        mOffset = gameObject.transform.position - GetMouseWorldPos();
+    }
+
+    private void OnMouseDrag()
+    {
+        transform.position = GetMouseWorldPos() + mOffset;
+    }
 }

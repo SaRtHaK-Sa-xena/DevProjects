@@ -16,7 +16,7 @@ public class wreckingBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(rb.velocity.magnitude);
+        //Debug.Log(rb.velocity.magnitude);
         if (rb.velocity.magnitude < 0)
         {
             //   Remove Wrecking Ball

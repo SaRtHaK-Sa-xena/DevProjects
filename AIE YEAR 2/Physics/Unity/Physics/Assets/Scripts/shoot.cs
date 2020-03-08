@@ -32,7 +32,7 @@ public class shoot : MonoBehaviour
            shootGun();
         }
 
-        Debug.DrawRay(gunPoint.position, gunPoint.forward * 10.0f, Color.green);
+        Debug.DrawRay(gunPoint.position, gunPoint.forward * 50.0f, Color.green);
     }
 
     //  Cast Ray Functions
@@ -40,16 +40,20 @@ public class shoot : MonoBehaviour
     {
         //  instantiate raycast
         RaycastHit firedRayCast;
-        GameObject ParticleSystem = Instantiate(particle, particle_Point.transform);
+        GameObject ParticleSystem = Instantiate(particle, gunPoint.transform);
         ParticleSystem.transform.SetParent(null);
 
 
 
         //  if raycast hit successful
-        if (Physics.Raycast(gunPoint.transform.position, gunPoint.transform.forward, out firedRayCast, 8))
+        if (Physics.Raycast(gunPoint.position, gunPoint.forward, out firedRayCast, Mathf.Infinity, ~8))
         {
+
             //  Point of contact
             Vector3 contactPoint = firedRayCast.point;
+
+            Debug.Log(Vector3.Distance(contactPoint, gunPoint.position));
+
 
             //  Rotate to contact point
             ParticleSystem.transform.LookAt(contactPoint);
@@ -57,19 +61,24 @@ public class shoot : MonoBehaviour
             //  Transform
             ParticleSystem.transform.GetChild(0).transform.position = contactPoint;
 
+            Debug.Log("Hit Detected!");
+
             //  Send raycast data to particle
             ParticleSystem.GetComponent<destroyParticle>().PostShot(firedRayCast);
 
             //  if raycast hits enemy
             if (firedRayCast.collider.gameObject.CompareTag("Enemy"))
             {
+                Debug.Log("Enemy shot!");
+
                 //  send raycast data to enemy
                 firedRayCast.collider.gameObject.GetComponentInParent<Zombie>().AfterEachShot(firedRayCast);
+                firedRayCast.collider.gameObject.GetComponent<Rigidbody>().AddForce(-firedRayCast.normal * 10f);
                 //============Spawn Particle==================
             }
 
             //  if raycast hits interactable button
-            if(firedRayCast.collider.gameObject.CompareTag("Button"))
+            if (firedRayCast.collider.gameObject.CompareTag("Button"))
             {
                 //  Activate Lift
                 firedRayCast.collider.gameObject.GetComponentInParent<liftManager>().liftControls(firedRayCast);
