@@ -25,12 +25,12 @@ void AABBClass::makeGizmo()
 	aie::Gizmos::add2DAABB(m_position, glm::vec2(m_width, m_height), colour);*/
 
 	// draw using local axes
-	glm::vec2 p1 = m_position - m_localX * m_width - m_localY * m_height;
+	/*glm::vec2 p1 = m_position - m_localX * m_width - m_localY * m_height;
 	glm::vec2 p2 = m_position + m_localX * m_width - m_localY * m_height;
 	glm::vec2 p3 = m_position - m_localX * m_width + m_localY * m_height;
 	glm::vec2 p4 = m_position + m_localX * m_width + m_localY * m_height;
 	aie::Gizmos::add2DTri(p1, p2, p4, m_colour);
-	aie::Gizmos::add2DTri(p1, p4, p3, m_colour);
+	aie::Gizmos::add2DTri(p1, p4, p3, m_colour);*/
 }
 
 void AABBClass::DrawSprites(aie::Renderer2D* renderer, aie::Texture* texture)

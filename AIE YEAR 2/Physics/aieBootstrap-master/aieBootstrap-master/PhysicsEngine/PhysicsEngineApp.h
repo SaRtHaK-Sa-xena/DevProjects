@@ -111,6 +111,9 @@ protected:
 	//	instructions_txt sprite
 	aie::Texture* m_instructionsText;
 
+	//	exit_txt sprite
+	aie::Texture* m_exitText;
+
 	//objects in scene
 	std::vector<SphereClass*> CoinsInScene;
 
@@ -122,7 +125,7 @@ protected:
 	float alpha_value = 0.1;
 
 	//	sprite scalar value
-	float sprite_scalar = 0.1;
+	float sprite_scalar = 1;
 
 	//	bool to track if line will be displayed red
 	//	during Draw Function
@@ -152,6 +155,9 @@ protected:
 
 	//	draw instructions text scaled
 	bool drawInstructionsScaled = false;
+
+	//	draw exit text scaled
+	bool drawExitScaled = false;
 
 	//Striker To be used
 	SphereClass* sphere = new SphereClass(glm::vec2(-10, -240), glm::vec2(0, 0), 2, (3.5 * 6), 0.6, 0, 1, glm::vec4(0, 0, 0, 0));

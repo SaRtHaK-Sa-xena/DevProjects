@@ -76,6 +76,10 @@ bool PhysicsEngineApp::startup() {
 	// instructionsTXT_Sprite
 	m_instructionsText = new aie::Texture("../bin/textures/CB_instructionsTXT_0.1.png");
 
+	// exitTXT_sprite
+	m_exitText = new aie::Texture("../bin/textures/CB_exitTXT_0.1.png");
+
+
 	#pragma region GameSetup
 
 	m_physicsScene = new PhysicsScene();
@@ -283,13 +287,16 @@ void PhysicsEngineApp::update(float deltaTime) {
 			//	increase scalar
 			//	and clamp if need be
 			sprite_scalar += 0.1;
-			if (sprite_scalar >= 2)
+			if (sprite_scalar >= 1.3)
 			{
-				sprite_scalar = 2;
+				sprite_scalar = 1.3;
 			}
 
-			//	drawitScaled
+			//	draw instructions scaled
 			drawInstructionsScaled = true;
+			
+			//	don't draw others scaled
+			drawExitScaled = false;
 
 			//	if left click pressed on instructions
 			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
@@ -314,24 +321,15 @@ void PhysicsEngineApp::update(float deltaTime) {
 				}
 			}
 		}
-		else
-		{
-			sprite_scalar -= 0.1;
-			if (sprite_scalar <= 0)
-			{
-				sprite_scalar = 0;
-			}
-		}
-
 		//	If exit button pressed
-		if (x_value > 395 && x_value < 510 && y_value < 288 && y_value > 245)
+		else if (x_value > 395 && x_value < 510 && y_value < 288 && y_value > 245)
 		{
 			//	increase scalar
 			//	and clamp if need be
 			sprite_scalar += 0.1;
-			if (sprite_scalar >= 1)
+			if (sprite_scalar >= 1.3)
 			{
-				sprite_scalar = 1;
+				sprite_scalar = 1.3;
 			}
 
 			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
@@ -339,13 +337,20 @@ void PhysicsEngineApp::update(float deltaTime) {
 				//	stop drawing menu
 				drawMenu = false;
 			}
+
+			// do not draw other scaled
+			drawInstructionsScaled = false;
+
+			// draw exit scaled
+			drawExitScaled = true;
 		}
+		 
 		else
 		{
 			sprite_scalar -= 0.1;
-			if (sprite_scalar <= 0)
+			if (sprite_scalar <= 1)
 			{
-				sprite_scalar = 0;
+				sprite_scalar = 1;
 			}
 		}
 
@@ -365,10 +370,16 @@ void PhysicsEngineApp::update(float deltaTime) {
 			//	increase scalar
 			//	and clamp if need be
 			sprite_scalar += 0.1;
-			if (sprite_scalar >= 2)
+			if (sprite_scalar >= 1.3)
 			{
-				sprite_scalar = 2;
+				sprite_scalar = 1.3;
 			}
+
+			//	don't draw instructions scaled
+			drawInstructionsScaled = false;
+			
+			//	draw exit scaled instead
+			drawExitScaled = true;
 
 			//	Exit button pressed
 			if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
@@ -393,13 +404,24 @@ void PhysicsEngineApp::update(float deltaTime) {
 		else
 		{
 			sprite_scalar -= 0.1;
-			if (sprite_scalar <= 0)
+			if (sprite_scalar <= 1)
 			{
-				sprite_scalar = 0;
+				sprite_scalar = 1;
 			}
 		}
 	}
 
+	if (drawInstructionsScaled)
+	{
+		std::cout << "Instructions set to true" << std::endl;
+	}
+	else
+	{
+		std::cout << "Instructions set to false" << std::endl;
+	}
+
+	std::cout << "Sprite Scalar: " << sprite_scalar << std::endl;
+	std::cout << "Sprite X: " << m_instructionsText->getWidth()* sprite_scalar << " Y: " << m_instructionsText->getHeight()* sprite_scalar << std::endl;
 
 	//	If menu displayed, or switchToinstructions diplayed
 
@@ -1034,16 +1056,22 @@ void PhysicsEngineApp::draw() {
 
 		//	draw scaled,
 		//	else normal size
-		if (drawInstructionsScaled)
-		{
-			m_2dRenderer->setRenderColour(1, 1, 1, 0.5);
-			//	display menu
-			m_2dRenderer->drawSprite(m_instructionsText, 0, -50, m_instructionsText->getWidth()* sprite_scalar, m_instructionsText->getHeight()* sprite_scalar);
-		}
-		else
-		{
-			m_2dRenderer->drawSprite(m_instructionsText, 0, -50);
-		}
+		
+		//else
+		//{
+		//	//	display instruction text normal
+		//	m_2dRenderer->drawSprite(m_instructionsText, 0, -100, m_instructionsText->getWidth(), m_instructionsText->getHeight());
+		//}
+
+		//	draw exit scaled 
+		//	else normal
+		
+		//else
+		//{
+		//	//	display exit normal
+		//	m_2dRenderer->drawSprite(m_exitText, 0, -200, m_exitText->getWidth(), m_exitText->getHeight());
+		//}
+
 
 		//	if user pressed 'esc'
 		if (drawMenu)
@@ -1051,13 +1079,55 @@ void PhysicsEngineApp::draw() {
 			m_2dRenderer->setRenderColour(1, 1, 1, 0.5);
 			//	display menu
 			m_2dRenderer->drawSprite(m_menu, 0, 0, m_menu->getWidth(), m_menu->getHeight());
+			
+			if (drawInstructionsScaled)
+			{
+				m_2dRenderer->setRenderColour(1, 1, 1, 0.5);
+
+				//	display instruction text scaled
+				m_2dRenderer->drawSprite(m_instructionsText, 0, -100, m_instructionsText->getWidth() * sprite_scalar, m_instructionsText->getHeight() * sprite_scalar);
+			}
+			else
+			{
+				//	display instructions
+				m_2dRenderer->drawSprite(m_instructionsText, 0, -100, m_instructionsText->getWidth(), m_instructionsText->getHeight());
+			}
+			
+			if (drawExitScaled)
+			{
+				m_2dRenderer->setRenderColour(1, 1, 1, 0.5);
+
+				//	display exit scaled
+				m_2dRenderer->drawSprite(m_exitText, 0, -200, m_exitText->getWidth() * sprite_scalar, m_exitText->getHeight() * sprite_scalar);
+			}
+			else
+			{
+				//	display exit
+				m_2dRenderer->drawSprite(m_exitText, 0, -200, m_exitText->getWidth(), m_exitText->getHeight());
+			}
+			
 		}
 		
+		//	if drawing instructions menu
 		if (switchToInstructions)
 		{
 			m_2dRenderer->setRenderColour(1, 1, 1, 0.7);
-			//	display menu
+			
+			//	display instructions menu
 			m_2dRenderer->drawSprite(m_instructions, 0, 0, m_instructions->getWidth(), m_instructions->getHeight());
+
+			if (drawExitScaled)
+			{
+				m_2dRenderer->setRenderColour(1, 1, 1, 0.5);
+
+				//	display exit scaled
+				m_2dRenderer->drawSprite(m_exitText, 0, -200, m_exitText->getWidth() * sprite_scalar, m_exitText->getHeight() * sprite_scalar);
+			}
+			else
+			{
+				//	display exit
+				m_2dRenderer->drawSprite(m_exitText, 0, -200, m_exitText->getWidth(), m_exitText->getHeight());
+			}
 		}
 
 		m_2dRenderer->setRenderColour(0, 0, 1);
