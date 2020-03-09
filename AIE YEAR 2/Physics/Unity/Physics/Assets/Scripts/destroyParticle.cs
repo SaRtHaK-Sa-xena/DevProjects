@@ -30,7 +30,7 @@ public class destroyParticle : MonoBehaviour
             if (raycast.collider.gameObject.CompareTag("Enemy"))
             {
                 // Hitting Enemy, calculate damage based on 
-                GameObject.Find("Player").GetComponent<shoot>().checkDamage(raycast);
+                GameObject.FindGameObjectWithTag("Player").GetComponent<shoot>().checkDamage(raycast);
             }
             else
             {

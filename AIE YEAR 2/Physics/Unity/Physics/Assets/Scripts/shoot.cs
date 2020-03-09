@@ -61,16 +61,12 @@ public class shoot : MonoBehaviour
             //  Transform
             ParticleSystem.transform.GetChild(0).transform.position = contactPoint;
 
-            Debug.Log("Hit Detected!");
-
             //  Send raycast data to particle
             ParticleSystem.GetComponent<destroyParticle>().PostShot(firedRayCast);
 
             //  if raycast hits enemy
             if (firedRayCast.collider.gameObject.CompareTag("Enemy"))
             {
-                Debug.Log("Enemy shot!");
-
                 //  send raycast data to enemy
                 firedRayCast.collider.gameObject.GetComponentInParent<Zombie>().AfterEachShot(firedRayCast);
                 firedRayCast.collider.gameObject.GetComponent<Rigidbody>().AddForce(-firedRayCast.normal * 10f);

@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
         //store all rigidbodies
         GameObject[] listOfEnemies = GameObject.FindGameObjectsWithTag("KEY_enemy");
 
+        Debug.Log("Enemy Count: " + listOfEnemies.Length);
+
         //  if all enemies dead
         if (listOfEnemies.Length <= 0)
         {
@@ -54,7 +56,7 @@ public class GameManager : MonoBehaviour
                     for (int i = 0; i < listOfSpawns.Length; i++)
                     {
                         //  assign enemy on each spawn position
-                        Instantiate(enemy_pref, listOfSpawns[i]);
+                        Instantiate(enemy_pref, listOfSpawns[i].transform);
                     }
                 }
             }

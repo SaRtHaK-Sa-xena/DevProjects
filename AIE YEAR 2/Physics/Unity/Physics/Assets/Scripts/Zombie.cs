@@ -54,6 +54,9 @@ public class Zombie : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
+        
+        //set new position
+        newPosition = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).transform;
     }
 
     // Update is called once per frame
