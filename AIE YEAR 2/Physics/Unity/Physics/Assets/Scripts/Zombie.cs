@@ -116,8 +116,11 @@ public class Zombie : MonoBehaviour
         //Health Check
         if(currentHealth <= 0)
         {
-            //  Add force of 100
-            raycastUsed.collider.gameObject.GetComponentInParent<Rigidbody>().AddForce(-raycastUsed.normal * 100f);
+            if (raycastUsed.collider)
+            {
+                //  Add force of 100
+                raycastUsed.collider.gameObject.GetComponentInParent<Rigidbody>().AddForce(-raycastUsed.normal * 100f);
+            }
 
             //  Activate Ragdoll
             GetComponent<Ragdoll>().RagdollOn = true;

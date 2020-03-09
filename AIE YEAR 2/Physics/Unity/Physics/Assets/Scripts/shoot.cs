@@ -97,7 +97,7 @@ public class shoot : MonoBehaviour
         }
         else
         {
-            raycast.collider.gameObject.GetComponentInParent<Zombie>().modifyHealth(-1);
+            raycast.collider.gameObject.GetComponentInParent<Zombie>().modifyHealth(-5);
         }
     }
 }
