@@ -109,14 +109,6 @@ protected:
 	//	sprite scalar value
 	float sprite_scalar = 1;
 
-	//	bool to track if line will be displayed red
-	//	during Draw Function
-	bool invalidAim = false;
-	
-
-	//	bool to track if the line will be drawn at max
-	bool maxLine = false;
-
 	//	bool to track if alpha levels need to be modified
 	bool modify_alpha = true;
 

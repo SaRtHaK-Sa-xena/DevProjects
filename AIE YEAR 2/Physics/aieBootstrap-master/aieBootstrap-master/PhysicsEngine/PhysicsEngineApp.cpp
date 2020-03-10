@@ -34,9 +34,6 @@ bool PhysicsEngineApp::startup() {
 	// draws Gizmos
 	m_2dRendererGizmos = new aie::Renderer2D();
 	
-	// draws menu items
-	m_menuRenderer = new aie::Renderer2D();
-
 	//increase the 2d line count to maxmimize the number of objects we can draw
 	aie::Gizmos::create(255U, 255U, 65535U, 65535U);
 
@@ -967,31 +964,6 @@ void PhysicsEngineApp::draw() {
 
 		//Render in Obstacle_mid_right
 		m_2dRenderer->drawSprite(m_obstacleTexture, midRightObs->getPosition().x, midRightObs->getPosition().y, midRightObs->getWidth() * 2.2 - 5, midRightObs->getHeight() * 2.2 - 5);
-
-		//draw only if right click held
-		aie::Input* input = input->getInstance();
-		//if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT))
-		//{
-		//	//	create vector, of scale directed towards the mouse
-		//	glm::vec2 end = mouseCurrentPosition - sphere->getPosition() * glm::normalize(mouseCurrentPosition);
-
-		//	if (invalidAim)
-		//	{
-		//		m_2dRenderer->setRenderColour(1, 0, 0);
-		//	}
-		//	if (maxLine)
-		//	{
-		//		//Clamp Line Distance
-		//		glm::vec2 end_normalized = glm::normalize(mouseCurrentPosition);
-		//		end_normalized = end_normalized * 300.f;
-		//		m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, sphere->getPosition().x + end_normalized.x, sphere->getPosition().y + end_normalized.y, 10);
-		//	}
-		//	else
-		//	{
-		//		m_2dRenderer->drawLine(sphere->getPosition().x, sphere->getPosition().y, sphere->getPosition().x + mouseCurrentPosition.x, sphere->getPosition().y + mouseCurrentPosition.y, 10);
-		//	}
-		//}
-
 
 		//	if user pressed 'esc'
 		if (drawMenu)

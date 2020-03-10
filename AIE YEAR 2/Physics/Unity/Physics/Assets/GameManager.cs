@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     //  call enemy spawn once
     bool callOnce = true;
 
+    //  call Destroy
+    bool callOnceAgain = true;
+
     //  spawn enemy 
     public bool spawnEnemy = false;
 
@@ -15,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     //  list of enemy spawns
     public Transform[] listOfSpawns;
+
+    public GameObject[] toDeleteList;
    
     // Start is called before the first frame update
     void Start()
@@ -38,13 +43,22 @@ public class GameManager : MonoBehaviour
         //store all rigidbodies
         GameObject[] listOfEnemies = GameObject.FindGameObjectsWithTag("KEY_enemy");
 
-        Debug.Log("Enemy Count: " + listOfEnemies.Length);
-
         //  if all enemies dead
         if (listOfEnemies.Length <= 0)
         {
+            if(callOnceAgain)
+            {
+                //  Destroy objects and allow player to travel up the lift
+                for (int i = 0; i < toDeleteList.Length; i++)
+                {
+                    Destroy(toDeleteList[i].gameObject);
+                }
+                callOnceAgain = true;
+            }
+            
+
             //  if spawn enemy been set to true from trigger event
-            if(spawnEnemy)
+            if (spawnEnemy)
             {
                 //  call spawn once
                 if (callOnce)

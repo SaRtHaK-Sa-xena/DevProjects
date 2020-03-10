@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/FPS_Physics.unity
+    guid: 042253ab80242594c8fd1b2decc17d62
   m_configObjects: {}
