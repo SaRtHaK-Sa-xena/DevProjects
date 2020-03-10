@@ -61,7 +61,6 @@ protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Renderer2D*	m_2dRendererGizmos;
-	aie::Renderer2D*	m_menuRenderer;
 	aie::Font*			m_font;
 
 	//	background sprite

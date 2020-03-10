@@ -172,7 +172,6 @@ bool PhysicsEngineApp::startup() {
 	m_physicsScene->addActor(midRightObs);
 	//Obstacles=========================
 	
-
 	#pragma endregion GameSetup
 
 	return true;
