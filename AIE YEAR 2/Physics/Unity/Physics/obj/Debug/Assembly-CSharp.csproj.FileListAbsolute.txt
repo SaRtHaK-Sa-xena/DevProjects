@@ -265,3 +265,7 @@ C:\Users\sarthak\Documents\GitHub\TestProject2D\AIE YEAR 2\Physics\Unity\Physics
 C:\Users\sarthak\Documents\GitHub\TestProject2D\AIE YEAR 2\Physics\Unity\Physics\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\sarthak\Documents\GitHub\TestProject2D\AIE YEAR 2\Physics\Unity\Physics\obj\Debug\Assembly-CSharp.dll
 C:\Users\sarthak\Documents\GitHub\TestProject2D\AIE YEAR 2\Physics\Unity\Physics\obj\Debug\Assembly-CSharp.pdb
+C:\Users\sarthak\Documents\GitHub\TestProject2D\AIE YEAR 2\Physics\Unity\Physics\Temp\bin\Debug\Unity.Postprocessing.Editor.dll
+C:\Users\sarthak\Documents\GitHub\TestProject2D\AIE YEAR 2\Physics\Unity\Physics\Temp\bin\Debug\Unity.Postprocessing.Runtime.dll
+C:\Users\sarthak\Documents\GitHub\TestProject2D\AIE YEAR 2\Physics\Unity\Physics\Temp\bin\Debug\Unity.Postprocessing.Editor.pdb
+C:\Users\sarthak\Documents\GitHub\TestProject2D\AIE YEAR 2\Physics\Unity\Physics\Temp\bin\Debug\Unity.Postprocessing.Runtime.pdb

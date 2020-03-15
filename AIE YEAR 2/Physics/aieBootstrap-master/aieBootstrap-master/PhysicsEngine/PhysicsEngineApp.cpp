@@ -434,47 +434,57 @@ void PhysicsEngineApp::startPhase()
 	
 	//	set it to location of sphere, depending on 
 	//	it's x
-	if (sphere->getPosition().x > 0)
-	{
-		x_value = (900 / 2) - x_value;
-		x_value = x_value / ratioProportion;
-		//x_value = -x_value;
+	//if (sphere->getPosition().x > 0)
+	//{
+	//	x_value = (900 / 2) - x_value;
+	//	x_value = x_value / ratioProportion;
+	//	//x_value = -x_value;
 
-		//=============Y_value
-		y_value = (900 / 2) - y_value*2;
-		y_value = y_value / ratioProportion;
-		//y_value = -y_value;
-		
+	//	//=============Y_value
+	//	y_value = (900 / 2) - y_value*2;
+	//	y_value = y_value / ratioProportion;
+	//	//y_value = -y_value;
+	//	
+	//	x_value = x_value + sphere->getPosition().x;
 
-		x_value = x_value + sphere->getPosition().x;
+	//	//x_value = -x_value;
 
-		x_value = -x_value;
+	//	y_value -= 30;
 
-		//	create position from given query
-		glm::vec2 tempPosition(-x_value, -y_value);
-		mouseCurrentPosition = tempPosition;
+	//	//	create position from given query
+	//	glm::vec2 tempPosition(x_value, -y_value);
+	//	std::cout << "X: " << x_value << " -Y: " << -y_value << std::endl;
 
-	}
-	else
-	{
-		//=============X_value
-		x_value = (900 /2) - x_value;
-		x_value = x_value / ratioProportion;
-		x_value = -x_value;
+	//	mouseCurrentPosition = tempPosition;
 
-		//=============Y_value
-		y_value = (900 / 2) - y_value*2;
-		y_value = y_value / ratioProportion;
-		y_value = -y_value;
+	//}
+	//else
+	//{
+	//	//=============X_value
+	//	x_value = (900 /2) - x_value;
+	//	x_value = x_value / ratioProportion;
+	//	x_value = -x_value;
+
+	//	//=============Y_value
+	//	y_value = (900 / 2) - y_value*2;
+	//	y_value = y_value / ratioProportion;
+	//	y_value = -y_value;
 
 
-		x_value = x_value - sphere->getPosition().x;
-		
-		//	create position from given query
-		glm::vec2 tempPosition(x_value, y_value);
-		mouseCurrentPosition = tempPosition;
-	}
+	//	x_value = x_value - sphere->getPosition().x;
+	//	
+	//	//	create position from given query
+	//	glm::vec2 tempPosition(x_value, y_value);
+	//	mouseCurrentPosition = tempPosition;
+	//}
 
+	//	place in the middle 
+	x_value = (900 / 2) - x_value;
+	y_value = (900 / 2) - y_value;
+	glm::vec2 tempPosition(-x_value, -y_value);
+	mouseCurrentPosition = tempPosition;
+
+	std::cout << "Mouse Current Position X: " << mouseCurrentPosition.x << " Y: " << mouseCurrentPosition.y << std::endl;
 
 	//player setup turn
 	if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT) && sphere->isPlaceble())
@@ -543,6 +553,12 @@ void PhysicsEngineApp::startPhase()
 			{
 				//otherwise can be shot, if under cap
 				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 80, 0, 1));
+				std::cout << "Drawing line" << std::endl;
+				std::cout << "-------------" << std::endl;
+				std::cout << "Sphere Position X: " << sphere->getPosition().x << " Y: " << sphere->getPosition().y << std::endl;
+				std::cout << "-------------" << std::endl;
+				//aie::Gizmos::add2DLine(sphere->getPosition(), end, glm::vec4(0, 1, 0, 1));
+				//aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 80, 0, 1));
 				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
 					//set velocity

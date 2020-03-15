@@ -21,6 +21,15 @@ public class destroyParticle : MonoBehaviour
         raycast = rayInfo;
     }
 
+    private void OnParticleCollision(GameObject other)
+    {
+        if(other.CompareTag("Enemy"))
+        {
+            Debug.Log("Collided with enemy");
+            Destroy(gameObject);
+        }
+    }
+
     //After particle collides with anything
     public void OnDestroy()
     {

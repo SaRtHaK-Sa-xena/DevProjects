@@ -134,4 +134,5 @@ public class Zombie : MonoBehaviour
 
         //https://www.mixamo.com/#/?page=1&query=getting+up&type=Motion%2CMotionPack
     }
+
 }

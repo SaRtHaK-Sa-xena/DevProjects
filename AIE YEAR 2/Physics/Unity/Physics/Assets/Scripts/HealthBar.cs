@@ -65,13 +65,17 @@ public class HealthBar : MonoBehaviour
             //Enemy
             if (gameObject.transform.parent.CompareTag("Enemy"))
             {
-                GetComponentInParent<Zombie>().OnHealthPctChanged -= HandleHealthChanged;
+                Zombie z = GetComponentInParent<Zombie>();
+                if(z)
+                    GetComponentInParent<Zombie>().OnHealthPctChanged -= HandleHealthChanged;
             }
             
             //Player
             if (gameObject.transform.parent.CompareTag("MainCamera"))
             {
-                GetComponentInParent<PlayerHealth>().OnHealthPctChanged -= HandleHealthChanged;
+                Zombie z = GetComponentInParent<Zombie>();
+                if (z)
+                    GetComponentInParent<PlayerHealth>().OnHealthPctChanged -= HandleHealthChanged;
             }
         }
     }

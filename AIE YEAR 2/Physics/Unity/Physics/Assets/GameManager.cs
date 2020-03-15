@@ -39,6 +39,10 @@ public class GameManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
 
         //store all rigidbodies
         GameObject[] listOfEnemies = GameObject.FindGameObjectsWithTag("KEY_enemy");

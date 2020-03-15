@@ -11,6 +11,7 @@ public class shoot : MonoBehaviour
     //  gunPoint
     public Transform gunPoint;
 
+    //  particle system
     public GameObject particle;
     public Transform particle_Point;
 
@@ -20,7 +21,8 @@ public class shoot : MonoBehaviour
     //set picking up to true
     private bool pickup = false;
 
-    
+    //  LayerMask
+    [SerializeField] LayerMask layerMask;
 
     // Update is called once per frame
     void Update()
@@ -43,26 +45,22 @@ public class shoot : MonoBehaviour
         GameObject ParticleSystem = Instantiate(particle, particle_Point.transform);
         ParticleSystem.transform.SetParent(null);
 
-
-
         //  if raycast hit successful
-        if (Physics.Raycast(gunPoint.position, gunPoint.forward, out firedRayCast, Mathf.Infinity, ~8))
+        if (Physics.Raycast(gunPoint.position, gunPoint.forward, out firedRayCast, Mathf.Infinity, layerMask))
         {
+            Debug.Log("Raycast Hit: " + firedRayCast.collider.name);
 
             //  Point of contact
             Vector3 contactPoint = firedRayCast.point;
 
-            Debug.Log(Vector3.Distance(contactPoint, gunPoint.position));
-
-
             //  Rotate to contact point
             ParticleSystem.transform.LookAt(contactPoint);
 
-            //  Transform
+            //  Transform set collider to point of contact
             ParticleSystem.transform.GetChild(0).transform.position = contactPoint;
 
             //  Send raycast data to particle
-            ParticleSystem.GetComponent<destroyParticle>().PostShot(firedRayCast);
+            ParticleSystem.GetComponent<gunshot_script>().setShot(firedRayCast);
 
             //  if raycast hits enemy
             if (firedRayCast.collider.gameObject.CompareTag("Enemy"))
