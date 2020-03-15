@@ -35,7 +35,9 @@ public class shock_ball : MonoBehaviour
                 particle.transform.LookAt(listOfColliders[i].transform);
 
                 //  if valid enemy, do damage
-                z.modifyHealth(-20);
+                z.modifyHealth(-1);
+
+                break;
             }
         }
     }
