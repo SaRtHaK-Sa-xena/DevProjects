@@ -1,8 +1,13 @@
+#define GLM_ENABLE_EXPERIMENTAL
 #include "ComputerGraphicsApp.h"
 #include "Gizmos.h"
 #include "Input.h"
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtx/transform.hpp>
+
+
 
 using glm::vec3;
 using glm::vec4;
@@ -35,6 +40,14 @@ bool ComputerGraphicsApp::startup() {
 	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, 16.0f / 9.0f, 0.1f, 1000.0f);
 		//m_viewMatrix = glm::inverse(m_viewMatrix);
 
+	//Quaternions Tutorial
+	m_positions[0] = glm::vec3(10, 5, 10);
+	m_positions[1] = glm::vec3(-10, 5, -10);
+
+	m_rotations[0] = glm::quat(glm::vec3(0, -1, 0));
+	m_rotations[1] = glm::quat(glm::vec3(0, 1, 0));
+
+
 	return true;
 }
 
@@ -59,6 +72,26 @@ void ComputerGraphicsApp::update(float deltaTime) {
 						vec3(-10, 0, -10 + i),
 						i == 10 ? white : black);
 	}
+
+	#pragma region Quaternion
+
+	//	use time to animate a value between [0,1]
+	float s = glm::cos(getTime()) * 0.5f + 0.5f;
+
+	//	standard linear interpolation
+	glm::vec3 p = (1.0f - s) * m_positions[0] + s * m_positions[1];
+
+	//	quaternion slerp
+	glm::quat r = glm::slerp(m_rotations[0], m_rotations[0], s);
+
+	//	build a matrix
+	glm::mat4 m = glm::translate(p) * glm::toMat4(r);
+
+	//	draw a transform and box
+	Gizmos::addTransform(m);
+	Gizmos::addAABBFilled(p, glm::vec3(.5f), glm::vec4(1, 0, 0, 1), &m);
+
+	#pragma endregion Animated Box
 
 	// add a transform so that we can see the axis
 	Gizmos::addTransform(mat4(1));
