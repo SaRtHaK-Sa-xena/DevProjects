@@ -13,7 +13,7 @@ public:
 	virtual void Update(float deltaTime);
 
 #pragma region Setter
-	void SetPosition(const glm::vec3& pos);
+	void SetPosition(const glm::vec3 &pos);
 	void SetYawPitchRoll(float yaw, float pitch, float roll);
 	void SetProjection(float fov, float aspect, float near, float far);
 #pragma endregion
@@ -31,7 +31,7 @@ public:
 	glm::mat4& GetProjection();
 	glm::mat4 GetProjectionView();
 #pragma endregion
-
+	
 #pragma region Movement
 	void Lookat(glm::vec3 target);
 
@@ -68,47 +68,4 @@ private:
 
 	float m_cameraMoveSpeed = 10.0f;
 };
-
-#pragma region UnderWork
-//#include <glm/glm.hpp>
-//#include <glm/ext.hpp>
-//
-//class Camera
-//{
-//private:
-//
-//	//	the transform applied to the world
-//	glm::mat4 worldTransform;
-//	
-//	//	the transform of the camera
-//	glm::mat4 viewTransform;
-//
-//	//	projection transform 
-//	glm::mat4 projectionTransform;
-//
-//	//	Drawn from the current projection
-//	glm::mat4 projectionViewTransform;
-//
-//	void updateProjectionViewTransform();
-//
-//public:
-//
-//	Camera();
-//	~Camera();
-//
-//	//	update each frame
-//	virtual void update(float deltaTime);
-//
-//	//	Set perspective manually
-//	void setPerspective(float fieldOfView, float aspectRatio, float near, float far);
-//	void setLookAt(glm::vec3 from, glm::vec3 to, glm::vec3 up);
-//	void setPosition(glm::vec3 position);
-//
-//	//	Getters for private variables of camera
-//	glm::mat4 getWorldTransform() { return worldTransform; };
-//	glm::mat4 getView() { return viewTransform; };
-//	glm::mat4 getProjection() { return projectionTransform; };
-//	glm::mat4 getProjectionView() { return projectionViewTransform; };
-//};
-#pragma endregion  
 

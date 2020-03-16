@@ -18,6 +18,9 @@ public:
 
 protected:
 
+	//Camera
+	Camera *myCamera = new Camera();
+
 	// camera transforms
 	glm::mat4	m_viewMatrix;
 	glm::mat4	m_projectionMatrix;

@@ -23,11 +23,17 @@ bool ComputerGraphicsApp::startup() {
 
 	// initialise gizmo primitive counts
 	Gizmos::create(10000, 10000, 10000, 10000);
+	
+	// Camera Initialize
+	myCamera->Lookat(glm::vec3(10));
+	//myCamera->SetPosition(glm::vec3(0));
+	//myCamera->SetYawPitchRoll(myCamera->GetYaw(), myCamera->GetPitch(), myCamera->GetRoll());
+	myCamera->SetProjection(glm::pi<float>() * 0.25f, 16.0f / 9.0f, 0.1f, 1000.0f);
 
 	// create simple camera transforms
 	m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));
 	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, 16.0f / 9.0f, 0.1f, 1000.0f);
-	m_viewMatrix = glm::inverse(m_viewMatrix);
+		//m_viewMatrix = glm::inverse(m_viewMatrix);
 
 	return true;
 }
@@ -65,22 +71,15 @@ void ComputerGraphicsApp::update(float deltaTime) {
 		quit();
 	}
 
-	if (input->isKeyDown(aie::INPUT_KEY_W))
-	{
-		m_viewMatrix += 0.1;
-	}
-
-	if (input->isKeyDown(aie::INPUT_KEY_S))
-	{
-		
-	}
+	//	update camera
+	myCamera->Update(deltaTime);
 
 	//====Zoom in on angle
-	m_viewMatrix = glm::inverse(m_viewMatrix);
+	//m_viewMatrix = glm::inverse(m_viewMatrix);
 
 	// what happens here?
 
-	m_viewMatrix = m_viewMatrix + glm::translate(m_viewMatrix, glm::vec3(m_viewMatrix[2].x, m_viewMatrix[2].y, m_viewMatrix[2].z)*0.1f);
+	//m_viewMatrix = m_viewMatrix + glm::translate(m_viewMatrix, glm::vec3(m_viewMatrix[2].x, m_viewMatrix[2].y, m_viewMatrix[2].z)*0.1f);
 
 	//====Zoom out on angle
 	/*m_viewMatrix = glm::inverse(m_viewMatrix);
@@ -94,7 +93,8 @@ void ComputerGraphicsApp::draw() {
 	clearScreen();
 
 	// update perspective based on screen size
-	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, getWindowWidth() / (float)getWindowHeight(), 0.1f, 1000.0f);
+	//m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, getWindowWidth() / (float)getWindowHeight(), 0.1f, 1000.0f);
 
-	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
+	//Gizmos::draw(m_projectionMatrix * m_viewMatrix);
+	Gizmos::draw(myCamera->GetProjectionView());
 }

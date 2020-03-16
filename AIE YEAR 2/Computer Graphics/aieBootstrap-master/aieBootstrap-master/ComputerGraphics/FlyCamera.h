@@ -11,9 +11,11 @@ private:
 	float m_speed;
 	glm::vec3 up = glm::vec3(0,1,0);
 	glm::vec3 forward = glm::vec3(0, 0, 1);
-	glm::vec3 backward = glm::vec3(0, 0, -1);
 
 public:
+	FlyCamera();
+	~FlyCamera();
+
 	//	Update each frame
 	void update(float deltaTime);
 	
@@ -21,6 +23,8 @@ public:
 	void setSpeed(float speed) { m_speed = speed; };
 
 protected:	
+	void CalculateFront();
+
 	aie::Input* m_input;
 
 	//movement
