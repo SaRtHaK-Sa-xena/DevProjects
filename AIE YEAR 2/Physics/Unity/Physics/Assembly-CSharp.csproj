@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\animationScript.cs" />
     <Compile Include="Assets\cameraScript.cs" />
     <Compile Include="Assets\GameManager.cs" />
     <Compile Include="Assets\gunshot_script.cs" />

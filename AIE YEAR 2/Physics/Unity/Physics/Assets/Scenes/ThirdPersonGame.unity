@@ -5680,7 +5680,7 @@ PrefabInstance:
     - target: {fileID: 3663216339289907789, guid: a6c00486a741620418b1481ed5fe5609,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6570343784891414828, guid: a6c00486a741620418b1481ed5fe5609,
         type: 3}
@@ -5697,12 +5697,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_new
       objectReference: {fileID: 0}
+    - target: {fileID: 8139111621100046957, guid: a6c00486a741620418b1481ed5fe5609,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9199472864370655761, guid: a6c00486a741620418b1481ed5fe5609,
         type: 3}
       propertyPath: myAnim
       value: 
       objectReference: {fileID: 1420688237}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8139111621100046957, guid: a6c00486a741620418b1481ed5fe5609, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a6c00486a741620418b1481ed5fe5609, type: 3}
 --- !u!4 &33575011238426950
 Transform:

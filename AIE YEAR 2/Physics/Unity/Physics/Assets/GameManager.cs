@@ -13,11 +13,8 @@ public class GameManager : MonoBehaviour
     //  spawn enemy 
     public bool spawnEnemy = false;
 
-    //  enemy prefab assigned through editor
-    public GameObject enemy_pref;
-
-    //  list of enemy spawns
-    public Transform[] listOfSpawns;
+    //  list of enemies
+    public Zombie[] zombies;
 
     public GameObject[] toDeleteList;
    
@@ -71,10 +68,10 @@ public class GameManager : MonoBehaviour
                     callOnce = false;
 
                     //  spawn enemies on list of spawns
-                    for (int i = 0; i < listOfSpawns.Length; i++)
+                    for (int i = 0; i < zombies.Length; i++)
                     {
                         //  assign enemy on each spawn position
-                        Instantiate(enemy_pref, listOfSpawns[i].transform);
+                        zombies[i].GetComponent<Zombie>().speedEnemyTravellingAt = 10;
                     }
                 }
             }

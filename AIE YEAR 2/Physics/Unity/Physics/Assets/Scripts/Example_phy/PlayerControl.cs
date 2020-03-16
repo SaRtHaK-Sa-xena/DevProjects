@@ -21,8 +21,6 @@ public class PlayerControl : MonoBehaviour
 
     private PlayerEngine engine;
 
-    public Animator myAnim;
-
     void Start()
     {
         engine = GetComponent<PlayerEngine>();
@@ -36,16 +34,6 @@ public class PlayerControl : MonoBehaviour
         Vector3 movHorizontal = transform.right * xMov;
         Vector3 movVertical = transform.forward * zMov;
         Vector3 m_velocity = (movHorizontal + movVertical).normalized * speed;
-        if(xMov != 0 || zMov != 0)
-        {
-            myAnim.SetBool("isRunning", true);
-            myAnim.SetBool("isIdle", false);
-        }
-        else
-        {
-            myAnim.SetBool("isRunning", false);
-            myAnim.SetBool("isIdle", true);
-        }
         engine.Move(m_velocity);
         //================= No Player Movement==============
 
