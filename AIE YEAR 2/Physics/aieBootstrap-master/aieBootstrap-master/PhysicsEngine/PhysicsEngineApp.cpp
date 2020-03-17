@@ -452,8 +452,7 @@ void PhysicsEngineApp::startPhase()
 		y_value -= 30;
 
 		//	create position from given query
-		glm::vec2 tempPosition(x_value, -y_value);
-		std::cout << "X: " << x_value << " -Y: " << -y_value << std::endl;
+		glm::vec2 tempPosition(-x_value, -y_value);
 
 		mouseCurrentPosition = tempPosition;
 
@@ -484,13 +483,12 @@ void PhysicsEngineApp::startPhase()
 	glm::vec2 tempPosition(-x_value, -y_value);
 	mouseCurrentPosition = tempPosition;*/
 
-	std::cout << "Mouse Current Position X: " << mouseCurrentPosition.x << " Y: " << mouseCurrentPosition.y << std::endl;
-
 	//player setup turn
 	if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_RIGHT) && sphere->isPlaceble())
 	{
 		//	create vector, of scale directed towards the mouse
-		glm::vec2 end = mouseCurrentPosition - sphere->getPosition() * glm::normalize(mouseCurrentPosition);
+		glm::vec2 end = mouseCurrentPosition;// - sphere->getPosition();
+		//end = end * glm::normalize(mouseCurrentPosition);
 
 		//	track lineDistance to set find Max
 		float lineDistance = glm::length((sphere->getPosition() + end) - sphere->getPosition());
@@ -553,12 +551,6 @@ void PhysicsEngineApp::startPhase()
 			{
 				//otherwise can be shot, if under cap
 				aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 80, 0, 1));
-				std::cout << "Drawing line" << std::endl;
-				std::cout << "-------------" << std::endl;
-				std::cout << "Sphere Position X: " << sphere->getPosition().x << " Y: " << sphere->getPosition().y << std::endl;
-				std::cout << "-------------" << std::endl;
-				//aie::Gizmos::add2DLine(sphere->getPosition(), end, glm::vec4(0, 1, 0, 1));
-				//aie::Gizmos::add2DLine(sphere->getPosition(), sphere->getPosition() + end, glm::vec4(0, 80, 0, 1));
 				if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 				{
 					//set velocity

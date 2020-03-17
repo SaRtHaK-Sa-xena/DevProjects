@@ -24,6 +24,7 @@ protected:
 	int increment = 0;
 	glm::vec3 p;
 	glm::quat r;
+	float s;
 
 	//Camera
 	Camera *myCamera = new Camera();
@@ -35,6 +36,10 @@ protected:
 	glm::vec3	m_positions[3];
 	glm::quat	m_rotations[3];
 
-	//move positions condition check
+	//	move positions condition check
 	bool decrementDown = false;
+
+	//	increment value
+	int scalar = 1;
+
 };

@@ -85,53 +85,84 @@ void ComputerGraphicsApp::update(float deltaTime) {
 
 
 
-	float s = glm::cos(getTime()) * 0.5f + 0.5f;
 	
 	//Check if decrementDown needs to be modified\
 	//	If at end point
-	if (increment == m_positions->length())
-	{
-		//	Start to decrement down
-		decrementDown = true;
-	}
-	if(increment == 0)
-	{
-		//	Increment up
-		decrementDown = false;
-	}
+	//if (increment == m_positions->length())
+	//{
+	//	//	Start to decrement down
+	//	decrementDown = true;
+	//}
+	//if(increment == 0)
+	//{
+	//	//	Increment up
+	//	decrementDown = false;
+	//}
 
-	//If value at max
-	if (s > 0.997)
-	{
-		// Change the position to go to next
-		if (decrementDown)
-			increment--;
-		else
-			increment++;
-	}
-	//	If at end
-	if (decrementDown)
-	{
-		//	standard linear interpolation
-		p = (1.0f - s) * m_positions[increment] + s * m_positions[increment - 1];
+	////If value at max
+	//if (s > 0.997)
+	//{
+	//	// Change the position to go to next
+	//	if (decrementDown)
+	//		increment--;
+	//	else
+	//		increment++;
+	//}
+	////	If at end
+	//if (decrementDown)
+	//{
+	//	//	standard linear interpolation
+	//	p = (1.0f - s) * m_positions[increment] + s * m_positions[increment - 1];
 
-		//	quaternion slerp //==Box's rotation from one point to another
-		r = glm::slerp(m_rotations[increment], m_rotations[increment - 1], s);
-	}
-	else
-	{
-		//	standard linear interpolation
-		p = (1.0f - s) * m_positions[increment] + s * m_positions[increment + 1];
+	//	//	quaternion slerp //==Box's rotation from one point to another
+	//	r = glm::slerp(m_rotations[increment], m_rotations[increment - 1], s);
+	//}
+	//else
+	//{
+	//	//	standard linear interpolation
+	//	p = (1.0f - s) * m_positions[increment] + s * m_positions[increment + 1];
 
-		//	quaternion slerp //==Box's rotation from one point to another
-		r = glm::slerp(m_rotations[increment], m_rotations[increment + 1], s);
-	}
+	//	//	quaternion slerp //==Box's rotation from one point to another
+	//	r = glm::slerp(m_rotations[increment], m_rotations[increment + 1], s);
+	//}
 	
+
 	//	Distance Check
-	if (glm::distance(p, m_positions[increment + 1]) < .5)
+	if (glm::distance(p, m_positions[increment + scalar]) < 1)
 	{
 		std::cout << "Close To It" << std::endl;
+		
+		//	If incremented all the way to the end
+		if (increment == m_positions->length()-1)
+		{
+			scalar = -1;
+		}
+		if (increment == 0)
+		{
+			scalar = 1;
+		}
+
+		// Add to increment
+		increment += scalar;
+
+		s = 0;
 	}
+
+	//	call movement
+	std::cout << "===========" << std::endl;
+	std::cout << "Scalar: " << scalar << std::endl;
+	std::cout << "Increment: " << increment << std::endl;
+	std::cout << "===========" << std::endl;
+
+	//	time allocated to move between points
+	s = glm::cos(getTime()) * 0.5f + 0.5f;
+	
+	//	standard linear interpolation
+	p = (1.0f - s) * m_positions[increment] + s * m_positions[increment + scalar];
+
+	//	quaternion slerp //==Box's rotation from one point to another
+	r = glm::slerp(m_rotations[increment], m_rotations[increment + scalar], s);
+
 
 	//	build a matrix
 	glm::mat4 m = glm::translate(p) * glm::toMat4(r);
