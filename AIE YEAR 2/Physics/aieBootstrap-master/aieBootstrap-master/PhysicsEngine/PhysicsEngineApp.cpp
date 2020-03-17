@@ -432,57 +432,57 @@ void PhysicsEngineApp::startPhase()
 	float x_value = mousePos_x->getMouseX();
 	float y_value = mousePos_y->getMouseY();
 	
-	//	set it to location of sphere, depending on 
-	//	it's x
-	//if (sphere->getPosition().x > 0)
-	//{
-	//	x_value = (900 / 2) - x_value;
-	//	x_value = x_value / ratioProportion;
-	//	//x_value = -x_value;
+	//set it to location of sphere, depending on 
+	//it's x
+	if (sphere->getPosition().x > 0)
+	{
+		x_value = (900 / 2) - x_value;
+		x_value = x_value / ratioProportion;
+		//x_value = -x_value;
 
-	//	//=============Y_value
-	//	y_value = (900 / 2) - y_value*2;
-	//	y_value = y_value / ratioProportion;
-	//	//y_value = -y_value;
-	//	
-	//	x_value = x_value + sphere->getPosition().x;
+		//=============Y_value
+		y_value = (900 / 2) - y_value*2;
+		y_value = y_value / ratioProportion;
+		//y_value = -y_value;
+		
+		x_value = x_value + sphere->getPosition().x;
 
-	//	//x_value = -x_value;
+		//x_value = -x_value;
 
-	//	y_value -= 30;
+		y_value -= 30;
 
-	//	//	create position from given query
-	//	glm::vec2 tempPosition(x_value, -y_value);
-	//	std::cout << "X: " << x_value << " -Y: " << -y_value << std::endl;
+		//	create position from given query
+		glm::vec2 tempPosition(x_value, -y_value);
+		std::cout << "X: " << x_value << " -Y: " << -y_value << std::endl;
 
-	//	mouseCurrentPosition = tempPosition;
+		mouseCurrentPosition = tempPosition;
 
-	//}
-	//else
-	//{
-	//	//=============X_value
-	//	x_value = (900 /2) - x_value;
-	//	x_value = x_value / ratioProportion;
-	//	x_value = -x_value;
+	}
+	else
+	{
+		//=============X_value
+		x_value = (900 /2) - x_value;
+		x_value = x_value / ratioProportion;
+		x_value = -x_value;
 
-	//	//=============Y_value
-	//	y_value = (900 / 2) - y_value*2;
-	//	y_value = y_value / ratioProportion;
-	//	y_value = -y_value;
+		//=============Y_value
+		y_value = (900 / 2) - y_value*2;
+		y_value = y_value / ratioProportion;
+		y_value = -y_value;
 
 
-	//	x_value = x_value - sphere->getPosition().x;
-	//	
-	//	//	create position from given query
-	//	glm::vec2 tempPosition(x_value, y_value);
-	//	mouseCurrentPosition = tempPosition;
-	//}
+		x_value = x_value - sphere->getPosition().x;
+		
+		//	create position from given query
+		glm::vec2 tempPosition(x_value, y_value);
+		mouseCurrentPosition = tempPosition;
+	}
 
 	//	place in the middle 
-	x_value = (900 / 2) - x_value;
+	/*x_value = (900 / 2) - x_value;
 	y_value = (900 / 2) - y_value;
 	glm::vec2 tempPosition(-x_value, -y_value);
-	mouseCurrentPosition = tempPosition;
+	mouseCurrentPosition = tempPosition;*/
 
 	std::cout << "Mouse Current Position X: " << mouseCurrentPosition.x << " Y: " << mouseCurrentPosition.y << std::endl;
 

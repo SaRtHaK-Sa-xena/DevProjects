@@ -1,5 +1,6 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include "ComputerGraphicsApp.h"
+#include <iostream>
 #include "Gizmos.h"
 #include "Input.h"
 #include <glm/glm.hpp>
@@ -43,9 +44,11 @@ bool ComputerGraphicsApp::startup() {
 	//Quaternions Tutorial
 	m_positions[0] = glm::vec3(10, 5, 10);
 	m_positions[1] = glm::vec3(-10, 5, -10);
+	m_positions[2] = glm::vec3(-20, 5, -10);
 
 	m_rotations[0] = glm::quat(glm::vec3(0, -1, 0));
 	m_rotations[1] = glm::quat(glm::vec3(0, 1, 0));
+	m_rotations[2] = glm::quat(glm::vec3(1, 0, 0));
 
 
 	return true;
@@ -75,25 +78,71 @@ void ComputerGraphicsApp::update(float deltaTime) {
 
 	#pragma region Quaternion
 
-	for (int i = 0; i < 3; i++)
+	//	use time to animate a value between [0,1]
+	//	using consine value to get a value between -1,0, and 1
+
+	//value to move position and rotation to
+
+
+
+	float s = glm::cos(getTime()) * 0.5f + 0.5f;
+	
+	//Check if decrementDown needs to be modified\
+	//	If at end point
+	if (increment == m_positions->length())
 	{
-		//	use time to animate a value between [0,1]
-		float s = glm::cos(getTime()) * 0.5f + 0.5f;
-
-		//	standard linear interpolation
-		glm::vec3 p = (1.0f - s) * m_positions[0] + s * m_positions[1];
-
-		//	quaternion slerp
-		glm::quat r = glm::slerp(m_rotations[0], m_rotations[1], s);
-
-		//	build a matrix
-		glm::mat4 m = glm::translate(p) * glm::toMat4(r);
-
-		//	draw a transform and box
-		Gizmos::addTransform(m);
-		Gizmos::addAABBFilled(p, glm::vec3(.5f), glm::vec4(1, 0, 0, 1), &m);
+		//	Start to decrement down
+		decrementDown = true;
 	}
+	if(increment == 0)
+	{
+		//	Increment up
+		decrementDown = false;
+	}
+
+	//If value at max
+	if (s > 0.997)
+	{
+		// Change the position to go to next
+		if (decrementDown)
+			increment--;
+		else
+			increment++;
+	}
+	//	If at end
+	if (decrementDown)
+	{
+		//	standard linear interpolation
+		p = (1.0f - s) * m_positions[increment] + s * m_positions[increment - 1];
+
+		//	quaternion slerp //==Box's rotation from one point to another
+		r = glm::slerp(m_rotations[increment], m_rotations[increment - 1], s);
+	}
+	else
+	{
+		//	standard linear interpolation
+		p = (1.0f - s) * m_positions[increment] + s * m_positions[increment + 1];
+
+		//	quaternion slerp //==Box's rotation from one point to another
+		r = glm::slerp(m_rotations[increment], m_rotations[increment + 1], s);
+	}
+	
+	//	Distance Check
+	if (glm::distance(p, m_positions[increment + 1]) < .5)
+	{
+		std::cout << "Close To It" << std::endl;
+	}
+
+	//	build a matrix
+	glm::mat4 m = glm::translate(p) * glm::toMat4(r);
+	
+	//	draw a transform and box
+	Gizmos::addTransform(m);
+	Gizmos::addAABBFilled(p, glm::vec3(.5f), glm::vec4(1, 0, 0, 1), &m);
+		
 	#pragma endregion Animated Box
+	
+	
 
 	// add a transform so that we can see the axis
 	Gizmos::addTransform(mat4(1));

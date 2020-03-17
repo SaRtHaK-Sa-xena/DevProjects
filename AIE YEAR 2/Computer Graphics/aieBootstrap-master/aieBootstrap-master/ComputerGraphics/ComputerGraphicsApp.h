@@ -20,6 +20,10 @@ public:
 	virtual void draw();
 
 protected:
+	
+	int increment = 0;
+	glm::vec3 p;
+	glm::quat r;
 
 	//Camera
 	Camera *myCamera = new Camera();
@@ -28,6 +32,9 @@ protected:
 	glm::mat4	m_viewMatrix;
 	glm::mat4	m_projectionMatrix;
 
-	glm::vec3	m_positions[2];
-	glm::quat	m_rotations[2];
+	glm::vec3	m_positions[3];
+	glm::quat	m_rotations[3];
+
+	//move positions condition check
+	bool decrementDown = false;
 };
