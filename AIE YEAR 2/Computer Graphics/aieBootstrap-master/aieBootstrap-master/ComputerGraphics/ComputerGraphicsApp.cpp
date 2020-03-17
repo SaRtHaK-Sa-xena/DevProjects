@@ -41,7 +41,7 @@ bool ComputerGraphicsApp::startup() {
 	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, 16.0f / 9.0f, 0.1f, 1000.0f);
 		//m_viewMatrix = glm::inverse(m_viewMatrix);
 
-	//Quaternions Tutorial
+	//Quaternions Tutorial---PART 1
 	m_positions[0] = glm::vec3(10, 5, 10);
 	m_positions[1] = glm::vec3(-10, 5, -10);
 	m_positions[2] = glm::vec3(-20, 5, -10);
@@ -49,7 +49,25 @@ bool ComputerGraphicsApp::startup() {
 	m_rotations[0] = glm::quat(glm::vec3(0, -1, 0));
 	m_rotations[1] = glm::quat(glm::vec3(0, 1, 0));
 	m_rotations[2] = glm::quat(glm::vec3(1, 0, 0));
+	//Quaternions Tutorial---PART 1
 
+	//Quaternions Tutorial---PART 2
+	m_hipFrames[0].position = glm::vec3(0, 5, 0);
+	m_hipFrames[0].rotation = glm::quat(glm::vec3(1, 0, 0));
+	m_hipFrames[1].position = glm::vec3(0, 5, 0);
+	m_hipFrames[1].rotation = glm::quat(glm::vec3(-1, 0, 0));
+
+	m_kneeFrames[0].position = glm::vec3(0, -2.5, 0);
+	m_kneeFrames[0].rotation = glm::quat(glm::vec3(1, 0, 0));
+	m_kneeFrames[1].position = glm::vec3(0, 2.5, 0);
+	m_kneeFrames[1].rotation = glm::quat(glm::vec3(0, 0, 0));
+
+	m_ankleFrames[0].position = glm::vec3(0, -2.5, 0);
+	m_ankleFrames[0].rotation = glm::quat(glm::vec3(-1, 0, 0));
+	m_ankleFrames[1].position = glm::vec3(0, -2.5, 0);
+	m_ankleFrames[1].rotation = glm::quat(glm::vec3(0, 0, 0));
+
+	//Quaternions Tutorial---PART 2
 
 	return true;
 }
@@ -261,9 +279,25 @@ void ComputerGraphicsApp::update(float deltaTime) {
 		Gizmos::addTransform(m);
 		Gizmos::addAABBFilled(p, glm::vec3(.5f), glm::vec4(1, 0, 0, 1), &m);
 
-	#pragma endregion Animated Box
 	}
+	#pragma endregion Animated Box
 	
+
+	#pragma region Leg Animation
+	
+	//	animate leg
+	float s = glm::cos(getTime()) * 0.5f + 0.5f;
+
+	//	linearly interpolate position
+	glm::vec3 p = (1.0f - s) * m_hipFrames[0].position + s * m_hipFrames[1].position;
+	
+	//	spherically interpolate hop rotation
+	glm::quat r = glm::slerp(m_hipFrames[0].rotation, m_hipFrames[1].rotation, s);
+
+	//	update the hip bone
+	m_hipBone = glm::translate(p) * glm::toMat4(r);
+
+	#pragma endregion Leg Animation
 
 	// add a transform so that we can see the axis
 	Gizmos::addTransform(mat4(1));
