@@ -24,7 +24,7 @@ protected:
 	int increment = 0;
 	glm::vec3 p;
 	glm::quat r;
-	float s;
+	float s=0;
 
 	//Camera
 	Camera *myCamera = new Camera();
@@ -42,4 +42,21 @@ protected:
 	//	increment value
 	int scalar = 1;
 
+	//	Check if it is going forward or backwards
+	bool forward = true;
+
+	bool start = false;
+
+	struct KeyFrame {
+		glm::vec3 position;
+		glm::quat rotation;
+	};
+
+	KeyFrame m_hipFrames[2];
+	KeyFrame m_kneeFrames[2];
+	KeyFrame m_ankleFrames[2];
+
+	glm::mat4 m_hipBone;
+	glm::mat4 m_kneeBone;
+	glm::mat4 m_ankleBone;
 };

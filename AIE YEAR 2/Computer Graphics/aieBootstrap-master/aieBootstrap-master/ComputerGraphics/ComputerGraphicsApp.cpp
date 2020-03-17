@@ -126,53 +126,143 @@ void ComputerGraphicsApp::update(float deltaTime) {
 	//	r = glm::slerp(m_rotations[increment], m_rotations[increment + 1], s);
 	//}
 	
-
-	//	Distance Check
-	if (glm::distance(p, m_positions[increment + scalar]) < 1)
-	{
-		std::cout << "Close To It" << std::endl;
-		
-		//	If incremented all the way to the end
-		if (increment == m_positions->length()-1)
-		{
-			scalar = -1;
-		}
-		if (increment == 0)
-		{
-			scalar = 1;
-		}
-
-		// Add to increment
-		increment += scalar;
-
-		s = 0;
-	}
-
-	//	call movement
-	std::cout << "===========" << std::endl;
-	std::cout << "Scalar: " << scalar << std::endl;
-	std::cout << "Increment: " << increment << std::endl;
-	std::cout << "===========" << std::endl;
-
 	//	time allocated to move between points
-	s = glm::cos(getTime()) * 0.5f + 0.5f;
-	
-	//	standard linear interpolation
-	p = (1.0f - s) * m_positions[increment] + s * m_positions[increment + scalar];
-
-	//	quaternion slerp //==Box's rotation from one point to another
-	r = glm::slerp(m_rotations[increment], m_rotations[increment + scalar], s);
+	//s = glm::cos(getTime()) * 0.5f + 0.5f;
 
 
-	//	build a matrix
-	glm::mat4 m = glm::translate(p) * glm::toMat4(r);
-	
-	//	draw a transform and box
-	Gizmos::addTransform(m);
-	Gizmos::addAABBFilled(p, glm::vec3(.5f), glm::vec4(1, 0, 0, 1), &m);
-		
+	////	Distance Check
+	//if (glm::distance(p, m_positions[increment + scalar]) < 1)
+	//{
+	//	std::cout << "Close To It" << std::endl;
+	//	
+	//	//	If incremented all the way to the end
+	//	if (increment == m_positions->length()-1)
+	//	{
+	//		scalar = -1;
+	//	}
+	//	if (increment == 0)
+	//	{
+	//		scalar = 1;
+	//	}
+
+	//	// Add to increment
+	//	increment += scalar;
+	//}
+	if (start)
+	{
+		s += deltaTime;
+
+		//if (increment == 0)
+		//{
+		//	scalar = 1;
+		//	//std::cout << "GO FORWARD" << std::endl;
+		//}
+		////	If incremented all the way to the end
+		//else if (increment == m_positions->length() - 1)
+		//{
+		//	//std::cout << "GO BACK" << std::endl;
+		//	scalar = -1;
+		//}
+
+		if (s >= 1.f)
+		{
+			s = 0.f;
+
+			//	// Add to increment
+			//increment += scalar;
+			if (forward) {
+				increment += 1;
+			}
+			else {
+				increment -= 1;
+			}
+		}
+
+		if (increment >= 2)
+		{
+			increment = 2;
+			//atEnd = true;
+			forward = false;
+		}
+		if (increment <= 0)
+		{
+			increment = 0;
+			forward = true;
+			//atEnd = false;
+		}
+
+		//	call movement
+		std::cout << "===========" << std::endl;
+		std::cout << "Scalar: " << scalar << std::endl;
+		std::cout << "Increment: " << increment << std::endl;
+		std::cout << "===========" << std::endl;
+
+
+		// if forward -> if (increment = 1) -> increment, increment + 1
+		if (forward)
+		{
+			if (increment == 0)
+			{
+				//	standard linear interpolation
+				p = (1.0f - s) * m_positions[increment] + s * m_positions[increment + 1];
+
+				//	quaternion slerp //==Box's rotation from one point to another
+				r = glm::slerp(m_rotations[increment], m_rotations[increment + 1], s);
+			}
+			if (increment == 1)
+			{
+				//	standard linear interpolation
+				p = (1.0f - s) * m_positions[increment] + s * m_positions[increment + 1];
+
+				//	quaternion slerp //==Box's rotation from one point to another
+				r = glm::slerp(m_rotations[increment], m_rotations[increment + 1], s);
+			}
+			if (increment == 2)
+			{
+				//	standard linear interpolation
+				p = (1.0f - s) * m_positions[increment] + s * m_positions[increment + 1];
+
+				//	quaternion slerp //==Box's rotation from one point to another
+				r = glm::slerp(m_rotations[increment], m_rotations[increment + 1], s);
+			}
+		}
+		else
+		{
+			if (increment == 0)
+			{
+				//	standard linear interpolation
+				p = (1.0f - s) * m_positions[increment] + s * m_positions[increment - 1];
+
+				//	quaternion slerp //==Box's rotation from one point to another
+				r = glm::slerp(m_rotations[increment], m_rotations[increment - 1], s);
+			}
+			if (increment == 1)
+			{
+				//	standard linear interpolation
+				p = (1.0f - s) * m_positions[increment] + s * m_positions[increment - 1];
+
+				//	quaternion slerp //==Box's rotation from one point to another
+				r = glm::slerp(m_rotations[increment], m_rotations[increment - 1], s);
+			}
+			if (increment == 2)
+			{
+				//	standard linear interpolation
+				p = (1.0f - s) * m_positions[increment] + s * m_positions[increment - 1];
+
+				//	quaternion slerp //==Box's rotation from one point to another
+				r = glm::slerp(m_rotations[increment], m_rotations[increment - 1], s);
+			}
+		}
+
+		//	build a matrix
+		glm::mat4 m = glm::translate(p) * glm::toMat4(r);
+
+		//	draw a transform and box
+		Gizmos::addTransform(m);
+		Gizmos::addAABBFilled(p, glm::vec3(.5f), glm::vec4(1, 0, 0, 1), &m);
+
 	#pragma endregion Animated Box
-	
+	}
 	
 
 	// add a transform so that we can see the axis
@@ -184,6 +274,10 @@ void ComputerGraphicsApp::update(float deltaTime) {
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 	{
 		quit();
+	}
+	if (input->isKeyDown(aie::INPUT_KEY_P))
+	{
+		start = true;
 	}
 
 	//	update camera
@@ -212,4 +306,12 @@ void ComputerGraphicsApp::draw() {
 
 	//Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	Gizmos::draw(myCamera->GetProjectionView());
+}
+
+void GoThroughPositionsInLoop(int numOfPositions, float timerLerp)
+{
+	// Iterator to move forward
+	int interator = 0; //starts at zero, to move from to zero to zero + 1
+
+	
 }
