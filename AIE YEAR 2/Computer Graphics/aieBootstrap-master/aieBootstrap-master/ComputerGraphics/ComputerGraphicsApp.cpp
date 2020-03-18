@@ -66,8 +66,26 @@ bool ComputerGraphicsApp::startup() {
 	m_ankleFrames[0].rotation = glm::quat(glm::vec3(-1, 0, 0));
 	m_ankleFrames[1].position = glm::vec3(0, -2.5, 0);
 	m_ankleFrames[1].rotation = glm::quat(glm::vec3(0, 0, 0));
-
 	//Quaternions Tutorial---PART 2
+
+	//Rendering Geometry-----
+	m_shader.loadShader(aie::eShaderStage::VERTEX, "./shaders/simple.vert");
+	m_shader.loadShader(aie::eShaderStage::FRAGMENT, "./shaders/simple.frag");
+	if (m_shader.link() == false)
+	{
+		printf("Shader Error: %s\n", m_shader.getLastError());
+		return false;
+	}
+	m_quadMesh.initialiseQuad();
+
+	// make the quad 10 units wide
+	m_quadTransform = {
+	10,0,0,0,
+	0,10,0,0,
+	0,0,10,0,
+	0,0,0,1 };
+
+	//Rendering Geometry-----
 
 	return true;
 }
@@ -284,18 +302,18 @@ void ComputerGraphicsApp::update(float deltaTime) {
 	
 
 	#pragma region Leg Animation
-	
-	//	animate leg
-	float s = glm::cos(getTime()) * 0.5f + 0.5f;
+	//
+	////	animate leg
+	//float s = glm::cos(getTime()) * 0.5f + 0.5f;
 
-	//	linearly interpolate position
-	glm::vec3 p = (1.0f - s) * m_hipFrames[0].position + s * m_hipFrames[1].position;
-	
-	//	spherically interpolate hop rotation
-	glm::quat r = glm::slerp(m_hipFrames[0].rotation, m_hipFrames[1].rotation, s);
+	////	linearly interpolate position
+	//glm::vec3 p = (1.0f - s) * m_hipFrames[0].position + s * m_hipFrames[1].position;
+	//
+	////	spherically interpolate hop rotation
+	//glm::quat r = glm::slerp(m_hipFrames[0].rotation, m_hipFrames[1].rotation, s);
 
-	//	update the hip bone
-	m_hipBone = glm::translate(p) * glm::toMat4(r);
+	////	update the hip bone
+	//m_hipBone = glm::translate(p) * glm::toMat4(r);
 
 	#pragma endregion Leg Animation
 
@@ -338,14 +356,19 @@ void ComputerGraphicsApp::draw() {
 	// update perspective based on screen size
 	//m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, getWindowWidth() / (float)getWindowHeight(), 0.1f, 1000.0f);
 
+	// bind shader
+	m_shader.bind();
+
+	// bind transform
+	auto pvm = myCamera->GetProjectionView() * m_quadTransform;
+	m_shader.bindUniform("ProjectionViewModel", pvm);
+
+	// draw quad
+	m_quadMesh.draw();
+
 	//Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	Gizmos::draw(myCamera->GetProjectionView());
-}
 
-void GoThroughPositionsInLoop(int numOfPositions, float timerLerp)
-{
-	// Iterator to move forward
-	int interator = 0; //starts at zero, to move from to zero to zero + 1
-
-	
+	// draw 2D gizmos using an orthogonal projection matrix
+	Gizmos::draw2D((float)getWindowWidth(), (float)getWindowHeight());
 }

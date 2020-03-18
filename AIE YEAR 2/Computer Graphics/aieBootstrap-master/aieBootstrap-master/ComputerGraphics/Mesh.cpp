@@ -110,7 +110,14 @@ void Mesh::draw()
 // GL_TRIANGLES(specifying how many indices or vertices we're drawing)
 // We'll draw 3 x triCount worth of indices or vertices.
 
-
+//Drawing a MESH___
+// to draw, we need projection, view transform to represent a camera, 
+// and transform to represent where the mesh is that we're drawing
+// we need to bind our shader, once bound we need to bind the uniform for 
+// the projectionViewModel transform -> combination of projection, view 
+// and model transform
+// model transform is the quad's transform we defined to be a scale transform
+//_________________
 
 
 

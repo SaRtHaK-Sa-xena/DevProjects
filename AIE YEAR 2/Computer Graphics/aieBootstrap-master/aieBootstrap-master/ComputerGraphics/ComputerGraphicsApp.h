@@ -2,8 +2,10 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include "Application.h"
 #include "Camera.h"
-#include <glm/mat4x4.hpp>
+#include "Shader.h"
+#include "Mesh.h"
 
+#include <glm/mat4x4.hpp>
 #include <glm/gtc/quaternion.hpp>
 
 
@@ -35,6 +37,11 @@ protected:
 
 	glm::vec3	m_positions[3];
 	glm::quat	m_rotations[3];
+
+	//Renderering
+	aie::ShaderProgram	m_shader;
+	Mesh				m_quadMesh;
+	glm::mat4			m_quadTransform;
 
 	//	move positions condition check
 	bool decrementDown = false;
