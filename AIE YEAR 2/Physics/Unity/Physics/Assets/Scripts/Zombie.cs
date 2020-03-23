@@ -41,6 +41,9 @@ public class Zombie : MonoBehaviour
     //  Time To Despawn
     float despawnTime = 10;
 
+    //  Time to restart ANIM
+    float time = 10;
+
     // Last RayCast Used
     private RaycastHit raycastUsed;
 
@@ -48,6 +51,8 @@ public class Zombie : MonoBehaviour
     public Transform newPosition;
 
     GameObject player_obj;
+
+    public bool turnOnAnimator = false;
 
     // Start is called before the first frame update
     void Start()
@@ -62,7 +67,18 @@ public class Zombie : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(turnOnAnimator)
+        {
+            //  Decrement time
+            time = time - Time.fixedDeltaTime;
 
+            //  turn on anim after that time
+            if(time <= 0)
+            {
+                animator.enabled = true;
+            }
+        }
+        
         if (isAlive)
         {
             //Store Player Info in player_obj
@@ -134,5 +150,4 @@ public class Zombie : MonoBehaviour
 
         //https://www.mixamo.com/#/?page=1&query=getting+up&type=Motion%2CMotionPack
     }
-
 }

@@ -35,7 +35,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Walking
+  m_Name: ZombieRun
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -44,11 +44,11 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 1
+  m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: a8a84b6d4f75e2a48949e32c9eb794b9,
+  m_Motion: {fileID: -203655887218126122, guid: 9be8477f02765a24386e95f4877cd456,
     type: 3}
   m_Tag: 
   m_SpeedParameter: Speed

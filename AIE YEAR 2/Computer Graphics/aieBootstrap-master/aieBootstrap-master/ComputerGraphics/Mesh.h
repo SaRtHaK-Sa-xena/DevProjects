@@ -11,14 +11,20 @@ public:
 
 	//	struct to populate with vertex information
 	struct Vertex {
-		glm::vec4 position;
+		glm::vec4 position; //NOTE: each float is 4 bytes
 		glm::vec4 normal;
-		glm::vec2 texCoord;
+		glm::vec2 texCoord; //NOTE: 32 bytes in from the start 
 	};
 	
 	//	to initialize a quad 
 	void initialiseQuad();
 	
+	//	to create arbitrary meshes
+	void initialise(unsigned int vertexCount,
+		const Vertex* vertices,
+		unsigned int indexCount = 0,
+		unsigned int* indeces = nullptr);;
+
 	//	to draw 
 	virtual void draw();
 

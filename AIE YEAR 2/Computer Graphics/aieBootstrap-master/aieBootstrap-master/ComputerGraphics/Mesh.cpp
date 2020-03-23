@@ -32,6 +32,26 @@ void Mesh::initialiseQuad()
 	vertices[4].position = { 0.5f, 0, 0.5f, 1 };
 	vertices[5].position = { 0.5f, 0, -0.5f, 1 };
 
+	//	adding in the normal for quad
+	//	since it is lying flat down, it's y will be only normal
+	vertices[0].normal = { 0, 1, 0, 0 };
+	vertices[1].normal = { 0, 1, 0, 0 };
+	vertices[2].normal = { 0, 1, 0, 0 };
+	vertices[3].normal = { 0, 1, 0, 0 };
+	vertices[4].normal = { 0, 1, 0, 0 };
+	vertices[5].normal = { 0, 1, 0, 0 };
+
+	// Textures for each vertices
+	// quad consists of two triangles, therefore it's three vertices, times 2. 
+	vertices[0].texCoord = { 0, 1 }; // bottom left
+	vertices[1].texCoord = { 1, 1 }; // bottom right
+	vertices[2].texCoord = { 0, 0 }; // top left
+	vertices[3].texCoord = { 0, 0 }; // top left
+	vertices[4].texCoord = { 1, 1 }; // bottom right
+	vertices[5].texCoord = { 1, 0 }; // top right
+
+
+
 	// fill vertex buffer
 	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(Vertex),
 		vertices, GL_STATIC_DRAW);
@@ -41,12 +61,77 @@ void Mesh::initialiseQuad()
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE,
 		sizeof(Vertex), 0);
 
+	// enable second element as normal
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_TRUE,
+		sizeof(Vertex), (void*)16);
+
+	// enable third element as texture
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE,
+		sizeof(Vertex), (void*)32);
+
 	// unbind buffers
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
 	// quad has 2 triangles
 	triCount = 2;
+
+}
+
+void Mesh::initialise(unsigned int vertexCount, const Vertex* vertices, unsigned int indexCount, unsigned int* indeces)
+{
+	assert(vao == 0);
+
+	// generate buffers
+	glGenBuffers(1, &vbo);
+	glGenVertexArrays(1, &vao);
+
+	// bind vertex array aka a mesh wrapper
+	glBindVertexArray(vao);
+
+	// bind vertex buffer
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+	// fill vertex buffer
+	glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(Vertex),
+		vertices, GL_STATIC_DRAW);
+
+	// enable first element as position
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE,
+		sizeof(Vertex), 0);
+
+	// enable second element as normal
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_TRUE,
+		sizeof(Vertex), (void*)16);
+	// enable third element as texture
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE,
+		sizeof(Vertex), (void*)32);
+
+	// bind indices if there are any
+	if (indexCount != 0) {
+		glGenBuffers(1, &ibo);
+		// bind vertex buffer
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+		// fill vertex buffer
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+			indexCount * sizeof(unsigned int), indeces, GL_STATIC_DRAW);
+		triCount = indexCount / 3;
+	} 
+	else 
+	{
+		triCount = vertexCount / 3;
+	}
+
+	// unbind buffers
+	glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 
 }
 
@@ -120,6 +205,23 @@ void Mesh::draw()
 //_________________
 
 
+//Creating arbitrary meshes
+//	need new initialize mehtod, that takes in array of Vertex objects,
+//	integer count of how many vertices there are, an array of unsigned int indeces 
+//	and a count of how many indices there are
+//	since we don't need indices for a mesh we could make them optional parameters
+//	Initialize method is very similary to initializeQuad(),
+//	starting out by asserting that the mesh hasn't already been initialized, creating VBO, VAO.
+//	Then bind the VAO, VBO and the fills in the buffer data using the array of vertices.
+//	Then set the first vertex attribute, same as quad
+
+// indices are optional therfore, we need to check if number of indices has been specified,
+// default is vertexCount/3 (3 vertices per triangle)
+//	1. Generate the IBO
+//	2. Bind the IBO to the GL_ELEMENT_ARRAY_BUFFER property (represents index buffers)
+//	3. Bind the index buffer data, but this time use GL_ELEMENT_ARRAY_BUFFER tag
+//	4. Set the triCount to the indexCount/3
+//	Clean up by unbinding everything
 
 //#REF 1
 // It Takes in 6 parameters

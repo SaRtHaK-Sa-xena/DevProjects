@@ -43,7 +43,14 @@ public class PickUpObject : MonoBehaviour
     {
         if(gameObject.CompareTag("Enemy"))
         {
-            gameObject.GetComponentInParent<Ragdoll>().RagdollOn = true;
+            // To remove the selected body part that is
+            //Zombie reference = GetComponentInParent<Zombie>();
+            //gameObject.GetComponentInParent<Ragdoll>().RagdollOn = true;
+            //gameObject.transform.SetParent(null);
+            //gameObject.GetComponent<CharacterJoint>().connectedBody = null;
+            //Destroy(gameObject.GetComponent<CharacterJoint>());
+            //reference.turnOnAnimator();
+            //gameObject.GetComponentInParent<Ragdoll>().RagdollOn = false;
         }
 
         mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
@@ -55,5 +62,9 @@ public class PickUpObject : MonoBehaviour
     private void OnMouseDrag()
     {
         transform.position = GetMouseWorldPos() + mOffset;
+        //if (gameObject.CompareTag("Enemy"))
+        //{
+        //    gameObject.GetComponent<CharacterJoint>().connectedAnchor = GetMouseWorldPos() + mOffset;
+        //}
     }
 }

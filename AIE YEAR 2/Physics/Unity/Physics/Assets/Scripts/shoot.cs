@@ -69,6 +69,14 @@ public class shoot : MonoBehaviour
                 firedRayCast.collider.gameObject.GetComponentInParent<Zombie>().AfterEachShot(firedRayCast);
                 firedRayCast.collider.gameObject.GetComponent<Rigidbody>().AddForce(-firedRayCast.normal * 10f);
                 //============Spawn Particle==================
+
+                // Call limb actions
+                //Zombie reference = firedRayCast.collider.gameObject.GetComponentInParent<Zombie>();
+                //firedRayCast.collider.gameObject.GetComponentInParent<Ragdoll>().RagdollOn = true;
+                //firedRayCast.collider.gameObject.transform.SetParent(null);
+                //firedRayCast.collider.gameObject.GetComponent<CharacterJoint>().connectedBody = null;
+                //Destroy(firedRayCast.collider.gameObject.GetComponent<CharacterJoint>());
+                //reference.turnOnAnimator = true;
             }
 
             //  if raycast hits interactable button

@@ -69,23 +69,102 @@ bool ComputerGraphicsApp::startup() {
 	//Quaternions Tutorial---PART 2
 
 	//Rendering Geometry-----
-	m_shader.loadShader(aie::eShaderStage::VERTEX, "./shaders/simple.vert");
-	m_shader.loadShader(aie::eShaderStage::FRAGMENT, "./shaders/simple.frag");
+	/*m_shader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/shader.vert");
+	m_shader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/shader.frag");
+
+	m_texturedShader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/textured.vert");
+	m_texturedShader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/textured.frag");*/
+
+	m_shader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/phong.vert");
+	m_shader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/phong.frag");
+
+	/*if (m_shader.link() == false)
+	{
+		printf("Shader Error: %s\n", m_shader.getLastError());
+		return false;
+	}
+	if (m_texturedShader.link() == false)
+	{
+		printf("Shader Error: %s\n", m_texturedShader.getLastError());
+		return false;
+	}*/
 	if (m_shader.link() == false)
 	{
 		printf("Shader Error: %s\n", m_shader.getLastError());
 		return false;
 	}
-	m_quadMesh.initialiseQuad();
+	
+	#pragma region Drawing
 
-	// make the quad 10 units wide
-	m_quadTransform = {
-	10,0,0,0,
-	0,10,0,0,
-	0,0,10,0,
-	0,0,0,1 };
+		#pragma region Drawing
+		
+		/*if (m_gridTexture.load("../bin/textures/numbered_grid.tga") == false) {
+			printf("Failed to load texture!\n");
+			return false;
+		}*/
+
+		// define 6 vertices for 2 triangles
+		/*Mesh::Vertex vertices[6];
+		vertices[0].position = { -0.5f, 0, 0.5f, 1 };
+		vertices[1].position = { 0.5f, 0, 0.5f, 1 };
+		vertices[2].position = { -0.10f, 0, -0.5f, 1 };
+		vertices[3].position = { -0.5f, 0, -0.5f, 1 };
+		vertices[4].position = { 0.5f, 0, 0.5f, 1 };
+		vertices[5].position = { 0.5f, 0, -0.5f, 1 };
+		m_quadMesh.initialise(6, vertices);*/
+
+		m_quadMesh.initialiseQuad();
+
+		//make the quad 10 units wide
+		m_quadTransform = {
+		10,0,0,0,
+		0,10,0,0,
+		0,0,10,0,
+		0,0,0,1 };
+
+		#pragma endregion Rendering Quad
+
+
+		#pragma region Drawing
+	
+		/*if (m_bunnyMesh.load("../bin/stanford/stanford/Bunny.obj") == false) {
+			printf("Bunny Mesh Error!\n");
+			return false;
+		}
+		m_bunnyTransform = {
+		0.5f,0,0,0,
+		0,0.5f,0,0,
+		0,0,0.5f,0,
+		0,0,0,1
+		};*/
+
+		#pragma endregion Rendering Bunny
+	
+		#pragma region Drawing
+
+		/*if (m_spearMesh.load("../bin/soulspear/soulspear/soulspear.obj",
+			true, true) == false) {
+			printf("Soulspear Mesh Error!\n");
+			return false;
+		}
+		m_spearTransform = {
+		1,0,0,0,
+		0,1,0,0,
+		0,0,1,0,
+		0,0,0,1
+		};*/
+
+		#pragma endregion Rendering Spear
+
+	#pragma endregion Rendering
+	
 
 	//Rendering Geometry-----
+
+	//==== Lighting ====
+	m_light.diffuse = { 1, 1, 0 };
+	m_light.specular = { 1, 1, 0 };
+	m_ambientLight = { 0.25f, 0.25f, 0.25f };
 
 	return true;
 }
@@ -332,6 +411,14 @@ void ComputerGraphicsApp::update(float deltaTime) {
 		start = true;
 	}
 
+
+	//==================LIGHT========================
+	// query time since application started
+	float time = getTime();
+	// rotate light
+	m_light.direction = glm::normalize(vec3(glm::cos(time * 2),
+		glm::sin(time * 2), 0));
+
 	//	update camera
 	myCamera->Update(deltaTime);
 
@@ -358,12 +445,23 @@ void ComputerGraphicsApp::draw() {
 
 	// bind shader
 	m_shader.bind();
-
-	// bind transform
+	m_shader.bindUniform("Id", m_light.diffuse);
+	// bind light
+	//m_shader.bindUniform("Ia", m_ambientLight);
+	//m_shader.bindUniform("Is", m_light.specular);	// bind light
+	m_shader.bindUniform("lightDirection", m_light.direction);
+	// bind transform							//To tranform being used
 	auto pvm = myCamera->GetProjectionView() * m_quadTransform;
 	m_shader.bindUniform("ProjectionViewModel", pvm);
 
-	// draw quad
+	// bind transforms for lighting
+	m_shader.bindUniform("NormalMatrix",
+		glm::inverseTranspose(glm::mat3(m_quadTransform)));
+
+	// bind texture location
+	//m_shader.bindUniform("diffuseTexture", 0);
+
+	// call draw specified mesh
 	m_quadMesh.draw();
 
 	//Gizmos::draw(m_projectionMatrix * m_viewMatrix);

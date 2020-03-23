@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "Shader.h"
 #include "Mesh.h"
+#include "OBJMesh.h"
 
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/quaternion.hpp>
@@ -39,9 +40,31 @@ protected:
 	glm::quat	m_rotations[3];
 
 	//Renderering
-	aie::ShaderProgram	m_shader;
+	aie::Texture m_gridTexture;	aie::ShaderProgram	m_shader;
+	
+
 	Mesh				m_quadMesh;
 	glm::mat4			m_quadTransform;
+
+	aie::OBJMesh		m_bunnyMesh;
+	glm::mat4			m_bunnyTransform;
+
+	aie::OBJMesh		m_spearMesh;
+	glm::mat4			m_spearTransform;
+
+	// Light Variable
+	struct Light 
+	{
+		glm::vec3 direction;
+		glm::vec3 diffuse;
+		glm::vec3 specular;
+	};
+
+	//Initialize light
+	Light m_light;
+	glm::vec3 m_ambientLight;
+
+
 
 	//	move positions condition check
 	bool decrementDown = false;
