@@ -21,6 +21,9 @@ public class PlayerControl : MonoBehaviour
 
     private PlayerEngine engine;
 
+    //  half speed
+    private float halfSpeed = 2.5f;
+
     void Start()
     {
         engine = GetComponent<PlayerEngine>();
@@ -33,6 +36,20 @@ public class PlayerControl : MonoBehaviour
         float zMov = Input.GetAxisRaw("Vertical");
         Vector3 movHorizontal = transform.right * xMov;
         Vector3 movVertical = transform.forward * zMov;
+
+
+        //Calculate speed depending on movement
+        //  if walking backwards, or strafing left and right
+        if(zMov<0 || xMov!=0)
+        {
+            //  half the speed
+            speed = halfSpeed;
+        }
+        else
+        {
+            speed = 5f;
+        }
+
         Vector3 m_velocity = (movHorizontal + movVertical).normalized * speed;
         engine.Move(m_velocity);
         //================= No Player Movement==============

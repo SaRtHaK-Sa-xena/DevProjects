@@ -69,31 +69,41 @@ bool ComputerGraphicsApp::startup() {
 	//Quaternions Tutorial---PART 2
 
 	//Rendering Geometry-----
-	/*m_shader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/shader.vert");
-	m_shader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/shader.frag");
-
+	m_shader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/normalmap.vert");
+	m_shader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/normalmap.frag");
+	
 	m_texturedShader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/textured.vert");
-	m_texturedShader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/textured.frag");*/
+	m_texturedShader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/textured.frag");
 
-	m_shader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/phong.vert");
-	m_shader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/phong.frag");
+	m_phongShader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/phong.vert");
+	m_phongShader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/phong.frag");
 
-	/*if (m_shader.link() == false)
-	{
-		printf("Shader Error: %s\n", m_shader.getLastError());
-		return false;
-	}
-	if (m_texturedShader.link() == false)
-	{
-		printf("Shader Error: %s\n", m_texturedShader.getLastError());
-		return false;
-	}*/
+
 	if (m_shader.link() == false)
 	{
 		printf("Shader Error: %s\n", m_shader.getLastError());
 		return false;
 	}
 	
+	if (m_texturedShader.link() == false)
+	{
+		printf("Shader Error: %s\n", m_texturedShader.getLastError());
+		return false;
+	}
+
+	if (m_phongShader.link() == false)
+	{
+		printf("Shader Error: %s\n", m_phongShader.getLastError());
+		return false;
+	}
+
+	// Create render target with single target and dimensions as the screen
+	if (m_renderTarget.initialise(1, getWindowWidth(),
+		getWindowHeight()) == false) {
+		printf("Render Target Error!\n");
+		return false;
+	}
+
 	#pragma region Drawing
 
 		#pragma region Drawing
@@ -124,20 +134,36 @@ bool ComputerGraphicsApp::startup() {
 
 		#pragma endregion Rendering Quad
 
-
 		#pragma region Drawing
 	
-		/*if (m_bunnyMesh.load("../bin/stanford/stanford/Bunny.obj") == false) {
+		if (m_dragonMesh.load("../bin/stanford/stanford/Dragon.obj") == false) {
+			printf("Dragon Mesh Error!\n");
+			return false;
+		}
+
+		m_dragonTransform = {
+		0.5f,0,0,0,
+		0,0.5f,0,0,
+		0,0,0.5f,0,
+		0,0,0,1
+		};
+
+		#pragma endregion Rendering Dragon
+
+		#pragma region Drawing
+		
+		if (m_bunnyMesh.load("../bin/stanford/stanford/Bunny.obj") == false) {
 			printf("Bunny Mesh Error!\n");
 			return false;
 		}
+		
 		m_bunnyTransform = {
 		0.5f,0,0,0,
 		0,0.5f,0,0,
 		0,0,0.5f,0,
 		0,0,0,1
-		};*/
-
+		};
+		
 		#pragma endregion Rendering Bunny
 	
 		#pragma region Drawing
@@ -163,7 +189,7 @@ bool ComputerGraphicsApp::startup() {
 
 	//==== Lighting ====
 	m_light.diffuse = { 1, 1, 0 };
-	m_light.specular = { 1, 1, 0 };
+	m_light.specular = {1, 1, 0 };
 	m_ambientLight = { 0.25f, 0.25f, 0.25f };
 
 	return true;
@@ -437,6 +463,9 @@ void ComputerGraphicsApp::update(float deltaTime) {
 
 void ComputerGraphicsApp::draw() {
 
+	//	bind out render target
+	m_renderTarget.bind();
+
 	// wipe the screen to the background colour
 	clearScreen();
 
@@ -444,24 +473,46 @@ void ComputerGraphicsApp::draw() {
 	//m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, getWindowWidth() / (float)getWindowHeight(), 0.1f, 1000.0f);
 
 	// bind shader
-	m_shader.bind();
-	m_shader.bindUniform("Id", m_light.diffuse);
-	// bind light
-	//m_shader.bindUniform("Ia", m_ambientLight);
-	//m_shader.bindUniform("Is", m_light.specular);	// bind light
-	m_shader.bindUniform("lightDirection", m_light.direction);
+	m_phongShader.bind();
+
+	// allow light properties to render using camera position 
+	m_phongShader.bindUniform("cameraPosition", myCamera->GetPosition());
+
+	// bind light
+	m_phongShader.bindUniform("Id", m_light.diffuse);
+	m_phongShader.bindUniform("Ia", m_ambientLight);
+	m_phongShader.bindUniform("Is", m_light.specular);
+	m_phongShader.bindUniform("lightDirection", m_light.direction);
+
 	// bind transform							//To tranform being used
-	auto pvm = myCamera->GetProjectionView() * m_quadTransform;
-	m_shader.bindUniform("ProjectionViewModel", pvm);
+	auto pvm = myCamera->GetProjectionView() * m_bunnyTransform;
+	m_phongShader.bindUniform("ProjectionViewModel", pvm);
+
+	
+	// bind model matrix
+	m_phongShader.bindUniform("ModelMatrix", m_bunnyTransform);
+
 
 	// bind transforms for lighting
-	m_shader.bindUniform("NormalMatrix",
-		glm::inverseTranspose(glm::mat3(m_quadTransform)));
+	m_phongShader.bindUniform("NormalMatrix",
+		glm::inverseTranspose(glm::mat3(m_bunnyTransform)));
 
-	// bind texture location
-	//m_shader.bindUniform("diffuseTexture", 0);
+	m_bunnyMesh.draw();
 
-	// call draw specified mesh
+	// unbind target to return to backbuffer
+	m_renderTarget.unbind();
+
+	//	clear the backbuffer
+	clearScreen();
+
+	//	 bind texturing shader
+	m_texturedShader.bind();
+	pvm = myCamera->GetProjectionView() * m_quadTransform;
+	m_texturedShader.bindUniform("ProjectionViewModel", pvm);
+	m_texturedShader.bindUniform("diffuseTexture", 0);
+	m_renderTarget.getTarget(0).bind(0);
+	
+	// draw quad
 	m_quadMesh.draw();
 
 	//Gizmos::draw(m_projectionMatrix * m_viewMatrix);

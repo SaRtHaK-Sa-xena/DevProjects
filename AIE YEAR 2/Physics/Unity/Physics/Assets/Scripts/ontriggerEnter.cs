@@ -22,5 +22,21 @@ public class ontriggerEnter : MonoBehaviour
             GameObject.Find("cannonBall").GetComponent<Rigidbody>().isKinematic = false;
             GameObject.Find("cannonBall").GetComponent<Rigidbody>().AddForce(transform.forward * 600);
         }
+
+       
+        //  if it collided with enemy
+        if (other.name == "Enemy")
+        {
+            Debug.Log("Woah!");
+
+            //  Set Rotation to look at player
+            other.transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
+
+            //  Set throwing anim to true
+            other.GetComponent<enemyAnim>().anim.SetBool("holdingItem", true);
+
+            //  Found False
+            //other.GetComponent<enemyAnim>().anim.SetBool("targetFound", false);
+        }
     }
 }

@@ -62,13 +62,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\addForce.cs" />
     <Compile Include="Assets\GameManager.cs" />
     <Compile Include="Assets\Scripts\_waveManager.cs" />
+    <Compile Include="Assets\Scripts\addForce.cs" />
     <Compile Include="Assets\Scripts\animationScript.cs" />
     <Compile Include="Assets\Scripts\cameraScript.cs" />
     <Compile Include="Assets\Scripts\collisionManager.cs" />
     <Compile Include="Assets\Scripts\destroyParticle.cs" />
+    <Compile Include="Assets\Scripts\enemyAnim.cs" />
     <Compile Include="Assets\Scripts\Example_phy\CannonBall.cs" />
     <Compile Include="Assets\Scripts\Example_phy\PhysicsObject.cs" />
     <Compile Include="Assets\Scripts\Example_phy\Player.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\Scripts\Example_phy\RagdollTrigger.cs" />
     <Compile Include="Assets\Scripts\gunshot_script.cs" />
     <Compile Include="Assets\Scripts\HealthBar.cs" />
+    <Compile Include="Assets\Scripts\jumpController.cs" />
     <Compile Include="Assets\Scripts\liftManager.cs" />
     <Compile Include="Assets\Scripts\ontriggerEnter.cs" />
     <Compile Include="Assets\Scripts\PickUpObject.cs" />

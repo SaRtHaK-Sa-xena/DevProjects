@@ -5,6 +5,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "OBJMesh.h"
+#include "RenderTarget.h"
 
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/quaternion.hpp>
@@ -40,8 +41,11 @@ protected:
 	glm::quat	m_rotations[3];
 
 	//Renderering
-	aie::Texture m_gridTexture;	aie::ShaderProgram	m_shader;
-	
+	aie::Texture m_gridTexture;
+
+	aie::ShaderProgram	m_shader;
+	aie::ShaderProgram	m_texturedShader;
+	aie::ShaderProgram	m_phongShader;
 
 	Mesh				m_quadMesh;
 	glm::mat4			m_quadTransform;
@@ -49,15 +53,21 @@ protected:
 	aie::OBJMesh		m_bunnyMesh;
 	glm::mat4			m_bunnyTransform;
 
+	aie::OBJMesh		m_dragonMesh;
+	glm::mat4			m_dragonTransform;
+
 	aie::OBJMesh		m_spearMesh;
 	glm::mat4			m_spearTransform;
+
+	aie::RenderTarget m_renderTarget;
 
 	// Light Variable
 	struct Light 
 	{
 		glm::vec3 direction;
 		glm::vec3 diffuse;
-		glm::vec3 specular;
+		glm::vec3 specular;
+
 	};
 
 	//Initialize light
