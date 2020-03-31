@@ -81,6 +81,8 @@ bool ComputerGraphicsApp::startup() {
 	m_postShader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/post.vert");
 	m_postShader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/post.frag");
 
+	m_particleShader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/particle.vert");
+	m_particleShader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/particle.frag");
 
 	if (m_shader.link() == false)
 	{
@@ -106,6 +108,13 @@ bool ComputerGraphicsApp::startup() {
 		return false;
 	}
 
+	if (m_particleShader.link() == false)
+	{
+		printf("Shader Error: %s\n", m_particleShader.getLastError());
+		return false;
+
+	}
+
 	// Create render target with single target and dimensions as the screen
 	if (m_renderTarget.initialise(1, getWindowWidth(),
 		getWindowHeight()) == false) {
@@ -115,7 +124,7 @@ bool ComputerGraphicsApp::startup() {
 
 	#pragma region Drawing
 
-		#pragma region Drawing
+		#pragma region Drawing Quad
 		
 		/*if (m_gridTexture.load("../bin/textures/numbered_grid.tga") == false) {
 			printf("Failed to load texture!\n");
@@ -132,7 +141,7 @@ bool ComputerGraphicsApp::startup() {
 		vertices[5].position = { 0.5f, 0, -0.5f, 1 };
 		m_quadMesh.initialise(6, vertices);*/
 
-		m_fullScreenQuad.initialiseFullScreenQuad();
+		//m_fullScreenQuad.initialiseFullScreenQuad();
 
 		////make the quad 10 units wide
 		//m_quadTransform = {
@@ -199,6 +208,12 @@ bool ComputerGraphicsApp::startup() {
 			1, 5,
 			1, 0.1f,
 			glm::vec4(1, 0, 0, 1), glm::vec4(1, 1, 0, 1));
+
+		m_particleTransform = {
+			10,0,0,0,
+			0,10,0,0,
+			0,0,10,0,
+			0,0,0,1 };
 
 		#pragma endregion Emit Particles
 
@@ -464,6 +479,9 @@ void ComputerGraphicsApp::update(float deltaTime) {
 	m_light.direction = glm::normalize(vec3(glm::cos(time * 2),
 		glm::sin(time * 2), 0));
 
+	//	Update emitter
+	m_emitter->update(deltaTime, myCamera->GetProjectionView());
+
 	//	update camera
 	myCamera->Update(deltaTime);
 
@@ -538,55 +556,69 @@ void ComputerGraphicsApp::draw() {
 
 	#pragma region RenderTarget
 
-	//	bind out render target
-	m_renderTarget.bind();
+	////	bind out render target
+	//m_renderTarget.bind();
 
-	// wipe the screen to the background colour
-	clearScreen();
+	//// wipe the screen to the background colour
+	//clearScreen();
 
-	// bind shader
-	m_phongShader.bind();
+	//// bind shader
+	//m_phongShader.bind();
 
-	// allow light properties to render using camera position 
-	m_phongShader.bindUniform("cameraPosition", myCamera->GetPosition());
+	//// allow light properties to render using camera position 
+	//m_phongShader.bindUniform("cameraPosition", myCamera->GetPosition());
 
-	// bind light
-	m_phongShader.bindUniform("Id", m_light.diffuse);
-	m_phongShader.bindUniform("Ia", m_ambientLight);
-	m_phongShader.bindUniform("Is", m_light.specular);
-	m_phongShader.bindUniform("lightDirection", m_light.direction);
+	//// bind light
+	//m_phongShader.bindUniform("Id", m_light.diffuse);
+	//m_phongShader.bindUniform("Ia", m_ambientLight);
+	//m_phongShader.bindUniform("Is", m_light.specular);
+	//m_phongShader.bindUniform("lightDirection", m_light.direction);
 
-	// bind transform							//To tranform being used
-	auto pvm = myCamera->GetProjectionView() * m_dragonTransform;
-	m_phongShader.bindUniform("ProjectionViewModel", pvm);
-
-
-	// bind model matrix
-	m_phongShader.bindUniform("ModelMatrix", m_dragonTransform);
+	//// bind transform							//To tranform being used
+	//auto pvm = myCamera->GetProjectionView() * m_dragonTransform;
+	//m_phongShader.bindUniform("ProjectionViewModel", pvm);
 
 
-	// bind transforms for lighting
-	m_phongShader.bindUniform("NormalMatrix",
-		glm::inverseTranspose(glm::mat3(m_dragonTransform)));
+	//// bind model matrix
+	//m_phongShader.bindUniform("ModelMatrix", m_dragonTransform);
 
-	//	draw mesh 
-	m_dragonMesh.draw();
 
-	// unbind target to return to backbuffer
-	m_renderTarget.unbind();
+	//// bind transforms for lighting
+	//m_phongShader.bindUniform("NormalMatrix",
+	//	glm::inverseTranspose(glm::mat3(m_dragonTransform)));
 
-	//	clear the backbuffer
-	clearScreen();
+	////	draw mesh 
+	//m_dragonMesh.draw();
 
-	//	bind post shader and textures
-	m_postShader.bind();
-	m_postShader.bindUniform("colourTarget", 0);
-	m_renderTarget.getTarget(0).bind(0);
-	
-	// draw fullscreen quad
-	m_fullScreenQuad.draw();
+	//// unbind target to return to backbuffer
+	//m_renderTarget.unbind();
+
+	////	clear the backbuffer
+	//clearScreen();
+
+	////	bind post shader and textures
+	//m_postShader.bind();
+	//m_postShader.bindUniform("colourTarget", 0);
+	//m_renderTarget.getTarget(0).bind(0);
+	//
+	//// draw fullscreen quad
+	//m_fullScreenQuad.draw();
 	#pragma endregion Draw With Post-Processing
 
+	#pragma region Particle System
+
+	// bind particle shader
+	m_particleShader.bind();
+
+	// bind particle transform
+	auto pvm = m_projectionMatrix * m_viewMatrix * m_particleTransform;
+
+	m_particleShader.bindUniform("ProjectionViewModel", pvm);
+	m_emitter->draw();
+
+	#pragma endregion Draw Emitter Particles
+
+	
 
 	//Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	Gizmos::draw(myCamera->GetProjectionView());

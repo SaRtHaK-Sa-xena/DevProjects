@@ -56,6 +56,9 @@ protected:
 	//	postProcessing (using RenderTarget)
 	aie::ShaderProgram	m_postShader;
 
+	//	particle system emitter
+	aie::ShaderProgram	m_particleShader;
+
 	//	default quad
 	Mesh				m_quadMesh;
 
@@ -74,6 +77,8 @@ protected:
 
 	aie::OBJMesh		m_spearMesh;
 	glm::mat4			m_spearTransform;
+
+	glm::mat4			m_particleTransform;
 
 	
 	//	To render target
