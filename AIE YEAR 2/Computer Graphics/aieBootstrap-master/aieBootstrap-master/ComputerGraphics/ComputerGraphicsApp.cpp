@@ -78,6 +78,9 @@ bool ComputerGraphicsApp::startup() {
 	m_phongShader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/phong.vert");
 	m_phongShader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/phong.frag");
 
+	m_postShader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/post.vert");
+	m_postShader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/post.frag");
+
 
 	if (m_shader.link() == false)
 	{
@@ -94,6 +97,12 @@ bool ComputerGraphicsApp::startup() {
 	if (m_phongShader.link() == false)
 	{
 		printf("Shader Error: %s\n", m_phongShader.getLastError());
+		return false;
+	}
+
+	if (m_postShader.link() == false)
+	{
+		printf("Shader Error: %s\n", m_postShader.getLastError());
 		return false;
 	}
 
@@ -123,18 +132,18 @@ bool ComputerGraphicsApp::startup() {
 		vertices[5].position = { 0.5f, 0, -0.5f, 1 };
 		m_quadMesh.initialise(6, vertices);*/
 
-		m_quadMesh.initialiseQuad();
+		m_fullScreenQuad.initialiseFullScreenQuad();
 
-		//make the quad 10 units wide
-		m_quadTransform = {
-		10,0,0,0,
-		0,10,0,0,
-		0,0,10,0,
-		0,0,0,1 };
+		////make the quad 10 units wide
+		//m_quadTransform = {
+		//10,0,0,0,
+		//0,10,0,0,
+		//0,0,10,0,
+		//0,0,0,1 };
 
 		#pragma endregion Rendering Quad
 
-		#pragma region Drawing
+		#pragma region Drawing Dragon
 	
 		if (m_dragonMesh.load("../bin/stanford/stanford/Dragon.obj") == false) {
 			printf("Dragon Mesh Error!\n");
@@ -150,7 +159,7 @@ bool ComputerGraphicsApp::startup() {
 
 		#pragma endregion Rendering Dragon
 
-		#pragma region Drawing
+		#pragma region Drawing Bunny
 		
 		if (m_bunnyMesh.load("../bin/stanford/stanford/Bunny.obj") == false) {
 			printf("Bunny Mesh Error!\n");
@@ -166,9 +175,9 @@ bool ComputerGraphicsApp::startup() {
 		
 		#pragma endregion Rendering Bunny
 	
-		#pragma region Drawing
+		#pragma region Drawing Spear
 
-		/*if (m_spearMesh.load("../bin/soulspear/soulspear/soulspear.obj",
+		if (m_spearMesh.load("../bin/soulspear/soulspear/soulspear.obj",
 			true, true) == false) {
 			printf("Soulspear Mesh Error!\n");
 			return false;
@@ -178,12 +187,22 @@ bool ComputerGraphicsApp::startup() {
 		0,1,0,0,
 		0,0,1,0,
 		0,0,0,1
-		};*/
+		};
 
 		#pragma endregion Rendering Spear
 
+		#pragma region Drawing Particle
+		
+		m_emitter = new ParticleEmitter();
+		m_emitter->initalise(1000, 500,
+			0.1f, 1.0f,
+			1, 5,
+			1, 0.1f,
+			glm::vec4(1, 0, 0, 1), glm::vec4(1, 1, 0, 1));
+
+		#pragma endregion Emit Particles
+
 	#pragma endregion Rendering
-	
 
 	//Rendering Geometry-----
 
@@ -463,14 +482,67 @@ void ComputerGraphicsApp::update(float deltaTime) {
 
 void ComputerGraphicsApp::draw() {
 
+	#pragma region RenderTarget
+
+	////	bind out render target
+	//m_renderTarget.bind();
+
+	//// wipe the screen to the background colour
+	//clearScreen();
+
+	//// bind shader
+	//m_phongShader.bind();
+
+	//// allow light properties to render using camera position 
+	//m_phongShader.bindUniform("cameraPosition", myCamera->GetPosition());
+
+	//// bind light
+	//m_phongShader.bindUniform("Id", m_light.diffuse);
+	//m_phongShader.bindUniform("Ia", m_ambientLight);
+	//m_phongShader.bindUniform("Is", m_light.specular);
+	//m_phongShader.bindUniform("lightDirection", m_light.direction);
+
+	//// bind transform							//To tranform being used
+	//auto pvm = myCamera->GetProjectionView() * m_bunnyTransform;
+	//m_phongShader.bindUniform("ProjectionViewModel", pvm);
+
+
+	//// bind model matrix
+	//m_phongShader.bindUniform("ModelMatrix", m_bunnyTransform);
+
+
+	//// bind transforms for lighting
+	//m_phongShader.bindUniform("NormalMatrix",
+	//	glm::inverseTranspose(glm::mat3(m_bunnyTransform)));
+
+	////	draw mesh 
+	//m_bunnyMesh.draw();
+
+	//// unbind target to return to backbuffer
+	//m_renderTarget.unbind();
+
+	////	clear the backbuffer
+	//clearScreen();
+
+	////	 bind texturing shader
+	//m_texturedShader.bind();
+	//pvm = myCamera->GetProjectionView() * m_quadTransform;
+	//m_texturedShader.bindUniform("ProjectionViewModel", pvm);
+	//m_texturedShader.bindUniform("diffuseTexture", 0);
+	//m_renderTarget.getTarget(0).bind(0);
+
+	//// draw quad, with the assigned mesh texture
+	//m_quadMesh.draw();
+
+	#pragma endregion Draw Model as Texture on Quad
+
+	#pragma region RenderTarget
+
 	//	bind out render target
 	m_renderTarget.bind();
 
 	// wipe the screen to the background colour
 	clearScreen();
-
-	// update perspective based on screen size
-	//m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, getWindowWidth() / (float)getWindowHeight(), 0.1f, 1000.0f);
 
 	// bind shader
 	m_phongShader.bind();
@@ -485,19 +557,20 @@ void ComputerGraphicsApp::draw() {
 	m_phongShader.bindUniform("lightDirection", m_light.direction);
 
 	// bind transform							//To tranform being used
-	auto pvm = myCamera->GetProjectionView() * m_bunnyTransform;
+	auto pvm = myCamera->GetProjectionView() * m_dragonTransform;
 	m_phongShader.bindUniform("ProjectionViewModel", pvm);
 
-	
+
 	// bind model matrix
-	m_phongShader.bindUniform("ModelMatrix", m_bunnyTransform);
+	m_phongShader.bindUniform("ModelMatrix", m_dragonTransform);
 
 
 	// bind transforms for lighting
 	m_phongShader.bindUniform("NormalMatrix",
-		glm::inverseTranspose(glm::mat3(m_bunnyTransform)));
+		glm::inverseTranspose(glm::mat3(m_dragonTransform)));
 
-	m_bunnyMesh.draw();
+	//	draw mesh 
+	m_dragonMesh.draw();
 
 	// unbind target to return to backbuffer
 	m_renderTarget.unbind();
@@ -505,15 +578,15 @@ void ComputerGraphicsApp::draw() {
 	//	clear the backbuffer
 	clearScreen();
 
-	//	 bind texturing shader
-	m_texturedShader.bind();
-	pvm = myCamera->GetProjectionView() * m_quadTransform;
-	m_texturedShader.bindUniform("ProjectionViewModel", pvm);
-	m_texturedShader.bindUniform("diffuseTexture", 0);
+	//	bind post shader and textures
+	m_postShader.bind();
+	m_postShader.bindUniform("colourTarget", 0);
 	m_renderTarget.getTarget(0).bind(0);
 	
-	// draw quad
-	m_quadMesh.draw();
+	// draw fullscreen quad
+	m_fullScreenQuad.draw();
+	#pragma endregion Draw With Post-Processing
+
 
 	//Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	Gizmos::draw(myCamera->GetProjectionView());

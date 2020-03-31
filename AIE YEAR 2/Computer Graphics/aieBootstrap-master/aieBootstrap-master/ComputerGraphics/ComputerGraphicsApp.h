@@ -6,6 +6,7 @@
 #include "Mesh.h"
 #include "OBJMesh.h"
 #include "RenderTarget.h"
+#include "ParticleEmitter.h"
 
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/quaternion.hpp>
@@ -42,14 +43,29 @@ protected:
 
 	//Renderering
 	aie::Texture m_gridTexture;
-
+	
+	//	simple default shader
 	aie::ShaderProgram	m_shader;
+	
+	//	textured 
 	aie::ShaderProgram	m_texturedShader;
+
+	//	lighting 
 	aie::ShaderProgram	m_phongShader;
 
+	//	postProcessing (using RenderTarget)
+	aie::ShaderProgram	m_postShader;
+
+	//	default quad
 	Mesh				m_quadMesh;
+
+	//	fullscreen quad
+	Mesh				m_fullScreenQuad;
+
+	//	Default Quad Transform
 	glm::mat4			m_quadTransform;
 
+	//	Obj Meshes
 	aie::OBJMesh		m_bunnyMesh;
 	glm::mat4			m_bunnyTransform;
 
@@ -59,7 +75,13 @@ protected:
 	aie::OBJMesh		m_spearMesh;
 	glm::mat4			m_spearTransform;
 
+	
+	//	To render target
 	aie::RenderTarget m_renderTarget;
+
+	//	Particle Emitter
+
+	ParticleEmitter		*m_emitter;
 
 	// Light Variable
 	struct Light 
@@ -67,7 +89,6 @@ protected:
 		glm::vec3 direction;
 		glm::vec3 diffuse;
 		glm::vec3 specular;
-
 	};
 
 	//Initialize light

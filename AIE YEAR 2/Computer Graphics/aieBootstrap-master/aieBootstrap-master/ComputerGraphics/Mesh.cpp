@@ -80,6 +80,46 @@ void Mesh::initialiseQuad()
 
 }
 
+void Mesh::initialiseFullScreenQuad()
+{
+	assert(vao == 0);
+
+	// generate buffers
+	glGenBuffers(1, &vbo);
+	glGenVertexArrays(1, &vao);
+
+	// bind vertex array aka a mesh wrapper
+	glBindVertexArray(vao);
+
+	// bind vertex buffer
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+	// define vertices
+	float vertices[] = {
+	-1,1, // left top
+	-1,-1, // left bottom
+	1,1, // right top
+	-1,-1, // left bottom
+	1,-1, // right bottom
+	1, 1 // right top
+	};
+
+	// fill vertex buffer
+	glBufferData(GL_ARRAY_BUFFER, 12 * sizeof(float), vertices,
+		GL_STATIC_DRAW);
+
+	// enable first element as position
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 8, 0);
+
+	// unbind buffers
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// quad has 2 triangles
+	triCount = 2;
+}
+
 void Mesh::initialise(unsigned int vertexCount, const Vertex* vertices, unsigned int indexCount, unsigned int* indeces)
 {
 	assert(vao == 0);
@@ -222,6 +262,13 @@ void Mesh::draw()
 //	3. Bind the index buffer data, but this time use GL_ELEMENT_ARRAY_BUFFER tag
 //	4. Set the triCount to the indexCount/3
 //	Clean up by unbinding everything
+
+// FOR POST PROCESSING
+//	We need to be able to render the scene in to a Render Target that is typically the same resolution as
+//	the display. We then render a Full - screen Quad to the Back Buffer, applying the target from the
+//	Render Target as a texture across the quad, and try to match the texels in the texture to pixels in the
+//	screen with a matching 1:1 texel to pixel ratio
+
 
 //#REF 1
 // It Takes in 6 parameters

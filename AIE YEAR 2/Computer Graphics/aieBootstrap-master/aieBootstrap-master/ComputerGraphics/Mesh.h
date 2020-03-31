@@ -18,6 +18,9 @@ public:
 	
 	//	to initialize a quad 
 	void initialiseQuad();
+
+	//	for post-processing
+	void initialiseFullScreenQuad();
 	
 	//	to create arbitrary meshes
 	void initialise(unsigned int vertexCount,
