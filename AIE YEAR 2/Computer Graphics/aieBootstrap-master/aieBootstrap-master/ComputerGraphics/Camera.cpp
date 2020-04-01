@@ -4,12 +4,16 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
+const float defaultCameraSpeed = 10.f;
+
 Camera::Camera()
 {
 	m_forwardKey = aie::INPUT_KEY_W;
 	m_backKey = aie::INPUT_KEY_S;
 	m_leftKey = aie::INPUT_KEY_A;
 	m_rightKey = aie::INPUT_KEY_D;
+
+	m_boost = aie::INPUT_KEY_LEFT_SHIFT;
 
 	m_mouseLookButton = aie::INPUT_MOUSE_BUTTON_RIGHT;
 }
@@ -64,6 +68,18 @@ void Camera::Update(float deltaTime)
 		CalculateFront();
 	}
 
+
+	// if shift held boost camera speed
+	if (input->isKeyDown(m_boost))
+	{
+		m_cameraMoveSpeed += 0.5f;
+	}
+	// otherwise reset camera speed
+	else
+	{
+		m_cameraMoveSpeed = defaultCameraSpeed;
+	}
+	
 	m_viewMatrix = glm::lookAt(m_cameraPosition, m_cameraPosition + m_cameraFront, m_cameraUp);
 
 	// record the current mouse position for use next frame.
@@ -144,12 +160,13 @@ void Camera::Lookat(glm::vec3 target)
 	CalculateFront();
 }
 
-void Camera::SetMovementKeys(int forwardKey, int backKey, int leftKey, int rightKey)
+void Camera::SetMovementKeys(int forwardKey, int backKey, int leftKey, int rightKey, int a_boost)
 {
 	m_forwardKey = forwardKey;
 	m_backKey = backKey;
 	m_leftKey = leftKey;
 	m_rightKey = rightKey;
+	m_boost = a_boost;
 }
 
 void Camera::SetMouseLookButton(int mouseButton)

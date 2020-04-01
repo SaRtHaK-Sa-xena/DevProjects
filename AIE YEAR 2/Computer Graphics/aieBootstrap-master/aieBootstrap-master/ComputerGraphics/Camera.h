@@ -35,7 +35,7 @@ public:
 #pragma region Movement
 	void Lookat(glm::vec3 target);
 
-	void SetMovementKeys(int forwardKey, int backKey, int leftKey, int rightKey);
+	void SetMovementKeys(int forwardKey, int backKey, int leftKey, int rightKey, int a_boost);
 	void SetMouseLookButton(int mouseButton);
 #pragma endregion
 
@@ -48,12 +48,14 @@ protected:
 	glm::mat4	m_projectionMatrix;
 
 	// movement keys
-	int m_forwardKey;	// defaults to W
-	int m_backKey;		// defaults to S
-	int m_leftKey;		// defaults to A
-	int m_rightKey;		// defaults to D
+	int m_forwardKey;		// defaults to W
+	int m_backKey;			// defaults to S
+	int m_leftKey;			// defaults to A
+	int m_rightKey;			// defaults to D
 
-	int m_mouseLookButton;					// defaults to right mouse button
+	int m_mouseLookButton;	// defaults to right mouse button
+
+	int m_boost;			// defaults to leftShift
 
 private:
 	glm::vec3 m_cameraPosition = glm::vec3(0, 2, -2);

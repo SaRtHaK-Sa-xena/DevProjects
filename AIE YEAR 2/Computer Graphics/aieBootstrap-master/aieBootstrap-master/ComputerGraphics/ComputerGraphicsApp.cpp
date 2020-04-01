@@ -163,7 +163,7 @@ bool ComputerGraphicsApp::startup() {
 		0.5f,0,0,0,
 		0,0.5f,0,0,
 		0,0,0.5f,0,
-		0,0,0,1
+		-2,0,-2,1
 		};
 
 		#pragma endregion Rendering Dragon
@@ -176,12 +176,15 @@ bool ComputerGraphicsApp::startup() {
 		}
 		
 		m_bunnyTransform = {
-		0.5f,0,0,0,
-		0,0.5f,0,0,
-		0,0,0.5f,0,
-		0,0,0,1
-		};
+		//scale
+		0.5,0,0,0,
+		0,0.5,0,0,
+		0,0,0.5,0,
 		
+		//position
+		2,0,2,1
+		};
+
 		#pragma endregion Rendering Bunny
 	
 		#pragma region Drawing Spear
@@ -195,7 +198,7 @@ bool ComputerGraphicsApp::startup() {
 		1,0,0,0,
 		0,1,0,0,
 		0,0,1,0,
-		0,0,0,1
+		-2,0,2,1
 		};
 
 		#pragma endregion Rendering Spear
@@ -222,9 +225,20 @@ bool ComputerGraphicsApp::startup() {
 	//Rendering Geometry-----
 
 	//==== Lighting ====
-	m_light.diffuse = { 1, 1, 0 };
+	//=== Modified ===
+	m_light.diffuse = { 1, 1, 1 };
+	m_light.specular = {1, 1, 1 };
+	m_ambientLight = { 1.f, 1.f, 0.f };
+	
+	//=== Default ===
+	/*m_light.diffuse = { 1, 1, 0 };
 	m_light.specular = {1, 1, 0 };
-	m_ambientLight = { 0.25f, 0.25f, 0.25f };
+	m_ambientLight = { 0.25f, 0.25f, 0.25f };*/
+
+	//m_light.constant = 1.f;
+	//m_light.quadratic = 1.f;
+	//m_light.linear = 1.f;
+	//m_light.position = { 0,0,0 };
 
 	return true;
 }
@@ -471,16 +485,22 @@ void ComputerGraphicsApp::update(float deltaTime) {
 		start = true;
 	}
 
-
 	//==================LIGHT========================
 	// query time since application started
 	float time = getTime();
+	
 	// rotate light
 	m_light.direction = glm::normalize(vec3(glm::cos(time * 2),
 		glm::sin(time * 2), 0));
 
+	//point direcitonal light straight down
+	//m_light.direction = glm::vec3(0, -1, 0);
+
+	//Gizmos::addTransform(m);
+	
+	
 	//	Update emitter
-	m_emitter->update(deltaTime, myCamera->GetProjectionView());
+	//m_emitter->update(deltaTime, myCamera->GetProjectionView());
 
 	//	update camera
 	myCamera->Update(deltaTime);
@@ -602,23 +622,98 @@ void ComputerGraphicsApp::draw() {
 	//m_renderTarget.getTarget(0).bind(0);
 	//
 	//// draw fullscreen quad
-	//m_fullScreenQuad.draw();
+	//m_fullScreenQuad.draw();
+
 	#pragma endregion Draw With Post-Processing
 
 	#pragma region Particle System
 
-	// bind particle shader
-	m_particleShader.bind();
+	//// bind particle shader
+	//m_particleShader.bind();
 
-	// bind particle transform
-	auto pvm = m_projectionMatrix * m_viewMatrix * m_particleTransform;
+	//// bind particle transform
+	//auto pvm = m_projectionMatrix * m_viewMatrix * m_particleTransform;
 
-	m_particleShader.bindUniform("ProjectionViewModel", pvm);
-	m_emitter->draw();
+	//m_particleShader.bindUniform("ProjectionViewModel", pvm);
+	//m_emitter->draw();
 
 	#pragma endregion Draw Emitter Particles
 
+	#pragma region Default
+
+	//clearScreen();
+	//
+	//m_phongShader.bind();
+	//
+	//// allow light properties to render using camera position 
+	//m_phongShader.bindUniform("cameraPosition", myCamera->GetPosition());
+	//
+	//// bind light
+	//m_phongShader.bindUniform("Id", m_light.diffuse);
+	//m_phongShader.bindUniform("Ia", m_ambientLight);
+	//m_phongShader.bindUniform("Is", m_light.specular);
+	//m_phongShader.bindUniform("lightDirection", m_light.direction);
+	//
+	//// bind transform							//To tranform being used
+	//auto pvm = myCamera->GetProjectionView() * m_bunnyTransform;
+	//m_phongShader.bindUniform("ProjectionViewModel", pvm);
+	//
+	//
+	//// bind model matrix
+	//m_phongShader.bindUniform("ModelMatrix", m_bunnyTransform);
+	//
+	//
+	//// bind transforms for lighting
+	//m_phongShader.bindUniform("NormalMatrix",
+	//	glm::inverseTranspose(glm::mat3(m_bunnyTransform)));
+	//
+	////	draw mesh 
+	//m_bunnyMesh.draw();
+
+	#pragma endregion Draw def_Model and def_Light
+
+	clearScreen();
+
+	m_phongShader.bind();
+
+	// allow light properties to render using camera position 
+	m_phongShader.bindUniform("cameraPosition", myCamera->GetPosition());
+	m_phongShader.bindUniform("Id", m_light.diffuse);
+	m_phongShader.bindUniform("Ia", m_ambientLight);
+	m_phongShader.bindUniform("Is", m_light.specular);
+	m_phongShader.bindUniform("lightDirection", m_light.direction);
+
+	auto pvm = myCamera->GetProjectionView() * m_bunnyTransform;
+	m_phongShader.bindUniform("ProjectionViewModel", pvm);
 	
+	// bind model matrix
+	m_phongShader.bindUniform("ModelMatrix", m_bunnyTransform);
+	// bind transforms for lighting
+	m_phongShader.bindUniform("NormalMatrix",
+		glm::inverseTranspose(glm::mat3(m_bunnyTransform)));
+
+	//	draw mesh 
+	m_bunnyMesh.draw();
+
+	m_shader.bind();
+
+	// allow light properties to render using camera position 
+	m_shader.bindUniform("cameraPosition", myCamera->GetPosition());
+	m_shader.bindUniform("Id", m_light.diffuse);
+	m_shader.bindUniform("Ia", m_ambientLight);
+	m_shader.bindUniform("Is", m_light.specular);
+	m_shader.bindUniform("lightDirection", m_light.direction);
+
+	pvm = myCamera->GetProjectionView() * m_spearTransform;
+	m_shader.bindUniform("ProjectionViewModel", pvm);
+
+	// bind model matrix
+	m_shader.bindUniform("ModelMatrix", m_spearTransform);
+	// bind transforms for lighting
+	m_shader.bindUniform("NormalMatrix",
+		glm::inverseTranspose(glm::mat3(m_spearTransform)));
+
+	m_spearMesh.draw();
 
 	//Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	Gizmos::draw(myCamera->GetProjectionView());
@@ -626,3 +721,4 @@ void ComputerGraphicsApp::draw() {
 	// draw 2D gizmos using an orthogonal projection matrix
 	Gizmos::draw2D((float)getWindowWidth(), (float)getWindowHeight());
 }
+

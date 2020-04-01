@@ -85,7 +85,6 @@ protected:
 	aie::RenderTarget m_renderTarget;
 
 	//	Particle Emitter
-
 	ParticleEmitter		*m_emitter;
 
 	// Light Variable
@@ -98,9 +97,15 @@ protected:
 
 	//Initialize light
 	Light m_light;
+	
+	// global
 	glm::vec3 m_ambientLight;
 
+	//glm::vec3 position;
 
+		//float constant;
+		//float linear;
+		//float quadratic;
 
 	//	move positions condition check
 	bool decrementDown = false;

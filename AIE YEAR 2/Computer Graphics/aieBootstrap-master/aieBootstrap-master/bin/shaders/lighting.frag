@@ -3,6 +3,7 @@
 
 in vec4 vPosition;
 in vec3 vNormal;
+in vec3 fragPos;
 
 uniform vec3 Ka; // ambient material colour
 uniform vec3 Kd; // diffuse material colour
@@ -14,7 +15,7 @@ uniform vec3 Ia; // ambient light colour
 uniform vec3 Id; // diffuse light colour
 uniform vec3 Is; // specular light colour
 
-uniform vec3 lightDirection;
+uniform vec3 lightPosition;
 
 uniform vec3 cameraPosition; // camera position
 
