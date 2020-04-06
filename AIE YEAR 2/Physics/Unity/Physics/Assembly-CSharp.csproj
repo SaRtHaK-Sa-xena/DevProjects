@@ -62,7 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\enemyAI.cs" />
     <Compile Include="Assets\GameManager.cs" />
+    <Compile Include="Assets\Materials\PowerSkin\ColourScript.cs" />
+    <Compile Include="Assets\Materials\PowerSkin\ColourScript1.cs" />
+    <Compile Include="Assets\playerManager.cs" />
     <Compile Include="Assets\Scripts\_waveManager.cs" />
     <Compile Include="Assets\Scripts\addForce.cs" />
     <Compile Include="Assets\Scripts\animationScript.cs" />
@@ -76,6 +80,7 @@
     <Compile Include="Assets\Scripts\Example_phy\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\Example_phy\PlayerEngine.cs" />
     <Compile Include="Assets\Scripts\Example_phy\RagdollTrigger.cs" />
+    <Compile Include="Assets\Scripts\GameHandler.cs" />
     <Compile Include="Assets\Scripts\gunshot_script.cs" />
     <Compile Include="Assets\Scripts\HealthBar.cs" />
     <Compile Include="Assets\Scripts\jumpController.cs" />
@@ -92,6 +97,7 @@
     <Compile Include="Assets\Scripts\update.cs" />
     <Compile Include="Assets\Scripts\wreckingBall.cs" />
     <Compile Include="Assets\Scripts\Zombie.cs" />
+    <Compile Include="Assets\testingBoxCollision.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />

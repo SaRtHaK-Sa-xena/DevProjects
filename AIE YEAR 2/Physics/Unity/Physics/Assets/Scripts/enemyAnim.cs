@@ -32,7 +32,7 @@ public class enemyAnim : MonoBehaviour
     void Start()
     {
         //  Set Anim
-        anim = transform.GetChild(0).GetComponent<Animator>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame

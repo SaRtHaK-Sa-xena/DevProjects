@@ -5,6 +5,7 @@ in vec3 vNormal;
 in vec4 vPosition;
 in vec3 vTangent;
 in vec3 vBiTangent;
+in vec3 fragPos;
 
 out vec4 FragColour;
 
@@ -20,14 +21,18 @@ uniform float specularPower;
 uniform vec3 Ia; // light ambient
 uniform vec3 Id; // light diffuse
 uniform vec3 Is; // light specular
+uniform vec3 lightPosition;
 uniform vec3 lightDirection;
+uniform float constant;
+uniform float linear;
+uniform float quadratic;
 
 uniform vec3 cameraPosition;
 
 void main() 
 {
     vec3 N = normalize(vNormal);
-    vec3 L = normalize(lightDirection);
+    vec3 L = normalize(lightPosition - fragPos);
     vec3 T = normalize(vTangent);
     vec3 B = normalize(vBiTangent);
     
@@ -44,8 +49,8 @@ void main()
 
     //N = TBN * (texNormal * 2-1);
 
-    // calculate lambert term
-    float lambertTerm = max( 0, dot( N, -L ) );
+    // calculate lambert term //-L
+    float lambertTerm = max( 0, dot( N, L ) );
 
     // calculate view vector and reflection vector
     vec3 V = normalize(cameraPosition - vPosition.xyz);
@@ -58,5 +63,14 @@ void main()
     vec3 ambient = Ia * Ka;
     vec3 diffuse = Id * Kd * texDiffuse * lambertTerm;
     vec3 specular = Is * Ks * texSpecular * specularTerm;
+
+    // attenuation
+    float distance = length(lightPosition - fragPos);
+    float attenuation = 1.0 / (constant + linear * distance + quadratic * (distance * distance));    
+
+    ambient  *= attenuation;  
+    diffuse   *= attenuation;
+    specular *= attenuation;
+
     FragColour = vec4(ambient + diffuse + specular, 1);
 }

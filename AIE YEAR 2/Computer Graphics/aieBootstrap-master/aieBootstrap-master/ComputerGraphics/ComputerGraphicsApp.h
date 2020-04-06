@@ -59,6 +59,9 @@ protected:
 	//	particle system emitter
 	aie::ShaderProgram	m_particleShader;
 
+	//	experimental lighting shader
+	aie::ShaderProgram	m_lightingShader;
+
 	//	default quad
 	Mesh				m_quadMesh;
 
@@ -90,9 +93,14 @@ protected:
 	// Light Variable
 	struct Light 
 	{
-		glm::vec3 direction;
+		//glm::vec3 direction;
+		glm::vec3 position;
 		glm::vec3 diffuse;
 		glm::vec3 specular;
+
+		float constant;
+		float linear;
+		float quadratic;
 	};
 
 	//Initialize light
@@ -100,6 +108,8 @@ protected:
 	
 	// global
 	glm::vec3 m_ambientLight;
+
+	glm::vec3 lightPos;
 
 	//glm::vec3 position;
 

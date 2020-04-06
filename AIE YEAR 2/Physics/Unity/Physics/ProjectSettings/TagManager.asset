@@ -8,6 +8,7 @@ TagManager:
   - Button
   - KEY_enemy
   - ITEM
+  - hangable
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - Particle
   - ColliderLayer
   - UI_effects
-  - 
-  - 
+  - Model
+  - Player
   - 
   - 
   - 

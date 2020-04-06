@@ -19,7 +19,7 @@ void main()
 {
     vPosition = ModelMatrix * Position;
     vNormal = NormalMatrix * Normal.xyz;
+
+    fragPos = vec3(ModelMatrix * vec4(Position));
     gl_Position = ProjectionViewModel * Position;
-    Position.w = 1.0f;
-    fragPos = vec3(model*vec4(Position));
 }

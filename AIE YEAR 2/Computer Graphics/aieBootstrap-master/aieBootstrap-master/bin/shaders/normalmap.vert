@@ -10,6 +10,7 @@ out vec3 vNormal;
 out vec3 vTangent;  // Normal Matrix * Tangent.xyz
 out vec3 vBiTangent; // crossProduct between vTangent&vNormal * Tangent.w
 out vec4 vPosition;
+out vec3 fragPos;
 
 uniform mat4 ProjectionViewModel;
 
@@ -26,5 +27,9 @@ void main()
     vNormal = NormalMatrix * Normal.xyz;
     vTangent = NormalMatrix * Tangent.xyz;
     vBiTangent = cross(vNormal, vTangent) * Tangent.w;
+
+    fragPos = vec3(vPosition);
+    //fragPos = vec3(ModelMatrix * vec4(Position));
+
     gl_Position = ProjectionViewModel * Position;
 }

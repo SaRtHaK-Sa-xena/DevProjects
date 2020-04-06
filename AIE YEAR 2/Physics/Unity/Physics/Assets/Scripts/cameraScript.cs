@@ -15,6 +15,8 @@ public class cameraScript : MonoBehaviour
 
     public GameObject player_pref;
 
+    public GameObject player_model;
+
     [SerializeField]
     private float distance = 10f; // Distance to stay from character
 
@@ -29,14 +31,18 @@ public class cameraScript : MonoBehaviour
 
         //clamp variable
         currentY = Mathf.Clamp(currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
+
+        
     }
 
     void LateUpdate()
-    {                                                        //Rotation around character............/...Keeps distance from character          
-        gameObject.transform.position = character.position + Quaternion.Euler(currentY, currentX, 0) * new Vector3(0, 0, distance);
-        gameObject.transform.LookAt(character.position);//Points camera at character
+    {
+        //Rotation around character............/...Keeps distance from character          
+        //gameObject.transform.position = character.position + Quaternion.Euler(currentY, currentX, 0) * new Vector3(0, 0, distance);
+        //gameObject.transform.LookAt(character.position);//Points camera at character
 
         //change player model rotation
         player_pref.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(currentY, currentX, 0));
+        player_model.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(0, currentX, 0));
     }
 }

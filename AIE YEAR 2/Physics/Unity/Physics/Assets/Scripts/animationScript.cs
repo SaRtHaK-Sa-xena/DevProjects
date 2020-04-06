@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles Animation For Player
+/// </summary>
 public class animationScript : MonoBehaviour
 {
     public Animator anim;
@@ -19,7 +22,9 @@ public class animationScript : MonoBehaviour
     private void Update()
     {
         InputZ = Input.GetAxis("Vertical"); //UP and DOWN arrow key
-        InputX = Input.GetAxis("Horizontal");
+        InputX = Input.GetAxis("Horizontal"); //LEFT and RIGHT arrow key
+
+        //  Pass values through animator
         anim.SetFloat("InputZ", InputZ);
         anim.SetFloat("InputX", InputX);
 
@@ -31,23 +36,17 @@ public class animationScript : MonoBehaviour
 
         //  if player is above ground by a certain distance, play freefall anim
         RaycastHit rayCast;
-        if (Physics.Raycast(transform.position, Vector3.down, out rayCast, 5f))
+        if (Physics.Raycast(transform.position, Vector3.down, out rayCast, 0.8f))
         {
-            Debug.Log("Collision Detected");
-
             //if collision
-            //do nothing
+            //set free fall to false
             anim.SetBool("isFalling", false);
         }
         else
         {
-            Debug.Log("[No] Collision Detected");
-            //  if there is no collision
-            //Play anim
+            //if no collision
+            //set free fall to true
             anim.SetBool("isFalling", true);
         }
-
-        //Debug RayCast
-        Debug.DrawRay(transform.position, Vector3.down, Color.green);
     }
 }
