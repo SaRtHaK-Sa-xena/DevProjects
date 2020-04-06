@@ -31,6 +31,8 @@ protected:
 	glm::quat r;
 	float s=0;
 
+	
+
 	//Camera
 	Camera *myCamera = new Camera();
 
@@ -93,7 +95,7 @@ protected:
 	// Light Variable
 	struct Light 
 	{
-		//glm::vec3 direction;
+		glm::vec3 direction;
 		glm::vec3 position;
 		glm::vec3 diffuse;
 		glm::vec3 specular;
@@ -101,11 +103,21 @@ protected:
 		float constant;
 		float linear;
 		float quadratic;
+
+		float cutOff;
+		float outerCutOff;
 	};
 
-	//Initialize light
+	//Initialize point light
 	Light m_light;
 	
+	//	spotlight Box
+	glm::vec3 spotLight_p;
+	glm::quat spotLight_r;
+	glm::vec3 spotLightPos;
+	Light m_spotLight;
+
+
 	// global
 	glm::vec3 m_ambientLight;
 

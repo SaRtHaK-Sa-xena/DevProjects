@@ -251,8 +251,13 @@ bool ComputerGraphicsApp::startup() {
 
 	// Light Obj Position
 	m_positions[0] = glm::vec3(0, 5, 0);
-
 	m_rotations[0] = glm::quat(glm::vec3(0, 0, 0));
+
+	// SpotLight Obj Position
+	m_positions[1] = glm::vec3(-10, 5, 0);
+	m_rotations[1] = glm::quat(glm::vec3(0, -1, -1));
+
+
 
 	return true;
 }
@@ -557,25 +562,36 @@ void ComputerGraphicsApp::update(float deltaTime) {
 	}
 
 
-
 	p = m_positions[0];
-
 	r = m_rotations[0];
 	
+	spotLight_p = m_positions[1];
+	spotLight_r = m_rotations[1];
+
 	//	build a matrix
 	glm::mat4 box_matrix = glm::translate(p) * glm::toMat4(r);
+
+	//	build a matrix for spotlight
+	glm::mat4 spotLight_matrix = glm::translate(spotLight_p) * glm::toMat4(spotLight_r);
 
 	//	draw a transform and box
 	Gizmos::addTransform(glm::inverseTranspose(glm::mat3(box_matrix)));
 	Gizmos::addAABBFilled(p, glm::vec3(.5f), glm::vec4(1, 0, 0, 1), &glm::mat4(glm::inverseTranspose(glm::mat3(box_matrix))));
 
+	Gizmos::addTransform(spotLight_matrix);//glm::inverseTranspose(glm::mat3(spotLight_matrix)));
+	Gizmos::addAABBFilled(spotLight_p, glm::vec3(.5f), glm::vec4(1, 0, 0, 1), &spotLight_matrix);//&glm::mat4(glm::inverseTranspose(glm::mat3(spotLight_matrix))));
+
 	//	light position
 	lightPos = m_positions[0];
+	spotLightPos = m_positions[1];
 
 	//lightPos = glm::inverseTranspose(glm::mat3(box_matrix))[0];
 
-	//	make m_light have light position
+	//	assign variables
 	m_light.position = lightPos;
+	m_light.direction = glm::vec3(box_matrix[0].z, box_matrix[1].z, box_matrix[2].z);
+	m_spotLight.position = myCamera->GetPosition();
+	m_spotLight.direction = myCamera->GetFront();
 }
 
 void ComputerGraphicsApp::draw() {
@@ -793,9 +809,12 @@ void ComputerGraphicsApp::draw() {
 	m_lightingShader.bindUniform("Ia", m_ambientLight);
 	m_lightingShader.bindUniform("Is", m_light.specular);
 	m_lightingShader.bindUniform("lightPosition", m_light.position);
+	m_lightingShader.bindUniform("lightDirection", m_light.direction);
 	m_lightingShader.bindUniform("constant", 1.0f);
 	m_lightingShader.bindUniform("linear", 0.09f);
 	m_lightingShader.bindUniform("quadratic", 0.032f);
+	m_lightingShader.bindUniform("cutOff", glm::cos(glm::radians(12.5f)));
+	m_lightingShader.bindUniform("outerCutOff", glm::cos(glm::radians(17.5f)));
 	
 	auto pvm = myCamera->GetProjectionView() * m_bunnyTransform;
 	m_lightingShader.bindUniform("ProjectionViewModel", pvm);
