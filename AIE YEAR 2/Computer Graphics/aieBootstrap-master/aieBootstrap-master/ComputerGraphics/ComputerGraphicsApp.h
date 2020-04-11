@@ -64,6 +64,9 @@ protected:
 	//	experimental lighting shader
 	aie::ShaderProgram	m_lightingShader;
 
+	//	pointLight Shader
+	aie::ShaderProgram	m_pointLightShader;
+
 	//	default quad
 	Mesh				m_quadMesh;
 
@@ -112,10 +115,10 @@ protected:
 	Light m_light;
 	
 	//	spotlight Box
-	glm::vec3 spotLight_p;
-	glm::quat spotLight_r;
-	glm::vec3 spotLightPos;
-	Light m_spotLight;
+	glm::vec3 pointLight_p;
+	glm::quat pointLight_r;
+	glm::vec3 pointLightPos;
+	Light m_pointLight;
 
 
 	// global
@@ -131,6 +134,9 @@ protected:
 
 	//	move positions condition check
 	bool decrementDown = false;
+
+	//	switch movement controls
+	bool switchMovement = false;
 
 	//	increment value
 	int scalar = 1;

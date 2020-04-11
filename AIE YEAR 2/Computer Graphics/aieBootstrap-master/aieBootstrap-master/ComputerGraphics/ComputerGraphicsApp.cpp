@@ -87,17 +87,30 @@ bool ComputerGraphicsApp::startup() {
 	m_lightingShader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/lighting.vert");
 	m_lightingShader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/lighting.frag");
 
+	m_pointLightShader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/pointLight.vert");
+	m_pointLightShader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/pointLight.frag");
+
+	//	Normal Map Spear Shader
 	if (m_shader.link() == false)
 	{
 		printf("Shader Error: %s\n", m_shader.getLastError());
 		return false;
 	}
 
+	//	SpotLight Shader
 	if (m_lightingShader.link() == false)
 	{
 		printf("Shader Error: %s\n", m_lightingShader.getLastError());
 		return false;
 	}
+
+	//	PointLight Shader
+	if (m_pointLightShader.link() == false)
+	{
+		printf("Shader ErrorL %s\n", m_pointLightShader.getLastError());
+		return false;
+	}
+
 	
 	if (m_texturedShader.link() == false)
 	{
@@ -237,6 +250,10 @@ bool ComputerGraphicsApp::startup() {
 	//=== Modified ===
 	m_light.diffuse = { 1, 1, 1 };
 	m_light.specular = {1, 1, 1 };
+
+	m_pointLight.diffuse = { 1,1,1 };
+	m_pointLight.specular = { 1,1,1 };
+
 	m_ambientLight = { 1.f, 1.f, 0.f };
 	
 	//=== Default ===
@@ -253,10 +270,9 @@ bool ComputerGraphicsApp::startup() {
 	m_positions[0] = glm::vec3(0, 5, 0);
 	m_rotations[0] = glm::quat(glm::vec3(0, 0, 0));
 
-	// SpotLight Obj Position
-	m_positions[1] = glm::vec3(-10, 5, 0);
-	m_rotations[1] = glm::quat(glm::vec3(0, -1, -1));
-
+	// PointLight Obj Position
+	m_positions[1] = glm::vec3(0, 10, 0);
+	m_rotations[1] = glm::quat(glm::vec3(0, 0, 0));
 
 
 	return true;
@@ -536,62 +552,113 @@ void ComputerGraphicsApp::update(float deltaTime) {
 
 	m_viewMatrix = m_viewMatrix - deltaTime * glm::translate(m_viewMatrix, glm::vec3(m_viewMatrix[3].x, m_viewMatrix[3].y, m_viewMatrix[3].z));*/
 	
-	if (input->isKeyDown(aie::INPUT_KEY_Y))
+	
+
+	if (switchMovement == true)
 	{
-		m_positions[0].y += 0.1f;
+		if (input->isKeyDown(aie::INPUT_KEY_Y))
+		{
+			m_positions[1].y += 0.1f;
+		}
+		if (input->isKeyDown(aie::INPUT_KEY_U))
+		{
+			m_positions[1].y -= 0.1f;
+		}
+		if (input->isKeyDown(aie::INPUT_KEY_J))
+		{
+			m_positions[1].x += 0.1f;
+		}
+		if (input->isKeyDown(aie::INPUT_KEY_L))
+		{
+			m_positions[1].x -= 0.1f;
+		}
+		if (input->isKeyDown(aie::INPUT_KEY_K))
+		{
+			m_positions[1].z -= 0.1f;
+		}
+		if (input->isKeyDown(aie::INPUT_KEY_I))
+		{
+			m_positions[1].z += 0.1f;
+		}
 	}
-	if (input->isKeyDown(aie::INPUT_KEY_U))
+	else if(switchMovement == false)
 	{
-		m_positions[0].y -= 0.1f;
+		if (input->isKeyDown(aie::INPUT_KEY_Y))
+		{
+			m_positions[0].y += 0.1f;
+		}
+		if (input->isKeyDown(aie::INPUT_KEY_U))
+		{
+			m_positions[0].y -= 0.1f;
+		}
+		if (input->isKeyDown(aie::INPUT_KEY_J))
+		{
+			m_positions[0].x += 0.1f;
+		}
+		if (input->isKeyDown(aie::INPUT_KEY_L))
+		{
+			m_positions[0].x -= 0.1f;
+		}
+		if (input->isKeyDown(aie::INPUT_KEY_K))
+		{
+			m_positions[0].z -= 0.1f;
+		}
+		if (input->isKeyDown(aie::INPUT_KEY_I))
+		{
+			m_positions[0].z += 0.1f;
+		}
 	}
-	if (input->isKeyDown(aie::INPUT_KEY_J))
+	
+
+	if (input->isKeyDown(aie::INPUT_KEY_0))
 	{
-		m_positions[0].x += 0.1f;
-	}
-	if (input->isKeyDown(aie::INPUT_KEY_L))
-	{
-		m_positions[0].x -= 0.1f;
-	}
-	if (input->isKeyDown(aie::INPUT_KEY_K))
-	{
-		m_positions[0].z -= 0.1f;
-	}
-	if (input->isKeyDown(aie::INPUT_KEY_I))
-	{
-		m_positions[0].z += 0.1f;
+		if (switchMovement)
+		{
+			switchMovement = false;
+		}
+		else if(switchMovement == false)
+		{
+			switchMovement = true;
+		}
 	}
 
-
+	//========================SpotLight================================================
 	p = m_positions[0];
 	r = m_rotations[0];
 	
-	spotLight_p = m_positions[1];
-	spotLight_r = m_rotations[1];
-
 	//	build a matrix
 	glm::mat4 box_matrix = glm::translate(p) * glm::toMat4(r);
-
-	//	build a matrix for spotlight
-	glm::mat4 spotLight_matrix = glm::translate(spotLight_p) * glm::toMat4(spotLight_r);
 
 	//	draw a transform and box
 	Gizmos::addTransform(glm::inverseTranspose(glm::mat3(box_matrix)));
 	Gizmos::addAABBFilled(p, glm::vec3(.5f), glm::vec4(1, 0, 0, 1), &glm::mat4(glm::inverseTranspose(glm::mat3(box_matrix))));
 
-	Gizmos::addTransform(spotLight_matrix);//glm::inverseTranspose(glm::mat3(spotLight_matrix)));
-	Gizmos::addAABBFilled(spotLight_p, glm::vec3(.5f), glm::vec4(1, 0, 0, 1), &spotLight_matrix);//&glm::mat4(glm::inverseTranspose(glm::mat3(spotLight_matrix))));
-
 	//	light position
 	lightPos = m_positions[0];
-	spotLightPos = m_positions[1];
-
-	//lightPos = glm::inverseTranspose(glm::mat3(box_matrix))[0];
 
 	//	assign variables
 	m_light.position = lightPos;
 	m_light.direction = glm::vec3(box_matrix[0].z, box_matrix[1].z, box_matrix[2].z);
-	m_spotLight.position = myCamera->GetPosition();
-	m_spotLight.direction = myCamera->GetFront();
+	//========================SpotLight================================================
+
+
+	//========================PointLight===============================================
+	pointLight_p = m_positions[1];
+	pointLight_r = m_rotations[1];
+
+	//	build a matrix for spotlight
+	glm::mat4 pointLight_matrix = glm::translate(pointLight_p) * glm::toMat4(pointLight_r);
+
+	Gizmos::addTransform(pointLight_matrix);//glm::inverseTranspose(glm::mat3(spotLight_matrix)));
+	Gizmos::addAABBFilled(pointLight_p, glm::vec3(.5f), glm::vec4(0, 1, 0, 1), &pointLight_matrix);//&glm::mat4(glm::inverseTranspose(glm::mat3(spotLight_matrix))));
+
+	pointLightPos = m_positions[1];
+
+	// no direction, since it is a point light
+	m_pointLight.position = pointLightPos;
+	//========================PointLight===============================================
+
+	//lightPos = glm::inverseTranspose(glm::mat3(box_matrix))[0];
 }
 
 void ComputerGraphicsApp::draw() {
@@ -809,10 +876,12 @@ void ComputerGraphicsApp::draw() {
 	m_lightingShader.bindUniform("Ia", m_ambientLight);
 	m_lightingShader.bindUniform("Is", m_light.specular);
 	m_lightingShader.bindUniform("lightPosition", m_light.position);
-	m_lightingShader.bindUniform("lightDirection", m_light.direction);
 	m_lightingShader.bindUniform("constant", 1.0f);
 	m_lightingShader.bindUniform("linear", 0.09f);
 	m_lightingShader.bindUniform("quadratic", 0.032f);
+	
+	//	if Spotlight->
+	m_lightingShader.bindUniform("lightDirection", m_light.direction);
 	m_lightingShader.bindUniform("cutOff", glm::cos(glm::radians(12.5f)));
 	m_lightingShader.bindUniform("outerCutOff", glm::cos(glm::radians(17.5f)));
 	
@@ -828,6 +897,18 @@ void ComputerGraphicsApp::draw() {
 	//	draw mesh 
 	m_bunnyMesh.draw();
 	
+	//start new shader for point light
+	m_pointLightShader.bind();
+
+	m_pointLightShader.bindUniform("cameraPosition", myCamera->GetPosition());
+	m_pointLightShader.bindUniform("Id", m_pointLight.diffuse);
+	m_pointLightShader.bindUniform("Ia", m_ambientLight);
+	m_pointLightShader.bindUniform("Is", m_pointLight.specular);
+	m_pointLightShader.bindUniform("lightPosition", m_pointLight.position);
+	m_pointLightShader.bindUniform("constant", 1.0f);
+	m_pointLightShader.bindUniform("linear", 0.09f);
+	m_pointLightShader.bindUniform("quadratic", 0.032f);
+
 	pvm = myCamera->GetProjectionView() * m_dragonTransform;
 	m_lightingShader.bindUniform("ProjectionViewModel", pvm);
 
