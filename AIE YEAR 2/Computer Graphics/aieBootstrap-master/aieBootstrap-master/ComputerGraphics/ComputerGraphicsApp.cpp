@@ -223,7 +223,23 @@ bool ComputerGraphicsApp::startup() {
 		-2,0,2,1
 		};
 
-		#pragma endregion Rendering Spear
+		#pragma endregion Rendering Sword
+
+		#pragma region Drawing Spear
+
+		if (m_swordMesh.load("../bin/source/BastardSword1/BastardSword1.obj",
+			true, true) == false) {
+			printf("Bastard Sword Mesh Error!\n");
+			return false;
+		}
+		m_swordTransform = {
+		0.001,0,0,0,
+		0,0.001,0,0,
+		0,0,0.001,0,
+		-2,0,2,1
+		};
+
+		#pragma endregion Rendering Sword
 
 		#pragma region Drawing Particle
 		
@@ -274,6 +290,11 @@ bool ComputerGraphicsApp::startup() {
 	m_positions[1] = glm::vec3(0, 10, 0);
 	m_rotations[1] = glm::quat(glm::vec3(0, 0, 0));
 
+
+	light_positions[0] = glm::vec3(-4, 2, 0);
+	light_positions[1] = glm::vec3(0, 2, -4);
+	light_positions[2] = glm::vec3(4, 2, 0);
+	light_positions[3] = glm::vec3(0, 2, 4);
 
 	return true;
 }
@@ -488,6 +509,8 @@ void ComputerGraphicsApp::update(float deltaTime) {
 	}
 	#pragma endregion Animated Box
 	
+
+
 
 	#pragma region Leg Animation
 	//
@@ -934,16 +957,16 @@ void ComputerGraphicsApp::draw() {
 	m_shader.bindUniform("quadratic", 0.032f);
 
 	
-	pvm = myCamera->GetProjectionView() * m_spearTransform;
+	pvm = myCamera->GetProjectionView() * m_swordTransform;
 	m_shader.bindUniform("ProjectionViewModel", pvm);
 	
 	// bind model matrix
-	m_shader.bindUniform("ModelMatrix", m_spearTransform);
+	m_shader.bindUniform("ModelMatrix", m_swordTransform);
 	// bind transforms for lighting
 	m_shader.bindUniform("NormalMatrix",
-		glm::inverseTranspose(glm::mat3(m_spearTransform)));
+		glm::inverseTranspose(glm::mat3(m_swordTransform)));
 	
-	m_spearMesh.draw();
+	m_swordMesh.draw();
 	
 	//Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	Gizmos::draw(myCamera->GetProjectionView());

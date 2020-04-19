@@ -43,6 +43,9 @@ protected:
 	glm::vec3	m_positions[3];
 	glm::quat	m_rotations[3];
 
+	glm::vec3	light_positions[4];
+	glm::quat	light_rotations[4];
+
 	//Renderering
 	aie::Texture m_gridTexture;
 	
@@ -85,6 +88,9 @@ protected:
 
 	aie::OBJMesh		m_spearMesh;
 	glm::mat4			m_spearTransform;
+
+	aie::OBJMesh		m_swordMesh;
+	glm::mat4			m_swordTransform;
 
 	glm::mat4			m_particleTransform;
 
