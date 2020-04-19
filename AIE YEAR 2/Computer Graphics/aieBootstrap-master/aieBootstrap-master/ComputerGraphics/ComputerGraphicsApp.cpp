@@ -291,10 +291,22 @@ bool ComputerGraphicsApp::startup() {
 	m_rotations[1] = glm::quat(glm::vec3(0, 0, 0));
 
 
-	light_positions[0] = glm::vec3(-4, 2, 0);
-	light_positions[1] = glm::vec3(0, 2, -4);
-	light_positions[2] = glm::vec3(4, 2, 0);
-	light_positions[3] = glm::vec3(0, 2, 4);
+	//	pointLight Positions
+	//pointLight_positions[0] = glm::vec3(-2, 2, 0);
+	//pointLight_positions[1] = glm::vec3(-2, 2, -2);
+	//pointLight_positions[2] = glm::vec3(0, 2, 0);
+	//pointLight_positions[3] = glm::vec3(-2, 2, 2);
+
+	pointLight_positions[0] = glm::vec3(2, 2, -2);
+	pointLight_positions[1] = glm::vec3(-2, 2, 0);
+	pointLight_positions[2] = glm::vec3(-6, 2, -2);
+	pointLight_positions[3] = glm::vec3(-2, 2, -4);
+
+	//	pointLight Rotations
+	pointLight_rotations[0] = glm::quat(glm::vec3(0, 0, 0));
+	pointLight_rotations[1] = glm::quat(glm::vec3(0, 0, 0));
+	pointLight_rotations[2] = glm::quat(glm::vec3(0, 0, 0));
+	pointLight_rotations[3] = glm::quat(glm::vec3(0, 0, 0));
 
 	return true;
 }
@@ -328,9 +340,68 @@ void ComputerGraphicsApp::update(float deltaTime) {
 
 	//value to move position and rotation to
 
+	// increase time
+	pointLightTime += deltaTime;
+	spotLightTime += deltaTime;
 
+	//	if it reaches the destination
+	if (pointLightTime >= 1.f)
+	{
+		pointLightTime = 0.f;
+		increment++;
+		
+		if (increment == 0)
+		{
+			resetToStartPosition = false;
+		}
 
-	
+		// if at final destination
+		if (increment >= 3)
+		{
+			increment = -1;
+			resetToStartPosition = true;
+		}
+	}
+
+	if (spotLightTime >= 1.f)
+	{
+		spotLightTime = 0.f;
+		increment_spotLight++;
+
+		if (increment_spotLight == 0)
+		{
+			resetToStartPosition_spotLight = false;
+		}
+
+		// if at final destination
+		if (increment_spotLight >= 3)
+		{
+			increment_spotLight = -1;
+			resetToStartPosition_spotLight = true;
+		}
+	}
+
+	//	if it needs to reset
+	if (resetToStartPosition)
+	{
+		//							      from last position		    to beginning position
+		pointLightPosition = (1.0f - pointLightTime) * pointLight_positions[3] + pointLightTime * pointLight_positions[0];
+		pointLightRotation = glm::slerp(pointLight_rotations[3], pointLight_rotations[0], pointLightTime);
+
+	}
+	else
+	{
+		pointLightPosition = (1.0f - pointLightTime) * pointLight_positions[increment] + pointLightTime * pointLight_positions[increment + 1];
+		
+		//	quaternion slerp //==Box's rotation from one point to another
+		pointLightRotation = glm::slerp(pointLight_rotations[increment], pointLight_rotations[increment + 1], pointLightTime);
+	}
+	if (resetToStartPosition_spotLight)
+	{
+		m_light.position = (1.0f - spotLightTime) * spotLight_positions[3] + spotLightTime * spotLight_positions[0];
+		m_light.direction = (1.0f - spotLightTime) * spotLight_positions[3] + spotLightTime * spotLight_positions[0];
+	}
+
 	//Check if decrementDown needs to be modified\
 	//	If at end point
 	//if (increment == m_positions->length())
@@ -670,15 +741,15 @@ void ComputerGraphicsApp::update(float deltaTime) {
 	pointLight_r = m_rotations[1];
 
 	//	build a matrix for spotlight
-	glm::mat4 pointLight_matrix = glm::translate(pointLight_p) * glm::toMat4(pointLight_r);
+	glm::mat4 pointLight_matrix = glm::translate(pointLightPosition) * glm::toMat4(pointLightRotation);
 
 	Gizmos::addTransform(pointLight_matrix);//glm::inverseTranspose(glm::mat3(spotLight_matrix)));
-	Gizmos::addAABBFilled(pointLight_p, glm::vec3(.5f), glm::vec4(0, 1, 0, 1), &pointLight_matrix);//&glm::mat4(glm::inverseTranspose(glm::mat3(spotLight_matrix))));
+	Gizmos::addAABBFilled(pointLightPosition, glm::vec3(.5f), glm::vec4(0, 1, 0, 1), &glm::inverseTranspose(pointLight_matrix));//&glm::mat4(glm::inverseTranspose(glm::mat3(spotLight_matrix))));
 
-	pointLightPos = m_positions[1];
+	//pointLightPos = m_positions[1];
 
 	// no direction, since it is a point light
-	m_pointLight.position = pointLightPos;
+	m_pointLight.position = pointLightPosition;
 	//========================PointLight===============================================
 
 	//lightPos = glm::inverseTranspose(glm::mat3(box_matrix))[0];

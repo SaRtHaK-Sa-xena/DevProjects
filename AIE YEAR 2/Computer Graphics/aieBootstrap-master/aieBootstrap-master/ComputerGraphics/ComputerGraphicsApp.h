@@ -27,11 +27,25 @@ public:
 protected:
 	
 	int increment = 0;
+	int increment_spotLight = 0;
 	glm::vec3 p;
 	glm::quat r;
 	float s=0;
 
+	// pointLight Position
+	glm::vec3 pointLightPosition;
 	
+	// pointLight Rotation
+	glm::quat pointLightRotation;
+	
+	// time
+	float pointLightTime = 0;
+	float spotLightTime = 0;
+	
+
+	// condition to head to starting position
+	bool resetToStartPosition = false;
+	bool resetToStartPosition_spotLight = false;
 
 	//Camera
 	Camera *myCamera = new Camera();
@@ -43,8 +57,12 @@ protected:
 	glm::vec3	m_positions[3];
 	glm::quat	m_rotations[3];
 
-	glm::vec3	light_positions[4];
-	glm::quat	light_rotations[4];
+	//	light positions
+	glm::vec3	pointLight_positions[4];
+	glm::quat	pointLight_rotations[4];
+
+	glm::vec3	spotLight_positions[4];
+	glm::quat	spotLight_rotations[4];
 
 	//Renderering
 	aie::Texture m_gridTexture;
