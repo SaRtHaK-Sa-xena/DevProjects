@@ -204,7 +204,7 @@ bool ComputerGraphicsApp::startup() {
 		0,0,0.5,0,
 		
 		//position
-		2,0,2,1
+		5,0,5,1
 		};
 
 		#pragma endregion Rendering Bunny
@@ -223,20 +223,20 @@ bool ComputerGraphicsApp::startup() {
 		-2,0,2,1
 		};
 
-		#pragma endregion Rendering Sword
+		#pragma endregion Rendering Spear
 
-		#pragma region Drawing Spear
+		#pragma region Drawing Sword
 
-		if (m_swordMesh.load("../bin/source/BastardSword1/BastardSword1.obj",
+		if (m_swordMesh.load("../bin/Models/source/model_sword/model_sword/jian.obj",
 			true, true) == false) {
-			printf("Bastard Sword Mesh Error!\n");
+			printf("Sword Mesh Error!\n");
 			return false;
 		}
 		m_swordTransform = {
-		0.001,0,0,0,
-		0,0.001,0,0,
-		0,0,0.001,0,
-		-2,0,2,1
+		1,0,0,0,
+		0,1,0,0,
+		0,0,1,0,
+		-5,0,5,1
 		};
 
 		#pragma endregion Rendering Sword
@@ -264,24 +264,17 @@ bool ComputerGraphicsApp::startup() {
 
 	//==== Lighting ====
 	//=== Modified ===
-	m_light.diffuse = { 1, 1, 1 };
-	m_light.specular = {1, 1, 1 };
-
-	m_pointLight.diffuse = { 1,1,1 };
-	m_pointLight.specular = { 1,1,1 };
-
-	m_ambientLight = { 1.f, 1.f, 0.f };
 	
-	//=== Default ===
-	/*m_light.diffuse = { 1, 1, 0 };
-	m_light.specular = {1, 1, 0 };
-	m_ambientLight = { 0.25f, 0.25f, 0.25f };*/
+	//red spot light
+	m_light.diffuse = { 1, 0, 0 };
+	m_light.specular = {1, 0, 0 };
+	
+	//green point light
+	m_pointLight.diffuse = { 0,1,0 };
+	m_pointLight.specular = { 0,1,0 };
 
-	//m_light.constant = 1.f;
-	//m_light.quadratic = 1.f;
-	//m_light.linear = 1.f;
-	//m_light.position = { 0,0,0 };
-
+	m_ambientLight = { 1.f, 1.f, 1.f };
+	
 	// Light Obj Position
 	m_positions[0] = glm::vec3(0, 5, 0);
 	m_rotations[0] = glm::quat(glm::vec3(0, 0, 0));
@@ -290,13 +283,7 @@ bool ComputerGraphicsApp::startup() {
 	m_positions[1] = glm::vec3(0, 10, 0);
 	m_rotations[1] = glm::quat(glm::vec3(0, 0, 0));
 
-
 	//	pointLight Positions
-	//pointLight_positions[0] = glm::vec3(-2, 2, 0);
-	//pointLight_positions[1] = glm::vec3(-2, 2, -2);
-	//pointLight_positions[2] = glm::vec3(0, 2, 0);
-	//pointLight_positions[3] = glm::vec3(-2, 2, 2);
-
 	pointLight_positions[0] = glm::vec3(2, 2, -2);
 	pointLight_positions[1] = glm::vec3(-2, 2, 0);
 	pointLight_positions[2] = glm::vec3(-6, 2, -2);
@@ -307,6 +294,30 @@ bool ComputerGraphicsApp::startup() {
 	pointLight_rotations[1] = glm::quat(glm::vec3(0, 0, 0));
 	pointLight_rotations[2] = glm::quat(glm::vec3(0, 0, 0));
 	pointLight_rotations[3] = glm::quat(glm::vec3(0, 0, 0));
+
+	//	spotLight Positions
+	spotLight_positions[0] = glm::vec3(0.5, 2, 5.3);
+	spotLight_positions[1] = glm::vec3(1, 2, 3);
+	spotLight_positions[2] = glm::vec3(4, 2, 1.8);
+	spotLight_positions[3] = glm::vec3(6.6, 2, 2);
+	spotLight_positions[4] = glm::vec3(9.5, 2, 4.2);
+	spotLight_positions[5] = glm::vec3(9, 2, 7);
+	spotLight_positions[6] = glm::vec3(6.2, 2, 8.8);
+	spotLight_positions[7] = glm::vec3(3.1, 2, 8.1);
+	spotLight_positions[8] = glm::vec3(1, 2, 7.1);
+
+
+	//	spotLight Rotations
+	spotLight_rotations[0] = glm::quat(glm::vec3(0, 0, 0));
+	spotLight_rotations[1] = glm::quat(glm::vec3(0, 0, 0));
+	spotLight_rotations[2] = glm::quat(glm::vec3(0, 0, 0));
+	spotLight_rotations[3] = glm::quat(glm::vec3(0, 0, 0));
+	spotLight_rotations[4] = glm::quat(glm::vec3(0, 0, 0));
+	spotLight_rotations[5] = glm::quat(glm::vec3(0, 0, 0));
+	spotLight_rotations[6] = glm::quat(glm::vec3(0, 0, 0));
+	spotLight_rotations[7] = glm::quat(glm::vec3(0, 0, 0));
+	spotLight_rotations[8] = glm::quat(glm::vec3(0, 0, 0));
+
 
 	return true;
 }
@@ -374,7 +385,7 @@ void ComputerGraphicsApp::update(float deltaTime) {
 		}
 
 		// if at final destination
-		if (increment_spotLight >= 3)
+		if (increment_spotLight >= 8)
 		{
 			increment_spotLight = -1;
 			resetToStartPosition_spotLight = true;
@@ -387,7 +398,6 @@ void ComputerGraphicsApp::update(float deltaTime) {
 		//							      from last position		    to beginning position
 		pointLightPosition = (1.0f - pointLightTime) * pointLight_positions[3] + pointLightTime * pointLight_positions[0];
 		pointLightRotation = glm::slerp(pointLight_rotations[3], pointLight_rotations[0], pointLightTime);
-
 	}
 	else
 	{
@@ -396,10 +406,20 @@ void ComputerGraphicsApp::update(float deltaTime) {
 		//	quaternion slerp //==Box's rotation from one point to another
 		pointLightRotation = glm::slerp(pointLight_rotations[increment], pointLight_rotations[increment + 1], pointLightTime);
 	}
+	
 	if (resetToStartPosition_spotLight)
 	{
-		m_light.position = (1.0f - spotLightTime) * spotLight_positions[3] + spotLightTime * spotLight_positions[0];
-		m_light.direction = (1.0f - spotLightTime) * spotLight_positions[3] + spotLightTime * spotLight_positions[0];
+		spotLightPosition = (1.0f - spotLightTime) * spotLight_positions[8] + spotLightTime * spotLight_positions[0];
+		
+		//	quaternion slerp //==Box's rotation from one point to another
+		spotLightRotation = glm::slerp(spotLight_rotations[8], spotLight_rotations[0], spotLightTime);
+	}
+	else
+	{
+		spotLightPosition = (1.0f - spotLightTime) * spotLight_positions[increment_spotLight] + spotLightTime * spotLight_positions[increment_spotLight + 1];
+
+		//	quaternion slerp //==Box's rotation from one point to another
+		spotLightRotation = glm::slerp(spotLight_rotations[increment_spotLight], spotLight_rotations[increment_spotLight + 1], spotLightTime);
 	}
 
 	//Check if decrementDown needs to be modified\
@@ -721,18 +741,15 @@ void ComputerGraphicsApp::update(float deltaTime) {
 	r = m_rotations[0];
 	
 	//	build a matrix
-	glm::mat4 box_matrix = glm::translate(p) * glm::toMat4(r);
+	glm::mat4 spotLight_matrix = glm::translate(spotLightPosition) * glm::toMat4(spotLightRotation);
 
 	//	draw a transform and box
-	Gizmos::addTransform(glm::inverseTranspose(glm::mat3(box_matrix)));
-	Gizmos::addAABBFilled(p, glm::vec3(.5f), glm::vec4(1, 0, 0, 1), &glm::mat4(glm::inverseTranspose(glm::mat3(box_matrix))));
-
-	//	light position
-	lightPos = m_positions[0];
+	Gizmos::addTransform(glm::inverseTranspose(glm::mat3(spotLight_matrix)));
+	Gizmos::addAABBFilled(spotLightPosition, glm::vec3(.5f), glm::vec4(1, 0, 0, 1), &glm::mat4(glm::inverseTranspose(glm::mat3(spotLight_matrix))));
 
 	//	assign variables
-	m_light.position = lightPos;
-	m_light.direction = glm::vec3(box_matrix[0].z, box_matrix[1].z, box_matrix[2].z);
+	m_light.position = spotLightPosition;
+	m_light.direction = glm::vec3(spotLight_matrix[0].z, spotLight_matrix[1].z, spotLight_matrix[2].z);
 	//========================SpotLight================================================
 
 

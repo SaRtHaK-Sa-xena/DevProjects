@@ -38,6 +38,14 @@ protected:
 	// pointLight Rotation
 	glm::quat pointLightRotation;
 	
+	// spotLight Position
+	glm::vec3 spotLightPosition;
+
+	// spotLight Rotation
+	glm::quat spotLightRotation;
+	
+
+
 	// time
 	float pointLightTime = 0;
 	float spotLightTime = 0;
@@ -61,8 +69,8 @@ protected:
 	glm::vec3	pointLight_positions[4];
 	glm::quat	pointLight_rotations[4];
 
-	glm::vec3	spotLight_positions[4];
-	glm::quat	spotLight_rotations[4];
+	glm::vec3	spotLight_positions[9];
+	glm::quat	spotLight_rotations[9];
 
 	//Renderering
 	aie::Texture m_gridTexture;
