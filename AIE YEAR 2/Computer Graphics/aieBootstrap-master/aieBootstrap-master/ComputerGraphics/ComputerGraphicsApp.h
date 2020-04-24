@@ -45,7 +45,6 @@ protected:
 	glm::quat spotLightRotation;
 	
 
-
 	// time
 	float pointLightTime = 0;
 	float spotLightTime = 0;
@@ -66,8 +65,8 @@ protected:
 	glm::quat	m_rotations[3];
 
 	//	light positions
-	glm::vec3	pointLight_positions[4];
-	glm::quat	pointLight_rotations[4];
+	glm::vec3	pointLight_positions[9];
+	glm::quat	pointLight_rotations[9];
 
 	glm::vec3	spotLight_positions[9];
 	glm::quat	spotLight_rotations[9];
@@ -120,7 +119,9 @@ protected:
 
 	glm::mat4			m_particleTransform;
 
-	
+	//	condition to start post processing
+	bool distortionEffect = false;
+
 	//	To render target
 	aie::RenderTarget m_renderTarget;
 
@@ -146,23 +147,18 @@ protected:
 	//Initialize point light
 	Light m_light;
 	
+	Light m_swordPointLight;
+	
 	//	spotlight Box
 	glm::vec3 pointLight_p;
 	glm::quat pointLight_r;
 	glm::vec3 pointLightPos;
 	Light m_pointLight;
 
-
 	// global
 	glm::vec3 m_ambientLight;
 
 	glm::vec3 lightPos;
-
-	//glm::vec3 position;
-
-		//float constant;
-		//float linear;
-		//float quadratic;
 
 	//	move positions condition check
 	bool decrementDown = false;

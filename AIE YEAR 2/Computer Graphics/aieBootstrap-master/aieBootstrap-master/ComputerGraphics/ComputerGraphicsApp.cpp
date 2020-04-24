@@ -163,7 +163,7 @@ bool ComputerGraphicsApp::startup() {
 		vertices[5].position = { 0.5f, 0, -0.5f, 1 };
 		m_quadMesh.initialise(6, vertices);*/
 
-		//m_fullScreenQuad.initialiseFullScreenQuad();
+		m_fullScreenQuad.initialiseFullScreenQuad();
 
 		////make the quad 10 units wide
 		//m_quadTransform = {
@@ -220,22 +220,22 @@ bool ComputerGraphicsApp::startup() {
 		1,0,0,0,
 		0,1,0,0,
 		0,0,1,0,
-		-2,0,2,1
+		-2,0,0,1
 		};
 
 		#pragma endregion Rendering Spear
-
+		
 		#pragma region Drawing Sword
 
-		if (m_swordMesh.load("../bin/Models/source/model_sword/model_sword/jian.obj",
+		if (m_swordMesh.load("../bin/Models/ArthurSword/new_sword/new_sword.obj",
 			true, true) == false) {
 			printf("Sword Mesh Error!\n");
 			return false;
 		}
 		m_swordTransform = {
-		1,0,0,0,
-		0,1,0,0,
-		0,0,1,0,
+		0.001,0,0,0,
+		0,0.001,0,0,
+		0,0,0.001,0,
 		-5,0,5,1
 		};
 
@@ -273,10 +273,13 @@ bool ComputerGraphicsApp::startup() {
 	m_pointLight.diffuse = { 0,1,0 };
 	m_pointLight.specular = { 0,1,0 };
 
+	m_swordPointLight.diffuse = { 1,1,1 };
+	m_swordPointLight.specular = { 1,1,1 };
+
 	m_ambientLight = { 1.f, 1.f, 1.f };
 	
-	// Light Obj Position
-	m_positions[0] = glm::vec3(0, 5, 0);
+	// Static Point Light Obj Position
+	m_positions[0] = glm::vec3(-7, 1, 5);
 	m_rotations[0] = glm::quat(glm::vec3(0, 0, 0));
 
 	// PointLight Obj Position
@@ -284,16 +287,26 @@ bool ComputerGraphicsApp::startup() {
 	m_rotations[1] = glm::quat(glm::vec3(0, 0, 0));
 
 	//	pointLight Positions
-	pointLight_positions[0] = glm::vec3(2, 2, -2);
-	pointLight_positions[1] = glm::vec3(-2, 2, 0);
-	pointLight_positions[2] = glm::vec3(-6, 2, -2);
-	pointLight_positions[3] = glm::vec3(-2, 2, -4);
+	pointLight_positions[0] = glm::vec3(-7, 2, -2);
+	pointLight_positions[1] = glm::vec3(-5, 2, -4.3);
+	pointLight_positions[2] = glm::vec3(-2, 2, -4.9);
+	pointLight_positions[3] = glm::vec3(0.9, 2, -4.2);
+	pointLight_positions[4] = glm::vec3(3, 2, -3.1);
+	pointLight_positions[5] = glm::vec3(2.9, 2, -1);
+	pointLight_positions[6] = glm::vec3(0, 2, 0.3);
+	pointLight_positions[7] = glm::vec3(-3.5, 2, 0.7);
+	pointLight_positions[8] = glm::vec3(-6, 2, 0.3);
 
 	//	pointLight Rotations
 	pointLight_rotations[0] = glm::quat(glm::vec3(0, 0, 0));
 	pointLight_rotations[1] = glm::quat(glm::vec3(0, 0, 0));
 	pointLight_rotations[2] = glm::quat(glm::vec3(0, 0, 0));
 	pointLight_rotations[3] = glm::quat(glm::vec3(0, 0, 0));
+	pointLight_rotations[4] = glm::quat(glm::vec3(0, 0, 0));
+	pointLight_rotations[5] = glm::quat(glm::vec3(0, 0, 0));
+	pointLight_rotations[6] = glm::quat(glm::vec3(0, 0, 0));
+	pointLight_rotations[7] = glm::quat(glm::vec3(0, 0, 0));
+	pointLight_rotations[8] = glm::quat(glm::vec3(0, 0, 0));
 
 	//	spotLight Positions
 	spotLight_positions[0] = glm::vec3(0.5, 2, 5.3);
@@ -367,7 +380,7 @@ void ComputerGraphicsApp::update(float deltaTime) {
 		}
 
 		// if at final destination
-		if (increment >= 3)
+		if (increment >= 8)
 		{
 			increment = -1;
 			resetToStartPosition = true;
@@ -396,8 +409,8 @@ void ComputerGraphicsApp::update(float deltaTime) {
 	if (resetToStartPosition)
 	{
 		//							      from last position		    to beginning position
-		pointLightPosition = (1.0f - pointLightTime) * pointLight_positions[3] + pointLightTime * pointLight_positions[0];
-		pointLightRotation = glm::slerp(pointLight_rotations[3], pointLight_rotations[0], pointLightTime);
+		pointLightPosition = (1.0f - pointLightTime) * pointLight_positions[8] + pointLightTime * pointLight_positions[0];
+		pointLightRotation = glm::slerp(pointLight_rotations[8], pointLight_rotations[0], pointLightTime);
 	}
 	else
 	{
@@ -422,68 +435,7 @@ void ComputerGraphicsApp::update(float deltaTime) {
 		spotLightRotation = glm::slerp(spotLight_rotations[increment_spotLight], spotLight_rotations[increment_spotLight + 1], spotLightTime);
 	}
 
-	//Check if decrementDown needs to be modified\
-	//	If at end point
-	//if (increment == m_positions->length())
-	//{
-	//	//	Start to decrement down
-	//	decrementDown = true;
-	//}
-	//if(increment == 0)
-	//{
-	//	//	Increment up
-	//	decrementDown = false;
-	//}
-
-	////If value at max
-	//if (s > 0.997)
-	//{
-	//	// Change the position to go to next
-	//	if (decrementDown)
-	//		increment--;
-	//	else
-	//		increment++;
-	//}
-	////	If at end
-	//if (decrementDown)
-	//{
-	//	//	standard linear interpolation
-	//	p = (1.0f - s) * m_positions[increment] + s * m_positions[increment - 1];
-
-	//	//	quaternion slerp //==Box's rotation from one point to another
-	//	r = glm::slerp(m_rotations[increment], m_rotations[increment - 1], s);
-	//}
-	//else
-	//{
-	//	//	standard linear interpolation
-	//	p = (1.0f - s) * m_positions[increment] + s * m_positions[increment + 1];
-
-	//	//	quaternion slerp //==Box's rotation from one point to another
-	//	r = glm::slerp(m_rotations[increment], m_rotations[increment + 1], s);
-	//}
 	
-	//	time allocated to move between points
-	//s = glm::cos(getTime()) * 0.5f + 0.5f;
-
-
-	////	Distance Check
-	//if (glm::distance(p, m_positions[increment + scalar]) < 1)
-	//{
-	//	std::cout << "Close To It" << std::endl;
-	//	
-	//	//	If incremented all the way to the end
-	//	if (increment == m_positions->length()-1)
-	//	{
-	//		scalar = -1;
-	//	}
-	//	if (increment == 0)
-	//	{
-	//		scalar = 1;
-	//	}
-
-	//	// Add to increment
-	//	increment += scalar;
-	//}
 	if (start)
 	{
 		s += deltaTime;
@@ -633,6 +585,12 @@ void ComputerGraphicsApp::update(float deltaTime) {
 	{
 		start = true;
 	}
+	if (input->isKeyDown(aie::INPUT_KEY_4)) {
+		distortionEffect = true;
+	}
+	if (input->isKeyDown(aie::INPUT_KEY_5)) {
+		distortionEffect = false;
+	}
 
 	//==================LIGHT========================
 	// query time since application started
@@ -655,44 +613,32 @@ void ComputerGraphicsApp::update(float deltaTime) {
 	myCamera->Update(deltaTime);
 
 	//====Zoom in on angle
-	//m_viewMatrix = glm::inverse(m_viewMatrix);
-
-	// what happens here?
-
-	//m_viewMatrix = m_viewMatrix + glm::translate(m_viewMatrix, glm::vec3(m_viewMatrix[2].x, m_viewMatrix[2].y, m_viewMatrix[2].z)*0.1f);
-
-	//====Zoom out on angle
-	/*m_viewMatrix = glm::inverse(m_viewMatrix);
-
-	m_viewMatrix = m_viewMatrix - deltaTime * glm::translate(m_viewMatrix, glm::vec3(m_viewMatrix[3].x, m_viewMatrix[3].y, m_viewMatrix[3].z));*/
 	
-	
-
 	if (switchMovement == true)
 	{
 		if (input->isKeyDown(aie::INPUT_KEY_Y))
 		{
-			m_positions[1].y += 0.1f;
+			m_positions[0].y += 0.1f;
 		}
 		if (input->isKeyDown(aie::INPUT_KEY_U))
 		{
-			m_positions[1].y -= 0.1f;
+			m_positions[0].y -= 0.1f;
 		}
 		if (input->isKeyDown(aie::INPUT_KEY_J))
 		{
-			m_positions[1].x += 0.1f;
+			m_positions[0].x += 0.1f;
 		}
 		if (input->isKeyDown(aie::INPUT_KEY_L))
 		{
-			m_positions[1].x -= 0.1f;
+			m_positions[0].x -= 0.1f;
 		}
 		if (input->isKeyDown(aie::INPUT_KEY_K))
 		{
-			m_positions[1].z -= 0.1f;
+			m_positions[0].z -= 0.1f;
 		}
 		if (input->isKeyDown(aie::INPUT_KEY_I))
 		{
-			m_positions[1].z += 0.1f;
+			m_positions[0].z += 0.1f;
 		}
 	}
 	else if(switchMovement == false)
@@ -768,6 +714,14 @@ void ComputerGraphicsApp::update(float deltaTime) {
 	// no direction, since it is a point light
 	m_pointLight.position = pointLightPosition;
 	//========================PointLight===============================================
+
+	//========================PointLight NUM 2===============================================
+	glm::mat4 swordPointLight_matrix = glm::translate(m_positions[0]) * glm::toMat4(m_rotations[0]);
+
+	Gizmos::addTransform(swordPointLight_matrix);//glm::inverseTranspose(glm::mat3(spotLight_matrix)));
+	Gizmos::addAABBFilled(m_positions[0], glm::vec3(.5f), glm::vec4(1, 1, 1, 1), &glm::inverseTranspose(swordPointLight_matrix));//&glm::mat4(glm::inverseTranspose(glm::mat3(spotLight_matrix))));
+
+	m_swordPointLight.position = m_positions[0];
 
 	//lightPos = glm::inverseTranspose(glm::mat3(box_matrix))[0];
 }
@@ -979,6 +933,15 @@ void ComputerGraphicsApp::draw() {
 	
 	#pragma endregion 1 Stan, 1 mod, 1 light
 
+	if (distortionEffect)
+	{
+		//	bind out render target
+		m_renderTarget.bind();
+
+		//	clear screen
+		clearScreen();
+	}
+
 	m_lightingShader.bind();
 	
 	// allow light properties to render using camera position 
@@ -1036,13 +999,13 @@ void ComputerGraphicsApp::draw() {
 	
 	// allow light properties to render using camera position 
 	m_shader.bindUniform("cameraPosition", myCamera->GetPosition());
-	m_shader.bindUniform("Id", m_light.diffuse);
+	m_shader.bindUniform("Id", m_swordPointLight.diffuse);
 	m_shader.bindUniform("Ia", m_ambientLight);
-	m_shader.bindUniform("Is", m_light.specular);
-	m_shader.bindUniform("lightPosition", m_light.position);
+	m_shader.bindUniform("Is", m_swordPointLight.specular);
+	m_shader.bindUniform("lightPosition", m_swordPointLight.position);
 	m_shader.bindUniform("constant", 1.0f);
-	m_shader.bindUniform("linear", 0.09f);
-	m_shader.bindUniform("quadratic", 0.032f);
+	m_shader.bindUniform("linear", 0.07f);
+	m_shader.bindUniform("quadratic", 0.017f);
 
 	
 	pvm = myCamera->GetProjectionView() * m_swordTransform;
@@ -1053,13 +1016,54 @@ void ComputerGraphicsApp::draw() {
 	// bind transforms for lighting
 	m_shader.bindUniform("NormalMatrix",
 		glm::inverseTranspose(glm::mat3(m_swordTransform)));
-	
+
 	m_swordMesh.draw();
 	
+	m_shader.bind();
+
+	// allow light properties to render using camera position 
+	m_shader.bindUniform("cameraPosition", myCamera->GetPosition());
+	m_shader.bindUniform("Id", m_pointLight.diffuse);
+	m_shader.bindUniform("Ia", m_ambientLight);
+	m_shader.bindUniform("Is", m_pointLight.specular);
+	m_shader.bindUniform("lightPosition", m_pointLight.position);
+	m_shader.bindUniform("constant", 1.0f);
+	m_shader.bindUniform("linear", 0.09f);
+	m_shader.bindUniform("quadratic", 0.032f);
+
+	pvm = myCamera->GetProjectionView() * m_spearTransform;
+	m_shader.bindUniform("ProjectionViewModel", pvm);
+
+	// bind model matrix
+	m_shader.bindUniform("ModelMatrix", m_spearTransform);
+	// bind transforms for lighting
+	m_shader.bindUniform("NormalMatrix",
+		glm::inverseTranspose(glm::mat3(m_spearTransform)));
+
+	m_spearMesh.draw();
+
+	if (distortionEffect)
+	{
+		// unbind target to return to backbuffer
+		m_renderTarget.unbind();
+
+		//	clear the backbuffer
+		clearScreen();
+
+		//	bind post shader and textures
+		m_postShader.bind();
+		m_postShader.bindUniform("colourTarget", 0);
+		m_renderTarget.getTarget(0).bind(0);
+
+		// draw fullscreen quad
+		m_fullScreenQuad.draw();
+	}
+
 	//Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	Gizmos::draw(myCamera->GetProjectionView());
 	
 	// draw 2D gizmos using an orthogonal projection matrix
 	Gizmos::draw2D((float)getWindowWidth(), (float)getWindowHeight());
 }
+
 
