@@ -54,21 +54,21 @@ public class PlayerControl : MonoBehaviour
         engine.Move(m_velocity);
         //================= No Player Movement==============
 
-         //Calculate Horizontal Rotation
-         //float xRotation = Input.GetAxisRaw("Mouse X");
+        //Calculate Horizontal Rotation
+         float xRotation = Input.GetAxisRaw("Mouse X");
 
-        //Vector3 m_rotation = new Vector3(0f, xRotation, 0f) * lookSensitivity;
+        Vector3 m_rotation = new Vector3(0f, xRotation, 0f) * lookSensitivity;
         //Call rotate
-        //engine.Rotate(m_rotation);
+        engine.Rotate(m_rotation);
 
 
         //Calculate Vertical Rotation
-       // float yRotation = Input.GetAxisRaw("Mouse Y");
+        float yRotation = Input.GetAxisRaw("Mouse Y");
 
-        //Vector3 cameraRotation = new Vector3(yRotation, 0f, 0f) * lookSensitivity;
+        Vector3 cameraRotation = new Vector3(yRotation, 0f, 0f) * lookSensitivity;
 
         //Call rotate
-        //engine.RotateCamera(cameraRotation);
+        engine.RotateCamera(cameraRotation);
     }
 
     private void LateUpdate()

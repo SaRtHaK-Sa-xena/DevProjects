@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\_waveManager.cs" />
     <Compile Include="Assets\Scripts\addForce.cs" />
     <Compile Include="Assets\Scripts\animationScript.cs" />
+    <Compile Include="Assets\Scripts\Assignment\GUI.cs" />
     <Compile Include="Assets\Scripts\cameraScript.cs" />
     <Compile Include="Assets\Scripts\collisionManager.cs" />
     <Compile Include="Assets\Scripts\destroyParticle.cs" />

@@ -15,8 +15,8 @@ public class PlayerEngine : MonoBehaviour
     public Camera cam;
 
     private Vector3 velocity = Vector3.zero;
-    //private Vector3 rotation = Vector3.zero;
-    //private Vector3 cameraRotation = Vector3.zero;
+    private Vector3 rotation = Vector3.zero;
+    private Vector3 cameraRotation = Vector3.zero;
     
 
     private Rigidbody rb;
@@ -35,22 +35,22 @@ public class PlayerEngine : MonoBehaviour
     }
 
     //inititate Rotation
-    //public void Rotate(Vector3 m_rotation)
-    //{
-    //    rotation = m_rotation;
-    //}
+    public void Rotate(Vector3 m_rotation)
+    {
+        rotation = m_rotation;
+    }
 
-    ////inititate Rotation For Camera
-    //public void RotateCamera(Vector3 m_cameraRotation)
-    //{
-    //    cameraRotation = m_cameraRotation;
-    //}
+    //inititate Rotation For Camera
+    public void RotateCamera(Vector3 m_cameraRotation)
+    {
+        cameraRotation = m_cameraRotation;
+    }
 
     //Perform Upon Fixed
     private void FixedUpdate()
     {
         ExecMovement();
-        //ExecRotation();
+        ExecRotation();
     }
 
     //Makes Player Move On Velocity, From Position According To Velocity Working with Fixed DeltaTime
@@ -63,13 +63,13 @@ public class PlayerEngine : MonoBehaviour
     }
 
     //RotatesUsing Euler, and transform Existing To transformed Rotation
-    //void ExecRotation()
-    //{
-    //    rb.MoveRotation(rb.rotation * Quaternion.Euler(rotation));
-    //    if (cam != null)
-    //    {
-    //        // - is used to inverse effect
-    //        cam.transform.Rotate(-cameraRotation);
-    //    }
-    //}
+    void ExecRotation()
+    {
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(rotation));
+        if (cam != null)
+        {
+            // - is used to inverse effect
+            cam.transform.Rotate(-cameraRotation);
+        }
+    }
 }
