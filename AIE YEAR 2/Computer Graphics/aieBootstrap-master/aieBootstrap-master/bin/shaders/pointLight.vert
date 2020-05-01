@@ -9,7 +9,7 @@ out vec3 fragPos;
 
 uniform mat4 ProjectionViewModel;
 
-// we need this matrix to transform the position
+// need this matrix to transform the position
 uniform mat4 ModelMatrix;
 
 //  need this matrix to transform the normal

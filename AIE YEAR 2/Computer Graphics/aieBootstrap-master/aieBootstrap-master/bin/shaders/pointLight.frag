@@ -16,13 +16,9 @@ uniform vec3 Id; // diffuse light colour
 uniform vec3 Is; // specular light colour
 
 uniform vec3 lightPosition;
-//uniform vec3 lightDirection;
 uniform float constant;
 uniform float linear;
 uniform float quadratic;
-
-//uniform float cutOff;
-//uniform float outerCutOff;
 
 
 uniform vec3 cameraPosition; // camera position
@@ -52,14 +48,6 @@ void main()
     vec3 diffuse = Id * Kd* lambertTerm; 
     vec3 specular = Is * Ks * specularTerm;
 
-    // spotlight
-    //float theta = dot(L,normalize(-lightDirection));
-    //float epsilon = cutOff - outerCutOff;
-    //float intensity = clamp((theta - outerCutOff)/epsilon,0.0,1.0);
-
-    //diffuse *= intensity;
-    //specular *= intensity;
-
     // attenuation
     float distance = length(lightPosition - fragPos);
     float attenuation = 1.0 / (constant + linear * distance + quadratic * (distance * distance));    
@@ -70,7 +58,4 @@ void main()
 
     // output final colour
     FragColour = vec4(ambient + diffuse + specular, 1 );
-
-    // output lambert as grayscale
-    //FragColour = vec4( lambertTerm, lambertTerm, lambertTerm, 1 ); this doesn't use Ia,Is or Id
 }

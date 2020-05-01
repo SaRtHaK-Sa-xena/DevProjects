@@ -34,19 +34,24 @@ public class animationScript : MonoBehaviour
             anim.SetTrigger("isJump");
         }
 
-        //  if player is above ground by a certain distance, play freefall anim
-        RaycastHit rayCast;
-        if (Physics.Raycast(transform.position, Vector3.down, out rayCast, 0.8f))
-        {
-            //if collision
-            //set free fall to false
-            anim.SetBool("isFalling", false);
-        }
-        else
-        {
-            //if no collision
-            //set free fall to true
-            anim.SetBool("isFalling", true);
-        }
+        //Only for Open-World Sim
+        #region Free Fall Anim
+
+        ////  if player is above ground by a certain distance, play freefall anim
+        //RaycastHit rayCast;
+        //if (Physics.Raycast(transform.position, Vector3.down, out rayCast, 0.10f))
+        //{
+        //    //if collision
+        //    //set free fall to false
+        //    anim.SetBool("isFalling", false);
+        //}
+        //else
+        //{
+        //    //if no collision
+        //    //set free fall to true
+        //    anim.SetBool("isFalling", true);
+        //}
+
+        #endregion
     }
 }

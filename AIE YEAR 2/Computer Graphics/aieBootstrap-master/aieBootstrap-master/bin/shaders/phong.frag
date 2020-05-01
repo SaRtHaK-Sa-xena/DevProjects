@@ -44,7 +44,4 @@ void main()
 
     // output final colour
     FragColour = vec4(ambient + diffuse + specular, 1 );
-
-    // output lambert as grayscale
-    //FragColour = vec4( lambertTerm, lambertTerm, lambertTerm, 1 ); this doesn't use Ia,Is or Id
 }

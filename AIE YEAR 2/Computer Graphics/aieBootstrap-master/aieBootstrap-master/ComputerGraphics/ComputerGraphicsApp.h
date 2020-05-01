@@ -7,6 +7,7 @@
 #include "OBJMesh.h"
 #include "RenderTarget.h"
 #include "ParticleEmitter.h"
+#include "Renderer2D.h"
 
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/quaternion.hpp>
@@ -26,9 +27,13 @@ public:
 
 protected:
 	
+	// time to lerp
 	int increment = 0;
 	int increment_spotLight = 0;
+	
+	//vector position
 	glm::vec3 p;
+	//rotation
 	glm::quat r;
 	float s=0;
 
@@ -70,6 +75,11 @@ protected:
 
 	glm::vec3	spotLight_positions[9];
 	glm::quat	spotLight_rotations[9];
+
+	//	Renderer Writing
+	aie::Renderer2D* m_2dRenderer;
+	aie::Font* m_font;
+
 
 	//Renderering
 	aie::Texture m_gridTexture;
@@ -116,8 +126,6 @@ protected:
 
 	aie::OBJMesh		m_swordMesh;
 	glm::mat4			m_swordTransform;
-
-	glm::mat4			m_particleTransform;
 
 	//	condition to start post processing
 	bool distortionEffect = false;
@@ -171,19 +179,4 @@ protected:
 
 	//	Check if it is going forward or backwards
 	bool forward = true;
-
-	bool start = false;
-
-	struct KeyFrame {
-		glm::vec3 position;
-		glm::quat rotation;
-	};
-
-	KeyFrame m_hipFrames[2];
-	KeyFrame m_kneeFrames[2];
-	KeyFrame m_ankleFrames[2];
-
-	glm::mat4 m_hipBone;
-	glm::mat4 m_kneeBone;
-	glm::mat4 m_ankleBone;
 };

@@ -117,7 +117,8 @@ void Mesh::initialiseFullScreenQuad()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	// quad has 2 triangles
-	triCount = 2;
+	triCount = 2;
+
 }
 
 void Mesh::initialise(unsigned int vertexCount, const Vertex* vertices, unsigned int indexCount, unsigned int* indeces)
@@ -146,7 +147,8 @@ void Mesh::initialise(unsigned int vertexCount, const Vertex* vertices, unsigned
 	// enable second element as normal
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_TRUE,
-		sizeof(Vertex), (void*)16);
+		sizeof(Vertex), (void*)16);
+
 	// enable third element as texture
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE,
@@ -185,99 +187,3 @@ void Mesh::draw()
 	else
 		glDrawArrays(GL_TRIANGLES, 0, 3 * triCount);
 }
-
-//---Notes
-//	VAO = Vertex Array Object
-//	VBO = Vertex Buffer Object
-//	IBO = Index Buffer Object
-// To create the vao and vbo we call glGen###() methods
-// which follow the same naming convention as glDelete###(),
-// glGenBuffers() for generating VBO and IBOs and 
-// glGenVertexArrays() for generation VAOs like in line 14-18
-
-// Once generated objects need to binded, 'Binding' makes them 'active'
-// for editing or drawing by sending it to the GPU
-// to bind we use glBind###()
-
-// to assign current data to currently bound buffer, call
-// glBufferData() -> takes 4 parameters
-// 1. specify what type of buffer (GL_ARRAY_BUFFER for vertex data)
-// 2. size of the data in bytes	
-// 3. pointer to the data 
-// 4. an OpenGL constant to define if the data will update after it is defined
-
-// Since quad data is not changing we use static-> GL_STATIC_DRAW
-
-// After the buffer data is bounded, need to inform VAO how it should order the 
-// vertex data for a shader to use.
-// To do this we need to 
-// 1. Enable vertex attributes -> glEnableVertexAttribArray() -> passing in zero to specify which attribute
-// 2. Define how big the attribute is -> glvertexAttribPointer() #REF 1
-// 3. What it is made of
-// 4. Where to find it in the vertex data 
-// 5. And how many bytes separate each attribute in the vertex data
-
-// Since we are only defining positions we just need to enable a single attribute
-// it has four GL_FLOAT elements (since it is a vec4 position (float x, float y, etc.)), 
-// doesn't need to be normalized, each position is separated by sizeof(vertex) number of bytes
-// position is the first variable in the Vertex struct, so the offset is zero
-
-// After buffer data is defined, unbind our buffers and store howmany triangles our mesh has (2)
-// OpenGL works on the currently bound information, so to not accidently modify data we unbind
-// To draw we need to rebind our VAO, don't need to bind anything else as it was all bound to VAO 
-// when we initialized our data
-// Once bound call either of the below
-//							glDrawArrays()	  | glDrawElements().
-// Refer to drawing a mesh using just vertices|Elements refers to using an index buffer
-// Future proof if Index buffer object is valid then call correct method
-// First use a constant ot define the type of primitive we'll be drawing -> GL_TRIANGLES
-// GL_TRIANGLES(ofsetting into the buffers to skip the vertices)
-// GL_TRIANGLES(specifying how many indices or vertices we're drawing)
-// We'll draw 3 x triCount worth of indices or vertices.
-
-//Drawing a MESH___
-// to draw, we need projection, view transform to represent a camera, 
-// and transform to represent where the mesh is that we're drawing
-// we need to bind our shader, once bound we need to bind the uniform for 
-// the projectionViewModel transform -> combination of projection, view 
-// and model transform
-// model transform is the quad's transform we defined to be a scale transform
-//_________________
-
-
-//Creating arbitrary meshes
-//	need new initialize mehtod, that takes in array of Vertex objects,
-//	integer count of how many vertices there are, an array of unsigned int indeces 
-//	and a count of how many indices there are
-//	since we don't need indices for a mesh we could make them optional parameters
-//	Initialize method is very similary to initializeQuad(),
-//	starting out by asserting that the mesh hasn't already been initialized, creating VBO, VAO.
-//	Then bind the VAO, VBO and the fills in the buffer data using the array of vertices.
-//	Then set the first vertex attribute, same as quad
-
-// indices are optional therfore, we need to check if number of indices has been specified,
-// default is vertexCount/3 (3 vertices per triangle)
-//	1. Generate the IBO
-//	2. Bind the IBO to the GL_ELEMENT_ARRAY_BUFFER property (represents index buffers)
-//	3. Bind the index buffer data, but this time use GL_ELEMENT_ARRAY_BUFFER tag
-//	4. Set the triCount to the indexCount/3
-//	Clean up by unbinding everything
-
-// FOR POST PROCESSING
-//	We need to be able to render the scene in to a Render Target that is typically the same resolution as
-//	the display. We then render a Full - screen Quad to the Back Buffer, applying the target from the
-//	Render Target as a texture across the quad, and try to match the texels in the texture to pixels in the
-//	screen with a matching 1:1 texel to pixel ratio
-
-
-//#REF 1
-// It Takes in 6 parameters
-// 1. The attribute we are definining 
-// 2. The elements the attributes has
-// 3. What type of data is each attribute
-// 4. Do we normalize the attribute (in case of vectors)
-// 5. The bytes that sperate each attribute (for example, how many bytes separate
-// the _position data from the next _position data in our array of Vertex objects)
-// 6. How many bytes from the start of the vertex data to the first of that 
-// attribute type that we are definining
-
