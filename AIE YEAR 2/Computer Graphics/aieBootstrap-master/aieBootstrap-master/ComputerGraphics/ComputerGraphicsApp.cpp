@@ -67,6 +67,9 @@ bool ComputerGraphicsApp::startup() {
 	m_pointLightShader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/pointLight.vert");
 	m_pointLightShader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/pointLight.frag");
 
+	m_multipleLightsShader.loadShader(aie::eShaderStage::VERTEX, "../bin/shaders/multipleLights.vert");
+	m_multipleLightsShader.loadShader(aie::eShaderStage::FRAGMENT, "../bin/shaders/multipleLights.frag");
+
 	//	Normal Map Spear Shader
 	if (m_shader.link() == false)
 	{
@@ -85,6 +88,13 @@ bool ComputerGraphicsApp::startup() {
 	if (m_pointLightShader.link() == false)
 	{
 		printf("Shader ErrorL %s\n", m_pointLightShader.getLastError());
+		return false;
+	}
+
+	//	PointLight Shader
+	if (m_multipleLightsShader.link() == false)
+	{
+		printf("Shader ErrorL %s\n", m_multipleLightsShader.getLastError());
 		return false;
 	}
 
@@ -121,32 +131,6 @@ bool ComputerGraphicsApp::startup() {
 	#pragma region Drawing
 
 		#pragma region Drawing Quad
-		
-		#pragma region Default 
-
-		/*if (m_gridTexture.load("../bin/textures/numbered_grid.tga") == false) {
-			printf("Failed to load texture!\n");
-			return false;
-		}*/
-
-		// define 6 vertices for 2 triangles
-		/*Mesh::Vertex vertices[6];
-		vertices[0].position = { -0.5f, 0, 0.5f, 1 };
-		vertices[1].position = { 0.5f, 0, 0.5f, 1 };
-		vertices[2].position = { -0.10f, 0, -0.5f, 1 };
-		vertices[3].position = { -0.5f, 0, -0.5f, 1 };
-		vertices[4].position = { 0.5f, 0, 0.5f, 1 };
-		vertices[5].position = { 0.5f, 0, -0.5f, 1 };
-		m_quadMesh.initialise(6, vertices);*/
-
-		////make the quad 10 units wide
-		//m_quadTransform = {
-		//10,0,0,0,
-		//0,10,0,0,
-		//0,0,10,0,
-		//0,0,0,1 };
-
-		#pragma endregion Default Ways Of Creating Quad 
 		
 		// full screen quad initialized for post processing	
 		m_fullScreenQuad.initialiseFullScreenQuad();
@@ -220,48 +204,56 @@ bool ComputerGraphicsApp::startup() {
 
 		#pragma endregion Rendering Sword
 
-		#pragma region Drawing Particle
-		
-		/*m_emitter = new ParticleEmitter();
-		m_emitter->initalise(1000, 500,
-			0.1f, 1.0f,
-			1, 5,
-			1, 0.1f,
-			glm::vec4(1, 0, 0, 1), glm::vec4(1, 1, 0, 1));
-
-		m_particleTransform = {
-			10,0,0,0,
-			0,10,0,0,
-			0,0,10,0,
-			0,0,0,1 };*/
-
-		#pragma endregion Emit Particles
-
 	#pragma endregion Rendering
 
 	//Rendering Geometry-----
 
 	//==== Lighting ====
-	//red spot light
-	m_light.diffuse = { 1, 0, 0 };
-	m_light.specular = {1, 0, 0 };
+	//	Assign sword point Light Member Variables 
+	m_swordPointLight.Ia = { 0,1,0 }; // green
+	m_swordPointLight.Id = { 0,1,0 }; // green
+	m_swordPointLight.Is = { 0,1,0 }; // green
+	m_swordPointLight.constant = 1.f;
+	m_swordPointLight.linear = 0.09f;
+	m_swordPointLight.quadratic = 0.032f;
 	
-	//green point light
-	m_pointLight.diffuse = { 0,1,0 };
-	m_pointLight.specular = { 0,1,0 };
+	//	Assign bunny point Light Member Variables
+	m_bunnyLight.Ia = { 0,0.7, 0.7 }; // light blue
+	m_bunnyLight.Id = { 0,0.7, 0.7 }; // light blue
+	m_bunnyLight.Is = { 0,0.7, 0.7 }; // light blue
+	m_bunnyLight.constant = 1.f;
+	m_bunnyLight.linear = 0.09f;
+	m_bunnyLight.quadratic = 0.032f;
 
-	//white point light
-	m_swordPointLight.diffuse = { 1,1,1 };
-	m_swordPointLight.specular = { 1,1,1 };
+	//	Assign spear point Light Member Variables
+	pointLight.Ia = { 1.f, 0.f, 0.f };
+	pointLight.Id = { 1,0,0 };	// red
+	pointLight.Is = { 1,0,0 };	// red
+	pointLight.constant = 1.f;
+	pointLight.linear = 0.09f;
+	pointLight.quadratic = 0.032f;
 
-	m_ambientLight = { 1.f, 1.f, 1.f };
+	//	Assign spot Light Member Variables
+	spotLight.Ia = { 1,0,0 };
+	spotLight.Id = { 1,0,0 };	// red
+	spotLight.Is = { 1,0,0 };	// red
+	spotLight.cutOff = glm::cos(glm::radians(12.5f));
+	spotLight.outerCutOff = glm::cos(glm::radians(17.5f));
+	spotLight.constant = 1.f;
+	spotLight.linear = 0.09f;
+	spotLight.quadratic = 0.032f;
+
+	//	Assign directional Light Member Variables
+	dirLight.Ia = { 1.f, 1.f, 1.f };
+	dirLight.Id = { 1,1,1 }; //	white
+	dirLight.Is = { 1,1,1 }; //	white
 	
 	// Static Point Light Obj Position
 	m_positions[0] = glm::vec3(-7, 1, 5);
 	m_rotations[0] = glm::quat(glm::vec3(0, 0, 0));
 
 	// PointLight Obj Position
-	m_positions[1] = glm::vec3(0, 10, 0);
+	m_positions[1] = glm::vec3(5, 1, 9);
 	m_rotations[1] = glm::quat(glm::vec3(0, 0, 0));
 
 	//	pointLight Positions
@@ -430,9 +422,6 @@ void ComputerGraphicsApp::update(float deltaTime) {
 	myCamera->Update(deltaTime);
 
 	//========================SpotLight================================================
-	p = m_positions[0];
-	r = m_rotations[0];
-	
 	//	build a matrix
 	glm::mat4 spotLight_matrix = glm::translate(spotLightPosition) * glm::toMat4(spotLightRotation);
 
@@ -440,46 +429,50 @@ void ComputerGraphicsApp::update(float deltaTime) {
 	Gizmos::addTransform(glm::inverseTranspose(glm::mat3(spotLight_matrix)));
 	Gizmos::addAABBFilled(spotLightPosition, glm::vec3(.5f), glm::vec4(1, 0, 0, 1), &glm::mat4(glm::inverseTranspose(glm::mat3(spotLight_matrix))));
 
-	//	assign variables
-	m_light.position = spotLightPosition;
-	m_light.direction = glm::vec3(spotLight_matrix[0].z, spotLight_matrix[1].z, spotLight_matrix[2].z);
+	spotLight.position = spotLightPosition;
+	spotLight.direction = glm::vec3(spotLight_matrix[0].z, spotLight_matrix[1].z, spotLight_matrix[2].z);
 	//========================SpotLight================================================
 
 
-	//========================PointLight===============================================
-	pointLight_p = m_positions[1];
-	pointLight_r = m_rotations[1];
-
+	//======================= PointLight ==============================================
 	//	build a matrix for pointLight
 	glm::mat4 pointLight_matrix = glm::translate(pointLightPosition) * glm::toMat4(pointLightRotation);
 
 	Gizmos::addTransform(pointLight_matrix);
-	Gizmos::addAABBFilled(pointLightPosition, glm::vec3(.5f), glm::vec4(0, 1, 0, 1), &glm::inverseTranspose(pointLight_matrix));
+	Gizmos::addAABBFilled(pointLightPosition, glm::vec3(.5f), glm::vec4(1, 0, 0, 1), &glm::inverseTranspose(pointLight_matrix));
 
-	// no direction, since it is a point light
-	m_pointLight.position = pointLightPosition;
-	//========================PointLight===============================================
+	// New addition
+	// point light position
+	pointLight.position = pointLightPosition;
 
-	//========================PointLight NUM 2===============================================
+	// directional light direction
+	dirLight.direction = glm::vec3(1,-1,0);
+	//======================= PointLight ==============================================
+
+	//======================= PointLight On Sword =====================================
 	glm::mat4 swordPointLight_matrix = glm::translate(m_positions[0]) * glm::toMat4(m_rotations[0]);
 
 	Gizmos::addTransform(swordPointLight_matrix);
-	Gizmos::addAABBFilled(m_positions[0], glm::vec3(.5f), glm::vec4(1, 1, 1, 1), &glm::inverseTranspose(swordPointLight_matrix));
+	Gizmos::addAABBFilled(m_positions[0], glm::vec3(.5f), glm::vec4(0, 1, 0, 1), &glm::inverseTranspose(swordPointLight_matrix));
 
 	m_swordPointLight.position = m_positions[0];
+	//======================= PointLight On Sword =====================================
+
+	// ===================== Point Light On Bunny =====================================
+	glm::mat4 bunnyPointLight_matrix = glm::translate(m_positions[1]) * glm::toMat4(m_rotations[1]);
+
+	Gizmos::addTransform(bunnyPointLight_matrix);
+	Gizmos::addAABBFilled(m_positions[1], glm::vec3(.5f), glm::vec4(0, .7, .7, 1), &glm::inverseTranspose(bunnyPointLight_matrix));
+
+	m_bunnyLight.position = m_positions[1];
+	// ===================== Point Light On Bunny =====================================
 }
 
 void ComputerGraphicsApp::draw() {
 
 	clearScreen();
-
-	m_2dRenderer->begin();
-
-	m_2dRenderer->drawText(m_font, "Press 4 to Distort Screen!", 0, 0);
-	m_2dRenderer->drawText(m_font, "Press 5 to Revert!", 0, 0);
-
-	m_2dRenderer->end();
-
+	
+	//	if distortion effect active
 	if (distortionEffect)
 	{
 		//	bind out render target
@@ -489,104 +482,86 @@ void ComputerGraphicsApp::draw() {
 		clearScreen();
 	}
 
-	m_lightingShader.bind();
+	m_multipleLightsShader.bind();
+
+	// start new shader for point light
+	m_multipleLightsShader.bindUniform("cameraPosition", myCamera->GetPosition());
+
+	// bind light properties for directional
+	bindProperties_DIRLIGHT();
+
+	m_multipleLightsShader.bindUniform("pointLight.Id", m_bunnyLight.Id);
+	m_multipleLightsShader.bindUniform("pointLight.Ia", m_bunnyLight.Ia);
+	m_multipleLightsShader.bindUniform("pointLight.Is", m_bunnyLight.Is);
+	m_multipleLightsShader.bindUniform("pointLight.position", m_bunnyLight.position);
+	m_multipleLightsShader.bindUniform("pointLight.constant", m_bunnyLight.constant);
+	m_multipleLightsShader.bindUniform("pointLight.linear", m_bunnyLight.linear);
+	m_multipleLightsShader.bindUniform("pointLight.quadratic", m_bunnyLight.quadratic);
 	
-	// allow light properties to render using camera position 
-	m_lightingShader.bindUniform("cameraPosition", myCamera->GetPosition());
-	m_lightingShader.bindUniform("Id", m_light.diffuse);
-	m_lightingShader.bindUniform("Ia", m_ambientLight);
-	m_lightingShader.bindUniform("Is", m_light.specular);
-	m_lightingShader.bindUniform("lightPosition", m_light.position);
-	m_lightingShader.bindUniform("constant", 1.0f);
-	m_lightingShader.bindUniform("linear", 0.09f);
-	m_lightingShader.bindUniform("quadratic", 0.032f);
+	// bind light properties for spot light
+	bindProperties_SPOTLIGHT();
 	
-	//	if Spotlight->
-	m_lightingShader.bindUniform("lightDirection", m_light.direction);
-	m_lightingShader.bindUniform("cutOff", glm::cos(glm::radians(12.5f)));
-	m_lightingShader.bindUniform("outerCutOff", glm::cos(glm::radians(17.5f)));
-	
+	//== bind ProjectionViewModel, ModelMatrix, Transform and Draw Bunny ==
 	auto pvm = myCamera->GetProjectionView() * m_bunnyTransform;
-	m_lightingShader.bindUniform("ProjectionViewModel", pvm);
-	
+	m_multipleLightsShader.bindUniform("ProjectionViewModel", pvm);
 	// bind model matrix
-	m_lightingShader.bindUniform("ModelMatrix", m_bunnyTransform);
+	m_multipleLightsShader.bindUniform("ModelMatrix", m_bunnyTransform);
 	// bind transforms for lighting
-	m_lightingShader.bindUniform("NormalMatrix",
+	m_multipleLightsShader.bindUniform("NormalMatrix",
 		glm::inverseTranspose(glm::mat3(m_bunnyTransform)));
-	
 	//	draw mesh 
 	m_bunnyMesh.draw();
-	
-	//start new shader for point light
-	m_pointLightShader.bind();
 
-	m_pointLightShader.bindUniform("cameraPosition", myCamera->GetPosition());
-	m_pointLightShader.bindUniform("Id", m_pointLight.diffuse);
-	m_pointLightShader.bindUniform("Ia", m_ambientLight);
-	m_pointLightShader.bindUniform("Is", m_pointLight.specular);
-	m_pointLightShader.bindUniform("lightPosition", m_pointLight.position);
-	m_pointLightShader.bindUniform("constant", 1.0f);
-	m_pointLightShader.bindUniform("linear", 0.09f);
-	m_pointLightShader.bindUniform("quadratic", 0.032f);
-
-	pvm = myCamera->GetProjectionView() * m_dragonTransform;
-	m_lightingShader.bindUniform("ProjectionViewModel", pvm);
-
-	// bind model matrix
-	m_lightingShader.bindUniform("ModelMatrix", m_dragonTransform);
-	// bind transforms for lighting
-	m_lightingShader.bindUniform("NormalMatrix",
-		glm::inverseTranspose(glm::mat3(m_dragonTransform)));
-
-	//	draw mesh 
-	//m_dragonMesh.draw();
-
-	m_shader.bind();
-	
-	m_shader.bindUniform("cameraPosition", myCamera->GetPosition());
-	m_shader.bindUniform("Id", m_swordPointLight.diffuse);
-	m_shader.bindUniform("Ia", m_ambientLight);
-	m_shader.bindUniform("Is", m_swordPointLight.specular);
-	m_shader.bindUniform("lightPosition", m_swordPointLight.position);
-	m_shader.bindUniform("constant", 1.0f);
-	m_shader.bindUniform("linear", 0.07f);
-	m_shader.bindUniform("quadratic", 0.017f);
-
-	pvm = myCamera->GetProjectionView() * m_swordTransform;
-	m_shader.bindUniform("ProjectionViewModel", pvm);
-	
-	// bind model matrix
-	m_shader.bindUniform("ModelMatrix", m_swordTransform);
-	// bind transforms for lighting
-	m_shader.bindUniform("NormalMatrix",
-		glm::inverseTranspose(glm::mat3(m_swordTransform)));
-
-	m_swordMesh.draw();
-	
+	//	assign textured OBJ shader
 	m_shader.bind();
 
-	// allow light properties to render using camera position 
+	//	assign properties in shader code
 	m_shader.bindUniform("cameraPosition", myCamera->GetPosition());
-	m_shader.bindUniform("Id", m_pointLight.diffuse);
-	m_shader.bindUniform("Ia", m_ambientLight);
-	m_shader.bindUniform("Is", m_pointLight.specular);
-	m_shader.bindUniform("lightPosition", m_pointLight.position);
-	m_shader.bindUniform("constant", 1.0f);
-	m_shader.bindUniform("linear", 0.07f);
-	m_shader.bindUniform("quadratic", 0.017f);
+	m_shader.bindUniform("Id", pointLight.Id);
+	m_shader.bindUniform("Ia", pointLight.Ia);
+	m_shader.bindUniform("Is", pointLight.Is);
+	m_shader.bindUniform("lightPosition", pointLight.position);
+	m_shader.bindUniform("constant", pointLight.constant);
+	m_shader.bindUniform("linear", pointLight.linear);
+	m_shader.bindUniform("quadratic", pointLight.quadratic);
 
+	//== bind ProjectionViewModel, ModelMatrix, Transform and Draw Spear ==
 	pvm = myCamera->GetProjectionView() * m_spearTransform;
 	m_shader.bindUniform("ProjectionViewModel", pvm);
-
 	// bind model matrix
 	m_shader.bindUniform("ModelMatrix", m_spearTransform);
 	// bind transforms for lighting
 	m_shader.bindUniform("NormalMatrix",
 		glm::inverseTranspose(glm::mat3(m_spearTransform)));
-
+	//	draw spear OBJ
 	m_spearMesh.draw();
 
+
+	m_shader.bind();
+
+	//	assign properties in shader code
+	m_shader.bindUniform("cameraPosition", myCamera->GetPosition());
+	m_shader.bindUniform("Id", m_swordPointLight.Id);
+	m_shader.bindUniform("Ia", m_swordPointLight.Ia);
+	m_shader.bindUniform("Is", m_swordPointLight.Is);
+	m_shader.bindUniform("lightPosition", m_swordPointLight.position);
+	m_shader.bindUniform("constant", m_swordPointLight.constant);
+	m_shader.bindUniform("linear", m_swordPointLight.linear);
+	m_shader.bindUniform("quadratic", m_swordPointLight.quadratic);
+
+	//== bind ProjectionViewModel, ModelMatrix, Transform and Draw Sword ==
+	pvm = myCamera->GetProjectionView() * m_swordTransform;
+	m_shader.bindUniform("ProjectionViewModel", pvm);
+	// bind model matrix
+	m_shader.bindUniform("ModelMatrix", m_swordTransform);
+	// bind transforms for lighting
+	m_shader.bindUniform("NormalMatrix",
+		glm::inverseTranspose(glm::mat3(m_swordTransform)));
+	//	draw spear OBJ
+	m_swordMesh.draw();
+	//=====================================================================
+
+	//	if distortion effect active
 	if (distortionEffect)
 	{
 		// unbind target to return to backbuffer
@@ -604,15 +579,44 @@ void ComputerGraphicsApp::draw() {
 		m_fullScreenQuad.draw();
 	}
 
-	//Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	Gizmos::draw(myCamera->GetProjectionView());
 	
 	// draw 2D gizmos using an orthogonal projection matrix
 	Gizmos::draw2D((float)getWindowWidth(), (float)getWindowHeight());
-
-	
-
-
 }
 
+//	binds properties of light for the directional light
+void ComputerGraphicsApp::bindProperties_DIRLIGHT()
+{
+	m_multipleLightsShader.bindUniform("dirLight.Id", dirLight.Id);
+	m_multipleLightsShader.bindUniform("dirLight.Ia", dirLight.Ia);
+	m_multipleLightsShader.bindUniform("dirLight.Is", dirLight.Is);
+	m_multipleLightsShader.bindUniform("dirLight.direction", dirLight.direction);
+}
 
+//	binds properties of light for the point light
+void ComputerGraphicsApp::bindProperties_POINTLIGHT()
+{
+	m_multipleLightsShader.bindUniform("pointLight.Id", pointLight.Id);
+	m_multipleLightsShader.bindUniform("pointLight.Ia", pointLight.Ia);
+	m_multipleLightsShader.bindUniform("pointLight.Is", pointLight.Is);
+	m_multipleLightsShader.bindUniform("pointLight.position", pointLight.position);
+	m_multipleLightsShader.bindUniform("pointLight.constant", pointLight.constant);
+	m_multipleLightsShader.bindUniform("pointLight.linear", pointLight.linear);
+	m_multipleLightsShader.bindUniform("pointLight.quadratic", pointLight.quadratic);
+}
+
+//	binds properties of light for the spot light
+void ComputerGraphicsApp::bindProperties_SPOTLIGHT()
+{
+	m_multipleLightsShader.bindUniform("spotLight.Id", spotLight.Id);
+	m_multipleLightsShader.bindUniform("spotLight.Ia", spotLight.Ia);
+	m_multipleLightsShader.bindUniform("spotLight.Is", spotLight.Is);
+	m_multipleLightsShader.bindUniform("spotLight.position", spotLight.position);
+	m_multipleLightsShader.bindUniform("spotLight.direction", spotLight.direction);
+	m_multipleLightsShader.bindUniform("spotLight.cutOff", spotLight.cutOff);
+	m_multipleLightsShader.bindUniform("spotLight.outerCutOff", spotLight.outerCutOff);
+	m_multipleLightsShader.bindUniform("spotLight.constant", spotLight.constant);
+	m_multipleLightsShader.bindUniform("spotLight.linear", spotLight.linear);
+	m_multipleLightsShader.bindUniform("spotLight.quadratic", spotLight.quadratic);
+}

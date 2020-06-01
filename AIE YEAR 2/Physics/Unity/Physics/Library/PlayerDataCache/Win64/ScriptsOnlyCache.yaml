@@ -10,26 +10,16 @@ ScriptsOnlyBuild:
     - colourManager
     - jumpController
     Unity.Postprocessing.Runtime.dll:
-    - UnityEngine.Rendering.PostProcessing.AmbientOcclusion
-    - UnityEngine.Rendering.PostProcessing.AutoExposure
-    - UnityEngine.Rendering.PostProcessing.Bloom
-    - UnityEngine.Rendering.PostProcessing.ChromaticAberration
-    - UnityEngine.Rendering.PostProcessing.ColorGrading
-    - UnityEngine.Rendering.PostProcessing.DepthOfField
-    - UnityEngine.Rendering.PostProcessing.Grain
-    - UnityEngine.Rendering.PostProcessing.LensDistortion
-    - UnityEngine.Rendering.PostProcessing.MotionBlur
     - UnityEngine.Rendering.PostProcessing.PostProcessLayer
     - UnityEngine.Rendering.PostProcessing.PostProcessProfile
     - UnityEngine.Rendering.PostProcessing.PostProcessResources
     - UnityEngine.Rendering.PostProcessing.PostProcessVolume
-    - UnityEngine.Rendering.PostProcessing.ScreenSpaceReflections
-    - UnityEngine.Rendering.PostProcessing.Vignette
     Unity.RenderPipelines.Lightweight.Runtime.dll:
     - UnityEngine.Rendering.LWRP.ForwardRendererData
     - UnityEngine.Rendering.LWRP.LightweightRenderPipelineAsset
     - UnityEngine.Rendering.LWRP.LightweightRenderPipelineEditorResources
     Unity.TextMeshPro.dll:
+    - TMPro.TMP_Dropdown
     - TMPro.TMP_FontAsset
     - TMPro.TMP_Settings
     - TMPro.TMP_SpriteAsset
@@ -43,7 +33,6 @@ ScriptsOnlyBuild:
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
-    - UnityEditor.TestTools.TestRunner.TestListCacheData
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
@@ -51,7 +40,11 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
+    - UnityEngine.UI.Mask
+    - UnityEngine.UI.ScrollRect
+    - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Slider
+    - UnityEngine.UI.Toggle
   sceneClasses:
     Assets/Scenes/Assignment Part 2.unity:
     - Class: 1
@@ -105,13 +98,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9842}
     - Class: 114
+      Script: {instanceID: 9912}
+    - Class: 114
       Script: {instanceID: 10086}
+    - Class: 114
+      Script: {instanceID: 10154}
     - Class: 114
       Script: {instanceID: 10230}
     - Class: 114
       Script: {instanceID: 10256}
     - Class: 114
       Script: {instanceID: 10418}
+    - Class: 114
+      Script: {instanceID: 10750}
     - Class: 114
       Script: {instanceID: 10760}
     - Class: 114
@@ -120,6 +119,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 10958}
     - Class: 114
       Script: {instanceID: 11088}
+    - Class: 114
+      Script: {instanceID: 11266}
     - Class: 114
       Script: {instanceID: 11386}
     - Class: 114
@@ -147,12 +148,12 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12998}
     - Class: 114
+      Script: {instanceID: 13018}
+    - Class: 114
       Script: {instanceID: 13048}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
-      Script: {instanceID: 0}
-    - Class: 135
       Script: {instanceID: 0}
     - Class: 137
       Script: {instanceID: 0}
@@ -545,7 +546,7 @@ ScriptsOnlyBuild:
     className: ColourScript1
   - hash:
       serializedVersion: 2
-      Hash: 47ce0d1f3cbece012d11c8f67487d36e
+      Hash: 32fdcc382b45f6f21e99e452566a41a9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: colourManager
@@ -611,7 +612,7 @@ ScriptsOnlyBuild:
     className: RenderReplacementShaderToTexture
   - hash:
       serializedVersion: 2
-      Hash: be562140284a4a91c3adff534537a40a
+      Hash: 3fd0745d1c7638c4776a3e18f6bbfc2a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GUI

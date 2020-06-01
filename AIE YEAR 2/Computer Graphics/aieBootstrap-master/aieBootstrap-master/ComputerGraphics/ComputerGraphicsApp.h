@@ -25,6 +25,41 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
+	// Light Classes
+	//	Directional Light
+	struct DirLight
+	{
+		glm::vec3 direction;
+
+		glm::vec3 Ia, Id, Is;
+	};
+
+	//	Point Light
+	struct PointLight
+	{
+		glm::vec3 position;
+
+		float constant, linear, quadratic;
+
+		glm::vec3 Ia, Id, Is;
+	};
+
+	//	Spot Light
+	struct  SpotLight
+	{
+		glm::vec3 position, direction;
+
+		float cutOff, outerCutOff;
+		float constant, linear, quadratic;
+
+		glm::vec3 Ia, Id, Is;
+	};
+
+	//	properties to bind to these lights
+	void bindProperties_POINTLIGHT();
+	void bindProperties_DIRLIGHT();
+	void bindProperties_SPOTLIGHT();
+
 protected:
 	
 	// time to lerp
@@ -105,6 +140,10 @@ protected:
 	//	pointLight Shader
 	aie::ShaderProgram	m_pointLightShader;
 
+	//	multipleLight Shader
+	aie::ShaderProgram	m_multipleLightsShader;
+
+
 	//	default quad
 	Mesh				m_quadMesh;
 
@@ -136,37 +175,21 @@ protected:
 	//	Particle Emitter
 	ParticleEmitter		*m_emitter;
 
-	// Light Variable
-	struct Light 
-	{
-		glm::vec3 direction;
-		glm::vec3 position;
-		glm::vec3 diffuse;
-		glm::vec3 specular;
-
-		float constant;
-		float linear;
-		float quadratic;
-
-		float cutOff;
-		float outerCutOff;
-	};
-
-	//Initialize point light
-	Light m_light;
+	//Insantiate Multiple Lights
+	// [Static] Light
+	DirLight dirLight;
 	
-	Light m_swordPointLight;
-	
-	//	spotlight Box
-	glm::vec3 pointLight_p;
-	glm::quat pointLight_r;
-	glm::vec3 pointLightPos;
-	Light m_pointLight;
+	// [Dynamic] Placed on spear
+	PointLight pointLight;
 
-	// global
-	glm::vec3 m_ambientLight;
+	// [Static] Placed on Sword
+	PointLight m_swordPointLight;
 
-	glm::vec3 lightPos;
+	// [Static] Placed on Bunny
+	PointLight m_bunnyLight;
+
+	// [Dynamic] Placed on Bunny
+	SpotLight spotLight;
 
 	//	move positions condition check
 	bool decrementDown = false;
